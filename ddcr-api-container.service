@@ -1,0 +1,11 @@
+[Unit]
+Description=DDCR API container
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a ddcr-api_server
+ExecStop=/usr/bin/docker stop -t 2 ddcr-api_server
+
+[Install]
+WantedBy=local.target

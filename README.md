@@ -1,52 +1,70 @@
-### set up database ###
-Create user. In the following, we assume the user is `ddcr`
+### Run Flask 
 
 set env variables
 
 `DDCR_DBUSER`, `DDCR_DBPASS`,`DDCR_HOST`, `DDCR_PORT`, `DDCR_DATABASE`
 
+### Set up Database ###
+
+#### Create Database
+
+```createdb <database>```
+
+#### Create User
+
+```createuser -P <dbuser>```
+
+enter `<dbpass>` for new user
+
+#### Create Tables
+
 ```psql -d<database>```
 
-```grant all privileges on all tables in schema public to ddcr```
+```create table cohort (cohort_id varchar primary key, upper_bound integer, lower_bound integer, features varchar)```
 
-```grant all privileges on all sequence in schema public to ddcr```
+```create table patient (patient_sk integer primary key, <patient_cols>)```
 
-### build container
+```create table visit (visit_sk integer primary key, <visit_cols>)```
+
+#### Create Sequence
+
+```create sequence cohort_id```
+
+#### Create Permissions
+
+```grant all privileges on all tables in schema public to <dbuser>```
+
+```grant all privileges on all sequence in schema public to <dbuser>```
+
+### Build Container
 
 ```
 docker build . -t ddcr-api:0.1.0
 ```
 
-### run container
+### Run Container
 
 ```
 docker run -e DDCR_DBUSER=<dbuser> -e DDCR_DBPASS=<dbpass> -e DDCR_HOST=<host> -e DDCR_PORT=<port> -e DDCR_DATABASE=<database> --rm -p 8080:8080 ddcr-api:0.1.0
 ```
 
-### setting up systemd
+### Setting up `systemd`
 
 run docker containers
 ```
 docker run -d -e DDCR_DBUSER=<dbuser> -e DDCR_DBPASS=<dbpass> -e DDCR_HOST=<host> -e DDCR_PORT=<port> -e DDCR_DATABASE=<database> --name ddcr-api_server -p 8080:8080 ddcr-api:0.1.0
+docker stop ddcr-api_server
 ```
 
-add following file to `/etc/systemd/system/ddcr-api-container.service`
+copy `<repo>/ddcr-api-container.servic` to `/etc/systemd/system/ddcr-api-container.service`
+
+start service
 
 ```
-[Unit]
-Description=DDCR API container
-After=docker.service
-
-[Service]
-Restart=always
-ExecStart=/usr/bin/docker start -a ddcr-api_server
-ExecStop=/usr/bin/docker stop -t 2 ddcr-api_server
-
-[Install]
-WantedBy=local.target
+systemctl start ddcr-api-container
 ```
 
-### example ###
+### Examples ###
 
 create cohort of all patients
 ```

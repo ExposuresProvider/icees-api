@@ -1,3 +1,16 @@
+### set up database ###
+Create user. In the following, we assume the user is `ddcr`
+
+set env variables
+
+`DDCR_DBUSER`, `DDCR_DBPASS`,`DDCR_HOST`, `DDCR_PORT`, `DDCR_DATABASE`
+
+```psql -d<database>```
+
+```grant all privileges on all tables in schema public to ddcr```
+
+```grant all privileges on all sequence in schema public to ddcr```
+
 ### build container
 
 ```
@@ -32,3 +45,31 @@ ExecStop=/usr/bin/docker stop -t 2 ddcr-api_server
 [Install]
 WantedBy=local.target
 ```
+
+### example ###
+
+create cohort of all patients
+```
+curl localhost:5000/get_ids_by_feature
+```
+
+create cohort of patients with `feature_3 = false`
+```
+curl -XGET localhost:5000/get_ids_by_feature -H "Content-Type: application/json" -d '{"feature_3":{"operator":"=","value":false}}'
+```
+
+get features of cohort id `COHORT:3`
+```
+curl -XGET localhost:5000/get_features_by_id/COHORT:3
+```
+
+calculate `p-value` and `chi squared`
+```
+curl -XGET localhost:5000/get_feature_association -H "Content-Type: application/json" -d '{"cohort_id":"COHORT:3", "feature_a":{"feature_name":"feature_4","feature_qualifier":{"operator":">", "value":5}},"feature_b":{"feature_name":"feature_5","feature_qualifier":{"operator":">=", "value":10}}}'
+```
+
+
+
+
+
+

@@ -24,8 +24,6 @@ features = [
     ("feature_6", Boolean)
 ]
 
-
-
 metadata = MetaData()
 
 pat_cols = [Column("patient_sk", Integer, primary_key=True)] + list(map(lambda feature: Column(feature[0], feature[1]), features))
@@ -43,23 +41,26 @@ cohort_cols = [
 
 cohort = Table("cohort", metadata, *cohort_cols)
 
+
 def get_db_connection():
     engine = create_engine("postgresql+psycopg2://"+ddcr_user+":"+ddcr_password+"@"+ddcr_host+":"+ddcr_port+"/"+ddcr_database)
     return engine.connect()
 
+
 def filter_select(s, k, v):
     return {
-        ">": lambda  : s.where(pat.c[k] > v["value"]),
-        "<": lambda  : s.where(pat.c[k] < v["value"]),
-        ">=": lambda  : s.where(pat.c[k] >= v["value"]),
-        "<=": lambda  : s.where(pat.c[k] <= v["value"]),
-        "=": lambda  : s.where(pat.c[k] == v["value"]),
-        "<>": lambda : s.where(pat.c[k] != v["value"])
+        ">": lambda: s.where(pat.c[k] > v["value"]),
+        "<": lambda: s.where(pat.c[k] < v["value"]),
+        ">=": lambda: s.where(pat.c[k] >= v["value"]),
+        "<=": lambda: s.where(pat.c[k] <= v["value"]),
+        "=": lambda: s.where(pat.c[k] == v["value"]),
+        "<>": lambda: s.where(pat.c[k] != v["value"])
     }[v["operator"]]()
 
-def select_cohort(conn, features):
+
+def select_cohort(conn, cohort_features):
     s = select([pat.c.patient_sk])
-    for k, v in features.items():
+    for k, v in cohort_features.items():
         s = filter_select(s, k, v)
     rs = list(conn.execute(s))
     next_val = conn.execute(Sequence("cohort_id"))
@@ -71,9 +72,10 @@ def select_cohort(conn, features):
         lower_bound = len(rs) // 10 * 10
         upper_bound = lower_bound + 9
 
-    ins = cohort.insert().values(cohort_id = cohort_id, lower_bound = lower_bound, upper_bound = upper_bound, features = json.dumps(features, sort_keys=True))
+    ins = cohort.insert().values(cohort_id = cohort_id, lower_bound = lower_bound, upper_bound = upper_bound, features = json.dumps(cohort_features, sort_keys=True))
     conn.execute(ins)
     return cohort_id, lower_bound, upper_bound
+
 
 def get_features_by_id(conn, cohort_id):
     s = select([cohort.c.features]).where(cohort.c.cohort_id == cohort_id)
@@ -82,6 +84,7 @@ def get_features_by_id(conn, cohort_id):
         return None
     else:
         return json.loads(rs[0][0])
+
 
 def select_feature_matrix(conn, features, feature_a, feature_b):
     s = select([func.count(pat.c.patient_sk)])
@@ -104,7 +107,9 @@ def select_feature_matrix(conn, features, feature_a, feature_b):
 
     feature_matrix = [[ab, a - ab],[b - ab, total - a - b + ab]]
 
-    [chi_squared, p] = chisquare(feature_matrix[0], feature_matrix[1])
+    null = total / 2
+
+    [chi_squared, p] = chisquare([feature_matrix[0][0], feature_matrix[0][1], feature_matrix[1][0], feature_matrix[1][1]], [null, null, null, null])
 
     return {
         "feature_matrix" : feature_matrix,
@@ -112,6 +117,7 @@ def select_feature_matrix(conn, features, feature_a, feature_b):
         "chi_squared" : chi_squared
     }
     
+
 def select_feature_association(conn, cohort_features, feature, maximum_p_value):
     rs = []
     for k, v in features:
@@ -122,74 +128,74 @@ def select_feature_association(conn, cohort_features, feature, maximum_p_value):
                 rs.append(ret["feature_matrix"][0] + [ret["chi_squared"], ret["p_value"]])
     return rs
 
-class DDCR_get_ids_by_feature(Resource):
-    def get(self):
-        req_features = request.get_json()
-        print(req_features)
-        s = select([cohort.c.cohort_id, cohort.c.upper_bound, cohort.c.lower_bound]).where(cohort.c.features == json.dumps(req_features, sort_keys=True))
-        conn = get_db_connection()
-        rs = list(conn.execute(s))
-        if len(rs) == 0:
-            cohort_id, lower_bound, upper_bound = select_cohort(conn, req_features)
-        else:
-            cohort_id = rs[0][0]
-            upper_bound = rs[0][1]
-            lower_bound = rs[0][2]
-                        
-        if upper_bound == -1:
-            return "Input features invalid. Please try again."
-        else:
-            return json.dumps({
-                "cohort_id": cohort_id,
-                "bounds": {
-                    "upper_bound" : upper_bound,
-                    "lower_bound" : lower_bound
-                }
-            }, sort_keys=True)
 
-class DDCR_get_features_by_id(Resource):
-    def get(self, cohort_id):
-        conn = get_db_connection()
-        features = get_features_by_id(conn, cohort_id)
-        
-        if features is None:
-            return "Input cohort_id invalid. Please try again."
-        else:
-            return json.dumps(features, sort_keys = True)
+class DDCRCohort(Resource):
+    def get(self, cohort_id = None):
+        if cohort_id is None:
+            req_features = request.get_json()
+            print(req_features)
+            s = select([cohort.c.cohort_id, cohort.c.upper_bound, cohort.c.lower_bound]).where(cohort.c.features == json.dumps(req_features, sort_keys=True))
+            conn = get_db_connection()
+            rs = list(conn.execute(s))
+            if len(rs) == 0:
+                cohort_id, lower_bound, upper_bound = select_cohort(conn, req_features)
+            else:
+                cohort_id = rs[0][0]
+                upper_bound = rs[0][1]
+                lower_bound = rs[0][2]
 
-class DDCR_get_feature_association(Resource):
+            if upper_bound == -1:
+                return "Input features invalid. Please try again."
+            else:
+                return json.dumps({
+                    "cohort_id": cohort_id,
+                    "bounds": {
+                        "upper_bound" : upper_bound,
+                        "lower_bound" : lower_bound
+                    }
+                }, sort_keys=True)
+        else:
+            conn = get_db_connection()
+            cohort_features = get_features_by_id(conn, cohort_id)
+
+            if cohort_features is None:
+                return "Input cohort_id invalid. Please try again."
+            else:
+                return json.dumps(cohort_features, sort_keys=True)
+
+
+class DDCRFeatureAssociation(Resource):
     def get(self):
         obj = request.get_json()
         cohort_id = obj["cohort_id"]
         feature_a = obj["feature_a"]
         feature_b = obj["feature_b"]
         conn = get_db_connection()
-        features = get_features_by_id(conn, cohort_id)
+        cohort_features = get_features_by_id(conn, cohort_id)
         return json.dumps(
-            select_feature_matrix(conn, features, feature_a, feature_b),
-            sort_keys = True
+            select_feature_matrix(conn, cohort_features, feature_a, feature_b),
+            sort_keys=True
         )
 
-class DDCR_get_associations_to_all_features(Resource):
+
+class DDCRAssociationsToAllFeatures(Resource):
     def get(self):
         obj = request.get_json()
         cohort_id = obj["cohort_id"]
         feature = obj["feature"]
         maximum_p_value = obj["maximum_p_value"]
         conn = get_db_connection()
-        features = get_features_by_id(conn, cohort_id)
+        cohort_features = get_features_by_id(conn, cohort_id)
         return json.dumps(
-            select_feature_association(conn, features, feature, maximum_p_value),
-            sort_keys = True
+            select_feature_association(conn, cohort_features, feature, maximum_p_value),
+            sort_keys=True
         )
 
 
-
-
-api.add_resource(DDCR_get_ids_by_feature, '/get_ids_by_feature')
-api.add_resource(DDCR_get_features_by_id, '/get_features_by_id/<string:cohort_id>')
-api.add_resource(DDCR_get_feature_association, '/get_feature_association')
-api.add_resource(DDCR_get_associations_to_all_features, '/get_associations_to_all_features')
+api.add_resource(DDCRCohort, '/cohort')
+api.add_resource(DDCRCohort, '/cohort/<string:cohort_id>')
+api.add_resource(DDCRFeatureAssociation, '/feature_association')
+api.add_resource(DDCRAssociationsToAllFeatures, '/associations_to_all_features')
 
 if __name__ == '__main__':
     app.run()

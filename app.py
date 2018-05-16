@@ -4,6 +4,8 @@ import json
 from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from jsonschema import validate
+from schema import cohort_schema, feature_association_schema, associations_to_all_features_schema
 
 app = Flask(__name__)
 limiter = Limiter(
@@ -19,6 +21,7 @@ class DDCRCohort(Resource):
         conn = get_db_connection(version)
         if cohort_id is None:
             req_features = request.get_json()
+            validate(req_features, cohort_schema(table))
             if req_features is None:
                 req_features = {}
             print(req_features)
@@ -56,6 +59,7 @@ def to_qualifiers(feature):
 class DDCRFeatureAssociation(Resource):
     def get(self, version, table, year, cohort_id):
         obj = request.get_json()
+        validate(obj, feature_association_schema(table))
         feature_a = to_qualifiers(obj["feature_a"])
         feature_b = to_qualifiers(obj["feature_b"])
 
@@ -71,6 +75,7 @@ class DDCRFeatureAssociation(Resource):
 class DDCRAssociationsToAllFeatures(Resource):
     def get(self, version, table, year, cohort_id):
         obj = request.get_json()
+        validate(obj, associations_to_all_features_schema(table))
         feature = to_qualifiers(obj["feature"])
         maximum_p_value = obj["maximum_p_value"]
         conn = get_db_connection(version)

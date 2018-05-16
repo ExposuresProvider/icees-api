@@ -1,7 +1,6 @@
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, create_engine, Boolean, func, Float, Sequence, Enum
 
 age_bins = Enum('0-2', '3-17', '18-34', '35-50', '51-69', '70+')
-nearestroad_bins = Enum('0-49', '50-99', '100-199', '200-299', '300-499', '500+')
 
 features = [
     ("AgeStudyStart", age_bins),
@@ -28,7 +27,7 @@ features = [
     ("EstProbabilityNoHealthIns", Integer),
     ("EstProbabilityESL", Integer),
     ("EstHouseholdIncome", Integer),
-    ("MajorRoadwayHighwayExposure", nearestroad_bins),
+    ("MajorRoadwayHighwayExposure", Integer),
     ("TotalEDInpatientVisits", Integer),
     ("Prednisone", Integer),
     ("Fluticasone", Integer),

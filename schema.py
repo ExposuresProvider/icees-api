@@ -39,26 +39,12 @@ def cohort_schema(table_name):
     }
 
 
-def feature_schema(table_name):
-    return {
-        "type": "object",
-        "properties": {
-            "feature_name": {
-                "type": "string",
-                "enum": list(map(lambda x: x[0], features[table_name]))
-            },
-            "feature_qualifier": qualifier_schema
-        },
-        "required": ["feature_name", "feature_qualifier"]
-    }
-
-
 def feature_association_schema(table_name):
     return {
         "type": "object",
         "properties": {
-            "feature_a": feature_schema(table_name),
-            "feature_b": feature_schema(table_name)
+            "feature_a": cohort_schema(table_name),
+            "feature_b": cohort_schema(table_name)
         },
         "required": ["feature_a", "feature_b"]
     }
@@ -68,7 +54,7 @@ def associations_to_all_features_schema(table_name):
     return {
         "type": "object",
         "properties": {
-            "feature": feature_schema(table_name),
+            "feature": cohort_schema(table_name),
             "maximum_p_value": {
                 "type": "number"
             }

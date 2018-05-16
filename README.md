@@ -99,7 +99,7 @@ curl -k -XGET https://localhost:5000/1.0.0/patient/2010/cohort/COHORT:3 -H "Acce
 
 calculate `p-value` and `chi squared`
 ```
-curl -k -XGET https://localhost:5000/1.0.0/patient/2010/cohort/COHORT:3/feature_association -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_a":{"feature_name":"feature_4","feature_qualifier":{"operator":">", "value":5}},"feature_b":{"feature_name":"feature_5","feature_qualifier":{"operator":">=", "value":10}}}'
+curl -k -XGET https://localhost:5000/1.0.0/patient/2010/cohort/COHORT:3/feature_association -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_a":{"feature_4":{"operator":">", "value":5}},"feature_b":{"feature_5":{"operator":">=", "value":10}}}'
 ```
 
 

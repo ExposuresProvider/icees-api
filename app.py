@@ -47,12 +47,10 @@ class DDCRCohort(Resource):
 
 
 def to_qualifiers(feature):
+    k, v = list(feature.items())[0]
     return {
-        "feature_name": feature["feature_name"],
-        "feature_qualifiers": [
-            feature["feature_qualifier"],
-            opposite(feature["feature_qualifier"]),
-        ]
+        "feature_name": k,
+        "feature_qualifiers": [v, opposite(v)]
     }
 
 

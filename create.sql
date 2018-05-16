@@ -78,7 +78,7 @@ create table visit(
     EstProbabilityNoHealthIns integer,
     EstProbabilityESL integer,
     EstHouseholdIncome integer,
-    MajorRoadwayHighwayExposure nearestroad_bins,
+    MajorRoadwayHighwayExposure integer,
     PrednisoneVisit integer,
     FluticasoneVisit integer,
     MometasoneVisit integer,

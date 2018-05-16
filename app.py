@@ -62,10 +62,14 @@ class DDCRFeatureAssociation(Resource):
 
         conn = get_db_connection(version)
         cohort_features = get_features_by_id(conn, table, year, cohort_id)
-        return json.dumps(
-            select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b),
-            sort_keys=True
-        )
+
+        if cohort_features is None:
+            return "Input cohort_id invalid. Please try again."
+        else:
+            return json.dumps(
+                select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b),
+                sort_keys=True
+            )
 
 
 class DDCRAssociationsToAllFeatures(Resource):
@@ -76,10 +80,13 @@ class DDCRAssociationsToAllFeatures(Resource):
         maximum_p_value = obj["maximum_p_value"]
         conn = get_db_connection(version)
         cohort_features = get_features_by_id(conn, table, year, cohort_id)
-        return json.dumps(
-            select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value),
-            sort_keys=True
-        )
+        if cohort_features is None:
+            return "Input cohort_id invalid. Please try again."
+        else:
+            return json.dumps(
+                select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value),
+                sort_keys=True
+            )
 
 
 api.add_resource(DDCRCohort, '/<string:version>/<string:table>/<int:year>/cohort', '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')

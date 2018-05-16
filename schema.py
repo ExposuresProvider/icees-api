@@ -15,7 +15,7 @@ def qualifier_schema(ty, levels):
         jsontype = {}
 
     if levels is not None:
-        jsontype["enum"] = levels
+        jsontype["enum"] = list(levels)
 
     return {
         "type": "object",

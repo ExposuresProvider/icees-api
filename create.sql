@@ -2,7 +2,7 @@ create type age_bins as enum ('0-2', '3-17', '18-34', '35-50', '51-69', '70+');
 
 create table patient(
     PatientId varchar,
-    AgeStudyStart age_bins,
+    Age age_bins,
     Sex varchar,
     Race varchar,
     Ethnicity varchar,

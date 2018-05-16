@@ -26,6 +26,7 @@ quantile(df, "EstProbabilityNoHealthIns", 4)
 quantile(df, "EstProbabilityESL", 4)
 quantile(df, "EstHouseholdIncome", 5)
 df["MajorRoadwayHighwayExposure"] = pd.cut(df["MajorRoadwayHighwayExposure"], [-1, 0, 50, 100, 200, 300, 500], labels=list(map(str, [6, 1, 2, 3, 4, 5])))
+df["Mepolizumab"] = 0
 
 df["year"] = year
 

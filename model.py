@@ -67,7 +67,7 @@ def opposite(qualifier):
 
 def select_cohort(conn, table_name, cohort_features):
     table = tables[table_name]
-    s = select([func.count(table)])
+    s = select([func.count(1)])
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
     n = conn.execute(s).scalar()
@@ -90,7 +90,7 @@ def get_ids_by_feature(conn, table_name, year, cohort_features):
         cohort.c.features == json.dumps(cohort_features, sort_keys=True))
     rs = list(conn.execute(s))
     if len(rs) == 0:
-        cohort_id, lower_bound, upper_bound = select_cohort(conn, cohort_features)
+        cohort_id, lower_bound, upper_bound = select_cohort(conn, table_name, cohort_features)
     else:
         [cohort_id, upper_bound, lower_bound] = rs[0]
     return cohort_id, lower_bound, upper_bound

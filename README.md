@@ -36,15 +36,10 @@ enter `<dbpass>` for new user
 
 ```psql -d<database>```
 
-```create table cohort (cohort_id varchar primary key, upper_bound integer, lower_bound integer, features varchar)```
-
-```create table patient (patient_sk integer primary key, <patient_cols>)```
-
-```create table visit (visit_sk integer primary key, <visit_cols>)```
+```\i create.sql```
 
 #### Create Sequence
 
-```create sequence cohort_id```
 
 #### Create Permissions
 

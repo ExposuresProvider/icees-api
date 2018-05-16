@@ -15,12 +15,12 @@ api = Api(app)
 
 
 class DDCRCohort(Resource):
-    decorators = [limiter.limit()]
-
     def get(self, version, table, year, cohort_id=None):
         conn = get_db_connection(version)
         if cohort_id is None:
             req_features = request.get_json()
+            if req_features is None:
+                req_features = {}
             print(req_features)
             cohort_id, lower_bound, upper_bound = get_ids_by_feature(conn, table, year, req_features)
 
@@ -57,8 +57,6 @@ def to_qualifiers(feature):
 
 
 class DDCRFeatureAssociation(Resource):
-    decorators = [limiter.limit()]
-
     def get(self, version, table, year):
         obj = request.get_json()
         cohort_id = obj["cohort_id"]
@@ -74,8 +72,6 @@ class DDCRFeatureAssociation(Resource):
 
 
 class DDCRAssociationsToAllFeatures(Resource):
-    decorators = [limiter.limit()]
-
     def get(self, version, table, year):
         obj = request.get_json()
         cohort_id = obj["cohort_id"]
@@ -89,9 +85,9 @@ class DDCRAssociationsToAllFeatures(Resource):
         )
 
 
-api.add_resource(DDCRCohort, '/<string:version>/<string:table>/<integer:year>/cohort', '/<string:table>/<integer:year>/cohort/<string:cohort_id>')
-api.add_resource(DDCRFeatureAssociation, '/<string:version>/<string:table>/<integer:year>/feature_association')
-api.add_resource(DDCRAssociationsToAllFeatures, '/<string:version>/<string:table>/<integer:year>/associations_to_all_features')
+api.add_resource(DDCRCohort, '/<string:version>/<string:table>/<int:year>/cohort', '/<string:table>/<int:year>/cohort/<string:cohort_id>')
+api.add_resource(DDCRFeatureAssociation, '/<string:version>/<string:table>/<int:year>/feature_association')
+api.add_resource(DDCRAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/associations_to_all_features')
 
 if __name__ == '__main__':
     app.run()

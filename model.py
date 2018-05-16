@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, create_engine, Boolean, func, Float, Sequence
+from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence
 from sqlalchemy.sql import select
 from scipy.stats import chisquare
 import json
@@ -14,9 +14,9 @@ ddcr_database = json.loads(os.environ["DDCR_DATABASE"])
 
 metadata = MetaData()
 
-pat_cols = [Column("PatientId", String, primary_key=True), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), features))
+pat_cols = [Column("PatientId", String, primary_key=True), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), features["patient"]))
 
-visit_cols = [Column("VisitId", String, primary_key=True), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), features))
+visit_cols = [Column("VisitId", String, primary_key=True), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), features["visit"]))
 
 tables = {
     "patient": Table("patient", metadata, *pat_cols),
@@ -145,7 +145,7 @@ def get_feature_levels(conn, table, year, feature):
 def select_feature_association(conn, table_name, year, cohort_features, feature, maximum_p_value, levels=None):
     table = tables[table_name]
     rs = []
-    for k, v in features:
+    for k, v in features[table_name]:
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_matrix(conn, table_name, year, cohort_features, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})

@@ -141,7 +141,7 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
 
 
 def get_feature_levels(conn, table, year, feature):
-    s = select([table.c[feature]]).where(table.c.year == year).distinct().order_by([table.c[feature]])
+    s = select([table.c[feature]]).where(table.c.year == year).distinct().order_by(table.c[feature])
     return list(map(lambda row: row[0], conn.execute(s)))
 
 

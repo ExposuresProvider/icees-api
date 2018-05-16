@@ -121,13 +121,16 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
     kb = feature_b["feature_name"]
     vbs = feature_b["feature_qualifiers"]
 
-    assert len(vas) == 2
-
     feature_matrix = [
         [conn.execute(filter_select(filter_select(s, table, kb, vb), table, ka, va)).scalar() for va in vas] for vb in vbs
     ]
 
-    null_matrix = list(map(lambda x: [x/2, x/2], [conn.execute(filter_select(s, table, kb, vb)).scalar() for vb in vbs]))
+    total_cols = [conn.execute(filter_select(s, table, ka, va)).scalar() for va in vas]
+    total_rows = [conn.execute(filter_select(s, table, kb, vb)).scalar() for vb in vbs]
+
+    total = conn.execute(s).scalar()
+
+    null_matrix = [[r * c / total for c in total_cols] for r in total_rows]
 
     [chi_squared, p] = chisquare(join_lists(feature_matrix), join_lists(null_matrix))
 

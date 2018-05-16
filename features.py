@@ -4,7 +4,7 @@ age_bins = Enum('0-2', '3-17', '18-34', '35-50', '51-69', '70+')
 
 features = {
     "patient": [
-        ("Age", age_bins),
+        ("AgeStudyStart", age_bins),
         ("Sex", String),
         ("Race", String),
         ("Ethnicity", String),

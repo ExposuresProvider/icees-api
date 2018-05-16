@@ -145,10 +145,10 @@ def get_feature_levels(conn, table, year, feature):
     return list(map(lambda row: row[0], conn.execute(s)))
 
 
-def select_feature_association(conn, table_name, year, cohort_features, feature, maximum_p_value, levels=None):
+def select_feature_association(conn, table_name, year, cohort_features, feature, maximum_p_value):
     table = tables[table_name]
     rs = []
-    for k, v in features[table_name]:
+    for k, v, levels in features[table_name]:
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_matrix(conn, table_name, year, cohort_features, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})

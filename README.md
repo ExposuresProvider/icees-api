@@ -2,7 +2,23 @@
 
 set env variables
 
-`DDCR_DBUSER`, `DDCR_DBPASS`,`DDCR_HOST`, `DDCR_PORT`, `DDCR_DATABASE`
+`DDCR_DBUSER` 
+
+`DDCR_DBPASS`
+
+`DDCR_HOST` 
+
+`DDCR_PORT` 
+
+`DDCR_DATABASE`: json
+ 
+ Example:
+
+```
+{"1.0.0":"ddcrdb"}
+```
+
+
 
 ### Set up Database ###
 

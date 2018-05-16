@@ -81,7 +81,7 @@ def select_cohort(conn, table_name, year, cohort_features):
         lower_bound = n // 10 * 10
         upper_bound = lower_bound + 9
 
-    ins = cohort.insert().values(cohort_id=cohort_id, lower_bound=lower_bound, upper_bound=upper_bound, features=json.dumps(cohort_features, sort_keys=True), table_name=table_name, year=year)
+    ins = cohort.insert().values(cohort_id=cohort_id, lower_bound=lower_bound, upper_bound=upper_bound, features=json.dumps(cohort_features, sort_keys=True), table=table_name, year=year)
     conn.execute(ins)
     return cohort_id, lower_bound, upper_bound
 

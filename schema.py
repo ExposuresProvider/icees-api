@@ -26,14 +26,16 @@ def qualifier_schema(ty, levels):
             },
             "value": jsontype
         },
-        "required": ["operator", "value"]
+        "required": ["operator", "value"],
+        "additionalProperties": False
     }
 
 
 def cohort_schema(table_name):
     return {
         "type": "object",
-        "properties": {k: qualifier_schema(v, levels) for k, v, levels in features[table_name]}
+        "properties": {k: qualifier_schema(v, levels) for k, v, levels in features[table_name]},
+        "additionalProperties": False
     }
 
 
@@ -44,7 +46,8 @@ def feature_association_schema(table_name):
             "feature_a": cohort_schema(table_name),
             "feature_b": cohort_schema(table_name)
         },
-        "required": ["feature_a", "feature_b"]
+        "required": ["feature_a", "feature_b"],
+        "additionalProperties": False
     }
 
 
@@ -57,5 +60,6 @@ def associations_to_all_features_schema(table_name):
                 "type": "number"
             }
         },
-        "required": ["feature", "maximum_p_value"]
+        "required": ["feature", "maximum_p_value"],
+        "additionalProperties": False
     }

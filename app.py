@@ -27,20 +27,20 @@ class DDCRCohort(Resource):
             if upper_bound == -1:
                 return "Input features invalid. Please try again."
             else:
-                return json.dumps({
+                return {
                     "cohort_id": cohort_id,
                     "bounds": {
                         "upper_bound": upper_bound,
                         "lower_bound": lower_bound
                     }
-                }, sort_keys=True)
+                }
         else:
             cohort_features = get_features_by_id(conn, table, year, cohort_id)
 
             if cohort_features is None:
                 return "Input cohort_id invalid. Please try again."
             else:
-                return json.dumps(cohort_features, sort_keys=True)
+                return cohort_features
 
 
 def to_qualifiers(feature):
@@ -66,10 +66,7 @@ class DDCRFeatureAssociation(Resource):
         if cohort_features is None:
             return "Input cohort_id invalid. Please try again."
         else:
-            return json.dumps(
-                select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b),
-                sort_keys=True
-            )
+            return select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
 
 
 class DDCRAssociationsToAllFeatures(Resource):
@@ -83,10 +80,7 @@ class DDCRAssociationsToAllFeatures(Resource):
         if cohort_features is None:
             return "Input cohort_id invalid. Please try again."
         else:
-            return json.dumps(
-                select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value),
-                sort_keys=True
-            )
+            return select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value)
 
 
 api.add_resource(DDCRCohort, '/<string:version>/<string:table>/<int:year>/cohort', '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')

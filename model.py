@@ -135,8 +135,8 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
     [chi_squared, p] = chisquare(join_lists(feature_matrix), join_lists(null_matrix))
 
     return {
-        "metadata1": vas,
-        "metadata2": vbs,
+        "feature_a": feature_a,
+        "feature_b": feature_b,
         "feature_matrix": feature_matrix,
         "p_value": p,
         "chi_squared": chi_squared
@@ -157,7 +157,7 @@ def select_feature_association(conn, table_name, year, cohort_features, feature,
         ret = select_feature_matrix(conn, table_name, year, cohort_features, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
         print(ret)
         if ret["p_value"] < maximum_p_value:
-            rs.append([ret["metadata1"], ret["metadata2"], ret["feature_matrix"], ret["chi_squared"], ret["p_value"]])
+            rs.append(ret)
     return rs
 
 

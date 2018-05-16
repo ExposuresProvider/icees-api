@@ -67,9 +67,10 @@ def opposite(qualifier):
 
 def select_cohort(conn, table_name, cohort_features):
     table = tables[table_name]
-    s = select([func.count(1)])
+    s = select([table])
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
+    s = s.count()
     n = conn.execute(s).scalar()
     next_val = conn.execute(Sequence("cohort_id"))
     cohort_id = "COHORT:"+str(next_val)
@@ -111,7 +112,7 @@ def join_lists(lists):
 
 def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, feature_b):
     table = tables[table_name]
-    s = select([func.count(table)]).where(table.c.year == year)
+    s = select([table]).where(table.c.year == year)
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
 
@@ -123,7 +124,7 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
     assert len(vas) == 2
 
     feature_matrix = [
-        [conn.execute(filter_select(filter_select(s, table, kb, vb), table, ka, va)).scalar() for va in vas] for vb in vbs
+        [conn.execute(filter_select(filter_select(s, table, kb, vb), table, ka, va).count()).scalar() for va in vas] for vb in vbs
     ]
 
     null_matrix = list(map(lambda x: [x/2, x/2], [conn.execute(filter_select(s, table, kb, vb)).scalar() for vb in vbs]))

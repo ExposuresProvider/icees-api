@@ -5,7 +5,7 @@ from sqlalchemy import String, Integer
 def qualifier_schema(ty, levels):
     if ty is String:
         jsontype = {
-                "type": "string"
+            "type": "string"
         }
     elif ty is Integer:
         jsontype = {
@@ -24,9 +24,7 @@ def qualifier_schema(ty, levels):
                 "type": "string",
                 "enum": ["<", ">", "<=", ">=", "=", "<>"]
             },
-            "value": {
-                "type": jsontype
-            }
+            "value": jsontype
         },
         "required": ["operator", "value"]
     }

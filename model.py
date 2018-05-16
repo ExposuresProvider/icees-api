@@ -65,12 +65,12 @@ def opposite(qualifier):
     }
 
 
-def select_cohort(conn, table_name, cohort_features):
+def select_cohort(conn, table_name, year, cohort_features):
     table = tables[table_name]
-    s = select([table])
+    s = select([func.count()]).select_from(table).where(table.c.year == year)
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
-    s = s.count()
+
     n = conn.execute(s).scalar()
     next_val = conn.execute(Sequence("cohort_id"))
     cohort_id = "COHORT:"+str(next_val)
@@ -81,7 +81,7 @@ def select_cohort(conn, table_name, cohort_features):
         lower_bound = n // 10 * 10
         upper_bound = lower_bound + 9
 
-    ins = cohort.insert().values(cohort_id=cohort_id, lower_bound=lower_bound, upper_bound=upper_bound, features=json.dumps(cohort_features, sort_keys=True))
+    ins = cohort.insert().values(cohort_id=cohort_id, lower_bound=lower_bound, upper_bound=upper_bound, features=json.dumps(cohort_features, sort_keys=True), table_name=table_name, year=year)
     conn.execute(ins)
     return cohort_id, lower_bound, upper_bound
 
@@ -91,7 +91,7 @@ def get_ids_by_feature(conn, table_name, year, cohort_features):
         cohort.c.features == json.dumps(cohort_features, sort_keys=True))
     rs = list(conn.execute(s))
     if len(rs) == 0:
-        cohort_id, lower_bound, upper_bound = select_cohort(conn, table_name, cohort_features)
+        cohort_id, lower_bound, upper_bound = select_cohort(conn, table_name, year, cohort_features)
     else:
         [cohort_id, upper_bound, lower_bound] = rs[0]
     return cohort_id, lower_bound, upper_bound
@@ -112,7 +112,7 @@ def join_lists(lists):
 
 def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, feature_b):
     table = tables[table_name]
-    s = select([table]).where(table.c.year == year)
+    s = select([func.count()]).select_from(table).where(table.c.year == year)
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
 
@@ -124,7 +124,7 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
     assert len(vas) == 2
 
     feature_matrix = [
-        [conn.execute(filter_select(filter_select(s, table, kb, vb), table, ka, va).count()).scalar() for va in vas] for vb in vbs
+        [conn.execute(filter_select(filter_select(s, table, kb, vb), table, ka, va)).scalar() for va in vas] for vb in vbs
     ]
 
     null_matrix = list(map(lambda x: [x/2, x/2], [conn.execute(filter_select(s, table, kb, vb)).scalar() for vb in vbs]))

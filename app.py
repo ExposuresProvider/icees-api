@@ -48,10 +48,7 @@ def to_qualifiers(feature):
         "feature_name": feature["feature_name"],
         "feature_qualifiers": [
             feature["feature_qualifier"],
-            {
-                "operator": opposite(feature["feature_qualifier"]["operator"]),
-                "value": feature["feature_qualifier"]["value"]
-            }
+            opposite(feature["feature_qualifier"]),
         ]
     }
 
@@ -85,7 +82,7 @@ class DDCRAssociationsToAllFeatures(Resource):
         )
 
 
-api.add_resource(DDCRCohort, '/<string:version>/<string:table>/<int:year>/cohort', '/<string:table>/<int:year>/cohort/<string:cohort_id>')
+api.add_resource(DDCRCohort, '/<string:version>/<string:table>/<int:year>/cohort', '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
 api.add_resource(DDCRFeatureAssociation, '/<string:version>/<string:table>/<int:year>/feature_association')
 api.add_resource(DDCRAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/associations_to_all_features')
 

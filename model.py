@@ -65,33 +65,34 @@ def opposite(qualifier):
     }
 
 
-def select_cohort(conn, table_name, year, cohort_features):
+def select_cohort(conn, table_name, year, cohort_features, cohort_id):
     table = tables[table_name]
     s = select([func.count()]).select_from(table).where(table.c.year == year)
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
 
     n = conn.execute(s).scalar()
-    next_val = conn.execute(Sequence("cohort_id"))
-    cohort_id = "COHORT:"+str(next_val)
     if n <= 10:
-        lower_bound = -1
-        upper_bound = -1
+        return None, -1, -1
     else:
+        if cohort_id is None:
+            next_val = conn.execute(Sequence("cohort_id"))
+            cohort_id = "COHORT:" + str(next_val)
+
         lower_bound = n // 10 * 10
         upper_bound = lower_bound + 9
 
-    ins = cohort.insert().values(cohort_id=cohort_id, lower_bound=lower_bound, upper_bound=upper_bound, features=json.dumps(cohort_features, sort_keys=True), table=table_name, year=year)
-    conn.execute(ins)
-    return cohort_id, lower_bound, upper_bound
+        ins = cohort.insert().values(cohort_id=cohort_id, lower_bound=lower_bound, upper_bound=upper_bound, features=json.dumps(cohort_features, sort_keys=True), table=table_name, year=year)
+        conn.execute(ins)
+        return cohort_id, lower_bound, upper_bound
 
 
-def get_ids_by_feature(conn, table_name, year, cohort_features):
+def get_ids_by_feature(conn, table_name, year, cohort_features, cohort_id=None):
     s = select([cohort.c.cohort_id, cohort.c.upper_bound, cohort.c.lower_bound]).where(cohort.c.table == table_name).where(cohort.c.year == year).where(
         cohort.c.features == json.dumps(cohort_features, sort_keys=True))
     rs = list(conn.execute(s))
     if len(rs) == 0:
-        cohort_id, lower_bound, upper_bound = select_cohort(conn, table_name, year, cohort_features)
+        cohort_id, lower_bound, upper_bound = select_cohort(conn, table_name, year, cohort_features, cohort_id)
     else:
         [cohort_id, upper_bound, lower_bound] = rs[0]
     return cohort_id, lower_bound, upper_bound
@@ -104,6 +105,10 @@ def get_features_by_id(conn, table_name, year, cohort_id):
         return None
     else:
         return json.loads(rs[0][0])
+
+
+def cohort_id_in_use(conn, cohort_id):
+    return conn.execute(select([func.count()]).select_from(cohort).where(cohort.c.cohort_id == cohort_id)).scalar() > 0
 
 
 def join_lists(lists):

@@ -74,32 +74,74 @@ start service
 ```
 systemctl start ddcr-api-container
 ```
+### REST API ###
+
+#### create cohort
+route
+```
+/1.0.0/(patient|visit)/(2010|2011)/cohort
+```
+schema
+```
+{"<feature name>":{"operator":<operator>,"value":<value>},...,"<feature name>":{"operator":<operator>,"value":<value>}}
+```
+
+`feature name`: see Kara's spreadsheet
+
+`operator ::= <|>|<=|>=|=|<>`
+
+#### get cohort features
+route
+```
+/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>
+```
+
+#### feature association between two features
+route
+```
+/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association
+```
+schema
+```
+{"feature_a":{"<feature name>":{"operator":<operator>,"value":<value>}},"feauture_b":{"<feature name>":{"operator":<operator>,"value":<value>}}}
+```
+
+
+#### associations of one feature to all features
+route
+```
+/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features
+```
+schema
+```
+{"feature":{"<feature name>":{"operator":<operator>,"value":<value>}},"maximum_p_value":<maximum p value>}
+```
 
 ### Examples ###
 
 create cohort of all patients
 ```
-curl -k -XGET https://localhost:5000/1.0.0/patient/2010/cohort
+curl -k -XGET https://<host>:<port>/1.0.0/patient/2010/cohort
 ```
 
 create cohort of patients with `feature_3 = false`
 ```
-curl -k -XGET https://localhost:5000/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_3":{"operator":"=","value":false}}'
+curl -k -XGET https://<host>:<port>/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_3":{"operator":"=","value":false}}'
 ```
 
 create cohort of patients with `feature_3 <> false`
 ```
-curl -k -XGET https://localhost:5000/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_3":{"operator":"<>","value":false}}'
+curl -k -XGET https://<host>:<port>/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_3":{"operator":"<>","value":false}}'
 ```
 
 get features of cohort id `COHORT:3`
 ```
-curl -k -XGET https://localhost:5000/1.0.0/patient/2010/cohort/COHORT:3 -H "Accept: application/json"
+curl -k -XGET https://<host>:<port>/1.0.0/patient/2010/cohort/COHORT:3 -H "Accept: application/json"
 ```
 
 calculate `p-value` and `chi squared`
 ```
-curl -k -XGET https://localhost:5000/1.0.0/patient/2010/cohort/COHORT:3/feature_association -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_a":{"feature_4":{"operator":">", "value":5}},"feature_b":{"feature_5":{"operator":">=", "value":10}}}'
+curl -k -XGET https://<host>:<port>/1.0.0/patient/2010/cohort/COHORT:3/feature_association -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_a":{"feature_4":{"operator":">", "value":5}},"feature_b":{"feature_5":{"operator":">=", "value":10}}}'
 ```
 
 

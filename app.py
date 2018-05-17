@@ -49,7 +49,7 @@ class DDCRCohort(Resource):
         except Exception as e:
             return str(e)
 
-    def get(self, version, table, year, cohort_id):
+    def get(self, version, table, year, cohort_id=None):
         try:
             conn = get_db_connection(version)
             if cohort_id is None:

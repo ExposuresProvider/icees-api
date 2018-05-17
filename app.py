@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 import json
-from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use
+from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
@@ -29,10 +29,7 @@ class DDCRCohort(Resource):
             if cohort_id is None:
                 cohort_id, lower_bound, upper_bound = get_ids_by_feature(conn, table, year, req_features)
             else:
-                if cohort_id_in_use(conn, cohort_id):
-                    return "Input cohort_id exists. Please try again."
-                else:
-                    cohort_id, lower_bound, upper_bound = get_ids_by_feature(conn, table, year, req_features, cohort_id)
+                cohort_id, lower_bound, upper_bound = select_cohort(conn, table, year, req_features, cohort_id)
 
             if upper_bound == -1:
                 return "Input features invalid. Please try again."

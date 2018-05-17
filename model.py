@@ -65,7 +65,7 @@ def opposite(qualifier):
     }
 
 
-def select_cohort(conn, table_name, year, cohort_features, cohort_id):
+def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
     table = tables[table_name]
     s = select([func.count()]).select_from(table).where(table.c.year == year)
     for k, v in cohort_features.items():
@@ -75,24 +75,34 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id):
     if n <= 10:
         return None, -1, -1
     else:
-        if cohort_id is None:
-            next_val = conn.execute(Sequence("cohort_id"))
-            cohort_id = "COHORT:" + str(next_val)
-
         lower_bound = n // 10 * 10
         upper_bound = lower_bound + 9
+        while cohort_id is None:
+            next_val = conn.execute(Sequence("cohort_id"))
+            cohort_id = "COHORT:" + str(next_val)
+            if cohort_id_in_use(conn, cohort_id):
+                cohort_id = None
 
-        ins = cohort.insert().values(cohort_id=cohort_id, lower_bound=lower_bound, upper_bound=upper_bound, features=json.dumps(cohort_features, sort_keys=True), table=table_name, year=year)
+        if cohort_id_in_use(conn, cohort_id):
+            ins = cohort.update().where(cohort_id=cohort_id).values(lower_bound=lower_bound, upper_bound=upper_bound,
+                                                                    features=json.dumps(cohort_features,
+                                                                                        sort_keys=True),
+                                                                    table=table_name, year=year)
+        else:
+            ins = cohort.insert().values(cohort_id=cohort_id, lower_bound=lower_bound, upper_bound=upper_bound,
+                                         features=json.dumps(cohort_features, sort_keys=True), table=table_name,
+                                         year=year)
+
         conn.execute(ins)
         return cohort_id, lower_bound, upper_bound
 
 
-def get_ids_by_feature(conn, table_name, year, cohort_features, cohort_id=None):
+def get_ids_by_feature(conn, table_name, year, cohort_features):
     s = select([cohort.c.cohort_id, cohort.c.upper_bound, cohort.c.lower_bound]).where(cohort.c.table == table_name).where(cohort.c.year == year).where(
         cohort.c.features == json.dumps(cohort_features, sort_keys=True))
     rs = list(conn.execute(s))
     if len(rs) == 0:
-        cohort_id, lower_bound, upper_bound = select_cohort(conn, table_name, year, cohort_features, cohort_id)
+        cohort_id, lower_bound, upper_bound = select_cohort(conn, table_name, year, cohort_features)
     else:
         [cohort_id, upper_bound, lower_bound] = rs[0]
     return cohort_id, lower_bound, upper_bound

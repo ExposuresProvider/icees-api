@@ -21,10 +21,10 @@ class DDCRCohort(Resource):
         conn = get_db_connection(version)
         if cohort_id is None:
             req_features = request.get_json()
-            validate(req_features, cohort_schema(table))
             if req_features is None:
                 req_features = {}
-            print(req_features)
+            else:
+                validate(req_features, cohort_schema(table))
             cohort_id, lower_bound, upper_bound = get_ids_by_feature(conn, table, year, req_features)
 
             if upper_bound == -1:

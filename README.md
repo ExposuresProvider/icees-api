@@ -119,32 +119,33 @@ schema
 
 ### Examples ###
 
-create cohort of all patients
+get cohort of all patients
 ```
-curl -k -XGET https://<host>:<port>/1.0.0/patient/2010/cohort
-```
-
-create cohort of patients with `feature_3 = false`
-```
-curl -k -XGET https://<host>:<port>/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_3":{"operator":"=","value":false}}'
+curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort -H "Accept: application/json"
 ```
 
-create cohort of patients with `feature_3 <> false`
+get cohort of patients with `AgeStudyStart = 0-2`
 ```
-curl -k -XGET https://<host>:<port>/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_3":{"operator":"<>","value":false}}'
-```
-
-get features of cohort id `COHORT:3`
-```
-curl -k -XGET https://<host>:<port>/1.0.0/patient/2010/cohort/COHORT:3 -H "Accept: application/json"
+curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
 ```
 
-calculate `p-value` and `chi squared`
+Assuming we have cohort id `COHORT:10`
+
+get features of cohort
+
 ```
-curl -k -XGET https://<host>:<port>/1.0.0/patient/2010/cohort/COHORT:3/feature_association -H "Content-Type: application/json" -H "Accept: application/json" -d '{"feature_a":{"feature_4":{"operator":">", "value":5}},"feature_b":{"feature_5":{"operator":">=", "value":10}}}'
+curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10 -H "Accept: application/json"
 ```
 
+get feature association
+```
+curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
+```
 
+get association to all features
+```
+curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
+```
 
 
 

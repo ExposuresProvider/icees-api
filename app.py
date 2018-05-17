@@ -4,7 +4,7 @@ import json
 from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from jsonschema import validate
+from jsonschema import validate, ValidationError
 from schema import cohort_schema, feature_association_schema, associations_to_all_features_schema
 
 app = Flask(__name__)
@@ -45,6 +45,8 @@ class DDCRCohort(Resource):
                     return "Input cohort_id invalid. Please try again."
                 else:
                     return cohort_features
+        except ValidationError as e:
+            return e.message
         except Exception as e:
             return str(e)
 
@@ -72,6 +74,8 @@ class DDCRFeatureAssociation(Resource):
                 return "Input cohort_id invalid. Please try again."
             else:
                 return select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+        except ValidationError as e:
+            return e.message
         except Exception as e:
             return str(e)
 
@@ -89,6 +93,8 @@ class DDCRAssociationsToAllFeatures(Resource):
                 return "Input cohort_id invalid. Please try again."
             else:
                 return select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value)
+        except ValidationError as e:
+            return e.message
         except Exception as e:
             return str(e)
 

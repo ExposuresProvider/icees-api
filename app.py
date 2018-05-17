@@ -54,6 +54,8 @@ class DDCRCohort(Resource):
                 if req_features is None:
                     req_features = {}
                 else:
+                    if cohort_id is not None:
+                        return "Input cohort_id and features both present. Please try again."
                     validate(req_features, cohort_schema(table))
                 cohort_id, lower_bound, upper_bound = get_ids_by_feature(conn, table, year, req_features)
 

@@ -125,8 +125,13 @@ curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort -H "Accept: appli
 ```
 
 get cohort of patients with `AgeStudyStart = 0-2`
+
 ```
 curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
+```
+
+```
+curl -k -XPUT https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
 ```
 
 Assuming we have cohort id `COHORT:10`
@@ -138,13 +143,23 @@ curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10 -H "Acc
 ```
 
 get feature association
+
 ```
 curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
 ```
 
+```
+curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
+```
+
 get association to all features
+
 ```
 curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
+```
+
+```
+curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
 ```
 
 

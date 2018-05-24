@@ -6,6 +6,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
 from schema import cohort_schema, feature_association_schema, associations_to_all_features_schema
+from flasgger import Swagger
 
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
@@ -18,6 +19,12 @@ limiter = Limiter(
 )
 api = Api(app)
 
+app.config['SWAGGER'] = {
+    "title": "DDCR API",
+    "uiversion": 2
+}
+swag = Swagger(app)
+
 @api.representation('application/json')
 def output_json(data, code, headers=None):
     resp = make_response(json.dumps({"terms and conditions":terms_and_conditions, "return value":data}), code)
@@ -26,6 +33,40 @@ def output_json(data, code, headers=None):
 
 class DDCRCohort(Resource):
     def put(self, version, table, year, cohort_id=None):
+        """
+        Create a new cohort
+        ---
+        parameters:
+          - in: body
+            name: body
+            schema: 
+              $ref: "#definitions/Features"
+          - in: path
+            name: version
+            required: true
+            description: version of data
+            type: string
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+          - in: path
+            name: year
+            required: true
+            description: the year 2010|2011
+            type: integer
+          - in: path
+            name: cohort_id
+            required: false
+            description: the cohort id
+            type: string
+        responses:
+          201:
+            description: The cohort has been created
+            schema:
+              $ref: "#definitions/Cohort"
+        """
         try:
             conn = get_db_connection(version)
             req_features = request.get_json()
@@ -55,6 +96,36 @@ class DDCRCohort(Resource):
             return str(e)
 
     def get(self, version, table, year, cohort_id=None):
+        """
+        Get features of a cohort
+        ---
+        parameters:
+          - in: path
+            name: version
+            required: true
+            description: version of data
+            type: string
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+          - in: path
+            name: year
+            required: true
+            description: the year 2010|2011
+            type: integer
+          - in: path
+            name: cohort_id
+            required: false
+            description: the cohort id
+            type: string
+        responses:
+          200:
+            description: The features of the cohort
+            schema:
+              $ref: "#definitions/Features"
+        """
         try:
             conn = get_db_connection(version)
             if cohort_id is None:
@@ -100,6 +171,43 @@ def to_qualifiers(feature):
 
 class DDCRFeatureAssociation(Resource):
     def get(self, version, table, year, cohort_id):
+        self.post(version, table, year, cohort_id)
+        
+    def post(self, version, table, year, cohort_id):
+        """
+        Get feature association
+        ---
+        parameters:
+          - in: body
+            name: body
+            schema: 
+              $ref: "#definitions/FeatureAssociationInput"
+          - in: path
+            name: version
+            required: true
+            description: version of data
+            type: string
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+          - in: path
+            name: year
+            required: true
+            description: the year 2010|2011
+            type: integer
+          - in: path
+            name: cohort_id
+            required: true
+            description: the cohort id
+            type: string
+        responses:
+          201:
+            description: The feature association
+            schema:
+              $ref: "#definitions/FeatureAssociationOutput"
+        """
         try:
             obj = request.get_json()
             validate(obj, feature_association_schema(table))
@@ -121,6 +229,43 @@ class DDCRFeatureAssociation(Resource):
 
 class DDCRAssociationsToAllFeatures(Resource):
     def get(self, version, table, year, cohort_id):
+        self.post(version, table, year, cohort_id)
+        
+    def post(self, version, table, year, cohort_id):
+        """
+        Get associations to all features
+        ---
+        parameters:
+          - in: body
+            name: body
+            schema: 
+              $ref: "#definitions/AssociationsToAllFeaturesInput"
+          - in: path
+            name: version
+            required: true
+            description: version of data
+            type: string
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+          - in: path
+            name: year
+            required: true
+            description: the year 2010|2011
+            type: integer
+          - in: path
+            name: cohort_id
+            required: true
+            description: the cohort id
+            type: string
+        responses:
+          201:
+            description: Associations to all features
+            schema:
+              $ref: "#definitions/AssociationsToAllFeaturesOutput"
+        """
         try:
             obj = request.get_json()
             validate(obj, associations_to_all_features_schema(table))

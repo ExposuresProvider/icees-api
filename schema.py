@@ -1,21 +1,22 @@
 from features import features
 from sqlalchemy import String, Integer
-
+import yaml
+import os
 
 def qualifier_schema(ty, levels):
     if ty is String:
-        jsontype = {
+        yamltype = {
             "type": "string"
         }
     elif ty is Integer:
-        jsontype = {
+        yamltype = {
             "type": "integer"
         }
     else:
-        jsontype = {}
+        yamltype = {}
 
     if levels is not None:
-        jsontype["enum"] = list(levels)
+        yamltype["enum"] = list(levels)
 
     return {
         "type": "object",
@@ -24,7 +25,7 @@ def qualifier_schema(ty, levels):
                 "type": "string",
                 "enum": ["<", ">", "<=", ">=", "=", "<>"]
             },
-            "value": jsontype
+            "value": yamltype
         },
         "required": ["operator", "value"],
         "additionalProperties": False
@@ -63,3 +64,49 @@ def associations_to_all_features_schema(table_name):
         "required": ["feature", "maximum_p_value"],
         "additionalProperties": False
     }
+
+def cohort_schema_output(table_name):
+    return {
+    }
+
+
+def feature_association_schema_output(table_name):
+    return {
+    }
+
+
+def associations_to_all_features_schema_output(table_name):
+    return {
+    }
+
+def generate_schema():
+    dir = "definitions"
+    if not os.path.exists(dir):
+        os.makedirs(dir)    
+    with open(dir + "/cohort_patient_input.yaml", "w") as f:
+        yaml.dump(cohort_schema("patient"), f)
+    with open(dir + "/feature_association_patient_input.yaml", "w") as f:
+        yaml.dump(feature_association_schema("patient"), f)
+    with open(dir + "/associations_to_all_features_patient_input.yaml", "w") as f:
+        yaml.dump(associations_to_all_features_schema("patient"), f)
+    with open(dir + "/cohort_visit_input.yaml", "w") as f:
+        yaml.dump(cohort_schema("visit"), f)
+    with open(dir + "/feature_association_visit_input.yaml", "w") as f:
+        yaml.dump(feature_association_schema("visit"), f)
+    with open(dir + "/associations_to_all_features_visit_input.yaml", "w") as f:
+        yaml.dump(associations_to_all_features_schema("visit"), f)
+    with open(dir + "/cohort_patient_output.yaml", "w") as f:
+        yaml.dump(cohort_schema_output("patient"), f)
+    with open(dir + "/feature_association_patient_output.yaml", "w") as f:
+        yaml.dump(feature_association_schema_output("patient"), f)
+    with open(dir + "/associations_to_all_features_patient_output.yaml", "w") as f:
+        yaml.dump(associations_to_all_features_schema_output("patient"), f)
+    with open(dir + "/cohort_visit_output.yaml", "w") as f:
+        yaml.dump(cohort_schema_output("visit"), f)
+    with open(dir + "/feature_association_visit_output.yaml", "w") as f:
+        yaml.dump(feature_association_schema_output("visit"), f)
+    with open(dir + "/associations_to_all_features_visit_output.yaml", "w") as f:
+        yaml.dump(associations_to_all_features_schema_output("visit"), f)
+    
+if __name__ == '__main__':
+    generate_schema()

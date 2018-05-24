@@ -40,7 +40,9 @@ class DDCRCohort(Resource):
           - in: body
             name: body
             schema: 
-              $ref: "#definitions/Features"
+              oneOf:
+                - import: "definitions/cohort_patient_input.yaml"
+                - import: "definitions/cohort_visit_input.yaml"
           - in: path
             name: version
             required: true
@@ -65,7 +67,9 @@ class DDCRCohort(Resource):
           201:
             description: The cohort has been created
             schema:
-              $ref: "#definitions/Cohort"
+              oneOf:
+                - import: "definitions/cohort_patient_output.yaml"
+                - import: "definitions/cohort_visit_output.yaml"
         """
         try:
             conn = get_db_connection(version)
@@ -124,7 +128,9 @@ class DDCRCohort(Resource):
           200:
             description: The features of the cohort
             schema:
-              $ref: "#definitions/Features"
+              oneOf: 
+                - import: "definitions/cohort_patient_input.yaml"
+                - import: "definitions/cohort_visit_input.yaml"
         """
         try:
             conn = get_db_connection(version)
@@ -171,9 +177,6 @@ def to_qualifiers(feature):
 
 class DDCRFeatureAssociation(Resource):
     def get(self, version, table, year, cohort_id):
-        self.post(version, table, year, cohort_id)
-        
-    def post(self, version, table, year, cohort_id):
         """
         Get feature association
         ---
@@ -181,7 +184,9 @@ class DDCRFeatureAssociation(Resource):
           - in: body
             name: body
             schema: 
-              $ref: "#definitions/FeatureAssociationInput"
+              oneOf:
+                - import: "definitions/feature_association_patient_input.yaml"
+                - import: "definitions/feature_association_visit_input.yaml"
           - in: path
             name: version
             required: true
@@ -203,10 +208,53 @@ class DDCRFeatureAssociation(Resource):
             description: the cohort id
             type: string
         responses:
-          201:
+          200:
             description: The feature association
             schema:
-              $ref: "#definitions/FeatureAssociationOutput"
+              oneOf: 
+                - import: "definitions/feature_association_patient_output.yaml"
+                - import: "definitions/feature_association_visit_output.yaml"
+        """
+        self.post(version, table, year, cohort_id)
+        
+    def post(self, version, table, year, cohort_id):
+        """
+        Get feature association
+        ---
+        parameters:
+          - in: body
+            name: body
+            schema: 
+              oneOf:
+                - import: "definitions/feature_association_patient_input.yaml"
+                - import: "definitions/feature_association_visit_input.yaml"
+          - in: path
+            name: version
+            required: true
+            description: version of data
+            type: string
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+          - in: path
+            name: year
+            required: true
+            description: the year 2010|2011
+            type: integer
+          - in: path
+            name: cohort_id
+            required: true
+            description: the cohort id
+            type: string
+        responses:
+          200:
+            description: The feature association
+            schema:
+              oneOf: 
+                - import: "definitions/feature_association_patient_output.yaml"
+                - import: "definitions/feature_association_visit_output.yaml"
         """
         try:
             obj = request.get_json()
@@ -229,9 +277,6 @@ class DDCRFeatureAssociation(Resource):
 
 class DDCRAssociationsToAllFeatures(Resource):
     def get(self, version, table, year, cohort_id):
-        self.post(version, table, year, cohort_id)
-        
-    def post(self, version, table, year, cohort_id):
         """
         Get associations to all features
         ---
@@ -239,7 +284,9 @@ class DDCRAssociationsToAllFeatures(Resource):
           - in: body
             name: body
             schema: 
-              $ref: "#definitions/AssociationsToAllFeaturesInput"
+              oneOf:
+                - import: "definitions/associations_to_all_features_patient_input.yaml"
+                - import: "definitions/associations_to_all_features_visit_input.yaml"
           - in: path
             name: version
             required: true
@@ -261,10 +308,53 @@ class DDCRAssociationsToAllFeatures(Resource):
             description: the cohort id
             type: string
         responses:
-          201:
+          200:
             description: Associations to all features
             schema:
-              $ref: "#definitions/AssociationsToAllFeaturesOutput"
+              oneOf:
+                - import: "definitions/associations_to_all_features_patient_output.yaml"
+                - import: "definitions/associations_to_all_features_visit_output.yaml"
+        """
+        self.post(version, table, year, cohort_id)
+        
+    def post(self, version, table, year, cohort_id):
+        """
+        Get associations to all features
+        ---
+        parameters:
+          - in: body
+            name: body
+            schema: 
+              oneOf:
+                - import: "definitions/associations_to_all_features_patient_input.yaml"
+                - import: "definitions/associations_to_all_features_visit_input.yaml"
+          - in: path
+            name: version
+            required: true
+            description: version of data
+            type: string
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+          - in: path
+            name: year
+            required: true
+            description: the year 2010|2011
+            type: integer
+          - in: path
+            name: cohort_id
+            required: true
+            description: the cohort id
+            type: string
+        responses:
+          200:
+            description: Associations to all features
+            schema:
+              oneOf:
+                - import: "definitions/associations_to_all_features_patient_output.yaml"
+                - import: "definitions/associations_to_all_features_visit_output.yaml"
         """
         try:
             obj = request.get_json()

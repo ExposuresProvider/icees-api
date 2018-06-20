@@ -215,7 +215,7 @@ class DDCRFeatureAssociation(Resource):
                 - import: "definitions/feature_association_patient_output.yaml"
                 - import: "definitions/feature_association_visit_output.yaml"
         """
-        self.post(version, table, year, cohort_id)
+        return self.post(version, table, year, cohort_id)
         
     def post(self, version, table, year, cohort_id):
         """
@@ -315,7 +315,7 @@ class DDCRAssociationsToAllFeatures(Resource):
                 - import: "definitions/associations_to_all_features_patient_output.yaml"
                 - import: "definitions/associations_to_all_features_visit_output.yaml"
         """
-        self.post(version, table, year, cohort_id)
+        return self.post(version, table, year, cohort_id)
         
     def post(self, version, table, year, cohort_id):
         """

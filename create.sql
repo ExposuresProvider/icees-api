@@ -52,6 +52,7 @@ create table patient(
 );
 
 create table visit(
+    "Patient_ID" varchar,
     "VisitId" varchar,
     "VisitType" varchar,
     "AgeVisit" age_bins,

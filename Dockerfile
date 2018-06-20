@@ -7,6 +7,8 @@ RUN git clone https://github.com/xu-hao/ddcr-api
 
 WORKDIR /ddcr-api
 
+RUN python schema.py
+
 ENTRYPOINT ["gunicorn","--certfile", "/cert.pem","--keyfile","/key.pem","--bind", "0.0.0.0:8080"]
 
 CMD ["app:app"]

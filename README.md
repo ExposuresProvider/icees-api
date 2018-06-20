@@ -67,7 +67,7 @@ docker run -d -e DDCR_DBUSER=<dbuser> -e DDCR_DBPASS=<dbpass> -e DDCR_HOST=<host
 docker stop ddcr-api_server
 ```
 
-copy `<repo>/ddcr-api-container.servic` to `/etc/systemd/system/ddcr-api-container.service`
+copy `<repo>/ddcr-api-container.service` to `/etc/systemd/system/ddcr-api-container.service`
 
 start service
 

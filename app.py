@@ -32,13 +32,14 @@ def output_json(data, code, headers=None):
     return resp
 
 class DDCRCohort(Resource):
-    def put(self, version, table, year, cohort_id=None):
+    def post(self, version, table, year):
         """
-        Create a new cohort
+        Create a new cohort by a set of feature variables. If a cohort is already created for this set before, return cohort id and size. Otherwise, generate a new cohort id.
         ---
         parameters:
           - in: body
             name: body
+            description: feature variables
             schema: 
               oneOf:
                 - import: "definitions/cohort_patient_input.yaml"
@@ -46,7 +47,65 @@ class DDCRCohort(Resource):
           - in: path
             name: version
             required: true
-            description: version of data
+            description: version of data 1.0.0
+            type: string
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+          - in: path
+            name: year
+            required: true
+            description: the year 2010|2011
+            type: integer
+        responses:
+          201:
+            description: The cohort has been created
+            schema:
+              oneOf:
+                - import: "definitions/cohort_patient_output.yaml"
+                - import: "definitions/cohort_visit_output.yaml"
+        """
+        try:
+            conn = get_db_connection(version)
+            req_features = request.get_json()
+            if req_features is None:
+                req_features = {}
+            else:
+                validate(req_features, cohort_schema(table))
+
+            cohort_id, size = get_ids_by_feature(conn, table, year, req_features)
+      
+            if upper_bound == -1:
+                return "Input features invalid. Please try again."
+            else:
+                return {
+                    "cohort_id": cohort_id,
+                    "size": size
+                }
+        except ValidationError as e:
+            return e.message
+        except Exception as e:
+            return str(e)
+
+class DDCRCohortId(Resource):
+    def put(self, version, table, year, cohort_id):
+        """
+        Create a new cohort by a set of feature variables and set the cohort id. Even if a cohort has already been created for this set before, a new cohort is created.
+        ---
+        parameters:
+          - in: body
+            name: body
+            description: feature variables
+            schema: 
+              oneOf:
+                - import: "definitions/cohort_patient_input.yaml"
+                - import: "definitions/cohort_visit_input.yaml"
+          - in: path
+            name: version
+            required: true
+            description: version of data 1.0.0
             type: string
           - in: path
             name: table
@@ -79,27 +138,21 @@ class DDCRCohort(Resource):
             else:
                 validate(req_features, cohort_schema(table))
 
-            if cohort_id is None:
-                cohort_id, lower_bound, upper_bound = get_ids_by_feature(conn, table, year, req_features)
-            else:
-                cohort_id, lower_bound, upper_bound = select_cohort(conn, table, year, req_features, cohort_id)
+            cohort_id, size = select_cohort(conn, table, year, req_features, cohort_id)
 
-            if upper_bound == -1:
+            if size == -1:
                 return "Input features invalid. Please try again."
             else:
                 return {
                     "cohort_id": cohort_id,
-                    "bounds": {
-                        "upper_bound": upper_bound,
-                        "lower_bound": lower_bound
-                    }
+                    "size": size
                 }
         except ValidationError as e:
             return e.message
         except Exception as e:
             return str(e)
 
-    def get(self, version, table, year, cohort_id=None):
+    def get(self, version, table, year, cohort_id):
         """
         Get features of a cohort
         ---
@@ -107,7 +160,7 @@ class DDCRCohort(Resource):
           - in: path
             name: version
             required: true
-            description: version of data
+            description: version of data 1.0.0
             type: string
           - in: path
             name: table
@@ -134,33 +187,12 @@ class DDCRCohort(Resource):
         """
         try:
             conn = get_db_connection(version)
-            if cohort_id is None:
-                req_features = request.get_json()
-                if req_features is None:
-                    req_features = {}
-                else:
-                    if cohort_id is not None:
-                        return "Input cohort_id and features both present. Please try again."
-                    validate(req_features, cohort_schema(table))
-                cohort_id, lower_bound, upper_bound = get_ids_by_feature(conn, table, year, req_features)
-
-                if upper_bound == -1:
-                    return "Input features invalid. Please try again."
-                else:
-                    return {
-                        "cohort_id": cohort_id,
-                        "bounds": {
-                            "upper_bound": upper_bound,
-                            "lower_bound": lower_bound
-                        }
-                    }
+            cohort_features = get_cohort_features(conn, table, year, cohort_id)
+            
+            if cohort_features is None:
+                return "Input cohort_id invalid. Please try again."
             else:
-                cohort_features = get_features_by_id(conn, table, year, cohort_id)
-
-                if cohort_features is None:
-                    return "Input cohort_id invalid. Please try again."
-                else:
-                    return cohort_features
+                return cohort_features
         except ValidationError as e:
             return e.message
         except Exception as e:
@@ -176,47 +208,6 @@ def to_qualifiers(feature):
 
 
 class DDCRFeatureAssociation(Resource):
-    def get(self, version, table, year, cohort_id):
-        """
-        Get feature association
-        ---
-        parameters:
-          - in: body
-            name: body
-            schema: 
-              oneOf:
-                - import: "definitions/feature_association_patient_input.yaml"
-                - import: "definitions/feature_association_visit_input.yaml"
-          - in: path
-            name: version
-            required: true
-            description: version of data
-            type: string
-          - in: path
-            name: table
-            required: true
-            description: the table patient|visit
-            type: string
-          - in: path
-            name: year
-            required: true
-            description: the year 2010|2011
-            type: integer
-          - in: path
-            name: cohort_id
-            required: true
-            description: the cohort id
-            type: string
-        responses:
-          200:
-            description: The feature association
-            schema:
-              oneOf: 
-                - import: "definitions/feature_association_patient_output.yaml"
-                - import: "definitions/feature_association_visit_output.yaml"
-        """
-        return self.post(version, table, year, cohort_id)
-        
     def post(self, version, table, year, cohort_id):
         """
         Get feature association
@@ -224,6 +215,7 @@ class DDCRFeatureAssociation(Resource):
         parameters:
           - in: body
             name: body
+            description: two feature variables
             schema: 
               oneOf:
                 - import: "definitions/feature_association_patient_input.yaml"
@@ -231,7 +223,7 @@ class DDCRFeatureAssociation(Resource):
           - in: path
             name: version
             required: true
-            description: version of data
+            description: version of data 1.0.0
             type: string
           - in: path
             name: table
@@ -276,47 +268,6 @@ class DDCRFeatureAssociation(Resource):
 
 
 class DDCRAssociationsToAllFeatures(Resource):
-    def get(self, version, table, year, cohort_id):
-        """
-        Get associations to all features
-        ---
-        parameters:
-          - in: body
-            name: body
-            schema: 
-              oneOf:
-                - import: "definitions/associations_to_all_features_patient_input.yaml"
-                - import: "definitions/associations_to_all_features_visit_input.yaml"
-          - in: path
-            name: version
-            required: true
-            description: version of data
-            type: string
-          - in: path
-            name: table
-            required: true
-            description: the table patient|visit
-            type: string
-          - in: path
-            name: year
-            required: true
-            description: the year 2010|2011
-            type: integer
-          - in: path
-            name: cohort_id
-            required: true
-            description: the cohort id
-            type: string
-        responses:
-          200:
-            description: Associations to all features
-            schema:
-              oneOf:
-                - import: "definitions/associations_to_all_features_patient_output.yaml"
-                - import: "definitions/associations_to_all_features_visit_output.yaml"
-        """
-        return self.post(version, table, year, cohort_id)
-        
     def post(self, version, table, year, cohort_id):
         """
         Get associations to all features
@@ -324,6 +275,7 @@ class DDCRAssociationsToAllFeatures(Resource):
         parameters:
           - in: body
             name: body
+            description: a feature variable and minimum p value
             schema: 
               oneOf:
                 - import: "definitions/associations_to_all_features_patient_input.yaml"
@@ -331,7 +283,7 @@ class DDCRAssociationsToAllFeatures(Resource):
           - in: path
             name: version
             required: true
-            description: version of data
+            description: version of data 1.0.0
             type: string
           - in: path
             name: table
@@ -373,7 +325,60 @@ class DDCRAssociationsToAllFeatures(Resource):
             return str(e)
 
 
-api.add_resource(DDCRCohort, '/<string:version>/<string:table>/<int:year>/cohort', '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
+class DDCRFeatures(Resource):
+    def get(self, version, table, year, cohort_id):
+        """
+        Get features
+        ---
+        parameters:
+          - in: path
+            name: version
+            required: true
+            description: version of data 1.0.0
+            type: string
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+          - in: path
+            name: year
+            required: true
+            description: the year 2010|2011
+            type: integer
+          - in: path
+            name: cohort_id
+            required: true
+            description: the cohort id
+            type: string
+        responses:
+          200:
+            description: features
+            schema:
+              oneOf:
+                - import: "definitions/features_patient_output.yaml"
+                - import: "definitions/features_visit_output.yaml"
+        """
+        try:
+            obj = request.get_json()
+            validate(obj, associations_to_all_features_schema(table))
+            feature = to_qualifiers(obj["feature"])
+            maximum_p_value = obj["maximum_p_value"]
+            conn = get_db_connection(version)
+            cohort_features = get_features_by_id(conn, table, year, cohort_id)
+            if cohort_features is None:
+                return "Input cohort_id invalid. Please try again."
+            else:
+                return get_features_by_id(conn, table, year, cohort_features)
+        except ValidationError as e:
+            return e.message
+        except Exception as e:
+            return str(e)
+
+
+api.add_resource(DDCRCohort, '/<string:version>/<string:table>/<int:year>/cohort')
+api.add_resource(DDCRCohortId, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
+api.add_resource(DDCRFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
 api.add_resource(DDCRFeatureAssociation, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association')
 api.add_resource(DDCRAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
 

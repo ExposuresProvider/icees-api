@@ -86,8 +86,10 @@ class DDCRCohort(Resource):
                     "size": size
                 }
         except ValidationError as e:
+            traceback.print_exc()
             return e.message
         except Exception as e:
+            traceback.print_exc()
             return str(e)
 
 class DDCRCohortId(Resource):
@@ -149,8 +151,10 @@ class DDCRCohortId(Resource):
                     "size": size
                 }
         except ValidationError as e:
+            traceback.print_exc()
             return e.message
         except Exception as e:
+            traceback.print_exc()
             return str(e)
 
     def get(self, version, table, year, cohort_id):
@@ -195,8 +199,10 @@ class DDCRCohortId(Resource):
             else:
                 return cohort_features
         except ValidationError as e:
+            traceback.print_exc()
             return e.message
         except Exception as e:
+            traceback.print_exc()
             return str(e)
 
 
@@ -263,8 +269,10 @@ class DDCRFeatureAssociation(Resource):
             else:
                 return select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
         except ValidationError as e:
+            traceback.print_exc()
             return e.message
         except Exception as e:
+            traceback.print_exc()
             return str(e)
 
 
@@ -321,8 +329,10 @@ class DDCRAssociationsToAllFeatures(Resource):
             else:
                 return select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value)
         except ValidationError as e:
+            traceback.print_exc()
             return e.message
         except Exception as e:
+            traceback.print_exc()
             return str(e)
 
 

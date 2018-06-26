@@ -1,7 +1,7 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
 import json
-from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features
+from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features, get_cohort_dictionary
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
@@ -385,9 +385,50 @@ class DDCRFeatures(Resource):
             return str(e)
 
 
+class DDCRCohortDictionary(Resource):
+    def get(self, version, table, year):
+        """
+        Get cohort dictionary
+        ---
+        parameters:
+          - in: path
+            name: version
+            required: true
+            description: version of data 1.0.0
+            type: string
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+          - in: path
+            name: year
+            required: true
+            description: the year 2010|2011
+            type: integer
+        responses:
+          200:
+            description: cohort dictionray
+            schema:
+              oneOf:
+                - import: "definitions/cohort_dictionary_patient_output.yaml"
+                - import: "definitions/cohort_dictionary_visit_output.yaml"
+        """
+        try:
+            conn = get_db_connection(version)
+            return get_cohort_dictionary(conn, table, year)
+        except ValidationError as e:
+            traceback.print_exc()
+            return e.message
+        except Exception as e:
+            traceback.print_exc()
+            return str(e)
+
+
 api.add_resource(DDCRCohort, '/<string:version>/<string:table>/<int:year>/cohort')
 api.add_resource(DDCRCohortId, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
 api.add_resource(DDCRFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
+api.add_resource(DDCRCohortDictionary, '/<string:version>/<string:table>/<int:year>/cohort/dictionary')
 api.add_resource(DDCRFeatureAssociation, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association')
 api.add_resource(DDCRAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
 

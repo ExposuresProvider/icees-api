@@ -126,6 +126,17 @@ def get_cohort_features(conn, table_name, year, cohort_features):
     return rs
 
 
+def get_cohort_dictionary(conn, table_name, year):
+    s = select([cohort.c.cohort_id,cohort.c.features,cohort.c.size]).where(cohort.c.table == table_name).where(cohort.c.year == year)
+    rs = []
+    for cohort_id, features, size in conn.execute(s):
+        rs.append({
+            "cohort_id": cohort_id,
+            "size": size,
+            "features": json.loads(features)
+        })
+    return rs
+
 
 def cohort_id_in_use(conn, cohort_id):
     return conn.execute(select([func.count()]).select_from(cohort).where(cohort.c.cohort_id == cohort_id)).scalar() > 0
@@ -203,12 +214,10 @@ def get_feature_levels(conn, table, year, feature):
 def select_feature_association(conn, table_name, year, cohort_features, feature, maximum_p_value):
     table = tables[table_name]
     rs = []
-    print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
     for k, v, levels in features[table_name]:
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_matrix(conn, table_name, year, cohort_features, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
-        print(ret)
         if ret["p_value"] < maximum_p_value:
             rs.append(ret)
     return rs

@@ -108,9 +108,9 @@ def generate_schema():
     with open(dir + "/associations_to_all_features_visit_input.yaml", "w") as f:
         yaml.dump(associations_to_all_features_schema("visit"), f)
     with open(dir + "/features_patient_output.yaml", "w") as f:
-        yaml.dump(features_output("patient"), f)
+        yaml.dump(features_schema_output("patient"), f)
     with open(dir + "/cohort_dictionary_patient_output.yaml", "w") as f:
-        yaml.dump(cohort_dictionary_output("patient"), f)
+        yaml.dump(cohort_dictionary_schema_output("patient"), f)
     with open(dir + "/cohort_patient_output.yaml", "w") as f:
         yaml.dump(cohort_schema_output("patient"), f)
     with open(dir + "/feature_association_patient_output.yaml", "w") as f:
@@ -120,9 +120,9 @@ def generate_schema():
     with open(dir + "/cohort_visit_output.yaml", "w") as f:
         yaml.dump(cohort_schema_output("visit"), f)
     with open(dir + "/features_visit_output.yaml", "w") as f:
-        yaml.dump(features_output("visit"), f)
+        yaml.dump(features_schema_output("visit"), f)
     with open(dir + "/cohort_dictionary_visit_output.yaml", "w") as f:
-        yaml.dump(cohort_dictionary_output("visit"), f)
+        yaml.dump(cohort_dictionary_schema_output("visit"), f)
     with open(dir + "/feature_association_visit_output.yaml", "w") as f:
         yaml.dump(feature_association_schema_output("visit"), f)
     with open(dir + "/associations_to_all_features_visit_output.yaml", "w") as f:

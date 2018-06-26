@@ -103,6 +103,6 @@ create table visit(
     "year" integer
 );
 
-create table cohort (cohort_id varchar primary key, upper_bound integer, lower_bound integer, features varchar, "table" varchar, year integer);
+create table cohort (cohort_id varchar primary key, size integer, features varchar, "table" varchar, year integer);
 
 create sequence cohort_id;

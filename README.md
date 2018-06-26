@@ -88,6 +88,11 @@ systemctl start ddcr-api-container
 ### REST API ###
 
 #### create cohort
+method
+```
+POST
+```
+
 route
 ```
 /1.0.0/(patient|visit)/(2010|2011)/cohort
@@ -101,13 +106,45 @@ schema
 
 `operator ::= <|>|<=|>=|=|<>`
 
-#### get cohort features
+#### get cohort definition
+method
+```
+GET
+```
+
 route
 ```
 /1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>
 ```
 
+#### get cohort features
+method
+```
+GET
+```
+
+route
+```
+/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/features
+```
+
+#### get cohort dictionary
+method
+```
+GET
+```
+
+route
+```
+/1.0.0/(patient|visit)/(2010|2011)/cohort/dictionary
+```
+
 #### feature association between two features
+method
+```
+POST
+```
+
 route
 ```
 /1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association
@@ -117,8 +154,12 @@ schema
 {"feature_a":{"<feature name>":{"operator":<operator>,"value":<value>}},"feauture_b":{"<feature name>":{"operator":<operator>,"value":<value>}}}
 ```
 
-
 #### associations of one feature to all features
+method
+```
+POST
+```
+
 route
 ```
 /1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features
@@ -131,33 +172,39 @@ schema
 ### Examples ###
 
 get cohort of all patients
+
 ```
-curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort -H "Accept: application/json"
+curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{}'
 ```
 
 get cohort of patients with `AgeStudyStart = 0-2`
 
 ```
-curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
-```
-
-```
-curl -k -XPUT https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
+curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
 ```
 
 Assuming we have cohort id `COHORT:10`
 
-get features of cohort
+get definition of cohort
 
 ```
 curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10 -H "Accept: application/json"
 ```
 
-get feature association
+get features of cohort
 
 ```
-curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
+curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/features -H "Accept: application/json"
 ```
+
+get cohort dictionary 
+
+```
+curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/features -H "Accept: application/json"
+```
+
+get feature association
+
 
 ```
 curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
@@ -165,9 +212,6 @@ curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/featur
 
 get association to all features
 
-```
-curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
-```
 
 ```
 curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"

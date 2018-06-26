@@ -360,10 +360,6 @@ class DDCRFeatures(Resource):
                 - import: "definitions/features_visit_output.yaml"
         """
         try:
-            obj = request.get_json()
-            validate(obj, associations_to_all_features_schema(table))
-            feature = to_qualifiers(obj["feature"])
-            maximum_p_value = obj["maximum_p_value"]
             conn = get_db_connection(version)
             cohort_features = get_features_by_id(conn, table, year, cohort_id)
             if cohort_features is None:

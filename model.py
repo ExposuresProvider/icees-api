@@ -106,7 +106,7 @@ def get_ids_by_feature(conn, table_name, year, cohort_features):
     return cohort_id, size
 
 
-def get_cohort_features(conn, table_name, year, cohort_id):
+def get_features_by_id(conn, table_name, year, cohort_id):
     s = select([cohort.c.features]).where(cohort.c.cohort_id == cohort_id).where(cohort.c.table == table_name).where(cohort.c.year == year)
     rs = list(conn.execute(s))
     if len(rs) == 0:
@@ -115,7 +115,7 @@ def get_cohort_features(conn, table_name, year, cohort_id):
         return json.loads(rs[0][0])
 
 
-def get_features_by_id(conn, table_name, year, cohort_features):
+def get_cohort_features(conn, table_name, year, cohort_features):
     table = tables[table_name]
     rs = []
     for k, v, levels in features[table_name]:
@@ -183,7 +183,8 @@ def select_feature_count(conn, table_name, year, cohort_features, feature_a):
 
     bins = len(feature_matrix)
     
-    null_matrix = [total / bins] * bins
+    null_matrix = [total / bins for _ in range(bins)]
+    print(null_matrix)
 
     [chi_squared, p] = chisquare(feature_matrix, null_matrix)
 

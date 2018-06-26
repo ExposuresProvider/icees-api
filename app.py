@@ -1,12 +1,13 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
 import json
-from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort
+from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
 from schema import cohort_schema, feature_association_schema, associations_to_all_features_schema
 from flasgger import Swagger
+import traceback
 
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
@@ -365,10 +366,12 @@ class DDCRFeatures(Resource):
             if cohort_features is None:
                 return "Input cohort_id invalid. Please try again."
             else:
-                return get_features_by_id(conn, table, year, cohort_features)
+                return get_cohort_features(conn, table, year, cohort_features)
         except ValidationError as e:
+            traceback.print_exc()
             return e.message
         except Exception as e:
+            traceback.print_exc()
             return str(e)
 
 

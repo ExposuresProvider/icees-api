@@ -184,7 +184,6 @@ def select_feature_count(conn, table_name, year, cohort_features, feature_a):
     bins = len(feature_matrix)
     
     null_matrix = [total / bins for _ in range(bins)]
-    print(null_matrix)
 
     [chi_squared, p] = chisquare(feature_matrix, null_matrix)
 

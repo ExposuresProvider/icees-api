@@ -78,7 +78,7 @@ class DDCRCohort(Resource):
 
             cohort_id, size = get_ids_by_feature(conn, table, year, req_features)
       
-            if upper_bound == -1:
+            if size == -1:
                 return "Input features invalid. Please try again."
             else:
                 return {
@@ -192,7 +192,7 @@ class DDCRCohortId(Resource):
         """
         try:
             conn = get_db_connection(version)
-            cohort_features = get_cohort_features(conn, table, year, cohort_id)
+            cohort_features = get_features_by_id(conn, table, year, cohort_id)
             
             if cohort_features is None:
                 return "Input cohort_id invalid. Please try again."

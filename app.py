@@ -23,7 +23,7 @@ api = Api(app)
 template = {
   "info": {
     "title": "DDCR API",
-    "description": "DDCR API",
+    "description": "DDCR API [documentation](https://github.com/xu-hao/ddcr-api)",
     "version": "0.0.1"
   },
   "host": "ddcr.renci.org",  # overrides localhost:500

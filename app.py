@@ -179,7 +179,7 @@ class DDCRCohortId(Resource):
             type: integer
           - in: path
             name: cohort_id
-            required: false
+            required: true
             description: the cohort id
             type: string
         responses:

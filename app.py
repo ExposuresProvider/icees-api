@@ -20,11 +20,20 @@ limiter = Limiter(
 )
 api = Api(app)
 
-app.config['SWAGGER'] = {
+template = {
+  "info": {
     "title": "DDCR API",
-    "uiversion": 2
+    "description": "DDCR API",
+    "version": "0.0.1"
+  },
+  "host": "ddcr.renci.org",  # overrides localhost:500
+  "basePath": "/apidocs",  # base bash for blueprint registration
+  "schemes": [
+    "https"
+  ]
 }
-swag = Swagger(app)
+
+swag = Swagger(app, template=template)
 
 @api.representation('application/json')
 def output_json(data, code, headers=None):

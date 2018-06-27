@@ -27,7 +27,7 @@ template = {
     "version": "0.0.1"
   },
   "host": "ddcr.renci.org",  # overrides localhost:500
-  "basePath": "/apidocs",  # base bash for blueprint registration
+  "basePath": "/",  # base bash for blueprint registration
   "schemes": [
     "https"
   ]
@@ -168,7 +168,7 @@ class DDCRCohortId(Resource):
 
     def get(self, version, table, year, cohort_id):
         """
-        Get features of a cohort
+        Get definition of a cohort
         ---
         parameters:
           - in: path

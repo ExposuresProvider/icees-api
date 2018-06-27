@@ -27,7 +27,7 @@ template = {
     "version": "0.0.1"
   },
   "host": "ddcr.renci.org",  # overrides localhost:500
-  "basePath": "/apidocs",  # base bash for blueprint registration
+  "basePath": "/",  # base bash for blueprint registration
   "schemes": [
     "https"
   ]

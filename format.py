@@ -12,7 +12,7 @@ def table_to_text(columns, rows):
     maxlens = [max([len(a)] + list(map(len, b))) for (a, b) in zip(columns, rowstrans)]
     string = "|".join([b.ljust(a) for (a, b) in zip(maxlens, columns)])
     string += "\n"
-    string += "=" * len(string)
+    string += "+". join(["-" * l for l in maxlens])
     string += "\n"
     for row in rows:
         string += "|".join([b.ljust(a) for (a, b) in zip(maxlens, row)])

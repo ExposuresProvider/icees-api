@@ -5,7 +5,11 @@ def feature_to_text(feature_name, feature_qualifier):
 def table_to_text(columns, rows):
     rows = list(map(lambda i: list(map(str, i)), rows))
     print(columns, rows)
-    maxlens = [max(len(a), *list(map(len, b))) for (a, b) in zip(columns, zip(*rows))]
+    if len(rows) == 0:
+        by_column = [[] for _ in columns]
+    else
+        by_column = zip(*rows)
+    maxlens = [max(len(a), *list(map(len, b))) for (a, b) in zip(columns, by_column)]
     string = "|".join([b.ljust(a) for (a, b) in zip(maxlens, columns)])
     string += "\n"
     string += "=" * len(string)

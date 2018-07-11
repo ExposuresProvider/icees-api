@@ -9,7 +9,7 @@ def table_to_text(columns, rows):
         rowstrans = [[] for _ in columns]
     else:
         rowstrans = zip(*rows)
-    maxlens = [max(len(a), *list(map(len, b))) for (a, b) in zip(columns, rowstrans)]
+    maxlens = [max([len(a)] + list(map(len, b))) for (a, b) in zip(columns, rowstrans)]
     string = "|".join([b.ljust(a) for (a, b) in zip(maxlens, columns)])
     string += "\n"
     string += "=" * len(string)

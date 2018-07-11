@@ -6,10 +6,10 @@ def table_to_text(columns, rows):
     rows = list(map(lambda i: list(map(str, i)), rows))
     print(columns, rows)
     if len(rows) == 0:
-        by_column = [[] for _ in columns]
-    else
-        by_column = zip(*rows)
-    maxlens = [max(len(a), *list(map(len, b))) for (a, b) in zip(columns, by_column)]
+        rowstrans = [[] for _ in columns]
+    else:
+        rowstrans = zip(*rows)
+    maxlens = [max(len(a), *list(map(len, b))) for (a, b) in zip(columns, rowstrans)]
     string = "|".join([b.ljust(a) for (a, b) in zip(maxlens, columns)])
     string += "\n"
     string += "=" * len(string)

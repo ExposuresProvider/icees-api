@@ -8,6 +8,7 @@ from jsonschema import validate, ValidationError
 from schema import cohort_schema, feature_association_schema, associations_to_all_features_schema
 from flasgger import Swagger
 import traceback
+from format import format_tabular
 
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
@@ -26,6 +27,13 @@ template = {
     "description": "DDCR API [documentation](https://github.com/xu-hao/ddcr-api)",
     "version": "0.0.1"
   },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json",
+    "text/tabular"
+  ],
   "host": "ddcr.renci.org",  # overrides localhost:500
   "basePath": "/",  # base bash for blueprint registration
   "schemes": [
@@ -37,7 +45,13 @@ swag = Swagger(app, template=template)
 
 @api.representation('application/json')
 def output_json(data, code, headers=None):
-    resp = make_response(json.dumps({"terms and conditions":terms_and_conditions, "return value":data}), code)
+    resp = make_response(json.dumps({"terms and conditions": terms_and_conditions, "return value": data}), code)
+    resp.headers.extend(headers or {})
+    return resp
+
+@api.representation('text/tabular')
+def output_tabular(data, code, headers=None):
+    resp = make_response(format_tabular(terms_and_conditions, data), code)
     resp.headers.extend(headers or {})
     return resp
 

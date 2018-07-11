@@ -32,7 +32,11 @@ def format_tabular(term, data):
 
 
 def format_tables(data, tables):
-    if "features" in data:
+    if isinstance(data, str):
+        columns = ["error"]
+        rows = [[str(data)]]
+        tables.append([columns, rows])
+    elif "features" in data:
         columns = ["cohort_id", "size", "features"]
         features = ",".join([feature_to_text(a, b) for (a, b) in data["features"].items()])
         rows = [[data["cohort_id"], data["size"], features]]
@@ -76,11 +80,11 @@ def format_tables(data, tables):
         columns = ["features"]
         rows = [[feature_to_text(a, b)] for (a, b) in data.items()]
         tables.append([columns, rows])
-
     else:
         columns = ["error"]
         rows = [[str(data)]]
         tables.append([columns, rows])
+
 
 
 

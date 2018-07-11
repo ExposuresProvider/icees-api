@@ -27,6 +27,13 @@ template = {
     "description": "DDCR API [documentation](https://github.com/xu-hao/ddcr-api)",
     "version": "0.0.1"
   },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json",
+    "text/tabular"
+  ],
   "host": "ddcr.renci.org",  # overrides localhost:500
   "basePath": "/",  # base bash for blueprint registration
   "schemes": [

@@ -19,12 +19,16 @@ def format_tabular(term, data):
     return string
 
 
+def percentage_to_text(perc):
+    return "{:0.2f}%".format(perc * 100)
+
+
 def cell_to_text(cell):
     return tabulate([
         [
-            cell["frequency"], cell["row_percentage"]]
+            cell["frequency"], percentage_to_text(cell["row_percentage"])
         ], [
-            cell["column_percentage"], cell["total_percentage"]
+            percentage_to_text(cell["column_percentage"]), percentage_to_text(cell["total_percentage"])
         ]
     ], tablefmt="plain")
 
@@ -51,8 +55,8 @@ def format_tables(data, tables):
         feature_b_feature_name = feature_b["feature_name"]
         feature_b_feature_qualifiers = feature_b["feature_qualifiers"]
 
-        columns = ["feature"] + list(map(lambda x: feature_to_text(feature_a_feature_name, x), feature_a_feature_qualifiers))
-        rows = [[a] + map(cell_to_text, b) for (a, b) in zip(list(map(lambda x: feature_to_text(feature_b_feature_name, x), feature_b_feature_qualifiers)), data["feature_matrix"])]
+        columns = ["feature"] + list(map(lambda x: feature_to_text(feature_a_feature_name, x), feature_a_feature_qualifiers)) + [""]
+        rows = [[a] + list(map(cell_to_text, b)) + [percentage_to_text(c)] for (a, b, c) in zip(list(map(lambda x: feature_to_text(feature_b_feature_name, x), feature_b_feature_qualifiers)), data["feature_matrix"], data["percentage_rows"])] + [[""] + list(map(percentage_to_text, data["percentage_columns"])) + [""]]
         tables.append([columns, rows])
 
         columns = ["p_value", "chi_squared"]

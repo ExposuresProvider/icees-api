@@ -146,6 +146,13 @@ def join_lists(lists):
     return [x for l in lists for x in l]
 
 
+def div(a,b):
+    if b != 0:
+        return a / b
+    else:
+        return float("NaN")
+
+
 def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, feature_b):
     table = tables[table_name]
     s = select([func.count()]).select_from(table).where(table.c.year == year)
@@ -166,7 +173,7 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
 
     total = conn.execute(s).scalar()
 
-    null_matrix = [[r * c / total for c in total_cols] for r in total_rows]
+    null_matrix = [[div(r * c, total) for c in total_cols] for r in total_rows]
 
     [chi_squared, p] = chisquare(join_lists(feature_matrix), join_lists(null_matrix))
 
@@ -174,9 +181,9 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
         [
             {
                 "frequency": cell,
-                "row_percentage": cell / total_rows[i],
-                "column_percentage": cell / total_columns[j],
-                "total_percentage": cell / total
+                "row_percentage": div(cell, total_rows[i]),
+                "column_percentage": div(cell, total_cols[j]),
+                "total_percentage": div(cell, total)
             } for j, cell in enumerate(row)
         ] for i, row in enumerate(feature_matrix)
     ]
@@ -184,7 +191,9 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
     return {
         "feature_a": feature_a,
         "feature_b": feature_b,
-        "feature_matrix": feature_matrix,
+        "feature_matrix": feature_matrix2,
+        "percentage_rows": list(map(lambda x: x/total, total_rows)),
+        "percentage_columns": list(map(lambda x: x/total, total_cols)),
         "p_value": p,
         "chi_squared": chi_squared
     }

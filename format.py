@@ -1,23 +1,11 @@
+from tabulate import tabulate
+
 def feature_to_text(feature_name, feature_qualifier):
     return feature_name + " " + feature_qualifier["operator"] + " " + str(feature_qualifier["value"])
 
 
 def table_to_text(columns, rows):
-    rows = list(map(lambda i: list(map(str, i)), rows))
-    print(columns, rows)
-    if len(rows) == 0:
-        rowstrans = [[] for _ in columns]
-    else:
-        rowstrans = zip(*rows)
-    maxlens = [max([len(a)] + list(map(len, b))) for (a, b) in zip(columns, rowstrans)]
-    string = "|".join([b.ljust(a) for (a, b) in zip(maxlens, columns)])
-    string += "\n"
-    string += "+". join(["-" * l for l in maxlens])
-    string += "\n"
-    for row in rows:
-        string += "|".join([b.ljust(a) for (a, b) in zip(maxlens, row)])
-        string += "\n"
-    return string
+    return tabulate(rows, columns, tablefmt="grid")
 
 
 def format_tabular(term, data):
@@ -29,6 +17,16 @@ def format_tabular(term, data):
         string += table_to_text(table[0], table[1])
         string += "\n"
     return string
+
+
+def cell_to_text(cell):
+    return tabulate([
+        [
+            cell["frequency"], cell["row_percentage"]]
+        ], [
+            cell["column_percentage"], cell["total_percentage"]
+        ]
+    ], tablefmt="plain")
 
 
 def format_tables(data, tables):
@@ -54,7 +52,7 @@ def format_tables(data, tables):
         feature_b_feature_qualifiers = feature_b["feature_qualifiers"]
 
         columns = ["feature"] + list(map(lambda x: feature_to_text(feature_a_feature_name, x), feature_a_feature_qualifiers))
-        rows = [[a] + b for (a, b) in zip(list(map(lambda x: feature_to_text(feature_b_feature_name, x), feature_b_feature_qualifiers)), data["feature_matrix"])]
+        rows = [[a] + map(cell_to_text, b) for (a, b) in zip(list(map(lambda x: feature_to_text(feature_b_feature_name, x), feature_b_feature_qualifiers)), data["feature_matrix"])]
         tables.append([columns, rows])
 
         columns = ["p_value", "chi_squared"]

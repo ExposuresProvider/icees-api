@@ -170,6 +170,17 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
 
     [chi_squared, p] = chisquare(join_lists(feature_matrix), join_lists(null_matrix))
 
+    feature_matrix2 = [
+        [
+            {
+                "frequency": cell,
+                "row_percentage": cell / total_rows[i],
+                "column_percentage": cell / total_columns[j],
+                "total_percentage": cell / total
+            } for j, cell in enumerate(row)
+        ] for i, row in enumerate(feature_matrix)
+    ]
+
     return {
         "feature_a": feature_a,
         "feature_b": feature_b,

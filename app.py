@@ -1,7 +1,7 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
 import json
-from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features, get_cohort_dictionary
+from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features, get_cohort_dictionary, service_name
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
@@ -23,8 +23,8 @@ api = Api(app)
 
 template = {
   "info": {
-    "title": "DDCR API",
-    "description": "DDCR API [documentation](https://github.com/xu-hao/ddcr-api)",
+    "title": "ICEES API",
+    "description": "ICEES API [documentation](https://github.com/xu-hao/icees-api)",
     "version": "0.0.1"
   },
   "consumes": [
@@ -55,7 +55,7 @@ def output_tabular(data, code, headers=None):
     resp.headers.extend(headers or {})
     return resp
 
-class DDCRCohort(Resource):
+class SERVCohort(Resource):
     def post(self, version, table, year):
         """
         Create a new cohort by a set of feature variables. If a cohort is already created for this set before, return cohort id and size. Otherwise, generate a new cohort id.
@@ -115,7 +115,7 @@ class DDCRCohort(Resource):
             traceback.print_exc()
             return str(e)
 
-class DDCRCohortId(Resource):
+class SERVCohortId(Resource):
     def put(self, version, table, year, cohort_id):
         """
         Create a new cohort by a set of feature variables and set the cohort id. Even if a cohort has already been created for this set before, a new cohort is created.
@@ -237,7 +237,7 @@ def to_qualifiers(feature):
     }
 
 
-class DDCRFeatureAssociation(Resource):
+class SERVFeatureAssociation(Resource):
     def post(self, version, table, year, cohort_id):
         """
         Get feature association
@@ -299,7 +299,7 @@ class DDCRFeatureAssociation(Resource):
             return str(e)
 
 
-class DDCRAssociationsToAllFeatures(Resource):
+class SERVAssociationsToAllFeatures(Resource):
     def post(self, version, table, year, cohort_id):
         """
         Get associations to all features
@@ -359,7 +359,7 @@ class DDCRAssociationsToAllFeatures(Resource):
             return str(e)
 
 
-class DDCRFeatures(Resource):
+class SERVFeatures(Resource):
     def get(self, version, table, year, cohort_id):
         """
         Get features
@@ -408,7 +408,7 @@ class DDCRFeatures(Resource):
             return str(e)
 
 
-class DDCRCohortDictionary(Resource):
+class SERVCohortDictionary(Resource):
     def get(self, version, table, year):
         """
         Get cohort dictionary
@@ -448,12 +448,12 @@ class DDCRCohortDictionary(Resource):
             return str(e)
 
 
-api.add_resource(DDCRCohort, '/<string:version>/<string:table>/<int:year>/cohort')
-api.add_resource(DDCRCohortId, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
-api.add_resource(DDCRFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
-api.add_resource(DDCRCohortDictionary, '/<string:version>/<string:table>/<int:year>/cohort/dictionary')
-api.add_resource(DDCRFeatureAssociation, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association')
-api.add_resource(DDCRAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
+api.add_resource(SERVCohort, '/<string:version>/<string:table>/<int:year>/cohort')
+api.add_resource(SERVCohortId, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
+api.add_resource(SERVFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
+api.add_resource(SERVCohortDictionary, '/<string:version>/<string:table>/<int:year>/cohort/dictionary')
+api.add_resource(SERVFeatureAssociation, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association')
+api.add_resource(SERVAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
 
 if __name__ == '__main__':
     app.run()

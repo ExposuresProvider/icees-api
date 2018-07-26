@@ -2,20 +2,20 @@
 
 set env variables
 
-`DDCR_DBUSER` 
+`ICEES_DBUSER` 
 
-`DDCR_DBPASS`
+`ICEES_DBPASS`
 
-`DDCR_HOST` 
+`ICEES_HOST` 
 
-`DDCR_PORT` 
+`ICEES_PORT` 
 
-`DDCR_DATABASE`: json
+`ICEES_DATABASE`: json
  
  Example:
 
 ```
-{"1.0.0":"ddcrdb"}
+{"1.0.0":"iceesdb"}
 ```
 
 
@@ -50,40 +50,40 @@ enter `<dbpass>` for new user
 ### Build Container
 
 ```
-docker build . -t ddcr-api:0.1.0
+docker build . -t icees-api:0.1.0
 ```
 
 ### Run Container
 
 ```
-docker run -e DDCR_DBUSER=<dbuser> -e DDCR_DBPASS=<dbpass> -e DDCR_HOST=<host> -e DDCR_PORT=<port> -e DDCR_DATABASE=<database> --rm -p 8080:8080 ddcr-api:0.1.0
+docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -p 8080:8080 icees-api:0.1.0
 ```
 
 ```
-docker run -e DDCR_DBUSER=<dbuser> -e DDCR_DBPASS=<dbpass> -e DDCR_HOST=<host> -e DDCR_PORT=<port> -e DDCR_DATABASE=<database> --rm --net host ddcr-api:0.1.0
+docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm --net host icees-api:0.1.0
 ```
 
 ### Setting up `systemd`
 
 run docker containers
 ```
-docker run -d -e DDCR_DBUSER=<dbuser> -e DDCR_DBPASS=<dbpass> -e DDCR_HOST=<host> -e DDCR_PORT=<port> -e DDCR_DATABASE=<database> --name ddcr-api_server -p 8080:8080 ddcr-api:0.1.0
+docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -p 8080:8080 icees-api:0.1.0
 ```
 
 ```
-docker run -d -e DDCR_DBUSER=<dbuser> -e DDCR_DBPASS=<dbpass> -e DDCR_HOST=<host> -e DDCR_PORT=<port> -e DDCR_DATABASE=<database> --name ddcr-api_server --net host ddcr-api:0.1.0
+docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server --net host icees-api:0.1.0
 ```
 
 ```
-docker stop ddcr-api_server
+docker stop icees-api_server
 ```
 
-copy `<repo>/ddcr-api-container.service` to `/etc/systemd/system/ddcr-api-container.service`
+copy `<repo>/icees-api-container.service` to `/etc/systemd/system/icees-api-container.service`
 
 start service
 
 ```
-systemctl start ddcr-api-container
+systemctl start icees-api-container
 ```
 ### REST API ###
 

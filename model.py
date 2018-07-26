@@ -5,11 +5,13 @@ import json
 import os
 from features import features
 
-ddcr_user = os.environ["DDCR_DBUSER"]
-ddcr_password = os.environ["DDCR_DBPASS"]
-ddcr_host = os.environ["DDCR_HOST"]
-ddcr_port = os.environ["DDCR_PORT"]
-ddcr_database = json.loads(os.environ["DDCR_DATABASE"])
+service_name = "ICEES"
+
+serv_user = os.environ[service_name + "_DBUSER"]
+serv_password = os.environ[service_name + "_DBPASS"]
+serv_host = os.environ[service_name + "_HOST"]
+serv_port = os.environ[service_name + "_PORT"]
+serv_database = json.loads(os.environ[service_name + "_DATABASE"])
 
 
 metadata = MetaData()
@@ -35,7 +37,7 @@ cohort = Table("cohort", metadata, *cohort_cols)
 
 
 def get_db_connection(version):
-    engine = create_engine("postgresql+psycopg2://"+ddcr_user+":"+ddcr_password+"@"+ddcr_host+":"+ddcr_port+"/"+ddcr_database[version])
+    engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version])
     return engine.connect()
 
 

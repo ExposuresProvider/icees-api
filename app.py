@@ -34,7 +34,7 @@ template = {
     "application/json",
     "text/tabular"
   ],
-  "host": "ddcr.renci.org",  # overrides localhost:500
+  "host": "icees.renci.org",  # overrides localhost:500
   "basePath": "/",  # base bash for blueprint registration
   "schemes": [
     "https"

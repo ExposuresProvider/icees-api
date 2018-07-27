@@ -194,8 +194,9 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
         "feature_a": feature_a,
         "feature_b": feature_b,
         "feature_matrix": feature_matrix2,
-        "percentage_rows": list(map(lambda x: x/total, total_rows)),
-        "percentage_columns": list(map(lambda x: x/total, total_cols)),
+        "rows": [{"frequency": a, "percentage": b} for (a,b) in zip(total_rows, map(lambda x: x/total, total_rows))],
+        "columns": [{"frequency": a, "percentage": b} for (a,b) in zip(total_cols, map(lambda x: x/total, total_cols))],
+        "total": total,
         "p_value": p,
         "chi_squared": chi_squared
     }

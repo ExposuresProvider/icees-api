@@ -77,7 +77,7 @@ def format_tables(data, tables):
 
         columns = ["feature", "count"]
         rows = [[a, b] for (a, b) in
-                zip(list(map(lambda x: feature_to_text(feature_feature_name, x), feature_feature_qualifiers)), data["feature_matrix"])]
+                zip(list(map(lambda x: feature_to_text(feature_feature_name, x), feature_feature_qualifiers)), map(total_to_text, data["feature_matrix"]))]
         tables.append([columns, rows])
 
         columns = ["p_value", "chi_squared"]

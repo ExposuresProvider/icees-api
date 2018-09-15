@@ -19,6 +19,34 @@ limiter = Limiter(
     key_func=lambda: "client", # get_remote_address,
     default_limits=["10/second"]
 )
+
+app.config["SWAGGER"] = {
+  "ui_params_text": '''{
+    "operationsSorter" : (a,b) => {
+        const ordering = [
+          "/{version}/{table}/{year}/cohort/{cohort_id}/features", 
+          "/{version}/{table}/{year}/cohort/{cohort_id}/feature_association", 
+          "/{version}/{table}/{year}/cohort/{cohort_id}/associations_to_all_features"
+        ]
+        const apath = a.get("path")
+        const bpath = b.get("path")
+        const aorder = ordering.indexOf(apath)
+        const border = ordering.indexOf(bpath)
+        if(aorder >= 0) {
+          if (border >= 0) {
+            return aorder - border
+          } else {
+            return ordering[0].localeCompare(bpath)
+          }
+        } else if (border >= 0) {
+          return apath.localeCompare(ordering[0])
+        } else {
+          return apath.localeCompare(bpath)
+        }
+    }
+  }'''
+}
+
 api = Api(app)
 
 template = {

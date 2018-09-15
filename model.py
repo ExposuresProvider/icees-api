@@ -117,6 +117,18 @@ def get_features_by_id(conn, table_name, year, cohort_id):
         return json.loads(rs[0][0])
 
 
+def get_cohort_by_id(conn, table_name, year, cohort_id):
+    s = select([cohort.c.features,cohort.c.size]).where(cohort.c.cohort_id == cohort_id).where(cohort.c.table == table_name).where(cohort.c.year == year)
+    rs = list(conn.execute(s))
+    if len(rs) == 0:
+        return None
+    else:
+        return {
+            "size": rs[0][1],
+            "features": json.loads(rs[0][0])
+        }
+
+
 def get_cohort_features(conn, table_name, year, cohort_features):
     table = tables[table_name]
     rs = []

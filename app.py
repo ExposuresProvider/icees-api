@@ -1,7 +1,7 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
 import json
-from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features, get_cohort_dictionary, service_name
+from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features, get_cohort_dictionary, service_name, get_cohort_by_id
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
@@ -24,7 +24,7 @@ api = Api(app)
 template = {
   "info": {
     "title": "ICEES API",
-    "description": "ICEES API [documentation](https://github.com/xu-hao/icees-api)",
+    "description": "ICEES API [documentation](https://drive.google.com/open?id=12TgOZMFkWQLMhjZeN4RVzdxvlt1VYcO8)",
     "version": "0.0.1"
   },
   "consumes": [
@@ -58,7 +58,7 @@ def output_tabular(data, code, headers=None):
 class SERVCohort(Resource):
     def post(self, version, table, year):
         """
-        Create a new cohort by a set of feature variables. If a cohort is already created for this set before, return cohort id and size. Otherwise, generate a new cohort id.
+        Cohort discovery. Users define a cohort using any number of defined feature variables as input parameters, and the service returns a sample size. If a cohort is already created for this set before, return cohort id and size. Otherwise, generate a new cohort id.
         ---
         parameters:
           - in: body
@@ -118,7 +118,7 @@ class SERVCohort(Resource):
 class SERVCohortId(Resource):
     def put(self, version, table, year, cohort_id):
         """
-        Create a new cohort by a set of feature variables and set the cohort id. Even if a cohort has already been created for this set before, a new cohort is created.
+        Cohort discovery. Users define a cohort using any number of defined feature variables as input parameters, and the service returns a sample size. A new cohort is created even if a cohort was previously created using the same input parameters.
         ---
         parameters:
           - in: body
@@ -215,7 +215,7 @@ class SERVCohortId(Resource):
         """
         try:
             conn = get_db_connection(version)
-            cohort_features = get_features_by_id(conn, table, year, cohort_id)
+            cohort_features = get_cohort_by_id(conn, table, year, cohort_id)
             
             if cohort_features is None:
                 return "Input cohort_id invalid. Please try again."
@@ -240,7 +240,7 @@ def to_qualifiers(feature):
 class SERVFeatureAssociation(Resource):
     def post(self, version, table, year, cohort_id):
         """
-        Get feature association
+        Hypothesis-driven 2 x 2 feature associations: users select a predefined cohort and two feature variables, and the service returns a 2 x 2 feature table with a corresponding Chi Square statistic and P value.
         ---
         parameters:
           - in: body
@@ -302,7 +302,7 @@ class SERVFeatureAssociation(Resource):
 class SERVAssociationsToAllFeatures(Resource):
     def post(self, version, table, year, cohort_id):
         """
-        Get associations to all features
+        Exploratory 1 X N feature associations: users select a predefined cohort and a feature variable of interest, and the service returns a 1 x N feature table with corrected Chi Square statistics and associated P values.
         ---
         parameters:
           - in: body
@@ -362,7 +362,7 @@ class SERVAssociationsToAllFeatures(Resource):
 class SERVFeatures(Resource):
     def get(self, version, table, year, cohort_id):
         """
-        Get features
+        Feature-rich cohort discovery: users select a predefined cohort as the input parameter, and the service returns a profile of that cohort in terms of all feature variables.
         ---
         parameters:
           - in: path

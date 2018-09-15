@@ -47,6 +47,8 @@ enter `<dbpass>` for new user
 
 ```grant all privileges on all sequence in schema public to <dbuser>```
 
+The following steps can be run using the `redepoly.sh`
+
 ### Build Container
 
 ```

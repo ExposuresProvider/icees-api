@@ -47,15 +47,17 @@ enter `<dbpass>` for new user
 
 ```grant all privileges on all sequence in schema public to <dbuser>```
 
+### deploy api
+
 The following steps can be run using the `redepoly.sh`
 
-### Build Container
+#### Build Container
 
 ```
 docker build . -t icees-api:0.1.0
 ```
 
-### Run Container
+#### Run Container in standalone mode
 
 ```
 docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -p 8080:8080 icees-api:0.1.0
@@ -65,7 +67,7 @@ docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host
 docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm --net host icees-api:0.1.0
 ```
 
-### Setting up `systemd`
+#### Setting up `systemd`
 
 run docker containers
 ```

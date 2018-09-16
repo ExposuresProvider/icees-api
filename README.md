@@ -44,7 +44,7 @@ enter `<dbpass>` for new user
 
 ```grant all privileges on all sequence in schema public to <dbuser>```
 
-### deploy api
+### Deploy api
 
 The following steps can be run using the `redepoly.sh`
 

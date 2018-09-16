@@ -54,7 +54,7 @@ The following steps can be run using the `redepoly.sh`
 docker build . -t icees-api:0.1.0
 ```
 
-#### Run Container in standalone mode (optional)
+#### Run Container in Standalone mode (optional)
 
 ```
 docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -p 8080:8080 icees-api:0.1.0

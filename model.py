@@ -74,7 +74,7 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
 
     n = conn.execute(s).scalar()
     if n <= 10:
-        return None, -1, -1
+        return None, -1
     else:
         size = n
         while cohort_id is None:

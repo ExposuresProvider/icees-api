@@ -229,17 +229,9 @@ def select_feature_count(conn, table_name, year, cohort_features, feature_a):
 
     feature_percentage = map(lambda x: x/total, feature_matrix)
 
-    bins = len(feature_matrix)
-    
-    null_matrix = [total / bins for _ in range(bins)]
-
-    [chi_squared, p] = chisquare(feature_matrix, null_matrix)
-
     return {
         "feature": feature_a,
-        "feature_matrix": [{"frequency": a, "percentage": b} for (a, b) in zip(feature_matrix, feature_percentage)],
-        "p_value": p,
-        "chi_squared": chi_squared
+        "feature_matrix": [{"frequency": a, "percentage": b} for (a, b) in zip(feature_matrix, feature_percentage)]
     }
 
 

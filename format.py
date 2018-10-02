@@ -84,9 +84,6 @@ def format_tables(data, tables):
                 zip(list(map(lambda x: feature_to_text(feature_feature_name, x), feature_feature_qualifiers)), map(total_to_text, data["feature_matrix"]))]
         tables.append([columns, rows])
 
-        columns = ["p_value", "chi_squared"]
-        rows = [[data["p_value"], data["chi_squared"]]]
-        tables.append([columns, rows])
     elif isinstance(data, list):
         for d in data:
             format_tables(d, tables)

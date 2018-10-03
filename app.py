@@ -101,16 +101,19 @@ class SERVCohort(Resource):
             required: true
             description: version of data 1.0.0
             type: string
+            default: 1.0.0
           - in: path
             name: table
             required: true
             description: the table patient|visit
             type: string
+            default: patient
           - in: path
             name: year
             required: true
             description: the year 2010|2011
             type: integer
+            default: 2010
         responses:
           201:
             description: The cohort has been created
@@ -161,21 +164,25 @@ class SERVCohortId(Resource):
             required: true
             description: version of data 1.0.0
             type: string
+            default: 1.0.0
           - in: path
             name: table
             required: true
             description: the table patient|visit
             type: string
+            default: patient
           - in: path
             name: year
             required: true
             description: the year 2010|2011
             type: integer
+            default: 2010
           - in: path
             name: cohort_id
             required: false
             description: the cohort id
             type: string
+            default: COHORT:22
         responses:
           201:
             description: The cohort has been created
@@ -218,21 +225,25 @@ class SERVCohortId(Resource):
             required: true
             description: version of data 1.0.0
             type: string
+            default: 1.0.0
           - in: path
             name: table
             required: true
             description: the table patient|visit
             type: string
+            default: patient
           - in: path
             name: year
             required: true
             description: the year 2010|2011
             type: integer
+            default: 2010
           - in: path
             name: cohort_id
             required: true
             description: the cohort id
             type: string
+            default: COHORT:22
         responses:
           200:
             description: The features of the cohort
@@ -283,21 +294,25 @@ class SERVFeatureAssociation(Resource):
             required: true
             description: version of data 1.0.0
             type: string
+            default: 1.0.0
           - in: path
             name: table
             required: true
             description: the table patient|visit
             type: string
+            default: patient
           - in: path
             name: year
             required: true
             description: the year 2010|2011
             type: integer
+            default: 2010
           - in: path
             name: cohort_id
             required: true
             description: the cohort id
             type: string
+            default: COHORT:22
         responses:
           200:
             description: The feature association
@@ -345,21 +360,25 @@ class SERVAssociationsToAllFeatures(Resource):
             required: true
             description: version of data 1.0.0
             type: string
+            default: 1.0.0
           - in: path
             name: table
             required: true
             description: the table patient|visit
             type: string
+            default: patient
           - in: path
             name: year
             required: true
             description: the year 2010|2011
             type: integer
+            default: 2010
           - in: path
             name: cohort_id
             required: true
             description: the cohort id
             type: string
+            default: COHORT:22
         responses:
           200:
             description: Associations to all features
@@ -398,21 +417,25 @@ class SERVFeatures(Resource):
             required: true
             description: version of data 1.0.0
             type: string
+            default: 1.0.0
           - in: path
             name: table
             required: true
             description: the table patient|visit
             type: string
+            default: patient
           - in: path
             name: year
             required: true
             description: the year 2010|2011
             type: integer
+            default: 2010
           - in: path
             name: cohort_id
             required: true
             description: the cohort id
             type: string
+            default: COHORT:22
         responses:
           200:
             description: features
@@ -447,16 +470,19 @@ class SERVCohortDictionary(Resource):
             required: true
             description: version of data 1.0.0
             type: string
+            default: 1.0.0
           - in: path
             name: table
             required: true
             description: the table patient|visit
             type: string
+            default: patient
           - in: path
             name: year
             required: true
             description: the year 2010|2011
             type: integer
+            default: 2010
         responses:
           200:
             description: cohort dictionray

@@ -85,7 +85,6 @@ features = {
         ("EstProbabilityESL", Integer, quartile_levels),
         ("EstHouseholdIncome", Integer, quintile_levels),
         ("MajorRoadwayHighwayExposure", Integer, sextile_levels),
-        ("TotalEDInpatientVisits", Integer, None),
         ("PrednisoneVisit", Integer, boolean_levels),
         ("FluticasoneVisit", Integer, boolean_levels),
         ("MometasoneVisit", Integer, boolean_levels),

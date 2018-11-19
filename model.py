@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence
+from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence, between
 from sqlalchemy.sql import select
 from scipy.stats import chisquare
 import json
@@ -48,7 +48,9 @@ def filter_select(s, table, k, v):
         ">=": lambda: s.where(table.c[k] >= v["value"]),
         "<=": lambda: s.where(table.c[k] <= v["value"]),
         "=": lambda: s.where(table.c[k] == v["value"]),
-        "<>": lambda: s.where(table.c[k] != v["value"])
+        "<>": lambda: s.where(table.c[k] != v["value"]),
+        "between": lambda: s.where(between(table.c[k], v["value_a"], v["value_b"])),
+        "in": lambda: s.where(table.c[k].in_(v["values"]))
     }[v["operator"]]()
 
 

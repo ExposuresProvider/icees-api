@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence
+from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence, between
 from sqlalchemy.sql import select
 from scipy.stats import chisquare
 import json
@@ -48,7 +48,9 @@ def filter_select(s, table, k, v):
         ">=": lambda: s.where(table.c[k] >= v["value"]),
         "<=": lambda: s.where(table.c[k] <= v["value"]),
         "=": lambda: s.where(table.c[k] == v["value"]),
-        "<>": lambda: s.where(table.c[k] != v["value"])
+        "<>": lambda: s.where(table.c[k] != v["value"]),
+        "between": lambda: s.where(between(table.c[k], v["value_a"], v["value_b"])),
+        "in": lambda: s.where(table.c[k].in_(v["values"]))
     }[v["operator"]]()
 
 
@@ -250,5 +252,37 @@ def select_feature_association(conn, table_name, year, cohort_features, feature,
         if ret["p_value"] < maximum_p_value:
             rs.append(ret)
     return rs
+
+def validate_range(table_name, feature):
+    feature_name = feature["feature_name"]
+    values = feature["feature_qualifiers"]
+    _, ty, levels = list(filter(lambda x: x[0] == feature_name, features[table_name]))[0]
+    n = len(levels)
+    if levels:
+        coverMap = [False for _ in levels]
+        vMap = {
+            ">" : lambda x: (lambda i: [False] * (i + 1) + [True] * (n - i - 1))(levels.index(x["value"])),
+            "<" : lambda x: (lambda i: [True] * i + [False] * (n - i))(levels.index(x["value"])),
+            ">=" : lambda x: (lambda i: [False] * i + [True] * (n - i))(levels.index(x["value"])),
+            "<=" : lambda x: (lambda i: [True] * (i + 1) + [False] * (n - i - 1))(levels.index(x["value"])),
+            "=" : lambda x: (lambda i: [False] * i + [True] + [False] * (n - i - 1))(levels.index(x["value"])),
+            "<>" : lambda x: (lambda i: [True] * i + [False] + [True] * (n - i - 1))(levels.index(x["value"])),
+            "between" : lambda x: (lambda ia, ib: [False] * ia + [True] * (ib - ia + 1) + [False] * (n - ib - 1))(levels.index(x["value_a"]), levels.index(x["value_b"])),
+            "in" : lambda x: map(lambda a: a in x["values"], levels)
+        }
+        for v in values:
+            updateMap = vMap[v["operator"]](v)
+            coverMapUpdate = []
+            for i, (c, u) in enumerate(zip(coverMap, updateMap)):
+                if c and u:
+                    raise RuntimeError("over lapping value " + levels[i] + " " + str(feature))
+                else:
+                    coverMapUpdate.append(c or u)
+            coverMap = coverMapUpdate
+        print(coverMap)
+        for i, c in enumerate(coverMap):
+            if not c:
+                raise RuntimeError("incomplete value coverage " + levels[i] + " " + str(feature))
+            
 
 

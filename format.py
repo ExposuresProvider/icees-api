@@ -1,7 +1,17 @@
 from tabulate import tabulate
 
 def feature_to_text(feature_name, feature_qualifier):
-    return feature_name + " " + feature_qualifier["operator"] + " " + str(feature_qualifier["value"])
+    op_form = {
+        ">": lambda x: str(x["value"]),
+        ">=": lambda x: str(x["value"]),
+        "<": lambda x: str(x["value"]),
+        "<=": lambda x: str(x["value"]),
+        "=": lambda x: str(x["value"]),
+        "<>": lambda x: str(x["value"]),
+        "between": lambda x: "("+str(x["value_a"]) + "," + str(x["value_b"])+")",
+        "in": lambda x: "["+",".join(map(str, x["values"]))+"]"
+    }
+    return feature_name + " " + feature_qualifier["operator"] + " " + op_form[feature_qualifier["operator"]](feature_qualifier)
 
 
 def table_to_text(columns, rows):

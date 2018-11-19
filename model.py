@@ -275,14 +275,14 @@ def validate_range(table_name, feature):
             coverMapUpdate = []
             for i, (c, u) in enumerate(zip(coverMap, updateMap)):
                 if c and u:
-                    raise RuntimeError("over lapping value " + levels[i] + " " + str(feature))
+                    raise RuntimeError("over lapping value " + str(levels[i]) + ", input feature qualifiers " + str(feature))
                 else:
                     coverMapUpdate.append(c or u)
             coverMap = coverMapUpdate
         print(coverMap)
         for i, c in enumerate(coverMap):
             if not c:
-                raise RuntimeError("incomplete value coverage " + levels[i] + " " + str(feature))
+                raise RuntimeError("incomplete value coverage " + str(levels[i]) + ", input feature qualifiers " + str(feature))
             
 
 

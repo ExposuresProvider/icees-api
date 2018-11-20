@@ -26,6 +26,7 @@ app.config["SWAGGER"] = {
         const ordering = [
           "/{version}/{table}/{year}/cohort/{cohort_id}/features", 
           "/{version}/{table}/{year}/cohort/{cohort_id}/feature_association", 
+          "/{version}/{table}/{year}/cohort/{cohort_id}/feature_association2", 
           "/{version}/{table}/{year}/cohort/{cohort_id}/associations_to_all_features"
         ]
         const apath = a.get("path")

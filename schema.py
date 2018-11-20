@@ -175,50 +175,58 @@ def associations_to_all_features_schema_output(table_name):
     }
 
 
+class ExplicitDumper(yaml.SafeDumper):
+    """
+    A dumper that will never emit aliases.
+    """
+
+    def ignore_aliases(self, data):
+        return True
+
 def generate_schema():
     dir = "definitions"
     if not os.path.exists(dir):
         os.makedirs(dir)    
     with open(dir + "/cohort_patient_input.yaml", "w") as f:
-        yaml.dump(cohort_schema("patient"), f)
+        yaml.dump(cohort_schema("patient"), f, Dumper=ExplicitDumper)
     with open(dir + "/feature_association_patient_input.yaml", "w") as f:
-        yaml.dump(feature_association_schema("patient"), f)
+        yaml.dump(feature_association_schema("patient"), f, Dumper=ExplicitDumper)
     with open(dir + "/feature_association2_patient_input.yaml", "w") as f:
-        yaml.dump(feature_association2_schema("patient"), f)
+        yaml.dump(feature_association2_schema("patient"), f, Dumper=ExplicitDumper)
     with open(dir + "/associations_to_all_features_patient_input.yaml", "w") as f:
-        yaml.dump(associations_to_all_features_schema("patient"), f)
+        yaml.dump(associations_to_all_features_schema("patient"), f, Dumper=ExplicitDumper)
     with open(dir + "/cohort_visit_input.yaml", "w") as f:
-        yaml.dump(cohort_schema("visit"), f)
+        yaml.dump(cohort_schema("visit"), f, Dumper=ExplicitDumper)
     with open(dir + "/feature_association_visit_input.yaml", "w") as f:
-        yaml.dump(feature_association_schema("visit"), f)
+        yaml.dump(feature_association_schema("visit"), f, Dumper=ExplicitDumper)
     with open(dir + "/feature_association2_visit_input.yaml", "w") as f:
-        yaml.dump(feature_association2_schema("visit"), f)
+        yaml.dump(feature_association2_schema("visit"), f, Dumper=ExplicitDumper)
     with open(dir + "/associations_to_all_features_visit_input.yaml", "w") as f:
-        yaml.dump(associations_to_all_features_schema("visit"), f)
+        yaml.dump(associations_to_all_features_schema("visit"), f, Dumper=ExplicitDumper)
     with open(dir + "/features_patient_output.yaml", "w") as f:
-        yaml.dump(features_schema_output("patient"), f)
+        yaml.dump(features_schema_output("patient"), f, Dumper=ExplicitDumper)
     with open(dir + "/cohort_dictionary_patient_output.yaml", "w") as f:
-        yaml.dump(cohort_dictionary_schema_output("patient"), f)
+        yaml.dump(cohort_dictionary_schema_output("patient"), f, Dumper=ExplicitDumper)
     with open(dir + "/cohort_patient_output.yaml", "w") as f:
-        yaml.dump(cohort_schema_output("patient"), f)
+        yaml.dump(cohort_schema_output("patient"), f, Dumper=ExplicitDumper)
     with open(dir + "/feature_association_patient_output.yaml", "w") as f:
-        yaml.dump(feature_association_schema_output("patient"), f)
+        yaml.dump(feature_association_schema_output("patient"), f, Dumper=ExplicitDumper)
     with open(dir + "/feature_association2_patient_output.yaml", "w") as f:
-        yaml.dump(feature_association2_schema_output("patient"), f)
+        yaml.dump(feature_association2_schema_output("patient"), f, Dumper=ExplicitDumper)
     with open(dir + "/associations_to_all_features_patient_output.yaml", "w") as f:
-        yaml.dump(associations_to_all_features_schema_output("patient"), f)
+        yaml.dump(associations_to_all_features_schema_output("patient"), f, Dumper=ExplicitDumper)
     with open(dir + "/cohort_visit_output.yaml", "w") as f:
-        yaml.dump(cohort_schema_output("visit"), f)
+        yaml.dump(cohort_schema_output("visit"), f, Dumper=ExplicitDumper)
     with open(dir + "/features_visit_output.yaml", "w") as f:
-        yaml.dump(features_schema_output("visit"), f)
+        yaml.dump(features_schema_output("visit"), f, Dumper=ExplicitDumper)
     with open(dir + "/cohort_dictionary_visit_output.yaml", "w") as f:
-        yaml.dump(cohort_dictionary_schema_output("visit"), f)
+        yaml.dump(cohort_dictionary_schema_output("visit"), f, Dumper=ExplicitDumper)
     with open(dir + "/feature_association_visit_output.yaml", "w") as f:
-        yaml.dump(feature_association_schema_output("visit"), f)
+        yaml.dump(feature_association_schema_output("visit"), f, Dumper=ExplicitDumper)
     with open(dir + "/feature_association2_visit_output.yaml", "w") as f:
-        yaml.dump(feature_association2_schema_output("visit"), f)
+        yaml.dump(feature_association2_schema_output("visit"), f, Dumper=ExplicitDumper)
     with open(dir + "/associations_to_all_features_visit_output.yaml", "w") as f:
-        yaml.dump(associations_to_all_features_schema_output("visit"), f)
+        yaml.dump(associations_to_all_features_schema_output("visit"), f, Dumper=ExplicitDumper)
     
 if __name__ == '__main__':
     generate_schema()

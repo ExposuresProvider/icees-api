@@ -155,6 +155,51 @@ schema
 {"feature_a":{"<feature name>":{"operator":<operator>,"value":<value>}},"feauture_b":{"<feature name>":{"operator":<operator>,"value":<value>}}}
 ```
 
+#### feature association between two features using combined bins
+method
+```
+POST
+```
+
+route
+```
+/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association
+```
+example
+```
+{
+    "feature_a":{
+        "AgeStudyStart":[
+            {
+                "operator":"=",
+                "value":"0-2"
+            }, {
+                "operator":"between",
+                "value_a":"3-17",
+                "value_b":"18-34"
+            }, {
+                "operator":"in", 
+                "values":["35-50","51-69"]
+            },{
+                "operator":"=",
+                "value":"70+"
+            }
+        ]
+    },
+    "feature_b":{
+        "ObesityBMI":[
+            {
+                "operator":"=",
+                "value":0
+            }, {
+                "operator":"<>", 
+                "value":0
+            }
+        ]
+    }
+}
+```
+
 #### associations of one feature to all features
 method
 ```

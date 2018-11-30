@@ -1,11 +1,11 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
 import json
-from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features, get_cohort_dictionary, service_name, get_cohort_by_id
+from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features, get_cohort_dictionary, service_name, get_cohort_by_id, validate_range
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
-from schema import cohort_schema, feature_association_schema, associations_to_all_features_schema
+from schema import cohort_schema, feature_association_schema, feature_association2_schema, associations_to_all_features_schema
 from flasgger import Swagger
 import traceback
 from format import format_tabular
@@ -26,6 +26,7 @@ app.config["SWAGGER"] = {
         const ordering = [
           "/{version}/{table}/{year}/cohort/{cohort_id}/features", 
           "/{version}/{table}/{year}/cohort/{cohort_id}/feature_association", 
+          "/{version}/{table}/{year}/cohort/{cohort_id}/feature_association2", 
           "/{version}/{table}/{year}/cohort/{cohort_id}/associations_to_all_features"
         ]
         const apath = a.get("path")
@@ -341,6 +342,81 @@ class SERVFeatureAssociation(Resource):
             traceback.print_exc()
             return str(e)
 
+def to_qualifiers2(feature):
+    k, v = list(feature.items())[0]
+    return {
+        "feature_name": k,
+        "feature_qualifiers": v
+    }
+
+
+class SERVFeatureAssociation2(Resource):
+    def post(self, version, table, year, cohort_id):
+        """
+        Hypothesis-driven n x n feature associations: users select a predefined cohort, two feature variables, and bins, which can be combined, and the service returns a n x n feature table with a corresponding Chi Square statistic and P value.
+        ---
+        parameters:
+          - in: body
+            name: body
+            description: two feature variables
+            schema: 
+              oneOf:
+                - import: "definitions/feature_association2_patient_input.yaml"
+                - import: "definitions/feature_association2_visit_input.yaml"
+          - in: path
+            name: version
+            required: true
+            description: version of data 1.0.0
+            type: string
+            default: 1.0.0
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+            default: patient
+          - in: path
+            name: year
+            required: true
+            description: the year 2010
+            type: integer
+            default: 2010
+          - in: path
+            name: cohort_id
+            required: true
+            description: the cohort id
+            type: string
+            default: COHORT:22
+        responses:
+          200:
+            description: The feature association
+            schema:
+              oneOf: 
+                - import: "definitions/feature_association2_patient_output.yaml"
+                - import: "definitions/feature_association2_visit_output.yaml"
+        """
+        try:
+            obj = request.get_json()
+            validate(obj, feature_association2_schema(table))
+            feature_a = to_qualifiers2(obj["feature_a"])
+            feature_b = to_qualifiers2(obj["feature_b"])
+            validate_range(table, feature_a)
+            validate_range(table, feature_b)
+
+            conn = get_db_connection(version)
+            cohort_features = get_features_by_id(conn, table, year, cohort_id)
+
+            if cohort_features is None:
+                return "Input cohort_id invalid. Please try again."
+            else:
+                return select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+        except ValidationError as e:
+            traceback.print_exc()
+            return e.message
+        except Exception as e:
+            traceback.print_exc()
+            return str(e)
+
 
 class SERVAssociationsToAllFeatures(Resource):
     def post(self, version, table, year, cohort_id):
@@ -507,6 +583,7 @@ api.add_resource(SERVCohortId, '/<string:version>/<string:table>/<int:year>/coho
 api.add_resource(SERVFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
 api.add_resource(SERVCohortDictionary, '/<string:version>/<string:table>/<int:year>/cohort/dictionary')
 api.add_resource(SERVFeatureAssociation, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association')
+api.add_resource(SERVFeatureAssociation2, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association2')
 api.add_resource(SERVAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
 
 if __name__ == '__main__':

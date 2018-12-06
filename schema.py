@@ -175,6 +175,11 @@ def associations_to_all_features_schema_output(table_name):
     }
 
 
+def identifiers_output():
+    return {
+    }
+
+
 class ExplicitDumper(yaml.SafeDumper):
     """
     A dumper that will never emit aliases.
@@ -227,6 +232,8 @@ def generate_schema():
         yaml.dump(feature_association2_schema_output("visit"), f, Dumper=ExplicitDumper)
     with open(dir + "/associations_to_all_features_visit_output.yaml", "w") as f:
         yaml.dump(associations_to_all_features_schema_output("visit"), f, Dumper=ExplicitDumper)
+    with open(dir + "/identifiers_output.yaml", "w") as f:
+        yaml.dump(identifiers_output(), f, Dumper=ExplicitDumper)
     
 if __name__ == '__main__':
     generate_schema()

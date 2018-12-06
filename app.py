@@ -9,6 +9,7 @@ from schema import cohort_schema, feature_association_schema, feature_associatio
 from flasgger import Swagger
 import traceback
 from format import format_tabular
+import csv
 
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
@@ -577,6 +578,74 @@ class SERVCohortDictionary(Resource):
             traceback.print_exc()
             return str(e)
 
+class SERVIdentifiers(Resource):
+    def get(self, version, table, feature):
+        """
+        Feature identifiers.
+        ---
+        parameters:
+          - in: path
+            name: version
+            required: true
+            description: version of data 1.0.0
+            type: string
+            default: 1.0.0
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+            default: patient
+          - in: path
+            name: feature
+            required: true
+            description: feature
+            type: string
+            default: 
+        responses:
+          200:
+            description: feature identifiers
+            schema:
+              import: "definitions/identifiers_output.yaml"
+        """
+        try:
+            pat_dict = {}
+            visit_dict = {}
+            version_map = {
+                "1.0.0" : "ICEES_Identifiers_12.04.18.csv"
+            }
+            if version in version_map:
+                with open(version_map[version], newline="") as f:
+                    csvreader = csv.reader(f, delimiter=",", quotechar="\"")
+                    next(csvreader)
+                    for row in csvreader:
+                        row2 = filter(lambda x : x != "", map(lambda x : x.strip(), row))
+                        pat = next(row2)
+                        visit = next(row2)
+                        ids = list(row2)
+                        if pat != "N/A":
+                            pat_dict[pat] = ids
+                            if visit != "N/A":
+                                visit_dict[visit] = ids
+            else:
+                return "Cannot find version " + version
+            if table == "patient":
+                identifier_dict = pat_dict
+            elif table == "visit":
+                identifier_dict = visit_dict
+            else:
+                return "Cannot find table " + table
+
+            if feature in identifier_dict:
+                return {
+                    "identifiers": identifier_dict[feature]
+                }
+            else:
+                return "Cannot find identifiers for feature " + feature
+        except Exception as e:
+            traceback.print_exc()
+            return str(e)
+
 
 api.add_resource(SERVCohort, '/<string:version>/<string:table>/<int:year>/cohort')
 api.add_resource(SERVCohortId, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
@@ -585,6 +654,7 @@ api.add_resource(SERVCohortDictionary, '/<string:version>/<string:table>/<int:ye
 api.add_resource(SERVFeatureAssociation, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association')
 api.add_resource(SERVFeatureAssociation2, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association2')
 api.add_resource(SERVAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
+api.add_resource(SERVIdentifiers, "/<string:version>/<string:table>/<string:feature>/identifiers")
 
 if __name__ == '__main__':
     app.run()

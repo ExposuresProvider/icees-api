@@ -10,6 +10,12 @@ from flasgger import Swagger
 import traceback
 from format import format_tabular
 import csv
+import logging
+from logging.handlers import TimedRotatingFileHandler
+import os
+from time import strftime
+from structlog import wrap_logger
+from structlog.processors import JSONRenderer
 
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
@@ -48,6 +54,12 @@ app.config["SWAGGER"] = {
     }
   }'''
 }
+
+@app.after_request
+def after_request(response):
+    timestamp = strftime('%Y-%b-%d %H:%M:%S')
+    logger.info(event="request", timestamp=timestamp, remote_addr=request.remote_addr, method=request.method, schema=request.scheme, full_path=request.full_path, data=request.get_json(), response_status=response.status)
+    return response
 
 api = Api(app)
 
@@ -657,4 +669,12 @@ api.add_resource(SERVAssociationsToAllFeatures, '/<string:version>/<string:table
 api.add_resource(SERVIdentifiers, "/<string:version>/<string:table>/<string:feature>/identifiers")
 
 if __name__ == '__main__':
+    logger = logging.getLogger("Rotating Log")
+    logger.setLevel(logging.INFO)
+
+    handler = TimedRotatingFileHandler(os.environ["ICEES_API_LOG_PATH"])
+
+    logger.addHandler(handler)
+    logger = wrap_logger(logger, processors=[JSONRenderer()])
+
     app.run()

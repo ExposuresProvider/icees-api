@@ -1,11 +1,11 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
 import json
-from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features, get_cohort_dictionary, service_name, get_cohort_by_id, validate_range
+from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features, get_cohort_dictionary, service_name, get_cohort_by_id, validate_range, get_id_by_name, add_name_by_id
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
-from schema import cohort_schema, feature_association_schema, feature_association2_schema, associations_to_all_features_schema
+from schema import cohort_schema, feature_association_schema, feature_association2_schema, associations_to_all_features_schema, add_name_by_id_schema
 from flasgger import Swagger
 import traceback
 from format import format_tabular
@@ -667,6 +667,92 @@ class SERVIdentifiers(Resource):
             return str(e)
 
 
+class SERVName(Resource):
+    def get(self, version, table, name):
+        """
+        Return cohort id associated with name.
+        ---
+        parameters:
+          - in: path
+            name: version
+            required: true
+            description: version of data 1.0.0
+            type: string
+            default: 1.0.0
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+            default: patient
+          - in: path
+            name: name
+            required: true
+            description: name
+            type: string
+        responses:
+          200:
+            description: cohort id and name
+            schema:
+              import: "definitions/name_output.yaml"
+        """
+        try:
+            conn = get_db_connection(version)
+            return get_id_by_name(conn, table, name)
+        except ValidationError as e:
+            traceback.print_exc()
+            return e.message
+        except Exception as e:
+            traceback.print_exc()
+            return str(e)
+
+
+    def post(self, version, table, name):
+        """
+        Associate name with cohort id.
+        ---
+        parameters:
+          - in: body
+            name: body
+            description: cohort id
+            schema: 
+              import: "definitions/add_name_by_id_input.yaml"
+          - in: path
+            name: version
+            required: true
+            description: version of data 1.0.0
+            type: string
+            default: 1.0.0
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+            default: patient
+          - in: path
+            name: name
+            required: true
+            description: name
+            type: string
+        responses:
+          200:
+            description: cohort id and name
+            schema:
+              import: "definitions/name_output.yaml"
+        """
+        try:
+            obj = request.get_json()
+            validate(obj, add_name_by_id_schema())
+            conn = get_db_connection(version)
+            return add_name_by_id(conn, table, name, obj["cohort_id"])
+        except ValidationError as e:
+            traceback.print_exc()
+            return e.message
+        except Exception as e:
+            traceback.print_exc()
+            return str(e)
+
+
 api.add_resource(SERVCohort, '/<string:version>/<string:table>/<int:year>/cohort')
 api.add_resource(SERVCohortId, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
 api.add_resource(SERVFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
@@ -675,6 +761,7 @@ api.add_resource(SERVFeatureAssociation, '/<string:version>/<string:table>/<int:
 api.add_resource(SERVFeatureAssociation2, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association2')
 api.add_resource(SERVAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
 api.add_resource(SERVIdentifiers, "/<string:version>/<string:table>/<string:feature>/identifiers")
+api.add_resource(SERVName, "/<string:version>/<string:table>/name/<string:name>")
 
 if __name__ == '__main__':
 

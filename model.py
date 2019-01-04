@@ -25,6 +25,8 @@ tables = {
     "visit": Table("visit", metadata, *visit_cols)
 }
 
+name_table = Table("name", metadata, Column("name", String, primary_key=True), Column("cohort_id", String), Column("table", String))
+
 cohort_cols = [
     Column("cohort_id", String),
     Column("table", String),
@@ -86,6 +88,7 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
                 cohort_id = None
 
         if cohort_id_in_use(conn, cohort_id):
+            raise RuntimeExecption("Cohort id is in use.")
             ins = cohort.update().where(cohort.c.cohort_id == cohort_id).values(size=size,
                                                                     features=json.dumps(cohort_features,
                                                                                         sort_keys=True),
@@ -284,5 +287,31 @@ def validate_range(table_name, feature):
             if not c:
                 raise RuntimeError("incomplete value coverage " + str(levels[i]) + ", input feature qualifiers " + str(feature))
             
+def get_id_by_name(conn, table, name):
+    s = select([func.count()]).select_from(name_table).where((name_table.c.name == name) & (name_table.c.table == table))
+    n = conn.execute(s).scalar()
+    if n == 0:
+        raise RuntimeError("Input name invalid. Please try again.")
+    else:
+        s = select([name_table.c.cohort_id]).select_from(name_table).where((name_table.c.name == name) & (name_table.c.table == table))
+        cohort_id = conn.execute(s).scalar()
 
+        return {
+            "cohort_id": cohort_id,
+            "name" : name
+        }
+
+def add_name_by_id(conn, table, name, cohort_id):
+    s = select([func.count()]).select_from(name_table).where((name_table.c.name == name) & (name_table.c.table == table))
+    n = conn.execute(s).scalar()
+    if n == 1:
+        raise RuntimeError("Name is already taken. Please choose another name.")
+    else:
+        i = name_table.insert().values(name=name, table=table, cohort_id=cohort_id)
+        conn.execute(i)
+
+        return {
+            "cohort_id": cohort_id,
+            "name" : name
+        }
 

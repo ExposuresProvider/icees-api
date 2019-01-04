@@ -106,3 +106,9 @@ create table visit(
 create table cohort (cohort_id varchar primary key, size integer, features varchar, "table" varchar, year integer);
 
 create sequence cohort_id;
+
+create table name(
+    name varchar primary key,
+    "table" varchar,
+    cohort_id varchar references cohort(cohort_id)
+);

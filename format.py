@@ -56,6 +56,10 @@ def format_tables(data, tables):
         columns = ["error"]
         rows = [[str(data)]]
         tables.append([columns, rows])
+    elif "name" in data:
+        columns = ["cohort_id", "name"]
+        rows = [[data["cohort_id"], data["name"]]]
+        tables.append([columns, rows])
     elif "features" in data:
         features = ",".join([feature_to_text(a, b) for (a, b) in data["features"].items()])
         if "cohort_id" in data:

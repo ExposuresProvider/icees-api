@@ -8,15 +8,15 @@ def createargs(args):
     create(args.version)
 
 def create(version):
-    conn = model[version].get_db_connection()
-    model[version].metadata.create_all(conn)
+    with model[version].DBConnection() as conn:
+        with conn.begin() as trans:
+            model[version].metadata.create_all(conn)
     
 def insertargs(args):
     insert(args.version, args.input_file, args.table_name)
 
 def insert(version, input_file, table_name):
     df = pd.read_csv(input_file)
-    conn = model[version].get_db_connection()
     def toDType(table):
         print(table)
         l = []
@@ -24,9 +24,11 @@ def insert(version, input_file, table_name):
             l.append((col_name, col_type))
         return dict(l)
         
-    df.to_sql(name=table_name, con=conn,if_exists="append", 
-              index=False, 
-              dtype=toDType(features[version].features[table_name]))
+    with model[version].DBConnection() as conn:
+        with conn.begin() as trans:
+            df.to_sql(name=table_name, con=conn,if_exists="append", 
+                      index=False, 
+                      dtype=toDType(features[version].features[table_name]))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog='ICEES DB Utitilies')

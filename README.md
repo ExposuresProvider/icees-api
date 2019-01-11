@@ -165,7 +165,7 @@ POST
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association
+/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association2
 ```
 example
 ```

@@ -155,7 +155,7 @@ class SERVCohort(Resource):
             cohort_id, size = get_ids_by_feature(conn, table, year, req_features)
       
             if size == -1:
-                return "Input features invalid or cohort violates HIPPA regulations. Please try again."
+                return "Input features invalid or cohort ≤10 patients. Please try again."
             else:
                 return {
                     "cohort_id": cohort_id,
@@ -224,7 +224,7 @@ class SERVCohortId(Resource):
             cohort_id, size = select_cohort(conn, table, year, req_features, cohort_id)
 
             if size == -1:
-                return "Input features invalid or cohort violates HIPPA regulations. Please try again."
+                return "Input features invalid or cohort ≤10 patients. Please try again."
             else:
                 return {
                     "cohort_id": cohort_id,

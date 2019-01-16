@@ -88,7 +88,7 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
                 cohort_id = None
 
         if cohort_id_in_use(conn, cohort_id):
-            raise RuntimeException("Cohort id is in use.")
+            raise RuntimeError("Cohort id is in use.")
             ins = cohort.update().where(cohort.c.cohort_id == cohort_id).values(size=size,
                                                                     features=json.dumps(cohort_features,
                                                                                         sort_keys=True),

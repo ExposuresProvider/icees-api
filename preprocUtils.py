@@ -15,7 +15,7 @@ def preprocHighwayExposure(i):
         return i
 
 def preprocSocial(df, binstr):
-    df["EstResidentialDensity"] = pd.cut(df["EstResidentialDensity"], [0,2500,50000,float("inf")], labels=["[0,2500)","[2500,50000)","[50000,inf)"], include_lowest=True, right=False)
+    df["EstResidentialDensity"] = pd.cut(df["EstResidentialDensity"], [0,2500,50000,float("inf")], labels=["1","2","3"], include_lowest=True, right=False)
     quantile(df, "EstResidentialDensity25Plus", 5, binstr)
     quantile(df, "EstProbabilityNonHispWhite", 4, binstr)
     quantile(df, "EstProbabilityHouseholdNonHispWhite", 4, binstr)

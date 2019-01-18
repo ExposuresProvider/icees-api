@@ -74,7 +74,10 @@ api = Api(app)
 template = {
   "info": {
     "title": "ICEES API",
-      "description": "ICEES API [documentation](https://github.com/NCATS-Tangerine/icees-api/tree/master/docs) [source](https://github.com/NCATS-Tangerine/icees-api/tree/master/) [ICEES API example queries](https://github.com/NCATS-Tangerine/icees-api/tree/master/#examples) <br>dictionary for versioning of tables<br><table><tr><th>version</th><th>table content</th></tr><tr><td>1.0.0</td><td>cdw, acs, nearest road, and cmaq from 2010</td></tr></table>",
+      "description": "ICEES API 
+<br>[documentation](https://github.com/NCATS-Tangerine/icees-api/tree/master/docs) 
+<br>[source](https://github.com/NCATS-Tangerine/icees-api/tree/master/) 
+<br>[ICEES API example queries](https://github.com/NCATS-Tangerine/icees-api/tree/master/#examples) <br>dictionary for versioning of tables<br><table><tr><th>version</th><th>table content</th></tr><tr><td>1.0.0</td><td>cdw, acs, nearest road, and cmaq from 2010</td></tr></table>",
     "version": "0.0.1"
   },
   "consumes": [
@@ -374,7 +377,7 @@ def to_qualifiers2(feature):
 class SERVFeatureAssociation2(Resource):
     def post(self, version, table, year, cohort_id):
         """
-        Hypothesis-driven n x n feature associations: users select a predefined cohort, two feature variables, and bins, which can be combined, and the service returns a n x n feature table with a corresponding Chi Square statistic and P value.
+        Hypothesis-driven N x N feature associations: users select a predefined cohort, two feature variables, and bins, which can be combined, and the service returns a N x N feature table with a corresponding Chi Square statistic and P value.
         ---
         parameters:
           - in: body

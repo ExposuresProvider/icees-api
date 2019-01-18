@@ -1,5 +1,4 @@
 import pandas as pd
-import math
 
 def quantile(df, col, n, bin="qcut"):
     if bin == "qcut":
@@ -9,30 +8,21 @@ def quantile(df, col, n, bin="qcut"):
     else:
         raise "unsupported binning method"
 
-indices = pd.IntervalIndex([pd.Interval(0, 2500, closed="left"),pd.Interval(2500, 50000, closed="left"), pd.Interval(50000, float("inf"), closed="left")])
+def preprocHighwayExposure(i):
+    if i < 0:
+        return 500
+    else:
+        return i
 
-def intStr(n):
-    if math.isinf(n):
-        if n > 0:
-            return "inf"
-        else:
-            return "-inf"
-    else:
-        return str(int(n))
-
-def intervalToLabel(i):
-    if i.closed_left:
-        s = "["
-    else:
-        s = "("
-    
-    s += intStr(i.left)
-    s += ","
-    s += intStr(i.right)
-    if i.closed_right:
-        s += "]"
-    else:
-        s += ")"
-    
-    return s
+def preprocSocial(df, binstr):
+    df["EstResidentialDensity"] = pd.cut(df["EstResidentialDensity"], [0,2500,50000,float("inf")], labels=["[0,2500)","[2500,50000)","[50000,inf)"], include_lowest=True, right=False)
+    quantile(df, "EstResidentialDensity25Plus", 5, binstr)
+    quantile(df, "EstProbabilityNonHispWhite", 4, binstr)
+    quantile(df, "EstProbabilityHouseholdNonHispWhite", 4, binstr)
+    quantile(df, "EstProbabilityHighSchoolMaxEducation", 4, binstr)
+    quantile(df, "EstProbabilityNoAuto", 4, binstr)
+    quantile(df, "EstProbabilityNoHealthIns", 4, binstr)
+    quantile(df, "EstProbabilityESL", 4, binstr)
+    quantile(df, "EstHouseholdIncome", 5, binstr)
+    df["MajorRoadwayHighwayExposure"] = pd.cut(df["MajorRoadwayHighwayExposure"].apply(preprocHighwayExposure), [0, 50, 100, 200, 300, 500, float("inf")], labels=list(map(str, [1, 2, 3, 4, 5, 6])), include_lowest=True, right=False)
 

@@ -3,6 +3,8 @@ age_levels = ['0-2', '3-17', '18-34', '35-50', '51-69', '70+']
 age_bins = Enum(*age_levels)
 sex_levels = ["M","F"]
 sex_bins = Enum(*sex_levels)
+est_residential_density_levels = ["[0,2500)", "[2500,50000)", "[50000,inf)"]
+est_residential_density_bins = Enum(*est_residential_density_levels)
 quartile_levels = range(1, 5)
 quintile_levels = range(1, 6)
 sextile_levels = range(1, 7)
@@ -26,7 +28,7 @@ features = {
         ("MaxDailyPM2.5Exposure", Integer, quintile_levels),
         ("AvgDailyOzoneExposure", Integer, quintile_levels),
         ("MaxDailyOzoneExposure", Integer, quintile_levels),
-        ("EstResidentialDensity", Integer, quintile_levels),
+        ("EstResidentialDensity", Integer, est_residential_density_levels),
         ("EstResidentialDesnity25Plus", Integer, quintile_levels),
         ("EstProbabilityNonHispWhite", Integer, quartile_levels),
         ("EstProbabilityHouseholdNonHispWhite", Integer, quartile_levels),

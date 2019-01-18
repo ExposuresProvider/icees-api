@@ -1,6 +1,6 @@
 import pandas as pd
 import sys
-from preprocUtils import quantile, indices, labels
+from preprocUtils import quantile, indices, intervalToLabel
 
 input_file = sys.argv[1]
 output_file = sys.argv[2]
@@ -13,7 +13,8 @@ quantile(df, "AvgDailyPM2.5Exposure", 5, binstr)
 quantile(df, "MaxDailyPM2.5Exposure", 5, binstr)
 quantile(df, "AvgDailyOzoneExposure", 5, binstr)
 quantile(df, "MaxDailyOzoneExposure", 5, binstr)
-df["EstResidentialDensity"] = pd.cut(df["EstResidentialDensity"], indices, labels=labels)
+df["EstResidentialDensity"] = pd.cut(df["EstResidentialDensity"], indices).apply(intervalToLabel)
+print(df["EstResidentialDensity"].describe())
 quantile(df, "EstResidentialDensity25Plus", 5, binstr)
 quantile(df, "EstProbabilityNonHispWhite", 4, binstr)
 quantile(df, "EstProbabilityHouseholdNonHispWhite", 4, binstr)

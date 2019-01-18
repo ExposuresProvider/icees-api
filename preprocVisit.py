@@ -13,7 +13,7 @@ quantile(df, "Avg24hPM2.5Exposure", 5, binstr)
 quantile(df, "Max24hPM2.5Exposure", 5, binstr)
 quantile(df, "Avg24hOzoneExposure", 5, binstr)
 quantile(df, "Max24hOzoneExposure", 5, binstr)
-preprocSocial(df, binstr)
+preprocSocial(df)
 df["MepolizumabVisit"] = 0
 
 df["year"] = year

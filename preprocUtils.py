@@ -9,4 +9,4 @@ def quantile(df, col, n, bin="qcut"):
         raise "unsupported binning method"
 
 indices = pd.IntervalIndex([pd.Interval(0, 2500, closed="left"),pd.Interval(2500, 50000, closed="left"), pd.Interval(50000, float("inf"), closed="left")])
-labels = ["0", "1", "2"]
+labels = ["1", "2", "3"]

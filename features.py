@@ -4,7 +4,6 @@ age_bins = Enum(*age_levels)
 sex_levels = ["M","F"]
 sex_bins = Enum(*sex_levels)
 est_residential_density_levels = range(1, 3)
-est_residential_density_bins = Enum(*est_residential_density_levels)
 quartile_levels = range(1, 5)
 quintile_levels = range(1, 6)
 sextile_levels = range(1, 7)

@@ -9,6 +9,7 @@ binstr = sys.argv[4]
 
 df = pd.read_csv(input_file)
 
+df["MepolizumabVisit"] = 0
 quantile(df, "Avg24hPM2.5Exposure", 5, "qcut", "Avg24hPM2.5Exposure_qcut")
 quantile(df, "Max24hPM2.5Exposure", 5, "qcut", "Max24hPM2.5Exposure_qcut")
 quantile(df, "Avg24hOzoneExposure", 5, "qcut", "Avg24hOzoneExposure_qcut")
@@ -18,7 +19,6 @@ quantile(df, "Max24hPM2.5Exposure", 5, binstr)
 quantile(df, "Avg24hOzoneExposure", 5, binstr)
 quantile(df, "Max24hOzoneExposure", 5, binstr)
 preprocSocial(df)
-df["MepolizumabVisit"] = 0
 
 df["year"] = year
 

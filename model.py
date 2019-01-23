@@ -228,6 +228,9 @@ def select_feature_count(conn, table_name, year, cohort_features, feature_a):
     ka = feature_a["feature_name"]
     vas = feature_a["feature_qualifiers"]
 
+    print(ka)
+    print(s)
+
     feature_matrix = [conn.execute(filter_select(s, table, ka, va)).scalar() for va in vas]
     
     total = conn.execute(s).scalar()

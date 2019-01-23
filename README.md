@@ -46,6 +46,26 @@ enter `<dbpass>` for new user
 
 ```grant all privileges on all sequence in schema public to <dbuser>```
 
+#### popluating database
+
+```
+python preprocPatient.py <visit data input> patient2010.csv 2010 cut
+```
+
+```
+python preprocPatient.py <patient data input> patient2010.csv 2010 cut
+```
+
+make sure the order of headers generated in csv match the order of columns in postgres
+
+```
+copy patient from '/database/patient2010.csv' csv header;
+```
+
+```
+copy visit from '/database/visit2010.csv' csv header;
+```
+
 ### Deploy API
 
 The following steps can be run using the `redepoly.sh`

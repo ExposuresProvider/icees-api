@@ -1,10 +1,12 @@
 import pandas as pd
 
-def quantile(df, col, n, bin="qcut"):
+def quantile(df, col, n, bin="qcut", column=None):
+    if not column:
+        column = col
     if bin == "qcut":
-        df[col] = pd.qcut(df[col], n, labels=list(map(str, range(1,n+1))))
+        df[column] = pd.qcut(df[col], n, labels=list(map(str, range(1,n+1))))
     elif bin == "cut":
-        df[col] = pd.cut(df[col], n, labels=list(map(str, range(1,n+1))))
+        df[column] = pd.cut(df[col], n, labels=list(map(str, range(1,n+1))))
     else:
         raise "unsupported binning method"
 

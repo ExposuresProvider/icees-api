@@ -263,7 +263,7 @@ def validate_range(table_name, feature):
     feature_name = feature["feature_name"]
     values = feature["feature_qualifiers"]
     _, ty, levels = next(filter(lambda x: x[0] == feature_name, features[table_name]))
-    if level:
+    if levels:
         n = len(levels)
         if levels:
             coverMap = [False for _ in levels]

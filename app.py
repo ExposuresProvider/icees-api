@@ -424,8 +424,10 @@ class SERVFeatureAssociation2(Resource):
             validate(obj, feature_association2_schema(table))
             feature_a = to_qualifiers2(obj["feature_a"])
             feature_b = to_qualifiers2(obj["feature_b"])
-            validate_range(table, feature_a)
-            validate_range(table, feature_b)
+            to_validate_range = ("check_coverage_is_full" in obj) and obj["check_coverage_is_full"]
+            if to_validate_range:
+                validate_range(table, feature_a)
+                validate_range(table, feature_b)
 
             conn = get_db_connection(version)
             cohort_features = get_features_by_id(conn, table, year, cohort_id)

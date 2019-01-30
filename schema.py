@@ -151,7 +151,10 @@ def feature_association2_schema(table_name):
         "type": "object",
         "properties": {
             "feature_a": bins_schema(table_name),
-            "feature_b": bins_schema(table_name)
+            "feature_b": bins_schema(table_name),
+            "check_coverage_is_full": {
+                "type": "boolean"
+            }
         },
         "required": ["feature_a", "feature_b"],
         "additionalProperties": False

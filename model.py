@@ -262,20 +262,21 @@ def select_feature_association(conn, table_name, year, cohort_features, feature,
 def validate_range(table_name, feature):
     feature_name = feature["feature_name"]
     values = feature["feature_qualifiers"]
-    _, ty, levels = list(filter(lambda x: x[0] == feature_name, features[table_name]))[0]
-    n = len(levels)
-    if levels:
-        coverMap = [False for _ in levels]
-        vMap = {
-            ">" : lambda x: (lambda i: [False] * (i + 1) + [True] * (n - i - 1))(levels.index(x["value"])),
-            "<" : lambda x: (lambda i: [True] * i + [False] * (n - i))(levels.index(x["value"])),
-            ">=" : lambda x: (lambda i: [False] * i + [True] * (n - i))(levels.index(x["value"])),
-            "<=" : lambda x: (lambda i: [True] * (i + 1) + [False] * (n - i - 1))(levels.index(x["value"])),
-            "=" : lambda x: (lambda i: [False] * i + [True] + [False] * (n - i - 1))(levels.index(x["value"])),
-            "<>" : lambda x: (lambda i: [True] * i + [False] + [True] * (n - i - 1))(levels.index(x["value"])),
-            "between" : lambda x: (lambda ia, ib: [False] * ia + [True] * (ib - ia + 1) + [False] * (n - ib - 1))(levels.index(x["value_a"]), levels.index(x["value_b"])),
-            "in" : lambda x: map(lambda a: a in x["values"], levels)
-        }
+    _, ty, levels = next(filter(lambda x: x[0] == feature_name, features[table_name]))
+    if level:
+        n = len(levels)
+        if levels:
+            coverMap = [False for _ in levels]
+            vMap = {
+                ">" : lambda x: (lambda i: [False] * (i + 1) + [True] * (n - i - 1))(levels.index(x["value"])),
+                "<" : lambda x: (lambda i: [True] * i + [False] * (n - i))(levels.index(x["value"])),
+                ">=" : lambda x: (lambda i: [False] * i + [True] * (n - i))(levels.index(x["value"])),
+                "<=" : lambda x: (lambda i: [True] * (i + 1) + [False] * (n - i - 1))(levels.index(x["value"])),
+                "=" : lambda x: (lambda i: [False] * i + [True] + [False] * (n - i - 1))(levels.index(x["value"])),
+                "<>" : lambda x: (lambda i: [True] * i + [False] + [True] * (n - i - 1))(levels.index(x["value"])),
+                "between" : lambda x: (lambda ia, ib: [False] * ia + [True] * (ib - ia + 1) + [False] * (n - ib - 1))(levels.index(x["value_a"]), levels.index(x["value_b"])),
+                "in" : lambda x: map(lambda a: a in x["values"], levels)
+            }
         for v in values:
             updateMap = vMap[v["operator"]](v)
             coverMapUpdate = []
@@ -284,12 +285,14 @@ def validate_range(table_name, feature):
                     raise RuntimeError("over lapping value " + str(levels[i]) + ", input feature qualifiers " + str(feature))
                 else:
                     coverMapUpdate.append(c or u)
-            coverMap = coverMapUpdate
-        print(coverMap)
-        for i, c in enumerate(coverMap):
-            if not c:
-                raise RuntimeError("incomplete value coverage " + str(levels[i]) + ", input feature qualifiers " + str(feature))
-            
+                    coverMap = coverMapUpdate
+                    print(coverMap)
+                    for i, c in enumerate(coverMap):
+                        if not c:
+                            raise RuntimeError("incomplete value coverage " + str(levels[i]) + ", input feature qualifiers " + str(feature))
+    else:
+        print("warning: cannot validate feature " + feature_name + " in table " + table_name + " because its levels are not provided")
+           
 def get_id_by_name(conn, table, name):
     s = select([func.count()]).select_from(name_table).where((name_table.c.name == name) & (name_table.c.table == table))
     n = conn.execute(s).scalar()

@@ -10,7 +10,7 @@ binstr = sys.argv[4]
 df = pd.read_csv(input_file)
 
 df["Mepolizumab"] = 0
-for binning, binstr in [("_qcut", binstr), ("", "cut")]:
+for binning, binstr in [("_qcut", "qcut"), ("", binstr)]:
     for feature in ["PM2.5", "Ozone"]:
         for stat in ["Avg", "Max"]:
             for suffix in ["_StudyAvg", "_StudyMax", ""]:

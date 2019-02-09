@@ -10,6 +10,10 @@ sextile_levels = range(1, 7)
 boolean_levels = [0, 1]
 
 
+envfeature_names = [
+    stat + "Daily" + feature + "Exposure" + suffix + binning for binning in ["", "_qcut"] for feature in ["PM2.5", "Ozone"] for stat in ["Avg", "Max"] for suffix in ["", "_StudyAvg", "_StudyMax"]
+]
+
 features = {
     "patient": [
         ("AgeStudyStart", age_bins, age_levels),
@@ -22,15 +26,10 @@ features = {
         ("CoughDx", Integer, boolean_levels),
         ("PneumoniaDx", Integer, boolean_levels),
         ("ObesityICD", Integer, boolean_levels),
-        ("ObesityBMI", Integer, boolean_levels),
-        ("AvgDailyPM2.5Exposure", Integer, quintile_levels),
-        ("MaxDailyPM2.5Exposure", Integer, quintile_levels),
-        ("AvgDailyOzoneExposure", Integer, quintile_levels),
-        ("MaxDailyOzoneExposure", Integer, quintile_levels),
-        ("AvgDailyPM2.5Exposure_qcut", Integer, quintile_levels),
-        ("MaxDailyPM2.5Exposure_qcut", Integer, quintile_levels),
-        ("AvgDailyOzoneExposure_qcut", Integer, quintile_levels),
-        ("MaxDailyOzoneExposure_qcut", Integer, quintile_levels),
+        ("ObesityBMI", Integer, boolean_levels) ] + 
+    [
+        (feature_name, Integer, quintile_levels) for feature_name in envfeature_names ] + 
+    [
         ("EstResidentialDensity", Integer, est_residential_density_levels),
         ("EstResidentialDesnity25Plus", Integer, quintile_levels),
         ("EstProbabilityNonHispWhite", Integer, quartile_levels),

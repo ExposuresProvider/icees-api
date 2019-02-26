@@ -35,7 +35,7 @@ def qualifier_schema(ty, levels):
 def cohort_schema(table_name):
     return {
         "type": "object",
-        "properties": {k: qualifier_schema(v, levels) for k, v, levels in features[table_name]},
+        "properties": {k: qualifier_schema(v, levels) for k, v, levels, _ in features[table_name]},
         "additionalProperties": False
     }
 

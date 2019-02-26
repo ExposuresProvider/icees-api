@@ -3,7 +3,7 @@ from sqlalchemy.sql import select
 from scipy.stats import chisquare
 import json
 import os
-from features import features
+from features import features, lookUpFeatureClass
 
 service_name = "ICEES"
 
@@ -138,7 +138,7 @@ def get_cohort_by_id(conn, table_name, year, cohort_id):
 def get_cohort_features(conn, table_name, year, cohort_features):
     table = tables[table_name]
     rs = []
-    for k, v, levels in features[table_name]:
+    for k, v, levels, _ in features[table_name]:
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_count(conn, table_name, year, cohort_features, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
@@ -208,6 +208,11 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
         ] for i, row in enumerate(feature_matrix)
     ]
 
+    feature_a = feature_a.copy()
+    feature_b = feature_b.copy()
+    feature_a["biolink_class"] = lookUpFeatureClass(table_name, ka)
+    feature_b["biolink_class"] = lookUpFeatureClass(table_name, kb)
+
     return {
         "feature_a": feature_a,
         "feature_b": feature_b,
@@ -252,7 +257,7 @@ def get_feature_levels(conn, table, year, feature):
 def select_feature_association(conn, table_name, year, cohort_features, feature, maximum_p_value):
     table = tables[table_name]
     rs = []
-    for k, v, levels in features[table_name]:
+    for k, v, levels, _ in features[table_name]:
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_matrix(conn, table_name, year, cohort_features, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
@@ -263,7 +268,7 @@ def select_feature_association(conn, table_name, year, cohort_features, feature,
 def validate_range(table_name, feature):
     feature_name = feature["feature_name"]
     values = feature["feature_qualifiers"]
-    _, ty, levels = next(filter(lambda x: x[0] == feature_name, features[table_name]))
+    _, ty, levels, _ = next(filter(lambda x: x[0] == feature_name, features[table_name]))
     if levels:
         n = len(levels)
         coverMap = [False for _ in levels]

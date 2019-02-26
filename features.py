@@ -3,6 +3,8 @@ age_levels = ['0-2', '3-17', '18-34', '35-50', '51-69', '70+']
 age_bins = Enum(*age_levels)
 sex_levels = ["M","F"]
 sex_bins = Enum(*sex_levels)
+ur_levels = ["R","U"]
+ur_bins = Enum(*ur_levels)
 est_residential_density_levels = range(1, 3)
 quartile_levels = range(1, 5)
 quintile_levels = range(1, 6)
@@ -25,7 +27,26 @@ features = {
         ("ReactiveAirwayDx", Integer, boolean_levels),
         ("CoughDx", Integer, boolean_levels),
         ("PneumoniaDx", Integer, boolean_levels),
-        ("ObesityICD", Integer, boolean_levels),
+        ("ObesityDx", Integer, boolean_levels),
+        ("UterineCancerDx", Integer, boolean_levels),
+        ("CervicalCancerDx", Integer, boolean_levels),
+        ("OvarianCancerDx", Integer, boolean_levels),
+        ("ProstateCancerDx", Integer, boolean_levels),
+        ("TesticularCancerDx", Integer, boolean_levels),
+        ("KidneyCancerDx", Integer, boolean_levels),
+        ("EndometriosisDx", Integer, boolean_levels),
+        ("OvarianDysfunctionDx", Integer, boolean_levels),
+        ("TesticularDysfunctionDx", Integer, boolean_levels),
+        ("PregnancyDx", Integer, boolean_levels),
+        ("MenopauseDx", Integer, boolean_levels),
+        ("DiabetesDx", Integer, boolean_levels),
+        ("AlopeciaDx", Integer, boolean_levels),
+        ("FibromyalgiaDx", Integer, boolean_levels),
+        ("AlcoholDependenceDx", Integer, boolean_levels),
+        ("DrugDependenceDx", Integer, boolean_levels),
+        ("DepressionDx", Integer, boolean_levels),
+        ("AnxietyDx", Integer, boolean_levels),
+        ("AutismDx", Integer, boolean_levels),
         ("ObesityBMI", Integer, boolean_levels) ] + 
     [
         (feature_name, Integer, quintile_levels) for feature_name in envfeature_names ] + 
@@ -39,6 +60,7 @@ features = {
         ("EstProbabilityNoHealthIns", Integer, quartile_levels),
         ("EstProbabilityESL", Integer, quartile_levels),
         ("EstHouseholdIncome", Integer, quintile_levels),
+        ("ur", ur_bins, ur_levels),
         ("MajorRoadwayHighwayExposure", Integer, sextile_levels),
         ("TotalEDInpatientVisits", Integer, None),
         ("Prednisone", Integer, boolean_levels),
@@ -74,6 +96,25 @@ features = {
         ("CoughDxVisit", Integer, boolean_levels),
         ("PneumoniaDxVisit", Integer, boolean_levels),
         ("ObesityDxVisit", Integer, boolean_levels),
+        ("UterineCancerDxVisit", Integer, boolean_levels),
+        ("CervicalCancerDxVisit", Integer, boolean_levels),
+        ("OvarianCancerDxVisit", Integer, boolean_levels),
+        ("ProstateCancerDxVisit", Integer, boolean_levels),
+        ("TesticularCancerDxVisit", Integer, boolean_levels),
+        ("KidneyCancerDxVisit", Integer, boolean_levels),
+        ("EndometriosisDxVisit", Integer, boolean_levels),
+        ("OvarianDysfunctionDxVisit", Integer, boolean_levels),
+        ("TesticularDysfunctionDxVisit", Integer, boolean_levels),
+        ("PregnancyDxVisit", Integer, boolean_levels),
+        ("MenopauseDxVisit", Integer, boolean_levels),
+        ("DiabetesDxVisit", Integer, boolean_levels),
+        ("AlopeciaDxVisit", Integer, boolean_levels),
+        ("FibromyalgiaDxVisit", Integer, boolean_levels),
+        ("AlcoholDependenceDxVisit", Integer, boolean_levels),
+        ("DrugDependenceDxVisit", Integer, boolean_levels),
+        ("DepressionDxVisit", Integer, boolean_levels),
+        ("AnxietyDxVisit", Integer, boolean_levels),
+        ("AutismDxVisit", Integer, boolean_levels),
         ("ObesityBMIVisit", Integer, boolean_levels),
         ("Avg24hPM2.5Exposure", Integer, quintile_levels),
         ("Max24hPM2.5Exposure", Integer, quintile_levels),
@@ -92,6 +133,7 @@ features = {
         ("EstProbabilityNoHealthIns", Integer, quartile_levels),
         ("EstProbabilityESL", Integer, quartile_levels),
         ("EstHouseholdIncome", Integer, quintile_levels),
+        ("ur", ur_bins, ur_levels),
         ("MajorRoadwayHighwayExposure", Integer, sextile_levels),
         ("PrednisoneVisit", Integer, boolean_levels),
         ("FluticasoneVisit", Integer, boolean_levels),

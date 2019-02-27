@@ -1,14 +1,11 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
 import json
-from model import get_features_by_id, select_feature_association, select_feature_matrix, get_db_connection, get_ids_by_feature, opposite, cohort_id_in_use, select_cohort, get_cohort_features, get_cohort_dictionary, service_name, get_cohort_by_id, validate_range, get_id_by_name, add_name_by_id
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
-from schema import cohort_schema, feature_association_schema, feature_association2_schema, associations_to_all_features_schema, add_name_by_id_schema
 from flasgger import Swagger
 import traceback
-from format import format_tabular
 import csv
 import logging
 from logging.handlers import TimedRotatingFileHandler
@@ -16,6 +13,7 @@ import os
 from time import strftime
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
+from features import model, schema, format
 
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
@@ -98,13 +96,13 @@ swag = Swagger(app, template=template)
 
 @api.representation('application/json')
 def output_json(data, code, headers=None):
-    resp = make_response(json.dumps({"terms and conditions": terms_and_conditions, "return value": data}), code)
+    resp = make_response(json.dumps({"terms and conditions": terms_and_conditions, "version": data["version"], "return value": data["return value"]}), code)
     resp.headers.extend(headers or {})
     return resp
 
 @api.representation('text/tabular')
 def output_tabular(data, code, headers=None):
-    resp = make_response(format_tabular(terms_and_conditions, data), code)
+    resp = make_response(format[data["version"]].format_tabular(terms_and_conditions, data["return value"]), code)
     resp.headers.extend(headers or {})
     return resp
 
@@ -148,28 +146,37 @@ class SERVCohort(Resource):
                 - import: "definitions/cohort_visit_output.yaml"
         """
         try:
-            conn = get_db_connection(version)
+            conn = model[version].get_db_connection()
             req_features = request.get_json()
             if req_features is None:
                 req_features = {}
             else:
-                validate(req_features, cohort_schema(table))
+                validate(req_features, schema[version].cohort_schema(table))
 
-            cohort_id, size = get_ids_by_feature(conn, table, year, req_features)
+            cohort_id, size = model[version].get_ids_by_feature(conn, table, year, req_features)
       
             if size == -1:
-                return "Input features invalid or cohort ≤10 patients. Please try again."
+                return_value = "Input features invalid or cohort ≤10 patients. Please try again."
             else:
-                return {
+                return_value = {
                     "cohort_id": cohort_id,
                     "size": size
                 }
+                
         except ValidationError as e:
             traceback.print_exc()
-            return e.message
+            return_value = e.message
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return_value = str(e)
+        return versioned(version, return_value)
+
+
+def versioned(version, data):
+    return {
+        "version": version,
+        "return value": data
+    }
 
 class SERVCohortId(Resource):
     def put(self, version, table, year, cohort_id):
@@ -217,28 +224,29 @@ class SERVCohortId(Resource):
                 - import: "definitions/cohort_visit_output.yaml"
         """
         try:
-            conn = get_db_connection(version)
+            conn = model[version].get_db_connection()
             req_features = request.get_json()
             if req_features is None:
                 req_features = {}
             else:
-                validate(req_features, cohort_schema(table))
+                validate(req_features, schema[version].cohort_schema(table))
 
-            cohort_id, size = select_cohort(conn, table, year, req_features, cohort_id)
+            cohort_id, size = model[version].select_cohort(conn, table, year, req_features, cohort_id)
 
             if size == -1:
-                return "Input features invalid or cohort ≤10 patients. Please try again."
+                return_value = "Input features invalid or cohort ≤10 patients. Please try again."
             else:
-                return {
-                    "cohort_id": cohort_id,
-                    "size": size
+                return_value = {
+                        "cohort_id": cohort_id,
+                        "size": size
                 }
         except ValidationError as e:
             traceback.print_exc()
-            return e.message
+            return_value = e.message
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return_value = str(e)
+        return versioned(version, return_value)
 
     def get(self, version, table, year, cohort_id):
         """
@@ -278,19 +286,20 @@ class SERVCohortId(Resource):
                 - import: "definitions/cohort_visit_input.yaml"
         """
         try:
-            conn = get_db_connection(version)
-            cohort_features = get_cohort_by_id(conn, table, year, cohort_id)
+            conn = model[version].get_db_connection()
+            cohort_features = model[version].get_cohort_by_id(conn, table, year, cohort_id)
             
             if cohort_features is None:
-                return "Input cohort_id invalid. Please try again."
+                return_value = "Input cohort_id invalid. Please try again."
             else:
-                return cohort_features
+                return_value = cohort_features
         except ValidationError as e:
             traceback.print_exc()
-            return e.message
+            return_value = e.message
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return_value = str(e)
+        return versioned(version, return_value)
 
 
 def to_qualifiers(feature):
@@ -348,23 +357,26 @@ class SERVFeatureAssociation(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, feature_association_schema(table))
+            validate(obj, schema[version].feature_association_schema(table))
             feature_a = to_qualifiers(obj["feature_a"])
             feature_b = to_qualifiers(obj["feature_b"])
 
-            conn = get_db_connection(version)
-            cohort_features = get_features_by_id(conn, table, year, cohort_id)
+            conn = model[version].get_db_connection()
+            cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
 
             if cohort_features is None:
-                return "Input cohort_id invalid. Please try again."
+                return_value = "Input cohort_id invalid. Please try again."
             else:
-                return select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+                return_value = model[version].select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+            
         except ValidationError as e:
             traceback.print_exc()
-            return e.message
+            return_value = e.message
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return_value = str(e)
+        return versioned(version, return_value)
+
 
 def to_qualifiers2(feature):
     k, v = list(feature.items())[0]
@@ -421,7 +433,7 @@ class SERVFeatureAssociation2(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, feature_association2_schema(table))
+            validate(obj, schema[version].feature_association2_schema(table))
             feature_a = to_qualifiers2(obj["feature_a"])
             feature_b = to_qualifiers2(obj["feature_b"])
             to_validate_range = ("check_coverage_is_full" in obj) and obj["check_coverage_is_full"]
@@ -429,19 +441,21 @@ class SERVFeatureAssociation2(Resource):
                 validate_range(table, feature_a)
                 validate_range(table, feature_b)
 
-            conn = get_db_connection(version)
-            cohort_features = get_features_by_id(conn, table, year, cohort_id)
+            conn = model[version].get_db_connection()
+            cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
 
             if cohort_features is None:
-                return "Input cohort_id invalid. Please try again."
+                return_value = "Input cohort_id invalid. Please try again."
             else:
-                return select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+                return_value = model[version].select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+
         except ValidationError as e:
             traceback.print_exc()
-            return e.message
+            return_value = e.message
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return_value = str(e)
+        return versioned(version, return_value)
 
 
 class SERVAssociationsToAllFeatures(Resource):
@@ -491,21 +505,23 @@ class SERVAssociationsToAllFeatures(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, associations_to_all_features_schema(table))
+            validate(obj, schema[version].associations_to_all_features_schema(table))
             feature = to_qualifiers(obj["feature"])
             maximum_p_value = obj["maximum_p_value"]
-            conn = get_db_connection(version)
-            cohort_features = get_features_by_id(conn, table, year, cohort_id)
+            conn = model[version].get_db_connection()
+            cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
             if cohort_features is None:
-                return "Input cohort_id invalid. Please try again."
+                return_value = "Input cohort_id invalid. Please try again."
             else:
-                return select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value)
+                return_value = model[version].select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value)
+
         except ValidationError as e:
             traceback.print_exc()
-            return e.message
+            return_value = e.message
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return_value = str(e)
+        return versioned(version, return_value)
 
 
 class SERVFeatures(Resource):
@@ -547,18 +563,20 @@ class SERVFeatures(Resource):
                 - import: "definitions/features_visit_output.yaml"
         """
         try:
-            conn = get_db_connection(version)
-            cohort_features = get_features_by_id(conn, table, year, cohort_id)
+            conn = model[version].get_db_connection()
+            cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
             if cohort_features is None:
-                return "Input cohort_id invalid. Please try again."
+                return_value = "Input cohort_id invalid. Please try again."
             else:
-                return get_cohort_features(conn, table, year, cohort_features)
+                return_value = model[version].get_cohort_features(conn, table, year, cohort_features)
+ 
         except ValidationError as e:
             traceback.print_exc()
-            return e.message
+            return_value = e.message
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return_value = str(e)
+        return versioned(version, return_value)
 
 
 class SERVCohortDictionary(Resource):
@@ -594,14 +612,16 @@ class SERVCohortDictionary(Resource):
                 - import: "definitions/cohort_dictionary_visit_output.yaml"
         """
         try:
-            conn = get_db_connection(version)
-            return get_cohort_dictionary(conn, table, year)
+            conn = model[version].get_db_connection()
+            return_value = model[version].get_cohort_dictionary(conn, table, year)
         except ValidationError as e:
             traceback.print_exc()
-            return e.message
+            return_value = e.message
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return_value = str(e)
+        return versioned(version, return_value)
+
 
 class SERVIdentifiers(Resource):
     def get(self, version, table, feature):
@@ -653,23 +673,20 @@ class SERVIdentifiers(Resource):
                             if visit != "N/A":
                                 visit_dict[visit] = ids
             else:
-                return "Cannot find version " + version
+                return versioned(version, "Cannot find version " + version)
             if table == "patient":
                 identifier_dict = pat_dict
             elif table == "visit":
                 identifier_dict = visit_dict
             else:
-                return "Cannot find table " + table
-
+                return versioned(version, "Cannot find table " + table)
             if feature in identifier_dict:
-                return {
-                    "identifiers": identifier_dict[feature]
-                }
+                return versioned(version, identifier_dict[feature])
             else:
-                return "Cannot find identifiers for feature " + feature
+                return versioned(version, "Cannot find identifiers for feature " + feature)
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return versioned(version, str(e))
 
 
 class SERVName(Resource):
@@ -702,14 +719,15 @@ class SERVName(Resource):
               import: "definitions/name_output.yaml"
         """
         try:
-            conn = get_db_connection(version)
-            return get_id_by_name(conn, table, name)
+            conn = model[version].get_db_connection()
+            return_value = model[version].get_id_by_name(conn, table, name)
         except ValidationError as e:
             traceback.print_exc()
-            return e.message
+            return_value = e.message
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return_value = str(e)
+        return versioned(version, return_value)
 
 
     def post(self, version, table, name):
@@ -747,15 +765,16 @@ class SERVName(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, add_name_by_id_schema())
-            conn = get_db_connection(version)
-            return add_name_by_id(conn, table, name, obj["cohort_id"])
+            validate(obj, schema[version].add_name_by_id_schema())
+            conn = model[version].get_db_connection()
+            return_value = model[version].add_name_by_id(conn, table, name, obj["cohort_id"])
         except ValidationError as e:
             traceback.print_exc()
-            return e.message
+            return_value = e.message
         except Exception as e:
             traceback.print_exc()
-            return str(e)
+            return_value = str(e)
+        return versioned(version, return_value)
 
 
 api.add_resource(SERVCohort, '/<string:version>/<string:table>/<int:year>/cohort')

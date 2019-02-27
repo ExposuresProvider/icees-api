@@ -1,4 +1,4 @@
-from features import features
+from .features import features
 from sqlalchemy import String, Integer
 import yaml
 import os

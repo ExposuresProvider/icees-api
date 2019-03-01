@@ -171,5 +171,5 @@ features = {
 def lookUpFeatureClass(table, feature):
     for n, _, _, c in features[table]:
         if n == feature:
-            return C
+            return c
     return None

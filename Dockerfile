@@ -8,6 +8,6 @@ RUN git clone https://github.com/NCATS-Tangerine/icees-api
 
 WORKDIR /icees-api
 
-ENTRYPOINT ["gunicorn","--certfile", "/cert.pem","--keyfile","/key.pem","--bind", "0.0.0.0:8080"]
+ENTRYPOINT ["gunicorn","--timeout","1800","--certfile", "/cert.pem","--keyfile","/key.pem","--bind", "0.0.0.0:8080"]
 
 CMD ["app:app"]

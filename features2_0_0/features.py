@@ -1,7 +1,7 @@
 from sqlalchemy import Integer, String, Enum
 age_levels = ['0-2', '3-17', '18-34', '35-50', '51-69', '70-89']
 age_bins = Enum(*age_levels, name="age_levels")
-sex_levels = ["M","F"]
+sex_levels = ["Male","Female","Unknown","Other"]
 sex_bins = Enum(*sex_levels, name="sex_levels")
 ur_levels = ["R","U"]
 ur_bins = Enum(*ur_levels, name="ur_levels")
@@ -51,8 +51,12 @@ features = {
     [
         (feature_name, Integer, quintile_levels, "ChemicalSubstance") for feature_name in envfeature_names ] + 
     [
+        ("AvgDailyPM2.5Exposure_2", Integer, quintile_levels, "ChemicalSubstance"),
+        ("MaxDailyOzoneExposure_2", Integer, quintile_levels, "ChemicalSubstance"),
+        ("AvgDailyPM2.5Exposure_2_qcut", Integer, quintile_levels, "ChemicalSubstance"),
+        ("MaxDailyOzoneExposure_2_qcut", Integer, quintile_levels, "ChemicalSubstance"),
         ("EstResidentialDensity", Integer, est_residential_density_levels, "EnvironmentalFeature"),
-        ("EstResidentialDesnity25Plus", Integer, quintile_levels, "EnvironmentalFeature"),
+        ("EstResidentialDensity25Plus", Integer, quintile_levels, "EnvironmentalFeature"),
         ("EstProbabilityNonHispWhite", Integer, quartile_levels, "EnvironmentalFeature"),
         ("EstProbabilityHouseholdNonHispWhite", Integer, quartile_levels, "EnvironmentalFeature"),
         ("EstProbabilityHighSchoolMaxEducation", Integer, quartile_levels, "EnvironmentalFeature"),
@@ -126,8 +130,12 @@ features = {
         ("Max24hPM2.5Exposure_qcut", Integer, quintile_levels, "ChemicalSubstance"),
         ("Avg24hOzoneExposure_qcut", Integer, quintile_levels, "ChemicalSubstance"),
         ("Max24hOzoneExposure_qcut", Integer, quintile_levels, "ChemicalSubstance"),
+        ("Avg24hPM2.5Exposure_2", Integer, quintile_levels, "ChemicalSubstance"),
+        ("Max24hOzoneExposure_2", Integer, quintile_levels, "ChemicalSubstance"),
+        ("Avg24hPM2.5Exposure_2_qcut", Integer, quintile_levels, "ChemicalSubstance"),
+        ("Max24hOzoneExposure_2_qcut", Integer, quintile_levels, "ChemicalSubstance"),
         ("EstResidentialDensity", Integer, quintile_levels, "EnvironmentalFeature"),
-        ("EstResidentialDesnity25Plus", Integer, quintile_levels, "EnvironmentalFeature"),
+        ("EstResidentialDensity25Plus", Integer, quintile_levels, "EnvironmentalFeature"),
         ("EstProbabilityNonHispWhite", Integer, quartile_levels, "EnvironmentalFeature"),
         ("EstProbabilityHouseholdNonHispWhite", Integer, quartile_levels, "EnvironmentalFeature"),
         ("EstProbabilityHighSchoolMaxEducation", Integer, quartile_levels, "EnvironmentalFeature"),

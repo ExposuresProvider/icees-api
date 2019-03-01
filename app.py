@@ -75,8 +75,8 @@ template = {
       "description": """ICEES API 
 <br>[documentation](https://github.com/NCATS-Tangerine/icees-api/tree/master/docs) 
 <br>[source](https://github.com/NCATS-Tangerine/icees-api/tree/master/) 
-<br>[ICEES API example queries](https://github.com/NCATS-Tangerine/icees-api/tree/master/#examples) <br>dictionary for versioning of tables<br><table><tr><th>version</th><th>table content</th></tr><tr><td>1.0.0</td><td>cdw, acs, nearest road, and cmaq from 2010</td></tr></table>""",
-    "version": "0.0.1"
+<br>[ICEES API example queries](https://github.com/NCATS-Tangerine/icees-api/tree/master/#examples) <br>dictionary for versioning of tables<br><table><tr><th>version</th><th>table content</th></tr><tr><td>1.0.0</td><td>cdw, acs, nearest road, and cmaq from 2010</td></tr><tr><td>2.0.0</td><td>cdw in FHIR format, acs, nearest road, and cmaq from 2010</td></tr></table>""",
+    "version": "0.0.2"
   },
   "consumes": [
     "application/json"
@@ -122,7 +122,7 @@ class SERVCohort(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path
@@ -194,7 +194,7 @@ class SERVCohortId(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path
@@ -256,7 +256,7 @@ class SERVCohortId(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path
@@ -326,7 +326,7 @@ class SERVFeatureAssociation(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path
@@ -402,7 +402,7 @@ class SERVFeatureAssociation2(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path
@@ -474,7 +474,7 @@ class SERVAssociationsToAllFeatures(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path
@@ -533,7 +533,7 @@ class SERVFeatures(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path
@@ -588,7 +588,7 @@ class SERVCohortDictionary(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path
@@ -632,7 +632,7 @@ class SERVIdentifiers(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path
@@ -698,7 +698,7 @@ class SERVName(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path
@@ -743,7 +743,7 @@ class SERVName(Resource):
           - in: path
             name: version
             required: true
-            description: version of data 1.0.0
+            description: version of data 1.0.0|2.0.0
             type: string
             default: 1.0.0
           - in: path

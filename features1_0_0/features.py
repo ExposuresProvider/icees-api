@@ -1,8 +1,8 @@
 from sqlalchemy import Integer, String, Enum
 age_levels = ['0-2', '3-17', '18-34', '35-50', '51-69', '70+']
-age_bins = Enum(*age_levels)
+age_bins = Enum(*age_levels, name="age_levels")
 sex_levels = ["M","F"]
-sex_bins = Enum(*sex_levels)
+sex_bins = Enum(*sex_levels, name="sex_levels")
 est_residential_density_levels = range(1, 3)
 quartile_levels = range(1, 5)
 quintile_levels = range(1, 6)

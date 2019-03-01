@@ -130,7 +130,7 @@ class SERVCohort(Resource):
           - in: path
             name: year
             required: true
-            description: the year 2010|2011
+            description: the year 2010
             type: integer
             default: 2010
         responses:
@@ -194,7 +194,7 @@ class SERVCohortId(Resource):
           - in: path
             name: year
             required: true
-            description: the year 2010|2011
+            description: the year 2010
             type: integer
             default: 2010
           - in: path
@@ -252,7 +252,7 @@ class SERVCohortId(Resource):
           - in: path
             name: year
             required: true
-            description: the year 2010|2011
+            description: the year 2010
             type: integer
             default: 2010
           - in: path
@@ -280,6 +280,20 @@ class SERVCohortId(Resource):
             traceback.print_exc()
             return_value = str(e)
         return versioned(version, return_value)
+
+
+def opposite(qualifier):
+    return {
+        "operator": {
+            ">": "<=",
+            "<": ">=",
+            ">=": "<",
+            "<=": ">",
+            "=": "<>",
+            "<>": "="
+        }[qualifier["operator"]],
+        "value": qualifier["value"]
+    }
 
 
 def to_qualifiers(feature):
@@ -314,7 +328,7 @@ class SERVFeatureAssociation(Resource):
           - in: path
             name: year
             required: true
-            description: the year 2010|2011
+            description: the year 2010
             type: integer
             default: 2010
           - in: path
@@ -446,7 +460,7 @@ class SERVAssociationsToAllFeatures(Resource):
           - in: path
             name: year
             required: true
-            description: the year 2010|2011
+            description: the year 2010
             type: integer
             default: 2010
           - in: path
@@ -501,7 +515,7 @@ class SERVFeatures(Resource):
           - in: path
             name: year
             required: true
-            description: the year 2010|2011
+            description: the year 2010
             type: integer
             default: 2010
           - in: path
@@ -552,7 +566,7 @@ class SERVCohortDictionary(Resource):
           - in: path
             name: year
             required: true
-            description: the year 2010|2011
+            description: the year 2010
             type: integer
             default: 2010
         responses:
@@ -730,5 +744,4 @@ api.add_resource(SERVIdentifiers, "/<string:version>/<string:table>/<string:feat
 api.add_resource(SERVName, "/<string:version>/<string:table>/name/<string:name>")
 
 if __name__ == '__main__':
-
     app.run()

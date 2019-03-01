@@ -58,20 +58,6 @@ def filter_select(s, table, k, v):
     }[v["operator"]]()
 
 
-def opposite(qualifier):
-    return {
-        "operator": {
-            ">": "<=",
-            "<": ">=",
-            ">=": "<",
-            "<=": ">",
-            "=": "<>",
-            "<>": "="
-        }[qualifier["operator"]],
-        "value": qualifier["value"]
-    }
-
-
 def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
     table = tables[table_name]
     s = select([func.count()]).select_from(table).where(table.c.year == year)

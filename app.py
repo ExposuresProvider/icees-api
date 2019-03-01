@@ -115,7 +115,6 @@ class SERVCohort(Resource):
           - in: body
             name: body
             description: feature variables
-            schema: any
           - in: path
             name: version
             required: true
@@ -137,7 +136,6 @@ class SERVCohort(Resource):
         responses:
           201:
             description: The cohort has been created
-            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -181,7 +179,6 @@ class SERVCohortId(Resource):
           - in: body
             name: body
             description: feature variables
-            schema: any
           - in: path
             name: version
             required: true
@@ -209,7 +206,6 @@ class SERVCohortId(Resource):
         responses:
           201:
             description: The cohort has been created
-            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -268,7 +264,6 @@ class SERVCohortId(Resource):
         responses:
           200:
             description: The features of the cohort
-            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -304,7 +299,6 @@ class SERVFeatureAssociation(Resource):
           - in: body
             name: body
             description: two feature variables
-            schema: any
           - in: path
             name: version
             required: true
@@ -332,7 +326,6 @@ class SERVFeatureAssociation(Resource):
         responses:
           200:
             description: The feature association
-            schema: any
         """
         try:
             obj = request.get_json()
@@ -374,7 +367,6 @@ class SERVFeatureAssociation2(Resource):
           - in: body
             name: body
             description: two feature variables
-            schema: any
           - in: path
             name: version
             required: true
@@ -402,7 +394,6 @@ class SERVFeatureAssociation2(Resource):
         responses:
           200:
             description: The feature association
-            schema: any
         """
         try:
             obj = request.get_json()
@@ -440,7 +431,6 @@ class SERVAssociationsToAllFeatures(Resource):
           - in: body
             name: body
             description: a feature variable and minimum p value
-            schema: any
           - in: path
             name: version
             required: true
@@ -468,7 +458,6 @@ class SERVAssociationsToAllFeatures(Resource):
         responses:
           200:
             description: Associations to all features
-            schema: any
         """
         try:
             obj = request.get_json()
@@ -524,7 +513,6 @@ class SERVFeatures(Resource):
         responses:
           200:
             description: features
-            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -570,7 +558,6 @@ class SERVCohortDictionary(Resource):
         responses:
           200:
             description: cohort dictionray
-            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -611,7 +598,6 @@ class SERVIdentifiers(Resource):
         responses:
           200:
             description: feature identifiers
-            schema: any
         """
         try:
             pat_dict = {}
@@ -675,7 +661,6 @@ class SERVName(Resource):
         responses:
           200:
             description: cohort id and name
-            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -697,7 +682,6 @@ class SERVName(Resource):
           - in: body
             name: body
             description: cohort id
-            schema: any
           - in: path
             name: version
             required: true
@@ -718,7 +702,6 @@ class SERVName(Resource):
         responses:
           200:
             description: cohort id and name
-            schema: any
         """
         try:
             obj = request.get_json()

@@ -141,7 +141,7 @@ def bins_schema(table_name):
         "properties": {k: {
             "type": "array",
             "items": bin_qualifier_schema(v, levels)
-        } for k, v, levels in features[table_name]},
+        } for k, v, levels, _ in features[table_name]},
         "additionalProperties": False
     }
 

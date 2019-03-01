@@ -115,10 +115,7 @@ class SERVCohort(Resource):
           - in: body
             name: body
             description: feature variables
-            schema: 
-              oneOf:
-                - import: "definitions/cohort_patient_input.yaml"
-                - import: "definitions/cohort_visit_input.yaml"
+            schema: any
           - in: path
             name: version
             required: true
@@ -140,10 +137,7 @@ class SERVCohort(Resource):
         responses:
           201:
             description: The cohort has been created
-            schema:
-              oneOf:
-                - import: "definitions/cohort_patient_output.yaml"
-                - import: "definitions/cohort_visit_output.yaml"
+            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -187,10 +181,7 @@ class SERVCohortId(Resource):
           - in: body
             name: body
             description: feature variables
-            schema: 
-              oneOf:
-                - import: "definitions/cohort_patient_input.yaml"
-                - import: "definitions/cohort_visit_input.yaml"
+            schema: any
           - in: path
             name: version
             required: true
@@ -218,10 +209,7 @@ class SERVCohortId(Resource):
         responses:
           201:
             description: The cohort has been created
-            schema:
-              oneOf:
-                - import: "definitions/cohort_patient_output.yaml"
-                - import: "definitions/cohort_visit_output.yaml"
+            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -280,10 +268,7 @@ class SERVCohortId(Resource):
         responses:
           200:
             description: The features of the cohort
-            schema:
-              oneOf: 
-                - import: "definitions/cohort_patient_input.yaml"
-                - import: "definitions/cohort_visit_input.yaml"
+            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -319,10 +304,7 @@ class SERVFeatureAssociation(Resource):
           - in: body
             name: body
             description: two feature variables
-            schema: 
-              oneOf:
-                - import: "definitions/feature_association_patient_input.yaml"
-                - import: "definitions/feature_association_visit_input.yaml"
+            schema: any
           - in: path
             name: version
             required: true
@@ -350,10 +332,7 @@ class SERVFeatureAssociation(Resource):
         responses:
           200:
             description: The feature association
-            schema:
-              oneOf: 
-                - import: "definitions/feature_association_patient_output.yaml"
-                - import: "definitions/feature_association_visit_output.yaml"
+            schema: any
         """
         try:
             obj = request.get_json()
@@ -395,10 +374,7 @@ class SERVFeatureAssociation2(Resource):
           - in: body
             name: body
             description: two feature variables
-            schema: 
-              oneOf:
-                - import: "definitions/feature_association2_patient_input.yaml"
-                - import: "definitions/feature_association2_visit_input.yaml"
+            schema: any
           - in: path
             name: version
             required: true
@@ -426,10 +402,7 @@ class SERVFeatureAssociation2(Resource):
         responses:
           200:
             description: The feature association
-            schema:
-              oneOf: 
-                - import: "definitions/feature_association2_patient_output.yaml"
-                - import: "definitions/feature_association2_visit_output.yaml"
+            schema: any
         """
         try:
             obj = request.get_json()
@@ -467,10 +440,7 @@ class SERVAssociationsToAllFeatures(Resource):
           - in: body
             name: body
             description: a feature variable and minimum p value
-            schema: 
-              oneOf:
-                - import: "definitions/associations_to_all_features_patient_input.yaml"
-                - import: "definitions/associations_to_all_features_visit_input.yaml"
+            schema: any
           - in: path
             name: version
             required: true
@@ -498,10 +468,7 @@ class SERVAssociationsToAllFeatures(Resource):
         responses:
           200:
             description: Associations to all features
-            schema:
-              oneOf:
-                - import: "definitions/associations_to_all_features_patient_output.yaml"
-                - import: "definitions/associations_to_all_features_visit_output.yaml"
+            schema: any
         """
         try:
             obj = request.get_json()
@@ -557,10 +524,7 @@ class SERVFeatures(Resource):
         responses:
           200:
             description: features
-            schema:
-              oneOf:
-                - import: "definitions/features_patient_output.yaml"
-                - import: "definitions/features_visit_output.yaml"
+            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -606,10 +570,7 @@ class SERVCohortDictionary(Resource):
         responses:
           200:
             description: cohort dictionray
-            schema:
-              oneOf:
-                - import: "definitions/cohort_dictionary_patient_output.yaml"
-                - import: "definitions/cohort_dictionary_visit_output.yaml"
+            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -650,8 +611,7 @@ class SERVIdentifiers(Resource):
         responses:
           200:
             description: feature identifiers
-            schema:
-              import: "definitions/identifiers_output.yaml"
+            schema: any
         """
         try:
             pat_dict = {}
@@ -715,8 +675,7 @@ class SERVName(Resource):
         responses:
           200:
             description: cohort id and name
-            schema:
-              import: "definitions/name_output.yaml"
+            schema: any
         """
         try:
             conn = model[version].get_db_connection()
@@ -738,8 +697,7 @@ class SERVName(Resource):
           - in: body
             name: body
             description: cohort id
-            schema: 
-              import: "definitions/add_name_by_id_input.yaml"
+            schema: any
           - in: path
             name: version
             required: true
@@ -760,8 +718,7 @@ class SERVName(Resource):
         responses:
           200:
             description: cohort id and name
-            schema:
-              import: "definitions/name_output.yaml"
+            schema: any
         """
         try:
             obj = request.get_json()

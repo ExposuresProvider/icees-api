@@ -8,8 +8,6 @@ RUN git clone https://github.com/NCATS-Tangerine/icees-api
 
 WORKDIR /icees-api
 
-RUN python features2_0_0/schema.py
-
 ENTRYPOINT ["gunicorn","--certfile", "/cert.pem","--keyfile","/key.pem","--bind", "0.0.0.0:8080"]
 
 CMD ["app:app"]

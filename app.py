@@ -627,7 +627,9 @@ class SERVIdentifiers(Resource):
             else:
                 return versioned(version, "Cannot find table " + table)
             if feature in identifier_dict:
-                return versioned(version, identifier_dict[feature])
+                return versioned(version, {
+                    "identifiers": identifier_dict[feature]
+                })
             else:
                 return versioned(version, "Cannot find identifiers for feature " + feature)
         except Exception as e:

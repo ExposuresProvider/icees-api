@@ -34,36 +34,19 @@ set env variables
 
 enter `<dbpass>` for new user
 
-#### Create Tables and Sequence
-
-```psql -d<database>```
-
-```\i create.sql```
-
 #### Create Permissions
 
-```grant all privileges on all tables in schema public to <dbuser>```
-
-```grant all privileges on all sequence in schema public to <dbuser>```
+```grant all privileges on database <database> to <dbuser>```
 
 #### popluating database
 
 ```
-python preprocPatient.py <visit data input> patient2010.csv 2010 cut
+python dbutils --version 2.0.0 create
 ```
 
 ```
-python preprocPatient.py <patient data input> patient2010.csv 2010 cut
-```
-
-make sure the order of headers generated in csv match the order of columns in postgres
-
-```
-copy patient from '/database/patient2010.csv' csv header;
-```
-
-```
-copy visit from '/database/visit2010.csv' csv header;
+python dbutils --version 2.0.0 insert <patient data input> patient PatientId
+python dbutils --version 2.0.0 insert <visit data input> visit VisitId
 ```
 
 ### Deploy API

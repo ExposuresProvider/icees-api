@@ -3,6 +3,8 @@ age_levels = ['0-2', '3-17', '18-34', '35-50', '51-69', '70-89']
 age_bins = Enum(*age_levels, name="age_levels")
 sex_levels = ["Male","Female","Unknown","Other"]
 sex_bins = Enum(*sex_levels, name="sex_levels")
+sex2_levels = ["Male","Female"]
+sex2_bins = Enum(*sex2_levels, name="sex2_levels")
 ur_levels = ["R","U"]
 ur_bins = Enum(*ur_levels, name="ur_levels")
 est_residential_density_levels = range(1, 3)
@@ -20,6 +22,7 @@ features = {
     "patient": [
         ("AgeStudyStart", age_bins, age_levels, "PhenotypicFeature"),
         ("Sex", sex_bins, sex_levels, "PhenotypicFeature"),
+        ("Sex2", sex2_bins, sex2_levels, "PhenotypicFeature"),
         ("Race", String, None, "PhenotypicFeature"),
         ("Ethnicity", String, None, "PhenotypicFeature"),
         ("AsthmaDx", Integer, boolean_levels, "Disease"),
@@ -94,6 +97,7 @@ features = {
         ("VisitType", String, None, "ActivityAndBehavior"),
         ("AgeVisit", age_bins, age_levels, "PhenotypicFeature"),
         ("Sex", sex_bins, sex_levels, "PhenotypicFeature"),
+        ("Sex2", sex2_bins, sex2_levels, "PhenotypicFeature"),
         ("Race", String, None, "PhenotypicFeature"),
         ("Ethnicity", String, None, "PhenotypicFeature"),
         ("AsthmaDxVisit", Integer, boolean_levels, "Disease"),

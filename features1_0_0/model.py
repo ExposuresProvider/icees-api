@@ -1,9 +1,12 @@
 from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence, between
 from sqlalchemy.sql import select
-from scipy.stats import chisquare
+from scipy.stats import chi2_contingency
 import json
 import os
 from .features import features
+import numpy as np
+
+eps = np.finfo(float).eps
 
 service_name = "ICEES"
 
@@ -157,6 +160,8 @@ def div(a,b):
     else:
         return float("NaN")
 
+def add_eps(a):
+    return a + eps
 
 def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, feature_b):
     table = tables[table_name]
@@ -178,9 +183,7 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
 
     total = conn.execute(s).scalar()
 
-    null_matrix = [[div(r * c, total) for c in total_cols] for r in total_rows]
-
-    [chi_squared, p] = chisquare(join_lists(feature_matrix), join_lists(null_matrix))
+    chi_squared, p, *_ = chi2_contingency(list(map(lambda x : list(map(add_eps, x)), feature_matrix)), correction=False)
 
     feature_matrix2 = [
         [

@@ -5,6 +5,10 @@ sex_levels = ["Male","Female","Unknown","Other"]
 sex_bins = Enum(*sex_levels, name="sex_levels")
 sex2_levels = ["Male","Female"]
 sex2_bins = Enum(*sex2_levels, name="sex2_levels")
+race_levels = ["Native Hawaiian/Pacific Islander", "Caucasian", "African American", "Asian", "Unknown", "American/Alaskan Native", "Other(2131-1)"]
+race_bins = Enum(*race_levels, name="race_levels")
+ethnicity_levels = ["Not Hispanic","Unknown", "Hispanic"]
+ethnicity_bins = Enum(*ethnicity_levels, name="ethnicity_levels")
 ur_levels = ["R","U"]
 ur_bins = Enum(*ur_levels, name="ur_levels")
 est_residential_density_levels = range(1, 3)
@@ -23,8 +27,8 @@ features = {
         ("AgeStudyStart", age_bins, age_levels, "PhenotypicFeature"),
         ("Sex", sex_bins, sex_levels, "PhenotypicFeature"),
         ("Sex2", sex2_bins, sex2_levels, "PhenotypicFeature"),
-        ("Race", String, None, "PhenotypicFeature"),
-        ("Ethnicity", String, None, "PhenotypicFeature"),
+        ("Race", race_bins, race_levels, "PhenotypicFeature"),
+        ("Ethnicity", ethnicity_bins, ethnicity_levels, "PhenotypicFeature"),
         ("AsthmaDx", Integer, boolean_levels, "Disease"),
         ("CroupDx", Integer, boolean_levels, "Disease"),
         ("ReactiveAirwayDx", Integer, boolean_levels, "Disease"),
@@ -98,8 +102,8 @@ features = {
         ("AgeVisit", age_bins, age_levels, "PhenotypicFeature"),
         ("Sex", sex_bins, sex_levels, "PhenotypicFeature"),
         ("Sex2", sex2_bins, sex2_levels, "PhenotypicFeature"),
-        ("Race", String, None, "PhenotypicFeature"),
-        ("Ethnicity", String, None, "PhenotypicFeature"),
+        ("Race", race_bins, race_levels, "PhenotypicFeature"),
+        ("Ethnicity", ethnicity_bins, ethnicity_levels, "PhenotypicFeature"),
         ("AsthmaDxVisit", Integer, boolean_levels, "Disease"),
         ("CroupDxVisit", Integer, boolean_levels, "Disease"),
         ("ReactiveAirwayDxVisit", Integer, boolean_levels, "Disease"),

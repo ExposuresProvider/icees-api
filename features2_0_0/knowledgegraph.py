@@ -97,7 +97,7 @@ def get_schema():
     return {
         "population_of_individual_organisms": {
             "chemical_substance": [
-                "affect"
+                "is_affected_by"
             ]
         }
     }

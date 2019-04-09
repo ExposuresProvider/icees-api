@@ -205,6 +205,57 @@ example
 }
 ```
 
+#### knowledge graph
+method
+```
+POST
+```
+
+route
+```
+/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/knowledge_graph
+```
+example
+```
+{
+    "query_message": {
+        "query_options": {
+            "table": "patient", 
+            "year": 2010, 
+            "cohort_features": {
+                "AgeStudyStart"
+            }, 
+            "feature":{"EstResidentialDensity":{"operator":"<","value":1}}, "maximum_p_value":0.1}, "query_graph":{"nodes":[], "edges":[]}}}    "feature_a":{
+        "AgeStudyStart":[
+            {
+                "operator":"=",
+                "value":"0-2"
+            }, {
+                "operator":"between",
+                "value_a":"3-17",
+                "value_b":"18-34"
+            }, {
+                "operator":"in", 
+                "values":["35-50","51-69"]
+            },{
+                "operator":"=",
+                "value":"70+"
+            }
+        ]
+    },
+    "feature_b":{
+        "ObesityBMI":[
+            {
+                "operator":"=",
+                "value":0
+            }, {
+                "operator":"<>", 
+                "value":0
+            }
+        ]
+    }
+}
+```
 #### associations of one feature to all features
 method
 ```
@@ -218,6 +269,60 @@ route
 schema
 ```
 {"feature":{"<feature name>":{"operator":<operator>,"value":<value>}},"maximum_p_value":<maximum p value>}
+```
+#### knowledge graph
+method
+```
+POST
+```
+
+route
+```
+/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/knowledge_graph
+```
+example
+```
+{
+    "query_message": {
+        "query_options": {
+            "table": "patient", 
+            "year": 2010, 
+            "cohort_features": {
+                "AgeStudyStart": {
+                    "operator": "=",
+                    "value": "0-2"
+                }
+            }, 
+            "feature": {
+                "EstResidentialDensity": {
+                    "operator": "<",
+                    "value": 1
+                }
+            }, 
+            "maximum_p_value":0.1
+        }, 
+        "query_graph": {
+            "nodes": [
+                {
+                    "node_id": "n00",
+                    "type": "popluation_of_individual_organisms"
+                },
+                {
+                    "node_id": "n01",
+                    "type": "chemical_substance"
+                }   
+            ], 
+            "edges": [
+                {
+                    "edge_id": "e00",
+                    "type": "affect",
+                    "source_id": "n00",
+                    "target_id": "n01"
+                } 
+            ]
+        }
+    }
+}
 ```
 
 ### Examples ###
@@ -268,6 +373,52 @@ get association to all features
 curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
 ```
 
+knowledge graph
 
+```
+curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph" -H  "accept: application/json" -H  "Content-Type: application/json" -d '
+{
+    "query_message": {
+        "query_options": {
+            "table": "patient", 
+            "year": 2010, 
+            "cohort_features": {
+                "AgeStudyStart": {
+                    "operator": "=",
+                    "value": "0-2"
+                }
+            }, 
+            "feature": {
+                "EstResidentialDensity": {
+                    "operator": "<",
+                    "value": 1
+                }
+            }, 
+            "maximum_p_value":0.1
+        }, 
+        "query_graph": {
+            "nodes": [
+                {
+                    "node_id": "n00",
+                    "type": "population_of_individual_organisms"
+                },
+                {
+                    "node_id": "n01",
+                    "type": "chemical_substance"
+                }   
+            ], 
+            "edges": [
+                {
+                    "edge_id": "e00",
+                    "type": "affect",
+                    "source_id": "n00",
+                    "target_id": "n01"
+                } 
+            ]
+        }
+    }
+}
+'
+```
 
 

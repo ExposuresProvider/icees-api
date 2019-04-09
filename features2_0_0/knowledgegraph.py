@@ -8,6 +8,8 @@ import inflection
 import numpy as np
 from .model import select_cohort, get_db_connection, select_associations_to_all_features
 import datetime
+from utils import to_qualifiers
+import traceback
 
 def get(conn, obj):
     try:
@@ -16,12 +18,8 @@ def get(conn, obj):
         table = cohort_definition["table"]
         year = cohort_definition["year"]
         cohort_features = cohort_definition["cohort_features"]
-        feature = cohort_definition["feature"]
+        feature = to_qualifiers(cohort_definition["feature"])
         maximum_p_value = cohort_definition["maximum_p_value"]
-
-        cohort_id, size = select_cohort(conn, table, year, cohort_features)
-
-        ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
 
         query_graph = query_message["query_graph"]
 
@@ -34,7 +32,7 @@ def get(conn, obj):
         if len(edges) != 1:
             raise NotImplementedError("Number of edges in query graph must be 1")
 
-        nodes_dict = {node["node_id"]: node["type"] for node in nodes}
+        nodes_dict = {node["node_id"]: node for node in nodes}
         [edge] = edges
 
         source_id = edge["source_id"]
@@ -42,7 +40,7 @@ def get(conn, obj):
             raise NotImplementedError("Sounce node must be population_of_individual_organisms")
 
         supported_types = {
-            "chemical_substance": ["chemical_substance", "Drug"]
+            "chemical_substance": ["chemical_substance", "drug"]
         }
 
         target_id = edge["target_id"]
@@ -51,13 +49,17 @@ def get(conn, obj):
             raise NotImplementedError("Target node must be one of " + str(supported_types.keys()))
 
         def supported_type(feature_matrix):
-            return feature_matrix["features_b"]["biolink_class"] in supported_types[target_node_type]
+            return feature_matrix["feature_b"]["biolink_class"] in supported_types[target_node_type]
 
         def feature_properties(feature_matrix):
             return {
-                "feature_name": feature_matrix["features_b"]["feature_name"],
+                "feature_name": feature_matrix["feature_b"]["feature_name"],
                 "p_value": feature_matrix["p_value"]
             }
+
+        cohort_id, size = select_cohort(conn, table, year, cohort_features)
+
+        ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
 
         feature_list = list(map(feature_properties, filter(supported_type, ataf)))
 
@@ -76,10 +78,11 @@ def get(conn, obj):
             "n_results": len(feature_list),
             "message_code": "OK",
             "code_description": "",
-            "table_column_names": [target_id]
-            "results": map(result, feature_list)
+            "table_column_names": [target_id],
+            "results": list(map(result, feature_list))
         }
     except Exception as e:
+        traceback.print_exc()
         message = {
             "reasoner_id": "ICEES",
             "tool_version": "2.0.0",

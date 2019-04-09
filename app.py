@@ -14,6 +14,7 @@ from time import strftime
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
 from features import model, schema, format, knowledgegraph
+from utils import opposite, to_qualifiers
 
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
@@ -280,28 +281,6 @@ class SERVCohortId(Resource):
             traceback.print_exc()
             return_value = str(e)
         return versioned(version, return_value)
-
-
-def opposite(qualifier):
-    return {
-        "operator": {
-            ">": "<=",
-            "<": ">=",
-            ">=": "<",
-            "<=": ">",
-            "=": "<>",
-            "<>": "="
-        }[qualifier["operator"]],
-        "value": qualifier["value"]
-    }
-
-
-def to_qualifiers(feature):
-    k, v = list(feature.items())[0]
-    return {
-        "feature_name": k,
-        "feature_qualifiers": [v, opposite(v)]
-    }
 
 
 class SERVFeatureAssociation(Resource):
@@ -782,7 +761,7 @@ api.add_resource(SERVFeatureAssociation2, '/<string:version>/<string:table>/<int
 api.add_resource(SERVAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
 api.add_resource(SERVIdentifiers, "/<string:version>/<string:table>/<string:feature>/identifiers")
 api.add_resource(SERVName, "/<string:version>/<string:table>/name/<string:name>")
-api.add_resource(SERVKnowledgeGraph, "/<string:version>/knowledgegraph")
+api.add_resource(SERVKnowledgeGraph, "/<string:version>/knowledge_graph")
 
 if __name__ == '__main__':
     app.run()

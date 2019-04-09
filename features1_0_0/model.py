@@ -160,8 +160,10 @@ def div(a,b):
     else:
         return float("NaN")
 
+
 def add_eps(a):
     return a + eps
+
 
 def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, feature_b):
     table = tables[table_name]
@@ -217,9 +219,6 @@ def select_feature_count(conn, table_name, year, cohort_features, feature_a):
     ka = feature_a["feature_name"]
     vas = feature_a["feature_qualifiers"]
 
-    print(ka)
-    print(s)
-
     feature_matrix = [conn.execute(filter_select(s, table, ka, va)).scalar() for va in vas]
     
     total = conn.execute(s).scalar()
@@ -247,6 +246,15 @@ def select_feature_association(conn, table_name, year, cohort_features, feature,
         if ret["p_value"] < maximum_p_value:
             rs.append(ret)
     return rs
+
+
+def select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value):
+    cohort_features = get_features_by_id(conn, table, year, cohort_id)
+    if cohort_features is None:
+        return "Input cohort_id invalid. Please try again."
+    else:
+        return select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value)
+
 
 def validate_range(table_name, feature):
     feature_name = feature["feature_name"]
@@ -280,7 +288,8 @@ def validate_range(table_name, feature):
                 raise RuntimeError("incomplete value coverage " + str(levels[i]) + ", input feature qualifiers " + str(feature))
     else:
         print("warning: cannot validate feature " + feature_name + " in table " + table_name + " because its levels are not provided")
-           
+
+
 def get_id_by_name(conn, table, name):
     s = select([func.count()]).select_from(name_table).where((name_table.c.name == name) & (name_table.c.table == table))
     n = conn.execute(s).scalar()
@@ -294,6 +303,7 @@ def get_id_by_name(conn, table, name):
             "cohort_id": cohort_id,
             "name" : name
         }
+
 
 def add_name_by_id(conn, table, name, cohort_id):
     s = select([func.count()]).select_from(name_table).where((name_table.c.name == name) & (name_table.c.table == table))

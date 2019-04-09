@@ -1,0 +1,162 @@
+    Query:
+      x-body-name: request_body
+      type: object
+      properties:
+        query_message:
+          type: object
+          description: Message object that represents the query to be answered
+          items:
+            $ref: '#/components/schemas/QMessage'
+      additionalProperties: true
+    QMessage:
+      type: object
+      properties:
+        query_options:
+          type: object
+          example: 
+            coalesce: true
+            threshold: 0.9
+          description: >-
+            Dict of options that can be sent with the query. Options are tool
+            specific and not stipulated here
+        query_graph:
+          type: object
+          description: >-
+            QueryGraph object that contains a serialization of a query in the form
+            of a graph
+          $ref: '#/components/schemas/QueryGraph'
+      additionalProperties: true
+    Message:
+      type: object
+      properties:
+        reasoner_id:
+          type: string
+          example: ICEES
+          description: >-
+            Identifier string of the reasoner that provided this message (one of
+            RTX, Robokop, Indigo, Integrator, etc.)
+        tool_version:
+          type: string
+          example: ICEES 2.0.0
+          description: Version label of the tool that generated this message
+        datetime:
+          type: string
+          example: '2018-01-09 12:34:45'
+          description: Datetime string for the time that this message was generated
+        n_results:
+          type: integer
+          example: 42
+          description: >-
+            Total number of results from the query (which may be less than what is
+            returned if limits were placed on the number of results to return)
+        message_code:
+          type: string
+          example: OK
+          description: >-
+            Set to OK for success, or some other short string to indicate and
+            error (e.g., KGUnavailable, TermNotFound, etc.)
+        code_description:
+          type: string
+          example: 9 results found
+          description: >-
+            Extended description denoting the success or mode of failure in the
+            generation of the message
+        table_column_names:
+          type: array
+          example:
+            - chemical_substance.name
+            - chemical_substance.id
+          description: List of column names that corresponds to the row_data for each result
+          items:
+            type: string
+        results:
+          description: List of all returned potential answers for the query posed
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      additionalProperties: true
+    Result:
+      type: object
+      description: One of potentially several results or answers for a query
+      properties:
+        row_data:
+          type: array
+          example:
+            - ibuprofen
+            - 'CHEMBL:CHEMBL521'
+          description: >-
+            An arbitrary list of values that captures the essence of the result
+            that can be turned into a tabular result across all answers (each
+            result is a row) for a user that wants tabular output
+          items:
+            type: string
+        score:
+          type: number
+          format: float
+          example: 163.233
+          description: Any type of score associated with this result
+        score_name:
+          type: string
+          example: Jaccard distance
+          description: Name for the score
+    QueryGraph:
+      type: object
+      description: >-
+        A graph intended to be the thought path to be followed by a reasoner to
+        answer the question. This graph is a representation of a question.
+      properties:
+        nodes:
+          type: array
+          description: List of nodes in the QueryGraph
+          items:
+            $ref: '#/components/schemas/QNode'
+        edges:
+          type: array
+          description: List of edges in the QueryGraph
+          items:
+            $ref: '#/components/schemas/QEdge'
+      additionalProperties: true
+      required:
+        - nodes
+        - edges
+    QNode:
+      type: object
+      description: A node in the QueryGraph
+      properties:
+        node_id:
+          type: string
+          example: n00
+          description: >-
+            QueryGraph internal identifier for this QNode. Recommended form: n00,
+            n01, n02, etc.
+        type:
+          type: string
+          description: 'Entity type of this node (e.g., protein, disease, etc.)'
+          example: disease
+      additionalProperties: true
+    QEdge:
+      type: object
+      description: An edge in the QueryGraph
+      properties:
+        edge_id:
+          type: string
+          example: e00
+          description: >-
+            QueryGraph internal identifier for this QEdge. Recommended form: e00,
+            e01, e02, etc.
+        type:
+          type: string
+          example: affects
+          description: Higher-level relationship type of this edge
+        source_id:
+          type: string
+          example: 'https://omim.org/entry/603903'
+          description: Corresponds to the @id of source node of this edge
+        target_id:
+          type: string
+          example: 'https://www.uniprot.org/uniprot/P00738'
+          description: Corresponds to the @id of target node of this edge
+      additionalProperties: true
+      required:
+        - source_id
+        - target_id

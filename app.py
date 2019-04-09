@@ -13,7 +13,7 @@ import os
 from time import strftime
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
-from features import model, schema, format
+from features import model, schema, format, knowledgegraph
 
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
@@ -479,12 +479,7 @@ class SERVAssociationsToAllFeatures(Resource):
             feature = to_qualifiers(obj["feature"])
             maximum_p_value = obj["maximum_p_value"]
             conn = model[version].get_db_connection()
-            cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
-            if cohort_features is None:
-                return_value = "Input cohort_id invalid. Please try again."
-            else:
-                return_value = model[version].select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value)
-
+            return model[version].select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -733,6 +728,51 @@ class SERVName(Resource):
         return versioned(version, return_value)
 
 
+class SERVKnowledgeGraph(Resource):
+    def post(self, version):
+        """
+        Query the ICEES clinical reasoner for associations between population clusters and chemicals.
+        ---
+        definitions:
+          import: 'TranslatorReasonersAPI.yaml'
+        parameters:
+          - in: body
+            name: body
+            description: Input message
+            required: true
+            schema:
+                $ref: '#/definitions/Query'
+          - in: path
+            name: version
+            required: true
+            description: version of data 2.0.0
+            type: string
+            default: 2.0.0
+        responses:
+            200:
+                description: Success
+                schema:
+                    $ref: '#/definitions/Message'
+                    example: "Successfully validated"
+            400:
+                description: Malformed message
+                schema:
+                    type: string
+        """
+        try:
+            obj = request.get_json()
+            # validate(obj, schema[version].add_name_by_id_schema())
+            conn = model[version].get_db_connection()
+            return_value = knowledgegraph[version].get(conn, obj)
+        except ValidationError as e:
+            traceback.print_exc()
+            return_value = e.message
+        except Exception as e:
+            traceback.print_exc()
+            return_value = str(e)
+        return versioned(version, return_value)
+
+
 api.add_resource(SERVCohort, '/<string:version>/<string:table>/<int:year>/cohort')
 api.add_resource(SERVCohortId, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
 api.add_resource(SERVFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
@@ -742,6 +782,7 @@ api.add_resource(SERVFeatureAssociation2, '/<string:version>/<string:table>/<int
 api.add_resource(SERVAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
 api.add_resource(SERVIdentifiers, "/<string:version>/<string:table>/<string:feature>/identifiers")
 api.add_resource(SERVName, "/<string:version>/<string:table>/name/<string:name>")
+api.add_resource(SERVKnowledgeGraph, "/<string:version>/knowledgegraph")
 
 if __name__ == '__main__':
     app.run()

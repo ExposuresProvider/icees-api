@@ -752,6 +752,37 @@ class SERVKnowledgeGraph(Resource):
         return versioned(version, return_value)
 
 
+class SERVKnowledgeGraphSchema(Resource):
+    def post(self, version):
+        """
+        Query the ICEES clinical reasoner for knowledge graph schema.
+        ---
+        parameters:
+          - in: path
+            name: version
+            required: true
+            description: version of data 2.0.0
+            type: string
+            default: 2.0.0
+        responses:
+            200:
+                description: Success
+            400:
+                description: Malformed message
+                schema:
+                    type: string
+        """
+        try:
+            return_value = knowledgegraph[version].get_schema()
+        except ValidationError as e:
+            traceback.print_exc()
+            return_value = e.message
+        except Exception as e:
+            traceback.print_exc()
+            return_value = str(e)
+        return versioned(version, return_value)
+
+
 api.add_resource(SERVCohort, '/<string:version>/<string:table>/<int:year>/cohort')
 api.add_resource(SERVCohortId, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
 api.add_resource(SERVFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
@@ -762,6 +793,7 @@ api.add_resource(SERVAssociationsToAllFeatures, '/<string:version>/<string:table
 api.add_resource(SERVIdentifiers, "/<string:version>/<string:table>/<string:feature>/identifiers")
 api.add_resource(SERVName, "/<string:version>/<string:table>/name/<string:name>")
 api.add_resource(SERVKnowledgeGraph, "/<string:version>/knowledge_graph")
+api.add_resource(SERVKnowledgeGraphSchema, "/<string:version>/knowledge_graph/schema")
 
 if __name__ == '__main__':
     app.run()

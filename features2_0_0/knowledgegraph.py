@@ -93,3 +93,11 @@ def get(conn, obj):
 
     return message
 
+def get_schema():
+    return {
+        "population_of_individual_organisms": {
+            "chemical_substance": [
+                "affect"
+            ]
+        }
+    }

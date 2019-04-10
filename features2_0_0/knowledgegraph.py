@@ -13,7 +13,7 @@ import traceback
 
 schema = {
         "population_of_individual_organisms": {
-            "association": ["chemical_substance"]
+            "chemical_substance": ["association"]
         }
     }
 
@@ -50,16 +50,16 @@ def get(conn, obj):
         if source_node_type not in schema:
             raise NotImplementedError("Sounce node must be one of " + str(schema.keys()))
 
-        supported_edge_types = schema[source_node_type]
-        edge_type = edge["type"]
-        if edge_type not in supported_edge_types:
-            raise NotImplementedError("Edge must be one of " + str(supported_edge_types.keys()))
-
         target_id = edge["target_id"]
         target_node_type = nodes_dict[target_id]["type"]
-        supported_node_types = supported_edge_types[edge_type]
+        supported_node_types = schema[source_node_type]
         if target_node_type not in supported_node_types:
-            raise NotImplementedError("Target node must be one of " + str(supported_node_types))
+            raise NotImplementedError("Target node must be one of " + str(supported_node_types.keys()))
+
+        supported_edge_types = supported_node_type[target_node_type]
+        edge_type = edge["type"]
+        if edge_type not in supported_edge_types:
+            raise NotImplementedError("Edge must be one of " + str(supported_edge_types))
 
         def supported_type(feature_matrix):
             return feature_matrix["feature_b"]["biolink_class"] in subtypes[target_node_type]

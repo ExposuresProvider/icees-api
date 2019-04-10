@@ -710,7 +710,7 @@ class SERVName(Resource):
 class SERVKnowledgeGraph(Resource):
     def post(self, version):
         """
-        Query the ICEES clinical reasoner for associations between population clusters and chemicals.
+        Query the ICEES clinical reasoner for associations between concepts.
         ---
         definitions:
           import: 'TranslatorReasonersAPI.yaml'

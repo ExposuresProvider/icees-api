@@ -227,7 +227,7 @@ POST
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/knowledge_graph
+/2.0.0/knowledge_graph
 ```
 example
 ```

@@ -732,10 +732,6 @@ class SERVKnowledgeGraph(Resource):
                 description: Success
                 schema:
                     $ref: '#/definitions/Message'
-            400:
-                description: Malformed message
-                schema:
-                    type: string
         """
         try:
             obj = request.get_json()
@@ -752,7 +748,7 @@ class SERVKnowledgeGraph(Resource):
 
 
 class SERVKnowledgeGraphSchema(Resource):
-    def post(self, version):
+    def get(self, version):
         """
         Query the ICEES clinical reasoner for knowledge graph schema.
         ---
@@ -766,10 +762,6 @@ class SERVKnowledgeGraphSchema(Resource):
         responses:
             200:
                 description: Success
-            400:
-                description: Malformed message
-                schema:
-                    type: string
         """
         try:
             return_value = knowledgegraph[version].get_schema()

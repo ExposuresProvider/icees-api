@@ -264,7 +264,7 @@ example
             "edges": [
                 {
                     "edge_id": "e00",
-                    "type": "is_affected_by",
+                    "type": "association",
                     "source_id": "n00",
                     "target_id": "n01"
                 } 
@@ -359,7 +359,7 @@ curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph" -H  "accept: appli
             "edges": [
                 {
                     "edge_id": "e00",
-                    "type": "is_affected_by",
+                    "type": "association",
                     "source_id": "n00",
                     "target_id": "n01"
                 } 

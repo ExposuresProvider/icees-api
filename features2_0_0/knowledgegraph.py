@@ -11,6 +11,16 @@ import datetime
 from utils import to_qualifiers
 import traceback
 
+schema = {
+        "population_of_individual_organisms": {
+            "association": ["chemical_substance"]
+        }
+    }
+
+subtypes = {
+    "chemical_substance": ["chemical_substance", "drug"]
+}
+
 def get(conn, obj):
     try:
         query_message = obj["query_message"]
@@ -36,20 +46,23 @@ def get(conn, obj):
         [edge] = edges
 
         source_id = edge["source_id"]
-        if nodes_dict[source_id]["type"] != "population_of_individual_organisms":
-            raise NotImplementedError("Sounce node must be population_of_individual_organisms")
+        source_node_type = nodes_dict[source_id]["type"]
+        if source_node_type not in schema:
+            raise NotImplementedError("Sounce node must be one of " + str(schema.keys()))
 
-        supported_types = {
-            "chemical_substance": ["chemical_substance", "drug"]
-        }
+        supported_edge_types = schema[source_node_type]
+        edge_type = edge["type"]
+        if edge_type not in supported_edge_types:
+            raise NotImplementedError("Edge must be one of " + str(supported_edge_types.keys()))
 
         target_id = edge["target_id"]
         target_node_type = nodes_dict[target_id]["type"]
-        if target_node_type not in supported_types:
-            raise NotImplementedError("Target node must be one of " + str(supported_types.keys()))
+        supported_node_types = supported_edge_types[edge_type]
+        if target_node_type not in supported_node_types:
+            raise NotImplementedError("Target node must be one of " + str(supported_node_types))
 
         def supported_type(feature_matrix):
-            return feature_matrix["feature_b"]["biolink_class"] in supported_types[target_node_type]
+            return feature_matrix["feature_b"]["biolink_class"] in subtypes[target_node_type]
 
         def feature_properties(feature_matrix):
             return {
@@ -94,10 +107,4 @@ def get(conn, obj):
     return message
 
 def get_schema():
-    return {
-        "population_of_individual_organisms": {
-            "chemical_substance": [
-                "p_value"
-            ]
-        }
-    }
+    return schema

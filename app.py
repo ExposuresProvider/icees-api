@@ -732,7 +732,6 @@ class SERVKnowledgeGraph(Resource):
                 description: Success
                 schema:
                     $ref: '#/definitions/Message'
-                    example: "Successfully validated"
             400:
                 description: Malformed message
                 schema:

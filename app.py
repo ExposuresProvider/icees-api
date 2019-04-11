@@ -97,6 +97,7 @@ swag = Swagger(app, template=template)
 
 @api.representation('application/json')
 def output_json(data, code, headers=None):
+    print("data:", data)
     resp = make_response(json.dumps({"terms and conditions": terms_and_conditions, "version": data["version"], "return value": data["return value"]}), code)
     resp.headers.extend(headers or {})
     return resp
@@ -458,7 +459,7 @@ class SERVAssociationsToAllFeatures(Resource):
             feature = to_qualifiers(obj["feature"])
             maximum_p_value = obj["maximum_p_value"]
             conn = model[version].get_db_connection()
-            return model[version].select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
+            return_value = model[version].select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message

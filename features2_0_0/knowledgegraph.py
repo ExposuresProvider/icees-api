@@ -57,6 +57,7 @@ def get(conn, obj):
             raise NotImplementedError("Target node must be one of " + str(supported_node_types.keys()))
 
         supported_edge_types = supported_node_types[target_node_type]
+        edge_id = edge["id"]
         edge_type = edge["type"]
         if edge_type not in supported_edge_types:
             raise NotImplementedError("Edge must be one of " + str(supported_edge_types))
@@ -77,13 +78,44 @@ def get(conn, obj):
         feature_list = list(map(feature_properties, filter(supported_type, ataf)))
 
         def result(feature_property):
-            return {
-                "row_data" : [feature_property["feature_name"]],
-                "score": feature_property["p_value"],
-                "score_name": "p value"
-            }
+            node_name = feature_property["feature_name"]
+            node_ids = lookup_identifiers(node_name)
+            def result2(node_id):
+                return {
+                    "node_bindings" : {
+                        source_id : cohort_id,
+                        target_id : node_id
+                    },
+                    "edge_bindings" : {
+                        edge_id : cohort_id + "_" + node_id
+                    },
+                    "score": feature_property["p_value"],
+                    "score_name": "p value"
+                }
+            return list(map(result2, node_ids))
 
+        def knowledge_graph_node(feature_property):
+            node_name = feature_property["feature_name"]
+            node_ids = lookup_identifiers(node_name)
+            def knowledge_graph_node2(node_id):
+                return {
+                    "name": node_name,
+                    "id": node_id,
+                    "type": feature_property["biolink_class"]
+                }
+            return list(map(knowledge_graph_node2, node_ids))
 
+        knowledge_graph_nodes = [{
+            "name": "cohort",
+            "id": cohort_id,
+            "type": "population_of_individual_organisms"
+        }] + list(map(knowledge_graph_node, feature_list))
+
+        knowledge_graph = {
+            "nodes": knowledge_graph_nodes,
+            "edges": knowledge_graph_edges
+        }
+        
         message = {
             "reasoner_id": "ICEES",
             "tool_version": "2.0.0",
@@ -91,7 +123,8 @@ def get(conn, obj):
             "n_results": len(feature_list),
             "message_code": "OK",
             "code_description": "",
-            "table_column_names": [target_id],
+            "query_graph": query_graph,
+            "knowledge_graph": knowledge_graph,
             "results": list(map(result, feature_list))
         }
     except Exception as e:

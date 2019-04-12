@@ -61,14 +61,6 @@
           description: >-
             Extended description denoting the success or mode of failure in the
             generation of the message
-        table_column_names:
-          type: array
-          example:
-            - chemical_substance.name
-            - chemical_substance.id
-          description: List of column names that corresponds to the row_data for each result
-          items:
-            type: string
         results:
           description: List of all returned potential answers for the query posed
           type: array

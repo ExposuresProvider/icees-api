@@ -6,7 +6,7 @@ import os
 from .features import features, lookUpFeatureClass
 import inflection
 import numpy as np
-from .model import select_cohort, get_db_connection, select_associations_to_all_features
+from .model import get_ids_by_feature, get_db_connection, select_associations_to_all_features
 import datetime
 from utils import to_qualifiers
 import traceback

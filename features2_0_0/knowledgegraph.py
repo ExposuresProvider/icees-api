@@ -79,7 +79,7 @@ def get(conn, obj):
                 "biolink_class": feature_matrix["feature_b"]["biolink_class"]
             }
 
-        cohort_id, size = select_cohort(conn, table, year, cohort_features)
+        cohort_id, size = get_ids_by_feature(conn, table, year, cohort_features)
 
         ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
 

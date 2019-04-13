@@ -10,6 +10,7 @@ from .model import select_cohort, get_db_connection, select_associations_to_all_
 import datetime
 from utils import to_qualifiers
 import traceback
+import itertools
 
 schema = {
         "population_of_individual_organisms": {
@@ -105,11 +106,25 @@ def get(conn, obj):
                 }
             return list(map(knowledge_graph_node2, node_ids))
 
+        def knowledge_graph_edge(feature_property):
+            edge_name = "association"
+            node_ids = lookup_identifier(feature_property["feature_name"])
+            def knowledge_graph_edge2(node_id):
+                return {
+                    "type": edge_name,
+                    "id": cohort_id + "_" + node_id,
+                    "source_id": cohort_id,
+                    "target_id": node_id
+                }
+            return list(map(knowledge_graph_edge2, node_ids))
+
         knowledge_graph_nodes = [{
             "name": "cohort",
             "id": cohort_id,
             "type": "population_of_individual_organisms"
-        }] + list(map(knowledge_graph_node, feature_list))
+        }] + itertools.chain.from_iterable(map(knowledge_graph_node, feature_list))
+
+        knowledge_graph_edges = itertools.chain.from_iterable(map(knowledge_graph_edge, feature_list)))
 
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,

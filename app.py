@@ -6,14 +6,13 @@ from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
 from flasgger import Swagger
 import traceback
-import csv
 import logging
 from logging.handlers import TimedRotatingFileHandler
 import os
 from time import strftime
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
-from features import model, schema, format, knowledgegraph
+from features import model, schema, format, knowledgegraph, identifiers
 from utils import opposite, to_qualifiers
 
 with open('terms.txt', 'r') as content_file:
@@ -589,38 +588,9 @@ class SERVIdentifiers(Resource):
             description: feature identifiers
         """
         try:
-            pat_dict = {}
-            visit_dict = {}
-            version_map = {
-                "1.0.0" : "ICEES_Identifiers_12.04.18.csv"
-            }
-            if version in version_map:
-                with open(version_map[version], newline="") as f:
-                    csvreader = csv.reader(f, delimiter=",", quotechar="\"")
-                    next(csvreader)
-                    for row in csvreader:
-                        row2 = filter(lambda x : x != "", map(lambda x : x.strip(), row))
-                        pat = next(row2)
-                        visit = next(row2)
-                        ids = list(row2)
-                        if pat != "N/A":
-                            pat_dict[pat] = ids
-                            if visit != "N/A":
-                                visit_dict[visit] = ids
-            else:
-                return versioned(version, "Cannot find version " + version)
-            if table == "patient":
-                identifier_dict = pat_dict
-            elif table == "visit":
-                identifier_dict = visit_dict
-            else:
-                return versioned(version, "Cannot find table " + table)
-            if feature in identifier_dict:
-                return versioned(version, {
-                    "identifiers": identifier_dict[feature]
-                })
-            else:
-                return versioned(version, "Cannot find identifiers for feature " + feature)
+            return versioned(version, {
+                "identifiers": identifiers[version].get_identifier(table, feature)
+            })
         except Exception as e:
             traceback.print_exc()
             return versioned(version, str(e))

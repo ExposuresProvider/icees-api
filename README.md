@@ -232,7 +232,6 @@ route
 example
 ```
 {
-    "query_message": {
         "query_options": {
             "table": "patient", 
             "year": 2010, 
@@ -248,13 +247,13 @@ example
                     "value": 1
                 }
             }, 
-            "maximum_p_value":0.1
+            "maximum_p_value":1
         }, 
-        "query_graph": {
+        "machine_question": {
             "nodes": [
                 {
                     "node_id": "n00",
-                    "type": "popluation_of_individual_organisms"
+                    "type": "population_of_individual_organisms"
                 },
                 {
                     "node_id": "n01",
@@ -270,7 +269,6 @@ example
                 } 
             ]
         }
-    }
 }
 ```
 
@@ -327,7 +325,6 @@ knowledge graph
 ```
 curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph" -H  "accept: application/json" -H  "Content-Type: application/json" -d '
 {
-    "query_message": {
         "query_options": {
             "table": "patient", 
             "year": 2010, 
@@ -343,9 +340,9 @@ curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph" -H  "accept: appli
                     "value": 1
                 }
             }, 
-            "maximum_p_value":0.1
+            "maximum_p_value":1
         }, 
-        "query_graph": {
+        "machine_question": {
             "nodes": [
                 {
                     "node_id": "n00",
@@ -365,7 +362,6 @@ curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph" -H  "accept: appli
                 } 
             ]
         }
-    }
 }
 '
 ```

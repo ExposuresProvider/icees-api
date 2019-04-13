@@ -11,6 +11,7 @@ import datetime
 from utils import to_qualifiers
 import traceback
 import itertools
+from .identifiers import get_identifiers
 
 schema = {
         "population_of_individual_organisms": {
@@ -24,15 +25,20 @@ subtypes = {
 
 def get(conn, obj):
     try:
-        query_message = obj["query_message"]
-        cohort_definition = query_message["query_options"]
+        # query_message = obj["query_message"]
+        # cohort_definition = query_message["query_options"]
+        cohort_definition = obj["query_options"]
         table = cohort_definition["table"]
         year = cohort_definition["year"]
-        cohort_features = cohort_definition["cohort_features"]
+        if "cohort_features" in cohort_definition:
+            cohort_features = cohort_definition["cohort_features"]
+        else:
+            cohort_features = {}
         feature = to_qualifiers(cohort_definition["feature"])
         maximum_p_value = cohort_definition["maximum_p_value"]
 
-        query_graph = query_message["query_graph"]
+        # query_graph = query_message["query_graph"]
+        query_graph = obj["machine_question"]
 
         nodes = query_graph["nodes"]
         edges = query_graph["edges"]
@@ -58,7 +64,7 @@ def get(conn, obj):
             raise NotImplementedError("Target node must be one of " + str(supported_node_types.keys()))
 
         supported_edge_types = supported_node_types[target_node_type]
-        edge_id = edge["id"]
+        edge_id = edge["edge_id"]
         edge_type = edge["type"]
         if edge_type not in supported_edge_types:
             raise NotImplementedError("Edge must be one of " + str(supported_edge_types))
@@ -69,7 +75,8 @@ def get(conn, obj):
         def feature_properties(feature_matrix):
             return {
                 "feature_name": feature_matrix["feature_b"]["feature_name"],
-                "p_value": feature_matrix["p_value"]
+                "p_value": feature_matrix["p_value"],
+                "biolink_class": feature_matrix["feature_b"]["biolink_class"]
             }
 
         cohort_id, size = select_cohort(conn, table, year, cohort_features)
@@ -80,15 +87,15 @@ def get(conn, obj):
 
         def result(feature_property):
             node_name = feature_property["feature_name"]
-            node_ids = lookup_identifiers(node_name)
+            node_ids = get_identifiers(table, node_name)
             def result2(node_id):
                 return {
                     "node_bindings" : {
-                        source_id : cohort_id,
-                        target_id : node_id
+                        source_id: cohort_id,
+                        target_id: node_id
                     },
                     "edge_bindings" : {
-                        edge_id : cohort_id + "_" + node_id
+                        edge_id: [cohort_id + "_" + node_id]
                     },
                     "score": feature_property["p_value"],
                     "score_name": "p value"
@@ -97,7 +104,7 @@ def get(conn, obj):
 
         def knowledge_graph_node(feature_property):
             node_name = feature_property["feature_name"]
-            node_ids = lookup_identifiers(node_name)
+            node_ids = get_identifiers(table, node_name)
             def knowledge_graph_node2(node_id):
                 return {
                     "name": node_name,
@@ -108,7 +115,7 @@ def get(conn, obj):
 
         def knowledge_graph_edge(feature_property):
             edge_name = "association"
-            node_ids = lookup_identifier(feature_property["feature_name"])
+            node_ids = get_identifiers(table, feature_property["feature_name"])
             def knowledge_graph_edge2(node_id):
                 return {
                     "type": edge_name,
@@ -122,9 +129,9 @@ def get(conn, obj):
             "name": "cohort",
             "id": cohort_id,
             "type": "population_of_individual_organisms"
-        }] + itertools.chain.from_iterable(map(knowledge_graph_node, feature_list))
+        }] + list(itertools.chain.from_iterable(map(knowledge_graph_node, feature_list)))
 
-        knowledge_graph_edges = itertools.chain.from_iterable(map(knowledge_graph_edge, feature_list)))
+        knowledge_graph_edges = list(itertools.chain.from_iterable(map(knowledge_graph_edge, feature_list)))
 
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,
@@ -138,9 +145,11 @@ def get(conn, obj):
             "n_results": len(feature_list),
             "message_code": "OK",
             "code_description": "",
-            "query_graph": query_graph,
+            # "query_graph": query_graph,
+            "question_graph": query_graph,
             "knowledge_graph": knowledge_graph,
-            "results": list(map(result, feature_list))
+            # "results": list(map(result, feature_list))
+            "answers": list(map(result, feature_list))
         }
     except Exception as e:
         traceback.print_exc()

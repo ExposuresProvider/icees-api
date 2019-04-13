@@ -589,7 +589,7 @@ class SERVIdentifiers(Resource):
         """
         try:
             return versioned(version, {
-                "identifiers": identifiers[version].get_identifier(table, feature)
+                "identifiers": identifiers[version].get_identifiers(table, feature)
             })
         except Exception as e:
             traceback.print_exc()

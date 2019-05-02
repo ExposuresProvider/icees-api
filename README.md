@@ -369,6 +369,6 @@ curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph" -H  "accept: appli
 knowledge graph schema
 
 ```
-curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph/schema" -H  "accept: application/json"
+curl -X GET -k "http://localhost:5000/2.0.0/knowledge_graph/schema" -H  "accept: application/json"
 ```
 

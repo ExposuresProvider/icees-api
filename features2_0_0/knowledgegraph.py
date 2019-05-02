@@ -12,15 +12,26 @@ from utils import to_qualifiers
 import traceback
 import itertools
 from .identifiers import get_identifiers
+from functools import reduce
 
 schema = {
         "population_of_individual_organisms": {
-            "chemical_substance": ["association"]
+            "chemical_substance": ["association"],
+            "disease": ["association"],
+            "phenotypic_feature": ["association"],
+            "disease_or_phenotypic_feature": ["association"],
+            "chemical_substance": ["association"],
+            "environmental": ["association"],
+            "activity_and_behavior": ["association"],
+            "drug": ["association"],
+            "named_thing": ["association"]
         }
     }
 
 subtypes = {
-    "chemical_substance": ["chemical_substance", "drug"]
+    "chemical_substance": ["drug"],
+    "disease_or_phenotypic_feature": ["disease", "phenotypic_feature"],
+    "named_thing": ["chemical_substance", "disease_or_phenotypeic_feature", "environment"]
 }
 
 def get(conn, obj):
@@ -69,8 +80,8 @@ def get(conn, obj):
         if edge_type not in supported_edge_types:
             raise NotImplementedError("Edge must be one of " + str(supported_edge_types))
 
-        def supported_type(feature_matrix):
-            return feature_matrix["feature_b"]["biolink_class"] in subtypes[target_node_type]
+        def closure_subtype(node_type):
+            return reduce(lambda x, y : x + y, map(closure_subtype, subtypes.get(node_type, [])), [node_type])
 
         def feature_properties(feature_matrix):
             return {
@@ -83,7 +94,8 @@ def get(conn, obj):
 
         ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
 
-        feature_list = list(map(feature_properties, filter(supported_type, ataf)))
+        supported_types = closure_subtype(target_node_type)
+        feature_list = list(map(feature_properties, filter(lambda x : x["feature_b"]["biolink_class"] in supported_types, ataf)))
 
         def result(feature_property):
             node_name = feature_property["feature_name"]

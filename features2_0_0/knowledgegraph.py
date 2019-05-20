@@ -75,7 +75,7 @@ def get(conn, obj):
             raise NotImplementedError("Target node must be one of " + str(supported_node_types.keys()))
 
         supported_edge_types = supported_node_types[target_node_type]
-        edge_id = edge["edge_id"]
+        edge_id = edge["id"]
         edge_type = edge["type"]
         if edge_type not in supported_edge_types:
             raise NotImplementedError("Edge must be one of " + str(supported_edge_types))

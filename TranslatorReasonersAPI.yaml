@@ -147,7 +147,7 @@
       type: object
       description: A node in the QueryGraph
       properties:
-        node_id:
+        id:
           type: string
           example: n00
           description: >-
@@ -162,7 +162,7 @@
       type: object
       description: An edge in the QueryGraph
       properties:
-        edge_id:
+        id:
           type: string
           example: e00
           description: >-

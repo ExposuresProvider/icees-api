@@ -60,7 +60,7 @@ def get(conn, obj):
         if len(edges) != 1:
             raise NotImplementedError("Number of edges in query graph must be 1")
 
-        nodes_dict = {node["node_id"]: node for node in nodes}
+        nodes_dict = {node["id"]: node for node in nodes}
         [edge] = edges
 
         source_id = edge["source_id"]

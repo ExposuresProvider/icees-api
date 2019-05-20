@@ -161,7 +161,7 @@ def get(conn, obj):
             "question_graph": query_graph,
             "knowledge_graph": knowledge_graph,
             # "results": list(map(result, feature_list))
-            "answers": list(map(result, feature_list))
+            "answers": list(itertools.chain.from_iterable(map(result, feature_list)))
         }
     except Exception as e:
         traceback.print_exc()

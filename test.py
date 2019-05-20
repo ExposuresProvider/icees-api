@@ -48,17 +48,17 @@ class TestICEESAPI(unittest.TestCase):
             "machine_question": {
                 "nodes": [
                     {
-                        "node_id": "n00",
+                        "id": "n00",
                         "type": "population_of_individual_organisms"
                     },
                     {
-                        "node_id": "n01",
+                        "id": "n01",
                         "type": "chemical_substance"
                     }   
                 ], 
                 "edges": [
                     {
-                        "edge_id": "e00",
+                        "id": "e00",
                         "type": "association",
                         "source_id": "n00",
                         "target_id": "n01"

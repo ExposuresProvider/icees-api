@@ -684,7 +684,7 @@ class SERVKnowledgeGraph(Resource):
         Query the ICEES clinical reasoner for knowledge graph associations between concepts.
         ---
         definitions:
-          import: 'TranslatorReasonersAPI.yaml'
+          import: "TranslatorReasonersAPI.yaml"
         parameters:
           - in: body
             name: body

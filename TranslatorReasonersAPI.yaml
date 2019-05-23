@@ -6,7 +6,7 @@
           type: object
           description: Message object that represents the query to be answered
           items:
-            $ref: '#/components/schemas/QMessage'
+            $ref: '#/definitions/QMessage'
       additionalProperties: true
     QMessage:
       type: object
@@ -24,7 +24,7 @@
           description: >-
             QueryGraph object that contains a serialization of a query in the form
             of a graph
-          $ref: '#/components/schemas/QueryGraph'
+          $ref: '#/definitions/QueryGraph'
       additionalProperties: true
     Message:
       type: object
@@ -65,7 +65,7 @@
           description: List of all returned potential answers for the query posed
           type: array
           items:
-            $ref: '#/components/schemas/Result'
+            $ref: '#/definitions/Result'
       additionalProperties: true
     Result:
       type: object
@@ -113,12 +113,12 @@
           type: array
           description: List of nodes in the KnowledgeGraph
           items:
-            $ref: '#/components/schemas/Node'
+            $ref: '#/definitions/Node'
         edges:
           type: array
           description: List of edges in the KnowledgeGraph
           items:
-            $ref: '#/components/schemas/Edge'
+            $ref: '#/definitions/Edge'
       additionalProperties: true
       required:
         - nodes
@@ -133,12 +133,12 @@
           type: array
           description: List of nodes in the QueryGraph
           items:
-            $ref: '#/components/schemas/QNode'
+            $ref: '#/definitions/QNode'
         edges:
           type: array
           description: List of edges in the QueryGraph
           items:
-            $ref: '#/components/schemas/QEdge'
+            $ref: '#/definitions/QEdge'
       additionalProperties: true
       required:
         - nodes
@@ -219,7 +219,7 @@
           type: array
           description: A list of arbitrary attributes for the node
           items:
-            $ref: '#/components/schemas/NodeAttribute'
+            $ref: '#/definitions/NodeAttribute'
       additionalProperties: true
       required:
         - id
@@ -328,7 +328,7 @@
           type: array
           description: A list of additional attributes for this edge
           items:
-            $ref: '#/components/schemas/EdgeAttribute'
+            $ref: '#/definitions/EdgeAttribute'
       additionalProperties: true
       required:
         - id

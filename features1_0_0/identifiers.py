@@ -1,8 +1,9 @@
 import csv
+import os
 
 pat_dict = {}
 visit_dict = {}
-input_file = "ICEES_Identifiers_12.04.18.csv"
+input_file = os.path.join(os.path.dirname(__file__), "ICEES_Identifiers_12.04.18.csv")
 with open(input_file, newline="") as f:
     csvreader = csv.reader(f, delimiter=",", quotechar="\"")
     next(csvreader)

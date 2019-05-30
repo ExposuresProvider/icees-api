@@ -1,8 +1,9 @@
 import csv
+import os
 
 pat_dict = {}
 visit_dict = {}
-input_file = "ICEES_Identifiers_12.04.18.csv"
+input_file = os.path.join(os.path.dirname(__file__), "ICEES_Identifiers_v6 04.12.19.csv")
 with open(input_file, newline="") as f:
     csvreader = csv.reader(f, delimiter=",", quotechar="\"")
     next(csvreader)
@@ -23,7 +24,23 @@ def get_identifiers(table, feature):
         identifier_dict = visit_dict
     else:
         raise RuntimeError("Cannot find table " + table)
+
     feature2 = feature.split("_")[0]
+    print(feature2, feature2.endswith("Exposure"))
+    if feature2.endswith("Exposure"):
+        feature2 = feature2[:-8]
+        i = len(feature2) - 1
+        while i >= 0 and not feature2[i].isupper():
+            i -= 1
+        while i - 1 >= 0:
+            if feature2[i - 1].isupper():
+                i -= 1
+            else:
+                break
+        feature2 = feature2[i:]
+
+    if feature2 == "Sex2":
+        feature2 = "Sex"
     if feature2 in identifier_dict:
         return identifier_dict[feature2]
     else:

@@ -76,5 +76,19 @@ class TestICEESAPI(unittest.TestCase):
         self.assertTrue("tool_version" in resp_json["return value"])
         self.assertTrue("datetime" in resp_json["return value"])
 
+    def test_get_identifiers_ObesityDx(self):
+        feature_variables = {}
+        resp = requests.get('http://localhost:5000/{0}/{1}/{2}/identifiers'.format(version, table, "ObesityDx"), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        self.assertTrue("return value" in resp_json)
+        self.assertTrue("identifiers" in resp_json["return value"])
+
+    def test_get_identifiers_Sex2(self):
+        feature_variables = {}
+        resp = requests.get('http://localhost:5000/{0}/{1}/{2}/identifiers'.format(version, table, "Sex2"), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        self.assertTrue("return value" in resp_json)
+        self.assertTrue("identifiers" in resp_json["return value"])
+
 if __name__ == '__main__':
     unittest.main()

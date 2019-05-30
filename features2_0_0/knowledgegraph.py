@@ -99,7 +99,7 @@ def get(conn, obj):
 
         def result(feature_property):
             node_name = feature_property["feature_name"]
-            node_ids = get_identifiers(table, node_name)
+            node_ids = get_identifiers(table, node_name, True)
             def result2(node_id):
                 return {
                     "node_bindings" : {
@@ -116,7 +116,7 @@ def get(conn, obj):
 
         def knowledge_graph_node(feature_property):
             node_name = feature_property["feature_name"]
-            node_ids = get_identifiers(table, node_name)
+            node_ids = get_identifiers(table, node_name, True)
             def knowledge_graph_node2(node_id):
                 return {
                     "name": node_name,
@@ -127,7 +127,7 @@ def get(conn, obj):
 
         def knowledge_graph_edge(feature_property):
             edge_name = "association"
-            node_ids = get_identifiers(table, feature_property["feature_name"])
+            node_ids = get_identifiers(table, feature_property["feature_name"], True)
             def knowledge_graph_edge2(node_id):
                 return {
                     "type": edge_name,
@@ -154,7 +154,7 @@ def get(conn, obj):
             "reasoner_id": "ICEES",
             "tool_version": "2.0.0",
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "n_results": sum(map(lambda x : len(get_identifiers(table, x["feature_name"])), feature_list)),
+            "n_results": sum(map(lambda x : len(get_identifiers(table, x["feature_name"], True)), feature_list)),
             "message_code": "OK",
             "code_description": "",
             # "query_graph": query_graph,

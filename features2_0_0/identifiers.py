@@ -17,7 +17,7 @@ with open(input_file, newline="") as f:
         if visit != "N/A":
             visit_dict[visit] = ids
 
-def get_identifiers(table, feature):
+def get_identifiers(table, feature, ignore_identifier=False):
     if table == "patient":
         identifier_dict = pat_dict
     elif table == "visit":
@@ -26,7 +26,6 @@ def get_identifiers(table, feature):
         raise RuntimeError("Cannot find table " + table)
 
     feature2 = feature.split("_")[0]
-    print(feature2, feature2.endswith("Exposure"))
     if feature2.endswith("Exposure"):
         feature2 = feature2[:-8]
         i = len(feature2) - 1
@@ -44,4 +43,9 @@ def get_identifiers(table, feature):
     if feature2 in identifier_dict:
         return identifier_dict[feature2]
     else:
-        raise RuntimeError("Cannot find identifiers for feature " + feature)
+        errmsg = "Cannot find identifiers for feature " + feature
+        if ignore_identifer:
+            print(errmsg)
+            return []
+        else:
+            raise RuntimeError(errmsg)

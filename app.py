@@ -96,7 +96,6 @@ swag = Swagger(app, template=template)
 
 @api.representation('application/json')
 def output_json(data, code, headers=None):
-    print("data:", data)
     resp = make_response(json.dumps({"terms and conditions": terms_and_conditions, "version": data["version"], "return value": data["return value"]}), code)
     resp.headers.extend(headers or {})
     return resp

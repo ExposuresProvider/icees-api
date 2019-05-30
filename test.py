@@ -90,5 +90,12 @@ class TestICEESAPI(unittest.TestCase):
         self.assertTrue("return value" in resp_json)
         self.assertTrue("identifiers" in resp_json["return value"])
 
+    def test_get_identifiers_OvarianDysfunctionDx(self):
+        feature_variables = {}
+        resp = requests.get('http://localhost:5000/{0}/{1}/{2}/identifiers'.format(version, table, "OvarianDysfunctionDx"), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        self.assertTrue("return value" in resp_json)
+        self.assertTrue("identifiers" in resp_json["return value"])
+
 if __name__ == '__main__':
     unittest.main()

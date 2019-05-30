@@ -18,7 +18,7 @@ from utils import opposite, to_qualifiers
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
 
-logger = logging.getLogger("Rotating Log")
+logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 handler = TimedRotatingFileHandler(os.environ["ICEES_API_LOG_PATH"])

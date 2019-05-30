@@ -1,5 +1,8 @@
 import csv
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 pat_dict = {}
 visit_dict = {}
@@ -17,14 +20,13 @@ with open(input_file, newline="") as f:
         if visit != "N/A":
             visit_dict[visit] = ids
 
-def get_identifiers(table, feature, ignore_identifier=False):
+def get_identifiers(table, feature, return_empty_list=False):
     if table == "patient":
         identifier_dict = pat_dict
     elif table == "visit":
         identifier_dict = visit_dict
     else:
         raise RuntimeError("Cannot find table " + table)
-
     feature2 = feature.split("_")[0]
     if feature2.endswith("Exposure"):
         feature2 = feature2[:-8]
@@ -44,8 +46,8 @@ def get_identifiers(table, feature, ignore_identifier=False):
         return identifier_dict[feature2]
     else:
         errmsg = "Cannot find identifiers for feature " + feature
-        if ignore_identifer:
-            print(errmsg)
+        logger.error(errmsg)
+        if return_empty_list:
             return []
         else:
             raise RuntimeError(errmsg)

@@ -236,7 +236,7 @@ input parameters:
    * `year` : ICEES year
    * `cohort_features`: features for defining the cohort
    * `feature`: a feature and operator and value for spliting the cohort to two subcohorts
-   * `maximum_p_value`: ICEES maximum p value, any feature with p value, calculated using 2 * n contingency table where the rows are `feature` and the columns are individual values of each ICEES feature in `table`, greater than maximum p value.
+   * `maximum_p_value`: ICEES maximum p value. The p value is calculated using 2 * n contingency table where the rows are `feature` and the columns are individual values of each ICEES feature in `table`. Any p greater than maximum p value if filtered.
    
 example
 ```

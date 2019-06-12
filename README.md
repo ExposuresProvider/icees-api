@@ -229,6 +229,15 @@ route
 ```
 /2.0.0/knowledge_graph
 ```
+
+input parameters:
+ * `query_options`
+   * `table` : ICEES table
+   * `year` : ICEES year
+   * `cohort_features`: features for defining the cohort
+   * `feature`: a feature for spliting the cohort to two subcohorts
+   * `maximum_p_value`: ICEES maximum p value, any feature with p value greater than maximum p value with regard to `feature` with be filtered.
+   
 example
 ```
 {

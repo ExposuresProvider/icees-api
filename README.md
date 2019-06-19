@@ -40,13 +40,13 @@ set env variables
 
 `ICEES_DATABASE`: json
 
-`ICEES_API_LOG_PATH`
- 
- Example:
+Example:
 
 ```
 {"1.0.0":"iceesdb"}
 ```
+
+`ICEES_API_LOG_PATH`
 
 run
 ```

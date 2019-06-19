@@ -1,4 +1,4 @@
-
+## How to run
 ### Run docker compose
 
 #### database
@@ -27,15 +27,7 @@ docker-compose up --build
 ```
 
 ### Run manually
-
-run
-```
-pip install flask flask-restful flask-limiter sqlalchemy psycopg2-binary scipy gunicorn jsonschema pyyaml tabulate structlog pandas argparse inflection flasgger
-```
-
-
-### Run Flask 
-
+#### Setup environment
 set env variables
 
 `ICEES_DBUSER` 
@@ -56,28 +48,27 @@ set env variables
 {"1.0.0":"iceesdb"}
 ```
 
-### Run tests
+run
 ```
-python test.py
+pip install flask flask-restful flask-limiter sqlalchemy psycopg2-binary scipy gunicorn jsonschema pyyaml tabulate structlog pandas argparse inflection flasgger
 ```
+#### Set up Database
 
-### Set up Database ###
-
-#### Create Database
-
-```createdb <database>```
-
-#### Create User
+##### Create User
 
 ```createuser -P <dbuser>```
 
 enter `<dbpass>` for new user
 
-#### Create Permissions
+##### Create Database
+
+```createdb <database>```
+
+##### Create Permissions
 
 ```grant all privileges on database <database> to <dbuser>```
 
-#### popluating database
+##### popluating database
 
 ```
 python dbutils.py --version 2.0.0 create
@@ -88,17 +79,31 @@ python dbutils.py --version 2.0.0 insert <patient data input> patient
 python dbutils.py --version 2.0.0 insert <visit data input> visit
 ```
 
-### Deploy API
+#### Run Flask 
+run
+```
+python app.py
+```
+
+
+#### Run tests
+```
+python test.py
+```
+
+
+
+#### Deploy API
 
 The following steps can be run using the `redepoly.sh`
 
-#### Build Container
+##### Build Container
 
 ```
 docker build . -t icees-api:0.2.0
 ```
 
-#### Run Container in Standalone Mode (optional)
+##### Run Container in Standalone Mode (optional)
 
 ```
 docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log -p 8080:8080 icees-api:0.2.0
@@ -108,7 +113,7 @@ docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host
 docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log --net host icees-api:0.2.0
 ```
 
-#### Setting up `systemd`
+##### Setting up `systemd`
 
 run docker containers
 ```
@@ -130,9 +135,9 @@ start service
 ```
 systemctl start icees-api-container
 ```
-### REST API ###
+## REST API
 
-#### create cohort
+### create cohort
 method
 ```
 POST
@@ -151,7 +156,7 @@ schema
 
 `operator ::= <|>|<=|>=|=|<>`
 
-#### get cohort definition
+### get cohort definition
 method
 ```
 GET
@@ -162,7 +167,7 @@ route
 /1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>
 ```
 
-#### get cohort features
+### get cohort features
 method
 ```
 GET
@@ -173,7 +178,7 @@ route
 /1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/features
 ```
 
-#### get cohort dictionary
+### get cohort dictionary
 method
 ```
 GET
@@ -184,7 +189,7 @@ route
 /1.0.0/(patient|visit)/(2010|2011)/cohort/dictionary
 ```
 
-#### feature association between two features
+### feature association between two features
 method
 ```
 POST
@@ -199,7 +204,7 @@ schema
 {"feature_a":{"<feature name>":{"operator":<operator>,"value":<value>}},"feauture_b":{"<feature name>":{"operator":<operator>,"value":<value>}}}
 ```
 
-#### feature association between two features using combined bins
+### feature association between two features using combined bins
 method
 ```
 POST
@@ -244,7 +249,7 @@ example
 }
 ```
 
-#### associations of one feature to all features
+### associations of one feature to all features
 method
 ```
 POST
@@ -258,7 +263,7 @@ schema
 ```
 {"feature":{"<feature name>":{"operator":<operator>,"value":<value>}},"maximum_p_value":<maximum p value>}
 ```
-#### knowledge graph
+### knowledge graph
 method
 ```
 POST
@@ -320,7 +325,7 @@ example
 }
 ```
 
-### Examples ###
+## Examples
 
 get cohort of all patients
 

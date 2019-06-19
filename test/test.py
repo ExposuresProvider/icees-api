@@ -12,7 +12,7 @@ year = 2010
 tabular_headers = {"Content-Type" : "application/json", "accept": "text/tabular"}
 json_headers = {"Content-Type" : "application/json", "accept": "application/json"}
 host = "localhost"
-port = 5000
+port = 8081
 
 def wait(ip, port):
     while True:
@@ -26,16 +26,6 @@ def wait(ip, port):
             s.close()
 
 class TestICEESAPI(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
-        d = dict(os.environ)
-        d["ICEES_API_LOG_PATH"] = "/tmp/icees"
-        self.server = Popen(["python", "app.py"], env=d)
-        wait(host, port)
-
-    @classmethod
-    def tearDownClass(self):
-        self.server.terminate()
         
     def do_test_knowledge_graph(self, biolink_class):
         query = {
@@ -78,7 +68,7 @@ class TestICEESAPI(unittest.TestCase):
             }
         }
 
-        resp = requests.post("http://"+host+":"+str(port)+"/{0}/knowledge_graph".format(version), data = json.dumps(query), headers = json_headers, verify = False)
+        resp = requests.post("https://"+host+":"+str(port)+"/{0}/knowledge_graph".format(version), data = json.dumps(query), headers = json_headers, verify = False)
         resp_json = resp.json()
         self.assertTrue("return value" in resp_json)
         self.assertTrue("n_results" in resp_json["return value"])
@@ -90,7 +80,7 @@ class TestICEESAPI(unittest.TestCase):
 
     def do_test_get_identifiers(self, i):
         feature_variables = {}
-        resp = requests.get("http://"+host+":"+str(port)+"/{0}/{1}/{2}/identifiers".format(version, table, i), headers = json_headers, verify = False)
+        resp = requests.get("https://"+host+":"+str(port)+"/{0}/{1}/{2}/identifiers".format(version, table, i), headers = json_headers, verify = False)
         resp_json = resp.json()
         self.assertTrue("return value" in resp_json)
         self.assertTrue("identifiers" in resp_json["return value"])
@@ -99,14 +89,14 @@ class TestICEESAPI(unittest.TestCase):
 
     def test_post_cohort(self):
         feature_variables = {}
-        resp = requests.post("http://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort".format(version, table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp = requests.post("https://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort".format(version, table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         self.assertTrue("return value" in resp_json)
         self.assertTrue("cohort_id" in resp_json["return value"])
         self.assertTrue("size" in resp_json["return value"])
 
     def test_knowledge_graph_schema(self):
-        resp = requests.get("http://"+host+":"+str(port)+"/{0}/knowledge_graph/schema".format(version), headers = json_headers, verify = False)
+        resp = requests.get("https://"+host+":"+str(port)+"/{0}/knowledge_graph/schema".format(version), headers = json_headers, verify = False)
         resp_json = resp.json()
         self.assertTrue("return value" in resp_json)
         self.assertTrue("population_of_individual_organisms" in resp_json["return value"])

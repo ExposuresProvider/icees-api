@@ -2,7 +2,7 @@
 set -m
 ./docker-entrypoint.sh postgres &
 pushd icees-api
-db/initdb.sh
+python3 initdb.py
 popd
 fg %1
 

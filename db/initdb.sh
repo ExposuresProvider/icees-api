@@ -1,9 +1,9 @@
 #!/bin/bash
 echo waiting for database startup
-sleep 3
+sleep 10
 ls -A /data
 
-db=$(psql -qtAX -U postgres -c "SELECT count(*) FROM pg_catalog.pg_user WHERE usename = '"$ICEES_USER"';")
+db=$(psql -qtAX -U postgres -c "SELECT count(*) FROM pg_catalog.pg_user WHERE usename = '"$ICEES_DBUSER"';")
 
 echo db == \"$db\"
 
@@ -11,6 +11,9 @@ if [[ "$db" == "0" ]]
 then
     echo data directory empty initializing db
     psql -U postgres -c "CREATE USER "$ICEES_DBUSER" with password '"$ICEES_DBPASS"'"
+    echo ICEES_DATABASE = $ICEES_DATABASE
+    ICEES_DATABASE_CREATE=$(python3 db/values.py $ICEES_DATABASE)
+    echo ICEES_DATABASE_CREATE = $ICEES_DATABASE_CREATE
     for db in $ICEES_DATABASE_CREATE
     do
 	psql -U postgres -c "CREATE DATABASE "$db

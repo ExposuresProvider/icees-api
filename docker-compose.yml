@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: db/Dockerfile
+    image: icees-api-db:0.2.0
+#    ports:
+#    - "5432:5432"
+    environment:
+    - ICEES_DBUSER
+    - ICEES_DBPASS
+    - ICEES_DATABASE_CREATE
+    - ICEES_DATABASE
+  server:
+    build: 
+      context: .
+    image: icees-api-server:0.2.0
+    environment:
+    - ICEES_DBUSER
+    - ICEES_DBPASS
+    - ICEES_HOST
+    - ICEES_PORT
+    - ICEES_DATABASE
+    - ICEES_API_LOG_PATH
+    depends_on:
+      - db
+    ports:
+    - "8081:8080"

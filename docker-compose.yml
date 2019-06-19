@@ -10,8 +10,8 @@ services:
     environment:
     - ICEES_DBUSER
     - ICEES_DBPASS
-    - ICEES_DATABASE_CREATE
     - ICEES_DATABASE
+    restart: always
   server:
     build: 
       context: .
@@ -23,6 +23,7 @@ services:
     - ICEES_PORT
     - ICEES_DATABASE
     - ICEES_API_LOG_PATH
+    restart: always
     depends_on:
       - db
     ports:

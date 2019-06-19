@@ -19,8 +19,25 @@ set env variables
 ```
 {"1.0.0":"iceesdb"}
 ```
+### Run docker compose
+#### database
+put `patient.csv` under `db/data/2.0.0/`
+put `visit.csv` under `db/data/2.0.0/`
 
+or 
 
+run
+```
+python samples.py patient 2010 1000 db/data/2.0.0/patient.csv
+```
+
+```
+python samples.py visit 2010 1000 db/data/2.0.0/visit.csv
+```
+#### start services
+```
+docker-compose up --build
+```
 
 ### Set up Database ###
 

@@ -11,6 +11,8 @@ services:
     - ICEES_DBUSER
     - ICEES_DBPASS
     - ICEES_DATABASE
+    volumes:
+      - data:/data
     restart: always
   server:
     build: 
@@ -28,3 +30,6 @@ services:
       - db
     ports:
     - "8081:8080"
+
+volumes:
+  data:

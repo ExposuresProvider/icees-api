@@ -8,7 +8,7 @@ t = sys.argv[1]
 n = int(sys.argv[2])
 fn = sys.argv[3]
 
-df = pd.DataFrame({t[0].upper() + t[1:] + "ID":range(1,n+1)})
+df = pd.DataFrame({t[0].upper() + t[1:] + "Id":range(1,n+1)})
 
 for col, t, levels, _ in features[t]:
     if levels is None:

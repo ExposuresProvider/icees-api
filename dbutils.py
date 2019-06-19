@@ -18,9 +18,9 @@ def insert(args):
             l.append((col_name, col_type))
         return dict(l)
         
-    for k,v in map(toDType, features[args.version].features[args.table_name]):
-        print(k,v)
-    df.to_sql(name=args.table_name, con=conn,if_exists="append", index_label=args.index_col, dtype=map(toDType, features[args.version].features[args.table_name]))
+    df.to_sql(name=args.table_name, con=conn,if_exists="append", 
+              index=False, 
+              dtype=toDType(features[args.version].features[args.table_name]))
 
 parser = argparse.ArgumentParser(prog='ICEES DB Utitilies')
 parser.add_argument('--version', required=True, type=str, help='version of the database')

@@ -1,8 +1,10 @@
+
 ### Run docker compose
 
 #### database
 
 put `patient.csv` under `db/data/2.0.0/`
+
 put `visit.csv` under `db/data/2.0.0/`
 
 or 
@@ -17,10 +19,20 @@ python samples.py visit 2010 1000 db/data/2.0.0/visit.csv
 ```
 
 #### start services
-edit .env
+edit `.env`
+
+run
 ```
 docker-compose up --build
 ```
+
+### Run manually
+
+run
+```
+pip install flask flask-restful flask-limiter sqlalchemy psycopg2-binary scipy gunicorn jsonschema pyyaml tabulate structlog pandas argparse inflection flasgger
+```
+
 
 ### Run Flask 
 
@@ -44,6 +56,11 @@ set env variables
 {"1.0.0":"iceesdb"}
 ```
 
+### Run tests
+```
+python test.py
+```
+
 ### Set up Database ###
 
 #### Create Database
@@ -63,12 +80,12 @@ enter `<dbpass>` for new user
 #### popluating database
 
 ```
-python dbutils --version 2.0.0 create
+python dbutils.py --version 2.0.0 create
 ```
 
 ```
-python dbutils --version 2.0.0 insert <patient data input> patient PatientId
-python dbutils --version 2.0.0 insert <visit data input> visit VisitId
+python dbutils.py --version 2.0.0 insert <patient data input> patient
+python dbutils.py --version 2.0.0 insert <visit data input> visit
 ```
 
 ### Deploy API

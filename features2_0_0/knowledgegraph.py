@@ -133,7 +133,10 @@ def get(conn, obj):
                     "type": edge_name,
                     "id": cohort_id + "_" + node_id,
                     "source_id": cohort_id,
-                    "target_id": node_id
+                    "target_id": node_id,
+                    "edge_attributes": {
+                        "contingency_matrix": feature_property["feature_matrix"]
+                    }
                 }
             return list(map(knowledge_graph_edge2, node_ids))
 

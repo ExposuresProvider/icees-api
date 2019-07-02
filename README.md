@@ -26,6 +26,11 @@ run
 docker-compose up --build
 ```
 
+the postgres docker container create volumes that are persistent across runs. To prune the volume,
+```
+docker volume prune
+```
+
 ### Run manually
 #### Setup environment
 set env variables

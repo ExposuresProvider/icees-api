@@ -83,20 +83,12 @@ def get(conn, obj):
         def closure_subtype(node_type):
             return reduce(lambda x, y : x + y, map(closure_subtype, subtypes.get(node_type, [])), [node_type])
 
-        def feature_properties(feature_matrix):
-            return {
-                "feature_a": feature_matrix["feature_a"],
-                "feature_b": feature_matrix["feature_b"],
-                "p_value": feature_matrix["p_value"],
-                "feature_matrix": feature_matrix["feature_matrix"]
-            }
-
         cohort_id, size = get_ids_by_feature(conn, table, year, cohort_features)
 
         ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
 
         supported_types = closure_subtype(target_node_type)
-        feature_list = list(map(feature_properties, filter(lambda x : x["feature_b"]["biolink_class"] in supported_types, ataf)))
+        feature_list = list(filter(lambda x : x["feature_b"]["biolink_class"] in supported_types, ataf))
 
         def result(feature_property):
             node_name = feature_property["feature_b"]["feature_name"]
@@ -135,11 +127,7 @@ def get(conn, obj):
                     "id": cohort_id + "_" + node_id,
                     "source_id": cohort_id,
                     "target_id": node_id,
-                    "edge_attributes": {
-                        "feature_a": feature_property["feature_a"],
-                        "feature_b": feature_property["feature_b"],
-                        "contingency_matrix": feature_property["feature_matrix"]
-                    }
+                    "edge_attributes": feature_property
                 }
             return list(map(knowledge_graph_edge2, node_ids))
 

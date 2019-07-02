@@ -85,9 +85,10 @@ def get(conn, obj):
 
         def feature_properties(feature_matrix):
             return {
-                "feature_name": feature_matrix["feature_b"]["feature_name"],
+                "feature_a": feature_matrix["feature_a"],
+                "feature_b": feature_matrix["feature_b"],
                 "p_value": feature_matrix["p_value"],
-                "biolink_class": feature_matrix["feature_b"]["biolink_class"]
+                "feature_matrix": feature_matrix["feature_matrix"]
             }
 
         cohort_id, size = get_ids_by_feature(conn, table, year, cohort_features)
@@ -98,7 +99,7 @@ def get(conn, obj):
         feature_list = list(map(feature_properties, filter(lambda x : x["feature_b"]["biolink_class"] in supported_types, ataf)))
 
         def result(feature_property):
-            node_name = feature_property["feature_name"]
+            node_name = feature_property["feature_b"]["feature_name"]
             node_ids = get_identifiers(table, node_name, True)
             def result2(node_id):
                 return {
@@ -115,19 +116,19 @@ def get(conn, obj):
             return list(map(result2, node_ids))
 
         def knowledge_graph_node(feature_property):
-            node_name = feature_property["feature_name"]
+            node_name = feature_property["feature_b"]["feature_name"]
             node_ids = get_identifiers(table, node_name, True)
             def knowledge_graph_node2(node_id):
                 return {
                     "name": node_name,
                     "id": node_id,
-                    "type": feature_property["biolink_class"]
+                    "type": feature_property["feature_b"]["biolink_class"]
                 }
             return list(map(knowledge_graph_node2, node_ids))
 
         def knowledge_graph_edge(feature_property):
             edge_name = "association"
-            node_ids = get_identifiers(table, feature_property["feature_name"], True)
+            node_ids = get_identifiers(table, feature_property["feature_b"]["feature_name"], True)
             def knowledge_graph_edge2(node_id):
                 return {
                     "type": edge_name,
@@ -135,6 +136,8 @@ def get(conn, obj):
                     "source_id": cohort_id,
                     "target_id": node_id,
                     "edge_attributes": {
+                        "feature_a": feature_property["feature_a"],
+                        "feature_b": feature_property["feature_b"],
                         "contingency_matrix": feature_property["feature_matrix"]
                     }
                 }
@@ -157,7 +160,7 @@ def get(conn, obj):
             "reasoner_id": "ICEES",
             "tool_version": "2.0.0",
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "n_results": sum(map(lambda x : len(get_identifiers(table, x["feature_name"], True)), feature_list)),
+            "n_results": sum(map(lambda x : len(get_identifiers(table, x["feature_b"]["feature_name"], True)), feature_list)),
             "message_code": "OK",
             "code_description": "",
             # "query_graph": query_graph,

@@ -1,6 +1,6 @@
 from flask import Flask, request, make_response
 from flask_restful import Resource, Api
-import json
+import simplejson
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from jsonschema import validate, ValidationError
@@ -97,7 +97,7 @@ swag = Swagger(app, template=template)
 
 @api.representation('application/json')
 def output_json(data, code, headers=None):
-    resp = make_response(json.dumps({"terms and conditions": terms_and_conditions, "version": data["version"], "return value": data["return value"]}), code)
+    resp = make_response(simplejson.dumps({"terms and conditions": terms_and_conditions, "version": data["version"], "return value": data["return value"]}, ignore_nan=True), code)
     resp.headers.extend(headers or {})
     return resp
 

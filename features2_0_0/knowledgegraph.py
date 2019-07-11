@@ -156,7 +156,7 @@ def get(conn, obj):
             "reasoner_id": "ICEES",
             "tool_version": "2.0.0",
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "n_results": sum(map(lambda x : len(get_identifiers(table, x["feature_b"]["feature_name"], True)), feature_list)),
+            "n_results": sum(map(lambda x : len(list(name_to_ids(x["feature_b"]["feature_name"]))), feature_list)),
             "message_code": "OK",
             "code_description": "",
             # "query_graph": query_graph,

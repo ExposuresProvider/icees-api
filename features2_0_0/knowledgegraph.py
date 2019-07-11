@@ -128,7 +128,7 @@ def get(conn, obj):
 
         def knowledge_graph_edge(feature_property):
             edge_name = "association"
-            node_ids = get_identifiers(table, feature_property["feature_b"]["feature_name"], True)
+            node_ids = name_to_ids(feature_property["feature_b"]["feature_name"])
             def knowledge_graph_edge2(node_id):
                 return {
                     "type": edge_name,

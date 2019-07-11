@@ -286,7 +286,7 @@ input parameters:
    * `cohort_features`: features for defining the cohort
    * `feature`: a feature and operator and value for spliting the cohort to two subcohorts
    * `maximum_p_value`: ICEES maximum p value. The p value is calculated for each ICEES feature in `table`, using 2 * n contingency table where the rows are subcohorts and the columns are individual values of that feature. Any feature with p value greater than maximum p value is filtered out.
-   
+   * `regex`: filter target node name by regex.   
 example
 ```
 {

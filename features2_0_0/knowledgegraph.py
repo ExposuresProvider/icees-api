@@ -13,6 +13,7 @@ import traceback
 import itertools
 from .identifiers import get_identifiers
 from functools import reduce
+import re
 
 schema = {
         "population_of_individual_organisms": {
@@ -47,6 +48,10 @@ def get(conn, obj):
             cohort_features = {}
         feature = to_qualifiers(cohort_definition["feature"])
         maximum_p_value = cohort_definition["maximum_p_value"]
+        if "regex" in cohort_definition:
+            filter_regex = cohort_definition["regex"]
+        else:
+            filter_regex = ".*"
 
         # query_graph = query_message["query_graph"]
         query_graph = obj["machine_question"]
@@ -90,9 +95,12 @@ def get(conn, obj):
         supported_types = closure_subtype(target_node_type)
         feature_list = list(filter(lambda x : x["feature_b"]["biolink_class"] in supported_types, ataf))
 
+        def name_to_ids(node_name):
+            return filter(lambda x: re.match(filter_regex, x), get_identifiers(table, node_name, True))
+
         def result(feature_property):
             node_name = feature_property["feature_b"]["feature_name"]
-            node_ids = get_identifiers(table, node_name, True)
+            node_ids = name_to_ids(node_name)
             def result2(node_id):
                 return {
                     "node_bindings" : {
@@ -109,7 +117,7 @@ def get(conn, obj):
 
         def knowledge_graph_node(feature_property):
             node_name = feature_property["feature_b"]["feature_name"]
-            node_ids = get_identifiers(table, node_name, True)
+            node_ids = name_to_ids(node_name)
             def knowledge_graph_node2(node_id):
                 return {
                     "name": node_name,

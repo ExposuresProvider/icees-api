@@ -12,8 +12,8 @@ year = 2010
 tabular_headers = {"Content-Type" : "application/json", "accept": "text/tabular"}
 json_headers = {"Content-Type" : "application/json", "accept": "application/json"}
 host = "localhost"
-prot = "http" # "https"  
-port = 5000 # 8081
+prot = "https"  
+port = 8081
 
 def wait(ip, port):
     while True:

@@ -43,10 +43,16 @@ cohort = Table("cohort", metadata, *cohort_cols)
 
 cohort_id_seq = Sequence('cohort_id_seq', metadata=metadata)
 
+engine_map = {}
 
 def get_db_connection(version="2.0.0"):
-    engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version])
-    return engine
+    if hasattr(engine_map, version):
+        engine = engine_map[version]
+    else:
+        engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version])
+        engine_map[version] = engine
+
+    return engine.connect()
 
 
 def filter_select(s, table, k, v):

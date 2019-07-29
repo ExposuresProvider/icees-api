@@ -42,7 +42,12 @@ cohort = Table("cohort", metadata, *cohort_cols)
 
 
 def get_db_connection(version="1.0.0"):
-    engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version])
+    if hasattr(engine_map, version):
+        engine = engine_map[version]
+    else:
+        engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version])
+        engine_map[version] = engine
+
     return engine.connect()
 
 

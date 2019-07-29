@@ -140,21 +140,24 @@ class SERVCohort(Resource):
         """
         try:
             conn = model[version].get_db_connection()
-            req_features = request.get_json()
-            if req_features is None:
-                req_features = {}
-            else:
-                validate(req_features, schema[version].cohort_schema(table))
+            try:
+                req_features = request.get_json()
+                if req_features is None:
+                    req_features = {}
+                else:
+                    validate(req_features, schema[version].cohort_schema(table))
 
-            cohort_id, size = model[version].get_ids_by_feature(conn, table, year, req_features)
+                cohort_id, size = model[version].get_ids_by_feature(conn, table, year, req_features)
       
-            if size == -1:
-                return_value = "Input features invalid or cohort ≤10 patients. Please try again."
-            else:
-                return_value = {
-                    "cohort_id": cohort_id,
-                    "size": size
-                }
+                if size == -1:
+                    return_value = "Input features invalid or cohort ≤10 patients. Please try again."
+                else:
+                    return_value = {
+                        "cohort_id": cohort_id,
+                        "size": size
+                    }
+            finally:
+                conn.close()
                 
         except ValidationError as e:
             traceback.print_exc()
@@ -210,21 +213,24 @@ class SERVCohortId(Resource):
         """
         try:
             conn = model[version].get_db_connection()
-            req_features = request.get_json()
-            if req_features is None:
-                req_features = {}
-            else:
-                validate(req_features, schema[version].cohort_schema(table))
+            try:
+                req_features = request.get_json()
+                if req_features is None:
+                    req_features = {}
+                else:
+                    validate(req_features, schema[version].cohort_schema(table))
 
-            cohort_id, size = model[version].select_cohort(conn, table, year, req_features, cohort_id)
+                cohort_id, size = model[version].select_cohort(conn, table, year, req_features, cohort_id)
 
-            if size == -1:
-                return_value = "Input features invalid or cohort ≤10 patients. Please try again."
-            else:
-                return_value = {
+                if size == -1:
+                    return_value = "Input features invalid or cohort ≤10 patients. Please try again."
+                else:
+                    return_value = {
                         "cohort_id": cohort_id,
                         "size": size
-                }
+                    }
+            finally:
+                conn.close()
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -268,12 +274,15 @@ class SERVCohortId(Resource):
         """
         try:
             conn = model[version].get_db_connection()
-            cohort_features = model[version].get_cohort_by_id(conn, table, year, cohort_id)
+            try:
+                cohort_features = model[version].get_cohort_by_id(conn, table, year, cohort_id)
             
-            if cohort_features is None:
-                return_value = "Input cohort_id invalid. Please try again."
-            else:
-                return_value = cohort_features
+                if cohort_features is None:
+                    return_value = "Input cohort_id invalid. Please try again."
+                else:
+                    return_value = cohort_features
+            finally:
+                conn.close()
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -327,13 +336,15 @@ class SERVFeatureAssociation(Resource):
             feature_b = to_qualifiers(obj["feature_b"])
 
             conn = model[version].get_db_connection()
-            cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
+            try:
+                cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
 
-            if cohort_features is None:
-                return_value = "Input cohort_id invalid. Please try again."
-            else:
-                return_value = model[version].select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
-            
+                if cohort_features is None:
+                    return_value = "Input cohort_id invalid. Please try again."
+                else:
+                    return_value = model[version].select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+            finally:
+                conn.close()
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -399,12 +410,15 @@ class SERVFeatureAssociation2(Resource):
                 validate_range(table, feature_b)
 
             conn = model[version].get_db_connection()
-            cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
+            try:
+                cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
 
-            if cohort_features is None:
-                return_value = "Input cohort_id invalid. Please try again."
-            else:
-                return_value = model[version].select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+                if cohort_features is None:
+                    return_value = "Input cohort_id invalid. Please try again."
+                else:
+                    return_value = model[version].select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+            finally:
+                conn.close()
 
         except ValidationError as e:
             traceback.print_exc()
@@ -458,7 +472,10 @@ class SERVAssociationsToAllFeatures(Resource):
             feature = to_qualifiers(obj["feature"])
             maximum_p_value = obj["maximum_p_value"]
             conn = model[version].get_db_connection()
-            return_value = model[version].select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
+            try:
+                return_value = model[version].select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
+            finally:
+                conn.close()
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -504,11 +521,14 @@ class SERVFeatures(Resource):
         """
         try:
             conn = model[version].get_db_connection()
-            cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
-            if cohort_features is None:
-                return_value = "Input cohort_id invalid. Please try again."
-            else:
-                return_value = model[version].get_cohort_features(conn, table, year, cohort_features)
+            try:
+                cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
+                if cohort_features is None:
+                    return_value = "Input cohort_id invalid. Please try again."
+                else:
+                    return_value = model[version].get_cohort_features(conn, table, year, cohort_features)
+            finally:
+                conn.close()
  
         except ValidationError as e:
             traceback.print_exc()
@@ -549,7 +569,10 @@ class SERVCohortDictionary(Resource):
         """
         try:
             conn = model[version].get_db_connection()
-            return_value = model[version].get_cohort_dictionary(conn, table, year)
+            try:
+                return_value = model[version].get_cohort_dictionary(conn, table, year)
+            finally:
+                conn.close()
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -625,7 +648,10 @@ class SERVName(Resource):
         """
         try:
             conn = model[version].get_db_connection()
-            return_value = model[version].get_id_by_name(conn, table, name)
+            try:
+                return_value = model[version].get_id_by_name(conn, table, name)
+            finally:
+                conn.close()
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -668,7 +694,10 @@ class SERVName(Resource):
             obj = request.get_json()
             validate(obj, schema[version].add_name_by_id_schema())
             conn = model[version].get_db_connection()
-            return_value = model[version].add_name_by_id(conn, table, name, obj["cohort_id"])
+            try:
+                return_value = model[version].add_name_by_id(conn, table, name, obj["cohort_id"])
+            finally:
+                conn.close()
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -708,7 +737,10 @@ class SERVKnowledgeGraph(Resource):
             obj = request.get_json()
             # validate(obj, schema[version].add_name_by_id_schema())
             conn = model[version].get_db_connection()
-            return_value = knowledgegraph[version].get(conn, obj)
+            try:
+                return_value = knowledgegraph[version].get(conn, obj)
+            finally:
+                conn.close()
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message

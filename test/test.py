@@ -98,9 +98,16 @@ class TestICEESAPI(unittest.TestCase):
 
     def test_cohort_dictionary(self):
         feature_variables = {}
-        resp = requests.get(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort/dictionary".format(version, table, year), headers = json_headers, verify = False)
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort".format(version, table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
-        self.assertTrue("return value" in resp_json)
+
+        resp1 = requests.get(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort/dictionary".format(version, table, year), headers = json_headers, verify = False)
+        resp_json1 = resp1.json()
+        self.assertTrue({
+            "features": {}, 
+            "cohort_id": resp_json["return value"]["cohort_id"], 
+            "size": resp_json["return value"]["size"]
+        } in resp_json1["return value"])
    
     def test_knowledge_graph_schema(self):
         resp = requests.get(prot + "://"+host+":"+str(port)+"/{0}/knowledge_graph/schema".format(version), headers = json_headers, verify = False)

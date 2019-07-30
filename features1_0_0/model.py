@@ -41,6 +41,8 @@ cohort_cols = [
 cohort = Table("cohort", metadata, *cohort_cols)
 
 
+engine_map = {}
+
 def get_db_connection(version="1.0.0"):
     if hasattr(engine_map, version):
         engine = engine_map[version]

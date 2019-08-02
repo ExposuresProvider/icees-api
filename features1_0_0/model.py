@@ -49,7 +49,7 @@ def get_db_connection(version="1.0.0"):
     if hasattr(engine_map, version):
         engine = engine_map[version]
     else:
-        engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version])
+        engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version], pool_size=10, max_overflow=0)
         engine_map[version] = engine
 
     return engine.connect()

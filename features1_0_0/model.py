@@ -1,23 +1,12 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence, between
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between
 from sqlalchemy.sql import select
 from scipy.stats import chi2_contingency
 import json
 import os
 from .features import features
 import numpy as np
-from contextlib import contextmanager
 
 eps = np.finfo(float).eps
-
-service_name = "ICEES"
-
-serv_user = os.environ[service_name + "_DBUSER"]
-serv_password = os.environ[service_name + "_DBPASS"]
-serv_host = os.environ[service_name + "_HOST"]
-serv_port = os.environ[service_name + "_PORT"]
-print("loading database " + os.environ[service_name + "_DATABASE"])
-serv_database = json.loads(os.environ[service_name + "_DATABASE"])
-
 
 metadata = MetaData()
 
@@ -41,27 +30,6 @@ cohort_cols = [
 ]
 
 cohort = Table("cohort", metadata, *cohort_cols)
-
-
-engine_map = {}
-
-def get_db_connection(version):
-    if hasattr(engine_map, version):
-        engine = engine_map[version]
-    else:
-        engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version], pool_size=10, max_overflow=0)
-        engine_map[version] = engine
-
-    return engine.connect()
-
-
-@contextmanager
-def DBConnection(version="1.0.0"):
-    conn = get_db_connection(version)
-    try:
-        yield conn
-    finally:
-        conn.close()
 
 
 def filter_select(s, table, k, v):

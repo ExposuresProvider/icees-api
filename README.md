@@ -45,6 +45,10 @@ set env variables
 
 `ICEES_DATABASE`: json
 
+`ICEES_DB_POOL_SIZE`
+
+`ICEES_DB_MAX_OVERFLOW`
+
 Example:
 
 ```

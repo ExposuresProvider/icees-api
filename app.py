@@ -12,6 +12,7 @@ import os
 from time import strftime
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
+import model as db
 from features import model, schema, format, knowledgegraph, identifiers
 from utils import opposite, to_qualifiers
 
@@ -139,7 +140,7 @@ class SERVCohort(Resource):
             description: The cohort has been created
         """
         try:
-            with model[version].DBConnection() as conn:
+            with db.DBConnection(version) as conn:
                 req_features = request.get_json()
                 if req_features is None:
                     req_features = {}
@@ -209,7 +210,7 @@ class SERVCohortId(Resource):
             description: The cohort has been created
         """
         try:
-            with model[version].DBConnection() as conn:
+            with db.DBConnection(version) as conn:
                 req_features = request.get_json()
                 if req_features is None:
                     req_features = {}
@@ -267,7 +268,7 @@ class SERVCohortId(Resource):
             description: The features of the cohort
         """
         try:
-            with model[version].DBConnection() as conn:
+            with db.DBConnection(version) as conn:
                 cohort_features = model[version].get_cohort_by_id(conn, table, year, cohort_id)
             
                 if cohort_features is None:
@@ -326,7 +327,7 @@ class SERVFeatureAssociation(Resource):
             feature_a = to_qualifiers(obj["feature_a"])
             feature_b = to_qualifiers(obj["feature_b"])
 
-            with model[version].DBConnection() as conn:
+            with db.DBConnection(version) as conn:
                 cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
 
                 if cohort_features is None:
@@ -397,7 +398,7 @@ class SERVFeatureAssociation2(Resource):
                 validate_range(table, feature_a)
                 validate_range(table, feature_b)
 
-            with model[version].DBConnection() as conn:
+            with db.DBConnection(version) as conn:
                 cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
 
                 if cohort_features is None:
@@ -456,7 +457,7 @@ class SERVAssociationsToAllFeatures(Resource):
             validate(obj, schema[version].associations_to_all_features_schema(table))
             feature = to_qualifiers(obj["feature"])
             maximum_p_value = obj["maximum_p_value"]
-            with model[version].DBConnection() as conn:
+            with db.DBConnection(version) as conn:
                 return_value = model[version].select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
         except ValidationError as e:
             traceback.print_exc()
@@ -502,7 +503,7 @@ class SERVFeatures(Resource):
             description: features
         """
         try:
-            with model[version].DBConnection() as conn:
+            with db.DBConnection(version) as conn:
                 cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
                 if cohort_features is None:
                     return_value = "Input cohort_id invalid. Please try again."
@@ -547,7 +548,7 @@ class SERVCohortDictionary(Resource):
             description: cohort dictionray
         """
         try:
-            with model[version].DBConnection() as conn:
+            with db.DBConnection(version) as conn:
                 return_value = model[version].get_cohort_dictionary(conn, table, year)
         except ValidationError as e:
             traceback.print_exc()
@@ -666,7 +667,7 @@ class SERVName(Resource):
         try:
             obj = request.get_json()
             validate(obj, schema[version].add_name_by_id_schema())
-            with model[version].DBConnection() as conn:
+            with db.DBConnection(version) as conn:
                 return_value = model[version].add_name_by_id(conn, table, name, obj["cohort_id"])
         except ValidationError as e:
             traceback.print_exc()
@@ -706,7 +707,7 @@ class SERVKnowledgeGraph(Resource):
         try:
             obj = request.get_json()
             # validate(obj, schema[version].add_name_by_id_schema())
-            with model[version].DBConnection() as conn:
+            with db.DBConnection(version) as conn:
                 return_value = knowledgegraph[version].get(conn, obj)
         except ValidationError as e:
             traceback.print_exc()

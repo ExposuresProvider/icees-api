@@ -1,12 +1,10 @@
 from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence, between
 from sqlalchemy.sql import select
-from scipy.stats import chi2_contingency
 import json
 import os
 from .features import features, lookUpFeatureClass
-import inflection
 import numpy as np
-from .model import get_ids_by_feature, get_db_connection, select_associations_to_all_features
+from .model import get_ids_by_feature, select_associations_to_all_features
 import datetime
 from utils import to_qualifiers
 import traceback

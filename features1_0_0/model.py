@@ -45,7 +45,7 @@ cohort = Table("cohort", metadata, *cohort_cols)
 
 engine_map = {}
 
-def get_db_connection(version="1.0.0"):
+def get_db_connection(version):
     if hasattr(engine_map, version):
         engine = engine_map[version]
     else:
@@ -56,7 +56,7 @@ def get_db_connection(version="1.0.0"):
 
 
 @contextmanager
-def DBConnection(version="2.0.0"):
+def DBConnection(version="1.0.0"):
     conn = get_db_connection(version)
     try:
         yield conn
@@ -237,7 +237,7 @@ def select_feature_count(conn, table_name, year, cohort_features, feature_a):
     ka = feature_a["feature_name"]
     vas = feature_a["feature_qualifiers"]
 
-    feature_matrix = [conn.execute((filter_select(s, table, ka, va))).scalar() for va in vas]
+    feature_matrix = [conn.execute(filter_select(s, table, ka, va)).scalar() for va in vas]
     
     total = conn.execute((s)).scalar()
 

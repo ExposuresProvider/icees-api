@@ -50,7 +50,7 @@ def get_db_connection(version):
     if hasattr(engine_map, version):
         engine = engine_map[version]
     else:
-        engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version])
+        engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version], pool_size=10, max_overflow=0)
         engine_map[version] = engine
 
     return engine.connect()
@@ -59,12 +59,10 @@ def get_db_connection(version):
 @contextmanager
 def DBConnection(version="2.0.0"):
     conn = get_db_connection(version)
-    yield conn
-    conn.close()
-
-
-def autocommit(s):
-    return s.execution_options(autocommit=True)
+    try:
+        yield conn
+    finally:
+        conn.close()
 
 
 def filter_select(s, table, k, v):
@@ -86,7 +84,7 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
 
-    n = conn.execute(autocommit(s)).scalar()
+    n = conn.execute((s)).scalar()
     if n <= 10:
         return None, -1
     else:
@@ -108,14 +106,14 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
                                          features=json.dumps(cohort_features, sort_keys=True), table=table_name,
                                          year=year)
 
-        conn.execute(autocommit(ins))
+        conn.execute((ins))
         return cohort_id, size
 
 
 def get_ids_by_feature(conn, table_name, year, cohort_features):
     s = select([cohort.c.cohort_id, cohort.c.size]).where(cohort.c.table == table_name).where(cohort.c.year == year).where(
         cohort.c.features == json.dumps(cohort_features, sort_keys=True))
-    rs = list(conn.execute(autocommit(s)))
+    rs = list(conn.execute((s)))
     if len(rs) == 0:
         cohort_id, size = select_cohort(conn, table_name, year, cohort_features)
     else:
@@ -125,7 +123,7 @@ def get_ids_by_feature(conn, table_name, year, cohort_features):
 
 def get_features_by_id(conn, table_name, year, cohort_id):
     s = select([cohort.c.features]).where(cohort.c.cohort_id == cohort_id).where(cohort.c.table == table_name).where(cohort.c.year == year)
-    rs = list(conn.execute(autocommit(s)))
+    rs = list(conn.execute((s)))
     if len(rs) == 0:
         return None
     else:
@@ -134,7 +132,7 @@ def get_features_by_id(conn, table_name, year, cohort_id):
 
 def get_cohort_by_id(conn, table_name, year, cohort_id):
     s = select([cohort.c.features,cohort.c.size]).where(cohort.c.cohort_id == cohort_id).where(cohort.c.table == table_name).where(cohort.c.year == year)
-    rs = list(conn.execute(autocommit(s)))
+    rs = list(conn.execute((s)))
     if len(rs) == 0:
         return None
     else:
@@ -158,7 +156,7 @@ def get_cohort_features(conn, table_name, year, cohort_features):
 def get_cohort_dictionary(conn, table_name, year):
     s = select([cohort.c.cohort_id,cohort.c.features,cohort.c.size]).where(cohort.c.table == table_name).where(cohort.c.year == year)
     rs = []
-    for cohort_id, features, size in conn.execute(autocommit(s)):
+    for cohort_id, features, size in conn.execute((s)):
         rs.append({
             "cohort_id": cohort_id,
             "size": size,
@@ -168,7 +166,7 @@ def get_cohort_dictionary(conn, table_name, year):
 
 
 def cohort_id_in_use(conn, cohort_id):
-    return conn.execute(autocommit(select([func.count()]).select_from(cohort).where(cohort.c.cohort_id == cohort_id))).scalar() > 0
+    return conn.execute((select([func.count()]).select_from(cohort).where(cohort.c.cohort_id == cohort_id))).scalar() > 0
 
 
 def join_lists(lists):
@@ -198,13 +196,13 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
     vbs = feature_b["feature_qualifiers"]
 
     feature_matrix = [
-        [conn.execute(autocommit(filter_select(filter_select(s, table, kb, vb), table, ka, va))).scalar() for va in vas] for vb in vbs
+        [conn.execute((filter_select(filter_select(s, table, kb, vb), table, ka, va))).scalar() for va in vas] for vb in vbs
     ]
 
-    total_cols = [conn.execute(autocommit(filter_select(s, table, ka, va))).scalar() for va in vas]
-    total_rows = [conn.execute(autocommit(filter_select(s, table, kb, vb))).scalar() for vb in vbs]
+    total_cols = [conn.execute((filter_select(s, table, ka, va))).scalar() for va in vas]
+    total_rows = [conn.execute((filter_select(s, table, kb, vb))).scalar() for vb in vbs]
 
-    total = conn.execute(autocommit(s)).scalar()
+    total = conn.execute((s)).scalar()
 
     chi_squared, p, *_ = chi2_contingency(list(map(lambda x : list(map(add_eps, x)), feature_matrix)), correction=False)
 
@@ -248,9 +246,9 @@ def select_feature_count(conn, table_name, year, cohort_features, feature_a):
     print(ka)
     print(s)
 
-    feature_matrix = [conn.execute(autocommit(filter_select(s, table, ka, va))).scalar() for va in vas]
+    feature_matrix = [conn.execute((filter_select(s, table, ka, va))).scalar() for va in vas]
     
-    total = conn.execute(autocommit(s)).scalar()
+    total = conn.execute((s)).scalar()
 
     feature_percentage = map(lambda x: x/total, feature_matrix)
 
@@ -262,7 +260,7 @@ def select_feature_count(conn, table_name, year, cohort_features, feature_a):
 
 def get_feature_levels(conn, table, year, feature):
     s = select([table.c[feature]]).where(table.c.year == year).distinct().order_by(table.c[feature])
-    return list(map(lambda row: row[0], conn.execute(autocommit(s))))
+    return list(map(lambda row: row[0], conn.execute((s))))
 
 
 def select_feature_association(conn, table_name, year, cohort_features, feature, maximum_p_value):
@@ -321,12 +319,12 @@ def validate_range(table_name, feature):
 
 def get_id_by_name(conn, table, name):
     s = select([func.count()]).select_from(name_table).where((name_table.c.name == name) & (name_table.c.table == table))
-    n = conn.execute(autocommit(s)).scalar()
+    n = conn.execute((s)).scalar()
     if n == 0:
         raise RuntimeError("Input name invalid. Please try again.")
     else:
         s = select([name_table.c.cohort_id]).select_from(name_table).where((name_table.c.name == name) & (name_table.c.table == table))
-        cohort_id = conn.execute(autocommit(s)).scalar()
+        cohort_id = conn.execute((s)).scalar()
 
         return {
             "cohort_id": cohort_id,
@@ -336,12 +334,12 @@ def get_id_by_name(conn, table, name):
 
 def add_name_by_id(conn, table, name, cohort_id):
     s = select([func.count()]).select_from(name_table).where((name_table.c.name == name) & (name_table.c.table == table))
-    n = conn.execute(autocommit(s)).scalar()
+    n = conn.execute((s)).scalar()
     if n == 1:
         raise RuntimeError("Name is already taken. Please choose another name.")
     else:
         i = name_table.insert().values(name=name, table=table, cohort_id=cohort_id)
-        conn.execute(autocommit(i))
+        conn.execute((i))
 
         return {
             "cohort_id": cohort_id,

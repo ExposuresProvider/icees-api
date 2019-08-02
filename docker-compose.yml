@@ -25,6 +25,8 @@ services:
     - ICEES_PORT
     - ICEES_DATABASE
     - ICEES_API_LOG_PATH
+    - ICEES_DB_POOL_SIZE
+    - ICEES_DB_MAX_OVERFLOW
     restart: always
     depends_on:
       - db

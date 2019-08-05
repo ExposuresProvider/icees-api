@@ -231,6 +231,10 @@ route
 ```
 /1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association2
 ```
+schema
+```
+{"feature_a":{"<feature name>":[{"operator":<operator>,"value":<value>}]},"feature_b":{"<feature name>":[{"operator":<operator>,"value":<value>}]},"check_coverage_is_full":<boolean>}
+```
 example
 ```
 {
@@ -279,6 +283,38 @@ route
 schema
 ```
 {"feature":{"<feature name>":{"operator":<operator>,"value":<value>}},"maximum_p_value":<maximum p value>}
+```
+route
+```
+/1.0.0/(patient|visit)/2010/cohort/<cohort id>/associations_to_all_features
+```
+schema
+```
+{"feature":{"<feature name>":[{"operator":<operator>,"value":<value>}]},"maximum_p_value":<maximum p value>, "check_coverage_is_full":<boolean>}
+```
+example
+```
+{
+    "feature":{
+        "AgeStudyStart":[
+            {
+                "operator":"=",
+                "value":"0-2"
+            }, {
+                "operator":"between",
+                "value_a":"3-17",
+                "value_b":"18-34"
+            }, {
+                "operator":"in", 
+                "values":["35-50","51-69"]
+            },{
+                "operator":"=",
+                "value":"70+"
+            }
+        ]
+    },
+    "maximum_p_value": 0.1
+}
 ```
 ### knowledge graph
 method

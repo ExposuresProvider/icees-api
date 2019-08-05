@@ -11,4 +11,5 @@ before_install:
 
 script:
   - docker-compose up --build -d
+  - sleep 10
   - docker run --net host --rm icees-api-test:0.2.0

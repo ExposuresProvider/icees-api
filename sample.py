@@ -5,30 +5,34 @@ from sqlalchemy import Integer, String, Enum
 import sys
 import argparse
 
-parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('table', type=str)
-parser.add_argument('years', type=int, nargs="+")
-parser.add_argument('size', type=int)
-parser.add_argument('filename', type=str)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('table', type=str)
+    parser.add_argument('years', type=int, nargs="+")
+    parser.add_argument('size', type=int)
+    parser.add_argument('filename', type=str)
 
-args = parser.parse_args()
-t = args.table
-years = args.years
-n = args.size
-fn = args.filename
+    args = parser.parse_args()
+    t = args.table
+    years = args.years
+    n = args.size
+    fn = args.filename
 
-df = pd.DataFrame({t[0].upper() + t[1:] + "Id":range(1,n+1)})
+    samples(t, years, n, fn)
 
-df["year"] = np.random.choice(years, size=n)
+def generate_data(t, years, n, fn):
+    df = pd.DataFrame({t[0].upper() + t[1:] + "Id":range(1,n+1)})
 
-for col, t, levels, _ in features[t]:
-    if levels is None:
-        if t == Integer:
-            df[col] = np.random.randint(10, size=n)
+    df["year"] = np.random.choice(years, size=n)
+
+    for col, t, levels, _ in features[t]:
+        if levels is None:
+            if t == Integer:
+                df[col] = np.random.randint(10, size=n)
+            else:
+                print ("error: " + col)
         else:
-            print ("error: " + col)
-    else:
-        df[col] = np.random.choice(levels, size=n)
+            df[col] = np.random.choice(levels, size=n)
 
-df.to_csv(fn, index=False)
+    df.to_csv(fn, index=False)
 

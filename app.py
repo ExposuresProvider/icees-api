@@ -468,6 +468,62 @@ class SERVAssociationsToAllFeatures(Resource):
         return versioned(version, return_value)
 
 
+class SERVAssociationsToAllFeatures2(Resource):
+    def post(self, version, table, year, cohort_id):
+        """
+        Exploratory 1 X N feature associations: users select a predefined cohort and a feature variable of interest and bins, which can be combined, and the service returns a 1 x N feature table with corrected Chi Square statistics and associated P values.
+        ---
+        parameters:
+          - in: body
+            name: body
+            description: a feature variable and minimum p value
+          - in: path
+            name: version
+            required: true
+            description: version of data 1.0.0|2.0.0
+            type: string
+            default: 1.0.0
+          - in: path
+            name: table
+            required: true
+            description: the table patient|visit
+            type: string
+            default: patient
+          - in: path
+            name: year
+            required: true
+            description: the year 2010
+            type: integer
+            default: 2010
+          - in: path
+            name: cohort_id
+            required: true
+            description: the cohort id
+            type: string
+            default: COHORT:22
+        responses:
+          200:
+            description: Associations to all features
+        """
+        try:
+            obj = request.get_json()
+            validate(obj, schema[version].associations_to_all_features2_schema(table))
+            feature = to_qualifiers2(obj["feature"])
+            to_validate_range = ("check_coverage_is_full" in obj) and obj["check_coverage_is_full"]
+            if to_validate_range:
+                validate_range(table, feature)
+            maximum_p_value = obj["maximum_p_value"]
+            with db.DBConnection(version) as conn:
+                return_value = model[version].select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
+        except ValidationError as e:
+            traceback.print_exc()
+            return_value = e.message
+        except Exception as e:
+            traceback.print_exc()
+            return_value = str(e)
+        return versioned(version, return_value)
+
+
 class SERVFeatures(Resource):
     def get(self, version, table, year, cohort_id):
         """
@@ -752,6 +808,7 @@ api.add_resource(SERVCohortDictionary, '/<string:version>/<string:table>/<int:ye
 api.add_resource(SERVFeatureAssociation, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association')
 api.add_resource(SERVFeatureAssociation2, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association2')
 api.add_resource(SERVAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
+api.add_resource(SERVAssociationsToAllFeatures2, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features2')
 api.add_resource(SERVIdentifiers, "/<string:version>/<string:table>/<string:feature>/identifiers")
 api.add_resource(SERVName, "/<string:version>/<string:table>/name/<string:name>")
 api.add_resource(SERVKnowledgeGraph, "/<string:version>/knowledge_graph")

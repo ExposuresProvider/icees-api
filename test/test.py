@@ -5,6 +5,9 @@ from subprocess import Popen
 import os
 import time
 import socket
+import logging
+import sys
+from features import features
 
 version = "2.0.0"
 table = "patient"
@@ -14,6 +17,9 @@ json_headers = {"Content-Type" : "application/json", "accept": "application/json
 host = "localhost"
 prot = "https"  
 port = 8081
+
+logging.basicConfig(level=logging.DEBUG, stream=sys.stderr)
+logger = logging.getLogger()
 
 def wait(ip, port):
     while True:
@@ -137,6 +143,25 @@ class TestICEESAPI(unittest.TestCase):
 
     def test_get_identifiers_OvarianCancerDx(self):
         self.do_test_get_identifiers("OvarianCancerDx")
+
+    def test_associations_to_all_features2(self):
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort".format(version, table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        cohort_id = resp_json["return value"]["cohort_id"]
+        atafdata = {
+            "feature": {
+                "AgeStudyStart": list(map(lambda x: {
+                    "operator": "=",
+                    "value": x
+                }, features[version].age_levels))
+            },
+            "maximum_p_value": 1
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort/{3}/associations_to_all_features2".format(version, table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        self.assertTrue("return value" in resp_json)
+        self.assertTrue(isinstance(resp_json["return value"], list))
 
 if __name__ == "__main__":
     unittest.main()

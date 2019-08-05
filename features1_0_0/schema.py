@@ -174,6 +174,23 @@ def associations_to_all_features_schema(table_name):
     }
 
 
+def associations_to_all_features2_schema(table_name):
+    return {
+        "type": "object",
+        "properties": {
+            "feature": bins_schema(table_name),
+            "maximum_p_value": {
+                "type": "number"
+            },
+            "check_coverage_is_full": {
+                "type": "boolean"
+            }
+        },
+        "required": ["feature", "maximum_p_value"],
+        "additionalProperties": False
+    }
+
+
 def features_schema_output(table_name):
     return {
     }

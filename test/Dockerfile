@@ -3,7 +3,7 @@ FROM python:3.5
 RUN pip install requests
 COPY . /icees-api
 
-WORKDIR /icees-api/test
+WORKDIR /icees-api
 
-ENTRYPOINT ["python","test.py"]
+ENTRYPOINT ["python","-m", "test.test"]
 

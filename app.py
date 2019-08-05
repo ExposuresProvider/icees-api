@@ -12,7 +12,7 @@ import os
 from time import strftime
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
-import model as db
+import db
 from features import model, schema, format, knowledgegraph, identifiers
 from utils import opposite, to_qualifiers
 

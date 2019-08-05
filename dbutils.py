@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 import argparse
+import db
 
 from features import model, features
 
@@ -8,7 +9,7 @@ def createargs(args):
     create(args.version)
 
 def create(version):
-    with model[version].DBConnection() as conn:
+    with db.DBConnection(version) as conn:
         with conn.begin() as trans:
             model[version].metadata.create_all(conn)
     
@@ -24,7 +25,7 @@ def insert(version, input_file, table_name):
             l.append((col_name, col_type))
         return dict(l)
         
-    with model[version].DBConnection() as conn:
+    with db.DBConnection(version) as conn:
         with conn.begin() as trans:
             df.to_sql(name=table_name, con=conn,if_exists="append", 
                       index=False, 

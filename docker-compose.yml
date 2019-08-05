@@ -11,6 +11,8 @@ services:
     - ICEES_DBUSER
     - ICEES_DBPASS
     - ICEES_DATABASE
+    - ICEES_DB_POOL_SIZE
+    - ICEES_DB_MAX_OVERFLOW
     volumes:
       - data:/data
     restart: always

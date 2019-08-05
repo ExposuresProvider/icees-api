@@ -5,6 +5,7 @@ import subprocess
 import time
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+import tempfile
 
 print("waiting for database startup")
 time.sleep(10)
@@ -13,6 +14,7 @@ os.environ["ICEES_HOST"]="localhost"
 os.environ["ICEES_PORT"]="5432"
 
 import dbutils
+import sample
 
 dbuser = os.environ["ICEES_DBUSER"]
 dbpass = os.environ["ICEES_DBPASS"]
@@ -35,8 +37,20 @@ if p == 0:
         cursor.execute("CREATE DATABASE " + db)
         cursor.execute("GRANT ALL ON DATABASE " + db + " to " + dbuser)
         dbutils.create(version)
-        dbutils.insert(version, "db/data/"+version+"/patient.csv", "patient")
-        dbutils.insert(version, "db/data/"+version+"/visit.csv", "visit")
+        def insert_data(t):
+            csvfile = "db/data/"+version+"/"+t+".csv"
+            if os.path.isfile(csvfile):
+                dbutils.insert(version, csvfile, t)
+            else:
+                print("generating data " + t)
+                temp = tempfile.NamedTemporaryFile()
+                try:
+                    sample.generate_data(version, t, [2010], 1000, temp.name)
+                    dbutils.insert(version, temp.name, t)
+                finally:
+                    temp.close()
+        insert_data("patient")
+        insert_data("visit")
     print("db initialized")
 
 cursor.close()

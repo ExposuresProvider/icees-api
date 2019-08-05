@@ -284,9 +284,14 @@ schema
 ```
 {"feature":{"<feature name>":{"operator":<operator>,"value":<value>}},"maximum_p_value":<maximum p value>}
 ```
+### associations of one feature to all features using combined bins
+method
+```
+POST
+```
 route
 ```
-/1.0.0/(patient|visit)/2010/cohort/<cohort id>/associations_to_all_features
+/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features2
 ```
 schema
 ```

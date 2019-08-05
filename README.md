@@ -97,7 +97,15 @@ python app.py
 
 #### Run tests
 ```
-python test.py
+docker-compose up --build -V -d
+```
+
+```
+docker build . -f test/Dockerfile -t icees-api-test:0.2.0
+```
+
+```
+docker run --net host --rm icees-api-test:0.2.0
 ```
 
 

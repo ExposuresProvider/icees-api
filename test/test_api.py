@@ -103,6 +103,17 @@ def do_test_knowledge_graph_unique_edge_ids(biolink_class):
         assert len(edge_ids) == len(set(edge_ids))
 
 
+def do_test_knowledge_graph_edge_set(biolink_class):
+
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/knowledge_graph".format(version), data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+
+        edge_ids = set(map(lambda x: x["edge_bindings"]["e00"][0], resp_json["return value"]["answers"]))
+        edge_ids2 = set(map(lambda x: x["id"], resp_json["return value"]["knowlegde_graph"]["edges"]))
+        assert edge_ids == edge_ids2
+
+
 def do_test_get_identifiers(i):
         feature_variables = {}
         resp = requests.get(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/identifiers".format(version, table, i), headers = json_headers, verify = False)
@@ -159,7 +170,16 @@ def test_knowledge_graph_unique_edge_ids_for_phenotypic_feature():
 def test_knowledge_graph_unique_edge_ids_for_disease():
         do_test_knowledge_graph_unique_edge_ids("disease")
 
-def test_get_identifiers_for_():
+def test_knowledge_graph_edge_set_for_chemical_substance():
+        do_test_knowledge_graph_unique_edge_ids("chemical_substance")
+
+def test_knowledge_graph_edge_set_for_phenotypic_feature():
+        do_test_knowledge_graph_unique_edge_ids("phenotypic_feature")
+
+def test_knowledge_graph_edge_set_for_disease():
+        do_test_knowledge_graph_unique_edge_ids("disease")
+
+def test_get_identifiers_for_ObesityDx():
         do_test_get_identifiers("ObesityDx")
 
 def test_get_identifiers_Sex2():

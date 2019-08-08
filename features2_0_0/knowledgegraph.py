@@ -98,6 +98,9 @@ def get(conn, obj):
         def name_to_ids(node_name):
             return list(dict.fromkeys(filter(lambda x: re.match(filter_regex, x), get_identifiers(table, node_name, True))))
 
+        def gen_edge_id(cohort_id, node_name, node_id):
+            return cohort_id + "_" + node_name + "_" + node_id
+
         def result(feature_property):
             node_name = feature_property["feature_b"]["feature_name"]
             node_ids = name_to_ids(node_name)
@@ -108,7 +111,7 @@ def get(conn, obj):
                         target_id: node_id
                     },
                     "edge_bindings" : {
-                        edge_id: [cohort_id + "_" + node_name + "_" + node_id]
+                        edge_id: [gen_edge_id(cohort_id, node_name, node_id)]
                     },
                     "score": feature_property["p_value"],
                     "score_name": "p value"
@@ -127,12 +130,13 @@ def get(conn, obj):
             return list(map(knowledge_graph_node2, node_ids))
 
         def knowledge_graph_edge(feature_property):
+            node_name = feature_property["feature_b"]["feature_name"]
+            node_ids = name_to_ids(node_name)
             edge_name = "association"
-            node_ids = name_to_ids(feature_property["feature_b"]["feature_name"])
             def knowledge_graph_edge2(node_id):
                 return {
                     "type": edge_name,
-                    "id": cohort_id + "_" + node_id,
+                    "id": gen_edge_id(cohort_id, node_name, node_id),
                     "source_id": cohort_id,
                     "target_id": node_id,
                     "edge_attributes": feature_property

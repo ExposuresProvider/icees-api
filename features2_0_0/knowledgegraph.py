@@ -33,6 +33,8 @@ subtypes = {
     "named_thing": ["chemical_substance", "disease_or_phenotypeic_feature", "environment"]
 }
 
+edge_id_map = {}
+
 def get(conn, obj):
     try:
         # query_message = obj["query_message"]
@@ -94,7 +96,7 @@ def get(conn, obj):
         feature_list = list(filter(lambda x : x["feature_b"]["biolink_class"] in supported_types, ataf))
 
         def name_to_ids(node_name):
-            return filter(lambda x: re.match(filter_regex, x), get_identifiers(table, node_name, True))
+            return list(dict.fromkeys(filter(lambda x: re.match(filter_regex, x), get_identifiers(table, node_name, True))))
 
         def result(feature_property):
             node_name = feature_property["feature_b"]["feature_name"]
@@ -106,7 +108,7 @@ def get(conn, obj):
                         target_id: node_id
                     },
                     "edge_bindings" : {
-                        edge_id: [cohort_id + "_" + node_id]
+                        edge_id: [cohort_id + "_" + node_name + "_" + node_id]
                     },
                     "score": feature_property["p_value"],
                     "score_name": "p value"

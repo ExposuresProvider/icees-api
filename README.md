@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/xu-hao/icees-api.svg?branch=master)](https://travis-ci.com/xu-hao/icees-api)
+
 ## How to run
 ### Run docker compose
 

@@ -65,7 +65,7 @@ app.config["SWAGGER"] = {
 @app.after_request
 def after_request(response):
     timestamp = strftime('%Y-%b-%d %H:%M:%S')
-    logger.info(event="request", timestamp=timestamp, remote_addr=request.remote_addr, method=request.method, schema=request.scheme, full_path=request.full_path, data=request.get_data(as_text=True), response_status=response.status)
+    logger.info(event="request", timestamp=timestamp, remote_addr=request.remote_addr, method=request.method, schema=request.scheme, full_path=request.full_path, data=request.get_data(as_text=True), response_status=response.status, x_forwarded_for=request.headers.getlist("X-Forwarded-For"))
     return response
 
 api = Api(app)

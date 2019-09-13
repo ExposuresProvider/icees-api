@@ -27,7 +27,7 @@ def generate_data(ver, t, years, n, fn):
 
     df["year"] = np.random.choice(years, size=n)
 
-    for col, t, levels, _ in features[ver].features[t]:
+    for col, t, levels, *_ in features[ver].features[t]:
         if levels is None:
             if t == Integer:
                 df[col] = np.random.randint(10, size=n)

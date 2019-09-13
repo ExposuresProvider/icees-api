@@ -1,0 +1,14 @@
+version: '3'
+services:
+  icees-api-test:
+    build:
+      context: .
+      dockerfile: test/Dockerfile
+    image: icees-api-test:0.2.0
+    command: ["-s"]
+    environment:
+      WAIT: 60
+    depends_on:
+      - db
+      - server
+

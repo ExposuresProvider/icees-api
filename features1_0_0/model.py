@@ -31,6 +31,7 @@ cohort_cols = [
 
 cohort = Table("cohort", metadata, *cohort_cols)
 
+cohort_id_seq = Sequence("cohort_id", metadata=metadata)
 
 def filter_select(s, table, k, v):
     return {
@@ -57,7 +58,7 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
     else:
         size = n
         while cohort_id is None:
-            next_val = conn.execute(Sequence("cohort_id"))
+            next_val = conn.execute(cohort_id_seq)
             cohort_id = "COHORT:" + str(next_val)
             if cohort_id_in_use(conn, cohort_id):
                 cohort_id = None

@@ -21,7 +21,7 @@ def insert(version, input_file, table_name):
     def toDType(table):
         print(table)
         l = []
-        for col_name, col_type, _, _ in table:
+        for col_name, col_type, *_ in table:
             l.append((col_name, col_type))
         return dict(l)
         

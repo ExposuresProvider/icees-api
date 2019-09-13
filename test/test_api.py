@@ -14,9 +14,9 @@ table = "patient"
 year = 2010
 tabular_headers = {"Content-Type" : "application/json", "accept": "text/tabular"}
 json_headers = {"Content-Type" : "application/json", "accept": "application/json"}
-host = "localhost"
+host = "server" # "localhost"
 prot = "https"  
-port = 8081
+port = 8080 # 8081
 
 logging.basicConfig(level=logging.DEBUG, stream=sys.stderr)
 logger = logging.getLogger()
@@ -207,6 +207,38 @@ def test_associations_to_all_features2():
         }
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort/{3}/associations_to_all_features2".format(version, table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
         resp_json = resp.json()
+        assert "return value" in resp_json
+        assert isinstance(resp_json["return value"], list)
+
+def test_associations_to_all_features2b():
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort".format(version, table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        cohort_id = resp_json["return value"]["cohort_id"]
+        atafdata = {
+            "feature": {
+                "AgeStudyStart": [
+                    {
+                        "operator": "=",
+                        "value": "0-2"
+                    }, {
+                        "operator": "between",
+                        "value_a": "3-17", 
+                        "value_b": "18-34"
+                    }, {
+                        "operator":"in", 
+                        "values":["35-50","51-69"]
+                    }, {
+                        "operator":"=",
+                        "value":"70-89"
+                    }
+                ]
+            },
+            "maximum_p_value": 1
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort/{3}/associations_to_all_features2".format(version, table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        print(resp_json)
         assert "return value" in resp_json
         assert isinstance(resp_json["return value"], list)
 

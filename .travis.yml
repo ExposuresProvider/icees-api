@@ -10,6 +10,4 @@ before_install:
   - docker build . -f test/Dockerfile -t icees-api-test:0.2.0
 
 script:
-  - docker-compose up --build -d
-  - sleep 60
-  - docker run --net host --rm icees-api-test:0.2.0
+  - docker-compose -f docker-compose.yml -f test/docker-compose.yml up --build --exit-code-from icees-api-test

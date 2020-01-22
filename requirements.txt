@@ -13,3 +13,4 @@ pandas
 argparse
 inflection
 flasgger
+simplejson

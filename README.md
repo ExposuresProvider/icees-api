@@ -61,7 +61,7 @@ Example:
 
 run
 ```
-pip install flask flask-restful flask-limiter sqlalchemy psycopg2-binary scipy gunicorn jsonschema pyyaml tabulate structlog pandas argparse inflection flasgger
+pip install -r requirements.txt
 ```
 #### Set up Database
 

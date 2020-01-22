@@ -1,0 +1,15 @@
+flask
+flask-restful
+flask-limiter
+sqlalchemy
+psycopg2-binary
+scipy
+gunicorn
+jsonschema
+pyyaml
+tabulate
+structlog
+pandas
+argparse
+inflection
+flasgger

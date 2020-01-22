@@ -2,8 +2,8 @@ FROM python:3.5
 
 RUN openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365 -subj "/C=US/ST=North Carolina/L=Chapel Hill/O=UNC Chapel Hill/OU=RENCI/CN=icees"
 				
-RUN pip install flask flask-restful flask-limiter sqlalchemy psycopg2-binary scipy gunicorn jsonschema pyyaml tabulate structlog pandas argparse inflection flasgger simplejson
 COPY . /icees-api
+RUN pip install -r icees-api/requirements.txt
 
 WORKDIR /icees-api
 

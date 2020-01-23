@@ -451,7 +451,7 @@ class SERVAssociationsToAllFeatures(Resource):
         parameters:
           - in: body
             name: body
-            description: a feature variable and minimum p value
+            description: a feature variable and maximum p value
             required: true
             example:
               feature:

@@ -117,6 +117,8 @@ class SERVCohort(Resource):
           - in: body
             name: body
             description: feature variables
+            required: true
+            example: {}
           - in: path
             name: version
             required: true
@@ -181,6 +183,8 @@ class SERVCohortId(Resource):
           - in: body
             name: body
             description: feature variables
+            required: true
+            example: {}
           - in: path
             name: version
             required: true
@@ -293,6 +297,16 @@ class SERVFeatureAssociation(Resource):
           - in: body
             name: body
             description: two feature variables
+            required: true
+            example:
+              feature_a:
+                Sex:
+                  operator: "="
+                  value: "Female"
+              feature_b:
+                AsthmaDx:
+                  operator: "="
+                  value: 1
           - in: path
             name: version
             required: true
@@ -360,6 +374,20 @@ class SERVFeatureAssociation2(Resource):
           - in: body
             name: body
             description: two feature variables
+            required: true
+            example:
+              feature_a:
+                Sex:
+                  - operator: "="
+                    value: "Female"
+                  - operator: "="
+                    value: "Male"
+              feature_b:
+                AsthmaDx:
+                  - operator: "="
+                    value: 1
+                  - operator: "="
+                    value: 0
           - in: path
             name: version
             required: true
@@ -424,6 +452,13 @@ class SERVAssociationsToAllFeatures(Resource):
           - in: body
             name: body
             description: a feature variable and minimum p value
+            required: true
+            example:
+              feature:
+                Sex:
+                  operator: "="
+                  value: "Female"
+              maximum_p_value: 1
           - in: path
             name: version
             required: true
@@ -477,6 +512,15 @@ class SERVAssociationsToAllFeatures2(Resource):
           - in: body
             name: body
             description: a feature variable and minimum p value
+            example:
+              feature:
+                Sex:
+                  - operator: "="
+                    value: "Female"
+                  - operator: "="
+                    value: "Male"
+              maximum_p_value: 1
+            required: true
           - in: path
             name: version
             required: true
@@ -699,6 +743,9 @@ class SERVName(Resource):
           - in: body
             name: body
             description: cohort id
+            example:
+              cohort_id: COHORT:22
+            required: true
           - in: path
             name: version
             required: true

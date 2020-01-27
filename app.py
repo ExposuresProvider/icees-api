@@ -13,7 +13,7 @@ from time import strftime
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
 import db
-from features import model, schema, format, knowledgegraph, identifiers
+from features import model, schema, format, identifiers
 from utils import opposite, to_qualifiers
 
 with open('terms.txt', 'r') as content_file:
@@ -661,61 +661,6 @@ class SERVName(Resource):
         return wrapped(return_value)
 
 
-class SERVKnowledgeGraph(Resource):
-    def post(self):
-        """
-        Query the ICEES clinical reasoner for knowledge graph associations between concepts.
-        ---
-        definitions:
-          import: "TranslatorReasonersAPI.yaml"
-        parameters:
-          - in: body
-            name: body
-            description: Input message
-            required: true
-            schema:
-                $ref: '#/definitions/Query'
-        responses:
-            200:
-                description: Success
-                schema:
-                    $ref: '#/definitions/Message'
-        """
-        try:
-            obj = request.get_json()
-            # validate(obj, schema.add_name_by_id_schema())
-            with db.DBConnection() as conn:
-                return_value = knowledgegraph.get(conn, obj)
-        except ValidationError as e:
-            traceback.print_exc()
-            return_value = e.message
-        except Exception as e:
-            traceback.print_exc()
-            return_value = str(e)
-        return wrapped(return_value)
-
-
-class SERVKnowledgeGraphSchema(Resource):
-    def get(self):
-        """
-        Query the ICEES clinical reasoner for knowledge graph schema.
-        ---
-        parameters: []
-        responses:
-            200:
-                description: Success
-        """
-        try:
-            return_value = knowledgegraph.get_schema()
-        except ValidationError as e:
-            traceback.print_exc()
-            return_value = e.message
-        except Exception as e:
-            traceback.print_exc()
-            return_value = str(e)
-        return wrapped(return_value)
-
-
 api.add_resource(SERVCohort, '/<string:table>/<int:year>/cohort')
 api.add_resource(SERVCohortId, '/<string:table>/<int:year>/cohort/<string:cohort_id>')
 api.add_resource(SERVFeatures, '/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
@@ -726,8 +671,6 @@ api.add_resource(SERVAssociationsToAllFeatures, '/<string:table>/<int:year>/coho
 api.add_resource(SERVAssociationsToAllFeatures2, '/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features2')
 api.add_resource(SERVIdentifiers, "/<string:table>/<string:feature>/identifiers")
 api.add_resource(SERVName, "/<string:table>/name/<string:name>")
-api.add_resource(SERVKnowledgeGraph, "/knowledge_graph")
-api.add_resource(SERVKnowledgeGraphSchema, "/knowledge_graph/schema")
 
 if __name__ == '__main__':
     app.run()

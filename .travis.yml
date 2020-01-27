@@ -5,6 +5,7 @@ branches:
   only:
     - master
     - 2010
+    - 2.0.0
 
 before_install:
   - docker build . -f test/Dockerfile -t icees-api-test:0.2.0

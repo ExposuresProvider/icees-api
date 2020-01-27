@@ -33,24 +33,24 @@ if p == 0:
     print("user not found initializing db")
     cursor.execute("CREATE USER " + dbuser + " with password '" + dbpass + "'")
 
-    for version, db in json.loads(os.environ["ICEES_DATABASE"]).items():
-        cursor.execute("CREATE DATABASE " + db)
-        cursor.execute("GRANT ALL ON DATABASE " + db + " to " + dbuser)
-        dbutils.create(version)
-        def insert_data(t):
-            csvfile = "db/data/"+version+"/"+t+".csv"
-            if os.path.isfile(csvfile):
-                dbutils.insert(version, csvfile, t)
-            else:
-                print("generating data " + t)
-                temp = tempfile.NamedTemporaryFile()
-                try:
-                    sample.generate_data(version, t, [2010], 1000, temp.name)
-                    dbutils.insert(version, temp.name, t)
-                finally:
-                    temp.close()
-        insert_data("patient")
-        insert_data("visit")
+    db = os.environ["ICEES_DATABASE"]
+    cursor.execute("CREATE DATABASE " + db)
+    cursor.execute("GRANT ALL ON DATABASE " + db + " to " + dbuser)
+    dbutils.create()
+    def insert_data(t):
+        csvfile = "db/data/"+t+".csv"
+        if os.path.isfile(csvfile):
+            dbutils.insert(csvfile, t)
+        else:
+            print("generating data " + t)
+            temp = tempfile.NamedTemporaryFile()
+            try:
+                sample.generate_data(t, [2010], 1000, temp.name)
+                dbutils.insert(temp.name, t)
+            finally:
+                temp.close()
+    insert_data("patient")
+    insert_data("visit")
     print("db initialized")
 
 cursor.close()

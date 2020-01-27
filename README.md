@@ -5,19 +5,19 @@
 
 #### database
 
-put `patient.csv` under `db/data/2.0.0/`
+put `patient.csv` under `db/data/`
 
-put `visit.csv` under `db/data/2.0.0/`
+put `visit.csv` under `db/data/`
 
 or 
 
 run
 ```
-python samples.py patient 2010 1000 db/data/2.0.0/patient.csv
+python samples.py patient 2010 1000 db/data/patient.csv
 ```
 
 ```
-python samples.py visit 2010 1000 db/data/2.0.0/visit.csv
+python samples.py visit 2010 1000 db/data/visit.csv
 ```
 
 #### start services
@@ -82,12 +82,12 @@ enter `<dbpass>` for new user
 ##### popluating database
 
 ```
-python dbutils.py --version 2.0.0 create
+python dbutils.py create
 ```
 
 ```
-python dbutils.py --version 2.0.0 insert <patient data input> patient
-python dbutils.py --version 2.0.0 insert <visit data input> visit
+python dbutils.py insert <patient data input> patient
+python dbutils.py insert <visit data input> visit
 ```
 
 #### Run Flask 

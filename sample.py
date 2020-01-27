@@ -7,14 +7,12 @@ import argparse
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('version', type=str)
     parser.add_argument('table', type=str)
     parser.add_argument('years', type=int, nargs="+")
     parser.add_argument('size', type=int)
     parser.add_argument('filename', type=str)
 
     args = parser.parse_args()
-    ver = args.version
     t = args.table
     years = args.years
     n = args.size
@@ -22,12 +20,12 @@ if __name__ == "__main__":
 
     generate_data(t, years, n, fn)
 
-def generate_data(ver, t, years, n, fn):
+def generate_data(t, years, n, fn):
     df = pd.DataFrame({t[0].upper() + t[1:] + "Id":range(1,n+1)})
 
     df["year"] = np.random.choice(years, size=n)
 
-    for col, t, levels, *_ in features[ver].features[t]:
+    for col, t, levels, *_ in features.features[t]:
         if levels is None:
             if t == Integer:
                 df[col] = np.random.randint(10, size=n)

@@ -14,21 +14,19 @@ serv_database = json.loads(os.environ[service_name + "_DATABASE"])
 serv_max_overflow = int(os.environ[service_name + "_DB_MAX_OVERFLOW"])
 serv_pool_size = int(os.environ[service_name + "_DB_POOL_SIZE"])
 
-engine_map = {}
+engine = None
 
-def get_db_connection(version):
-    if version in engine_map:
-        engine = engine_map[version]
-    else:
-        engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database[version], pool_size=serv_pool_size, max_overflow=serv_max_overflow)
-        engine_map[version] = engine
+def get_db_connection():
+    global engine
+    if engine is None:
+        engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database, pool_size=serv_pool_size, max_overflow=serv_max_overflow)
 
     return engine
 
 
 @contextmanager
-def DBConnection(version):
-    engine = get_db_connection(version)
+def DBConnection():
+    engine = get_db_connection()
     conn = engine.connect()
     try:
         yield conn

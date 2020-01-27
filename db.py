@@ -1,5 +1,4 @@
 from sqlalchemy import create_engine
-import json
 import os
 from contextlib import contextmanager
 
@@ -10,7 +9,7 @@ serv_user = os.environ[service_name + "_DBUSER"]
 serv_password = os.environ[service_name + "_DBPASS"]
 serv_host = os.environ[service_name + "_HOST"]
 serv_port = os.environ[service_name + "_PORT"]
-serv_database = json.loads(os.environ[service_name + "_DATABASE"])
+serv_database = os.environ[service_name + "_DATABASE"]
 serv_max_overflow = int(os.environ[service_name + "_DB_MAX_OVERFLOW"])
 serv_pool_size = int(os.environ[service_name + "_DB_POOL_SIZE"])
 

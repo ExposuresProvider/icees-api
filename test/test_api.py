@@ -107,17 +107,17 @@ def test_cohort_dictionary():
             "size": resp_json["return value"]["size"]
         } in resp_json1["return value"]
    
-def test_get_identifiers_for_ObesityDx():
-        do_test_get_identifiers("ObesityDx")
+def test_get_identifiers_for_ObesityICD():
+        do_test_get_identifiers("ObesityICD")
 
-def test_get_identifiers_Sex2():
-        do_test_get_identifiers("Sex2")
+def test_get_identifiers_Sex():
+        do_test_get_identifiers("Sex")
 
-def test_get_identifiers_OvarianDysfunctionDx():
-        do_test_get_identifiers("OvarianDysfunctionDx")
+def test_get_identifiers_CroupDx():
+        do_test_get_identifiers("CroupDx")
 
-def test_get_identifiers_OvarianCancerDx():
-        do_test_get_identifiers("OvarianCancerDx")
+def test_get_identifiers_ReactiveAirwayDx():
+        do_test_get_identifiers("ReactiveAirwayDx")
 
 def test_associations_to_all_features2():
         feature_variables = {}

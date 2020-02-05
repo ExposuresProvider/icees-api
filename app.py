@@ -38,10 +38,10 @@ app.config["SWAGGER"] = {
   "ui_params_text": '''{
     "operationsSorter" : (a,b) => {
         const ordering = [
-          "/{version}/{table}/{year}/cohort/{cohort_id}/features", 
-          "/{version}/{table}/{year}/cohort/{cohort_id}/feature_association", 
-          "/{version}/{table}/{year}/cohort/{cohort_id}/feature_association2", 
-          "/{version}/{table}/{year}/cohort/{cohort_id}/associations_to_all_features"
+          "/{table}/{year}/cohort/{cohort_id}/features", 
+          "/{table}/{year}/cohort/{cohort_id}/feature_association", 
+          "/{table}/{year}/cohort/{cohort_id}/feature_association2", 
+          "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features"
         ]
         const apath = a.get("path")
         const bpath = b.get("path")
@@ -98,18 +98,18 @@ swag = Swagger(app, template=template)
 
 @api.representation('application/json')
 def output_json(data, code, headers=None):
-    resp = make_response(simplejson.dumps({"terms and conditions": terms_and_conditions, "version": data["version"], "return value": data["return value"]}, ignore_nan=True), code)
+    resp = make_response(simplejson.dumps({"terms and conditions": terms_and_conditions, "return value": data["return value"]}, ignore_nan=True), code)
     resp.headers.extend(headers or {})
     return resp
 
 @api.representation('text/tabular')
 def output_tabular(data, code, headers=None):
-    resp = make_response(format[data["version"]].format_tabular(terms_and_conditions, data["return value"]), code)
+    resp = make_response(format.format_tabular(terms_and_conditions, data["return value"]), code)
     resp.headers.extend(headers or {})
     return resp
 
 class SERVCohort(Resource):
-    def post(self, version, table, year):
+    def post(self, table, year):
         """
         Cohort discovery. Users define a cohort using any number of defined feature variables as input parameters, and the service returns a sample size. If a cohort is already created for this set before, return cohort id and size. Otherwise, generate a new cohort id.
         ---
@@ -119,12 +119,6 @@ class SERVCohort(Resource):
             description: feature variables
             required: true
             example: {}
-          - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
           - in: path
             name: table
             required: true
@@ -142,14 +136,14 @@ class SERVCohort(Resource):
             description: The cohort has been created
         """
         try:
-            with db.DBConnection(version) as conn:
+            with db.DBConnection() as conn:
                 req_features = request.get_json()
                 if req_features is None:
                     req_features = {}
                 else:
-                    validate(req_features, schema[version].cohort_schema(table))
+                    validate(req_features, schema.cohort_schema(table))
 
-                cohort_id, size = model[version].get_ids_by_feature(conn, table, year, req_features)
+                cohort_id, size = model.get_ids_by_feature(conn, table, year, req_features)
       
                 if size == -1:
                     return_value = "Input features invalid or cohort ≤10 patients. Please try again."
@@ -165,17 +159,16 @@ class SERVCohort(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
-def versioned(version, data):
+def wrapped(data):
     return {
-        "version": version,
         "return value": data
     }
 
 class SERVCohortId(Resource):
-    def put(self, version, table, year, cohort_id):
+    def put(self, table, year, cohort_id):
         """
         Cohort discovery. Users define a cohort using any number of defined feature variables as input parameters, and the service returns a sample size. A new cohort is created even if a cohort was previously created using the same input parameters.
         ---
@@ -185,12 +178,6 @@ class SERVCohortId(Resource):
             description: feature variables
             required: true
             example: {}
-          - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
           - in: path
             name: table
             required: true
@@ -214,14 +201,14 @@ class SERVCohortId(Resource):
             description: The cohort has been created
         """
         try:
-            with db.DBConnection(version) as conn:
+            with db.DBConnection() as conn:
                 req_features = request.get_json()
                 if req_features is None:
                     req_features = {}
                 else:
-                    validate(req_features, schema[version].cohort_schema(table))
+                    validate(req_features, schema.cohort_schema(table))
 
-                cohort_id, size = model[version].select_cohort(conn, table, year, req_features, cohort_id)
+                cohort_id, size = model.select_cohort(conn, table, year, req_features, cohort_id)
 
                 if size == -1:
                     return_value = "Input features invalid or cohort ≤10 patients. Please try again."
@@ -236,19 +223,13 @@ class SERVCohortId(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
-    def get(self, version, table, year, cohort_id):
+    def get(self, table, year, cohort_id):
         """
         Get definition of a cohort
         ---
         parameters:
-          - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
           - in: path
             name: table
             required: true
@@ -272,8 +253,8 @@ class SERVCohortId(Resource):
             description: The features of the cohort
         """
         try:
-            with db.DBConnection(version) as conn:
-                cohort_features = model[version].get_cohort_by_id(conn, table, year, cohort_id)
+            with db.DBConnection() as conn:
+                cohort_features = model.get_cohort_by_id(conn, table, year, cohort_id)
             
                 if cohort_features is None:
                     return_value = "Input cohort_id invalid. Please try again."
@@ -285,11 +266,11 @@ class SERVCohortId(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
 class SERVFeatureAssociation(Resource):
-    def post(self, version, table, year, cohort_id):
+    def post(self, table, year, cohort_id):
         """
         Hypothesis-driven 2 x 2 feature associations: users select a predefined cohort and two feature variables, and the service returns a 2 x 2 feature table with a corresponding Chi Square statistic and P value.
         ---
@@ -307,12 +288,6 @@ class SERVFeatureAssociation(Resource):
                 AsthmaDx:
                   operator: "="
                   value: 1
-          - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
           - in: path
             name: table
             required: true
@@ -337,24 +312,24 @@ class SERVFeatureAssociation(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema[version].feature_association_schema(table))
+            validate(obj, schema.feature_association_schema(table))
             feature_a = to_qualifiers(obj["feature_a"])
             feature_b = to_qualifiers(obj["feature_b"])
 
-            with db.DBConnection(version) as conn:
-                cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
+            with db.DBConnection() as conn:
+                cohort_features = model.get_features_by_id(conn, table, year, cohort_id)
 
                 if cohort_features is None:
                     return_value = "Input cohort_id invalid. Please try again."
                 else:
-                    return_value = model[version].select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+                    return_value = model.select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
 def to_qualifiers2(feature):
@@ -366,7 +341,7 @@ def to_qualifiers2(feature):
 
 
 class SERVFeatureAssociation2(Resource):
-    def post(self, version, table, year, cohort_id):
+    def post(self, table, year, cohort_id):
         """
         Hypothesis-driven N x N feature associations: users select a predefined cohort, two feature variables, and bins, which can be combined, and the service returns a N x N feature table with a corresponding Chi Square statistic and P value.
         ---
@@ -389,12 +364,6 @@ class SERVFeatureAssociation2(Resource):
                   - operator: "="
                     value: 0
           - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
-          - in: path
             name: table
             required: true
             description: the table patient|visit
@@ -418,7 +387,7 @@ class SERVFeatureAssociation2(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema[version].feature_association2_schema(table))
+            validate(obj, schema.feature_association2_schema(table))
             feature_a = to_qualifiers2(obj["feature_a"])
             feature_b = to_qualifiers2(obj["feature_b"])
             to_validate_range = ("check_coverage_is_full" in obj) and obj["check_coverage_is_full"]
@@ -426,13 +395,13 @@ class SERVFeatureAssociation2(Resource):
                 validate_range(table, feature_a)
                 validate_range(table, feature_b)
 
-            with db.DBConnection(version) as conn:
-                cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
+            with db.DBConnection() as conn:
+                cohort_features = model.get_features_by_id(conn, table, year, cohort_id)
 
                 if cohort_features is None:
                     return_value = "Input cohort_id invalid. Please try again."
                 else:
-                    return_value = model[version].select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+                    return_value = model.select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
 
         except ValidationError as e:
             traceback.print_exc()
@@ -440,11 +409,11 @@ class SERVFeatureAssociation2(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
 class SERVAssociationsToAllFeatures(Resource):
-    def post(self, version, table, year, cohort_id):
+    def post(self, table, year, cohort_id):
         """
         Exploratory 1 X N feature associations: users select a predefined cohort and a feature variable of interest, and the service returns a 1 x N feature table with corrected Chi Square statistics and associated P values.
         ---
@@ -459,12 +428,6 @@ class SERVAssociationsToAllFeatures(Resource):
                   operator: "="
                   value: "Female"
               maximum_p_value: 1
-          - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
           - in: path
             name: table
             required: true
@@ -489,22 +452,22 @@ class SERVAssociationsToAllFeatures(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema[version].associations_to_all_features_schema(table))
+            validate(obj, schema.associations_to_all_features_schema(table))
             feature = to_qualifiers(obj["feature"])
             maximum_p_value = obj["maximum_p_value"]
-            with db.DBConnection(version) as conn:
-                return_value = model[version].select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
+            with db.DBConnection() as conn:
+                return_value = model.select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
 class SERVAssociationsToAllFeatures2(Resource):
-    def post(self, version, table, year, cohort_id):
+    def post(self, table, year, cohort_id):
         """
         Exploratory 1 X N feature associations: users select a predefined cohort and a feature variable of interest and bins, which can be combined, and the service returns a 1 x N feature table with corrected Chi Square statistics and associated P values.
         ---
@@ -522,12 +485,6 @@ class SERVAssociationsToAllFeatures2(Resource):
               maximum_p_value: 1
             required: true
           - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
-          - in: path
             name: table
             required: true
             description: the table patient|visit
@@ -551,35 +508,29 @@ class SERVAssociationsToAllFeatures2(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema[version].associations_to_all_features2_schema(table))
+            validate(obj, schema.associations_to_all_features2_schema(table))
             feature = to_qualifiers2(obj["feature"])
             to_validate_range = ("check_coverage_is_full" in obj) and obj["check_coverage_is_full"]
             if to_validate_range:
                 validate_range(table, feature)
             maximum_p_value = obj["maximum_p_value"]
-            with db.DBConnection(version) as conn:
-                return_value = model[version].select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
+            with db.DBConnection() as conn:
+                return_value = model.select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
 class SERVFeatures(Resource):
-    def get(self, version, table, year, cohort_id):
+    def get(self, table, year, cohort_id):
         """
         Feature-rich cohort discovery: users select a predefined cohort as the input parameter, and the service returns a profile of that cohort in terms of all feature variables.
         ---
         parameters:
-          - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
           - in: path
             name: table
             required: true
@@ -603,12 +554,12 @@ class SERVFeatures(Resource):
             description: features
         """
         try:
-            with db.DBConnection(version) as conn:
-                cohort_features = model[version].get_features_by_id(conn, table, year, cohort_id)
+            with db.DBConnection() as conn:
+                cohort_features = model.get_features_by_id(conn, table, year, cohort_id)
                 if cohort_features is None:
                     return_value = "Input cohort_id invalid. Please try again."
                 else:
-                    return_value = model[version].get_cohort_features(conn, table, year, cohort_features)
+                    return_value = model.get_cohort_features(conn, table, year, cohort_features)
  
         except ValidationError as e:
             traceback.print_exc()
@@ -616,21 +567,15 @@ class SERVFeatures(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
 class SERVCohortDictionary(Resource):
-    def get(self, version, table, year):
+    def get(self, table, year):
         """
         Get cohort dictionary
         ---
         parameters:
-          - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
           - in: path
             name: table
             required: true
@@ -648,29 +593,23 @@ class SERVCohortDictionary(Resource):
             description: cohort dictionray
         """
         try:
-            with db.DBConnection(version) as conn:
-                return_value = model[version].get_cohort_dictionary(conn, table, year)
+            with db.DBConnection() as conn:
+                return_value = model.get_cohort_dictionary(conn, table, year)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
 class SERVIdentifiers(Resource):
-    def get(self, version, table, feature):
+    def get(self, table, feature):
         """
         Feature identifiers.
         ---
         parameters:
-          - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
           - in: path
             name: table
             required: true
@@ -688,26 +627,20 @@ class SERVIdentifiers(Resource):
             description: feature identifiers
         """
         try:
-            return versioned(version, {
-                "identifiers": identifiers[version].get_identifiers(table, feature)
+            return wrapped({
+                "identifiers": identifiers.get_identifiers(table, feature)
             })
         except Exception as e:
             traceback.print_exc()
-            return versioned(version, str(e))
+            return wrapped(str(e))
 
 
 class SERVName(Resource):
-    def get(self, version, table, name):
+    def get(self, table, name):
         """
         Return cohort id associated with name.
         ---
         parameters:
-          - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
           - in: path
             name: table
             required: true
@@ -724,18 +657,18 @@ class SERVName(Resource):
             description: cohort id and name
         """
         try:
-            with model[version].get_db_connection() as conn:
-                return_value = model[version].get_id_by_name(conn, table, name)
+            with model.get_db_connection() as conn:
+                return_value = model.get_id_by_name(conn, table, name)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
-    def post(self, version, table, name):
+    def post(self, table, name):
         """
         Associate name with cohort id.
         ---
@@ -746,12 +679,6 @@ class SERVName(Resource):
             example:
               cohort_id: COHORT:22
             required: true
-          - in: path
-            name: version
-            required: true
-            description: version of data 1.0.0|2.0.0
-            type: string
-            default: 1.0.0
           - in: path
             name: table
             required: true
@@ -769,20 +696,20 @@ class SERVName(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema[version].add_name_by_id_schema())
-            with db.DBConnection(version) as conn:
-                return_value = model[version].add_name_by_id(conn, table, name, obj["cohort_id"])
+            validate(obj, schema.add_name_by_id_schema())
+            with db.DBConnection() as conn:
+                return_value = model.add_name_by_id(conn, table, name, obj["cohort_id"])
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
 class SERVKnowledgeGraph(Resource):
-    def post(self, version):
+    def post(self):
         """
         Query the ICEES clinical reasoner for knowledge graph associations between concepts.
         ---
@@ -795,12 +722,6 @@ class SERVKnowledgeGraph(Resource):
             required: true
             schema:
                 $ref: '#/definitions/Query'
-          - in: path
-            name: version
-            required: true
-            description: version of data 2.0.0
-            type: string
-            default: 2.0.0
         responses:
             200:
                 description: Success
@@ -809,57 +730,51 @@ class SERVKnowledgeGraph(Resource):
         """
         try:
             obj = request.get_json()
-            # validate(obj, schema[version].add_name_by_id_schema())
-            with db.DBConnection(version) as conn:
-                return_value = knowledgegraph[version].get(conn, obj)
+            # validate(obj, schema.add_name_by_id_schema())
+            with db.DBConnection() as conn:
+                return_value = knowledgegraph.get(conn, obj)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
 class SERVKnowledgeGraphSchema(Resource):
-    def get(self, version):
+    def get(self):
         """
         Query the ICEES clinical reasoner for knowledge graph schema.
         ---
-        parameters:
-          - in: path
-            name: version
-            required: true
-            description: version of data 2.0.0
-            type: string
-            default: 2.0.0
+        parameters: []
         responses:
             200:
                 description: Success
         """
         try:
-            return_value = knowledgegraph[version].get_schema()
+            return_value = knowledgegraph.get_schema()
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return versioned(version, return_value)
+        return wrapped(return_value)
 
 
-api.add_resource(SERVCohort, '/<string:version>/<string:table>/<int:year>/cohort')
-api.add_resource(SERVCohortId, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>')
-api.add_resource(SERVFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
-api.add_resource(SERVCohortDictionary, '/<string:version>/<string:table>/<int:year>/cohort/dictionary')
-api.add_resource(SERVFeatureAssociation, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association')
-api.add_resource(SERVFeatureAssociation2, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association2')
-api.add_resource(SERVAssociationsToAllFeatures, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
-api.add_resource(SERVAssociationsToAllFeatures2, '/<string:version>/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features2')
-api.add_resource(SERVIdentifiers, "/<string:version>/<string:table>/<string:feature>/identifiers")
-api.add_resource(SERVName, "/<string:version>/<string:table>/name/<string:name>")
-api.add_resource(SERVKnowledgeGraph, "/<string:version>/knowledge_graph")
-api.add_resource(SERVKnowledgeGraphSchema, "/<string:version>/knowledge_graph/schema")
+api.add_resource(SERVCohort, '/<string:table>/<int:year>/cohort')
+api.add_resource(SERVCohortId, '/<string:table>/<int:year>/cohort/<string:cohort_id>')
+api.add_resource(SERVFeatures, '/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
+api.add_resource(SERVCohortDictionary, '/<string:table>/<int:year>/cohort/dictionary')
+api.add_resource(SERVFeatureAssociation, '/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association')
+api.add_resource(SERVFeatureAssociation2, '/<string:table>/<int:year>/cohort/<string:cohort_id>/feature_association2')
+api.add_resource(SERVAssociationsToAllFeatures, '/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features')
+api.add_resource(SERVAssociationsToAllFeatures2, '/<string:table>/<int:year>/cohort/<string:cohort_id>/associations_to_all_features2')
+api.add_resource(SERVIdentifiers, "/<string:table>/<string:feature>/identifiers")
+api.add_resource(SERVName, "/<string:table>/name/<string:name>")
+api.add_resource(SERVKnowledgeGraph, "/knowledge_graph")
+api.add_resource(SERVKnowledgeGraphSchema, "/knowledge_graph/schema")
 
 if __name__ == '__main__':
     app.run()

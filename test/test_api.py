@@ -14,7 +14,6 @@ wait = os.environ.get("WAIT")
 if wait is not None:
     time.sleep(int(wait))
 
-version = "2.0.0"
 table = "patient"
 year = 2010
 tabular_headers = {"Content-Type" : "application/json", "accept": "text/tabular"}
@@ -81,7 +80,7 @@ def query(year, biolink_class):
     
 def do_test_knowledge_graph(biolink_class):
 
-        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/knowledge_graph".format(version), data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph", data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
         resp_json = resp.json()
         assert "return value" in resp_json
         assert "n_results" in resp_json["return value"]
@@ -95,7 +94,7 @@ def do_test_knowledge_graph(biolink_class):
 
 def do_test_knowledge_graph_unique_edge_ids(biolink_class):
 
-        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/knowledge_graph".format(version), data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph", data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
         resp_json = resp.json()
         assert "return value" in resp_json
 
@@ -110,7 +109,7 @@ def do_test_knowledge_graph_unique_edge_ids(biolink_class):
 
 def do_test_knowledge_graph_edge_set(biolink_class):
 
-        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/knowledge_graph".format(version), data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph", data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
         resp_json = resp.json()
         assert "return value" in resp_json
 
@@ -121,7 +120,7 @@ def do_test_knowledge_graph_edge_set(biolink_class):
 
 def do_test_get_identifiers(i):
         feature_variables = {}
-        resp = requests.get(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/identifiers".format(version, table, i), headers = json_headers, verify = False)
+        resp = requests.get(prot + "://"+host+":"+str(port)+"/{0}/{1}/identifiers".format(table, i), headers = json_headers, verify = False)
         resp_json = resp.json()
         assert "return value" in resp_json
         assert "identifiers" in resp_json["return value"]
@@ -130,7 +129,7 @@ def do_test_get_identifiers(i):
 
 def test_post_cohort():
         feature_variables = {}
-        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort".format(version, table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         assert "return value" in resp_json
         assert "cohort_id" in resp_json["return value"]
@@ -138,10 +137,10 @@ def test_post_cohort():
 
 def test_cohort_dictionary():
         feature_variables = {}
-        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort".format(version, table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
 
-        resp1 = requests.get(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort/dictionary".format(version, table, year), headers = json_headers, verify = False)
+        resp1 = requests.get(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/dictionary".format(table, year), headers = json_headers, verify = False)
         resp_json1 = resp1.json()
         assert {
             "features": {}, 
@@ -150,7 +149,7 @@ def test_cohort_dictionary():
         } in resp_json1["return value"]
    
 def test_knowledge_graph_schema():
-        resp = requests.get(prot + "://"+host+":"+str(port)+"/{0}/knowledge_graph/schema".format(version), headers = json_headers, verify = False)
+        resp = requests.get(prot + "://"+host+":"+str(port)+"/knowledge_graph/schema", headers = json_headers, verify = False)
         resp_json = resp.json()
         assert "return value" in resp_json
         assert "population_of_individual_organisms" in resp_json["return value"]
@@ -198,27 +197,27 @@ def test_get_identifiers_OvarianCancerDx():
 
 def test_associations_to_all_features2():
         feature_variables = {}
-        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort".format(version, table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         cohort_id = resp_json["return value"]["cohort_id"]
+        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature": {
                 "AgeStudyStart": list(map(lambda x: {
                     "operator": "=",
                     "value": x
-                }, features[version].age_levels))
+                }, age_levels))
             },
             "maximum_p_value": 1
         }
-        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort/{3}/associations_to_all_features2".format(version, table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/associations_to_all_features2".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
         resp_json = resp.json()
         assert "return value" in resp_json
         assert isinstance(resp_json["return value"], list)
 
-def test_associations_to_all_features2b_v2():
-    version = "2.0.0"
+def test_associations_to_all_features2b():
     feature_variables = {}
-    resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort".format(version, table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+    resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
     resp_json = resp.json()
     cohort_id = resp_json["return value"]["cohort_id"]
     atafdata = {
@@ -242,39 +241,7 @@ def test_associations_to_all_features2b_v2():
             },
             "maximum_p_value": 1
         }
-    resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort/{3}/associations_to_all_features2".format(version, table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
-    resp_json = resp.json()
-    assert "return value" in resp_json
-    assert isinstance(resp_json["return value"], list)
-
-def test_associations_to_all_features2b_v1():
-    version = "1.0.0"
-    feature_variables = {}
-    resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort".format(version, table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
-    atafdata = {
-            "feature": {
-                "AgeStudyStart": [
-                    {
-                        "operator": "=",
-                        "value": "0-2"
-                    }, {
-                        "operator": "between",
-                        "value_a": "3-17", 
-                        "value_b": "18-34"
-                    }, {
-                        "operator":"in", 
-                        "values":["35-50","51-69"]
-                    }, {
-                        "operator":"=",
-                        "value":"70+"
-                    }
-                ]
-            },
-            "maximum_p_value": 1
-        }
-    resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/{2}/cohort/{3}/associations_to_all_features2".format(version, table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+    resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/associations_to_all_features2".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
     resp_json = resp.json()
     assert "return value" in resp_json
     assert isinstance(resp_json["return value"], list)

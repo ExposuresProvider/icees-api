@@ -200,12 +200,13 @@ def test_associations_to_all_features2():
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         cohort_id = resp_json["return value"]["cohort_id"]
+        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature": {
                 "AgeStudyStart": list(map(lambda x: {
                     "operator": "=",
                     "value": x
-                }, features.age_levels))
+                }, age_levels))
             },
             "maximum_p_value": 1
         }

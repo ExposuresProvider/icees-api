@@ -16,6 +16,9 @@ import db
 from features import model, schema, format, knowledgegraph, identifiers
 from utils import opposite, to_qualifiers
 
+OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8081')
+OPENAPI_SCHEME = os.getenv('OPENAPI_SCHEME', 'http')
+
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
 
@@ -87,10 +90,10 @@ template = {
     "application/json",
     "text/tabular"
   ],
-  "host": "icees.renci.org",  # overrides localhost:500
+  "host": OPENAPI_HOST,
   "basePath": "/",  # base bash for blueprint registration
   "schemes": [
-    "https"
+    OPENAPI_SCHEME
   ]
 }
 

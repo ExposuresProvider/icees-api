@@ -11,6 +11,7 @@ services:
       - .env
     volumes:
       - data:/data
+      - ./config:/icees-api/config
     restart: always
   server:
     build: 
@@ -19,6 +20,9 @@ services:
     env_file:
       - .env
     restart: always
+    volumes:
+      - ./db/data:/data
+      - ./config:/icees-api/config
     depends_on:
       - db
     ports:

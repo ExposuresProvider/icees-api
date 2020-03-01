@@ -8,6 +8,11 @@ ENV ICEES_DBUSER=icees_dbuser
 ENV ICEES_DBPASS=icees_dbpass
 ENV ICEES_DATABASE=icees_database
 
-COPY . icees-api
+RUN mkdir icees-api
+COPY ./initdb.py icees-api/initdb.py
+COPY ./dbutils.py icees-api/dbutils.py
+COPY ./sample.py icees-api/sample.py
+COPY ./db icees-api/db
+COPY ./features icees-api/features
 ENTRYPOINT ["icees-api/db/entrypoint.sh"]
 

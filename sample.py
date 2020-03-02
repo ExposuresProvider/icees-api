@@ -29,6 +29,8 @@ def generate_data(t, years, n, fn):
         if levels is None:
             if t == Integer:
                 df[col] = np.random.randint(10, size=n)
+            elif t == String:
+                df[col] = [''.join(chr(x + 97) for x in np.random.randint(26, size=2)) for _ in range(n)]
             else:
                 print ("error: " + col)
         else:

@@ -61,6 +61,41 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: Disease
+  CervicalCancerDx:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  OvarianCancerDx:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  BoneMarrowFailureDx:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  BoneMarrowTransplantation:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: NamedThing
+  ChromosomalBreakageTest:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: NamedThing
+  AcuteMyeloidLeukemiaDx:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  PCD_Dx:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   CroupDx:
     type: integer
     minimum: 0
@@ -181,6 +216,9 @@ patient:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
+  AvgDailyPM2.5Exposure_RawEstimate:
+    type: number
+    biolinkType: ChemicalSubstance
   AvgDailyPM2.5Exposure_StudyAvg:
     type: integer
     minimum: 1
@@ -210,6 +248,9 @@ patient:
     type: integer
     minimum: 1
     maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyOzoneExposure_RawEstimate:
+    type: number
     biolinkType: ChemicalSubstance
   AvgDailyOzoneExposure_StudyAvg:
     type: integer
@@ -351,6 +392,11 @@ patient:
     minimum: 1
     maximum: 4
     biolinkType: Environment
+  EstProbabilityNoHealthIns_RawEstimate:
+    type: number
+    minimum: 0
+    maximum: 1
+    biolinkType: Environment
   EstProbabilityESL:
     type: integer
     minimum: 1
@@ -360,6 +406,10 @@ patient:
     type: integer
     minimum: 1
     maximum: 5
+    biolinkType: Environment
+  EstHouseholdIncome_RawEstimate:
+    type: number
+    minimum: 0
     biolinkType: Environment
   ur:
     type: string
@@ -537,6 +587,31 @@ visit:
     minimum: 0
     maximum: 1
     biolinkType: Disease
+  EhlersDanlosDx:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  BoneMarrowFailureDx:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  AcuteMyeloidLeukemiaDx:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  BoneMarrowTransplantation:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: NamedThing
+  ChromosomalBreakageTest:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: NamedThing
   ReactiveAirwayDxVisit:
     type: integer
     minimum: 0
@@ -662,6 +737,9 @@ visit:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
+  Avg24hPM2.5Exposure_RawEstimate:
+    type: number
+    biolinkType: ChemicalSubstance
   Max24hPM2.5Exposure:
     type: integer
     minimum: 1
@@ -671,6 +749,9 @@ visit:
     type: integer
     minimum: 1
     maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hOzoneExposure_RawEstimate:
+    type: number
     biolinkType: ChemicalSubstance
   Max24hOzoneExposure:
     type: integer
@@ -773,6 +854,26 @@ visit:
     minimum: 1
     maximum: 6
     biolinkType: Environment
+  FentanylVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  MorphineVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  NaloxoneVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CodeBlueVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: NamedThing
   PrednisoneVisit:
     type: integer
     minimum: 0

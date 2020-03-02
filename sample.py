@@ -5,20 +5,6 @@ from sqlalchemy import Integer, String, Enum
 import sys
 import argparse
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('table', type=str)
-    parser.add_argument('years', type=int, nargs="+")
-    parser.add_argument('size', type=int)
-    parser.add_argument('filename', type=str)
-
-    args = parser.parse_args()
-    t = args.table
-    years = args.years
-    n = args.size
-    fn = args.filename
-
-    generate_data(t, years, n, fn)
 
 def generate_data(t, years, n, fn):
     df = pd.DataFrame({t[0].upper() + t[1:] + "Id":range(1,n+1)})
@@ -38,3 +24,18 @@ def generate_data(t, years, n, fn):
 
     df.to_csv(fn, index=False)
 
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('table', type=str)
+    parser.add_argument('years', type=int, nargs="+")
+    parser.add_argument('size', type=int)
+    parser.add_argument('filename', type=str)
+
+    args = parser.parse_args()
+    t = args.table
+    years = args.years
+    n = args.size
+    fn = args.filename
+
+    generate_data(t, years, n, fn)

@@ -10,6 +10,7 @@ ENV ICEES_DATABASE=icees_database
 
 RUN mkdir icees-api
 COPY ./initdb.py icees-api/initdb.py
+COPY ./db.py icees-api/db.py
 COPY ./dbutils.py icees-api/dbutils.py
 COPY ./sample.py icees-api/sample.py
 COPY ./db icees-api/db

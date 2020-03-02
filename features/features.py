@@ -1,5 +1,5 @@
 import yaml
-from sqlalchemy import Integer, String, Enum
+from sqlalchemy import Integer, String, Enum, Float
 
 
 with open('config/features.yml', 'r') as f:
@@ -21,6 +21,11 @@ def dict_to_tuple(key, value):
         else:
             _type = String
             options = None
+    elif value['type'] == 'number':
+        _type = Float
+        options = None
+    else:
+        raise ValueError('Unsupported type {}'.format(value['type']))
     return (key, _type, options, value['biolinkType'])
 
 

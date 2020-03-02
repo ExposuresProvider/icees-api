@@ -12,6 +12,7 @@ services:
     volumes:
       - data:/data
       - ./config:/icees-api/config
+      - ./db:/icees-api/db
     restart: always
   server:
     build: 

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/xu-hao/icees-api.svg?branch=master)](https://travis-ci.com/xu-hao/icees-api)
+[![Build Status](https://travis-ci.com/NCAT-Tangerine/icees-api.svg?branch=master)](https://travis-ci.com/NCATS-Tangerine/icees-api)
 
 ## How to run
 ### Run docker compose

@@ -19,8 +19,8 @@ year = 2010
 tabular_headers = {"Content-Type" : "application/json", "accept": "text/tabular"}
 json_headers = {"Content-Type" : "application/json", "accept": "application/json"}
 host = "server" # "localhost"
-prot = "https"  
-port = 8080 # 8081
+prot = "http"  
+port = 8080
 
 logging.basicConfig(level=logging.DEBUG, stream=sys.stderr)
 logger = logging.getLogger()

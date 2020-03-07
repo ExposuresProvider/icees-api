@@ -5,14 +5,12 @@ services:
       context: .
       dockerfile: db/Dockerfile
     image: icees-api-db:0.2.0
-#    ports:
-#    - "5432:5432"
     env_file:
       - .env
     volumes:
-      - data:/data
+      - ./data:/data
+      - ./db/data:/db/data
       - ./config:/icees-api/config
-      - ./db:/icees-api/db
     restart: always
   server:
     build: 
@@ -22,12 +20,9 @@ services:
       - .env
     restart: always
     volumes:
-      - ./db/data:/data
       - ./config:/icees-api/config
     depends_on:
       - db
     ports:
     - "${ICEES_API_HOST_PORT}:8080"
 
-volumes:
-  data:

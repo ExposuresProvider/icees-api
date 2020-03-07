@@ -9,6 +9,15 @@ patient:
       - '51-69'
       - '70-89'
     biolinkType: PhenotypicFeature
+  AgeStudyStart2:
+    type: string
+    enum:
+      - '<5'
+      - '5-17'
+      - '18-44'
+      - '45-64'
+      - '65-89'
+    biolinkType: PhenotypicFeature
   Sex:
     type: string
     enum:
@@ -32,7 +41,7 @@ patient:
       - "Asian"
       - "Unknown"
       - "American/Alaskan Native"
-      - "Other(2131-1)"
+      - "Other"
     biolinkType: PhenotypicFeature
   Ethnicity:
     type: string
@@ -40,21 +49,6 @@ patient:
       - "Not Hispanic"
       - "Unknown"
       - "Hispanic"
-    biolinkType: PhenotypicFeature
-  BoolDisease:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: Disease
-  BoolPhenotypicFeature:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: PhenotypicFeature
-  BoolDiseaseOrPhenotypicFeature:
-    type: integer
-    minimum: 0
-    maximum: 1
     biolinkType: PhenotypicFeature
   AsthmaDx:
     type: integer
@@ -216,9 +210,6 @@ patient:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
-  AvgDailyPM2.5Exposure_RawEstimate:
-    type: number
-    biolinkType: ChemicalSubstance
   AvgDailyPM2.5Exposure_StudyAvg:
     type: integer
     minimum: 1
@@ -248,9 +239,6 @@ patient:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
-  AvgDailyOzoneExposure_RawEstimate:
-    type: number
     biolinkType: ChemicalSubstance
   AvgDailyOzoneExposure_StudyAvg:
     type: integer
@@ -347,6 +335,46 @@ patient:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
+  AvgDailyCOExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyNOExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyNO2Exposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyNOxExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailySO2Exposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyAcetaldehydeExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyFormaldehydeExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyBenzeneExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
   AvgDailyPM2.5Exposure_2_qcut:
     type: integer
     minimum: 1
@@ -357,10 +385,50 @@ patient:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
+  AvgDailyCOExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyNOExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyNO2Exposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyNOxExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailySO2Exposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyAcetaldehydeExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyFormaldehydeExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  AvgDailyBenzeneExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
   EstResidentialDensity:
     type: integer
     minimum: 1
-    maximum: 2
+    maximum: 3
     biolinkType: Environment
   EstResidentialDensity25Plus:
     type: integer
@@ -392,11 +460,6 @@ patient:
     minimum: 1
     maximum: 4
     biolinkType: Environment
-  EstProbabilityNoHealthIns_RawEstimate:
-    type: number
-    minimum: 0
-    maximum: 1
-    biolinkType: Environment
   EstProbabilityESL:
     type: integer
     minimum: 1
@@ -406,10 +469,6 @@ patient:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
-  EstHouseholdIncome_RawEstimate:
-    type: number
-    minimum: 0
     biolinkType: Environment
   ur:
     type: string
@@ -421,6 +480,33 @@ patient:
     type: integer
     minimum: 1
     maximum: 6
+    biolinkType: Environment
+  MajorRoadwayHighwayExposure2:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment
+  RoadwayDistanceExposure:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment
+  RoadwayDistanceExposure2:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment
+  RoadwayType:
+    type: string
+    biolinkType: Environment
+  RoadwayAADT:
+    type: integer
+    biolinkType: Environment
+  RoadwaySpeedLimit:
+    type: integer
+    biolinkType: Environment
+  RoadwayLanes:
+    type: integer
     biolinkType: Environment
   TotalEDVisits:
     type: integer
@@ -531,6 +617,126 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: Drug
+  Sertraline:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Citalopram:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Fluoxetine:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Paroxetine:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Trazodone:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Escitalopram:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Duloxetine:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Venlafaxine:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Propranolol:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Hydroxyzine:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Estradiol:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Estropipate:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Estrogen:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Progesterone:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Medroxyprogresterone:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Testosterone:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Androstenedione:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Nandrolone:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Prasterone:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Leuprolide:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Goserelin:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Triptorelin:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Histrelin:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  Tamoxifen:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
 visit:
   VisitType:
     type: string
@@ -568,7 +774,7 @@ visit:
       - "Asian"
       - "Unknown"
       - "American/Alaskan Native"
-      - "Other(2131-1)"
+      - "Other"
     biolinkType: PhenotypicFeature
   Ethnicity:
     type: string
@@ -587,31 +793,6 @@ visit:
     minimum: 0
     maximum: 1
     biolinkType: Disease
-  EhlersDanlosDx:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: Disease
-  BoneMarrowFailureDx:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: Disease
-  AcuteMyeloidLeukemiaDx:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: Disease
-  BoneMarrowTransplantation:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: NamedThing
-  ChromosomalBreakageTest:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: NamedThing
   ReactiveAirwayDxVisit:
     type: integer
     minimum: 0
@@ -737,10 +918,27 @@ visit:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
-  Avg24hPM2.5Exposure_RawEstimate:
-    type: number
+  Avg24hPM2.5Exposure_StudyAvg:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hPM2.5Exposure_StudyMax:
+    type: integer
+    minimum: 1
+    maximum: 5
     biolinkType: ChemicalSubstance
   Max24hPM2.5Exposure:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Max24hPM2.5Exposure_StudyAvg:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Max24hPM2.5Exposure_StudyMax:
     type: integer
     minimum: 1
     maximum: 5
@@ -750,10 +948,27 @@ visit:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
-  Avg24hOzoneExposure_RawEstimate:
-    type: number
+  Avg24hOzoneExposure_StudyAvg:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hOzoneExposure_StudyMax:
+    type: integer
+    minimum: 1
+    maximum: 5
     biolinkType: ChemicalSubstance
   Max24hOzoneExposure:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Max24hOzoneExposure_StudyAvg:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Max24hOzoneExposure_StudyMax:
     type: integer
     minimum: 1
     maximum: 5
@@ -763,7 +978,27 @@ visit:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
+  Avg24hPM2.5Exposure_StudyAvg_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hPM2.5Exposure_StudyMax_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
   Max24hPM2.5Exposure_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Max24hPM2.5Exposure_StudyAvg_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Max24hPM2.5Exposure_StudyMax_qcut:
     type: integer
     minimum: 1
     maximum: 5
@@ -773,7 +1008,27 @@ visit:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
+  Avg24hOzoneExposure_StudyAvg_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hOzoneExposure_StudyMax_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
   Max24hOzoneExposure_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Max24hOzoneExposure_StudyAvg_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Max24hOzoneExposure_StudyMax_qcut:
     type: integer
     minimum: 1
     maximum: 5
@@ -788,6 +1043,46 @@ visit:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
+  Avg24hCOExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hNOExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hNO2Exposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hNOxExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hSO2Exposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hAcetaldehydeExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hFormaldehydeExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hBenzeneExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
   Avg24hPM2.5Exposure_2_qcut:
     type: integer
     minimum: 1
@@ -798,10 +1093,50 @@ visit:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance
-  EstResidentialDensity:
+  Avg24hCOExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hNOExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hNO2Exposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hNOxExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hSO2Exposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hAcetaldehydeExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hFormaldehydeExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  Avg24hBenzeneExposure_2_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance
+  EstResidentialDensity:
+    type: integer
+    minimum: 1
+    maximum: 3
     biolinkType: Environment
   EstResidentialDensity25Plus:
     type: integer
@@ -853,6 +1188,33 @@ visit:
     type: integer
     minimum: 1
     maximum: 6
+    biolinkType: Environment
+  MajorRoadwayHighwayExposure2:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment
+  RoadwayDistanceExposure:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment
+  RoadwayDistanceExposure2:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment
+  RoadwayType:
+    type: string
+    biolinkType: Environment
+  RoadwayAADT:
+    type: integer
+    biolinkType: Environment
+  RoadwaySpeedLimit:
+    type: integer
+    biolinkType: Environment
+  RoadwayLanes:
+    type: integer
     biolinkType: Environment
   FentanylVisit:
     type: integer
@@ -970,6 +1332,126 @@ visit:
     maximum: 1
     biolinkType: Drug
   MepolizumabVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  SertralineVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CitalopramVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  FluoxetineVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  ParoxetineVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  TrazodoneVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  EscitalopramVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  DuloxetineVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  VenlafaxineVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  PropranololVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  HydroxyzineVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  EstradiolVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  EstropipateVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  EstrogenVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  ProgesteroneVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  MedroxyprogresteroneVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  TestosteroneVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  AndrostenedioneVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  NandroloneVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  PrasteroneVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  LeuprolideVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  GoserelinVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  TriptorelinVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  HistrelinVisit:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  TamoxifenVisit:
     type: integer
     minimum: 0
     maximum: 1

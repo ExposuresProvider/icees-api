@@ -37,10 +37,14 @@ if p == 0:
     cursor.execute("CREATE DATABASE " + db)
     cursor.execute("GRANT ALL ON DATABASE " + db + " to " + dbuser)
     dbutils.create()
-    def insert_data(t):
-        csvfile = "db/data/"+t+".csv"
-        if os.path.isfile(csvfile):
-            dbutils.insert(csvfile, t)
+    csvdir = "db/data/"
+    for t in os.listdir(csvdir):
+        table_dir = csvdir + "/" + t
+        if os.path.isdir(table_dir):
+            for f in os.listdir(table_dir):
+                table = table_dir + "/" + f
+                print("loading " + table)
+                dbutils.insert(table, t)
         else:
             print("generating data " + t)
             temp = tempfile.NamedTemporaryFile()
@@ -49,9 +53,9 @@ if p == 0:
                 dbutils.insert(temp.name, t)
             finally:
                 temp.close()
-    insert_data("patient")
-    insert_data("visit")
     print("db initialized")
+else:
+    print("db already initialized")
 
 cursor.close()
 conn.close()

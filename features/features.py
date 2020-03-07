@@ -6,7 +6,7 @@ with open('config/features.yml', 'r') as f:
     features_dict = yaml.load(f, Loader=yaml.SafeLoader)
 
 
-def dict_to_tuple(key, value):
+def dict_to_tuple(table, key, value):
     """Convert feature from dict form to tuple."""
     if value['type'] == 'integer':
         _type = Integer
@@ -17,7 +17,7 @@ def dict_to_tuple(key, value):
     elif value['type'] == 'string':
         if 'enum' in value:
             options = value['enum']
-            _type = Enum(*options, name=key)
+            _type = Enum(*options, name=table+"_"+key)
         else:
             _type = String
             options = None
@@ -26,11 +26,14 @@ def dict_to_tuple(key, value):
         options = None
     else:
         raise ValueError('Unsupported type {}'.format(value['type']))
-    return (key, _type, options, value['biolinkType'])
+    biolink_type = value.get('biolinkType')
+    if biolink_type is None:
+        print("cannot find biolinkType for " + key + " in " + str(value))
+    return (key, _type, options, biolink_type)
 
 
 features = {
-    key0: [dict_to_tuple(key1, value1) for key1, value1 in value0.items()]
+    key0: [dict_to_tuple(key0, key1, value1) for key1, value1 in value0.items()]
     for key0, value0 in features_dict.items()
 }
 

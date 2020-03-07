@@ -16,7 +16,7 @@ import db
 from features import model, schema, format, knowledgegraph, identifiers
 from utils import opposite, to_qualifiers
 
-OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8081')
+OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8080')
 OPENAPI_SCHEME = os.getenv('OPENAPI_SCHEME', 'http')
 
 with open('terms.txt', 'r') as content_file:

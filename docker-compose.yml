@@ -5,6 +5,7 @@ services:
       context: .
       dockerfile: db/Dockerfile
     image: icees-api-db:0.2.0
+    container_name: ${ICEES_API_INSTANCE_NAME}-db
     env_file:
       - .env
     volumes:
@@ -16,6 +17,7 @@ services:
     build: 
       context: .
     image: icees-api-server:0.2.0
+    container_name: ${ICEES_API_INSTANCE_NAME}-server
     env_file:
       - .env
     restart: always

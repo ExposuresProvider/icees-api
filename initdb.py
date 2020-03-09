@@ -40,6 +40,7 @@ if p == 0:
     csvdir = "db/data/"
     for t in os.listdir(csvdir):
         table_dir = csvdir + "/" + t
+        print(table_dir, t, os.stat(table_dir))
         if os.path.isdir(table_dir):
             for f in os.listdir(table_dir):
                 table = table_dir + "/" + f

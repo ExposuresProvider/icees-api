@@ -42,7 +42,7 @@ if p == 0:
     for t in features.features_dict.keys():
         table_dir = csvdir + "/" + t
         if os.path.isdir(table_dir):
-            print("loading data " + t)
+            print(table_dir + " exists")
             for f in os.listdir(table_dir):
                 table = table_dir + "/" + f
                 print("loading " + table)

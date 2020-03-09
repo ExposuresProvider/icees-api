@@ -12,7 +12,7 @@ eps = np.finfo(float).eps
 metadata = MetaData()
 
 table_cols = {
-    table: [Column(table[0].upper() + table[1:] + "Id", Integer, primary_key=True), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), table_features)) for table, table_features in features.items()
+    table: [Column(table[0].upper() + table[1:] + "Id", Integer, primary_key=True), Column("year", Integer, primary_key=True)] + list(map(lambda feature: Column(feature[0], feature[1]), table_features)) for table, table_features in features.items()
 }
 
 tables = {

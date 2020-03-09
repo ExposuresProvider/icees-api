@@ -5,19 +5,19 @@
 
 #### database
 
-put `patient.csv` under `db/data/`
+put `patient.csv` under `db/data/patient`
 
-put `visit.csv` under `db/data/`
+put `visit.csv` under `db/data/visit`
 
 or 
 
 run
 ```
-python samples.py patient 2010 1000 db/data/patient.csv
+python samples.py patient 2010 1000 db/data/patient/patient.csv
 ```
 
 ```
-python samples.py visit 2010 1000 db/data/visit.csv
+python samples.py visit 2010 1000 db/data/patient/visit.csv
 ```
 
 #### start services
@@ -26,11 +26,6 @@ edit `.env`
 run
 ```
 docker-compose up --build
-```
-
-the postgres docker container create volumes that are persistent across runs. To prune the volume,
-```
-docker volume prune
 ```
 
 ### Run manually
@@ -45,19 +40,17 @@ set env variables
 
 `ICEES_PORT` 
 
-`ICEES_DATABASE`: json
+`ICEES_DATABASE`: 
 
 `ICEES_DB_POOL_SIZE`
 
 `ICEES_DB_MAX_OVERFLOW`
 
-Example:
-
-```
-{"1.0.0":"iceesdb"}
-```
-
 `ICEES_API_LOG_PATH`
+
+`DB_PATH`
+
+`DATA_PATH`
 
 run
 ```

@@ -6,6 +6,7 @@ import time
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import tempfile
+from features import features
 
 print("waiting for database startup")
 time.sleep(10)
@@ -38,10 +39,10 @@ if p == 0:
     cursor.execute("GRANT ALL ON DATABASE " + db + " to " + dbuser)
     dbutils.create()
     csvdir = "db/data/"
-    for t in os.listdir(csvdir):
+    for t in features.features_dict.keys():
         table_dir = csvdir + "/" + t
-        print(table_dir, t, os.stat(table_dir))
         if os.path.isdir(table_dir):
+            print("loading data " + t)
             for f in os.listdir(table_dir):
                 table = table_dir + "/" + f
                 print("loading " + table)

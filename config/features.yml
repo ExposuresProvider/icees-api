@@ -65,31 +65,6 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: Disease
-  BoneMarrowFailureDx:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: Disease
-  BoneMarrowTransplantation:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: NamedThing
-  ChromosomalBreakageTest:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: NamedThing
-  AcuteMyeloidLeukemiaDx:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: Disease
-  PCD_Dx:
-    type: integer
-    minimum: 0
-    maximum: 1
-    biolinkType: Disease
   CroupDx:
     type: integer
     minimum: 0
@@ -737,6 +712,341 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: Drug
+  IN_FINAL_SAMPLE:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  ORIGINAL_ANALYTIC_SAMPLE:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  TLR4_AGE:
+    type: string
+    enum: 
+    - "0-2"
+    - "3-17"
+    - "18-34"
+    - "35-50"
+    - "51-69"
+    - "70-89"
+    biolinkType: PhenotypicFeature
+  TLR4_AGE2:
+    type: string
+    enum:
+    - "<5"
+    - "5-17"
+    - "18-44"
+    - "45-64"
+    - "65-89"
+    biolinkType: PhenotypicFeature
+  GENDER:
+    type: string
+    enum: ['Female', 'Male']
+    biolinkType: PhenotypicFeature
+  RACE:
+    type: string
+    enum: ['White', 'BAA', 'Multiple', 'Unknown/NR', 'Asian', 'AIAN', 'NHOPI']
+    biolinkType: PhenotypicFeature
+  ETHNICITY:
+    type: string
+    enum: ['Non-Hispanic/Non-Latino', 'Unknown/NR', 'Hispanic Latino']
+    biolinkType: PhenotypicFeature
+  CURRENT_AGE:
+    type: string
+    enum: 
+    - "0-2"
+    - "3-17"
+    - "18-34"
+    - "35-50"
+    - "51-69"
+    - "70-89"
+    biolinkType: PhenotypicFeature
+  CURRENT_AGE2:
+    type: string
+    enum:
+    - "<5"
+    - "5-17"
+    - "18-44"
+    - "45-64"
+    - "65-89"
+    biolinkType: PhenotypicFeature
+  RESPONDER_STATUS:
+    type: string
+    enum: ['Neither', 'Hyper', 'Hypo', 'Super Hypo']
+    biolinkType: PhenotypicFeature
+  QXAGE:
+    type: string
+    enum: 
+    - "0-2"
+    - "3-17"
+    - "18-34"
+    - "35-50"
+    - "51-69"
+    - "70-89"
+    biolinkType: PhenotypicFeature
+  QXAGE2:
+    type: string
+    enum:
+    - "<5"
+    - "5-17"
+    - "18-44"
+    - "45-64"
+    - "65-89"
+    biolinkType: PhenotypicFeature
+  BMI_CATEGORY:
+    type: string
+    enum: ['Normal (18.5 to <25)', 'Over (25 to <30)', 'Obese (30+)', 'Under (<18.5)']
+    biolinkType: PhenotypicFeature
+  D28_ASTHMA:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  D28A_ASTHMA_AD_TEXT:
+    type: string
+    enum: 
+    - "0-2"
+    - "3-17"
+    - "18-34"
+    - "35-50"
+    - "51-69"
+    - "70-89"
+    biolinkType: PhenotypicFeature
+  D28A_ASTHMA_AD_TEXT2:
+    type: string
+    enum:
+    - "<5"
+    - "5-17"
+    - "18-44"
+    - "45-64"
+    - "65-89"
+    biolinkType: PhenotypicFeature
+  D28B_STILL_HAVE_ASTHMA:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  D28C_ASTHMA_EPISODE_12M:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  D28D_ASTHMA_ER_VISIT_12M:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  D28E_ASTHMA_MED_TAKE_12M:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  D28F_ASTHMA_14D_NUM_NIGHTS_TEXT:
+    type: integer
+    biolinkType: PhenotypicFeature
+  D28G_ASTHMA_14D_LIMIT_DAYS_TEXT:
+    type: integer
+    biolinkType: PhenotypicFeature
+  D28H_ASTHMA_14D_NUM_WHEEZE_TEXT:
+    type: integer
+    biolinkType: PhenotypicFeature
+  S177_SMOKE_100_CIG_LIFETIME:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  SMOKE_CAT:
+    type: string
+    enum: ['Never', 'Ever']
+    biolinkType: PhenotypicFeature
+  SNP1:
+    type: string
+    enum: ['A', 'C', 'B']
+    biolinkType: PhenotypicFeature
+  SNP2:
+    type: string
+    enum: ['Z', 'X', 'Y']
+    biolinkType: PhenotypicFeature
+  SNP3:
+    type: string
+    enum: ['E', 'F', 'D']
+    biolinkType: PhenotypicFeature
+  SNP4:
+    type: string
+    enum: ['N', 'L', 'M']
+    biolinkType: PhenotypicFeature
+  TLR4_DIST_1X_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  TLR4_DIST_1X_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  TLR4_DIST_2X_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  TLR4_DIST_2X_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  TLR4_DIST_3X_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  TLR4_DIST_3X_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  ESTTOTALPOP:
+    type: integer
+    minimum: 1
+    maximum: 3
+    biolinkType: Environment
+  ESTTOTALPOP25PLUS_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  ESTTOTALPOP25PLUS_qcut:
+    type: integer
+    biolinkType: Environment
+  ESTPROPPERSONSNONHISPWHITE_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONSNONHISPWHITE_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  MEDIANHOUSEHOLDINCOME_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  MEDIANHOUSEHOLDINCOME_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONSNOHEALTHINS_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONSNOHEALTHINS_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONS25PLUSHSMAX_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONS25PLUSHSMAX_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONS5PLUSNOENGLISH_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONS5PLUSNOENGLISH_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPHOUSEHOLDSNOAUTO_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPHOUSEHOLDSNOAUTO_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  DISTANCE:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment
+  DISTANCE2:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment
+  AADT:
+    type: integer
+    biolinkType: Environment
+  ROADTYPE:
+    type: string
+    enum: ['Urban Unrestricted Access', 'Rural Unrestricted Access', 'Urban Restricted Access', 'Rural Restricted Access']
+    biolinkType: Environment
+  SPEED:
+    type: integer
+    biolinkType: Environment
+  THROUGH_LANES:
+    type: integer
+    biolinkType: Environment
+  O3_ANNUAL_AVERAGE_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  O3_ANNUAL_AVERAGE_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  O3_N_OBS:
+    type: integer
+    biolinkType: Environment
+  PM25_ANNUAL_AVERAGE_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  PM25_ANNUAL_AVERAGE_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  PM25_N_OBS:
+    type: integer
+    biolinkType: Environment    
+  IN_ICEES:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: PhenotypicFeature
+  IN_EPR:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: PhenotypicFeature
 visit:
   VisitType:
     type: string
@@ -750,6 +1060,15 @@ visit:
       - '35-50'
       - '51-69'
       - '70-89'
+    biolinkType: PhenotypicFeature
+  AgeVisit2:
+    type: string
+    enum:
+      - '<5'
+      - '5-17'
+      - '18-44'
+      - '45-64'
+      - '65-89'
     biolinkType: PhenotypicFeature
   Sex:
     type: string
@@ -1456,3 +1775,338 @@ visit:
     minimum: 0
     maximum: 1
     biolinkType: Drug
+  IN_FINAL_SAMPLE:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  ORIGINAL_ANALYTIC_SAMPLE:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  TLR4_AGE:
+    type: string
+    enum: 
+    - "0-2"
+    - "3-17"
+    - "18-34"
+    - "35-50"
+    - "51-69"
+    - "70-89"
+    biolinkType: PhenotypicFeature
+  TLR4_AGE2:
+    type: string
+    enum:
+    - "<5"
+    - "5-17"
+    - "18-44"
+    - "45-64"
+    - "65-89"
+    biolinkType: PhenotypicFeature
+  GENDER:
+    type: string
+    enum: ['Female', 'Male']
+    biolinkType: PhenotypicFeature
+  RACE:
+    type: string
+    enum: ['White', 'BAA', 'Multiple', 'Unknown/NR', 'Asian', 'AIAN', 'NHOPI']
+    biolinkType: PhenotypicFeature
+  ETHNICITY:
+    type: string
+    enum: ['Non-Hispanic/Non-Latino', 'Unknown/NR', 'Hispanic Latino']
+    biolinkType: PhenotypicFeature
+  CURRENT_AGE:
+    type: string
+    enum: 
+    - "0-2"
+    - "3-17"
+    - "18-34"
+    - "35-50"
+    - "51-69"
+    - "70-89"
+    biolinkType: PhenotypicFeature
+  CURRENT_AGE2:
+    type: string
+    enum:
+    - "<5"
+    - "5-17"
+    - "18-44"
+    - "45-64"
+    - "65-89"
+    biolinkType: PhenotypicFeature
+  RESPONDER_STATUS:
+    type: string
+    enum: ['Neither', 'Hyper', 'Hypo', 'Super Hypo']
+    biolinkType: PhenotypicFeature
+  QXAGE:
+    type: string
+    enum: 
+    - "0-2"
+    - "3-17"
+    - "18-34"
+    - "35-50"
+    - "51-69"
+    - "70-89"
+    biolinkType: PhenotypicFeature
+  QXAGE2:
+    type: string
+    enum:
+    - "<5"
+    - "5-17"
+    - "18-44"
+    - "45-64"
+    - "65-89"
+    biolinkType: PhenotypicFeature
+  BMI_CATEGORY:
+    type: string
+    enum: ['Normal (18.5 to <25)', 'Over (25 to <30)', 'Obese (30+)', 'Under (<18.5)']
+    biolinkType: PhenotypicFeature
+  D28_ASTHMA:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  D28A_ASTHMA_AD_TEXT:
+    type: string
+    enum: 
+    - "0-2"
+    - "3-17"
+    - "18-34"
+    - "35-50"
+    - "51-69"
+    - "70-89"
+    biolinkType: PhenotypicFeature
+  D28A_ASTHMA_AD_TEXT2:
+    type: string
+    enum:
+    - "<5"
+    - "5-17"
+    - "18-44"
+    - "45-64"
+    - "65-89"
+    biolinkType: PhenotypicFeature
+  D28B_STILL_HAVE_ASTHMA:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  D28C_ASTHMA_EPISODE_12M:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  D28D_ASTHMA_ER_VISIT_12M:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  D28E_ASTHMA_MED_TAKE_12M:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  D28F_ASTHMA_14D_NUM_NIGHTS_TEXT:
+    type: integer
+    biolinkType: PhenotypicFeature
+  D28G_ASTHMA_14D_LIMIT_DAYS_TEXT:
+    type: integer
+    biolinkType: PhenotypicFeature
+  D28H_ASTHMA_14D_NUM_WHEEZE_TEXT:
+    type: integer
+    biolinkType: PhenotypicFeature
+  S177_SMOKE_100_CIG_LIFETIME:
+    type: string
+    enum:
+    - "True"
+    - "False"
+    biolinkType: PhenotypicFeature
+  SMOKE_CAT:
+    type: string
+    enum: ['Never', 'Ever']
+    biolinkType: PhenotypicFeature
+  SNP1:
+    type: string
+    enum: ['A', 'C', 'B']
+    biolinkType: PhenotypicFeature
+  SNP2:
+    type: string
+    enum: ['Z', 'X', 'Y']
+    biolinkType: PhenotypicFeature
+  SNP3:
+    type: string
+    enum: ['E', 'F', 'D']
+    biolinkType: PhenotypicFeature
+  SNP4:
+    type: string
+    enum: ['N', 'L', 'M']
+    biolinkType: PhenotypicFeature
+  TLR4_DIST_1X_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  TLR4_DIST_1X_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  TLR4_DIST_2X_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  TLR4_DIST_2X_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  TLR4_DIST_3X_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  TLR4_DIST_3X_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  ESTTOTALPOP:
+    type: integer
+    minimum: 1
+    maximum: 3
+    biolinkType: Environment
+  ESTTOTALPOP25PLUS_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  ESTTOTALPOP25PLUS_qcut:
+    type: integer
+    biolinkType: Environment
+  ESTPROPPERSONSNONHISPWHITE_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONSNONHISPWHITE_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  MEDIANHOUSEHOLDINCOME_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  MEDIANHOUSEHOLDINCOME_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONSNOHEALTHINS_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONSNOHEALTHINS_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONS25PLUSHSMAX_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONS25PLUSHSMAX_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONS5PLUSNOENGLISH_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPPERSONS5PLUSNOENGLISH_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPHOUSEHOLDSNOAUTO_cut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  ESTPROPHOUSEHOLDSNOAUTO_qcut:
+    type: integer
+    minimum: 1
+    maximum: 4
+    biolinkType: Environment
+  DISTANCE:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment
+  DISTANCE2:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment
+  AADT:
+    type: integer
+    biolinkType: Environment
+  ROADTYPE:
+    type: string
+    enum: ['Urban Unrestricted Access', 'Rural Unrestricted Access', 'Urban Restricted Access', 'Rural Restricted Access']
+    biolinkType: Environment
+  SPEED:
+    type: integer
+    biolinkType: Environment
+  THROUGH_LANES:
+    type: integer
+    biolinkType: Environment
+  O3_ANNUAL_AVERAGE_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  O3_ANNUAL_AVERAGE_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  O3_N_OBS:
+    type: integer
+    biolinkType: Environment
+  PM25_ANNUAL_AVERAGE_cut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  PM25_ANNUAL_AVERAGE_qcut:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  PM25_N_OBS:
+    type: integer
+    biolinkType: Environment    
+  IN_ICEES:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: PhenotypicFeature
+  IN_EPR:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: PhenotypicFeature

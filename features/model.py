@@ -11,13 +11,12 @@ eps = np.finfo(float).eps
 
 metadata = MetaData()
 
-pat_cols = [Column("PatientId", String, primary_key=True), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), features["patient"]))
-
-visit_cols = [Column("VisitId", String, primary_key=True), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), features["visit"]))
+table_cols = {
+    table: [Column("Id", Integer, primary_key=True), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), table_features)) for table, table_features in features.items()
+}
 
 tables = {
-    "patient": Table("patient", metadata, *pat_cols),
-    "visit": Table("visit", metadata, *visit_cols)
+    table : Table(table, metadata, *tab_cols) for table, tab_cols in table_cols.items()
 }
 
 name_table = Table("name", metadata, Column("name", String, primary_key=True), Column("cohort_id", String), Column("table", String))

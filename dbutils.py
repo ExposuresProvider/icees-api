@@ -29,6 +29,7 @@ def insert(input_file, table_name):
     print("processing table " + table_name)
     for col, ty in table_features.items():
         print("processing column " + col)
+        df.rename[{"index": table_name[0].upper() + table_name[1:] + "Id"}]
         if col in df:
             df[col] = type_dict[ty["type"]](df[col])
     with pd.option_context('display.max_rows', None, 'display.max_columns', None):

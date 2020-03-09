@@ -102,13 +102,13 @@ The following steps can be run using the `redepoly.sh`
 ##### Build Container
 
 ```
-docker build . -t icees-api:0.2.0
+docker build . -t icees-api:0.3.0
 ```
 
 ##### Run Container in Standalone Mode (optional)
 
 ```
-docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log -p 8080:8080 icees-api:0.2.0
+docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log -p 8080:8080 icees-api:0.3.0
 ```
 
 ```
@@ -123,7 +123,7 @@ docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<h
 ```
 
 ```
-docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log --net host icees-api:0.2.0
+docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log --net host icees-api:0.3.0
 ```
 
 ```
@@ -147,7 +147,7 @@ POST
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort
+/(patient|visit)/(2010|2011)/cohort
 ```
 schema
 ```
@@ -166,7 +166,7 @@ GET
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>
+/(patient|visit)/(2010|2011)/cohort/<cohort id>
 ```
 
 ### get cohort features
@@ -177,7 +177,7 @@ GET
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/features
+/(patient|visit)/(2010|2011)/cohort/<cohort id>/features
 ```
 
 ### get cohort dictionary
@@ -188,7 +188,7 @@ GET
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/dictionary
+/(patient|visit)/(2010|2011)/cohort/dictionary
 ```
 
 ### feature association between two features
@@ -199,7 +199,7 @@ POST
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association
+/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association
 ```
 schema
 ```
@@ -214,7 +214,7 @@ POST
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association2
+/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association2
 ```
 schema
 ```
@@ -263,7 +263,7 @@ POST
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features
+/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features
 ```
 schema
 ```
@@ -276,7 +276,7 @@ POST
 ```
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features2
+/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features2
 ```
 schema
 ```
@@ -314,7 +314,7 @@ POST
 
 route
 ```
-/2.0.0/knowledge_graph
+/knowledge_graph
 ```
 
 input parameters:
@@ -373,13 +373,13 @@ example
 get cohort of all patients
 
 ```
-curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{}'
 ```
 
 get cohort of patients with `AgeStudyStart = 0-2`
 
 ```
-curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
 ```
 
 Assuming we have cohort id `COHORT:10`
@@ -387,39 +387,39 @@ Assuming we have cohort id `COHORT:10`
 get definition of cohort
 
 ```
-curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10 -H "Accept: application/json"
+curl -k -XGET https://localhost:8080/patient/2010/cohort/COHORT:10 -H "Accept: application/json"
 ```
 
 get features of cohort
 
 ```
-curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/features -H "Accept: application/json"
+curl -k -XGET https://localhost:8080/patient/2010/cohort/COHORT:10/features -H "Accept: application/json"
 ```
 
 get cohort dictionary 
 
 ```
-curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/features -H "Accept: application/json"
+curl -k -XGET https://localhost:8080/patient/2010/cohort/COHORT:10/features -H "Accept: application/json"
 ```
 
 get feature association
 
 
 ```
-curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
 ```
 
 get association to all features
 
 
 ```
-curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
+curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
 ```
 
 knowledge graph
 
 ```
-curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph" -H  "accept: application/json" -H  "Content-Type: application/json" -d '
+curl -X POST -k "http://localhost:5000/knowledge_graph" -H  "accept: application/json" -H  "Content-Type: application/json" -d '
 {
         "query_options": {
             "table": "patient", 
@@ -465,6 +465,6 @@ curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph" -H  "accept: appli
 knowledge graph schema
 
 ```
-curl -X GET -k "http://localhost:5000/2.0.0/knowledge_graph/schema" -H  "accept: application/json"
+curl -X GET -k "http://localhost:5000/knowledge_graph/schema" -H  "accept: application/json"
 ```
 

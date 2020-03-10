@@ -123,7 +123,7 @@ def get_flag(flag):
     return request.args.get(flag) is not None
 
 class SERVCohort(Resource):
-    def post(self, table, year):
+    def post(self, table, year, enable_smc=False):
         """
         Cohort discovery. Users define a cohort using any number of defined feature variables as input parameters, and the service returns a sample size. If a cohort is already created for this set before, return cohort id and size. Otherwise, generate a new cohort id.
         ---

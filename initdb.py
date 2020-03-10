@@ -7,8 +7,17 @@ import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import tempfile
 from features import features
+import logging
 
-print("waiting for database startup")
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
+logger.info("waiting for database startup")
 time.sleep(10)
 
 os.environ["ICEES_HOST"]="localhost"
@@ -31,7 +40,7 @@ p = cursor.fetchall()[0][0]
 
 if p == 0:
 
-    print("user not found initializing db")
+    logger.info("user not found initializing db")
     cursor.execute("CREATE USER " + dbuser + " with password '" + dbpass + "'")
 
     db = os.environ["ICEES_DATABASE"]
@@ -42,22 +51,23 @@ if p == 0:
     for t in features.features_dict.keys():
         table_dir = csvdir + "/" + t
         if os.path.isdir(table_dir):
-            print(table_dir + " exists")
+            logger.info(table_dir + " exists")
             for f in os.listdir(table_dir):
                 table = table_dir + "/" + f
-                print("loading " + table)
+                logger.info("loading " + table)
                 dbutils.insert(table, t)
         else:
-            print("generating data " + t)
+            logger.info("generating data " + t)
             temp = tempfile.NamedTemporaryFile()
             try:
                 sample.generate_data(t, [2010], 1000, temp.name)
                 dbutils.insert(temp.name, t)
             finally:
                 temp.close()
-    print("db initialized")
+    dbutils.create_indices()
+    logger.info("db initialized")
 else:
-    print("db already initialized")
+    logger.info("db already initialized")
 
 cursor.close()
 conn.close()

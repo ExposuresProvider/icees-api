@@ -1,9 +1,9 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index
 from sqlalchemy.sql import select
 from scipy.stats import chi2_contingency
 import json
 import os
-from .features import features, lookUpFeatureClass
+from .features import features, lookUpFeatureClass, features_dict
 import inflection
 import numpy as np
 
@@ -11,8 +11,11 @@ eps = np.finfo(float).eps
 
 metadata = MetaData()
 
+def table_id(table):
+    return table[0].upper() + table[1:] + "Id"
+
 table_cols = {
-    table: [Column(table[0].upper() + table[1:] + "Id", Integer), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), table_features)) for table, table_features in features.items()
+    table: [Column(table_id(table), Integer), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), table_features)) for table, table_features in features.items()
 }
 
 tables = {

@@ -48,14 +48,25 @@ def filter_select(s, table, k, v):
         "in": lambda: s.where(table.c[k].in_(v["values"]))
     }[v["operator"]]()
 
-
-def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
+def smc(n, smc_number, smc_hosts):
+    smc_output = os.environ["SMC_OUTPUT_FILE"]
+    smc_program_dir = os.environ["SMC_PROGRAM_DIR"]
+    smc_docker_image = os.environ["SMC_DOCKER_IMAGE"]
+    os.system(f"docker run --network host --rm -v {smc_program_dir}:/programs {smc_docker_image} /spdz2/entrypoint.sh '{smc_hosts}' tripleadd {sms_number} {n}")
+    with open(smc_output_file) as f:
+        return int(f.read())
+    
+def select_cohort(conn, table_name, year, cohort_features, cohort_id=None, enable_smc=False):
     table = tables[table_name]
     s = select([func.count()]).select_from(table).where(table.c.year == year)
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
 
     n = conn.execute((s)).scalar()
+    if enable_smc:
+        smc_number = os.environ["SMC_NUMBER"]
+        smc_hosts = os.environ["SMC_HOSTS"]
+        n = smc(n, smc_number, smc_hosts)
     if n <= 10:
         return None, -1
     else:
@@ -81,12 +92,12 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
         return cohort_id, size
 
 
-def get_ids_by_feature(conn, table_name, year, cohort_features):
+def get_ids_by_feature(conn, table_name, year, cohort_features, enable_smc=False):
     s = select([cohort.c.cohort_id, cohort.c.size]).where(cohort.c.table == table_name).where(cohort.c.year == year).where(
         cohort.c.features == json.dumps(cohort_features, sort_keys=True))
     rs = list(conn.execute((s)))
     if len(rs) == 0:
-        cohort_id, size = select_cohort(conn, table_name, year, cohort_features)
+        cohort_id, size = select_cohort(conn, table_name, year, cohort_features, enable_smc=enable_smc)
     else:
         [cohort_id, size] = rs[0]
     return cohort_id, size

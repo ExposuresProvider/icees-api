@@ -112,7 +112,7 @@ def output_tabular(data, code, headers=None):
     return resp
 
 class SERVCohort(Resource):
-    def post(self, table, year):
+    def post(self, table, year, enable_smc=False):
         """
         Cohort discovery. Users define a cohort using any number of defined feature variables as input parameters, and the service returns a sample size. If a cohort is already created for this set before, return cohort id and size. Otherwise, generate a new cohort id.
         ---
@@ -134,11 +134,18 @@ class SERVCohort(Resource):
             description: the year 2010
             type: integer
             default: 2010
+          - in: query
+            name: enable_smc
+            required: false
+            description: enable secure multiparty computation 
+            type: boolean
+            default: false
         responses:
           201:
             description: The cohort has been created
         """
         try:
+            enable_smc = request.args.get('enable_smc', False)
             with db.DBConnection() as conn:
                 req_features = request.get_json()
                 if req_features is None:
@@ -146,7 +153,7 @@ class SERVCohort(Resource):
                 else:
                     validate(req_features, schema.cohort_schema(table))
 
-                cohort_id, size = model.get_ids_by_feature(conn, table, year, req_features)
+                cohort_id, size = model.get_ids_by_feature(conn, table, year, req_features, enable_smc=enable_smc)
       
                 if size == -1:
                     return_value = "Input features invalid or cohort ≤10 patients. Please try again."

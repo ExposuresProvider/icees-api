@@ -750,30 +750,6 @@ class SERVKnowledgeGraph(Resource):
             name: body
             description: Input message
             required: true
-            example:
-              query_options:
-                table: patient 
-                year: 2010
-                cohort_features:
-                  AgeStudyStart: 
-                    operator: "="
-                    value: "0-2"
-                feature:
-                  EstResidentialDensity:
-                    operator: "<"
-                    value: 1
-                maximum_p_value":1
-              machine_question:
-                nodes: 
-                - id: n00
-                  type: population_of_individual_organisms
-                - id: n01
-                  type: chemical_substance
-                edges:
-                - id: e00
-                  type: association
-                  source_id: n00
-                  target_id: n01
             schema:
                 $ref: '#/definitions/Query'
         responses:

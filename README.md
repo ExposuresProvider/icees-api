@@ -115,7 +115,7 @@ docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host
 docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log --net host icees-api:0.2.0
 ```
 
-##### Setting up `systemd`
+##### Setting up `systemd` (optional)
 
 run docker containers
 ```

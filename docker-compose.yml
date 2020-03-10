@@ -23,6 +23,7 @@ services:
     restart: always
     volumes:
       - ./config:/icees-api/config
+      - ${DOCKER_SOCK}:/var/run/docker.sock
     depends_on:
       - db
     ports:

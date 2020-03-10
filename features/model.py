@@ -3,10 +3,47 @@ from sqlalchemy.sql import select
 from scipy.stats import chi2_contingency
 import json
 import os
+import sys
 from .features import features, lookUpFeatureClass, features_dict
 import inflection
 import numpy as np
+import logging
+import docker
+from docker.types import Mount
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
+client = docker.from_env()
+
+def smc(n, smc_number, smc_hosts):
+    smc_output = os.environ["SMC_OUTPUT_FILE"]
+    smc_program_dir = os.environ["SMC_PROGRAM_DIR"]
+    smc_docker_image = os.environ["SMC_DOCKER_IMAGE"]
+    logger.info("running container")
+    cmd = client.containers.run(
+        smc_docker_image, 
+        command=[
+            "/spdz2/entrypoint.sh",
+            smc_hosts,
+            "tripleadd",
+            str(smc_number),
+            str(n)
+        ], 
+        network_mode="host", 
+        remove=True, 
+        mounts=[
+            Mount(source=smc_program_dir, target="/programs", type="bind")
+        ]
+    )
+    with open(smc_output_file) as f:
+        return int(f.read())
+    
 eps = np.finfo(float).eps
 
 metadata = MetaData()
@@ -48,15 +85,9 @@ def filter_select(s, table, k, v):
         "in": lambda: s.where(table.c[k].in_(v["values"]))
     }[v["operator"]]()
 
-def smc(n, smc_number, smc_hosts):
-    smc_output = os.environ["SMC_OUTPUT_FILE"]
-    smc_program_dir = os.environ["SMC_PROGRAM_DIR"]
-    smc_docker_image = os.environ["SMC_DOCKER_IMAGE"]
-    os.system(f"docker run --network host --rm -v {smc_program_dir}:/programs {smc_docker_image} /spdz2/entrypoint.sh '{smc_hosts}' tripleadd {sms_number} {n}")
-    with open(smc_output_file) as f:
-        return int(f.read())
-    
+
 def select_cohort(conn, table_name, year, cohort_features, cohort_id=None, enable_smc=False):
+    logger.info("enable_smc = " + str(enable_smc))
     table = tables[table_name]
     s = select([func.count()]).select_from(table).where(table.c.year == year)
     for k, v in cohort_features.items():

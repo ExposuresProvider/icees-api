@@ -147,7 +147,7 @@ POST
 
 route
 ```
-/(patient|visit)/(2010|2011)/cohort
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort
 ```
 schema
 ```
@@ -166,7 +166,7 @@ GET
 
 route
 ```
-/(patient|visit)/(2010|2011)/cohort/<cohort id>
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>
 ```
 
 ### get cohort features
@@ -177,7 +177,7 @@ GET
 
 route
 ```
-/(patient|visit)/(2010|2011)/cohort/<cohort id>/features
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>/features
 ```
 
 ### get cohort dictionary
@@ -188,7 +188,7 @@ GET
 
 route
 ```
-/(patient|visit)/(2010|2011)/cohort/dictionary
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/dictionary
 ```
 
 ### feature association between two features
@@ -199,7 +199,7 @@ POST
 
 route
 ```
-/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>/feature_association
 ```
 schema
 ```

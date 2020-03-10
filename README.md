@@ -1,15 +1,27 @@
 [![Build Status](https://travis-ci.com/NCATS-Tangerine/icees-api.svg?branch=master)](https://travis-ci.com/NCATS-Tangerine/icees-api)
 
 ## How to run
+
 ### Run docker compose
+
+#### Run tests
+```
+test/test.sh
+```
+
+#### schema
+
+edit `config/features.yml`
 
 #### database
 
-put `patient.csv` under `db/data/patient`
+for each table create dir with table name under `db/data` and put csv files under that dir
+
+for example, put `patient.csv` under `db/data/patient`
 
 put `visit.csv` under `db/data/visit`
 
-or 
+to generate random samples
 
 run
 ```
@@ -28,6 +40,49 @@ run
 docker-compose up --build
 ```
 
+### run docker
+
+The following steps can be run using the `redepoly.sh`
+
+#### Build Container
+
+```
+docker build . -t icees-api:0.3.0
+```
+
+#### Run Container in Standalone Mode (optional)
+
+```
+docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log -p 8080:8080 icees-api:0.3.0
+```
+
+```
+docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log --net host icees-api:0.2.0
+```
+
+#### Setting up `systemd` (optional)
+
+run docker containers
+```
+docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log -p 8080:8080 icees-api:0.2.0
+```
+
+```
+docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log --net host icees-api:0.3.0
+```
+
+```
+docker stop icees-api_server
+```
+
+copy `<repo>/icees-api-container.service` to `/etc/systemd/system/icees-api-container.service`
+
+start service
+
+```
+systemctl start icees-api-container
+```
+
 ### Run manually
 #### Setup environment
 set env variables
@@ -40,7 +95,7 @@ set env variables
 
 `ICEES_PORT` 
 
-`ICEES_DATABASE`: 
+`ICEES_DATABASE`
 
 `ICEES_DB_POOL_SIZE`
 
@@ -90,53 +145,7 @@ python app.py
 ```
 
 
-#### Run tests
-```
-test/test.sh
-```
 
-#### Deploy API
-
-The following steps can be run using the `redepoly.sh`
-
-##### Build Container
-
-```
-docker build . -t icees-api:0.3.0
-```
-
-##### Run Container in Standalone Mode (optional)
-
-```
-docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log -p 8080:8080 icees-api:0.3.0
-```
-
-```
-docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log --net host icees-api:0.2.0
-```
-
-##### Setting up `systemd` (optional)
-
-run docker containers
-```
-docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log -p 8080:8080 icees-api:0.2.0
-```
-
-```
-docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log --net host icees-api:0.3.0
-```
-
-```
-docker stop icees-api_server
-```
-
-copy `<repo>/icees-api-container.service` to `/etc/systemd/system/icees-api-container.service`
-
-start service
-
-```
-systemctl start icees-api-container
-```
 ## REST API
 
 ### create cohort

@@ -214,7 +214,7 @@ POST
 
 route
 ```
-/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association2
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>/feature_association2
 ```
 schema
 ```
@@ -263,7 +263,7 @@ POST
 
 route
 ```
-/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>/associations_to_all_features
 ```
 schema
 ```
@@ -276,7 +276,7 @@ POST
 ```
 route
 ```
-/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features2
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>/associations_to_all_features2
 ```
 schema
 ```

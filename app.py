@@ -80,8 +80,8 @@ template = {
 <br>[ICEES Overview page](https://researchsoftwareinstitute.github.io/data-translator/apps/icees)
 <br>[documentation](https://github.com/NCATS-Tangerine/icees-api/tree/master/docs) 
 <br>[source](https://github.com/NCATS-Tangerine/icees-api/tree/master/) 
-<br>[ICEES API example queries](https://github.com/NCATS-Tangerine/icees-api/tree/master/#examples) <br>dictionary for versioning of tables<br><table><tr><th>version</th><th>table content</th></tr><tr><td>1.0.0</td><td>cdw, acs, nearest road, and cmaq from 2010</td></tr><tr><td>2.0.0</td><td>cdw in FHIR format, acs, nearest road, and cmaq from 2010</td></tr></table>""",
-    "version": "0.0.2"
+<br>[ICEES API example queries](https://github.com/NCATS-Tangerine/icees-api/tree/master/#examples) <br>dictionary for versioning of tables<br><table><tr><th>version</th><th>table content</th></tr><tr><td>1.0.0</td><td>cdw, acs, nearest road, and cmaq from 2010</td></tr><tr><td>2.0.0</td><td>cdw in FHIR format, acs, nearest road, and cmaq from 2010</td></tr><tr><td>3.0.0</td><td>cdw in FHIR format, acs, nearest road, cmaq, and EPR from 2010 to 2016</td></tr></table>""",
+    "version": "3.0.0"
   },
   "consumes": [
     "application/json"
@@ -723,6 +723,30 @@ class SERVKnowledgeGraph(Resource):
             name: body
             description: Input message
             required: true
+            example:
+              query_options:
+                table: patient 
+                year: 2010
+                cohort_features:
+                  AgeStudyStart: 
+                    operator: "="
+                    value: "0-2"
+                feature:
+                  EstResidentialDensity:
+                    operator: "<"
+                    value: 1
+                maximum_p_value":1
+              machine_question:
+                nodes: 
+                - id: n00
+                  type: population_of_individual_organisms
+                - id: n01
+                  type: chemical_substance
+                edges:
+                - id: e00
+                  type: association
+                  source_id: n00
+                  target_id: n01
             schema:
                 $ref: '#/definitions/Query'
         responses:

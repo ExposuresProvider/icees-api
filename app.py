@@ -30,6 +30,14 @@ handler = TimedRotatingFileHandler(os.environ["ICEES_API_LOG_PATH"])
 logger.addHandler(handler)
 logger = wrap_logger(logger, processors=[JSONRenderer()])
 
+dlogger = logging.getLogger(__name__)
+dlogger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
+ch.setFormatter(formatter)
+dlogger.addHandler(ch)
+
 app = Flask(__name__)
 limiter = Limiter(
     app,
@@ -111,6 +119,9 @@ def output_tabular(data, code, headers=None):
     resp.headers.extend(headers or {})
     return resp
 
+def get_flag(flag):
+    return request.args.get(flag) is not None
+
 class SERVCohort(Resource):
     def post(self, table, year):
         """
@@ -134,11 +145,19 @@ class SERVCohort(Resource):
             description: the year 2010
             type: integer
             default: 2010
+          - in: query
+            name: enable_smc
+            required: false
+            description: enable secure multiparty computation 
+            type: boolean
+            default: false
         responses:
           201:
             description: The cohort has been created
         """
         try:
+            enable_smc = get_flag("enable_smc")
+            dlogger.info("enable_smc = " + str(enable_smc))
             with db.DBConnection() as conn:
                 req_features = request.get_json()
                 if req_features is None:
@@ -146,7 +165,7 @@ class SERVCohort(Resource):
                 else:
                     validate(req_features, schema.cohort_schema(table))
 
-                cohort_id, size = model.get_ids_by_feature(conn, table, year, req_features)
+                cohort_id, size = model.get_ids_by_feature(conn, table, year, req_features, enable_smc=enable_smc)
       
                 if size == -1:
                     return_value = "Input features invalid or cohort ≤10 patients. Please try again."
@@ -199,11 +218,19 @@ class SERVCohortId(Resource):
             description: the cohort id
             type: string
             default: COHORT:22
+          - in: query
+            name: enable_smc
+            required: false
+            description: enable secure multiparty computation 
+            type: boolean
+            default: false
         responses:
           201:
             description: The cohort has been created
         """
         try:
+            enable_smc = get_flag("enable_smc")
+            dlogger.info("enable_smc = " + str(enable_smc))
             with db.DBConnection() as conn:
                 req_features = request.get_json()
                 if req_features is None:
@@ -211,7 +238,7 @@ class SERVCohortId(Resource):
                 else:
                     validate(req_features, schema.cohort_schema(table))
 
-                cohort_id, size = model.select_cohort(conn, table, year, req_features, cohort_id)
+                cohort_id, size = model.select_cohort(conn, table, year, req_features, cohort_id, enable_smc=enable_smc)
 
                 if size == -1:
                     return_value = "Input features invalid or cohort ≤10 patients. Please try again."

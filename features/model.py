@@ -3,10 +3,51 @@ from sqlalchemy.sql import select
 from scipy.stats import chi2_contingency
 import json
 import os
+import sys
 from .features import features, lookUpFeatureClass, features_dict
 import inflection
 import numpy as np
+import logging
+import docker
+from docker.types import Mount
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
+client = docker.from_env()
+
+def smc(n, smc_number, smc_hosts):
+    smc_program_dir = os.environ["SMC_PROGRAM_DIR"]
+    smc_docker_image = os.environ["SMC_DOCKER_IMAGE"]
+    logger.info("running container")
+    container = client.containers.run(
+        smc_docker_image, 
+        command=[
+            "/spdz2/entrypoint.sh",
+            smc_hosts,
+            "tripleadd",
+            str(smc_number),
+            str(n)
+        ], 
+        network_mode="host", 
+        remove=True, 
+        mounts=[
+            Mount(source=smc_program_dir, target="/programs", type="bind")
+        ],
+        detach=True
+    )
+    logs = container.logs(stream=True)
+    for val0 in logs:
+        logger.info(val0)
+        if val0 != "":
+            val = val0
+    return int(val)
+    
 eps = np.finfo(float).eps
 
 metadata = MetaData()
@@ -49,13 +90,18 @@ def filter_select(s, table, k, v):
     }[v["operator"]]()
 
 
-def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
+def select_cohort(conn, table_name, year, cohort_features, cohort_id=None, enable_smc=False):
+    logger.info("enable_smc = " + str(enable_smc))
     table = tables[table_name]
     s = select([func.count()]).select_from(table).where(table.c.year == year)
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
 
     n = conn.execute((s)).scalar()
+    if enable_smc:
+        smc_number = os.environ["SMC_NUMBER"]
+        smc_hosts = os.environ["SMC_HOSTS"]
+        n = smc(n, smc_number, smc_hosts)
     if n <= 10:
         return None, -1
     else:
@@ -81,12 +127,12 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
         return cohort_id, size
 
 
-def get_ids_by_feature(conn, table_name, year, cohort_features):
+def get_ids_by_feature(conn, table_name, year, cohort_features, enable_smc=False):
     s = select([cohort.c.cohort_id, cohort.c.size]).where(cohort.c.table == table_name).where(cohort.c.year == year).where(
         cohort.c.features == json.dumps(cohort_features, sort_keys=True))
     rs = list(conn.execute((s)))
     if len(rs) == 0:
-        cohort_id, size = select_cohort(conn, table_name, year, cohort_features)
+        cohort_id, size = select_cohort(conn, table_name, year, cohort_features, enable_smc=enable_smc)
     else:
         [cohort_id, size] = rs[0]
     return cohort_id, size

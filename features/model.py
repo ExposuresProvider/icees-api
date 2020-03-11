@@ -38,10 +38,14 @@ def smc(n, smc_number, smc_hosts):
         remove=True, 
         mounts=[
             Mount(source=smc_program_dir, target="/programs", type="bind")
-        ]
+        ],
+        stream=True
     )
-    logger.info("output: " + cmd)
-    return int(cmd.split("\n")[-1])
+    for val0 in cmd:
+        logger.info(val0)
+        if val0 != "":
+            val = val0
+    return int(val)
     
 eps = np.finfo(float).eps
 

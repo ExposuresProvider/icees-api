@@ -24,6 +24,7 @@ services:
     volumes:
       - ./config:/icees-api/config
       - ${DOCKER_SOCK}:/var/run/docker.sock
+      - $SMC_OUTPUT_DIR:/smc
     depends_on:
       - db
     ports:

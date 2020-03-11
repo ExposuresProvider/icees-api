@@ -41,7 +41,7 @@ def smc(n, smc_number, smc_hosts):
             Mount(source=smc_program_dir, target="/programs", type="bind")
         ]
     )
-    with open("smc/" + smc_output_file) as f:
+    with open("/smc/" + smc_output_file) as f:
         return int(f.read())
     
 eps = np.finfo(float).eps

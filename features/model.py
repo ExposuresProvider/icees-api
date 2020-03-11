@@ -39,6 +39,7 @@ def smc(n, smc_number, smc_hosts):
         mounts=[
             Mount(source=smc_program_dir, target="/programs", type="bind")
         ],
+        detached=True,
         stream=True
     )
     for val0 in cmd:

@@ -20,7 +20,7 @@ schema = {
             "phenotypic_feature": ["association"],
             "disease_or_phenotypic_feature": ["association"],
             "chemical_substance": ["association"],
-            "environmental": ["association"],
+            "environment": ["association"],
             "activity_and_behavior": ["association"],
             "drug": ["association"],
             "named_thing": ["association"]

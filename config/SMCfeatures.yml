@@ -1,4 +1,7 @@
 patient:
+  year:
+    type: integer
+    biolinkType: Environment
   AgeStudyStart:
     type: string
     enum:
@@ -532,6 +535,9 @@ patient:
     maximum: 1
     biolinkType: Drug
 visit:
+  year:
+    type: integer
+    biolinkType: Environment
   VisitType:
     type: string
     biolinkType: ActivityAndBehavior

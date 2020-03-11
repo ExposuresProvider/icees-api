@@ -25,7 +25,7 @@ def smc(n, smc_number, smc_hosts):
     smc_program_dir = os.environ["SMC_PROGRAM_DIR"]
     smc_docker_image = os.environ["SMC_DOCKER_IMAGE"]
     logger.info("running container")
-    cmd = client.containers.run(
+    container = client.containers.run(
         smc_docker_image, 
         command=[
             "/spdz2/entrypoint.sh",
@@ -39,10 +39,10 @@ def smc(n, smc_number, smc_hosts):
         mounts=[
             Mount(source=smc_program_dir, target="/programs", type="bind")
         ],
-        detach=True,
-        stream=True
+        detach=True
     )
-    for val0 in cmd:
+    logs = container.logs(stream=True)
+    for val0 in logs:
         logger.info(val0)
         if val0 != "":
             val = val0

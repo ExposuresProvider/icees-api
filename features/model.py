@@ -22,7 +22,6 @@ logger.addHandler(ch)
 client = docker.from_env()
 
 def smc(n, smc_number, smc_hosts):
-    smc_output_file = os.environ["SMC_OUTPUT_FILE"]
     smc_program_dir = os.environ["SMC_PROGRAM_DIR"]
     smc_docker_image = os.environ["SMC_DOCKER_IMAGE"]
     logger.info("running container")

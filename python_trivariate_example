@@ -1,4 +1,3 @@
-
 """
 
 Generate bivariable tables based on cohorts defined by the ICEES API.  In
@@ -7,7 +6,7 @@ this approach, we define the following variables:
     Q = cohort definition variable
     A = variable 1
     B = variable 2
-
++
     Each variable has levels defined by rules (usually equals, less than, greater than, range)
 
     Output:
@@ -27,12 +26,14 @@ import pandas as pd
 
 def generate_cohort(jsonCohortQuery):
     """ Generate an icees cohort by issuing the cohort condition to the icees API """
+    #print("query {0}".format(jsonCohortQuery))
     requests.packages.urllib3.disable_warnings()
     headers = {"Content-Type" : "application/json", "accept": "application/json"}
-    responsepkt = requests.post('https://icees.renci.org/1.0.0/patient/2010/cohort',headers=headers, data=jsonCohortQuery, verify=False)
+    responsepkt = requests.post('https://icees.renci.org:16339/patient/2010/cohort', headers=headers, data=jsonCohortQuery, verify=False)
     if responsepkt.status_code != 200:
-        print("Request failed {0}".format(responsepkt.status_code))
+        print("Request failed {0}\n{1}\n{2}\n{3}".format(responsepkt.status_code, responsepkt.reason, responsepkt.request, responsepkt.text))
         sys.exit(-1)
+   # print("Success: query {0}".format(jsonCohortQuery))
     return responsepkt.json()['return value']['cohort_id']
 
 
@@ -46,14 +47,15 @@ def generate_bivariate_table(cohortid, jsonABquery, featureQ, featureAs, feature
             inner list is over the dimension of the first feature (a)
             outer list is over the dimension of the second feature (b)
     """
+   # print("bivariate {0}".format(cohortid))
     requests.packages.urllib3.disable_warnings()
     headers = {"Content-Type" : "application/json", "accept": "application/json"}
-    icees_url = 'https://icees.renci.org/1.0.0/patient/2010/cohort/' + str(cohortid) + '/feature_association2'
+    icees_url = 'https://icees.renci.org:16339/patient/2010/cohort/' + str(cohortid) + '/feature_association2'
     responsepkt = requests.post(icees_url,headers=headers, data=jsonABquery, verify=False)
     if responsepkt.status_code != 200:
-        print("Request failed {0}".format(responsepkt.status_code))
+        print("Request failed {0}\n{1}\n{2}\n{3}".format(responsepkt.status_code, responsepkt.reason, responsepkt.request, responsepkt.text))
         sys.exit(-1)
-    print("BI response: {0}".format(responsepkt.json()))
+   # print("BI response: {0}".format(responsepkt.json()))
     tbldict = responsepkt.json()['return value']['feature_matrix']      # returns a list [frequency, total_per, row_per, col_per]
     blen = len(tbldict)
     alen = len(tbldict[0])
@@ -75,32 +77,36 @@ def generate_bivariate_table(cohortid, jsonABquery, featureQ, featureAs, feature
 # first define the query variables.
 #
 # query for cohort, each line defines a query
-featureQs = ["ed0", "ed1", "ed2", "ed3", "ed4", "ed5"]
-jsonQqueries = ['{"TotalEDInpatientVisits":{"operator":"=","value":0}}',
-                '{"TotalEDInpatientVisits":{"operator":"=","value":1}}',
-                '{"TotalEDInpatientVisits":{"operator":"=","value":2}}',
-                '{"TotalEDInpatientVisits":{"operator":"=","value":3}}',
-                '{"TotalEDInpatientVisits":{"operator":"=","value":4}}',
-                '{"TotalEDInpatientVisits":{"operator":"=","value":5}}']
+featureQs = ["ed0", "ed1", "ed2", "ed3", "ed4", "ed5", "ed5", "ed6", "ed7", "ed8", "ed9", "ed10+"]
+jsonQqueries = ['''{"TotalEDInpatientVisits":{"operator":"=","value":0}}''',
+                '''{"TotalEDInpatientVisits":{"operator":"=","value":1}}''',
+                '''{"TotalEDInpatientVisits":{"operator":"=","value":2}}''',
+                '''{"TotalEDInpatientVisits":{"operator":"=","value":3}}''',
+                '''{"TotalEDInpatientVisits":{"operator":"=","value":4}}''',
+                '''{"TotalEDInpatientVisits":{"operator":"=","value":5}}''',
+                '''{"TotalEDInpatientVisits":{"operator":"=","value":6}}''',
+                '''{"TotalEDInpatientVisits":{"operator":"=","value":7}}''',
+                '''{"TotalEDInpatientVisits":{"operator":"=","value":8}}''',
+                '''{"TotalEDInpatientVisits":{"operator":"=","value":9}}''',
+                '''{"TotalEDInpatientVisits":{"operator":">","value":9}}''']
 
 # query for bivariate table to generate for each cohort
-featureAs = ['pm25_1','pm25_2','pm25_3','pm25_45']
-featureBs = ['agess_0_2','age22_3_17','agess_18_34','agess_35_50','agess_51_69','agess_70+']
+featureAs = ['pm25_1','pm25_2','pm25_3','pm25_4','pm25_5']
+featureBs = ['genotype_hyper','genotype_hypo','genotype_super_hypo','genotype_null']
 jsonABquery = '''{"feature_a":{
-                    "MaxDailyPM2.5Exposure":[
+                    "PM25_ANNUAL_AVERAGE_qcut":[
                         {"operator":"=","value":1}, 
                         {"operator":"=","value":2}, 
-                        {"operator":"=","value":3}, 
-                        {"operator":"between","value_a":4,"value_b":5}
-    	            ]
+                        {"operator":"=","value":3},
+                        {"operator":"=","value":4},
+                        {"operator":"=","value":5} 
+                    ]
 	            }, "feature_b":{
-    	            "AgeStudyStart":[
-                        {"operator":"=","value":"0-2"}, 
-                        {"operator":"=","value":"3-17"}, 
-                        {"operator":"=","value":"18-34"}, 
-                        {"operator":"=","value":"35-50"}, 
-                        {"operator":"=","value":"51-69"}, 
-                        {"operator":"=","value":"70+"}
+    	            "RESPONDER_STATUS":[
+                        {"operator":"=","value":"Hyper"}, 
+                        {"operator":"=","value":"Hypo"}, 
+                        {"operator":"=","value":"Super Hypo"}, 
+                        {"operator":"=","value":"Neither"}
     	            ]
 	            }
 	        }'''
@@ -117,4 +123,3 @@ for qindex, jsonCohortQuery in enumerate(jsonQqueries):
     print("cohort bivariate query res {0}".format(df))
 
 df.to_csv("./output.csv")
-

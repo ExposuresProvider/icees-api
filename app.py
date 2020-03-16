@@ -120,7 +120,7 @@ def output_tabular(data, code, headers=None):
     return resp
 
 def get_flag(flag):
-    return request.args.get(flag) is not None
+    return request.args.get(flag) == "true"
 
 class SERVCohort(Resource):
     def post(self, table, year):

@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, Boolean
 from sqlalchemy.sql import select
 from scipy.stats import chi2_contingency
 import json
@@ -10,6 +10,7 @@ import numpy as np
 import logging
 import docker
 from docker.types import Mount
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -70,7 +71,8 @@ cohort_cols = [
     Column("table", String),
     Column("year", Integer),
     Column("size", Integer),
-    Column("features", String)
+    Column("features", String),
+    Column("smc_required", Boolean)
 ]
 
 cohort = Table("cohort", metadata, *cohort_cols)
@@ -121,14 +123,14 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None, enabl
         else:
             ins = cohort.insert().values(cohort_id=cohort_id, size=size,
                                          features=json.dumps(cohort_features, sort_keys=True), table=table_name,
-                                         year=year)
+                                         year=year, smc_required=enable_smc)
 
         conn.execute((ins))
         return cohort_id, size
 
 
 def get_ids_by_feature(conn, table_name, year, cohort_features, enable_smc=False):
-    s = select([cohort.c.cohort_id, cohort.c.size]).where(cohort.c.table == table_name).where(cohort.c.year == year).where(
+    s = select([cohort.c.cohort_id, cohort.c.size]).where(cohort.c.table == table_name).where(cohort.c.year == year & table.c.smc_required == enable_smc).where(
         cohort.c.features == json.dumps(cohort_features, sort_keys=True))
     rs = list(conn.execute((s)))
     if len(rs) == 0:

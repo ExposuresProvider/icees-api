@@ -130,7 +130,7 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None, enabl
 
 
 def get_ids_by_feature(conn, table_name, year, cohort_features, enable_smc=False):
-    s = select([cohort.c.cohort_id, cohort.c.size]).where(cohort.c.table == table_name).where(cohort.c.year == year & table.c.smc_required == enable_smc).where(
+    s = select([cohort.c.cohort_id, cohort.c.size]).where(cohort.c.table == table_name).where(cohort.c.year == year).where(cohort.c.smc_required == enable_smc).where(
         cohort.c.features == json.dumps(cohort_features, sort_keys=True))
     rs = list(conn.execute((s)))
     if len(rs) == 0:

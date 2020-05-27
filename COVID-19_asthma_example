@@ -19,6 +19,12 @@ curl -X GET "https://icees.renci.org:16339/patient/2016/cohort/COHORT%3A19/featu
 Medications (+ counts, percentages): Prednisone, Fluticasone, Mometasone, Budesonide, Beclomethasone, Ciclesonide, Flunisolide, Albuterol, Metaproterenol, Diphenhydramine, Fexofenadine, Cetirizine, Ipratropium, Salmeterol, Arformoterol, Formoterol, Indacaterol, Theophylline, Omalizumab, Mepolizumab
 
 
+**Here's an ICEES+ query that will return a bivariate association between two feature variables:
+
+
+curl -k -XPOST https://icees.renci.org:16339/patient/2016/cohort/COHORT:19/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"TotalEDInpatientVisits":{"operator":"<", "value":2}},"feature_b":{"Sex2":{"operator":"=", "value":"Male"}}}'
+
+
 **Here’s an ICEES+ example query that will return all asthma-related medications (and other features) that significantly differ (P  < 0.1,) between patients with asthma-like conditions who do or do not have asthma exacerbations:**
 
 

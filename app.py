@@ -766,6 +766,40 @@ class SERVKnowledgeGraphSchema(Resource):
         return wrapped(return_value)
 
 
+class SERVKnowledgeGraphOverlay(Resource):
+    def post(self):
+        """
+        Query the ICEES clinical reasoner for knowledge graph co-occurrence overlay.
+        ---
+        definitions:
+          import: "TranslatorReasonersAPI.yaml"
+        parameters:
+          - in: body
+            name: body
+            description: Input message
+            required: true
+            schema:
+                $ref: '#/definitions/Query'
+        responses:
+            200:
+                description: Success
+                schema:
+                    $ref: '#/definitions/Message'
+        """
+        try:
+            obj = request.get_json()
+            # validate(obj, schema.add_name_by_id_schema())
+            with db.DBConnection() as conn:
+                return_value = knowledgegraph.co_occurrence_overlay(conn, obj)
+        except ValidationError as e:
+            traceback.print_exc()
+            return_value = e.message
+        except Exception as e:
+            traceback.print_exc()
+            return_value = str(e)
+        return wrapped(return_value)
+
+
 api.add_resource(SERVCohort, '/<string:table>/<int:year>/cohort')
 api.add_resource(SERVCohortId, '/<string:table>/<int:year>/cohort/<string:cohort_id>')
 api.add_resource(SERVFeatures, '/<string:table>/<int:year>/cohort/<string:cohort_id>/features')
@@ -778,6 +812,7 @@ api.add_resource(SERVIdentifiers, "/<string:table>/<string:feature>/identifiers"
 api.add_resource(SERVName, "/<string:table>/name/<string:name>")
 api.add_resource(SERVKnowledgeGraph, "/knowledge_graph")
 api.add_resource(SERVKnowledgeGraphSchema, "/knowledge_graph/schema")
+api.add_resource(SERVKnowledgeGraphOverlay, "/knowledge_graph_overlay")
 
 if __name__ == '__main__':
     app.run()

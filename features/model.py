@@ -6,6 +6,7 @@ import os
 from .features import features, lookUpFeatureClass, features_dict
 import inflection
 import numpy as np
+from tx.functional.maybe import Nothing, Just
 
 eps = np.finfo(float).eps
 
@@ -134,6 +135,19 @@ def get_cohort_dictionary(conn, table_name, year):
             "features": json.loads(features)
         })
     return rs
+
+
+def get_cohort_definition_by_id(conn, cohort_id):
+    s = select([cohort.c.cohort_id,cohort.c.features,cohort.c.size,cohort.c.table,cohort.c.year]).where(cohort.c.cohort_id == cohort_id)
+    for cohort_id, features, size, table, year in conn.execute((s)):
+        return Just({
+            "cohort_id": cohort_id,
+            "size": size,
+            "features": json.loads(features),
+            "table": table,
+            "year": year
+        })
+    return Nothing 
 
 
 def cohort_id_in_use(conn, cohort_id):

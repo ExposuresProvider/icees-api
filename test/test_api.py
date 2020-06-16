@@ -92,6 +92,54 @@ def do_test_knowledge_graph(biolink_class):
         assert "datetime" in resp_json["return value"]
 
 
+def do_test_knowledge_graph_overlay():
+
+    query2 = {
+        "message": {
+            "query_options": {
+                "table": "patient", 
+                "year": 2010, 
+                "cohort_features": {
+                    "AgeStudyStart": {
+                        "operator": "=",
+                        "value": "0-2"
+                    }
+                }
+            }, 
+            "query_graph": {
+                "nodes": [
+                    {
+                        "node_id": "n00",
+                        "curie": "PUBCHEM:2083",
+                        "type": "drug"
+                    },
+                    {
+                        "node_id": "n01",
+                        "curie": "MESH:D052638",
+                        "type": "chemical_substance"
+                    }   
+                ], 
+                "edges": [
+                    {
+                        "id": "e00",
+                        "type": "association",
+                        "source_id": "n00",
+                        "target_id": "n01"
+                    } 
+                ]
+            }
+        }
+    }
+    resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_overlay", data = json.dumps(query2), headers = json_headers, verify = False)
+    resp_json = resp.json()
+    logger.info(resp_json)
+    assert "return value" in resp_json
+    assert "knowledge_graph" in resp_json["return value"]
+    assert "message_code" in resp_json["return value"]
+    assert "tool_version" in resp_json["return value"]
+    assert "datetime" in resp_json["return value"]
+
+
 def do_test_knowledge_graph_unique_edge_ids(biolink_class):
 
         resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph", data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
@@ -245,3 +293,6 @@ def test_associations_to_all_features2b():
     resp_json = resp.json()
     assert "return value" in resp_json
     assert isinstance(resp_json["return value"], list)
+
+def test_co_occurrence_overlay():
+    do_test_knowledge_graph_overlay()

@@ -1,12 +1,13 @@
-FROM postgres:11.3
+FROM postgres:12.3
 
 RUN apt-get update && apt-get install python3 python3-pip -y
-RUN pip3 install flask flask-restful flask-limiter sqlalchemy psycopg2-binary scipy gunicorn jsonschema pyyaml tabulate structlog pandas argparse inflection flasgger
+RUN pip3 install flask flask-restful flask-limiter sqlalchemy psycopg2-binary scipy gunicorn jsonschema pyyaml tabulate structlog pandas argparse inflection flasgger tx-functional
 
 ENV PGDATA=/data
 ENV ICEES_DBUSER=icees_dbuser
 ENV ICEES_DBPASS=icees_dbpass
 ENV ICEES_DATABASE=icees_database
+ENV POSTGRES_PASSWORD=icees_postgres_password
 
 RUN mkdir icees-api
 COPY ./initdb.py icees-api/initdb.py

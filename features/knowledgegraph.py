@@ -4,14 +4,14 @@ import json
 import os
 from .features import features, lookUpFeatureClass
 import numpy as np
-from .model import get_ids_by_feature, select_associations_to_all_features
-from .features import feature_dict
+from .model import get_ids_by_feature, select_associations_to_all_features, select_feature_matrix
+from .features import features_dict
 import datetime
 from utils import to_qualifiers
 import traceback
 import itertools
 from .identifiers import get_identifiers, get_features_by_identifier
-from functools import reduce
+from functools import reduce, partial
 from tx.functional.either import Left, Right
 from tx.functional.maybe import maybe, Nothing, Just
 import re
@@ -187,11 +187,6 @@ def get(conn, obj):
     return message
 
 
-def get_universal_cohort_id(conn, table, year):
-    cohort_id, _ = get_ids_by_feature(conn, table, year, {})
-    return cohort_id
-
-
 # def head(l):
 #     if len(l) == 0:
 #         return Left("emtpy list")
@@ -204,7 +199,7 @@ def get_universal_cohort_id(conn, table, year):
 
     
 def query_feature(table, feature):
-    feature_def = feature_dict[table][feature]
+    feature_def = features_dict[table][feature]
     ty = feature_def["type"]
     if ty == "string":
         if "enum" not in feature_def:
@@ -232,39 +227,54 @@ def query_feature(table, feature):
         return Left(f"unsupported node type {ty}")
 
     
-def co_occurrence_feature_edge(conn, table, src_feature, tgt_feature):
+def co_occurrence_feature_edge(conn, table, year, cohort_features, src_feature, tgt_feature):
     return (
         query_feature(table, src_feature)
         .bind(lambda src_query_feature: (
             query_feature(table, tgt_feature)
             .map(lambda tgt_query_feature: (
-                select_feature_matrix(conn, table, year, features, feature_a, feature_b)["p_value"]
+                select_feature_matrix(conn, table, year, cohort_features, src_query_feature, tgt_query_feature)["p_value"]
             ))
         ))
     )
 
 
-def icees_identifiers(node):
+def icees_identifiers(table, node):
     return (
         maybe.from_python(node.get("curie"))
-        .rec(Right, Left("no curie specificed"))
-        .bind(get_features_by_identifier)
+        .rec(Right, Left(f"no curie specified at node {node}"))
+        .bind(partial(get_features_by_identifier, table))
     )
 
 
-def co_occurrence_edge(conn, table, src_node, tgt_node):
-    src_features = icees_identifiers(src_node)
-    tgt_features = icees_identifiers(tgt_node)
-    edge_property_value = []
-    for src_feature in src_features:
-        for tgt_feature in tgt_features:
-            edge = co_occurrence_feature_edge(conn, table, src_feature, tgt_feature)
-            if isinstance(edge, Right):
-                edge_property_value.append((src_feature, tgt_feature, edge.value))
-    if len(dge_property_value) == 0:
-        return Nothing
-    else:
-        return min(edge_property_value, key=lambda a: a[2])
+def co_occurrence_edge(conn, table, year, cohort_features, src_node, tgt_node):
+    def handle_src_and_tgt_features(src_features, tgt_features):
+        edge_property_value = []
+        for src_feature in src_features:
+            for tgt_feature in tgt_features:
+                edge = co_occurrence_feature_edge(conn, table, year, cohort_features, src_feature, tgt_feature)
+                if isinstance(edge, Right):
+                    edge_property_value.append({
+                        "src_feature": src_feature,
+                        "tgt_feature": tgt_feature,
+                        "p_value": edge.value
+                    })
+                else:
+                    return edge
+        if len(edge_property_value) == 0:
+            return Left("no edge found")
+        else:
+            return Right(edge_property_value)
+                    
+    return (
+        icees_identifiers(table, src_node)
+        .bind(lambda src_features: (
+            icees_identifiers(table, tgt_node)
+            .bind(lambda tgt_features: (
+                handle_src_and_tgt_features(src_features, tgt_features)  
+            ))
+        ))
+    )
             
 
 def generate_edge_id(src_node, tgt_node):
@@ -274,7 +284,7 @@ def generate_edge_id(src_node, tgt_node):
 def generate_edge(src_node, tgt_node, edge_attributes=None):
     return {
         "id": generate_edge_id(src_node, tgt_node),
-        "type": association,
+        "type": "association",
         "source_id": src_node["node_id"],
         "target_id": tgt_node["node_id"],
         **({
@@ -292,7 +302,8 @@ def convert(attribute_map, qnode):
 def convert_qnode_to_node(qnode):
     attribute_map = {
         "id": "node_id",
-        "type": "type"
+        "type": "type",
+        "curie": "curie"
     }
     return convert(attribute_map, qnode)
 
@@ -312,22 +323,22 @@ def convert_qedge_to_edge(qedge):
 def co_occurrence_overlay(conn, query):
     try:
         message = query["message"]
-        cohort_definition = messagej["query_options"]
+        cohort_definition = message["query_options"]
         cohort_id = cohort_definition.get("cohort_id")
         if cohort_id is None:
             table = cohort_definition["table"]
             year = cohort_definition["year"]
-            features = {}
-            cohort_id = get_universal_cohort(conn, table,year)
-
-        cohort_definition = get_cohort_definition_by_id(cohort_id)
-        if cohort_definition is Nothing:
-            raise RuntimeError("cohort with cohort_id not found")
+            features = cohort_definition.get("cohort_features", {})
+            cohort_id, size = get_ids_by_feature(conn, table, year, features)
         else:
-            table = cohort_definition["table"]
-            year = cohort_definition["year"]
-            features = cohort_defintion["features"]
-            size = cohort_definition["size"]
+            cohort_definition = get_cohort_definition_by_id(cohort_id)
+            if cohort_definition is Nothing:
+                raise RuntimeError("cohort with cohort_id not found")
+            else:
+                table = cohort_definition["table"]
+                year = cohort_definition["year"]
+                features = cohort_defintion["features"]
+                size = cohort_definition["size"]
         
         query_graph = message["query_graph"]
 
@@ -338,21 +349,19 @@ def co_occurrence_overlay(conn, query):
         edges = list(map(convert_qedge_to_edge, query_edges))
 
         overlay_edges = []
-        for src_node in nodes:
-            for tgt_node in nodes:
-                overlay_edge_icees_feature_a, overlay_edge_icees_feature_b, overlay_edge_icees_p_value = co_occurrrence_edge(conn, table, src_node, tgt_node)
-                if overlay_edge is not Nothing:
-                    overlay_edges.append(generate_edge(src_node, tgt_node, edge_attributes=[{
-                        "name": "icees_feature_a",
-                        "value": overlay_edge_icees_feature_a
-                    },{
-                        "name": "icees_feature_b",
-                        "value": overlay_edge_icees_feature_b
-                    },{
-                        "name": "icees_p_value",
-                        "value": overlay_edge_icees_p_value
-                    }]))
-                                        
+        for src_node in query_nodes:
+            for tgt_node in query_nodes:
+                edge_attributes = co_occurrence_edge(conn, table, year, features, src_node, tgt_node)
+                if isinstance(edge_attributes, Left):
+                    return {
+                        "reasoner_id": "ICEES",
+                        "tool_version": "3.0.0",
+                        "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
+                        "message_code": "Error",
+                        "code_description": edge_attributes.value,
+                    }
+                else:
+                    overlay_edges.append(generate_edge(src_node, tgt_node, edge_attributes=edge_attributes.value))
         knowledge_graph = {
             "nodes": nodes,
             "edges": edges + overlay_edges
@@ -362,7 +371,6 @@ def co_occurrence_overlay(conn, query):
             "reasoner_id": "ICEES",
             "tool_version": "3.0.0",
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "n_results": sum(map(lambda x : len(list(name_to_ids(x["feature_b"]["feature_name"]))), feature_list)),
             "message_code": "OK",
             "code_description": "",
             "question_graph": query_graph,

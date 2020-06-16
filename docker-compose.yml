@@ -11,7 +11,7 @@ services:
     volumes:
       - $DB_PATH:/data
       - $DATA_PATH:/icees-api/db/data
-      - ./config:/icees-api/config
+      - $CONFIG_PATH:/icees-api/config
     restart: always
   server:
     build: 

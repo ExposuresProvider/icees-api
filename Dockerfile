@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.8
 				
 RUN pip install flask flask-restful flask-limiter sqlalchemy psycopg2-binary scipy gunicorn==19.10.0 jsonschema pyyaml tabulate structlog pandas==0.25.3 argparse inflection flasgger simplejson tx-functional
 RUN mkdir icees-api

@@ -289,58 +289,58 @@ patient:
   - HP:0002099
   - NCIT:C28397
   - umlscui:C0004096
-  AvgDailyBenzene_2: &id001
+  AvgDailyBenzeneExposure_2: &id001
   - CHEBI:16716
   - PUBCHEM:241
   - MESH:D001554
-  AvgDailyBenzene_2_qcut: *id001
-  AvgDailyFormaldehyde_2: &id002
+  AvgDailyBenzeneExposure_2_qcut: *id001
+  AvgDailyFormaldehydeExposure_2: &id002
   - CHEBI:16842
   - PUBCHEM:712
   - MESH:D005557
-  AvgDailyFormaldehyde_2_qcut: *id002
-  AvgDailyNO2_2: &id003
+  AvgDailyFormaldehydeExposure_2_qcut: *id002
+  AvgDailyNO2Exposure_2: &id003
   - CHEBI:33101
   - PUBCHEM:3032552
   - MESH:D009585
-  AvgDailyNO2_2_qcut: *id003
-  AvgDailyNO_2: &id004
+  AvgDailyNO2Exposure_2_qcut: *id003
+  AvgDailyNOExposure_2: &id004
   - CHEBI:16480
   - PUBCHEM:145068
   - MESH:D009569
-  AvgDailyNO_2_qcut: *id004
-  AvgDailyNOx_2: &id005
+  AvgDailyNOExposure_2_qcut: *id004
+  AvgDailyNOxExposure_2: &id005
   - CHEBI:35196
-  AvgDailyNOx_2_qcut: *id005
-  AvgDailyOzone: &id006
+  AvgDailyNOxExposure_2_qcut: *id005
+  AvgDailyOzoneExposure: &id006
   - MESH:D010126
   - PUBCHEM:24823
   - SCTID:40057008
   - CHEBI:25812
   - ENVO:01000537
-  AvgDailyOzone_StudyAvg: *id006
-  AvgDailyOzone_StudyAvg_qcut: *id006
-  AvgDailyOzone_StudyMax: *id006
-  AvgDailyOzone_StudyMax_qcut: *id006
-  AvgDailyOzone_qcut: *id006
-  AvgDailyPM2.5: &id007
+  AvgDailyOzoneExposure_StudyAvg: *id006
+  AvgDailyOzoneExposure_StudyAvg_qcut: *id006
+  AvgDailyOzoneExposure_StudyMax: *id006
+  AvgDailyOzoneExposure_StudyMax_qcut: *id006
+  AvgDailyOzoneExposure_qcut: *id006
+  AvgDailyPM2.5Exposure: &id007
   - MESH:D052638
   - NCIT:C29886
   - umlscui:C1510837
   - SCTID:278694008
   - ENVO:01000060
-  AvgDailyPM2.5_2: *id007
-  AvgDailyPM2.5_2_qcut: *id007
-  AvgDailyPM2.5_StudyAvg: *id007
-  AvgDailyPM2.5_StudyAvg_qcut: *id007
-  AvgDailyPM2.5_StudyMax: *id007
-  AvgDailyPM2.5_StudyMax_qcut: *id007
-  AvgDailyPM2.5_qcut: *id007
-  AvgDailySO2_2: &id008
+  AvgDailyPM2.5Exposure_2: *id007
+  AvgDailyPM2.5Exposure_2_qcut: *id007
+  AvgDailyPM2.5Exposure_StudyAvg: *id007
+  AvgDailyPM2.5Exposure_StudyAvg_qcut: *id007
+  AvgDailyPM2.5Exposure_StudyMax: *id007
+  AvgDailyPM2.5Exposure_StudyMax_qcut: *id007
+  AvgDailyPM2.5Exposure_qcut: *id007
+  AvgDailySO2Exposure_2: &id008
   - CHEBI:18422
   - PUBCHEM:1119
   - MESH:D013458
-  AvgDailySO2_2_qcut: *id008
+  AvgDailySO2Exposure_2_qcut: *id008
   Beclomethasone: &id017
   - SMILES:C[C@H]1C[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@]4(C)[C@@]3(Cl)[C@@H](O)C[C@]2(C)[C@@]1(O)C(=O)CO
   - CAS:4419-39-0
@@ -1846,20 +1846,20 @@ patient:
   - SCTID:406065002
   MajorRoadwayHighwayExposure: &id047
   - SCTID:272510001
-  MaxDailyOzone: *id006
-  MaxDailyOzone_2: *id006
-  MaxDailyOzone_2_qcut: *id006
-  MaxDailyOzone_StudyAvg: *id006
-  MaxDailyOzone_StudyAvg_qcut: *id006
-  MaxDailyOzone_StudyMax: *id006
-  MaxDailyOzone_StudyMax_qcut: *id006
-  MaxDailyOzone_qcut: *id006
-  MaxDailyPM2.5: *id007
-  MaxDailyPM2.5_StudyAvg: *id007
-  MaxDailyPM2.5_StudyAvg_qcut: *id007
-  MaxDailyPM2.5_StudyMax: *id007
-  MaxDailyPM2.5_StudyMax_qcut: *id007
-  MaxDailyPM2.5_qcut: *id007
+  MaxDailyOzoneExposure: *id006
+  MaxDailyOzoneExposure_2: *id006
+  MaxDailyOzoneExposure_2_qcut: *id006
+  MaxDailyOzoneExposure_StudyAvg: *id006
+  MaxDailyOzoneExposure_StudyAvg_qcut: *id006
+  MaxDailyOzoneExposure_StudyMax: *id006
+  MaxDailyOzoneExposure_StudyMax_qcut: *id006
+  MaxDailyOzoneExposure_qcut: *id006
+  MaxDailyPM2.5Exposure: *id007
+  MaxDailyPM2.5Exposure_StudyAvg: *id007
+  MaxDailyPM2.5Exposure_StudyAvg_qcut: *id007
+  MaxDailyPM2.5Exposure_StudyMax: *id007
+  MaxDailyPM2.5Exposure_StudyMax_qcut: *id007
+  MaxDailyPM2.5Exposure_qcut: *id007
   MenopauseDx: &id048
   - SCTID:161712005
   - SCTID:289903006
@@ -3010,32 +3010,32 @@ visit:
   AlopeciaVisit: *id014
   ArformoterolVisit: *id015
   AsthmaDxVisit: *id016
-  Avg24hBenzene_2: *id001
-  Avg24hBenzene_2_qcut: *id001
-  Avg24hFormaldehyde_2: *id002
-  Avg24hFormaldehyde_2_qcut: *id002
-  Avg24hNO2_2: *id003
-  Avg24hNO2_2_qcut: *id003
-  Avg24hNO_2: *id004
-  Avg24hNO_2_qcut: *id004
-  Avg24hNOx_2: *id005
-  Avg24hNOx_2_qcut: *id005
-  Avg24hOzone: *id006
-  Avg24hOzone_StudyAvg: *id006
-  Avg24hOzone_StudyAvg_qcut: *id006
-  Avg24hOzone_StudyMax: *id006
-  Avg24hOzone_StudyMax_qcut: *id006
-  Avg24hOzone_qcut: *id006
-  Avg24hPM2.5: *id007
-  Avg24hPM2.5_2: *id007
-  Avg24hPM2.5_2_qcut: *id007
-  Avg24hPM2.5_StudyAvg: *id007
-  Avg24hPM2.5_StudyAvg_qcut: *id007
-  Avg24hPM2.5_StudyMax: *id007
-  Avg24hPM2.5_StudyMax_qcut: *id007
-  Avg24hPM2.5_qcut: *id007
-  Avg24hSO2_2: *id008
-  Avg24hSO2_2_qcut: *id008
+  Avg24hBenzeneExposure_2: *id001
+  Avg24hBenzeneExposure_2_qcut: *id001
+  Avg24hFormaldehydeExposure_2: *id002
+  Avg24hFormaldehydeExposure_2_qcut: *id002
+  Avg24hNO2Exposure_2: *id003
+  Avg24hNO2Exposure_2_qcut: *id003
+  Avg24hNOExposure_2: *id004
+  Avg24hNOExposure_2_qcut: *id004
+  Avg24hNOxExposure_2: *id005
+  Avg24hNOxExposure_2_qcut: *id005
+  Avg24hOzoneExposure: *id006
+  Avg24hOzoneExposure_StudyAvg: *id006
+  Avg24hOzoneExposure_StudyAvg_qcut: *id006
+  Avg24hOzoneExposure_StudyMax: *id006
+  Avg24hOzoneExposure_StudyMax_qcut: *id006
+  Avg24hOzoneExposure_qcut: *id006
+  Avg24hPM2.5Exposure: *id007
+  Avg24hPM2.5Exposure_2: *id007
+  Avg24hPM2.5Exposure_2_qcut: *id007
+  Avg24hPM2.5Exposure_StudyAvg: *id007
+  Avg24hPM2.5Exposure_StudyAvg_qcut: *id007
+  Avg24hPM2.5Exposure_StudyMax: *id007
+  Avg24hPM2.5Exposure_StudyMax_qcut: *id007
+  Avg24hPM2.5Exposure_qcut: *id007
+  Avg24hSO2Exposure_2: *id008
+  Avg24hSO2Exposure_2_qcut: *id008
   BeclomethasoneVisit: *id017
   BudesonideVisit: *id018
   CO: *id019
@@ -3147,20 +3147,20 @@ visit:
   IpratropiumVisit: *id045
   KidneyCancerVisit: *id046
   MajorRoadwayHighwayExposure: *id047
-  Max24hOzone: *id006
-  Max24hOzone_2: *id006
-  Max24hOzone_2_qcut: *id006
-  Max24hOzone_StudyAvg: *id006
-  Max24hOzone_StudyAvg_qcut: *id006
-  Max24hOzone_StudyMax: *id006
-  Max24hOzone_StudyMax_qcut: *id006
-  Max24hOzone_qcut: *id006
-  Max24hPM2.5: *id007
-  Max24hPM2.5_StudyAvg: *id007
-  Max24hPM2.5_StudyAvg_qcut: *id007
-  Max24hPM2.5_StudyMax: *id007
-  Max24hPM2.5_StudyMax_qcut: *id007
-  Max24hPM2.5_qcut: *id007
+  Max24hOzoneExposure: *id006
+  Max24hOzoneExposure_2: *id006
+  Max24hOzoneExposure_2_qcut: *id006
+  Max24hOzoneExposure_StudyAvg: *id006
+  Max24hOzoneExposure_StudyAvg_qcut: *id006
+  Max24hOzoneExposure_StudyMax: *id006
+  Max24hOzoneExposure_StudyMax_qcut: *id006
+  Max24hOzoneExposure_qcut: *id006
+  Max24hPM2.5Exposure: *id007
+  Max24hPM2.5Exposure_StudyAvg: *id007
+  Max24hPM2.5Exposure_StudyAvg_qcut: *id007
+  Max24hPM2.5Exposure_StudyMax: *id007
+  Max24hPM2.5Exposure_StudyMax_qcut: *id007
+  Max24hPM2.5Exposure_qcut: *id007
   MenopauseVisit: *id048
   MepolizumabVisit: *id049
   MetaproterenolVisit: *id050

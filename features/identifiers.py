@@ -16,8 +16,8 @@ def get_identifiers(table, feature, return_empty_list=False):
         identifier_dict = input_dict[table]
     else:
         raise RuntimeError("Cannot find table " + table)
-    if feature2 in identifier_dict:
-        return identifier_dict[feature2]
+    if feature in identifier_dict:
+        return identifier_dict[feature]
     else:
         errmsg = "Cannot find identifiers for feature " + feature
         logger.error(errmsg)

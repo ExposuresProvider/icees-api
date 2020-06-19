@@ -1,8 +1,9 @@
 patient:
-  Acetaldehyde: &id010
+  AvgDailyAcetaldehydeExposure_2: &id010
   - CHEBI:15343
   - PUBCHEM:177
   - MESH:D000079
+  AvgDailyAcetaldehydeExposure_2_qcut: *id010
   AgeStudyStart: &id011
   - NCIT:C25150
   - umlscui:C0001779
@@ -566,10 +567,11 @@ patient:
   - SCTID:134499006
   - SCTID:413719005
   - SCTID:408023003
-  CO: &id019
+  AvgDailyCOExposure_2: &id019
   - CHEBI:17245
   - PUBCHEM:281
   - MESH:D002248
+  AvgDailyCOExposure_2: *id019
   CervicalCancerDx: &id020
   - SCTID:363354003
   - SCTID:423973006
@@ -3003,7 +3005,8 @@ patient:
   - MONDO:0002715
   - MONDO:0016252
 visit:
-  Acetaldehyde: *id010
+  Avg24hAcetaldehydeExposure_2: *id010
+  Avg24hAcetaldehydeExposure_2_qcut: *id010
   AgeVisit: *id011
   AlbuterolVisit: *id012
   AlcoholDependenceVisit: *id013
@@ -3038,7 +3041,8 @@ visit:
   Avg24hSO2Exposure_2_qcut: *id008
   BeclomethasoneVisit: *id017
   BudesonideVisit: *id018
-  CO: *id019
+  Avg24hCOExposure_2: *id019
+  Avg24hCOExposure_2_qcut: *id019
   CervicalCancerVisit: *id020
   CetirizineVisit: *id021
   Ciclesonidevisit: *id022

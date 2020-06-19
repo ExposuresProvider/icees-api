@@ -171,7 +171,9 @@ def add_eps(a):
 
 def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, feature_b):
     table = tables[table_name]
-    s = select([func.count()]).select_from(table).where(table.c.year == year)
+    s = select([func.count()]).select_from(table)
+    if year is not None:
+        s = s.where(table.c.year == year)
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
 

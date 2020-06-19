@@ -323,11 +323,11 @@ def convert_qedge_to_edge(qedge):
 def co_occurrence_overlay(conn, query):
     try:
         message = query["message"]
-        cohort_definition = message["query_options"]
+        cohort_definition = message.get("query_options", {})
         cohort_id = cohort_definition.get("cohort_id")
         if cohort_id is None:
-            table = cohort_definition["table"]
-            year = cohort_definition["year"]
+            table = cohort_definition.get("table", "patient")
+            year = cohort_definition.get("year")
             features = cohort_definition.get("cohort_features", {})
             cohort_id, size = get_ids_by_feature(conn, table, year, features)
         else:

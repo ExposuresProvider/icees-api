@@ -571,7 +571,7 @@ patient:
   - CHEBI:17245
   - PUBCHEM:281
   - MESH:D002248
-  AvgDailyCOExposure_2: *id019
+  AvgDailyCOExposure_2_qcut: *id019
   CervicalCancerDx: &id020
   - SCTID:363354003
   - SCTID:423973006

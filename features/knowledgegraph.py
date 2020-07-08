@@ -340,7 +340,7 @@ def co_occurrence_overlay(conn, query):
                 features = cohort_defintion["features"]
                 size = cohort_definition["size"]
         
-        query_graph = message["query_graph"]
+        query_graph = message.get("knowledge_graph")
 
         query_nodes = query_graph["nodes"]
         query_edges = query_graph["edges"]

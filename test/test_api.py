@@ -106,7 +106,7 @@ def do_test_knowledge_graph_overlay_year_table_features():
                     }
                 }
             }, 
-            "query_graph": {
+            "knowledge_graph": {
                 "nodes": [
                     {
                         "node_id": "n00",
@@ -153,7 +153,7 @@ def test_knowledge_graph_overlay_table_features():
                     }
                 }
             }, 
-            "query_graph": {
+            "knowledge_graph": {
                 "nodes": [
                     {
                         "node_id": "n00",
@@ -200,7 +200,7 @@ def test_knowledge_graph_overlay_year_features():
                     }
                 }
             }, 
-            "query_graph": {
+            "knowledge_graph": {
                 "nodes": [
                     {
                         "node_id": "n00",
@@ -242,7 +242,7 @@ def test_knowledge_graph_overlay_table_year():
                 "table": "patient",
                 "year": 2010
             }, 
-            "query_graph": {
+            "knowledge_graph": {
                 "nodes": [
                     {
                         "node_id": "n00",
@@ -280,7 +280,7 @@ def test_knowledge_graph_overlay():
 
     query2 = {
         "message": {
-            "query_graph": {
+            "knowledge_graph": {
                 "nodes": [
                     {
                         "node_id": "n00",

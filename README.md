@@ -1,43 +1,54 @@
 [![Build Status](https://travis-ci.com/NCATS-Tangerine/icees-api.svg?branch=master)](https://travis-ci.com/NCATS-Tangerine/icees-api)
 
-## How to run
+# How to run
 
-### Run docker compose
+## Run docker compose
 
-#### Run tests
+### Run tests
 ```
 test/test.sh
 ```
 
-#### schema
+### deployment
 
-edit `config/features.yml`
+#### Edit schema and identifiers
 
-#### database
+ICEES API allows define custom schema and identifiers. The schema is stored at `config/features.yml`. The identifier is stored at `config/identifiers.yml`. Edit them to fit your dataset.
 
-for each table create dir with table name under `db/data` and put csv files under that dir
+#### Provisioning data for database
 
-for example, put `patient.csv` under `db/data/patient`
+For each table in the schema, create a directory with its table name under `db/data` and put csv files under that directory. The csv files should have the same headers as the table. For example, put `patient.csv` under `db/data/patient` and put `visit.csv` under `db/data/visit`.
 
-put `visit.csv` under `db/data/visit`
-
-to generate random samples
-
-run
+To generate random samples, run
 ```
 python samples.py patient 2010 1000 db/data/patient/patient.csv
 ```
-
 ```
-python samples.py visit 2010 1000 db/data/patient/visit.csv
+python samples.py visit 2010 1000 db/data/visit/visit.csv
 ```
 
 #### start services
-edit `.env`
+
+The  `.env` file contains environmental variables that control the services. Edit it to fit your application.
+
+`ICEES_PORT`: the database port in the container
+`ICEES_HOST`: the database host in the container
+`ICEES_DBUSER`: the database user in the container
+`ICEES_DBPASS`: the password for the database user in the container
+`POSTGRES_PASSWORD`: the password for database user `postgres` in the container
+`ICEES_DATABASE`: the database name in the container
+`ICEES_API_LOG_PATH`: the path where logs are store on the host
+`ICEES_API_HOST_PORT`: the port where icees api is listening to on the host
+`OPENAPI_HOST`: the host where icees api is deployed
+`OPENAPI_SCHEME`: the protocol where icees api is deployed
+`DATA_PATH`: the directory where database tables csvs are stored on the host
+`DB_PATH`: the directory where the database files are stored on the host
+`CONFIG_PATH`: the directory where schema and identifiers are stored
+`ICEES_API_INSTANCE_NAME`: icees api instance name
 
 run
 ```
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 ### run docker

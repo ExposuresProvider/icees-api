@@ -9,13 +9,13 @@
 test/test.sh
 ```
 
-### deployment
+### Deployment
 
 #### Edit schema and identifiers
 
 ICEES API allows define custom schema and identifiers. The schema is stored at `config/features.yml`. The identifier is stored at `config/identifiers.yml`. Edit them to fit your dataset.
 
-#### Provisioning data for database
+#### Data for database
 
 For each table in the schema, create a directory with its table name under `db/data` and put csv files under that directory. The csv files should have the same headers as the table. For example, put `patient.csv` under `db/data/patient` and put `visit.csv` under `db/data/visit`.
 
@@ -27,7 +27,7 @@ python samples.py patient 2010 1000 db/data/patient/patient.csv
 python samples.py visit 2010 1000 db/data/visit/visit.csv
 ```
 
-#### start services
+#### Start services
 
 The  `.env` file contains environmental variables that control the services. Edit it to fit your application.
 

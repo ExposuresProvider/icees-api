@@ -95,26 +95,15 @@ def knowledge_graph_edge(table, filter_regex, feature_property):
         }
     return list(map(knowledge_graph_edge2, node_ids))
 
-def get(conn, obj):
+def get(conn, query):
     try:
-        # query_message = obj["query_message"]
-        # cohort_definition = query_message["query_options"]
-        cohort_definition = obj["query_options"]
-        table = cohort_definition["table"]
-        year = cohort_definition["year"]
-        if "cohort_features" in cohort_definition:
-            cohort_features = cohort_definition["cohort_features"]
-        else:
-            cohort_features = {}
-        feature = to_qualifiers(cohort_definition["feature"])
-        maximum_p_value = cohort_definition["maximum_p_value"]
-        if "regex" in cohort_definition:
-            filter_regex = cohort_definition["regex"]
-        else:
-            filter_regex = ".*"
+        message = query.get("message", query)
+        cohort_id, table, year, cohort_features, size = message_cohort(conn, message)
+        maximum_p_value = message["query_options"].get("maximum_p_value", MAX_P_VAL_DEFAULT)
+        filter_regex = message["query_options"].get("regex", ".*")
+        feature = to_qualifiers(message["query_options"]["feature"])
 
-        # query_graph = query_message["query_graph"]
-        query_graph = obj["machine_question"]
+        query_graph = query.get("query_graph", query.get("machine_question"))
 
         nodes = query_graph["nodes"]
         edges = query_graph["edges"]
@@ -125,7 +114,7 @@ def get(conn, obj):
         if len(edges) != 1:
             raise NotImplementedError("Number of edges in query graph must be 1")
 
-        nodes_dict = {node["id"]: node for node in nodes}
+        nodes_dict = {node_get_id(node): node for node in nodes}
         [edge] = edges
 
         source_id = edge["source_id"]
@@ -140,7 +129,7 @@ def get(conn, obj):
             raise NotImplementedError("Target node must be one of " + str(supported_node_types.keys()))
 
         supported_edge_types = supported_node_types[target_node_type]
-        edge_id = edge["id"]
+        edge_id = edge_get_id(edge)
         edge_type = edge["type"]
         if edge_type not in supported_edge_types:
             raise NotImplementedError("Edge must be one of " + str(supported_edge_types))
@@ -270,15 +259,29 @@ def co_occurrence_edge(conn, table, year, cohort_features, src_node, tgt_node):
             
 
 def generate_edge_id(src_node, tgt_node):
-    return src_node["node_id"] + "_" + tgt_node["node_id"]
+    return node_get_id(src_node) + "_" + node_get_id(tgt_node)
 
 
+def node_get_id(node):
+    node_id = node.get("id")
+    return node_id if node_id is not None else node.get("node_id")
+
+
+def edge_get_id(node):
+    edge_id = node.get("id")
+    return edge_id if edge_id is not None else node.get("edge_id")
+
+
+def attr(s):
+    return lambda d: d[s]
+
+    
 def generate_edge(src_node, tgt_node, edge_attributes=None):
     return {
         "id": generate_edge_id(src_node, tgt_node),
         "type": "association",
-        "source_id": src_node["node_id"],
-        "target_id": tgt_node["node_id"],
+        "source_id": node_get_id(src_node),
+        "target_id": node_get_id(tgt_node),
         **({
             "edge_attributes": edge_attributes
         } if edge_attributes is not None else {})
@@ -287,27 +290,27 @@ def generate_edge(src_node, tgt_node, edge_attributes=None):
 
 def convert(attribute_map, qnode):
     return {
-        k : qnode[k_qnode] for k, k_qnode in attribute_map.items() if k_qnode in qnode
+        k : k_qnode(qnode) for k, k_qnode in attribute_map.items() if k_qnode in qnode
     }
 
 
 def convert_qnode_to_node(qnode):
     attribute_map = {
-        "id": "node_id",
-        "type": "type",
-        "curie": "curie"
+        "id": node_get_id,
+        "type": attr("type"),
+        "curie": attr("curie")
     }
     return convert(attribute_map, qnode)
 
 
 def convert_qedge_to_edge(qedge):
     attribute_map = {
-        "id": "edge_id",
-        "type": "type",
-        "relation": "relation",
-        "source_id": "source_id",
-        "target_id": "target_id",
-        "negated": "negated"
+        "id": edge_get_id,
+        "type": attr("type"),
+        "relation": attr("relation"),
+        "source_id": attr("source_id"),
+        "target_id": attr("target_id"),
+        "negated": attr("negated")
     }
     return convert(attribute_map, qedge)
     

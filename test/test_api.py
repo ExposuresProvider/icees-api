@@ -142,12 +142,12 @@ def do_test_knowledge_graph_overlay(**kwargs):
             "knowledge_graph": {
                 "nodes": [
                     {
-                        "node_id": "n00",
+                        "id": "n00",
                         "curie": "PUBCHEM:2083",
                         "type": "drug"
                     },
                     {
-                        "node_id": "n01",
+                        "id": "n01",
                         "curie": "MESH:D052638",
                         "type": "chemical_substance"
                     }   

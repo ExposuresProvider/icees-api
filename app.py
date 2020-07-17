@@ -779,7 +779,7 @@ class SERVKnowledgeGraphOverlay(Resource):
             description: Input message
             required: true
             schema:
-                $ref: '#/definitions/Query'
+                $ref: '#/definitions/QueryOverlay'
         responses:
             200:
                 description: Success
@@ -813,7 +813,7 @@ class SERVKnowledgeGraphOneHop(Resource):
             description: Input message
             required: true
             schema:
-                $ref: '#/definitions/Query'
+                $ref: '#/definitions/QueryOneHop'
         responses:
             200:
                 description: Success

@@ -78,6 +78,34 @@ def query(year, biolink_class):
         }
 
     
+def one_hop_query(curie, biolink_class, **kwargs):
+    return {
+        "message": {
+            **kwargs,
+            "query_graph": {
+                "nodes": [
+                    {
+                        "id": "n00",
+                        "curie": curie
+                    },
+                    {
+                        "id": "n01",
+                        "type": biolink_class
+                    }   
+                ], 
+                "edges": [
+                    {
+                        "id": "e00",
+                        "type": "association",
+                        "source_id": "n00",
+                        "target_id": "n01"
+                    } 
+                ]
+            }
+        }
+    }
+
+    
 def do_test_knowledge_graph(biolink_class):
 
         resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph", data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
@@ -92,20 +120,25 @@ def do_test_knowledge_graph(biolink_class):
         assert "datetime" in resp_json["return value"]
 
 
-def do_test_knowledge_graph_overlay_year_table_features():
+def do_test_one_hop(curie, biolink_class, **kwargs):
+
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_one_hop", data = json.dumps(query(curie, biolink_class, **kwargs)), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+        assert "n_results" in resp_json["return value"]
+        assert "answers" in resp_json["return value"]
+        assert resp_json["return value"]["n_results"] == len(resp_json["return value"]["answers"])
+        assert "knowledge_graph" in resp_json["return value"]
+        assert "message_code" in resp_json["return value"]
+        assert "tool_version" in resp_json["return value"]
+        assert "datetime" in resp_json["return value"]
+
+
+def do_test_knowledge_graph_overlay(**kwargs):
 
     query2 = {
         "message": {
-            "query_options": {
-                "table": "patient", 
-                "year": 2010, 
-                "cohort_features": {
-                    "AgeStudyStart": {
-                        "operator": "=",
-                        "value": "0-2"
-                    }
-                }
-            }, 
+            **kwargs, 
             "knowledge_graph": {
                 "nodes": [
                     {
@@ -138,13 +171,52 @@ def do_test_knowledge_graph_overlay_year_table_features():
     assert "message_code" in resp_json["return value"]
     assert "tool_version" in resp_json["return value"]
     assert "datetime" in resp_json["return value"]
+
+
+def do_test_knowledge_graph_one_hop(**kwargs):
+
+    query2 = one_hop_query("PUBCHEM:2083", "chemical_substance", **kwargs)
+    resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_one_hop", data = json.dumps(query2), headers = json_headers, verify = False)
+    resp_json = resp.json()
+    logger.info(resp_json)
+    assert "return value" in resp_json
+    assert "knowledge_graph" in resp_json["return value"]
+    assert "message_code" in resp_json["return value"]
+    assert "tool_version" in resp_json["return value"]
+    assert "datetime" in resp_json["return value"]
+
+
+def test_knowledge_graph_overlay_year_table_features():
+    do_test_knowledge_graph_overlay(
+        query_options = {
+                "table": "patient", 
+                "year": 2010, 
+                "cohort_features": {
+                    "AgeStudyStart": {
+                        "operator": "=",
+                        "value": "0-2"
+                    }
+                }
+            })
+    
+    
+def test_knowledge_graph_overlay_year_table_features():
+    do_test_knowledge_graph_overlay(
+        query_options = {
+                "table": "patient", 
+                "year": 2010, 
+                "cohort_features": {
+                    "AgeStudyStart": {
+                        "operator": "=",
+                        "value": "0-2"
+                    }
+                }
+            })
 
 
 def test_knowledge_graph_overlay_table_features():
-
-    query2 = {
-        "message": {
-            "query_options": {
+    do_test_knowledge_graph_overlay(
+        query_options = {
                 "table": "patient", 
                 "cohort_features": {
                     "AgeStudyStart": {
@@ -152,46 +224,12 @@ def test_knowledge_graph_overlay_table_features():
                         "value": "0-2"
                     }
                 }
-            }, 
-            "knowledge_graph": {
-                "nodes": [
-                    {
-                        "node_id": "n00",
-                        "curie": "PUBCHEM:2083",
-                        "type": "drug"
-                    },
-                    {
-                        "node_id": "n01",
-                        "curie": "MESH:D052638",
-                        "type": "chemical_substance"
-                    }   
-                ], 
-                "edges": [
-                    {
-                        "id": "e00",
-                        "type": "association",
-                        "source_id": "n00",
-                        "target_id": "n01"
-                    } 
-                ]
-            }
-        }
-    }
-    resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_overlay", data = json.dumps(query2), headers = json_headers, verify = False)
-    resp_json = resp.json()
-    logger.info(resp_json)
-    assert "return value" in resp_json
-    assert "knowledge_graph" in resp_json["return value"]
-    assert "message_code" in resp_json["return value"]
-    assert "tool_version" in resp_json["return value"]
-    assert "datetime" in resp_json["return value"]
+            })
 
 
 def test_knowledge_graph_overlay_year_features():
-
-    query2 = {
-        "message": {
-            "query_options": {
+    do_test_knowledge_graph_overlay(
+        query_options = {
                 "year": 2010, 
                 "cohort_features": {
                     "AgeStudyStart": {
@@ -199,119 +237,87 @@ def test_knowledge_graph_overlay_year_features():
                         "value": "0-2"
                     }
                 }
-            }, 
-            "knowledge_graph": {
-                "nodes": [
-                    {
-                        "node_id": "n00",
-                        "curie": "PUBCHEM:2083",
-                        "type": "drug"
-                    },
-                    {
-                        "node_id": "n01",
-                        "curie": "MESH:D052638",
-                        "type": "chemical_substance"
-                    }   
-                ], 
-                "edges": [
-                    {
-                        "id": "e00",
-                        "type": "association",
-                        "source_id": "n00",
-                        "target_id": "n01"
-                    } 
-                ]
-            }
-        }
-    }
-    resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_overlay", data = json.dumps(query2), headers = json_headers, verify = False)
-    resp_json = resp.json()
-    logger.info(resp_json)
-    assert "return value" in resp_json
-    assert "knowledge_graph" in resp_json["return value"]
-    assert "message_code" in resp_json["return value"]
-    assert "tool_version" in resp_json["return value"]
-    assert "datetime" in resp_json["return value"]
+            })
 
 
 def test_knowledge_graph_overlay_table_year():
 
-    query2 = {
-        "message": {
-            "query_options": {
+    do_test_knowledge_graph_overlay(
+        query_options = {
                 "table": "patient",
                 "year": 2010
-            }, 
-            "knowledge_graph": {
-                "nodes": [
-                    {
-                        "node_id": "n00",
-                        "curie": "PUBCHEM:2083",
-                        "type": "drug"
-                    },
-                    {
-                        "node_id": "n01",
-                        "curie": "MESH:D052638",
-                        "type": "chemical_substance"
-                    }   
-                ], 
-                "edges": [
-                    {
-                        "id": "e00",
-                        "type": "association",
-                        "source_id": "n00",
-                        "target_id": "n01"
-                    } 
-                ]
-            }
-        }
-    }
-    resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_overlay", data = json.dumps(query2), headers = json_headers, verify = False)
-    resp_json = resp.json()
-    logger.info(resp_json)
-    assert "return value" in resp_json
-    assert "knowledge_graph" in resp_json["return value"]
-    assert "message_code" in resp_json["return value"]
-    assert "tool_version" in resp_json["return value"]
-    assert "datetime" in resp_json["return value"]
+            })
 
 
 def test_knowledge_graph_overlay():
+    do_test_knowledge_graph_overlay()
 
-    query2 = {
-        "message": {
-            "knowledge_graph": {
-                "nodes": [
-                    {
-                        "node_id": "n00",
-                        "curie": "PUBCHEM:2083",
-                        "type": "drug"
-                    },
-                    {
-                        "node_id": "n01",
-                        "curie": "MESH:D052638",
-                        "type": "chemical_substance"
-                    }   
-                ], 
-                "edges": [
-                    {
-                        "id": "e00",
-                        "type": "association",
-                        "source_id": "n00",
-                        "target_id": "n01"
-                    } 
-                ]
-            }
-        }
-    }
-    resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_overlay", data = json.dumps(query2), headers = json_headers, verify = False)
-    resp_json = resp.json()
-    logger.info(resp_json)
-    assert "return value" in resp_json
-    assert "knowledge_graph" in resp_json["return value"]
-    assert "message_code" in resp_json["return value"]
-    assert "tool_version" in resp_json["return value"]
-    assert "datetime" in resp_json["return value"]
+
+def test_knowledge_graph_one_hop_year_table_features():
+    do_test_knowledge_graph_one_hop(
+        query_options = {
+                "table": "patient", 
+                "year": 2010, 
+                "cohort_features": {
+                    "AgeStudyStart": {
+                        "operator": "=",
+                        "value": "0-2"
+                    }
+                }
+            })
+    
+    
+def test_knowledge_graph_one_hop_year_table_features():
+    do_test_knowledge_graph_one_hop(
+        query_options = {
+                "table": "patient", 
+                "year": 2010, 
+                "cohort_features": {
+                    "AgeStudyStart": {
+                        "operator": "=",
+                        "value": "0-2"
+                    }
+                }
+            })
+
+
+def test_knowledge_graph_one_hop_table_features():
+    do_test_knowledge_graph_one_hop(
+        query_options = {
+                "table": "patient", 
+                "cohort_features": {
+                    "AgeStudyStart": {
+                        "operator": "=",
+                        "value": "0-2"
+                    }
+                }
+            })
+
+
+def test_knowledge_graph_one_hop_year_features():
+    do_test_knowledge_graph_one_hop(
+        query_options = {
+                "year": 2010, 
+                "cohort_features": {
+                    "AgeStudyStart": {
+                        "operator": "=",
+                        "value": "0-2"
+                    }
+                }
+            })
+
+
+def test_knowledge_graph_one_hop_table_year():
+
+    do_test_knowledge_graph_one_hop(
+        query_options = {
+                "table": "patient",
+                "year": 2010
+            })
+
+
+def test_knowledge_graph_one_hop():
+    do_test_knowledge_graph_one_hop()
 
 
 def do_test_knowledge_graph_unique_edge_ids(biolink_class):

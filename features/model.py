@@ -1,8 +1,9 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index
-from sqlalchemy.sql import select
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_
+from sqlalchemy.sql import select, func
 from scipy.stats import chi2_contingency
 import json
 import os
+from itertools import product
 from .features import features, lookUpFeatureClass, features_dict
 import inflection
 import numpy as np
@@ -37,22 +38,36 @@ cohort = Table("cohort", metadata, *cohort_cols)
 
 cohort_id_seq = Sequence('cohort_id_seq', metadata=metadata)
 
-def filter_select(s, table, k, v):
+def op_dict(table, k, v):
     return {
-        ">": lambda: s.where(table.c[k] > v["value"]),
-        "<": lambda: s.where(table.c[k] < v["value"]),
-        ">=": lambda: s.where(table.c[k] >= v["value"]),
-        "<=": lambda: s.where(table.c[k] <= v["value"]),
-        "=": lambda: s.where(table.c[k] == v["value"]),
-        "<>": lambda: s.where(table.c[k] != v["value"]),
-        "between": lambda: s.where(between(table.c[k], v["value_a"], v["value_b"])),
-        "in": lambda: s.where(table.c[k].in_(v["values"]))
+        ">": lambda: table.c[k] > v["value"],
+        "<": lambda: table.c[k] < v["value"],
+        ">=": lambda: table.c[k] >= v["value"],
+        "<=": lambda: table.c[k] <= v["value"],
+        "=": lambda: table.c[k] == v["value"],
+        "<>": lambda: table.c[k] != v["value"],
+        "between": lambda: between(table.c[k], v["value_a"], v["value_b"]),
+        "in": lambda: table.c[k].in_(v["values"])
     }[v["operator"]]()
+
+
+def filter_select(s, table, k, v):
+    return s.where(op_dict(table, k, v))
+
+
+def case_select(table, k, v):
+    return func.sum(case([(op_dict(table, k, v), 1)], else_=0))
+
+
+def case_select2(table, k, v, k2, v2):
+    return func.sum(case([(and_(op_dict(table, k, v), op_dict(table, k2, v2)), 1)], else_=0))
 
 
 def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
     table = tables[table_name]
-    s = select([func.count()]).select_from(table).where(table.c.year == year)
+    s = select([func.count()]).select_from(table)
+    if year is not None:
+        s = s.where(table.c.year == year)
     for k, v in cohort_features.items():
         s = filter_select(s, table, k, v)
 
@@ -169,27 +184,50 @@ def add_eps(a):
     return a + eps
 
 
+MAX_ENTRIES_PER_ROW = 1664
+
 def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, feature_b):
     table = tables[table_name]
-    s = select([func.count()]).select_from(table)
-    if year is not None:
-        s = s.where(table.c.year == year)
-    for k, v in cohort_features.items():
-        s = filter_select(s, table, k, v)
 
     ka = feature_a["feature_name"]
     vas = feature_a["feature_qualifiers"]
     kb = feature_b["feature_name"]
     vbs = feature_b["feature_qualifiers"]
-
-    feature_matrix = [
-        [conn.execute((filter_select(filter_select(s, table, kb, vb), table, ka, va))).scalar() for va in vas] for vb in vbs
+    
+    selections = [
+        case_select2(table, kb, vb, ka, va) for vb, va in product(vbs, vas)
+    ] + [
+        case_select(table, ka, va) for va in vas
+    ] + [
+        case_select(table, kb, vb) for vb in vbs
+    ] + [
+        func.count()
     ]
 
-    total_cols = [conn.execute((filter_select(s, table, ka, va))).scalar() for va in vas]
-    total_rows = [conn.execute((filter_select(s, table, kb, vb))).scalar() for vb in vbs]
+    result = []
+    for i in range(0, len(selections), MAX_ENTRIES_PER_ROW):
+        subs = selections[i:min(i+MAX_ENTRIES_PER_ROW, len(selections))]
 
-    total = conn.execute((s)).scalar()
+        s = select(subs).select_from(table)
+        if year is not None:
+            s = s.where(table.c.year == year)
+        for k, v in cohort_features.items():
+            s = filter_select(s, table, k, v)
+
+        result.extend(list(conn.execute(s).first()))
+    
+
+    nvas = len(vas)
+    nvbs = len(vbs)
+    mat_size = nvas * nvbs
+
+    feature_matrix = np.reshape(result[:mat_size], (nvbs, nvas)).tolist()
+
+                    
+    total_cols = result[mat_size : mat_size + nvas]
+    total_rows = result[mat_size + nvas : mat_size + nvas + nvbs]
+
+    total = result[mat_size + nvas + nvbs]
 
     chi_squared, p, *_ = chi2_contingency(list(map(lambda x : list(map(add_eps, x)), feature_matrix)), correction=False)
 
@@ -250,10 +288,10 @@ def get_feature_levels(conn, table, year, feature):
     return list(map(lambda row: row[0], conn.execute((s))))
 
 
-def select_feature_association(conn, table_name, year, cohort_features, feature, maximum_p_value):
+def select_feature_association(conn, table_name, year, cohort_features, feature, maximum_p_value, feature_set):
     table = tables[table_name]
     rs = []
-    for k, v, levels, _ in features[table_name]:
+    for k, v, levels, _ in filter(feature_set, features[table_name]):
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_matrix(conn, table_name, year, cohort_features, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
@@ -262,12 +300,12 @@ def select_feature_association(conn, table_name, year, cohort_features, feature,
     return rs
 
 
-def select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value):
+def select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x: True):
     cohort_features = get_features_by_id(conn, table, year, cohort_id)
     if cohort_features is None:
         return "Input cohort_id invalid. Please try again."
     else:
-        return select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value)
+        return select_feature_association(conn, table, year, cohort_features, feature, maximum_p_value, feature_set)
 
 
 def validate_range(table_name, feature):

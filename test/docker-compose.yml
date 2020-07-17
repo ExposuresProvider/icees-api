@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: test/Dockerfile
     image: icees-api-test:0.2.0
-    command: ["-s", "-vv"] # , "-k", "overlay"]
+    command: ["-s", "-vv"] # , "-k", "hop"]
     environment:
       WAIT: 60
     depends_on:

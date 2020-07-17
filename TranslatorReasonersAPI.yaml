@@ -47,7 +47,7 @@
           knowledge_graph:
             nodes:
               - id: n00
-                curie: "PUBCHEM:2083",
+                curie: "PUBCHEM:2083"
                 type: drug
               - id: n01
                 type: chemical_substance

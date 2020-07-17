@@ -69,7 +69,7 @@
       additionalProperties: true
       example:
         message:
-          knowledge_graph:
+          query_graph:
             nodes:
               - id: n00
                 curie: "PUBCHEM:2083"

@@ -10,6 +10,7 @@ import datetime
 from utils import to_qualifiers
 import traceback
 import itertools
+import inflection
 from .identifiers import get_identifiers, get_features_by_identifier
 from functools import reduce, partial
 from tx.functional.either import Left, Right
@@ -53,17 +54,17 @@ def name_to_ids(table, filter_regex, node_name):
 def gen_edge_id(cohort_id, node_name, node_id):
     return cohort_id + "_" + node_name + "_" + node_id
 
-def result(table, filter_regex, feature_property):
+def result(source_id, source_node_id, edge_id, target_id, table, filter_regex, feature_property):
     node_name = feature_property["feature_b"]["feature_name"]
     node_ids = name_to_ids(table, filter_regex, node_name)
     def result2(node_id):
         return {
             "node_bindings" : {
-                source_id: cohort_id,
+                source_id: source_node_id,
                 target_id: node_id
             },
             "edge_bindings" : {
-                edge_id: [gen_edge_id(cohort_id, node_name, node_id)]
+                edge_id: [gen_edge_id(source_node_id, node_name, node_id)]
             },
             "score": feature_property["p_value"],
             "score_name": "p value"
@@ -81,15 +82,15 @@ def knowledge_graph_node(table, filter_regex, feature_property):
         }
     return list(map(knowledge_graph_node2, node_ids))
 
-def knowledge_graph_edge(table, filter_regex, feature_property):
+def knowledge_graph_edge(source_id, table, filter_regex, feature_property):
     node_name = feature_property["feature_b"]["feature_name"]
     node_ids = name_to_ids(table, filter_regex, node_name)
     edge_name = "association"
     def knowledge_graph_edge2(node_id):
         return {
             "type": edge_name,
-            "id": gen_edge_id(cohort_id, node_name, node_id),
-            "source_id": cohort_id,
+            "id": gen_edge_id(source_id, node_name, node_id),
+            "source_id": source_id,
             "target_id": node_id,
             "edge_attributes": feature_property
         }
@@ -138,7 +139,8 @@ def get(conn, query):
 
         supported_types = closure_subtype(target_node_type)
 
-        feature_list = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, lambda x : x[3] in supported_types)
+        feature_list = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, lambda x : inflection.underscore(x[3]) in supported_types)
+        logger.info(f"feature_list = {feature_list}")
 
         knowledge_graph_nodes = [{
             "name": "cohort",
@@ -146,7 +148,7 @@ def get(conn, query):
             "type": "population_of_individual_organisms"
         }] + list(itertools.chain.from_iterable(map(partial(knowledge_graph_node, table, filter_regex), feature_list)))
 
-        knowledge_graph_edges = list(itertools.chain.from_iterable(map(partial(knowledge_graph_edge, table, filter_regex), feature_list)))
+        knowledge_graph_edges = list(itertools.chain.from_iterable(map(partial(knowledge_graph_edge, source_id, table, filter_regex), feature_list)))
 
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,
@@ -157,14 +159,14 @@ def get(conn, query):
             "reasoner_id": "ICEES",
             "tool_version": "3.0.0",
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "n_results": sum(map(lambda x : len(list(name_to_ids(x["feature_b"]["feature_name"]))), feature_list)),
+            "n_results": sum(map(lambda x : len(list(name_to_ids(table, filter_regex, x["feature_b"]["feature_name"]))), feature_list)),
             "message_code": "OK",
             "code_description": "",
             # "query_graph": query_graph,
             "question_graph": query_graph,
             "knowledge_graph": knowledge_graph,
             # "results": list(map(result, feature_list))
-            "answers": list(itertools.chain.from_iterable(map(result, feature_list)))
+            "answers": list(itertools.chain.from_iterable(map(partial(result, source_id, cohort_id, edge_id, target_id, table, filter_regex), feature_list)))
         }
     except Exception as e:
         traceback.print_exc()
@@ -283,7 +285,7 @@ def generate_edge(src_node, tgt_node, edge_attributes=None):
         "source_id": node_get_id(src_node),
         "target_id": node_get_id(tgt_node),
         **({
-            "edge_attributes": edge_attributes
+           "edge_attributes": edge_attributes
         } if edge_attributes is not None else {})
     }
 
@@ -323,7 +325,6 @@ def message_cohort(conn, message):
         year = cohort_definition.get("year")
         features = cohort_definition.get("cohort_features", {})
         cohort_id, size = get_ids_by_feature(conn, table, year, features)
-        logger.info(f"cohort_id = {cohort_id}, size = {size}")
     else:
         cohort_definition = get_cohort_definition_by_id(cohort_id)
         if cohort_definition is Nothing:
@@ -411,7 +412,7 @@ def one_hop(conn, query):
         if len(edges) != 1:
             raise NotImplementedError("Number of edges in query graph must be 1")
 
-        nodes_dict = {node["id"]: node for node in nodes}
+        nodes_dict = {node_get_id(node): node for node in nodes}
         [edge] = edges
 
         source_id = edge["source_id"]
@@ -425,19 +426,19 @@ def one_hop(conn, query):
         target_id = edge["target_id"]
         target_node_type = nodes_dict[target_id]["type"]
 
+        edge_id = edge_get_id(edge)
+
         feature_set = []
         supported_types = closure_subtype(target_node_type)
 
-        logger.info(f"cohort_id = {cohort_id}")
-        for feature in source_node_identifiers:
-            ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x : x[3] in supported_types)
-            logger.info(f"ataf = {ataf}")
+        for source_node_identifier in source_node_identifiers:
+            feature = query_feature(table, source_node_identifier).value
+            ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x : inflection.underscore(x[3]) in supported_types)
             feature_set += ataf
 
-        logger.info(f"feature_set = {feature_set}")
-        knowledge_graph_nodes = list(itertools.chain.from_iterable(map(partial(knowledge_graph_node, table, filter_regex), feature_set)))
+        knowledge_graph_nodes = [convert_qnode_to_node(source_node)] + list(itertools.chain.from_iterable(map(partial(knowledge_graph_node, table, filter_regex), feature_set)))
         
-        knowledge_graph_edges = list(itertools.chain.from_iterable(map(partial(knowledge_graph_edge, table, filter_regex), feature_set)))
+        knowledge_graph_edges = list(itertools.chain.from_iterable(map(partial(knowledge_graph_edge, source_id, table, filter_regex), feature_set)))
 
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,
@@ -448,14 +449,14 @@ def one_hop(conn, query):
             "reasoner_id": "ICEES",
             "tool_version": "3.0.0",
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "n_results": sum(map(lambda x : len(list(name_to_ids(x["feature_b"]["feature_name"]))), feature_set)),
+            "n_results": sum(map(lambda x : len(list(name_to_ids(table, filter_regex, x["feature_b"]["feature_name"]))), feature_set)),
             "message_code": "OK",
             "code_description": "",
             # "query_graph": query_graph,
             "question_graph": query_graph,
             "knowledge_graph": knowledge_graph,
             # "results": list(map(result, feature_list))
-            "answers": list(itertools.chain.from_iterable(map(result, feature_set)))
+            "answers": list(itertools.chain.from_iterable(map(partial(result, source_id, source_id, edge_id, target_id, table, filter_regex), feature_set)))
         }
     except Exception as e:
         traceback.print_exc()
@@ -464,7 +465,7 @@ def one_hop(conn, query):
             "tool_version": "3.0.0",
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "Error",
-            "code_description": str(e),
+            "code_description": traceback.format_exc(),
         }
 
     return message

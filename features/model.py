@@ -4,9 +4,10 @@ from scipy.stats import chi2_contingency
 import json
 import os
 from itertools import product
-from .features import features, lookUpFeatureClass, features_dict
 import inflection
 import numpy as np
+import time
+from .features import features, lookUpFeatureClass, features_dict
 from tx.functional.maybe import Nothing, Just
 import logging
 
@@ -190,6 +191,16 @@ def add_eps(a):
 
 MAX_ENTRIES_PER_ROW = int(os.environ.get("MAX_ENTRIES_PER_ROW", "1664"))
 
+def timeit(method):
+    def timed(*args, **kw):
+        ts = time.time()
+        result = method(*args, **kw)
+        te = time.time()
+        logger.info(f"{method.__name__} {args} {kw} {te - ts}s")
+        return result
+    return timed
+
+@timeit
 def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, feature_b):
     table = tables[table_name]
 

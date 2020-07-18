@@ -188,7 +188,7 @@ def add_eps(a):
     return a + eps
 
 
-MAX_ENTRIES_PER_ROW = 1664
+MAX_ENTRIES_PER_ROW = int(os.environ.get("MAX_ENTRIES_PER_ROW", "1664"))
 
 def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, feature_b):
     table = tables[table_name]

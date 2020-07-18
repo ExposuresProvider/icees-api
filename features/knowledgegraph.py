@@ -54,8 +54,8 @@ def name_to_ids(table, filter_regex, node_name):
 def gen_edge_id(cohort_id, node_name, node_id):
     return cohort_id + "_" + node_name + "_" + node_id
 
-def result(source_id, source_node_id, edge_id, edge_name, target_id, table, filter_regex, score, score_name):
-    node_ids = name_to_ids(table, filter_regex, edge_name)
+def result(source_id, source_node_id, edge_id, node_name, target_id, table, filter_regex, score, score_name):
+    node_ids = name_to_ids(table, filter_regex, node_name)
     def result2(node_id):
         return {
             "node_bindings" : {
@@ -63,7 +63,7 @@ def result(source_id, source_node_id, edge_id, edge_name, target_id, table, filt
                 target_id: node_id
             },
             "edge_bindings" : {
-                edge_id: [gen_edge_id(source_node_id, edge_name, node_id)]
+                edge_id: [gen_edge_id(source_node_id, node_name, node_id)]
             },
             "score": score,
             "score_name": score_name
@@ -80,13 +80,13 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
         }
     return list(map(knowledge_graph_node2, node_ids))
 
-def knowledge_graph_edge(source_id, edge_name, table, filter_regex, feature_property):
-    node_ids = name_to_ids(table, filter_regex, edge_name)
+def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_property):
+    node_ids = name_to_ids(table, filter_regex, node_name)
     edge_name = "association"
     def knowledge_graph_edge2(node_id):
         return {
             "type": edge_name,
-            "id": gen_edge_id(source_id, edge_name, node_id),
+            "id": gen_edge_id(source_id, node_name, node_id),
             "source_id": source_id,
             "target_id": node_id,
             "edge_attributes": feature_property

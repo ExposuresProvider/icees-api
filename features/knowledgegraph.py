@@ -54,9 +54,8 @@ def name_to_ids(table, filter_regex, node_name):
 def gen_edge_id(cohort_id, node_name, node_id):
     return cohort_id + "_" + node_name + "_" + node_id
 
-def result(source_id, source_node_id, edge_id, target_id, table, filter_regex, feature_property):
-    node_name = feature_property["feature_b"]["feature_name"]
-    node_ids = name_to_ids(table, filter_regex, node_name)
+def result(source_id, source_node_id, edge_id, edge_name, target_id, table, filter_regex, score, score_name):
+    node_ids = name_to_ids(table, filter_regex, edge_name)
     def result2(node_id):
         return {
             "node_bindings" : {
@@ -64,32 +63,30 @@ def result(source_id, source_node_id, edge_id, target_id, table, filter_regex, f
                 target_id: node_id
             },
             "edge_bindings" : {
-                edge_id: [gen_edge_id(source_node_id, node_name, node_id)]
+                edge_id: [gen_edge_id(source_node_id, edge_name, node_id)]
             },
-            "score": feature_property["p_value"],
-            "score_name": "p value"
+            "score": score,
+            "score_name": score_name
         }
     return list(map(result2, node_ids))
 
-def knowledge_graph_node(table, filter_regex, feature_property):
-    node_name = feature_property["feature_b"]["feature_name"]
+def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
     node_ids = name_to_ids(table, filter_regex, node_name)
     def knowledge_graph_node2(node_id):
         return {
             "name": node_name,
             "id": node_id,
-            "type": feature_property["feature_b"]["biolink_class"]
+            "type": biolink_class
         }
     return list(map(knowledge_graph_node2, node_ids))
 
-def knowledge_graph_edge(source_id, table, filter_regex, feature_property):
-    node_name = feature_property["feature_b"]["feature_name"]
-    node_ids = name_to_ids(table, filter_regex, node_name)
+def knowledge_graph_edge(source_id, edge_name, table, filter_regex, feature_property):
+    node_ids = name_to_ids(table, filter_regex, edge_name)
     edge_name = "association"
     def knowledge_graph_edge2(node_id):
         return {
             "type": edge_name,
-            "id": gen_edge_id(source_id, node_name, node_id),
+            "id": gen_edge_id(source_id, edge_name, node_id),
             "source_id": source_id,
             "target_id": node_id,
             "edge_attributes": feature_property
@@ -146,9 +143,9 @@ def get(conn, query):
             "name": "cohort",
             "id": cohort_id,
             "type": "population_of_individual_organisms"
-        }] + list(itertools.chain.from_iterable(map(partial(knowledge_graph_node, table, filter_regex), feature_list)))
+        }] + list(itertools.chain.from_iterable(map(lambda x: knowledge_graph_node(x["feature_b"]["feature_name"], table, filter_regex, x["feature_b"]["biolink_class"]), feature_list)))
 
-        knowledge_graph_edges = list(itertools.chain.from_iterable(map(partial(knowledge_graph_edge, source_id, table, filter_regex), feature_list)))
+        knowledge_graph_edges = list(itertools.chain.from_iterable(map(lambda x : knowledge_graph_edge(source_id, x["feature_b"]["feature_name"], table, filter_regex, x), feature_list)))
 
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,
@@ -166,7 +163,7 @@ def get(conn, query):
             "question_graph": query_graph,
             "knowledge_graph": knowledge_graph,
             # "results": list(map(result, feature_list))
-            "answers": list(itertools.chain.from_iterable(map(partial(result, source_id, cohort_id, edge_id, target_id, table, filter_regex), feature_list)))
+            "answers": list(itertools.chain.from_iterable(result(source_id, cohort_id, edge_id, feature_property["feature_b"]["feature_name"], target_id, table, filter_regex, feature_property["p_value"], "p value") for feature_property in feature_list))
         }
     except Exception as e:
         traceback.print_exc()
@@ -428,35 +425,45 @@ def one_hop(conn, query):
 
         edge_id = edge_get_id(edge)
 
-        feature_set = []
+        feature_set = {}
         supported_types = closure_subtype(target_node_type)
 
         for source_node_identifier in source_node_identifiers:
             feature = query_feature(table, source_node_identifier).value
             ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x : inflection.underscore(x[3]) in supported_types)
-            feature_set += ataf
+            for feature in ataf:
+                feature_name = feature["feature_b"]["feature_name"]
+                biolink_class = feature["feature_b"]["biolink_class"]
+                if feature_name in feature_set:
+                    _, feature_properties = feature_set[feature_name]
+                    feature_properties.append(feature)
+                else:
+                    feature_set[feature_name] = biolink_class, [feature]
 
-        knowledge_graph_nodes = [convert_qnode_to_node(source_node)] + list(itertools.chain.from_iterable(map(partial(knowledge_graph_node, table, filter_regex), feature_set)))
+        knowledge_graph_nodes = [convert_qnode_to_node(source_node)] + list(itertools.chain.from_iterable(knowledge_graph_node(feature_name, table, filter_regex, biolink_class) for feature_name, (biolink_class, _) in feature_set.items()))
         
-        knowledge_graph_edges = list(itertools.chain.from_iterable(map(partial(knowledge_graph_edge, source_id, table, filter_regex), feature_set)))
+        knowledge_graph_edges = list(itertools.chain.from_iterable(knowledge_graph_edge(source_id, feature_name, table, filter_regex, feature_properties_list) for feature_name, (_, feature_properties_list) in feature_set.items()))
 
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,
             "edges": knowledge_graph_edges
         }
+
+        def p_values(feature_properties_list):
+            return [feature_properties["p_value"] for feature_properties in feature_properties_list]
         
         message = {
             "reasoner_id": "ICEES",
             "tool_version": "3.0.0",
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "n_results": sum(map(lambda x : len(list(name_to_ids(table, filter_regex, x["feature_b"]["feature_name"]))), feature_set)),
+            "n_results": sum(map(lambda x : len(list(name_to_ids(table, filter_regex, x))), feature_set.keys())),
             "message_code": "OK",
             "code_description": "",
             # "query_graph": query_graph,
             "question_graph": query_graph,
             "knowledge_graph": knowledge_graph,
             # "results": list(map(result, feature_list))
-            "answers": list(itertools.chain.from_iterable(map(partial(result, source_id, source_id, edge_id, target_id, table, filter_regex), feature_set)))
+            "answers": list(itertools.chain.from_iterable(result(source_id, source_id, edge_id, feature_name, target_id, table, filter_regex, p_values(feature_properties_list), "p value") for feature_name, (_, feature_properties_list) in feature_set.items()))
         }
     except Exception as e:
         traceback.print_exc()

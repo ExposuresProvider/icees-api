@@ -101,13 +101,13 @@ swag = Swagger(app, template=template)
 
 @api.representation('application/json')
 def output_json(data, code, headers=None):
-    resp = make_response(simplejson.dumps({"terms and conditions": terms_and_conditions, "return value": data["return value"]}, ignore_nan=True), code)
+    resp = make_response(simplejson.dumps(data, ignore_nan=True), code)
     resp.headers.extend(headers or {})
     return resp
 
 @api.representation('text/tabular')
 def output_tabular(data, code, headers=None):
-    resp = make_response(format.format_tabular(terms_and_conditions, data["return value"]), code)
+    resp = make_response(format.format_tabular(terms_and_conditions, data.get("return value", data)), code)
     resp.headers.extend(headers or {})
     return resp
 
@@ -165,10 +165,11 @@ class SERVCohort(Resource):
         return wrapped(return_value)
 
 
-def wrapped(data):
-    return {
-        "return value": data
-    }
+def wrapped(data, reasoner=False):
+    if reasoner:
+        return {"terms and conditions": terms_and_conditions, **data}
+    else:
+        return {"terms and conditions": terms_and_conditions, "return value": data}
 
 class SERVCohortId(Resource):
     def put(self, table, year, cohort_id):
@@ -742,7 +743,7 @@ class SERVKnowledgeGraph(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return wrapped(return_value)
+        return wrapped(return_value, reasoner=request.args.get("reasoner", False))
 
 
 class SERVKnowledgeGraphSchema(Resource):
@@ -763,7 +764,7 @@ class SERVKnowledgeGraphSchema(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return wrapped(return_value)
+        return wrapped(return_value, reasoner=request.args.get("reasoner", False))
 
 
 class SERVKnowledgeGraphOverlay(Resource):
@@ -780,6 +781,12 @@ class SERVKnowledgeGraphOverlay(Resource):
             required: true
             schema:
                 $ref: '#/definitions/QueryOverlay'
+          - in: query
+            name: reasoner
+            description: return conforming to the ReasonerStdApi
+            required: false
+            schema:
+                type: boolean
         responses:
             200:
                 description: Success
@@ -797,7 +804,7 @@ class SERVKnowledgeGraphOverlay(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return wrapped(return_value)
+        return wrapped(return_value, reasoner=request.args.get("reasoner", False))
 
 
 class SERVKnowledgeGraphOneHop(Resource):
@@ -814,6 +821,12 @@ class SERVKnowledgeGraphOneHop(Resource):
             required: true
             schema:
                 $ref: '#/definitions/QueryOneHop'
+          - in: query
+            name: reasoner
+            description: return conforming to the ReasonerStdApi
+            required: false
+            schema:
+                type: boolean
         responses:
             200:
                 description: Success
@@ -831,7 +844,7 @@ class SERVKnowledgeGraphOneHop(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return wrapped(return_value)
+        return wrapped(return_value, reasoner=request.args.get("reasoner", False))
 
 
 api.add_resource(SERVCohort, '/<string:table>/<int:year>/cohort')

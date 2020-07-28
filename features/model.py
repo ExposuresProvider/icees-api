@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime
 from sqlalchemy.sql import select, func
 from scipy.stats import chi2_contingency
 import json
@@ -10,6 +10,7 @@ import time
 from .features import features, lookUpFeatureClass, features_dict
 from tx.functional.maybe import Nothing, Just
 import logging
+from datetime import datetime, timezone
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -42,6 +43,20 @@ cohort_cols = [
 cohort = Table("cohort", metadata, *cohort_cols)
 
 cohort_id_seq = Sequence('cohort_id_seq', metadata=metadata)
+
+association_cols = [
+    Column("table", String),
+    Column("year", Integer),
+    Column("cohort_features", String),
+    Column("feature_a", String),
+    Column("feature_b", String),
+    Column("association", String),
+    Column("access_time", DateTime)
+]
+
+cache = Table("cache", metadata, *association_cols)
+
+Index("cache_index", cache.c.table, cache.c.year, cache.c.cohort_features, cache.c.feature_a, cache.c.feature_b)
 
 def op_dict(table, k, v):
     return {
@@ -202,76 +217,98 @@ def timeit(method):
 
 @timeit
 def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, feature_b):
-    table = tables[table_name]
 
-    ka = feature_a["feature_name"]
-    vas = feature_a["feature_qualifiers"]
-    kb = feature_b["feature_name"]
-    vbs = feature_b["feature_qualifiers"]
+    cohort_features_json = json.dumps(cohort_features, sort_keys=True)
+    feature_a_json = json.dumps(feature_a, sort_keys=True)
+    feature_b_json = json.dumps(feature_b, sort_keys=True)
     
-    selections = [
-        case_select2(table, kb, vb, ka, va) for vb, va in product(vbs, vas)
-    ] + [
-        case_select(table, ka, va) for va in vas
-    ] + [
-        case_select(table, kb, vb) for vb in vbs
-    ] + [
-        func.count()
-    ]
+    result = conn.execute(select([cache.c.association]).select_from(cache).where(cache.c.table == table_name).where(cache.c.year == year).where(cache.c.cohort_features == cohort_features_json).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json)).first()
 
-    result = []
-    for i in range(0, len(selections), MAX_ENTRIES_PER_ROW):
-        subs = selections[i:min(i+MAX_ENTRIES_PER_ROW, len(selections))]
-
-        s = select(subs).select_from(table)
-        if year is not None:
-            s = s.where(table.c.year == year)
-        for k, v in cohort_features.items():
-            s = filter_select(s, table, k, v)
-
-        result.extend(list(conn.execute(s).first()))
+    timestamp = datetime.now(timezone.utc)
     
+    if result is None:
+        
+        table = tables[table_name]
 
-    nvas = len(vas)
-    nvbs = len(vbs)
-    mat_size = nvas * nvbs
+        ka = feature_a["feature_name"]
+        vas = feature_a["feature_qualifiers"]
+        kb = feature_b["feature_name"]
+        vbs = feature_b["feature_qualifiers"]
+        
+        selections = [
+            case_select2(table, kb, vb, ka, va) for vb, va in product(vbs, vas)
+        ] + [
+            case_select(table, ka, va) for va in vas
+        ] + [
+            case_select(table, kb, vb) for vb in vbs
+        ] + [
+            func.count()
+        ]
+        
+        result = []
+        for i in range(0, len(selections), MAX_ENTRIES_PER_ROW):
+            subs = selections[i:min(i+MAX_ENTRIES_PER_ROW, len(selections))]
+            
+            s = select(subs).select_from(table)
+            if year is not None:
+                s = s.where(table.c.year == year)
+            for k, v in cohort_features.items():
+                s = filter_select(s, table, k, v)
+                
+            result.extend(list(conn.execute(s).first()))
+        
 
-    feature_matrix = np.reshape(result[:mat_size], (nvbs, nvas)).tolist()
+        nvas = len(vas)
+        nvbs = len(vbs)
+        mat_size = nvas * nvbs
 
-                    
-    total_cols = result[mat_size : mat_size + nvas]
-    total_rows = result[mat_size + nvas : mat_size + nvas + nvbs]
+        feature_matrix = np.reshape(result[:mat_size], (nvbs, nvas)).tolist()
 
-    total = result[mat_size + nvas + nvbs]
+        
+        total_cols = result[mat_size : mat_size + nvas]
+        total_rows = result[mat_size + nvas : mat_size + nvas + nvbs]
 
-    chi_squared, p, *_ = chi2_contingency(list(map(lambda x : list(map(add_eps, x)), feature_matrix)), correction=False)
+        total = result[mat_size + nvas + nvbs]
+        
+        chi_squared, p, *_ = chi2_contingency(list(map(lambda x : list(map(add_eps, x)), feature_matrix)), correction=False)
 
-    feature_matrix2 = [
-        [
-            {
-                "frequency": cell,
-                "row_percentage": div(cell, total_rows[i]),
-                "column_percentage": div(cell, total_cols[j]),
-                "total_percentage": div(cell, total)
-            } for j, cell in enumerate(row)
-        ] for i, row in enumerate(feature_matrix)
-    ]
+        feature_matrix2 = [
+            [
+                {
+                    "frequency": cell,
+                    "row_percentage": div(cell, total_rows[i]),
+                    "column_percentage": div(cell, total_cols[j]),
+                    "total_percentage": div(cell, total)
+                } for j, cell in enumerate(row)
+            ] for i, row in enumerate(feature_matrix)
+        ]
 
-    feature_a = feature_a.copy()
-    feature_b = feature_b.copy()
-    feature_a["biolink_class"] = inflection.underscore(lookUpFeatureClass(table_name, ka))
-    feature_b["biolink_class"] = inflection.underscore(lookUpFeatureClass(table_name, kb))
+        feature_a = feature_a.copy()
+        feature_b = feature_b.copy()
+        feature_a["biolink_class"] = inflection.underscore(lookUpFeatureClass(table_name, ka))
+        feature_b["biolink_class"] = inflection.underscore(lookUpFeatureClass(table_name, kb))
+        
+        association = {
+            "feature_a": feature_a,
+            "feature_b": feature_b,
+            "feature_matrix": feature_matrix2,
+            "rows": [{"frequency": a, "percentage": b} for (a,b) in zip(total_rows, map(lambda x: x/total, total_rows))],
+            "columns": [{"frequency": a, "percentage": b} for (a,b) in zip(total_cols, map(lambda x: x/total, total_cols))],
+            "total": total,
+            "p_value": p,
+            "chi_squared": chi_squared
+        }
 
-    return {
-        "feature_a": feature_a,
-        "feature_b": feature_b,
-        "feature_matrix": feature_matrix2,
-        "rows": [{"frequency": a, "percentage": b} for (a,b) in zip(total_rows, map(lambda x: x/total, total_rows))],
-        "columns": [{"frequency": a, "percentage": b} for (a,b) in zip(total_cols, map(lambda x: x/total, total_cols))],
-        "total": total,
-        "p_value": p,
-        "chi_squared": chi_squared
-    }
+        association_json = json.dumps(association, sort_keys=True)
+
+        conn.execute(cache.insert().values(association=association_json, table=table_name, year=year, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
+
+    else:
+        association_json = result[0]
+        association = json.loads(association_json)
+        conn.execute(cache.update().where(cache.c.table == table_name).where(cache.c.year == year).where(cache.c.cohort_features == cohort_features_json).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json).values(access_time=timestamp))
+
+    return association
 
 
 def select_feature_count(conn, table_name, year, cohort_features, feature_a):

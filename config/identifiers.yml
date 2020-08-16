@@ -1,96 +1,95 @@
 patient:
-  AvgDailyAcetaldehydeExposure_2: &id010
+  Acetaldehyde: &id010
   - CHEBI:15343
   - PUBCHEM:177
   - MESH:D000079
-  AvgDailyAcetaldehydeExposure_2_qcut: *id010
   AgeStudyStart: &id011
   - NCIT:C25150
-  - umlscui:C0001779
+  - UMLSCUI:C0001779
   - NCIT:C69217
-  - umlscui:C2348002
+  - UMLSCUI:C2348002
   - NCIT:C37908
-  - umlscui:C1510829
+  - UMLSCUI:C1510829
   - SCTID:424144002
   - SCTID:397669002
   Albuterol: &id012
-  - SMILES:CC(C)(C)NCC(O)c1ccc(O)c(CO)c1
+  - SMILES:CC(C)(C)NCC(O)C1CCC(O)C(CO)C1
   - CAS:18559-94-9
   - CAS:35763-26-9
   - MESH:D000420
   - CHEMBL:CHEMBL1002
   - CHEMBL:CHEMBL714
   - PUBCHEM:2083
-  - rxcui:836366
-  - rxcui:1190225
-  - rxcui:746763
-  - rxcui:1437704
-  - rxcui:352051
-  - rxcui:901483
-  - rxcui:901484
-  - rxcui:745752
-  - rxcui:1649961
-  - rxcui:801095
-  - rxcui:859088
-  - rxcui:197318
-  - rxcui:359144
-  - rxcui:197316
-  - rxcui:745679
-  - rxcui:801092
-  - rxcui:836286
-  - rxcui:1649560
-  - rxcui:755497
-  - rxcui:247044
-  - rxcui:1190220
-  - rxcui:252298
-  - rxcui:245314
-  - rxcui:359145
-  - rxcui:392321
-  - rxcui:1362214
-  - rxcui:104514
-  - rxcui:247840
-  - rxcui:307779
-  - rxcui:351137
-  - rxcui:630208
-  - rxcui:108889
-  - rxcui:351136
-  - rxcui:1437702
-  - rxcui:1945738
-  - umlscui:C1971016
-  - umlscui:C3245071
-  - umlscui:C1951493
-  - umlscui:C1585547
-  - umlscui:C1169664
-  - umlscui:C2741573
-  - umlscui:C2741574
-  - umlscui:C1737294
-  - umlscui:C4018762
-  - umlscui:C2345814
-  - umlscui:C0697412
-  - umlscui:C0687804
-  - umlscui:C1177305
-  - umlscui:C0687801
-  - umlscui:C1967434
-  - umlscui:C2345811
-  - umlscui:C1163939
-  - umlscui:C4020010
-  - umlscui:C0687802
-  - umlscui:C0787965
-  - umlscui:C3245066
-  - umlscui:C0794471
-  - umlscui:C0785994
-  - umlscui:C1177306
-  - umlscui:C1300039
-  - umlscui:C0791615
-  - umlscui:C0354696
-  - umlscui:C0789036
-  - umlscui:C0973882
-  - umlscui:C1168689
-  - umlscui:C1696556
-  - umlscui:C0361785
-  - umlscui:C1168688
-  - umlscui:C1164703
-  - umlscui:C4529300
+  - RXCUI:836366
+  - RXCUI:1190225
+  - RXCUI:746763
+  - RXCUI:1437704
+  - RXCUI:352051
+  - RXCUI:901483
+  - RXCUI:901484
+  - RXCUI:745752
+  - RXCUI:1649961
+  - RXCUI:801095
+  - RXCUI:859088
+  - RXCUI:197318
+  - RXCUI:359144
+  - RXCUI:197316
+  - RXCUI:745679
+  - RXCUI:801092
+  - RXCUI:836286
+  - RXCUI:1649560
+  - RXCUI:755497
+  - RXCUI:247044
+  - RXCUI:1190220
+  - RXCUI:252298
+  - RXCUI:245314
+  - RXCUI:359145
+  - RXCUI:392321
+  - RXCUI:1362214
+  - RXCUI:104514
+  - RXCUI:247840
+  - RXCUI:307779
+  - RXCUI:351137
+  - RXCUI:630208
+  - RXCUI:108889
+  - RXCUI:351136
+  - RXCUI:1437702
+  - RXCUI:1945738
+  - UMLSCUI:C1971016
+  - UMLSCUI:C3245071
+  - UMLSCUI:C1951493
+  - UMLSCUI:C1585547
+  - UMLSCUI:C1169664
+  - UMLSCUI:C2741573
+  - UMLSCUI:C2741574
+  - UMLSCUI:C1737294
+  - UMLSCUI:C4018762
+  - UMLSCUI:C2345814
+  - UMLSCUI:C0697412
+  - UMLSCUI:C0687804
+  - UMLSCUI:C1177305
+  - UMLSCUI:C0687801
+  - UMLSCUI:C1967434
+  - UMLSCUI:C2345811
+  - UMLSCUI:C1163939
+  - UMLSCUI:C4020010
+  - UMLSCUI:C0687802
+  - UMLSCUI:C0787965
+  - UMLSCUI:C3245066
+  - UMLSCUI:C0794471
+  - UMLSCUI:C0785994
+  - UMLSCUI:C1177306
+  - UMLSCUI:C1300039
+  - UMLSCUI:C0791615
+  - UMLSCUI:C0354696
+  - UMLSCUI:C0789036
+  - UMLSCUI:C0973882
+  - UMLSCUI:C1168689
+  - UMLSCUI:C1696556
+  - UMLSCUI:C0361785
+  - UMLSCUI:C1168688
+  - UMLSCUI:C1164703
+  - UMLSCUI:C4529300
   - SCTID:372897005
   - SCTID:48474002
   - SCTID:320104002
@@ -211,23 +210,25 @@ patient:
   - SCTID:717055000
   - SCTID:77363004
   - SCTID:237894002
-  Arformoterol: &id015
-  - SMILES:COc1ccc(C[C@@H](C)NC[C@H](O)c2ccc(O)c(NC=O)c2)cc1
+  Androstenedione: &id015
+  - RXCUI:784
+  Arformoterol: &id016
+  - SMILES:COC1CCC(C[C@@H](C)NC[C@H](O)C2CCC(O)C(NC:O)C2)CC1
   - CAS:208102-40-3
   - CAS:289657-27-8
   - CAS:299964-45-7
   - CAS:67346-49-0
   - CHEMBL:CHEMBL1363
   - PUBCHEM:3083544
-  - rxcui:695935
-  - rxcui:668956
-  - umlscui:C1876458
-  - umlscui:C1813289
+  - RXCUI:695935
+  - RXCUI:668956
+  - UMLSCUI:C1876458
+  - UMLSCUI:C1813289
   - SCTID:423347007
   - SCTID:427097003
   - SCTID:423317005
   - SCTID:424662007
-  AsthmaDx: &id016
+  AsthmaDx: &id017
   - MONDO:0004766
   - MONDO:0004979
   - MONDO:0008834
@@ -288,62 +289,65 @@ patient:
   - SCTID:85761009
   - SCTID:93432008
   - HP:0002099
+  - HP:0002099
+  - ICD9:493%
+  - ICD10:J45.%
   - NCIT:C28397
-  - umlscui:C0004096
-  AvgDailyBenzeneExposure_2: &id001
+  - UMLSCUI:C0004096
+  AvgDailyBenzene_2: &id001
   - CHEBI:16716
   - PUBCHEM:241
   - MESH:D001554
-  AvgDailyBenzeneExposure_2_qcut: *id001
-  AvgDailyFormaldehydeExposure_2: &id002
-  - CHEBI:16842
-  - PUBCHEM:712
-  - MESH:D005557
-  AvgDailyFormaldehydeExposure_2_qcut: *id002
-  AvgDailyNO2Exposure_2: &id003
+  AvgDailyBenzene_2_qcut: *id001
+  AvgDailyCO_2: &id002
+  - CHEBI:17245
+  - PUBCHEM:281
+  - MESH:D002248
+  AvgDailyCO_2_qcut: *id002
+  AvgDailyNO2_2: &id003
   - CHEBI:33101
   - PUBCHEM:3032552
   - MESH:D009585
-  AvgDailyNO2Exposure_2_qcut: *id003
-  AvgDailyNOExposure_2: &id004
+  AvgDailyNO2_2_qcut: *id003
+  AvgDailyNO_2: &id004
   - CHEBI:16480
   - PUBCHEM:145068
   - MESH:D009569
-  AvgDailyNOExposure_2_qcut: *id004
-  AvgDailyNOxExposure_2: &id005
+  AvgDailyNO_2_qcut: *id004
+  AvgDailyNOx_2: &id005
   - CHEBI:35196
-  AvgDailyNOxExposure_2_qcut: *id005
-  AvgDailyOzoneExposure: &id006
+  AvgDailyNOx_2_qcut: *id005
+  AvgDailyOzone: &id006
   - MESH:D010126
   - PUBCHEM:24823
   - SCTID:40057008
   - CHEBI:25812
   - ENVO:01000537
-  AvgDailyOzoneExposure_StudyAvg: *id006
-  AvgDailyOzoneExposure_StudyAvg_qcut: *id006
-  AvgDailyOzoneExposure_StudyMax: *id006
-  AvgDailyOzoneExposure_StudyMax_qcut: *id006
-  AvgDailyOzoneExposure_qcut: *id006
-  AvgDailyPM2.5Exposure: &id007
+  AvgDailyOzone_StudyAvg: *id006
+  AvgDailyOzone_StudyAvg_qcut: *id006
+  AvgDailyOzone_StudyMax: *id006
+  AvgDailyOzone_StudyMax_qcut: *id006
+  AvgDailyOzone_qcut: *id006
+  AvgDailyPM2.5: &id007
   - MESH:D052638
   - NCIT:C29886
-  - umlscui:C1510837
+  - UMLSCUI:C1510837
   - SCTID:278694008
   - ENVO:01000060
-  AvgDailyPM2.5Exposure_2: *id007
-  AvgDailyPM2.5Exposure_2_qcut: *id007
-  AvgDailyPM2.5Exposure_StudyAvg: *id007
-  AvgDailyPM2.5Exposure_StudyAvg_qcut: *id007
-  AvgDailyPM2.5Exposure_StudyMax: *id007
-  AvgDailyPM2.5Exposure_StudyMax_qcut: *id007
-  AvgDailyPM2.5Exposure_qcut: *id007
-  AvgDailySO2Exposure_2: &id008
+  AvgDailyPM2.5_2: *id007
+  AvgDailyPM2.5_2_qcut: *id007
+  AvgDailyPM2.5_StudyAvg: *id007
+  AvgDailyPM2.5_StudyAvg_qcut: *id007
+  AvgDailyPM2.5_StudyMax: *id007
+  AvgDailyPM2.5_StudyMax_qcut: *id007
+  AvgDailyPM2.5_qcut: *id007
+  AvgDailySO2_2: &id008
   - CHEBI:18422
   - PUBCHEM:1119
   - MESH:D013458
-  AvgDailySO2Exposure_2_qcut: *id008
-  Beclomethasone: &id017
-  - SMILES:C[C@H]1C[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@]4(C)[C@@]3(Cl)[C@@H](O)C[C@]2(C)[C@@]1(O)C(=O)CO
+  AvgDailySO2_2_qcut: *id008
+  Beclomethasone: &id018
+  - SMILES:C[C@H]1C[C@H]2[C@@H]3CCC4:CC(:O)C:C[C@]4(C)[C@@]3(CL)[C@@H](O)C[C@]2(C)[C@@]1(O)C(:O)CO
   - CAS:4419-39-0
   - MESH:D001507
   - CHEMBL:CHEMBL1586
@@ -356,54 +360,54 @@ patient:
   - PUBCHEM:126968472
   - PUBCHEM:133687604
   - PUBCHEM:134688323
-  - rxcui:1797917
-  - rxcui:966538
-  - rxcui:966542
-  - rxcui:1490668
-  - rxcui:1490774
-  - rxcui:1998772
-  - rxcui:1998774
-  - rxcui:1797902
-  - rxcui:1797921
-  - rxcui:966536
-  - rxcui:966540
-  - rxcui:966629
-  - rxcui:966635
-  - rxcui:966675
-  - rxcui:966765
-  - rxcui:1490666
-  - rxcui:1490773
-  - rxcui:1797900
-  - rxcui:1797910
-  - rxcui:1797920
-  - rxcui:1797926
-  - rxcui:1998771
-  - rxcui:1998773
-  - rxcui:562655
-  - umlscui:C1967476
-  - umlscui:C2346351
-  - umlscui:C0939055
-  - umlscui:C3714827
-  - umlscui:C3817550
-  - umlscui:C4522192
-  - umlscui:C4522193
-  - umlscui:C3871474
-  - umlscui:C3281436
-  - umlscui:C1967874
-  - umlscui:C0974804
-  - umlscui:C0357974
-  - umlscui:C1166496
-  - umlscui:C0974805
-  - umlscui:C0357973
-  - umlscui:C3714825
-  - umlscui:C3714821
-  - umlscui:C3871491
-  - umlscui:C2747543
-  - umlscui:C3281430
-  - umlscui:C0795284
-  - umlscui:C4550668
-  - umlscui:C4550669
-  - umlscui:C1591601
+  - RXCUI:1797917
+  - RXCUI:966538
+  - RXCUI:966542
+  - RXCUI:1490668
+  - RXCUI:1490774
+  - RXCUI:1998772
+  - RXCUI:1998774
+  - RXCUI:1797902
+  - RXCUI:1797921
+  - RXCUI:966536
+  - RXCUI:966540
+  - RXCUI:966629
+  - RXCUI:966635
+  - RXCUI:966675
+  - RXCUI:966765
+  - RXCUI:1490666
+  - RXCUI:1490773
+  - RXCUI:1797900
+  - RXCUI:1797910
+  - RXCUI:1797920
+  - RXCUI:1797926
+  - RXCUI:1998771
+  - RXCUI:1998773
+  - RXCUI:562655
+  - UMLSCUI:C1967476
+  - UMLSCUI:C2346351
+  - UMLSCUI:C0939055
+  - UMLSCUI:C3714827
+  - UMLSCUI:C3817550
+  - UMLSCUI:C4522192
+  - UMLSCUI:C4522193
+  - UMLSCUI:C3871474
+  - UMLSCUI:C3281436
+  - UMLSCUI:C1967874
+  - UMLSCUI:C0974804
+  - UMLSCUI:C0357974
+  - UMLSCUI:C1166496
+  - UMLSCUI:C0974805
+  - UMLSCUI:C0357973
+  - UMLSCUI:C3714825
+  - UMLSCUI:C3714821
+  - UMLSCUI:C3871491
+  - UMLSCUI:C2747543
+  - UMLSCUI:C3281430
+  - UMLSCUI:C0795284
+  - UMLSCUI:C4550668
+  - UMLSCUI:C4550669
+  - UMLSCUI:C1591601
   - SCTID:116574000
   - SCTID:116575004
   - SCTID:426017007
@@ -450,86 +454,86 @@ patient:
   - SCTID:407769008
   - SCTID:320631003
   - SCTID:320543009
-  Budesonide: &id018
-  - SMILES:CCCC1O[C@@H]2C[C@H]3[C@@H]4CCC5=CC(=O)C=C[C@]5(C)[C@H]4[C@@H](O)C[C@]3(C)[C@@]2(O1)C(=O)CO
+  Budesonide: &id019
+  - SMILES:CCCC1O[C@@H]2C[C@H]3[C@@H]4CCC5:CC(:O)C:C[C@]5(C)[C@H]4[C@@H](O)C[C@]3(C)[C@@]2(O1)C(:O)CO
   - CAS:51333-22-3
   - MESH:D019819
   - CHEMBL:CHEMBL1370
   - PUBCHEM:5281004
-  - rxcui:616817
-  - rxcui:616819
-  - rxcui:616830
-  - rxcui:966524
-  - rxcui:966529
-  - rxcui:1797931
-  - rxcui:1244215
-  - rxcui:1246290
-  - rxcui:1246306
-  - rxcui:1246315
-  - rxcui:1246317
-  - rxcui:1366556
-  - rxcui:1596778
-  - rxcui:1797929
-  - rxcui:247551
-  - rxcui:141917
-  - rxcui:247047
-  - rxcui:247048
-  - rxcui:1244214
-  - rxcui:247042
-  - rxcui:247691
-  - rxcui:247481
-  - rxcui:349094
-  - rxcui:351109
-  - rxcui:153173
-  - rxcui:252559
-  - rxcui:409732
-  - rxcui:597829
-  - rxcui:1246288
-  - rxcui:1246304
-  - rxcui:1246314
-  - rxcui:1246316
-  - rxcui:966522
-  - rxcui:966527
-  - rxcui:1366550
-  - rxcui:1596779
-  - rxcui:250648
-  - umlscui:C0939010
-  - umlscui:C1703204
-  - umlscui:C1169541
-  - umlscui:C1948304
-  - umlscui:C1948306
-  - umlscui:C0875802
-  - umlscui:C0592462
-  - umlscui:C1876888
-  - umlscui:C1876887
-  - umlscui:C1966262
-  - umlscui:C1966261
-  - umlscui:C3531324
-  - umlscui:C3864313
-  - umlscui:C0788679
-  - umlscui:C4239003
-  - umlscui:C0542862
-  - umlscui:C0787972
-  - umlscui:C0787973
-  - umlscui:C0592460
-  - umlscui:C4239002
-  - umlscui:C4239004
-  - umlscui:C0788570
-  - umlscui:C1164602
-  - umlscui:C1168655
-  - umlscui:C0593930
-  - umlscui:C0794777
-  - umlscui:C1338988
-  - umlscui:C1660662
-  - umlscui:C1967742
-  - umlscui:C1967737
-  - umlscui:C1967738
-  - umlscui:C1967733
-  - umlscui:C1968012
-  - umlscui:C1968013
-  - umlscui:C3531318
-  - umlscui:C3864327
-  - umlscui:C4239005
+  - RXCUI:616817
+  - RXCUI:616819
+  - RXCUI:616830
+  - RXCUI:966524
+  - RXCUI:966529
+  - RXCUI:1797931
+  - RXCUI:1244215
+  - RXCUI:1246290
+  - RXCUI:1246306
+  - RXCUI:1246315
+  - RXCUI:1246317
+  - RXCUI:1366556
+  - RXCUI:1596778
+  - RXCUI:1797929
+  - RXCUI:247551
+  - RXCUI:141917
+  - RXCUI:247047
+  - RXCUI:247048
+  - RXCUI:1244214
+  - RXCUI:247042
+  - RXCUI:247691
+  - RXCUI:247481
+  - RXCUI:349094
+  - RXCUI:351109
+  - RXCUI:153173
+  - RXCUI:252559
+  - RXCUI:409732
+  - RXCUI:597829
+  - RXCUI:1246288
+  - RXCUI:1246304
+  - RXCUI:1246314
+  - RXCUI:1246316
+  - RXCUI:966522
+  - RXCUI:966527
+  - RXCUI:1366550
+  - RXCUI:1596779
+  - RXCUI:250648
+  - UMLSCUI:C0939010
+  - UMLSCUI:C1703204
+  - UMLSCUI:C1169541
+  - UMLSCUI:C1948304
+  - UMLSCUI:C1948306
+  - UMLSCUI:C0875802
+  - UMLSCUI:C0592462
+  - UMLSCUI:C1876888
+  - UMLSCUI:C1876887
+  - UMLSCUI:C1966262
+  - UMLSCUI:C1966261
+  - UMLSCUI:C3531324
+  - UMLSCUI:C3864313
+  - UMLSCUI:C0788679
+  - UMLSCUI:C4239003
+  - UMLSCUI:C0542862
+  - UMLSCUI:C0787972
+  - UMLSCUI:C0787973
+  - UMLSCUI:C0592460
+  - UMLSCUI:C4239002
+  - UMLSCUI:C4239004
+  - UMLSCUI:C0788570
+  - UMLSCUI:C1164602
+  - UMLSCUI:C1168655
+  - UMLSCUI:C0593930
+  - UMLSCUI:C0794777
+  - UMLSCUI:C1338988
+  - UMLSCUI:C1660662
+  - UMLSCUI:C1967742
+  - UMLSCUI:C1967737
+  - UMLSCUI:C1967738
+  - UMLSCUI:C1967733
+  - UMLSCUI:C1968012
+  - UMLSCUI:C1968013
+  - UMLSCUI:C3531318
+  - UMLSCUI:C3864327
+  - UMLSCUI:C4239005
   - SCTID:395726003
   - SCTID:317446001
   - SCTID:108622005
@@ -567,11 +571,6 @@ patient:
   - SCTID:134499006
   - SCTID:413719005
   - SCTID:408023003
-  AvgDailyCOExposure_2: &id019
-  - CHEBI:17245
-  - PUBCHEM:281
-  - MESH:D002248
-  AvgDailyCOExposure_2_qcut: *id019
   CervicalCancerDx: &id020
   - SCTID:363354003
   - SCTID:423973006
@@ -607,66 +606,66 @@ patient:
   - MONDO:0006143
   - MONDO:0016274
   Cetirizine: &id021
-  - SMILES:OC(=O)COCCN1CCN(CC1)C(c2ccccc2)c3ccc(Cl)cc3
+  - SMILES:OC(:O)COCCN1CCN(CC1)C(C2CCCCC2)C3CCC(CL)CC3
   - CAS:83881-51-0
   - MESH:D017332
   - CHEMBL:CHEMBL896
   - CHEMBL:CHEMBL1000
   - PUBCHEM:2678
-  - rxcui:1086794
-  - rxcui:1087169
-  - rxcui:1549337
-  - rxcui:1014583
-  - rxcui:1011485
-  - rxcui:1014677
-  - rxcui:1020021
-  - rxcui:1020022
-  - rxcui:1020023
-  - rxcui:1020026
-  - rxcui:1991946
-  - rxcui:1020017
-  - rxcui:1014573
-  - rxcui:1014577
-  - rxcui:1014580
-  - rxcui:1020019
-  - rxcui:1020025
-  - rxcui:1428983
-  - rxcui:1482533
-  - rxcui:1011482
-  - rxcui:1014571
-  - rxcui:1014643
-  - rxcui:1014673
-  - rxcui:1014674
-  - rxcui:1014675
-  - rxcui:1014676
-  - rxcui:1014678
-  - umlscui:C2962569
-  - umlscui:C2962778
-  - umlscui:C3855922
-  - umlscui:C1169599
-  - umlscui:C2938114
-  - umlscui:C0712511
-  - umlscui:C0353582
-  - umlscui:C1585241
-  - umlscui:C2741068
-  - umlscui:C0712510
-  - umlscui:C4521179
-  - umlscui:C2722888
-  - umlscui:C2741217
-  - umlscui:C2911898
-  - umlscui:C2756955
-  - umlscui:C2918106
-  - umlscui:C2756141
-  - umlscui:C3651097
-  - umlscui:C3693105
-  - umlscui:C2938112
-  - umlscui:C1168673
-  - umlscui:C1509279
-  - umlscui:C0792562
-  - umlscui:C1509275
-  - umlscui:C2741066
-  - umlscui:C0982629
-  - umlscui:C0975470
+  - RXCUI:1086794
+  - RXCUI:1087169
+  - RXCUI:1549337
+  - RXCUI:1014583
+  - RXCUI:1011485
+  - RXCUI:1014677
+  - RXCUI:1020021
+  - RXCUI:1020022
+  - RXCUI:1020023
+  - RXCUI:1020026
+  - RXCUI:1991946
+  - RXCUI:1020017
+  - RXCUI:1014573
+  - RXCUI:1014577
+  - RXCUI:1014580
+  - RXCUI:1020019
+  - RXCUI:1020025
+  - RXCUI:1428983
+  - RXCUI:1482533
+  - RXCUI:1011482
+  - RXCUI:1014571
+  - RXCUI:1014643
+  - RXCUI:1014673
+  - RXCUI:1014674
+  - RXCUI:1014675
+  - RXCUI:1014676
+  - RXCUI:1014678
+  - UMLSCUI:C2962569
+  - UMLSCUI:C2962778
+  - UMLSCUI:C3855922
+  - UMLSCUI:C1169599
+  - UMLSCUI:C2938114
+  - UMLSCUI:C0712511
+  - UMLSCUI:C0353582
+  - UMLSCUI:C1585241
+  - UMLSCUI:C2741068
+  - UMLSCUI:C0712510
+  - UMLSCUI:C4521179
+  - UMLSCUI:C2722888
+  - UMLSCUI:C2741217
+  - UMLSCUI:C2911898
+  - UMLSCUI:C2756955
+  - UMLSCUI:C2918106
+  - UMLSCUI:C2756141
+  - UMLSCUI:C3651097
+  - UMLSCUI:C3693105
+  - UMLSCUI:C2938112
+  - UMLSCUI:C1168673
+  - UMLSCUI:C1509279
+  - UMLSCUI:C0792562
+  - UMLSCUI:C1509275
+  - UMLSCUI:C2741066
+  - UMLSCUI:C0982629
+  - UMLSCUI:C0975470
   - SCTID:372523007
   - SCTID:108656004
   - SCTID:371746005
@@ -679,27 +678,27 @@ patient:
   - SCTID:400462001
   - SCTID:377275008
   Ciclesonide: &id022
-  - SMILES:CC(C)C(=O)OCC(=O)[C@@]12O[C@@H](O[C@@H]1C[C@H]3[C@@H]4CCC5=CC(=O)C=C[C@]5(C)[C@H]4[C@@H](O)C[C@]23C)C6CCCCC6
+  - SMILES:CC(C)C(:O)OCC(:O)[C@@]12O[C@@H](O[C@@H]1C[C@H]3[C@@H]4CCC5:CC(:O)C:C[C@]5(C)[C@H]4[C@@H](O)C[C@]23C)C6CCCCC6
   - CAS:126544-47-6
   - MESH:C120481
   - CHEMBL:CHEMBL2040682
   - PUBCHEM:6918155
-  - rxcui:799037
-  - rxcui:799040
-  - rxcui:1797843
-  - rxcui:1797840
-  - rxcui:799034
-  - rxcui:799038
-  - rxcui:1797841
-  - rxcui:1797838
-  - umlscui:C2344608
-  - umlscui:C2344611
-  - umlscui:C2341618
-  - umlscui:C3257739
-  - umlscui:C2344605
-  - umlscui:C2344609
-  - umlscui:C2341615
-  - umlscui:C3257733
+  - RXCUI:799037
+  - RXCUI:799040
+  - RXCUI:1797843
+  - RXCUI:1797840
+  - RXCUI:799034
+  - RXCUI:799038
+  - RXCUI:1797841
+  - RXCUI:1797838
+  - UMLSCUI:C2344608
+  - UMLSCUI:C2344611
+  - UMLSCUI:C2341618
+  - UMLSCUI:C3257739
+  - UMLSCUI:C2344605
+  - UMLSCUI:C2344609
+  - UMLSCUI:C2341615
+  - UMLSCUI:C3257733
   - SCTID:417000005
   - SCTID:416359000
   - SCTID:422684008
@@ -707,7 +706,11 @@ patient:
   - SCTID:416739001
   - SCTID:424048001
   - SCTID:423579004
-  CoughDx: &id023
+  Citalopram: &id023
+  - RXCUI:221078
+  - RXCUI:2556
+  - RXCUI:321988
+  CoughDx: &id024
   - MONDO:000149
   - SCTID:11641008
   - SCTID:208136003
@@ -720,9 +723,13 @@ patient:
   - SCTID:90129003
   - HP:0002105
   - HP:0012735
+  - HP:0002105
+  - HP:0012735
+  - ICD9:786%
+  - ICD10R:05.%
   - NCIT:C37935
-  - umlscuoi:C0010200
-  CroupDx: &id024
+  - UMLSCUOI:C0010200
+  CroupDx: &id025
   - MONDO:0005722
   - MONDO:0018597
   - SCTID:195714005
@@ -731,9 +738,11 @@ patient:
   - SCTID:232430006
   - SCTID:53926002
   - SCTID:71186008
+  - ICD9:464%
+  - ICD10:J05.%
   - NCIT:C26735
-  - umlscui:C0010380
-  DiabetesDx: &id025
+  - UMLSCUI:C0010380
+  DiabetesDx: &id026
   - SCTID:405751000
   - SCTID:11530004
   - SCTID:702706001
@@ -803,384 +812,384 @@ patient:
   - SCTID:77274005
   - SCTID:170775008
   - SCTID:421920002
-  Diphenhydramine: &id026
-  - SMILES:CN(C)CCOC(c1ccccc1)c2ccccc2
+  Diphenhydramine: &id027
+  - SMILES:CN(C)CCOC(C1CCCCC1)C2CCCCC2
   - CAS:58-73-1
   - MESH:D004155
   - CHEMBL:CHEMBL657
   - CHEMBL:CHEMBL1200406
   - PUBCHEM:3100
-  - rxcui:1233692
-  - rxcui:1052466
-  - rxcui:1052469
-  - rxcui:1053142
-  - rxcui:1085968
-  - rxcui:1086767
-  - rxcui:1087030
-  - rxcui:1087037
-  - rxcui:1092093
-  - rxcui:1233662
-  - rxcui:1090076
-  - rxcui:1090078
-  - rxcui:1090456
-  - rxcui:1092416
-  - rxcui:1092428
-  - rxcui:1092454
-  - rxcui:1093102
-  - rxcui:1093113
-  - rxcui:1483617
-  - rxcui:1488218
-  - rxcui:1648369
-  - rxcui:1789738
-  - rxcui:1297952
-  - rxcui:1093222
-  - rxcui:1094451
-  - rxcui:1094718
-  - rxcui:1099876
-  - rxcui:1101111
-  - rxcui:1111095
-  - rxcui:1112713
-  - rxcui:1116532
-  - rxcui:1146883
-  - rxcui:1086857
-  - rxcui:1086986
-  - rxcui:1049632
-  - rxcui:1049725
-  - rxcui:1049882
-  - rxcui:1049901
-  - rxcui:1049908
-  - rxcui:1049910
-  - rxcui:882506
-  - rxcui:1020479
-  - rxcui:1092382
-  - rxcui:1092421
-  - rxcui:1092422
-  - rxcui:1092424
-  - rxcui:1092446
-  - rxcui:1092447
-  - rxcui:1092456
-  - rxcui:1092633
-  - rxcui:1093377
-  - rxcui:1094188
-  - rxcui:1232646
-  - rxcui:1297519
-  - rxcui:1094214
-  - rxcui:1117539
-  - rxcui:1087609
-  - rxcui:1092351
-  - rxcui:1092365
-  - rxcui:1092464
-  - rxcui:1094338
-  - rxcui:1094393
-  - rxcui:1086859
-  - rxcui:1092375
-  - rxcui:1092378
-  - rxcui:1093077
-  - rxcui:1093085
-  - rxcui:1092466
-  - rxcui:1297412
-  - rxcui:1052645
-  - rxcui:1297564
-  - rxcui:1111764
-  - rxcui:1293717
-  - rxcui:1294591
-  - rxcui:1294592
-  - rxcui:1088465
-  - rxcui:901818
-  - rxcui:1294350
-  - rxcui:1086723
-  - rxcui:1088846
-  - rxcui:1294196
-  - rxcui:1294199
-  - rxcui:1294596
-  - rxcui:1297516
-  - rxcui:1049176
-  - rxcui:1297949
-  - rxcui:1094385
-  - rxcui:1294194
-  - rxcui:1190450
-  - rxcui:895666
-  - rxcui:902633
-  - rxcui:1314976
-  - rxcui:1363475
-  - rxcui:1437774
-  - rxcui:1549559
-  - rxcui:1658757
-  - rxcui:1420997
-  - rxcui:1437306
-  - rxcui:1437725
-  - rxcui:1488693
-  - rxcui:1488702
-  - rxcui:1494599
-  - rxcui:1535603
-  - rxcui:1535708
-  - rxcui:1536447
-  - rxcui:1550963
-  - rxcui:1593116
-  - rxcui:1992526
-  - rxcui:1608065
-  - rxcui:1609070
-  - rxcui:1648227
-  - rxcui:1724486
-  - rxcui:1789746
-  - rxcui:1235322
-  - rxcui:1235380
-  - rxcui:1248356
-  - rxcui:1248360
-  - rxcui:1250909
-  - rxcui:1241621
-  - rxcui:1245403
-  - rxcui:1297575
-  - rxcui:1310481
-  - rxcui:1310485
-  - rxcui:1926557
-  - rxcui:1919073
-  - rxcui:1922727
-  - rxcui:1092461
-  - rxcui:1926221
-  - rxcui:1020477
-  - rxcui:1085945
-  - rxcui:1087607
-  - rxcui:1093075
-  - rxcui:1093083
-  - rxcui:1298288
-  - rxcui:2059045
-  - rxcui:1049091
-  - rxcui:1049098
-  - rxcui:1049289
-  - rxcui:1049633
-  - rxcui:1049723
-  - rxcui:1049880
-  - rxcui:1049884
-  - rxcui:1049888
-  - rxcui:1049898
-  - rxcui:1050077
-  - rxcui:1050080
-  - rxcui:1050385
-  - rxcui:1053138
-  - rxcui:1087026
-  - rxcui:1092373
-  - rxcui:1145951
-  - rxcui:1375932
-  - rxcui:1420992
-  - rxcui:1535702
-  - rxcui:1653139
-  - rxcui:1723740
-  - rxcui:1723776
-  - rxcui:1232642
-  - rxcui:1235317
-  - rxcui:1236048
-  - rxcui:1245398
-  - rxcui:1248354
-  - rxcui:1251836
-  - rxcui:1292097
-  - rxcui:1292313
-  - rxcui:1292321
-  - rxcui:1294589
-  - rxcui:1294614
-  - rxcui:1297514
-  - rxcui:1298287
-  - rxcui:1298467
-  - rxcui:1942340
-  - rxcui:1996098
-  - rxcui:1049900
-  - rxcui:1049904
-  - rxcui:1052462
-  - rxcui:1052467
-  - rxcui:882504
-  - rxcui:1233575
-  - rxcui:1251776
-  - rxcui:1294348
-  - rxcui:1294567
-  - rxcui:1099872
-  - rxcui:895664
-  - rxcui:1593110
-  - rxcui:1291868
-  - rxcui:1292323
-  - rxcui:1297947
-  - rxcui:1291991
-  - rxcui:1046751
-  - rxcui:1049630
-  - rxcui:1049909
-  - rxcui:1052928
-  - rxcui:1092189
-  - rxcui:1092398
-  - rxcui:1093098
-  - rxcui:1117245
-  - rxcui:1147619
-  - rxcui:901814
-  - rxcui:1550957
-  - rxcui:1659175
-  - rxcui:1659960
-  - rxcui:1291711
-  - rxcui:1294557
-  - rxcui:1297517
-  - rxcui:1312784
-  - rxcui:2046528
-  - rxcui:1293964
-  - rxcui:1049906
-  - rxcui:1086720
-  - rxcui:1094131
-  - rxcui:1251783
-  - rxcui:1294594
-  - rxcui:1294602
-  - rxcui:1291867
-  - rxcui:1664631
-  - rxcui:1664658
-  - rxcui:1789740
-  - rxcui:1190448
-  - rxcui:1294370
-  - rxcui:1294372
-  - rxcui:1537194
-  - rxcui:1537340
-  - rxcui:1809636
-  - rxcui:1249715
-  - rxcui:1249717
-  - rxcui:1250907
-  - rxcui:1291961
-  - rxcui:1294322
-  - rxcui:1294365
-  - rxcui:1294366
-  - rxcui:1294376
-  - rxcui:1297410
-  - rxcui:1297950
-  - rxcui:1298348
-  - rxcui:1310475
-  - rxcui:1310483
-  - umlscui:C3249838
-  - umlscui:C2961230
-  - umlscui:C1966623
-  - umlscui:C2961550
-  - umlscui:C0710420
-  - umlscui:C2962545
-  - umlscui:C2962729
-  - umlscui:C2962733
-  - umlscui:C0710394
-  - umlscui:C3249809
-  - umlscui:C2979106
-  - umlscui:C2979108
-  - umlscui:C2979177
-  - umlscui:C0710401
-  - umlscui:C2370127
-  - umlscui:C2370174
-  - umlscui:C2586469
-  - umlscui:C0710316
-  - umlscui:C3245048
-  - umlscui:C3709736
-  - umlscui:C4019484
-  - umlscui:C4237811
-  - umlscui:C2978894
-  - umlscui:C2980718
-  - umlscui:C0710377
-  - umlscui:C3152278
-  - umlscui:C3153662
-  - umlscui:C3154175
-  - umlscui:C3159420
-  - umlscui:C3160222
-  - umlscui:C3163535
-  - umlscui:C3192005
-  - umlscui:C0710423
-  - umlscui:C0710408
-  - umlscui:C0710392
-  - umlscui:C0715994
-  - umlscui:C0715389
-  - umlscui:C0715391
-  - umlscui:C1329338
-  - umlscui:C0697421
-  - umlscui:C1642798
-  - umlscui:C2940395
-  - umlscui:C0710387
-  - umlscui:C0710389
-  - umlscui:C0710297
-  - umlscui:C0710349
-  - umlscui:C0710398
-  - umlscui:C0710301
-  - umlscui:C0710364
-  - umlscui:C0710395
-  - umlscui:C0710300
-  - umlscui:C0710359
-  - umlscui:C0713131
-  - umlscui:C0715978
-  - umlscui:C0710367
-  - umlscui:C0714624
-  - umlscui:C1631089
-  - umlscui:C0711604
-  - umlscui:C0711606
-  - umlscui:C0710400
-  - umlscui:C0710314
-  - umlscui:C0710379
-  - umlscui:C0710425
-  - umlscui:C1637859
-  - umlscui:C0711613
-  - umlscui:C2961233
-  - umlscui:C0711672
-  - umlscui:C0876592
-  - umlscui:C1169490
-  - umlscui:C1878604
-  - umlscui:C1329687
-  - umlscui:C1658555
-  - umlscui:C1656904
-  - umlscui:C1877255
-  - umlscui:C1877256
-  - umlscui:C1654649
-  - umlscui:C1724013
-  - umlscui:C1738621
-  - umlscui:C2962514
-  - umlscui:C1877259
-  - umlscui:C2343768
-  - umlscui:C2722500
-  - umlscui:C1877342
-  - umlscui:C1964744
-  - umlscui:C2342927
-  - umlscui:C1877877
-  - umlscui:C2586576
-  - umlscui:C2586863
-  - umlscui:C2723199
-  - umlscui:C2731591
-  - umlscui:C2343501
-  - umlscui:C3500667
-  - umlscui:C3528836
-  - umlscui:C3666810
-  - umlscui:C3856087
-  - umlscui:C4032992
-  - umlscui:C3555080
-  - umlscui:C3666558
-  - umlscui:C3666785
-  - umlscui:C3709991
-  - umlscui:C3692152
-  - umlscui:C3714747
-  - umlscui:C3817780
-  - umlscui:C3817771
-  - umlscui:C3817723
-  - umlscui:C3857808
-  - umlscui:C3859488
-  - umlscui:C4535498
-  - umlscui:C4018369
-  - umlscui:C4018598
-  - umlscui:C4018759
-  - umlscui:C4059793
-  - umlscui:C4237819
-  - umlscui:C3249403
-  - umlscui:C3254776
-  - umlscui:C3249766
-  - umlscui:C3268209
-  - umlscui:C0715313
-  - umlscui:C3257095
-  - umlscui:C3265742
-  - umlscui:C1329745
-  - umlscui:C3497698
-  - umlscui:C3497702
-  - umlscui:C4489717
-  - umlscui:C4473852
-  - umlscui:C4476017
-  - umlscui:C0710303
-  - umlscui:C4477998
-  - umlscui:C0710311
-  - umlscui:C2962205
-  - umlscui:C0789590
-  - umlscui:C2920191
-  - umlscui:C0783354
-  - umlscui:C1614863
+  - RXCUI:1233692
+  - RXCUI:1052466
+  - RXCUI:1052469
+  - RXCUI:1053142
+  - RXCUI:1085968
+  - RXCUI:1086767
+  - RXCUI:1087030
+  - RXCUI:1087037
+  - RXCUI:1092093
+  - RXCUI:1233662
+  - RXCUI:1090076
+  - RXCUI:1090078
+  - RXCUI:1090456
+  - RXCUI:1092416
+  - RXCUI:1092428
+  - RXCUI:1092454
+  - RXCUI:1093102
+  - RXCUI:1093113
+  - RXCUI:1483617
+  - RXCUI:1488218
+  - RXCUI:1648369
+  - RXCUI:1789738
+  - RXCUI:1297952
+  - RXCUI:1093222
+  - RXCUI:1094451
+  - RXCUI:1094718
+  - RXCUI:1099876
+  - RXCUI:1101111
+  - RXCUI:1111095
+  - RXCUI:1112713
+  - RXCUI:1116532
+  - RXCUI:1146883
+  - RXCUI:1086857
+  - RXCUI:1086986
+  - RXCUI:1049632
+  - RXCUI:1049725
+  - RXCUI:1049882
+  - RXCUI:1049901
+  - RXCUI:1049908
+  - RXCUI:1049910
+  - RXCUI:882506
+  - RXCUI:1020479
+  - RXCUI:1092382
+  - RXCUI:1092421
+  - RXCUI:1092422
+  - RXCUI:1092424
+  - RXCUI:1092446
+  - RXCUI:1092447
+  - RXCUI:1092456
+  - RXCUI:1092633
+  - RXCUI:1093377
+  - RXCUI:1094188
+  - RXCUI:1232646
+  - RXCUI:1297519
+  - RXCUI:1094214
+  - RXCUI:1117539
+  - RXCUI:1087609
+  - RXCUI:1092351
+  - RXCUI:1092365
+  - RXCUI:1092464
+  - RXCUI:1094338
+  - RXCUI:1094393
+  - RXCUI:1086859
+  - RXCUI:1092375
+  - RXCUI:1092378
+  - RXCUI:1093077
+  - RXCUI:1093085
+  - RXCUI:1092466
+  - RXCUI:1297412
+  - RXCUI:1052645
+  - RXCUI:1297564
+  - RXCUI:1111764
+  - RXCUI:1293717
+  - RXCUI:1294591
+  - RXCUI:1294592
+  - RXCUI:1088465
+  - RXCUI:901818
+  - RXCUI:1294350
+  - RXCUI:1086723
+  - RXCUI:1088846
+  - RXCUI:1294196
+  - RXCUI:1294199
+  - RXCUI:1294596
+  - RXCUI:1297516
+  - RXCUI:1049176
+  - RXCUI:1297949
+  - RXCUI:1094385
+  - RXCUI:1294194
+  - RXCUI:1190450
+  - RXCUI:895666
+  - RXCUI:902633
+  - RXCUI:1314976
+  - RXCUI:1363475
+  - RXCUI:1437774
+  - RXCUI:1549559
+  - RXCUI:1658757
+  - RXCUI:1420997
+  - RXCUI:1437306
+  - RXCUI:1437725
+  - RXCUI:1488693
+  - RXCUI:1488702
+  - RXCUI:1494599
+  - RXCUI:1535603
+  - RXCUI:1535708
+  - RXCUI:1536447
+  - RXCUI:1550963
+  - RXCUI:1593116
+  - RXCUI:1992526
+  - RXCUI:1608065
+  - RXCUI:1609070
+  - RXCUI:1648227
+  - RXCUI:1724486
+  - RXCUI:1789746
+  - RXCUI:1235322
+  - RXCUI:1235380
+  - RXCUI:1248356
+  - RXCUI:1248360
+  - RXCUI:1250909
+  - RXCUI:1241621
+  - RXCUI:1245403
+  - RXCUI:1297575
+  - RXCUI:1310481
+  - RXCUI:1310485
+  - RXCUI:1926557
+  - RXCUI:1919073
+  - RXCUI:1922727
+  - RXCUI:1092461
+  - RXCUI:1926221
+  - RXCUI:1020477
+  - RXCUI:1085945
+  - RXCUI:1087607
+  - RXCUI:1093075
+  - RXCUI:1093083
+  - RXCUI:1298288
+  - RXCUI:2059045
+  - RXCUI:1049091
+  - RXCUI:1049098
+  - RXCUI:1049289
+  - RXCUI:1049633
+  - RXCUI:1049723
+  - RXCUI:1049880
+  - RXCUI:1049884
+  - RXCUI:1049888
+  - RXCUI:1049898
+  - RXCUI:1050077
+  - RXCUI:1050080
+  - RXCUI:1050385
+  - RXCUI:1053138
+  - RXCUI:1087026
+  - RXCUI:1092373
+  - RXCUI:1145951
+  - RXCUI:1375932
+  - RXCUI:1420992
+  - RXCUI:1535702
+  - RXCUI:1653139
+  - RXCUI:1723740
+  - RXCUI:1723776
+  - RXCUI:1232642
+  - RXCUI:1235317
+  - RXCUI:1236048
+  - RXCUI:1245398
+  - RXCUI:1248354
+  - RXCUI:1251836
+  - RXCUI:1292097
+  - RXCUI:1292313
+  - RXCUI:1292321
+  - RXCUI:1294589
+  - RXCUI:1294614
+  - RXCUI:1297514
+  - RXCUI:1298287
+  - RXCUI:1298467
+  - RXCUI:1942340
+  - RXCUI:1996098
+  - RXCUI:1049900
+  - RXCUI:1049904
+  - RXCUI:1052462
+  - RXCUI:1052467
+  - RXCUI:882504
+  - RXCUI:1233575
+  - RXCUI:1251776
+  - RXCUI:1294348
+  - RXCUI:1294567
+  - RXCUI:1099872
+  - RXCUI:895664
+  - RXCUI:1593110
+  - RXCUI:1291868
+  - RXCUI:1292323
+  - RXCUI:1297947
+  - RXCUI:1291991
+  - RXCUI:1046751
+  - RXCUI:1049630
+  - RXCUI:1049909
+  - RXCUI:1052928
+  - RXCUI:1092189
+  - RXCUI:1092398
+  - RXCUI:1093098
+  - RXCUI:1117245
+  - RXCUI:1147619
+  - RXCUI:901814
+  - RXCUI:1550957
+  - RXCUI:1659175
+  - RXCUI:1659960
+  - RXCUI:1291711
+  - RXCUI:1294557
+  - RXCUI:1297517
+  - RXCUI:1312784
+  - RXCUI:2046528
+  - RXCUI:1293964
+  - RXCUI:1049906
+  - RXCUI:1086720
+  - RXCUI:1094131
+  - RXCUI:1251783
+  - RXCUI:1294594
+  - RXCUI:1294602
+  - RXCUI:1291867
+  - RXCUI:1664631
+  - RXCUI:1664658
+  - RXCUI:1789740
+  - RXCUI:1190448
+  - RXCUI:1294370
+  - RXCUI:1294372
+  - RXCUI:1537194
+  - RXCUI:1537340
+  - RXCUI:1809636
+  - RXCUI:1249715
+  - RXCUI:1249717
+  - RXCUI:1250907
+  - RXCUI:1291961
+  - RXCUI:1294322
+  - RXCUI:1294365
+  - RXCUI:1294366
+  - RXCUI:1294376
+  - RXCUI:1297410
+  - RXCUI:1297950
+  - RXCUI:1298348
+  - RXCUI:1310475
+  - RXCUI:1310483
+  - UMLSCUI:C3249838
+  - UMLSCUI:C2961230
+  - UMLSCUI:C1966623
+  - UMLSCUI:C2961550
+  - UMLSCUI:C0710420
+  - UMLSCUI:C2962545
+  - UMLSCUI:C2962729
+  - UMLSCUI:C2962733
+  - UMLSCUI:C0710394
+  - UMLSCUI:C3249809
+  - UMLSCUI:C2979106
+  - UMLSCUI:C2979108
+  - UMLSCUI:C2979177
+  - UMLSCUI:C0710401
+  - UMLSCUI:C2370127
+  - UMLSCUI:C2370174
+  - UMLSCUI:C2586469
+  - UMLSCUI:C0710316
+  - UMLSCUI:C3245048
+  - UMLSCUI:C3709736
+  - UMLSCUI:C4019484
+  - UMLSCUI:C4237811
+  - UMLSCUI:C2978894
+  - UMLSCUI:C2980718
+  - UMLSCUI:C0710377
+  - UMLSCUI:C3152278
+  - UMLSCUI:C3153662
+  - UMLSCUI:C3154175
+  - UMLSCUI:C3159420
+  - UMLSCUI:C3160222
+  - UMLSCUI:C3163535
+  - UMLSCUI:C3192005
+  - UMLSCUI:C0710423
+  - UMLSCUI:C0710408
+  - UMLSCUI:C0710392
+  - UMLSCUI:C0715994
+  - UMLSCUI:C0715389
+  - UMLSCUI:C0715391
+  - UMLSCUI:C1329338
+  - UMLSCUI:C0697421
+  - UMLSCUI:C1642798
+  - UMLSCUI:C2940395
+  - UMLSCUI:C0710387
+  - UMLSCUI:C0710389
+  - UMLSCUI:C0710297
+  - UMLSCUI:C0710349
+  - UMLSCUI:C0710398
+  - UMLSCUI:C0710301
+  - UMLSCUI:C0710364
+  - UMLSCUI:C0710395
+  - UMLSCUI:C0710300
+  - UMLSCUI:C0710359
+  - UMLSCUI:C0713131
+  - UMLSCUI:C0715978
+  - UMLSCUI:C0710367
+  - UMLSCUI:C0714624
+  - UMLSCUI:C1631089
+  - UMLSCUI:C0711604
+  - UMLSCUI:C0711606
+  - UMLSCUI:C0710400
+  - UMLSCUI:C0710314
+  - UMLSCUI:C0710379
+  - UMLSCUI:C0710425
+  - UMLSCUI:C1637859
+  - UMLSCUI:C0711613
+  - UMLSCUI:C2961233
+  - UMLSCUI:C0711672
+  - UMLSCUI:C0876592
+  - UMLSCUI:C1169490
+  - UMLSCUI:C1878604
+  - UMLSCUI:C1329687
+  - UMLSCUI:C1658555
+  - UMLSCUI:C1656904
+  - UMLSCUI:C1877255
+  - UMLSCUI:C1877256
+  - UMLSCUI:C1654649
+  - UMLSCUI:C1724013
+  - UMLSCUI:C1738621
+  - UMLSCUI:C2962514
+  - UMLSCUI:C1877259
+  - UMLSCUI:C2343768
+  - UMLSCUI:C2722500
+  - UMLSCUI:C1877342
+  - UMLSCUI:C1964744
+  - UMLSCUI:C2342927
+  - UMLSCUI:C1877877
+  - UMLSCUI:C2586576
+  - UMLSCUI:C2586863
+  - UMLSCUI:C2723199
+  - UMLSCUI:C2731591
+  - UMLSCUI:C2343501
+  - UMLSCUI:C3500667
+  - UMLSCUI:C3528836
+  - UMLSCUI:C3666810
+  - UMLSCUI:C3856087
+  - UMLSCUI:C4032992
+  - UMLSCUI:C3555080
+  - UMLSCUI:C3666558
+  - UMLSCUI:C3666785
+  - UMLSCUI:C3709991
+  - UMLSCUI:C3692152
+  - UMLSCUI:C3714747
+  - UMLSCUI:C3817780
+  - UMLSCUI:C3817771
+  - UMLSCUI:C3817723
+  - UMLSCUI:C3857808
+  - UMLSCUI:C3859488
+  - UMLSCUI:C4535498
+  - UMLSCUI:C4018369
+  - UMLSCUI:C4018598
+  - UMLSCUI:C4018759
+  - UMLSCUI:C4059793
+  - UMLSCUI:C4237819
+  - UMLSCUI:C3249403
+  - UMLSCUI:C3254776
+  - UMLSCUI:C3249766
+  - UMLSCUI:C3268209
+  - UMLSCUI:C0715313
+  - UMLSCUI:C3257095
+  - UMLSCUI:C3265742
+  - UMLSCUI:C1329745
+  - UMLSCUI:C3497698
+  - UMLSCUI:C3497702
+  - UMLSCUI:C4489717
+  - UMLSCUI:C4473852
+  - UMLSCUI:C4476017
+  - UMLSCUI:C0710303
+  - UMLSCUI:C4477998
+  - UMLSCUI:C0710311
+  - UMLSCUI:C2962205
+  - UMLSCUI:C0789590
+  - UMLSCUI:C2920191
+  - UMLSCUI:C0783354
+  - UMLSCUI:C1614863
   - SCTID:372682005
   - SCTID:19510001
   - SCTID:320730006
@@ -1213,7 +1222,7 @@ patient:
   - SCTID:423376005
   - SCTID:392555003
   - SCTID:412493000
-  DrugDependenceDx: &id027
+  DrugDependenceDx: &id028
   - SCTID:191816009
   - SCTID:231482005
   - SCTID:153501000119105
@@ -1247,7 +1256,10 @@ patient:
   - SCTID:267206008
   - SCTID:34150001
   - SCTID:199255000
-  EndometriosisDx: &id028
+  Duloxetine: &id029
+  - RXCUI:476250
+  - RXCUI:72625
+  EndometriosisDx: &id030
   - SCTID:396224008
   - SCTID:129103003
   - SCTID:53913001
@@ -1294,96 +1306,108 @@ patient:
   - SCTID:724454004
   - SCTID:416155004
   - SCTID:263638005
-  EstHouseholdIncome: &id029
+  Escitalopram: &id031
+  - RXCUI:353108
+  - RXCUI:321988
+  EstHouseholdIncome: &id032
   - NCIT:C70811
-  - umlscui:C0557163
+  - UMLSCUI:C0557163
   - SCTID:224168007
   - SCTID:365553008
-  EstProbabilityESL: &id030
+  EstProbabilityESL: &id033
   - SCTID:161140009
-  EstProbabilityHighSchoolMaxEducation: &id031
+  EstProbabilityHighSchoolMaxEducation: &id034
   - NCIT:C89278
-  - umlscui:C0599395
+  - UMLSCUI:C0599395
   - NCIT:C67136
-  - umlscui:C0870649
+  - UMLSCUI:C0870649
   - SCTID:473461003
-  EstProbabilityHouseholdNonHispWhite: &id032
+  EstProbabilityHouseholdNonHispWhite: &id035
   - NCIT:C93992
-  - umlscui:C2986190
+  - UMLSCUI:C2986190
   - SCTID:185984009
-  EstProbabilityNoAuto: &id033
+  EstProbabilityNoAuto: &id036
   - SCTID:71783008
-  EstProbabilityNoHealthIns: &id034
+  EstProbabilityNoHealthIns: &id037
   - NCIT:C70696
-  - umlscui:C2347682
+  - UMLSCUI:C2347682
   - SCTID:419808006
-  EstProbabilityNonHispWhite: &id035
+  EstProbabilityNonHispWhite: &id038
   - NCIT:C93992
-  - umlscui:C2986190
+  - UMLSCUI:C2986190
   - SCTID:185984009
-  EstResidentialDensity: &id036
+  EstResidentialDensity: &id039
   - NCIT:C45781
-  - umlscui:C0178587
+  - UMLSCUI:C0178587
   - SCTID:272497004
-  EstResidentialDensity25Plus: &id037
+  EstResidentialDensity25Plus: &id040
   - NCIT:C45781
-  - umlscui:C0178587
+  - UMLSCUI:C0178587
   - SCTID:272497004
-  Ethnicity: &id038
+  Estradiol: &id041
+  - RXCUI:4083
+  - RXCUI:24395
+  - RXCUI:405416
+  - RXCUI:60661
+  Estrogen: &id042
+  - RXCUI:4100
+  Estropipate: &id043
+  - RXCUI:33747
+  Ethnicity: &id044
   - NCIT:C29933
   - NCIT:C16564
-  - umlscui:C0015031
+  - UMLSCUI:C0015031
   - SCTID:186034007
-  Fexofenadine: &id039
-  - SMILES:CC(C)(C(O)=O)c1ccc(cc1)C(O)CCCN2CCC(CC2)C(O)(c3ccccc3)c4ccccc4
+  Fexofenadine: &id045
+  - SMILES:CC(C)(C(O):O)C1CCC(CC1)C(O)CCCN2CCC(CC2)C(O)(C3CCCCC3)C4CCCCC4
   - CAS:159389-12-5
   - CAS:76815-58-2
   - CAS:83799-24-0
   - MESH:C093230
   - CHEMBL:CHEMBL914
   - PUBCHEM:3348
-  - rxcui:1116528
-  - rxcui:1670344
-  - rxcui:1192737
-  - rxcui:997512
-  - rxcui:997515
-  - rxcui:997422
-  - rxcui:997484
-  - rxcui:997493
-  - rxcui:997502
-  - rxcui:1488053
-  - rxcui:1190331
-  - rxcui:1190334
-  - rxcui:997406
-  - rxcui:997415
-  - rxcui:997420
-  - rxcui:997482
-  - rxcui:997488
-  - rxcui:997491
-  - rxcui:997494
-  - rxcui:997501
-  - rxcui:997550
-  - umlscui:C3163531
-  - umlscui:C4048787
-  - umlscui:C3247651
-  - umlscui:C0716180
-  - umlscui:C1616745
-  - umlscui:C0938972
-  - umlscui:C1965892
-  - umlscui:C1813542
-  - umlscui:C0875865
-  - umlscui:C3709686
-  - umlscui:C3245135
-  - umlscui:C3245138
-  - umlscui:C0976924
-  - umlscui:C1576499
-  - umlscui:C0976919
-  - umlscui:C1964496
-  - umlscui:C0976920
-  - umlscui:C1813539
-  - umlscui:C0976921
-  - umlscui:C0976923
-  - umlscui:C0976918
+  - RXCUI:1116528
+  - RXCUI:1670344
+  - RXCUI:1192737
+  - RXCUI:997512
+  - RXCUI:997515
+  - RXCUI:997422
+  - RXCUI:997484
+  - RXCUI:997493
+  - RXCUI:997502
+  - RXCUI:1488053
+  - RXCUI:1190331
+  - RXCUI:1190334
+  - RXCUI:997406
+  - RXCUI:997415
+  - RXCUI:997420
+  - RXCUI:997482
+  - RXCUI:997488
+  - RXCUI:997491
+  - RXCUI:997494
+  - RXCUI:997501
+  - RXCUI:997550
+  - UMLSCUI:C3163531
+  - UMLSCUI:C4048787
+  - UMLSCUI:C3247651
+  - UMLSCUI:C0716180
+  - UMLSCUI:C1616745
+  - UMLSCUI:C0938972
+  - UMLSCUI:C1965892
+  - UMLSCUI:C1813542
+  - UMLSCUI:C0875865
+  - UMLSCUI:C3709686
+  - UMLSCUI:C3245135
+  - UMLSCUI:C3245138
+  - UMLSCUI:C0976924
+  - UMLSCUI:C1576499
+  - UMLSCUI:C0976919
+  - UMLSCUI:C1964496
+  - UMLSCUI:C0976920
+  - UMLSCUI:C1813539
+  - UMLSCUI:C0976921
+  - UMLSCUI:C0976923
+  - UMLSCUI:C0976918
   - SCTID:372522002
   - SCTID:108653007
   - SCTID:376716006
@@ -1397,27 +1421,27 @@ patient:
   - SCTID:400883003
   - SCTID:371751004
   - SCTID:409176001
-  FibromyalgiaDx: &id040
+  FibromyalgiaDx: &id046
   - SCTID:203082005
   - SCTID:95417003
-  Flunisolide: &id041
-  - SMILES:O.CC1(C)O[C@@H]2CC3[C@@H]4C[C@H](F)C5=CC(=O)C=CC5(C)[C@H]4[C@@H](O)C[C@]3(C)[C@@]2(O1)C(=O)CO.CC6(C)O[C@@H]7CC8[C@@H]9C[C@H](F)C%10=CC(=O)C=CC%10(C)[C@H]9[C@@H](O)C[C@]8(C)[C@@]7(O6)C(=O)CO
+  Flunisolide: &id047
+  - SMILES:O.CC1(C)O[C@@H]2CC3[C@@H]4C[C@H](F)C5:CC(:O)C:CC5(C)[C@H]4[C@@H](O)C[C@]3(C)[C@@]2(O1)C(:O)CO.CC6(C)O[C@@H]7CC8[C@@H]9C[C@H](F)C%10:CC(:O)C:CC%10(C)[C@H]9[C@@H](O)C[C@]8(C)[C@@]7(O6)C(:O)CO
   - CAS:77326-96-6
   - MESH:C007734
   - CHEMBL:CHEMBL1512
   - PUBCHEM:82153
-  - rxcui:1245275
-  - rxcui:1245277
-  - rxcui:828927
-  - rxcui:1245270
-  - rxcui:1245276
-  - rxcui:1797863
-  - umlscui:C3265693
-  - umlscui:C3265695
-  - umlscui:C0976950
-  - umlscui:C3265688
-  - umlscui:C3265694
-  - umlscui:C3495487
+  - RXCUI:1245275
+  - RXCUI:1245277
+  - RXCUI:828927
+  - RXCUI:1245270
+  - RXCUI:1245276
+  - RXCUI:1797863
+  - UMLSCUI:C3265693
+  - UMLSCUI:C3265695
+  - UMLSCUI:C0976950
+  - UMLSCUI:C3265688
+  - UMLSCUI:C3265694
+  - UMLSCUI:C3495487
   - SCTID:116588001
   - SCTID:43879000
   - SCTID:427809006
@@ -1425,8 +1449,11 @@ patient:
   - SCTID:331035006
   - SCTID:66125007
   - SCTID:422287006
-  Fluticasone: &id042
-  - SMILES:C[C@@H]1C[C@H]2[C@@H]3C[C@@H](C4=CC(=O)C=C[C@@]4([C@]3([C@H](C[C@@]2([C@]1(C(=O)SCF)O)C)O)F)C)F
+  Fluoxetine: &id048
+  - RXCUI:227224
+  - RXCUI:4493
+  Fluticasone: &id049
+  - SMILES:C[C@@H]1C[C@H]2[C@@H]3C[C@@H](C4:CC(:O)C:C[C@@]4([C@]3([C@H](C[C@@]2([C@]1(C(:O)SCF)O)C)O)F)C)F
   - CAS:90566-53-3
   - MESH:D000068298
   - CHEMBL:CHEMBL1473
@@ -1435,200 +1462,200 @@ patient:
   - PUBCHEM:24847768
   - PUBCHEM:122130768
   - PUBCHEM:134687786
-  - rxcui:1945044
-  - rxcui:1945048
-  - rxcui:1872967
-  - rxcui:895697
-  - rxcui:895989
-  - rxcui:895991
-  - rxcui:1148646
-  - rxcui:895996
-  - rxcui:896001
-  - rxcui:896006
-  - rxcui:896019
-  - rxcui:896023
-  - rxcui:896027
-  - rxcui:896031
-  - rxcui:896165
-  - rxcui:896185
-  - rxcui:896190
-  - rxcui:896212
-  - rxcui:896222
-  - rxcui:896229
-  - rxcui:896235
-  - rxcui:896237
-  - rxcui:896243
-  - rxcui:896245
-  - rxcui:896271
-  - rxcui:896273
-  - rxcui:1797892
-  - rxcui:1797933
-  - rxcui:1539891
-  - rxcui:1539893
-  - rxcui:1648785
-  - rxcui:1648789
-  - rxcui:1547660
-  - rxcui:1547664
-  - rxcui:1547668
-  - rxcui:1547672
-  - rxcui:2045382
-  - rxcui:1797919
-  - rxcui:1797909
-  - rxcui:1797935
-  - rxcui:1797849
-  - rxcui:1941536
-  - rxcui:1941607
-  - rxcui:1941613
-  - rxcui:1946589
-  - rxcui:1918199
-  - rxcui:1918205
-  - rxcui:1918211
-  - rxcui:1869712
-  - rxcui:1996212
-  - rxcui:1148643
-  - rxcui:1148645
-  - rxcui:895487
-  - rxcui:895987
-  - rxcui:895990
-  - rxcui:895994
-  - rxcui:895999
-  - rxcui:896004
-  - rxcui:896018
-  - rxcui:896021
-  - rxcui:896025
-  - rxcui:896030
-  - rxcui:896161
-  - rxcui:896184
-  - rxcui:896186
-  - rxcui:896209
-  - rxcui:896218
-  - rxcui:896228
-  - rxcui:896231
-  - rxcui:896236
-  - rxcui:896239
-  - rxcui:896244
-  - rxcui:896267
-  - rxcui:896272
-  - rxcui:896294
-  - rxcui:896300
-  - rxcui:1797847
-  - rxcui:1797890
-  - rxcui:1797907
-  - rxcui:1945039
-  - rxcui:1945047
-  - rxcui:1424889
-  - rxcui:1424899
-  - rxcui:1547658
-  - rxcui:1547663
-  - rxcui:1547666
-  - rxcui:1547671
-  - rxcui:1648783
-  - rxcui:1648788
-  - rxcui:2045377
-  - rxcui:1941531
-  - rxcui:1941605
-  - rxcui:1941611
-  - rxcui:1946583
-  - rxcui:1918194
-  - rxcui:1918203
-  - rxcui:1918209
-  - umlscui:C4522960
-  - umlscui:C4522963
-  - umlscui:C4317657
-  - umlscui:C0706576
-  - umlscui:C0305765
-  - umlscui:C1615253
-  - umlscui:C1967995
-  - umlscui:C1966482
-  - umlscui:C1966478
-  - umlscui:C1966481
-  - umlscui:C1966484
-  - umlscui:C0716270
-  - umlscui:C0716271
-  - umlscui:C1967993
-  - umlscui:C2365544
-  - umlscui:C1965900
-  - umlscui:C2365549
-  - umlscui:C1965902
-  - umlscui:C2365556
-  - umlscui:C1965904
-  - umlscui:C2731892
-  - umlscui:C2731893
-  - umlscui:C2731899
-  - umlscui:C2731901
-  - umlscui:C2731918
-  - umlscui:C2731919
-  - umlscui:C1948380
-  - umlscui:C3871670
-  - umlscui:C3644433
-  - umlscui:C3644429
-  - umlscui:C4019671
-  - umlscui:C4019675
-  - umlscui:C3855286
-  - umlscui:C3855290
-  - umlscui:C3855294
-  - umlscui:C3855298
-  - umlscui:C4692143
-  - umlscui:C4238837
-  - umlscui:C4256547
-  - umlscui:C4256546
-  - umlscui:C3464355
-  - umlscui:C4519828
-  - umlscui:C4519849
-  - umlscui:C4306093
-  - umlscui:C4529476
-  - umlscui:C4473486
-  - umlscui:C4473491
-  - umlscui:C4306094
-  - umlscui:C4306086
-  - umlscui:C4542148
-  - umlscui:C1369303
-  - umlscui:C1967996
-  - umlscui:C0590979
-  - umlscui:C0353644
-  - umlscui:C1612888
-  - umlscui:C2731784
-  - umlscui:C2731787
-  - umlscui:C1967858
-  - umlscui:C2731795
-  - umlscui:C2731797
-  - umlscui:C2731800
-  - umlscui:C2731803
-  - umlscui:C2731853
-  - umlscui:C2731864
-  - umlscui:C2731865
-  - umlscui:C1967982
-  - umlscui:C2731881
-  - umlscui:C1967976
-  - umlscui:C2731888
-  - umlscui:C1967679
-  - umlscui:C2731895
-  - umlscui:C2731900
-  - umlscui:C2731914
-  - umlscui:C1724805
-  - umlscui:C0733334
-  - umlscui:C0733332
-  - umlscui:C3464350
-  - umlscui:C1948376
-  - umlscui:C1966837
-  - umlscui:C4522955
-  - umlscui:C4522962
-  - umlscui:C3644424
-  - umlscui:C3644432
-  - umlscui:C3855284
-  - umlscui:C3855289
-  - umlscui:C3855292
-  - umlscui:C3855297
-  - umlscui:C4019669
-  - umlscui:C4019674
-  - umlscui:C4692142
-  - umlscui:C4519823
-  - umlscui:C4519847
-  - umlscui:C4519852
-  - umlscui:C4529470
-  - umlscui:C4306273
-  - umlscui:C4306272
-  - umlscui:C4306271
+  - RXCUI:1945044
+  - RXCUI:1945048
+  - RXCUI:1872967
+  - RXCUI:895697
+  - RXCUI:895989
+  - RXCUI:895991
+  - RXCUI:1148646
+  - RXCUI:895996
+  - RXCUI:896001
+  - RXCUI:896006
+  - RXCUI:896019
+  - RXCUI:896023
+  - RXCUI:896027
+  - RXCUI:896031
+  - RXCUI:896165
+  - RXCUI:896185
+  - RXCUI:896190
+  - RXCUI:896212
+  - RXCUI:896222
+  - RXCUI:896229
+  - RXCUI:896235
+  - RXCUI:896237
+  - RXCUI:896243
+  - RXCUI:896245
+  - RXCUI:896271
+  - RXCUI:896273
+  - RXCUI:1797892
+  - RXCUI:1797933
+  - RXCUI:1539891
+  - RXCUI:1539893
+  - RXCUI:1648785
+  - RXCUI:1648789
+  - RXCUI:1547660
+  - RXCUI:1547664
+  - RXCUI:1547668
+  - RXCUI:1547672
+  - RXCUI:2045382
+  - RXCUI:1797919
+  - RXCUI:1797909
+  - RXCUI:1797935
+  - RXCUI:1797849
+  - RXCUI:1941536
+  - RXCUI:1941607
+  - RXCUI:1941613
+  - RXCUI:1946589
+  - RXCUI:1918199
+  - RXCUI:1918205
+  - RXCUI:1918211
+  - RXCUI:1869712
+  - RXCUI:1996212
+  - RXCUI:1148643
+  - RXCUI:1148645
+  - RXCUI:895487
+  - RXCUI:895987
+  - RXCUI:895990
+  - RXCUI:895994
+  - RXCUI:895999
+  - RXCUI:896004
+  - RXCUI:896018
+  - RXCUI:896021
+  - RXCUI:896025
+  - RXCUI:896030
+  - RXCUI:896161
+  - RXCUI:896184
+  - RXCUI:896186
+  - RXCUI:896209
+  - RXCUI:896218
+  - RXCUI:896228
+  - RXCUI:896231
+  - RXCUI:896236
+  - RXCUI:896239
+  - RXCUI:896244
+  - RXCUI:896267
+  - RXCUI:896272
+  - RXCUI:896294
+  - RXCUI:896300
+  - RXCUI:1797847
+  - RXCUI:1797890
+  - RXCUI:1797907
+  - RXCUI:1945039
+  - RXCUI:1945047
+  - RXCUI:1424889
+  - RXCUI:1424899
+  - RXCUI:1547658
+  - RXCUI:1547663
+  - RXCUI:1547666
+  - RXCUI:1547671
+  - RXCUI:1648783
+  - RXCUI:1648788
+  - RXCUI:2045377
+  - RXCUI:1941531
+  - RXCUI:1941605
+  - RXCUI:1941611
+  - RXCUI:1946583
+  - RXCUI:1918194
+  - RXCUI:1918203
+  - RXCUI:1918209
+  - UMLSCUI:C4522960
+  - UMLSCUI:C4522963
+  - UMLSCUI:C4317657
+  - UMLSCUI:C0706576
+  - UMLSCUI:C0305765
+  - UMLSCUI:C1615253
+  - UMLSCUI:C1967995
+  - UMLSCUI:C1966482
+  - UMLSCUI:C1966478
+  - UMLSCUI:C1966481
+  - UMLSCUI:C1966484
+  - UMLSCUI:C0716270
+  - UMLSCUI:C0716271
+  - UMLSCUI:C1967993
+  - UMLSCUI:C2365544
+  - UMLSCUI:C1965900
+  - UMLSCUI:C2365549
+  - UMLSCUI:C1965902
+  - UMLSCUI:C2365556
+  - UMLSCUI:C1965904
+  - UMLSCUI:C2731892
+  - UMLSCUI:C2731893
+  - UMLSCUI:C2731899
+  - UMLSCUI:C2731901
+  - UMLSCUI:C2731918
+  - UMLSCUI:C2731919
+  - UMLSCUI:C1948380
+  - UMLSCUI:C3871670
+  - UMLSCUI:C3644433
+  - UMLSCUI:C3644429
+  - UMLSCUI:C4019671
+  - UMLSCUI:C4019675
+  - UMLSCUI:C3855286
+  - UMLSCUI:C3855290
+  - UMLSCUI:C3855294
+  - UMLSCUI:C3855298
+  - UMLSCUI:C4692143
+  - UMLSCUI:C4238837
+  - UMLSCUI:C4256547
+  - UMLSCUI:C4256546
+  - UMLSCUI:C3464355
+  - UMLSCUI:C4519828
+  - UMLSCUI:C4519849
+  - UMLSCUI:C4306093
+  - UMLSCUI:C4529476
+  - UMLSCUI:C4473486
+  - UMLSCUI:C4473491
+  - UMLSCUI:C4306094
+  - UMLSCUI:C4306086
+  - UMLSCUI:C4542148
+  - UMLSCUI:C1369303
+  - UMLSCUI:C1967996
+  - UMLSCUI:C0590979
+  - UMLSCUI:C0353644
+  - UMLSCUI:C1612888
+  - UMLSCUI:C2731784
+  - UMLSCUI:C2731787
+  - UMLSCUI:C1967858
+  - UMLSCUI:C2731795
+  - UMLSCUI:C2731797
+  - UMLSCUI:C2731800
+  - UMLSCUI:C2731803
+  - UMLSCUI:C2731853
+  - UMLSCUI:C2731864
+  - UMLSCUI:C2731865
+  - UMLSCUI:C1967982
+  - UMLSCUI:C2731881
+  - UMLSCUI:C1967976
+  - UMLSCUI:C2731888
+  - UMLSCUI:C1967679
+  - UMLSCUI:C2731895
+  - UMLSCUI:C2731900
+  - UMLSCUI:C2731914
+  - UMLSCUI:C1724805
+  - UMLSCUI:C0733334
+  - UMLSCUI:C0733332
+  - UMLSCUI:C3464350
+  - UMLSCUI:C1948376
+  - UMLSCUI:C1966837
+  - UMLSCUI:C4522955
+  - UMLSCUI:C4522962
+  - UMLSCUI:C3644424
+  - UMLSCUI:C3644432
+  - UMLSCUI:C3855284
+  - UMLSCUI:C3855289
+  - UMLSCUI:C3855292
+  - UMLSCUI:C3855297
+  - UMLSCUI:C4019669
+  - UMLSCUI:C4019674
+  - UMLSCUI:C4692142
+  - UMLSCUI:C4519823
+  - UMLSCUI:C4519847
+  - UMLSCUI:C4519852
+  - UMLSCUI:C4529470
+  - UMLSCUI:C4306273
+  - UMLSCUI:C4306272
+  - UMLSCUI:C4306271
   - SCTID:397192001
   - SCTID:426409006
   - SCTID:396064000
@@ -1669,8 +1696,12 @@ patient:
   - SCTID:320603007
   - SCTID:320605000
   - SCTID:320604001
-  Formoterol: &id043
-  - SMILES:COc1ccc(CC(C)NCC(O)c2ccc(O)c(NC=O)c2)cc1
+  Formaldehyde: &id050
+  - CHEBI:16842
+  - PUBCHEM:712
+  - MESH:D005557
+  Formoterol: &id051
+  - SMILES:COC1CCC(CC(C)NCC(O)C2CCC(O)C(NC:O)C2)CC1
   - CAS:73573-87-2
   - CHEMBL:CHEMBL605993
   - CHEMBL:CHEMBL1256786
@@ -1678,54 +1709,54 @@ patient:
   - PUBCHEM:3410
   - PUBCHEM:3083544
   - PUBCHEM:3034756
-  - rxcui:1246328
-  - rxcui:1246290
-  - rxcui:1246306
-  - rxcui:1246315
-  - rxcui:1246317
-  - rxcui:1246321
-  - rxcui:1660934
-  - rxcui:1660938
-  - rxcui:1246310
-  - rxcui:1246313
-  - rxcui:1790644
-  - rxcui:409732
-  - rxcui:597829
-  - rxcui:1790639
-  - rxcui:1246326
-  - rxcui:1660933
-  - rxcui:1660937
-  - rxcui:1246288
-  - rxcui:1246304
-  - rxcui:1246308
-  - rxcui:1246311
-  - rxcui:1246314
-  - rxcui:1246316
-  - rxcui:1246319
-  - umlscui:C0938989
-  - umlscui:C1876888
-  - umlscui:C1876887
-  - umlscui:C1966262
-  - umlscui:C1966261
-  - umlscui:C1964839
-  - umlscui:C4046150
-  - umlscui:C4046149
-  - umlscui:C2920355
-  - umlscui:C2920360
-  - umlscui:C4238171
-  - umlscui:C1338988
-  - umlscui:C1660662
-  - umlscui:C4238166
-  - umlscui:C1164681
-  - umlscui:C4046869
-  - umlscui:C4046868
-  - umlscui:C1967742
-  - umlscui:C1967737
-  - umlscui:C2920351
-  - umlscui:C2920356
-  - umlscui:C1967738
-  - umlscui:C1967733
-  - umlscui:C1951666
+  - RXCUI:1246328
+  - RXCUI:1246290
+  - RXCUI:1246306
+  - RXCUI:1246315
+  - RXCUI:1246317
+  - RXCUI:1246321
+  - RXCUI:1660934
+  - RXCUI:1660938
+  - RXCUI:1246310
+  - RXCUI:1246313
+  - RXCUI:1790644
+  - RXCUI:409732
+  - RXCUI:597829
+  - RXCUI:1790639
+  - RXCUI:1246326
+  - RXCUI:1660933
+  - RXCUI:1660937
+  - RXCUI:1246288
+  - RXCUI:1246304
+  - RXCUI:1246308
+  - RXCUI:1246311
+  - RXCUI:1246314
+  - RXCUI:1246316
+  - RXCUI:1246319
+  - UMLSCUI:C0938989
+  - UMLSCUI:C1876888
+  - UMLSCUI:C1876887
+  - UMLSCUI:C1966262
+  - UMLSCUI:C1966261
+  - UMLSCUI:C1964839
+  - UMLSCUI:C4046150
+  - UMLSCUI:C4046149
+  - UMLSCUI:C2920355
+  - UMLSCUI:C2920360
+  - UMLSCUI:C4238171
+  - UMLSCUI:C1338988
+  - UMLSCUI:C1660662
+  - UMLSCUI:C4238166
+  - UMLSCUI:C1164681
+  - UMLSCUI:C4046869
+  - UMLSCUI:C4046868
+  - UMLSCUI:C1967742
+  - UMLSCUI:C1967737
+  - UMLSCUI:C2920351
+  - UMLSCUI:C2920356
+  - UMLSCUI:C1967738
+  - UMLSCUI:C1967733
+  - UMLSCUI:C1951666
   - SCTID:447212007
   - SCTID:429505002
   - SCTID:426833006
@@ -1739,30 +1770,40 @@ patient:
   - SCTID:447213002
   - SCTID:386171009
   - SCTID:413717007
-  Indacaterol: &id044
-  - SMILES:CCc1cc2CC(Cc2cc1CC)NCC(O)c3ccc(O)c4NC(=O)C=Cc34
+  Goserelin: &id052
+  - RXCUI:50610
+  - RXCUI:203146
+  Histrelin: &id053
+  - RXCUI:50975
+  - RXCUI:1294622
+  Hydroxyzine: &id054
+  - RXCUI:5553
+  - RXCUI:154987
+  - RXCUI:203182
+  Indacaterol: &id055
+  - SMILES:CCC1CC2CC(CC2CC1CC)NCC(O)C3CCC(O)C4NC(:O)C:CC34
   - CAS:312753-06-3
   - MESH:C510790
   - CHEMBL:CHEMBL1346
   - CHEMBL:CHEMBL1095777
   - PUBCHEM:6918554
-  - rxcui:1114333
-  - rxcui:1720953
-  - rxcui:1546335
-  - rxcui:1720948
-  - rxcui:1114329
-  - umlscui:C3162480
-  - umlscui:C4058515
-  - umlscui:C3839191
-  - umlscui:C4057844
-  - umlscui:C3162476
+  - RXCUI:1114333
+  - RXCUI:1720953
+  - RXCUI:1546335
+  - RXCUI:1720948
+  - RXCUI:1114329
+  - UMLSCUI:C3162480
+  - UMLSCUI:C4058515
+  - UMLSCUI:C3839191
+  - UMLSCUI:C4057844
+  - UMLSCUI:C3162476
   - SCTID:703740005
   - SCTID:702801003
   - SCTID:702802005
   - SCTID:703741009
   - SCTID:703742002
-  Ipratropium: &id045
-  - SMILES:CC(C)[N+]1(C2CCC1CC(C2)OC(=O)C(CO)c3ccccc3)C.[Br-]
+  Ipratropium: &id056
+  - SMILES:CC(C)[N+]1(C2CCC1CC(C2)OC(:O)C(CO)C3CCCCC3)C.[BR-]
   - CAS:66985-17-9
   - MESH:D009241
   - CHEMBL:CHEMBL1464005
@@ -1771,50 +1812,50 @@ patient:
   - PUBCHEM:43232
   - PUBCHEM:25897919
   - PUBCHEM:6604365
-  - rxcui:836366
-  - rxcui:836368
-  - rxcui:1797835
-  - rxcui:1797845
-  - rxcui:1190225
-  - rxcui:1437704
-  - rxcui:108889
-  - rxcui:107667
-  - rxcui:836286
-  - rxcui:836343
-  - rxcui:836344
-  - rxcui:836347
-  - rxcui:836354
-  - rxcui:836356
-  - rxcui:836358
-  - rxcui:836361
-  - rxcui:1362214
-  - rxcui:1797833
-  - rxcui:1797844
-  - rxcui:1437702
-  - rxcui:1190220
-  - rxcui:1945738
-  - umlscui:C1971016
-  - umlscui:C1639201
-  - umlscui:C1613500
-  - umlscui:C0713820
-  - umlscui:C3245071
-  - umlscui:C1585547
-  - umlscui:C0361785
-  - umlscui:C0360052
-  - umlscui:C1163939
-  - umlscui:C1533036
-  - umlscui:C1995668
-  - umlscui:C0704800
-  - umlscui:C0361081
-  - umlscui:C0704801
-  - umlscui:C0981517
-  - umlscui:C0354769
-  - umlscui:C0791615
-  - umlscui:C1995694
-  - umlscui:C1995842
-  - umlscui:C1164703
-  - umlscui:C3245066
-  - umlscui:C4529300
+  - RXCUI:836366
+  - RXCUI:836368
+  - RXCUI:1797835
+  - RXCUI:1797845
+  - RXCUI:1190225
+  - RXCUI:1437704
+  - RXCUI:108889
+  - RXCUI:107667
+  - RXCUI:836286
+  - RXCUI:836343
+  - RXCUI:836344
+  - RXCUI:836347
+  - RXCUI:836354
+  - RXCUI:836356
+  - RXCUI:836358
+  - RXCUI:836361
+  - RXCUI:1362214
+  - RXCUI:1797833
+  - RXCUI:1797844
+  - RXCUI:1437702
+  - RXCUI:1190220
+  - RXCUI:1945738
+  - UMLSCUI:C1971016
+  - UMLSCUI:C1639201
+  - UMLSCUI:C1613500
+  - UMLSCUI:C0713820
+  - UMLSCUI:C3245071
+  - UMLSCUI:C1585547
+  - UMLSCUI:C0361785
+  - UMLSCUI:C0360052
+  - UMLSCUI:C1163939
+  - UMLSCUI:C1533036
+  - UMLSCUI:C1995668
+  - UMLSCUI:C0704800
+  - UMLSCUI:C0361081
+  - UMLSCUI:C0704801
+  - UMLSCUI:C0981517
+  - UMLSCUI:C0354769
+  - UMLSCUI:C0791615
+  - UMLSCUI:C1995694
+  - UMLSCUI:C1995842
+  - UMLSCUI:C1164703
+  - UMLSCUI:C3245066
+  - UMLSCUI:C4529300
   - SCTID:372518007
   - SCTID:386881005
   - SCTID:725862005
@@ -1838,7 +1879,7 @@ patient:
   - SCTID:377496003
   - SCTID:320345001
   - SCTID:377493006
-  KidneyCancerDx: &id046
+  KidneyCancerDx: &id057
   - SCTID:363518003
   - SCTID:315270004
   - SCTID:94360002
@@ -1846,23 +1887,29 @@ patient:
   - SCTID:406064003
   - SCTID:406081007
   - SCTID:406065002
-  MajorRoadwayHighwayExposure: &id047
+  Leuprolide: &id058
+  - RXCUI:42375
+  - RXCUI:203217
+  MajorRoadwayHighwayExposure: &id059
   - SCTID:272510001
-  MaxDailyOzoneExposure: *id006
-  MaxDailyOzoneExposure_2: *id006
-  MaxDailyOzoneExposure_2_qcut: *id006
-  MaxDailyOzoneExposure_StudyAvg: *id006
-  MaxDailyOzoneExposure_StudyAvg_qcut: *id006
-  MaxDailyOzoneExposure_StudyMax: *id006
-  MaxDailyOzoneExposure_StudyMax_qcut: *id006
-  MaxDailyOzoneExposure_qcut: *id006
-  MaxDailyPM2.5Exposure: *id007
-  MaxDailyPM2.5Exposure_StudyAvg: *id007
-  MaxDailyPM2.5Exposure_StudyAvg_qcut: *id007
-  MaxDailyPM2.5Exposure_StudyMax: *id007
-  MaxDailyPM2.5Exposure_StudyMax_qcut: *id007
-  MaxDailyPM2.5Exposure_qcut: *id007
-  MenopauseDx: &id048
+  MaxDailyOzone: *id006
+  MaxDailyOzone_2: *id006
+  MaxDailyOzone_2_qcut: *id006
+  MaxDailyOzone_StudyAvg: *id006
+  MaxDailyOzone_StudyAvg_qcut: *id006
+  MaxDailyOzone_StudyMax: *id006
+  MaxDailyOzone_StudyMax_qcut: *id006
+  MaxDailyOzone_qcut: *id006
+  MaxDailyPM2.5: *id007
+  MaxDailyPM2.5_StudyAvg: *id007
+  MaxDailyPM2.5_StudyAvg_qcut: *id007
+  MaxDailyPM2.5_StudyMax: *id007
+  MaxDailyPM2.5_StudyMax_qcut: *id007
+  MaxDailyPM2.5_qcut: *id007
+  Medroxyprogresterone: &id060
+  - RXCUI:6691
+  - RXCUI:1000112
+  MenopauseDx: &id061
   - SCTID:161712005
   - SCTID:289903006
   - SCTID:307429007
@@ -1900,14 +1947,14 @@ patient:
   - SCTID:88424000
   - SCTID:106002000
   - SCTID:718881004
-  Mepolizumab: &id049
+  Mepolizumab: &id062
   - SMILES:NA
   - CAS:196078-29-2
   - CHEMBL:CHEMBL2108429
-  - rxcui:1720606
-  - rxcui:1720601
-  - umlscui:C4058351
-  - umlscui:C4058346
+  - RXCUI:1720606
+  - RXCUI:1720601
+  - UMLSCUI:C4058351
+  - UMLSCUI:C4058346
   - MESH:C434107
   - PUBCHEM:135278932
   - PUBCHEM:47206675
@@ -1917,27 +1964,27 @@ patient:
   - PUBCHEM:347910353
   - PUBCHEM:354355057
   - SCTID:716046009
-  Metaproterenol: &id050
-  - SMILES:CC(C)NCC(O)c1cc(O)cc(O)c1
+  Metaproterenol: &id063
+  - SMILES:CC(C)NCC(O)C1CC(O)CC(O)C1
   - CAS:586-06-1
   - MESH:D009921
   - PUBCHEM:4086
-  - rxcui:979316
-  - rxcui:979379
-  - rxcui:979409
-  - rxcui:979415
-  - rxcui:979444
-  - rxcui:979475
-  - rxcui:979489
-  - rxcui:991632
-  - umlscui:C0978480
-  - umlscui:C0978476
-  - umlscui:C0689498
-  - umlscui:C0978479
-  - umlscui:C1878050
-  - umlscui:C0689500
-  - umlscui:C0978475
-  - umlscui:C0978477
+  - RXCUI:979316
+  - RXCUI:979379
+  - RXCUI:979409
+  - RXCUI:979415
+  - RXCUI:979444
+  - RXCUI:979475
+  - RXCUI:979489
+  - RXCUI:991632
+  - UMLSCUI:C0978480
+  - UMLSCUI:C0978476
+  - UMLSCUI:C0689498
+  - UMLSCUI:C0978479
+  - UMLSCUI:C1878050
+  - UMLSCUI:C0689500
+  - UMLSCUI:C0978475
+  - UMLSCUI:C0978477
   - SCTID:372797004
   - SCTID:54172006
   - SCTID:387857009
@@ -1951,155 +1998,149 @@ patient:
   - SCTID:376747000
   - SCTID:371696002
   - SCTID:371697006
-  Metformin: &id051
+  Metformin: &id064
   - 'SMILES:
 
-    CN(C)C(=N)NC(=N)N'
+    CN(C)C(:N)NC(:N)N'
   - CAS:657-24-9
-  - CHEMBL2348410
-  - CHEMBL2348413
-  - CHEMBL2348412
-  - CHEMBL1431
-  - CHEMBL1187231
-  - CHEMBL2108299
   - MESH:D008687
   - PUBCHEM:4091
-  - rxcui:1992685
-  - rxcui:1992693
-  - rxcui:1992698
-  - rxcui:1992701
-  - rxcui:1862685
-  - rxcui:1862691
-  - rxcui:1862695
-  - rxcui:1862700
-  - rxcui:1043563
-  - rxcui:1043570
-  - rxcui:1043578
-  - rxcui:860975
-  - rxcui:860981
-  - rxcui:861004
-  - rxcui:861007
-  - rxcui:861010
-  - rxcui:861021
-  - rxcui:861025
-  - rxcui:861731
-  - rxcui:861736
-  - rxcui:861740
-  - rxcui:861743
-  - rxcui:861748
-  - rxcui:861753
-  - rxcui:861760
-  - rxcui:861763
-  - rxcui:861769
-  - rxcui:861783
-  - rxcui:861787
-  - rxcui:861790
-  - rxcui:861795
-  - rxcui:861806
-  - rxcui:861816
-  - rxcui:861819
-  - rxcui:861822
-  - rxcui:899989
-  - rxcui:899996
-  - rxcui:1368385
-  - rxcui:1368392
-  - rxcui:1545150
-  - rxcui:1545157
-  - rxcui:1545161
-  - rxcui:1545164
-  - rxcui:1593058
-  - rxcui:1593068
-  - rxcui:1593070
-  - rxcui:1593072
-  - rxcui:1664315
-  - rxcui:1664323
-  - rxcui:1664326
-  - rxcui:1665367
-  - rxcui:1796089
-  - rxcui:1796094
-  - rxcui:1807888
-  - rxcui:1807894
-  - rxcui:1807915
-  - rxcui:1807917
-  - rxcui:1810997
-  - rxcui:1811002
-  - rxcui:1811006
-  - rxcui:1811010
-  - rxcui:1243020
-  - rxcui:1243027
-  - rxcui:1243034
-  - rxcui:1243827
-  - rxcui:1243842
-  - rxcui:1243846
-  - rxcui:1940496
-  - umlscui:C4535600
-  - umlscui:C4535608
-  - umlscui:C4535612
-  - umlscui:C4535615
-  - umlscui:C4300851
-  - umlscui:C4300857
-  - umlscui:C4300861
-  - umlscui:C4300866
-  - umlscui:C2948201
-  - umlscui:C2948208
-  - umlscui:C2948215
-  - umlscui:C0978484
-  - umlscui:C1329024
-  - umlscui:C0978482
-  - umlscui:C0978483
-  - umlscui:C0978485
-  - umlscui:C1443753
-  - umlscui:C1329173
-  - umlscui:C1168839
-  - umlscui:C1168837
-  - umlscui:C1168838
-  - umlscui:C0977187
-  - umlscui:C0977189
-  - umlscui:C0977192
-  - umlscui:C1329120
-  - umlscui:C1329121
-  - umlscui:C1876536
-  - umlscui:C1612317
-  - umlscui:C2356104
-  - umlscui:C2356105
-  - umlscui:C1168832
-  - umlscui:C1168833
-  - umlscui:C1165145
-  - umlscui:C1876537
-  - umlscui:C1615632
-  - umlscui:C2732708
-  - umlscui:C2733400
-  - umlscui:C3534995
-  - umlscui:C3534994
-  - umlscui:C3848734
-  - umlscui:C3848733
-  - umlscui:C3848732
-  - umlscui:C3848731
-  - umlscui:C3859442
-  - umlscui:C3859451
-  - umlscui:C3859453
-  - umlscui:C3859455
-  - umlscui:C4050749
-  - umlscui:C4050757
-  - umlscui:C4050759
-  - umlscui:C4051104
-  - umlscui:C4256513
-  - umlscui:C4256512
-  - umlscui:C4282270
-  - umlscui:C4282269
-  - umlscui:C4282268
-  - umlscui:C4281893
-  - umlscui:C4290617
-  - umlscui:C4290616
-  - umlscui:C4290615
-  - umlscui:C4290614
-  - umlscui:C3264600
-  - umlscui:C3264607
-  - umlscui:C3264614
-  - umlscui:C3264970
-  - umlscui:C3264980
-  - umlscui:C3264984
-  - umlscui:C4519487
+  - RXCUI:1992685
+  - RXCUI:1992693
+  - RXCUI:1992698
+  - RXCUI:1992701
+  - RXCUI:1862685
+  - RXCUI:1862691
+  - RXCUI:1862695
+  - RXCUI:1862700
+  - RXCUI:1043563
+  - RXCUI:1043570
+  - RXCUI:1043578
+  - RXCUI:860975
+  - RXCUI:860981
+  - RXCUI:861004
+  - RXCUI:861007
+  - RXCUI:861010
+  - RXCUI:861021
+  - RXCUI:861025
+  - RXCUI:861731
+  - RXCUI:861736
+  - RXCUI:861740
+  - RXCUI:861743
+  - RXCUI:861748
+  - RXCUI:861753
+  - RXCUI:861760
+  - RXCUI:861763
+  - RXCUI:861769
+  - RXCUI:861783
+  - RXCUI:861787
+  - RXCUI:861790
+  - RXCUI:861795
+  - RXCUI:861806
+  - RXCUI:861816
+  - RXCUI:861819
+  - RXCUI:861822
+  - RXCUI:899989
+  - RXCUI:899996
+  - RXCUI:1368385
+  - RXCUI:1368392
+  - RXCUI:1545150
+  - RXCUI:1545157
+  - RXCUI:1545161
+  - RXCUI:1545164
+  - RXCUI:1593058
+  - RXCUI:1593068
+  - RXCUI:1593070
+  - RXCUI:1593072
+  - RXCUI:1664315
+  - RXCUI:1664323
+  - RXCUI:1664326
+  - RXCUI:1665367
+  - RXCUI:1796089
+  - RXCUI:1796094
+  - RXCUI:1807888
+  - RXCUI:1807894
+  - RXCUI:1807915
+  - RXCUI:1807917
+  - RXCUI:1810997
+  - RXCUI:1811002
+  - RXCUI:1811006
+  - RXCUI:1811010
+  - RXCUI:1243020
+  - RXCUI:1243027
+  - RXCUI:1243034
+  - RXCUI:1243827
+  - RXCUI:1243842
+  - RXCUI:1243846
+  - RXCUI:1940496
+  - UMLSCUI:C4535600
+  - UMLSCUI:C4535608
+  - UMLSCUI:C4535612
+  - UMLSCUI:C4535615
+  - UMLSCUI:C4300851
+  - UMLSCUI:C4300857
+  - UMLSCUI:C4300861
+  - UMLSCUI:C4300866
+  - UMLSCUI:C2948201
+  - UMLSCUI:C2948208
+  - UMLSCUI:C2948215
+  - UMLSCUI:C0978484
+  - UMLSCUI:C1329024
+  - UMLSCUI:C0978482
+  - UMLSCUI:C0978483
+  - UMLSCUI:C0978485
+  - UMLSCUI:C1443753
+  - UMLSCUI:C1329173
+  - UMLSCUI:C1168839
+  - UMLSCUI:C1168837
+  - UMLSCUI:C1168838
+  - UMLSCUI:C0977187
+  - UMLSCUI:C0977189
+  - UMLSCUI:C0977192
+  - UMLSCUI:C1329120
+  - UMLSCUI:C1329121
+  - UMLSCUI:C1876536
+  - UMLSCUI:C1612317
+  - UMLSCUI:C2356104
+  - UMLSCUI:C2356105
+  - UMLSCUI:C1168832
+  - UMLSCUI:C1168833
+  - UMLSCUI:C1165145
+  - UMLSCUI:C1876537
+  - UMLSCUI:C1615632
+  - UMLSCUI:C2732708
+  - UMLSCUI:C2733400
+  - UMLSCUI:C3534995
+  - UMLSCUI:C3534994
+  - UMLSCUI:C3848734
+  - UMLSCUI:C3848733
+  - UMLSCUI:C3848732
+  - UMLSCUI:C3848731
+  - UMLSCUI:C3859442
+  - UMLSCUI:C3859451
+  - UMLSCUI:C3859453
+  - UMLSCUI:C3859455
+  - UMLSCUI:C4050749
+  - UMLSCUI:C4050757
+  - UMLSCUI:C4050759
+  - UMLSCUI:C4051104
+  - UMLSCUI:C4256513
+  - UMLSCUI:C4256512
+  - UMLSCUI:C4282270
+  - UMLSCUI:C4282269
+  - UMLSCUI:C4282268
+  - UMLSCUI:C4281893
+  - UMLSCUI:C4290617
+  - UMLSCUI:C4290616
+  - UMLSCUI:C4290615
+  - UMLSCUI:C4290614
+  - UMLSCUI:C3264600
+  - UMLSCUI:C3264607
+  - UMLSCUI:C3264614
+  - UMLSCUI:C3264970
+  - UMLSCUI:C3264980
+  - UMLSCUI:C3264984
+  - UMLSCUI:C4519487
   - SCTID:372567009
   - SCTID:734558009
   - SCTID:109083009
@@ -2148,91 +2189,91 @@ patient:
   - SCTID:448832004
   - SCTID:448833009
   - SCTID:448802007
-  Mometasone: &id052
-  - SMILES:C[C@@H]1C[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@]4(C)[C@@]3(Cl)[C@@H](O)C[C@]2(C)[C@@]1(O)C(=O)CCl
+  Mometasone: &id065
+  - SMILES:C[C@@H]1C[C@H]2[C@@H]3CCC4:CC(:O)C:C[C@]4(C)[C@@]3(CL)[C@@H](O)C[C@]2(C)[C@@]1(O)C(:O)CCL
   - CAS:105102-22-5
   - CHEMBL:CHEMBL1161
   - PUBCHEM:441335
-  - rxcui:1148523
-  - rxcui:1797870
-  - rxcui:92582
-  - rxcui:92583
-  - rxcui:92584
-  - rxcui:746804
-  - rxcui:746811
-  - rxcui:746813
-  - rxcui:746815
-  - rxcui:790280
-  - rxcui:790284
-  - rxcui:1536144
-  - rxcui:1536148
-  - rxcui:1660934
-  - rxcui:1660938
-  - rxcui:1246310
-  - rxcui:1246313
-  - rxcui:1606026
-  - rxcui:1666829
-  - rxcui:1734665
-  - rxcui:1995988
-  - rxcui:1148519
-  - rxcui:151029
-  - rxcui:151030
-  - rxcui:311753
-  - rxcui:1797865
-  - rxcui:1536147
-  - rxcui:1660937
-  - rxcui:1246311
-  - rxcui:1536142
-  - rxcui:1660933
-  - rxcui:1246308
-  - rxcui:1606021
-  - rxcui:746803
-  - rxcui:746810
-  - rxcui:746812
-  - rxcui:746814
-  - rxcui:790278
-  - rxcui:790283
-  - rxcui:1995983
-  - umlscui:C3204593
-  - umlscui:C0594491
-  - umlscui:C0306065
-  - umlscui:C0306066
-  - umlscui:C0306067
-  - umlscui:C1966488
-  - umlscui:C1966485
-  - umlscui:C1966486
-  - umlscui:C1966487
-  - umlscui:C2341622
-  - umlscui:C2341624
-  - umlscui:C3817741
-  - umlscui:C3817740
-  - umlscui:C4046150
-  - umlscui:C4046149
-  - umlscui:C2920355
-  - umlscui:C2920360
-  - umlscui:C3892495
-  - umlscui:C4051562
-  - umlscui:C4080470
-  - umlscui:C4542053
-  - umlscui:C3204589
-  - umlscui:C0590311
-  - umlscui:C0590312
-  - umlscui:C0978712
-  - umlscui:C0978713
-  - umlscui:C3820055
-  - umlscui:C4046868
-  - umlscui:C2920356
-  - umlscui:C3820057
-  - umlscui:C4046869
-  - umlscui:C2920351
-  - umlscui:C3892496
-  - umlscui:C1968000
-  - umlscui:C1968003
-  - umlscui:C1968004
-  - umlscui:C1968005
-  - umlscui:C2341620
-  - umlscui:C2341623
-  - umlscui:C4542048
+  - RXCUI:1148523
+  - RXCUI:1797870
+  - RXCUI:92582
+  - RXCUI:92583
+  - RXCUI:92584
+  - RXCUI:746804
+  - RXCUI:746811
+  - RXCUI:746813
+  - RXCUI:746815
+  - RXCUI:790280
+  - RXCUI:790284
+  - RXCUI:1536144
+  - RXCUI:1536148
+  - RXCUI:1660934
+  - RXCUI:1660938
+  - RXCUI:1246310
+  - RXCUI:1246313
+  - RXCUI:1606026
+  - RXCUI:1666829
+  - RXCUI:1734665
+  - RXCUI:1995988
+  - RXCUI:1148519
+  - RXCUI:151029
+  - RXCUI:151030
+  - RXCUI:311753
+  - RXCUI:1797865
+  - RXCUI:1536147
+  - RXCUI:1660937
+  - RXCUI:1246311
+  - RXCUI:1536142
+  - RXCUI:1660933
+  - RXCUI:1246308
+  - RXCUI:1606021
+  - RXCUI:746803
+  - RXCUI:746810
+  - RXCUI:746812
+  - RXCUI:746814
+  - RXCUI:790278
+  - RXCUI:790283
+  - RXCUI:1995983
+  - UMLSCUI:C3204593
+  - UMLSCUI:C0594491
+  - UMLSCUI:C0306065
+  - UMLSCUI:C0306066
+  - UMLSCUI:C0306067
+  - UMLSCUI:C1966488
+  - UMLSCUI:C1966485
+  - UMLSCUI:C1966486
+  - UMLSCUI:C1966487
+  - UMLSCUI:C2341622
+  - UMLSCUI:C2341624
+  - UMLSCUI:C3817741
+  - UMLSCUI:C3817740
+  - UMLSCUI:C4046150
+  - UMLSCUI:C4046149
+  - UMLSCUI:C2920355
+  - UMLSCUI:C2920360
+  - UMLSCUI:C3892495
+  - UMLSCUI:C4051562
+  - UMLSCUI:C4080470
+  - UMLSCUI:C4542053
+  - UMLSCUI:C3204589
+  - UMLSCUI:C0590311
+  - UMLSCUI:C0590312
+  - UMLSCUI:C0978712
+  - UMLSCUI:C0978713
+  - UMLSCUI:C3820055
+  - UMLSCUI:C4046868
+  - UMLSCUI:C2920356
+  - UMLSCUI:C3820057
+  - UMLSCUI:C4046869
+  - UMLSCUI:C2920351
+  - UMLSCUI:C3892496
+  - UMLSCUI:C1968000
+  - UMLSCUI:C1968003
+  - UMLSCUI:C1968004
+  - UMLSCUI:C1968005
+  - UMLSCUI:C2341620
+  - UMLSCUI:C2341623
+  - UMLSCUI:C4542048
   - SCTID:407753001
   - SCTID:407752006
   - SCTID:447212007
@@ -2250,7 +2291,10 @@ patient:
   - SCTID:395803001
   - SCTID:75203002
   - SCTID:407754007
-  ObesityBMI: &id053
+  Nandrolone: &id066
+  - RXCUI:7244
+  - RXCUI:31494
+  ObesityBMI: &id067
   - MONDO:0008300
   - MONDO:0009763
   - MONDO:0010961
@@ -2303,9 +2347,15 @@ patient:
   - HP:0025500
   - HP:0025501
   - MONDO:0044283
+  - HP:0001513
+  - HP:0025499
+  - HP:0025500
+  - HP:0025501
+  - ICD9:278
+  - ICD10:E66.%(EXCEPTICD10:E66.3)
   - NCIT:C3283
-  - umlscui:C0028754
-  ObesityDx: &id054
+  - UMLSCUI:C0028754
+  ObesityDx: &id068
   - MONDO:0008300
   - MONDO:0009763
   - MONDO:0010961
@@ -2358,17 +2408,23 @@ patient:
   - HP:0025500
   - HP:0025501
   - MONDO:0044283
+  - HP:0001513
+  - HP:0025499
+  - HP:0025500
+  - HP:0025501
+  - ICD9:278
+  - ICD10:E66.%(EXCEPTICD10:E66.3)
   - NCIT:C3283
-  - umlscui:C0028754
-  Omalizumab: &id055
+  - UMLSCUI:C0028754
+  Omalizumab: &id069
   - SMILES:NA
   - CAS:242138-07-4
   - CHEMBL:CHEMBL1201589
-  - rxcui:2058943
-  - rxcui:2058949
-  - rxcui:1657209
-  - umlscui:C1329779
-  - umlscui:C1443685
+  - RXCUI:2058943
+  - RXCUI:2058949
+  - RXCUI:1657209
+  - UMLSCUI:C1329779
+  - UMLSCUI:C1443685
   - MESH:D000069444
   - PUBCHEM:50067183
   - PUBCHEM:47206967
@@ -2381,7 +2437,7 @@ patient:
   - SCTID:406443008
   - SCTID:406442003
   - SCTID:409272008
-  OvarianCancerDx: &id056
+  OvarianCancerDx: &id070
   - SCTID:363443007
   - SCTID:424600001
   - SCTID:424486004
@@ -2407,11 +2463,15 @@ patient:
   - MONDO:0021144
   - MONDO:0005211
   - MONDO:0006335
-  OvarianDysfunctionDx: &id057
+  OvarianDysfunctionDx: &id071
   - SCTID:37102008
   - SCTID:699275001
   - SCTID:442781001
-  PneumoniaDx: &id058
+  Paroxetine: &id072
+  - RXCUI:32937
+  - RXCUI:235830
+  - RXCUI:436212
+  PneumoniaDx: &id073
   - MONDO:0000265
   - MONDO:0004649
   - MONDO:0004652
@@ -2503,63 +2563,80 @@ patient:
   - HP:0006532
   - MONDO:0041879
   - MONDO:0043919
+  - HP:0002090
+  - HP:0006532
+  - ICD9:481%
+  - ICD9:482%
+  - ICD9:483%
+  - ICD9:484%
+  - ICD9:485%
+  - ICD9:486%
+  - ICD10:J12.%
+  - ICD10:J13.%
+  - ICD10:J14.%
+  - ICD10:J15.%
+  - ICD10:J16.%
+  - ICD10:J17.%
+  - ICD10:J18.%
   - NCIT:C3333
-  - umlscui:C0032285
-  Prednisone: &id059
-  - SMILES:C[C@]12CC(=O)[C@H]3[C@@H](CCC4=CC(=O)C=C[C@]34C)[C@@H]1CC[C@]2(O)C(=O)CO
+  - UMLSCUI:C0032285
+  Prasterone: &id074
+  - RXCUI:3143
+  Prednisone: &id075
+  - SMILES:C[C@]12CC(:O)[C@H]3[C@@H](CCC4:CC(:O)C:C[C@]34C)[C@@H]1CC[C@]2(O)C(:O)CO
   - CAS:68-59-7
   - CAS:53-03-2
   - MESH:D011241
   - CHEMBL:CHEMBL635
   - PUBCHEM:5865
-  - Rxcui:763179
-  - Rxcui:763181
-  - Rxcui:795858
-  - Rxcui:763185
-  - Rxcui:763183
-  - Rxcui:206837
-  - Rxcui:206954
-  - Rxcui:206988
-  - Rxcui:206997
-  - Rxcui:207048
-  - Rxcui:1303131
-  - Rxcui:1303134
-  - Rxcui:1303137
-  - Rxcui:198146
-  - Rxcui:198148
-  - Rxcui:205301
-  - Rxcui:312615
-  - Rxcui:312617
-  - Rxcui:312687
-  - Rxcui:1303135
-  - Rxcui:198144
-  - Rxcui:198145
-  - Rxcui:1303125
-  - Rxcui:1303132
-  - umlscui:C1811498
-  - umlscui:C0690124
-  - umlscui:C2343331
-  - umlscui:C1814982
-  - umlscui:C1814983
-  - umlscui:C0708023
-  - umlscui:C0708166
-  - umlscui:C0708220
-  - umlscui:C0708232
-  - umlscui:C0708301
-  - umlscui:C3475339
-  - umlscui:C3475342
-  - umlscui:C3475345
-  - umlscui:C0690123
-  - umlscui:C0690128
-  - umlscui:C0705898
-  - umlscui:C0979757
-  - umlscui:C0989249
-  - umlscui:C0982851
-  - umlscui:C3475343
-  - umlscui:C0690120
-  - umlscui:C0690121
-  - umlscui:C3475333
-  - umlscui:C3475340
+  - RXCUI:763179
+  - RXCUI:763181
+  - RXCUI:795858
+  - RXCUI:763185
+  - RXCUI:763183
+  - RXCUI:206837
+  - RXCUI:206954
+  - RXCUI:206988
+  - RXCUI:206997
+  - RXCUI:207048
+  - RXCUI:1303131
+  - RXCUI:1303134
+  - RXCUI:1303137
+  - RXCUI:198146
+  - RXCUI:198148
+  - RXCUI:205301
+  - RXCUI:312615
+  - RXCUI:312617
+  - RXCUI:312687
+  - RXCUI:1303135
+  - RXCUI:198144
+  - RXCUI:198145
+  - RXCUI:1303125
+  - RXCUI:1303132
+  - UMLSCUI:C1811498
+  - UMLSCUI:C0690124
+  - UMLSCUI:C2343331
+  - UMLSCUI:C1814982
+  - UMLSCUI:C1814983
+  - UMLSCUI:C0708023
+  - UMLSCUI:C0708166
+  - UMLSCUI:C0708220
+  - UMLSCUI:C0708232
+  - UMLSCUI:C0708301
+  - UMLSCUI:C3475339
+  - UMLSCUI:C3475342
+  - UMLSCUI:C3475345
+  - UMLSCUI:C0690123
+  - UMLSCUI:C0690128
+  - UMLSCUI:C0705898
+  - UMLSCUI:C0979757
+  - UMLSCUI:C0989249
+  - UMLSCUI:C0982851
+  - UMLSCUI:C3475343
+  - UMLSCUI:C0690120
+  - UMLSCUI:C0690121
+  - UMLSCUI:C3475333
+  - UMLSCUI:C3475340
   - SCTID:116602009
   - SCTID:325456002
   - SCTID:373989007
@@ -2570,7 +2647,7 @@ patient:
   - SCTID:10312003
   - SCTID:768296006
   - SCTID:722491009
-  PregnancyDx: &id060
+  PregnancyDx: &id076
   - SCTID:289908002
   - SCTID:199312002
   - SCTID:424525001
@@ -2657,7 +2734,12 @@ patient:
   - SCTID:405114003
   - SCTID:239103006
   - SCTID:167252002
-  ProstateCancerDx: &id061
+  Progesterone: &id077
+  - RXCUI:8727
+  Propranolol: &id078
+  - RXCUI:8787
+  - RXCUI:82084
+  ProstateCancerDx: &id079
   - SCTID:254900004
   - SCTID:399068003
   - SCTID:715412008
@@ -2681,93 +2763,97 @@ patient:
   - SCTID:406077007
   - SCTID:421714007
   - SCTID:406076003
-  Race: &id062
+  Race: &id080
   - NCIT:C17049
-  - umlscui:C0034510
+  - UMLSCUI:C0034510
   - NCIT:C93992
-  - umlscui:C2986190
+  - UMLSCUI:C2986190
   - SCTID:103579009
-  ReactiveAirwayDx: &id063
+  ReactiveAirwayDx: &id081
   - SCTID:991000119106
   - SCTID:371088008
   - HP:0002099
+  - HP:0002099
+  - ICD9:496%
+  - ICD10:J44.%
+  - ICD10:J66.%
   - NCIT:C113673
-  - umlscui:C3714497
-  Salmeterol: &id064
-  - SMILES:OCc1cc(ccc1O)C(O)CNCCCCCCOCCCCc2ccccc2
+  - UMLSCUI:C3714497
+  Salmeterol: &id082
+  - SMILES:OCC1CC(CCC1O)C(O)CNCCCCCCOCCCCC2CCCCC2
   - CAS:89365-50-4
   - CHEMBL:CHEMBL1263
   - PUBCHEM:5152
-  - rxcui:866047
-  - rxcui:866049
-  - rxcui:896165
-  - rxcui:896185
-  - rxcui:896190
-  - rxcui:896212
-  - rxcui:896222
-  - rxcui:896229
-  - rxcui:896235
-  - rxcui:896237
-  - rxcui:896243
-  - rxcui:896245
-  - rxcui:896271
-  - rxcui:896273
-  - rxcui:1918199
-  - rxcui:1918205
-  - rxcui:1918211
-  - rxcui:312897
-  - rxcui:896231
-  - rxcui:896236
-  - rxcui:896239
-  - rxcui:896244
-  - rxcui:896267
-  - rxcui:896272
-  - rxcui:866044
-  - rxcui:866048
-  - rxcui:896161
-  - rxcui:896184
-  - rxcui:896186
-  - rxcui:896209
-  - rxcui:896218
-  - rxcui:896228
-  - rxcui:1918194
-  - rxcui:1918203
-  - rxcui:1918209
-  - umlscui:C2723055
-  - umlscui:C2723057
-  - umlscui:C2365544
-  - umlscui:C1965900
-  - umlscui:C2365549
-  - umlscui:C1965902
-  - umlscui:C2365556
-  - umlscui:C1965904
-  - umlscui:C2731892
-  - umlscui:C2731893
-  - umlscui:C2731899
-  - umlscui:C2731901
-  - umlscui:C2731918
-  - umlscui:C2731919
-  - umlscui:C4473486
-  - umlscui:C4473491
-  - umlscui:C4306094
-  - umlscui:C0980094
-  - umlscui:C2731888
-  - umlscui:C1967679
-  - umlscui:C2731895
-  - umlscui:C2731900
-  - umlscui:C2731914
-  - umlscui:C1724805
-  - umlscui:C2723052
-  - umlscui:C2723056
-  - umlscui:C2731853
-  - umlscui:C2731864
-  - umlscui:C2731865
-  - umlscui:C1967982
-  - umlscui:C2731881
-  - umlscui:C1967976
-  - umlscui:C4306273
-  - umlscui:C4306272
-  - umlscui:C4306271
+  - RXCUI:866047
+  - RXCUI:866049
+  - RXCUI:896165
+  - RXCUI:896185
+  - RXCUI:896190
+  - RXCUI:896212
+  - RXCUI:896222
+  - RXCUI:896229
+  - RXCUI:896235
+  - RXCUI:896237
+  - RXCUI:896243
+  - RXCUI:896245
+  - RXCUI:896271
+  - RXCUI:896273
+  - RXCUI:1918199
+  - RXCUI:1918205
+  - RXCUI:1918211
+  - RXCUI:312897
+  - RXCUI:896231
+  - RXCUI:896236
+  - RXCUI:896239
+  - RXCUI:896244
+  - RXCUI:896267
+  - RXCUI:896272
+  - RXCUI:866044
+  - RXCUI:866048
+  - RXCUI:896161
+  - RXCUI:896184
+  - RXCUI:896186
+  - RXCUI:896209
+  - RXCUI:896218
+  - RXCUI:896228
+  - RXCUI:1918194
+  - RXCUI:1918203
+  - RXCUI:1918209
+  - UMLSCUI:C2723055
+  - UMLSCUI:C2723057
+  - UMLSCUI:C2365544
+  - UMLSCUI:C1965900
+  - UMLSCUI:C2365549
+  - UMLSCUI:C1965902
+  - UMLSCUI:C2365556
+  - UMLSCUI:C1965904
+  - UMLSCUI:C2731892
+  - UMLSCUI:C2731893
+  - UMLSCUI:C2731899
+  - UMLSCUI:C2731901
+  - UMLSCUI:C2731918
+  - UMLSCUI:C2731919
+  - UMLSCUI:C4473486
+  - UMLSCUI:C4473491
+  - UMLSCUI:C4306094
+  - UMLSCUI:C0980094
+  - UMLSCUI:C2731888
+  - UMLSCUI:C1967679
+  - UMLSCUI:C2731895
+  - UMLSCUI:C2731900
+  - UMLSCUI:C2731914
+  - UMLSCUI:C1724805
+  - UMLSCUI:C2723052
+  - UMLSCUI:C2723056
+  - UMLSCUI:C2731853
+  - UMLSCUI:C2731864
+  - UMLSCUI:C2731865
+  - UMLSCUI:C1967982
+  - UMLSCUI:C2731881
+  - UMLSCUI:C1967976
+  - UMLSCUI:C4306273
+  - UMLSCUI:C4306272
+  - UMLSCUI:C4306271
   - SCTID:372515005
   - SCTID:108606009
   - SCTID:108605008
@@ -2785,22 +2871,32 @@ patient:
   - SCTID:320280004
   - SCTID:320277000
   - SCTID:320279002
+  Sertraline: &id083
+  - RXCUI:155137
+  - RXCUI:36437
   Sex: &id009
   - NCIT:C28421
-  - umlscui:C1522384
+  - UMLSCUI:C1522384
   - NCIT:C93992
-  - umlscui:C2986190
+  - UMLSCUI:C2986190
   - SCTID:734000001
   Sex2: *id009
-  TesticularCancerDx: &id065
+  Tamoxifen: &id084
+  - RXCUI:10324
+  - RXCUI:40137
+  TesticularCancerDx: &id085
   - SCTID:315272007
   - SCTID:717041008
-  TesticularDysfunctionDx: &id066
+  TesticularDysfunctionDx: &id086
   - SCTID:73820008
   - SCTID:442782008
   - SCTID:3761000119104
-  Theophylline: &id067
-  - SMILES:CN1C(=O)N(C)c2nc[nH]c2C1=O
+  Testosterone: &id087
+  - RXCUI:10379
+  - RXCUI:10382
+  - RXCUI:37858
+  Theophylline: &id088
+  - SMILES:CN1C(:O)N(C)C2NC[NH]C2C1:O
   - CAS:58-55-9
   - CAS:56645-32-0
   - CAS:75448-53-2
@@ -2811,110 +2907,110 @@ patient:
   - CHEMBL:CHEMBL221190
   - CHEMBL:CHEMBL1200406
   - PUBCHEM:2153
-  - rxcui:208266
-  - rxcui:208278
-  - rxcui:313277
-  - rxcui:756226
-  - rxcui:844590
-  - rxcui:844591
-  - rxcui:844813
-  - rxcui:844829
-  - rxcui:844831
-  - rxcui:844832
-  - rxcui:208262
-  - rxcui:108870
-  - rxcui:1115987
-  - rxcui:1115993
-  - rxcui:198255
-  - rxcui:198256
-  - rxcui:198257
-  - rxcui:198258
-  - rxcui:198261
-  - rxcui:198262
-  - rxcui:198263
-  - rxcui:237178
-  - rxcui:313263
-  - rxcui:313280
-  - rxcui:313284
-  - rxcui:313285
-  - rxcui:313297
-  - rxcui:313298
-  - rxcui:313302
-  - rxcui:313304
-  - rxcui:313310
-  - rxcui:314240
-  - rxcui:314241
-  - rxcui:317769
-  - rxcui:348472
-  - rxcui:425539
-  - rxcui:701712
-  - rxcui:198260
-  - rxcui:198264
-  - rxcui:199331
-  - rxcui:313264
-  - rxcui:313272
-  - rxcui:313291
-  - rxcui:317831
-  - rxcui:346574
-  - rxcui:411090
-  - rxcui:706550
-  - rxcui:313306
-  - rxcui:199809
-  - rxcui:434104
-  - rxcui:104553
-  - rxcui:346733
-  - umlscui:C0709767
-  - umlscui:C0709784
-  - umlscui:C0980573
-  - umlscui:C0709725
-  - umlscui:C2682140
-  - umlscui:C2682141
-  - umlscui:C2682359
-  - umlscui:C2682375
-  - umlscui:C2682377
-  - umlscui:C2682378
-  - umlscui:C0709763
-  - umlscui:C0361759
-  - umlscui:C0792754
-  - umlscui:C0792525
-  - umlscui:C0690477
-  - umlscui:C0690479
-  - umlscui:C0690481
-  - umlscui:C0690482
-  - umlscui:C0690489
-  - umlscui:C0690492
-  - umlscui:C0690494
-  - umlscui:C0772554
-  - umlscui:C0980558
-  - umlscui:C0980576
-  - umlscui:C0980580
-  - umlscui:C0980581
-  - umlscui:C0980594
-  - umlscui:C0980595
-  - umlscui:C0980600
-  - umlscui:C0980602
-  - umlscui:C0980610
-  - umlscui:C0981749
-  - umlscui:C0981750
-  - umlscui:C0994337
-  - umlscui:C1163864
-  - umlscui:C1354807
-  - umlscui:C1878493
-  - umlscui:C0690486
-  - umlscui:C0690496
-  - umlscui:C0692756
-  - umlscui:C0980559
-  - umlscui:C0980568
-  - umlscui:C0980588
-  - umlscui:C0994450
-  - umlscui:C1161581
-  - umlscui:C1340346
-  - umlscui:C1948868
-  - umlscui:C0980604
-  - umlscui:C0693467
-  - umlscui:C1363374
-  - umlscui:C0354787
-  - umlscui:C1161776
+  - RXCUI:208266
+  - RXCUI:208278
+  - RXCUI:313277
+  - RXCUI:756226
+  - RXCUI:844590
+  - RXCUI:844591
+  - RXCUI:844813
+  - RXCUI:844829
+  - RXCUI:844831
+  - RXCUI:844832
+  - RXCUI:208262
+  - RXCUI:108870
+  - RXCUI:1115987
+  - RXCUI:1115993
+  - RXCUI:198255
+  - RXCUI:198256
+  - RXCUI:198257
+  - RXCUI:198258
+  - RXCUI:198261
+  - RXCUI:198262
+  - RXCUI:198263
+  - RXCUI:237178
+  - RXCUI:313263
+  - RXCUI:313280
+  - RXCUI:313284
+  - RXCUI:313285
+  - RXCUI:313297
+  - RXCUI:313298
+  - RXCUI:313302
+  - RXCUI:313304
+  - RXCUI:313310
+  - RXCUI:314240
+  - RXCUI:314241
+  - RXCUI:317769
+  - RXCUI:348472
+  - RXCUI:425539
+  - RXCUI:701712
+  - RXCUI:198260
+  - RXCUI:198264
+  - RXCUI:199331
+  - RXCUI:313264
+  - RXCUI:313272
+  - RXCUI:313291
+  - RXCUI:317831
+  - RXCUI:346574
+  - RXCUI:411090
+  - RXCUI:706550
+  - RXCUI:313306
+  - RXCUI:199809
+  - RXCUI:434104
+  - RXCUI:104553
+  - RXCUI:346733
+  - UMLSCUI:C0709767
+  - UMLSCUI:C0709784
+  - UMLSCUI:C0980573
+  - UMLSCUI:C0709725
+  - UMLSCUI:C2682140
+  - UMLSCUI:C2682141
+  - UMLSCUI:C2682359
+  - UMLSCUI:C2682375
+  - UMLSCUI:C2682377
+  - UMLSCUI:C2682378
+  - UMLSCUI:C0709763
+  - UMLSCUI:C0361759
+  - UMLSCUI:C0792754
+  - UMLSCUI:C0792525
+  - UMLSCUI:C0690477
+  - UMLSCUI:C0690479
+  - UMLSCUI:C0690481
+  - UMLSCUI:C0690482
+  - UMLSCUI:C0690489
+  - UMLSCUI:C0690492
+  - UMLSCUI:C0690494
+  - UMLSCUI:C0772554
+  - UMLSCUI:C0980558
+  - UMLSCUI:C0980576
+  - UMLSCUI:C0980580
+  - UMLSCUI:C0980581
+  - UMLSCUI:C0980594
+  - UMLSCUI:C0980595
+  - UMLSCUI:C0980600
+  - UMLSCUI:C0980602
+  - UMLSCUI:C0980610
+  - UMLSCUI:C0981749
+  - UMLSCUI:C0981750
+  - UMLSCUI:C0994337
+  - UMLSCUI:C1163864
+  - UMLSCUI:C1354807
+  - UMLSCUI:C1878493
+  - UMLSCUI:C0690486
+  - UMLSCUI:C0690496
+  - UMLSCUI:C0692756
+  - UMLSCUI:C0980559
+  - UMLSCUI:C0980568
+  - UMLSCUI:C0980588
+  - UMLSCUI:C0994450
+  - UMLSCUI:C1161581
+  - UMLSCUI:C1340346
+  - UMLSCUI:C1948868
+  - UMLSCUI:C0980604
+  - UMLSCUI:C0693467
+  - UMLSCUI:C1363374
+  - UMLSCUI:C0354787
+  - UMLSCUI:C1161776
   - SCTID:387796005
   - SCTID:320415003
   - SCTID:376735006
@@ -2984,16 +3080,23 @@ patient:
   - SCTID:430224000
   TotalEDInpatientVisits:
   - NCIT:C53513
-  - umlscui:C0562508
+  - UMLSCUI:C0562508
   - NCIT:C150760
   - NCIT:C68605
-  - umlscui:C2348993
+  - UMLSCUI:C2348993
   - SCTID:103324002
-  UrbanRural: &id068
+  Trazodone: &id089
+  - RXCUI:82112
+  - RXCUI:10737
+  Triptorelin: &id090
+  - RXCUI:38782
+  - RXCUI:236538
+  - RXCUI:338529
+  UrbanRural: &id091
   - NCIT:C45781
-  - umlscui:C0178587
+  - UMLSCUI:C0178587
   - SCTID:272497004
-  UterineCancerDx: &id069
+  UterineCancerDx: &id092
   - SCTID:371973000
   - SCTID:363354003
   - SCTID:428941002
@@ -3004,75 +3107,82 @@ patient:
   - SCTID:406044008
   - MONDO:0002715
   - MONDO:0016252
+  Venlafaxine: &id093
+  - RXCUI:39786
+  - RXCUI:39786
 visit:
-  Avg24hAcetaldehydeExposure_2: *id010
-  Avg24hAcetaldehydeExposure_2_qcut: *id010
+  Acetaldehyde: *id010
   AgeVisit: *id011
   AlbuterolVisit: *id012
   AlcoholDependenceVisit: *id013
   AlopeciaVisit: *id014
-  ArformoterolVisit: *id015
-  AsthmaDxVisit: *id016
-  Avg24hBenzeneExposure_2: *id001
-  Avg24hBenzeneExposure_2_qcut: *id001
-  Avg24hFormaldehydeExposure_2: *id002
-  Avg24hFormaldehydeExposure_2_qcut: *id002
-  Avg24hNO2Exposure_2: *id003
-  Avg24hNO2Exposure_2_qcut: *id003
-  Avg24hNOExposure_2: *id004
-  Avg24hNOExposure_2_qcut: *id004
-  Avg24hNOxExposure_2: *id005
-  Avg24hNOxExposure_2_qcut: *id005
-  Avg24hOzoneExposure: *id006
-  Avg24hOzoneExposure_StudyAvg: *id006
-  Avg24hOzoneExposure_StudyAvg_qcut: *id006
-  Avg24hOzoneExposure_StudyMax: *id006
-  Avg24hOzoneExposure_StudyMax_qcut: *id006
-  Avg24hOzoneExposure_qcut: *id006
-  Avg24hPM2.5Exposure: *id007
-  Avg24hPM2.5Exposure_2: *id007
-  Avg24hPM2.5Exposure_2_qcut: *id007
-  Avg24hPM2.5Exposure_StudyAvg: *id007
-  Avg24hPM2.5Exposure_StudyAvg_qcut: *id007
-  Avg24hPM2.5Exposure_StudyMax: *id007
-  Avg24hPM2.5Exposure_StudyMax_qcut: *id007
-  Avg24hPM2.5Exposure_qcut: *id007
-  Avg24hSO2Exposure_2: *id008
-  Avg24hSO2Exposure_2_qcut: *id008
-  BeclomethasoneVisit: *id017
-  BudesonideVisit: *id018
-  Avg24hCOExposure_2: *id019
-  Avg24hCOExposure_2_qcut: *id019
+  AndrostenedioneVisit: *id015
+  ArformoterolVisit: *id016
+  AsthmaDxVisit: *id017
+  Avg24hBenzene_2: *id001
+  Avg24hBenzene_2_qcut: *id001
+  Avg24hCO_2: *id002
+  Avg24hCO_2_qcut: *id002
+  Avg24hNO2_2: *id003
+  Avg24hNO2_2_qcut: *id003
+  Avg24hNO_2: *id004
+  Avg24hNO_2_qcut: *id004
+  Avg24hNOx_2: *id005
+  Avg24hNOx_2_qcut: *id005
+  Avg24hOzone: *id006
+  Avg24hOzone_StudyAvg: *id006
+  Avg24hOzone_StudyAvg_qcut: *id006
+  Avg24hOzone_StudyMax: *id006
+  Avg24hOzone_StudyMax_qcut: *id006
+  Avg24hOzone_qcut: *id006
+  Avg24hPM2.5: *id007
+  Avg24hPM2.5_2: *id007
+  Avg24hPM2.5_2_qcut: *id007
+  Avg24hPM2.5_StudyAvg: *id007
+  Avg24hPM2.5_StudyAvg_qcut: *id007
+  Avg24hPM2.5_StudyMax: *id007
+  Avg24hPM2.5_StudyMax_qcut: *id007
+  Avg24hPM2.5_qcut: *id007
+  Avg24hSO2_2: *id008
+  Avg24hSO2_2_qcut: *id008
+  BeclomethasoneVisit: *id018
+  BudesonideVisit: *id019
   CervicalCancerVisit: *id020
   CetirizineVisit: *id021
   Ciclesonidevisit: *id022
-  CoughDxVisit: *id023
-  CroupDxVisit: *id024
-  DiabetesVisit: *id025
-  DiphenhydramineVisit: *id026
-  DrugDependenceVisit: *id027
-  EndometriosisVisit: *id028
-  EstHouseholdIncome: *id029
-  EstProbabilityESL: *id030
-  EstProbabilityHighSchoolMaxEducation: *id031
-  EstProbabilityHouseholdNonHispWhite: *id032
-  EstProbabilityNoAuto: *id033
-  EstProbabilityNoHealthIns: *id034
-  EstProbabilityNonHispWhite: *id035
-  EstResidentialDensity: *id036
-  EstResidentialDensity25Plus: *id037
-  Ethnicity: *id038
+  CitalopramVisit: *id023
+  CoughDxVisit: *id024
+  CroupDxVisit: *id025
+  DiabetesVisit: *id026
+  DiphenhydramineVisit: *id027
+  DrugDependenceVisit: *id028
+  DuloxetineVisit: *id029
+  EndometriosisVisit: *id030
+  EscitalopramVisit: *id031
+  EstHouseholdIncome: *id032
+  EstProbabilityESL: *id033
+  EstProbabilityHighSchoolMaxEducation: *id034
+  EstProbabilityHouseholdNonHispWhite: *id035
+  EstProbabilityNoAuto: *id036
+  EstProbabilityNoHealthIns: *id037
+  EstProbabilityNonHispWhite: *id038
+  EstResidentialDensity: *id039
+  EstResidentialDensity25Plus: *id040
+  EstradiolVisit: *id041
+  EstrogenVisit: *id042
+  EstropipateVisit: *id043
+  Ethnicity: *id044
   FEV1FVC_FirstFlag:
   - LOINC:52485-0
   - LOINC:19926-5
   - NCIT:C38084
-  - umlscui:C0849974
+  - UMLSCUI:C0849974
   - SCTID:165044007
   FEV1FVC_FirstFraction:
   - LOINC:52485-0
   - LOINC:19926-5
   - NCIT:C38084
-  - umlscui:C0849974
+  - UMLSCUI:C0849974
   - SCTID:165043001
   - SCTID:251944000
   - SCTID:313222007
@@ -3080,13 +3190,13 @@ visit:
   - LOINC:52485-0
   - LOINC:19926-5
   - NCIT:C38084
-  - umlscui:C0849974
+  - UMLSCUI:C0849974
   - SCTID:165044007
   FEV1FVC_LastFraction:
   - LOINC:52485-0
   - LOINC:19926-5
   - NCIT:C38084
-  - umlscui:C0849974
+  - UMLSCUI:C0849974
   - SCTID:165043001
   - SCTID:251944000
   - SCTID:313222007
@@ -3094,152 +3204,170 @@ visit:
   - LOINC:52485-0
   - LOINC:20150-9
   - NCIT:C120933
-  - umlscui:C0016529
+  - UMLSCUI:C0016529
   - SCTID:59328004
   FEV1_LastValue:
   - LOINC:52485-0
   - LOINC:20150-9
   - NCIT:C120933
-  - umlscui:C0016529
+  - UMLSCUI:C0016529
   - SCTID:59328004
   FVC_FirstValue:
   - LOINC:52485-0
   - LOINC:19870-5
   - NCIT:C111361
-  - umlscui:C3714541
+  - UMLSCUI:C3714541
   - SCTID:50834005
   FVC_LastValue:
   - LOINC:52485-0
   - LOINC:19870-5
   - NCIT:C111361
-  - umlscui:C3714541
+  - UMLSCUI:C3714541
   - SCTID:50834005
-  FexofenadineVisit: *id039
-  FibromyalgiaVisit: *id040
-  FlunisolideVisit: *id041
-  FluticasoneVisit: *id042
-  FormoterolVisit: *id043
+  FexofenadineVisit: *id045
+  FibromyalgiaVisit: *id046
+  FlunisolideVisit: *id047
+  FluoxetineVisit: *id048
+  FluticasoneVisit: *id049
+  Formaldehyde: *id050
+  FormoterolVisit: *id051
+  GoserelinVisit: *id052
   HCT_FirstFlag:
   - LOINC:24360-0
   - LOINC:20570-8
   - LOINC:4544-3
   - NCIT:C64796
-  - umlscui:C0018935
+  - UMLSCUI:C0018935
   - SCTID:165416002
   HCT_FirstValue:
   - LOINC:24360-0
   - LOINC:20570-8
   - LOINC:4544-3
   - NCIT:C64796
-  - umlscui:C0018935
+  - UMLSCUI:C0018935
   - SCTID:365616005
   HCT_LastFlag:
   - LOINC:24360-0
   - LOINC:20570-8
   - LOINC:4544-3
   - NCIT:C64796
-  - umlscui:C0018935
+  - UMLSCUI:C0018935
   - SCTID:165416002
   HCT_LastValue:
   - LOINC:24360-0
   - LOINC:20570-8
   - LOINC:4544-3
   - NCIT:C64796
-  - umlscui:C0018935
+  - UMLSCUI:C0018935
   - SCTID:365616005
-  IndacaterolVisit: *id044
-  IpratropiumVisit: *id045
-  KidneyCancerVisit: *id046
-  MajorRoadwayHighwayExposure: *id047
-  Max24hOzoneExposure: *id006
-  Max24hOzoneExposure_2: *id006
-  Max24hOzoneExposure_2_qcut: *id006
-  Max24hOzoneExposure_StudyAvg: *id006
-  Max24hOzoneExposure_StudyAvg_qcut: *id006
-  Max24hOzoneExposure_StudyMax: *id006
-  Max24hOzoneExposure_StudyMax_qcut: *id006
-  Max24hOzoneExposure_qcut: *id006
-  Max24hPM2.5Exposure: *id007
-  Max24hPM2.5Exposure_StudyAvg: *id007
-  Max24hPM2.5Exposure_StudyAvg_qcut: *id007
-  Max24hPM2.5Exposure_StudyMax: *id007
-  Max24hPM2.5Exposure_StudyMax_qcut: *id007
-  Max24hPM2.5Exposure_qcut: *id007
-  MenopauseVisit: *id048
-  MepolizumabVisit: *id049
-  MetaproterenolVisit: *id050
-  MetforminVisit: *id051
-  MometasoneVisit: *id052
-  ObesityBMIVisit: *id053
-  ObesityDxVisit: *id054
-  OmalizumabVisit: *id055
-  OvarianCancerVisit: *id056
-  OvarianDysfunctionVisit: *id057
+  HistrelinVisit: *id053
+  HydroxyzineVisit: *id054
+  IndacaterolVisit: *id055
+  IpratropiumVisit: *id056
+  KidneyCancerVisit: *id057
+  LeuprolideVisit: *id058
+  MajorRoadwayHighwayExposure: *id059
+  Max24hOzone: *id006
+  Max24hOzone_2: *id006
+  Max24hOzone_2_qcut: *id006
+  Max24hOzone_StudyAvg: *id006
+  Max24hOzone_StudyAvg_qcut: *id006
+  Max24hOzone_StudyMax: *id006
+  Max24hOzone_StudyMax_qcut: *id006
+  Max24hOzone_qcut: *id006
+  Max24hPM2.5: *id007
+  Max24hPM2.5_StudyAvg: *id007
+  Max24hPM2.5_StudyAvg_qcut: *id007
+  Max24hPM2.5_StudyMax: *id007
+  Max24hPM2.5_StudyMax_qcut: *id007
+  Max24hPM2.5_qcut: *id007
+  MedroxyprogresteroneVisit: *id060
+  MenopauseVisit: *id061
+  MepolizumabVisit: *id062
+  MetaproterenolVisit: *id063
+  MetforminVisit: *id064
+  MometasoneVisit: *id065
+  NandroloneVisit: *id066
+  ObesityBMIVisit: *id067
+  ObesityDxVisit: *id068
+  OmalizumabVisit: *id069
+  OvarianCancerVisit: *id070
+  OvarianDysfunctionVisit: *id071
   PLT_FirstFlag:
   - LOINC:26515-7
   - LOINC:7773
   - NCIT:C12520
-  - umlscui:C0005821
+  - UMLSCUI:C0005821
   - SCTID:165558001
   PLT_FirstValue:
   - LOINC:26515-7
   - LOINC:7773
   - NCIT:C12520
-  - umlscui:C0005821
+  - UMLSCUI:C0005821
   - SCTID:365632008
   PLT_LastFlag:
   - LOINC:26515-7
   - LOINC:7773
   - NCIT:C12520
-  - umlscui:C0005821
+  - UMLSCUI:C0005821
   - SCTID:165558001
   PLT_LastValue:
   - LOINC:26515-7
   - LOINC:7773
   - NCIT:C12520
-  - umlscui:C0005821
+  - UMLSCUI:C0005821
   - SCTID:365632008
-  PneumoniaDxVisit: *id058
-  PrednisoneVisit: *id059
-  PregnancyVisit: *id060
-  ProstateCancerVisit: *id061
-  Race: *id062
-  ReactiveAirwayDxVisit: *id063
-  SalmeterolVisit: *id064
+  ParoxetineVisit: *id072
+  PneumoniaDxVisit: *id073
+  PrasteroneVisit: *id074
+  PrednisoneVisit: *id075
+  PregnancyVisit: *id076
+  ProgesteroneVisit: *id077
+  PropranololVisit: *id078
+  ProstateCancerVisit: *id079
+  Race: *id080
+  ReactiveAirwayDxVisit: *id081
+  SalmeterolVisit: *id082
+  SertralineVisit: *id083
   Sex: *id009
   Sex2: *id009
-  TesticularCancerVisit: *id065
-  TesticularDysfunctionVisit: *id066
-  TheophyllineVisit: *id067
-  UrbanRural: *id068
-  UterineCancerVisit: *id069
+  TamoxifenVisit: *id084
+  TesticularCancerVisit: *id085
+  TesticularDysfunctionVisit: *id086
+  TestosteroneVisit: *id087
+  TheophyllineVisit: *id088
+  TrazodoneVisit: *id089
+  TriptorelinVisit: *id090
+  UrbanRural: *id091
+  UterineCancerVisit: *id092
+  VenlafaxineVisit: *id093
   VisitType:
   - NCIT:C39564
-  - umlscui:C1512346
+  - UMLSCUI:C1512346
   - SCTID:103324002
   WBC_FirstFlag:
   - LOINC:26464-8
   - LOINC:6690-2
   - NCIT:C12529
-  - umlscui:C0023516
+  - UMLSCUI:C0023516
   - SCTID:165509000
   WBC_FirstValue:
   - LOINC:26464-8
   - LOINC:6690-2
   - NCIT:C12529
-  - umlscui:C0023516
+  - UMLSCUI:C0023516
   - SCTID:52501007
   - SCTID:365630000
   WBC_LastFlag:
   - LOINC:26464-8
   - LOINC:6690-2
   - NCIT:C12529
-  - umlscui:C0023516
+  - UMLSCUI:C0023516
   - SCTID:165509000
   WBC_LastValue:
   - LOINC:26464-8
   - LOINC:6690-2
   - NCIT:C12529
-  - umlscui:C0023516
+  - UMLSCUI:C0023516
   - SCTID:52501007
   - SCTID:365630000

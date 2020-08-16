@@ -111,11 +111,11 @@ def do_test_knowledge_graph(biolink_class):
         resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph", data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
         resp_json = resp.json()
         assert "return value" in resp_json
-        assert len(resp_json["return value"]["answers"]) > 1
+        assert len(resp_json["return value"]["results"]) > 1
 
         assert "n_results" in resp_json["return value"]
-        assert "answers" in resp_json["return value"]
-        assert resp_json["return value"]["n_results"] == len(resp_json["return value"]["answers"])
+        assert "results" in resp_json["return value"]
+        assert resp_json["return value"]["n_results"] == len(resp_json["return value"]["results"])
         assert "knowledge_graph" in resp_json["return value"]
         assert "message_code" in resp_json["return value"]
         assert "tool_version" in resp_json["return value"]
@@ -127,11 +127,11 @@ def do_test_one_hop(curie, biolink_class, **kwargs):
         resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_one_hop", data = json.dumps(query(curie, biolink_class, **kwargs)), headers = json_headers, verify = False)
         resp_json = resp.json()
         assert "return value" in resp_json
-        assert len(resp_json["return value"]["answers"]) > 1
+        assert len(resp_json["return value"]["results"]) > 1
 
         assert "n_results" in resp_json["return value"]
-        assert "answers" in resp_json["return value"]
-        assert resp_json["return value"]["n_results"] == len(resp_json["return value"]["answers"])
+        assert "results" in resp_json["return value"]
+        assert resp_json["return value"]["n_results"] == len(resp_json["return value"]["results"])
         assert "knowledge_graph" in resp_json["return value"]
         assert "message_code" in resp_json["return value"]
         assert "tool_version" in resp_json["return value"]
@@ -184,7 +184,7 @@ def do_test_knowledge_graph_one_hop(**kwargs):
     resp_json = resp.json()
     logger.info(resp_json)
     assert "return value" in resp_json
-    assert len(resp_json["return value"]["answers"]) > 1
+    assert len(resp_json["return value"]["results"]) > 1
 
     assert "knowledge_graph" in resp_json["return value"]
     assert "message_code" in resp_json["return value"]
@@ -332,14 +332,14 @@ def do_test_knowledge_graph_unique_edge_ids(biolink_class):
         resp_json = resp.json()
         assert "return value" in resp_json
 
-        assert len(resp_json["return value"]["answers"]) > 1
+        assert len(resp_json["return value"]["results"]) > 1
 
-        for edge_bindings in map(lambda x: x["edge_bindings"], resp_json["return value"]["answers"]):
+        for edge_bindings in map(lambda x: x["edge_bindings"], resp_json["return value"]["results"]):
             assert "e00" in edge_bindings
             assert len(edge_bindings) == 1
             assert len(edge_bindings["e00"]) == 1
 
-        edge_ids = list(map(lambda x: x["edge_bindings"]["e00"][0], resp_json["return value"]["answers"]))
+        edge_ids = list(map(lambda x: x["edge_bindings"]["e00"][0], resp_json["return value"]["results"]))
         assert len(edge_ids) == len(set(edge_ids))
 
 
@@ -349,9 +349,9 @@ def do_test_knowledge_graph_edge_set(biolink_class):
         resp_json = resp.json()
         assert "return value" in resp_json
 
-        assert len(resp_json["return value"]["answers"]) > 1
+        assert len(resp_json["return value"]["results"]) > 1
 
-        edge_ids = set(map(lambda x: x["edge_bindings"]["e00"][0], resp_json["return value"]["answers"]))
+        edge_ids = set(map(lambda x: x["edge_bindings"]["e00"][0], resp_json["return value"]["results"]))
         edge_ids2 = set(map(lambda x: x["id"], resp_json["return value"]["knowlegde_graph"]["edges"]))
         assert edge_ids == edge_ids2
 

@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: test/Dockerfile
     image: icees-api-test:0.2.0
-    command: ["-s", "-vv"] # , "-k", "hop"]
+    command: ["-s", "-vv"] #  "-k", "knowledge_graph_for_chemical_substance"]
     environment:
       WAIT: 60
     depends_on:

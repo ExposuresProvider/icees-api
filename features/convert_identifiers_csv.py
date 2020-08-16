@@ -6,19 +6,25 @@ import yaml
 pat_dict = {}
 visit_dict = {}
 input_file = os.path.join(os.path.dirname(__file__), "..", "config", "identifiers.csv")
-output_file = os.path.join(os.path.dirname(__file__), "..", "config", "identifiers.yaml")
+output_file = os.path.join(os.path.dirname(__file__), "..", "config", "identifiers.yml")
 with open(input_file, newline="") as f:
     csvreader = csv.reader(f, delimiter=",", quotechar="\"")
-    next(csvreader)
-    for row in csvreader:
-        pat, visit, *row1 = list(map(lambda x : x.replace(" ", "").replace(u"\xa0",""), row))
-        row2 = filter(lambda x : x != "", row1)
+    for i in range(5):
+        next(csvreader)
+
+    rows = map(lambda x: x[1:], csvreader)
+
+    rowst = list(map(list, zip(*rows)))
+    
+    for row in rowst:
+        pat, visit, *row1 = list(map(lambda x : x.replace(" ", "").replace(u"\xa0","").replace("=", ":"), row))
+        row2 = map(lambda x: x.upper(), filter(lambda x : ":" in x, row1))
         ids = list(row2)
         if pat != "N/A" and pat != "":
             pat_dict[pat] = ids
         if visit != "N/A" and visit != "":
             visit_dict[visit] = ids
-        
+
 pat_dict["Sex2"] = pat_dict["Sex"]
 visit_dict["Sex2"] = visit_dict["Sex"]
 

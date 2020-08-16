@@ -54,44 +54,61 @@ def name_to_ids(table, filter_regex, node_name):
 def gen_edge_id(cohort_id, node_name, node_id):
     return cohort_id + "_" + node_name + "_" + node_id
 
-def result(source_id, source_node_id, edge_id, node_name, target_id, table, filter_regex, score, score_name):
+def result(source_id, source_curie, edge_id, node_name, target_id, table, filter_regex, score, score_name):
     node_ids = name_to_ids(table, filter_regex, node_name)
-    def result2(node_id):
-        return {
+    if len(node_ids) == 0:
+        return Nothing
+    else:
+        node_id, *equivalent_ids = node_ids
+
+        return Just({
             "node_bindings" : {
-                source_id: source_node_id,
+                source_id: source_curie,
                 target_id: node_id
             },
             "edge_bindings" : {
-                edge_id: [gen_edge_id(source_node_id, node_name, node_id)]
+                edge_id: [gen_edge_id(source_curie, node_name, node_id)]
             },
             "score": score,
             "score_name": score_name
-        }
-    return list(map(result2, node_ids))
+        })
 
 def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
     node_ids = name_to_ids(table, filter_regex, node_name)
-    def knowledge_graph_node2(node_id):
-        return {
+    if len(node_ids) == 0:
+        return Nothing
+    else:
+        node_id, *equivalent_ids = node_ids
+
+        return Just({
             "name": node_name,
             "id": node_id,
+            "equivalent_identifiers": equivalent_ids,
             "type": biolink_class
-        }
-    return list(map(knowledge_graph_node2, node_ids))
+        })
+    
 
 def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_property):
     node_ids = name_to_ids(table, filter_regex, node_name)
-    edge_name = "association"
-    def knowledge_graph_edge2(node_id):
-        return {
+    if len(node_ids) == 0:
+        return Nothing
+    else:
+        node_id, *equivalent_ids = node_ids
+        
+        edge_name = "association"
+        
+        return Just({
             "type": edge_name,
             "id": gen_edge_id(source_id, node_name, node_id),
             "source_id": source_id,
             "target_id": node_id,
             "edge_attributes": feature_property
-        }
-    return list(map(knowledge_graph_edge2, node_ids))
+        })
+    
+
+def maybeToList(m):
+    return m.rec(lambda x: [x], [])
+
 
 def get(conn, query):
     try:
@@ -116,7 +133,10 @@ def get(conn, query):
         [edge] = edges
 
         source_id = edge["source_id"]
-        source_node_type = nodes_dict[source_id]["type"]
+        source_node = nodes_dict[source_id]
+        source_node_type = source_node["type"]
+        source_curie = cohort_id
+
         if source_node_type not in schema:
             raise NotImplementedError("Sounce node must be one of " + str(schema.keys()))
 
@@ -139,31 +159,44 @@ def get(conn, query):
         feature_list = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, lambda x : inflection.underscore(x[3]) in supported_types)
         logger.info(f"feature_list = {feature_list}")
 
+        nodes = {}
+        knowledge_graph_edges = []
+        results = []
+        for feature in feature_list:
+            feature_b = feature["feature_b"]
+            feature_name = feature_b["feature_name"]
+            biolink_class = feature_b["biolink_class"]
+            p_value = feature["p_value"]
+            
+            knowledge_graph_node(feature_name, table, filter_regex, biolink_class).bind(lambda node: nodes.update({node_get_id(node): node}))
+
+            knowledge_graph_edge(source_curie, feature_name, table, filter_regex, feature).bind(lambda edge: knowledge_graph_edges.append(edge))
+
+            result(source_id, cohort_id, edge_id, feature_name, target_id, table, filter_regex, p_value, "p value").bind(lambda item: results.append(item))
+            
         knowledge_graph_nodes = [{
             "name": "cohort",
             "id": cohort_id,
             "type": "population_of_individual_organisms"
-        }] + list(itertools.chain.from_iterable(map(lambda x: knowledge_graph_node(x["feature_b"]["feature_name"], table, filter_regex, x["feature_b"]["biolink_class"]), feature_list)))
-
-        knowledge_graph_edges = list(itertools.chain.from_iterable(map(lambda x : knowledge_graph_edge(source_id, x["feature_b"]["feature_name"], table, filter_regex, x), feature_list)))
+        }] + list(nodes.values())
 
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,
             "edges": knowledge_graph_edges
         }
+
+        n_results = len(results)
         
         message = {
             "reasoner_id": "ICEES",
             "tool_version": "3.0.0",
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "n_results": sum(map(lambda x : len(list(name_to_ids(table, filter_regex, x["feature_b"]["feature_name"]))), feature_list)),
+            "n_results": n_results,
             "message_code": "OK",
             "code_description": "",
-            # "query_graph": query_graph,
-            "question_graph": query_graph,
+            "query_graph": query_graph,
             "knowledge_graph": knowledge_graph,
-            # "results": list(map(result, feature_list))
-            "answers": list(itertools.chain.from_iterable(result(source_id, cohort_id, edge_id, feature_property["feature_b"]["feature_name"], target_id, table, filter_regex, feature_property["p_value"], "p value") for feature_property in feature_list))
+            "results": results
         }
     except Exception as e:
         traceback.print_exc()
@@ -219,7 +252,7 @@ def co_occurrence_feature_edge(conn, table, year, cohort_features, src_feature, 
     )
 
 
-def icees_identifiers(table, node):
+def feature_names(table, node):
     return (
         maybe.from_python(node.get("curie"))
         .rec(Right, Left(f"no curie specified at node {node}"))
@@ -247,9 +280,9 @@ def co_occurrence_edge(conn, table, year, cohort_features, src_node, tgt_node):
             return Right(edge_property_value)
                     
     return (
-        icees_identifiers(table, src_node)
+        feature_names(table, src_node)
         .bind(lambda src_features: (
-            icees_identifiers(table, tgt_node)
+            feature_names(table, tgt_node)
             .bind(lambda tgt_features: (
                 handle_src_and_tgt_features(src_features, tgt_features)  
             ))
@@ -295,9 +328,8 @@ def convert(attribute_map, qnode):
 
 def convert_qnode_to_node(qnode):
     attribute_map = {
-        "id": node_get_id,
-        "type": attr("type"),
-        "curie": attr("curie")
+        "id": attr("curie"),
+        "type": attr("type")
     }
     return convert(attribute_map, qnode)
 
@@ -376,7 +408,7 @@ def co_occurrence_overlay(conn, query):
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "OK",
             "code_description": "",
-            "question_graph": query_graph,
+            "query_graph": query_graph,
             "knowledge_graph": knowledge_graph,
         }
     except Exception as e:
@@ -414,11 +446,14 @@ def one_hop(conn, query):
 
         source_id = edge["source_id"]
         source_node = nodes_dict[source_id]
-        msource_node_identifiers = icees_identifiers(table, source_node)
-        if isinstance(msource_node_identifiers, Left):
-            raise NotImplementedError(msource_node_identifiers)
+        source_node_type = source_node.get("type")
+        source_curie = source_node["curie"]
+
+        msource_node_feature_names = feature_names(table, source_node)
+        if isinstance(msource_node_feature_names, Left):
+            raise NotImplementedError(msource_node_feature_names)
         else:
-            source_node_identifiers = msource_node_identifiers.value
+            source_node_feature_names = msource_node_feature_names.value
 
         target_id = edge["target_id"]
         target_node_type = nodes_dict[target_id]["type"]
@@ -428,8 +463,8 @@ def one_hop(conn, query):
         feature_set = {}
         supported_types = closure_subtype(target_node_type)
 
-        for source_node_identifier in source_node_identifiers:
-            feature = query_feature(table, source_node_identifier).value
+        for source_node_feature_name in source_node_feature_names:
+            feature = query_feature(table, source_node_feature_name).value
             ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x : inflection.underscore(x[3]) in supported_types)
             for feature in ataf:
                 feature_name = feature["feature_b"]["feature_name"]
@@ -440,31 +475,42 @@ def one_hop(conn, query):
                 else:
                     feature_set[feature_name] = biolink_class, [feature]
 
-        knowledge_graph_nodes = [convert_qnode_to_node(source_node)] + list(itertools.chain.from_iterable(knowledge_graph_node(feature_name, table, filter_regex, biolink_class) for feature_name, (biolink_class, _) in feature_set.items()))
-        
-        knowledge_graph_edges = list(itertools.chain.from_iterable(knowledge_graph_edge(source_id, feature_name, table, filter_regex, feature_properties_list) for feature_name, (_, feature_properties_list) in feature_set.items()))
+        nodes = {}
+        knowledge_graph_edges = []
+        results = []
 
+        def p_values(feature_list):
+            return [feature["p_value"] for feature in feature_list]
+        
+        for feature_name, (biolink_class, feature_list) in feature_set.items():
+            knowledge_graph_node(feature_name, table, filter_regex, biolink_class).bind(lambda node: nodes.update({node_get_id(node): node}))
+
+            knowledge_graph_edge(source_curie, feature_name, table, filter_regex, feature_list).bind(lambda edge: knowledge_graph_edges.append(edge))
+    
+            result(source_id, source_curie, edge_id, feature_name, target_id, table, filter_regex, p_values(feature_list), "p value").bind(lambda item: results.append(item))
+
+        knowledge_graph_nodes = list(nodes.values())
+            
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,
             "edges": knowledge_graph_edges
         }
 
-        def p_values(feature_properties_list):
-            return [feature_properties["p_value"] for feature_properties in feature_properties_list]
-        
+        n_results = len(results)
+
         message = {
             "reasoner_id": "ICEES",
             "tool_version": "3.0.0",
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "n_results": sum(map(lambda x : len(list(name_to_ids(table, filter_regex, x))), feature_set.keys())),
+            "n_results": n_results,
             "message_code": "OK",
             "code_description": "",
             # "query_graph": query_graph,
-            "question_graph": query_graph,
+            "query_graph": query_graph,
             "knowledge_graph": knowledge_graph,
-            # "results": list(map(result, feature_list))
-            "answers": list(itertools.chain.from_iterable(result(source_id, source_id, edge_id, feature_name, target_id, table, filter_regex, p_values(feature_properties_list), "p value") for feature_name, (_, feature_properties_list) in feature_set.items()))
+            "results": results
         }
+        
     except Exception as e:
         traceback.print_exc()
         message = {

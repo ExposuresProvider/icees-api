@@ -305,7 +305,7 @@ def edge_get_id(node):
 
 
 def attr(s):
-    return lambda d: d[s]
+    return lambda d: maybe.from_python(d.get(s))
 
     
 def generate_edge(src_node, tgt_node, edge_attributes=None):
@@ -322,7 +322,7 @@ def generate_edge(src_node, tgt_node, edge_attributes=None):
 
 def convert(attribute_map, qnode):
     return {
-        k : k_qnode(qnode) for k, k_qnode in attribute_map.items() if k_qnode in qnode
+        k : res.value for k, k_qnode in attribute_map.items() if isinstance((res := k_qnode(qnode)), Just)
     }
 
 
@@ -334,9 +334,13 @@ def convert_qnode_to_node(qnode):
     return convert(attribute_map, qnode)
 
 
+def comp(f, g):
+    return lambda x: g(f(x))
+
+
 def convert_qedge_to_edge(qedge):
     attribute_map = {
-        "id": edge_get_id,
+        "id": comp(edge_get_id, Just),
         "type": attr("type"),
         "relation": attr("relation"),
         "source_id": attr("source_id"),
@@ -380,8 +384,8 @@ def co_occurrence_overlay(conn, query):
         query_nodes = query_graph["nodes"]
         query_edges = query_graph["edges"]
 
-        nodes = list(map(convert_qnode_to_node, query_nodes))
-        edges = list(map(convert_qedge_to_edge, query_edges))
+        nodes = query_nodes
+        edges = query_edges
 
         overlay_edges = []
         for src_node in query_nodes:
@@ -408,7 +412,6 @@ def co_occurrence_overlay(conn, query):
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "OK",
             "code_description": "",
-            "query_graph": query_graph,
             "knowledge_graph": knowledge_graph,
         }
     except Exception as e:

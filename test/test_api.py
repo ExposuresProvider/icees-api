@@ -106,36 +106,51 @@ def one_hop_query(curie, biolink_class, **kwargs):
     }
 
     
+def do_verify_response(resp_json, results=True):
+    assert "return value" in resp_json
+    return_value = resp_json["return value"]
+    assert "knowledge_graph" in return_value
+    knowledge_graph = return_value["knowledge_graph"]
+    nodes = knowledge_graph["nodes"]
+    node_ids = set(map(lambda x: x["id"], nodes))
+    edges = knowledge_graph["edges"]
+    edge_ids = set(map(lambda x: x["id"], edges))
+    for edge in edges:
+        assert edge["source_id"] in node_ids
+        assert edge["target_id"] in node_ids
+
+    assert "message_code" in resp_json["return value"]
+    assert "tool_version" in resp_json["return value"]
+    assert "datetime" in resp_json["return value"]
+
+    if results:
+        assert len(return_value["results"]) > 1
+        assert "n_results" in return_value
+        n_results = return_value["n_results"]
+        assert "results" in return_value
+        results = return_value["results"]
+        assert n_results == len(results)
+        for result in results:
+            node_bindings = result["node_bindings"]
+            edge_bindings = result["edge_bindings"]
+            for node_binding_value in node_bindings.values():
+                assert node_binding_value in node_ids
+            for edge_binding_value in edge_bindings.values():
+                assert set(edge_binding_value).issubset(edge_ids)
+        
+    
 def do_test_knowledge_graph(biolink_class):
 
         resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph", data = json.dumps(query(year, biolink_class)), headers = json_headers, verify = False)
         resp_json = resp.json()
-        assert "return value" in resp_json
-        assert len(resp_json["return value"]["results"]) > 1
-
-        assert "n_results" in resp_json["return value"]
-        assert "results" in resp_json["return value"]
-        assert resp_json["return value"]["n_results"] == len(resp_json["return value"]["results"])
-        assert "knowledge_graph" in resp_json["return value"]
-        assert "message_code" in resp_json["return value"]
-        assert "tool_version" in resp_json["return value"]
-        assert "datetime" in resp_json["return value"]
+        do_verify_response(resp_json)
 
 
 def do_test_one_hop(curie, biolink_class, **kwargs):
 
         resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_one_hop", data = json.dumps(query(curie, biolink_class, **kwargs)), headers = json_headers, verify = False)
         resp_json = resp.json()
-        assert "return value" in resp_json
-        assert len(resp_json["return value"]["results"]) > 1
-
-        assert "n_results" in resp_json["return value"]
-        assert "results" in resp_json["return value"]
-        assert resp_json["return value"]["n_results"] == len(resp_json["return value"]["results"])
-        assert "knowledge_graph" in resp_json["return value"]
-        assert "message_code" in resp_json["return value"]
-        assert "tool_version" in resp_json["return value"]
-        assert "datetime" in resp_json["return value"]
+        do_verify_response(resp_json)
 
 
 def do_test_knowledge_graph_overlay(**kwargs):
@@ -169,12 +184,8 @@ def do_test_knowledge_graph_overlay(**kwargs):
     }
     resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_overlay", data = json.dumps(query2), headers = json_headers, verify = False)
     resp_json = resp.json()
-    logger.info(resp_json)
-    assert "return value" in resp_json
-    assert "knowledge_graph" in resp_json["return value"]
-    assert "message_code" in resp_json["return value"]
-    assert "tool_version" in resp_json["return value"]
-    assert "datetime" in resp_json["return value"]
+    logger.info(json.dumps(resp_json, indent=4))
+    do_verify_response(resp_json, results=False)
 
 
 def do_test_knowledge_graph_one_hop(**kwargs):

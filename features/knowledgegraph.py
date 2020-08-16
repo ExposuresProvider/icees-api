@@ -168,7 +168,7 @@ def get(conn, query):
             biolink_class = feature_b["biolink_class"]
             p_value = feature["p_value"]
             
-            knowledge_graph_node(feature_name, table, filter_regex, biolink_class).bind(lambda node: nodes.update({node_get_id(node): node}))
+            knowledge_graph_node(feature_name, table, filter_regex, biolink_class).bind(lambda node: add_node(nodes, node))
 
             knowledge_graph_edge(source_curie, feature_name, table, filter_regex, feature).bind(lambda edge: knowledge_graph_edges.append(edge))
 
@@ -427,6 +427,15 @@ def co_occurrence_overlay(conn, query):
     return message
 
 
+def add_node(nodes, node):
+    node_id = node_get_id(node)
+    node_curr = nodes.get(node_id)
+    if node_curr is None:
+        nodes[node_id] = node
+    else:
+        node_curr["name"] += f",{node['name']}"
+
+    
 def one_hop(conn, query):
     try:
         message = query["message"]
@@ -486,7 +495,7 @@ def one_hop(conn, query):
             return [feature["p_value"] for feature in feature_list]
         
         for feature_name, (biolink_class, feature_list) in feature_set.items():
-            knowledge_graph_node(feature_name, table, filter_regex, biolink_class).bind(lambda node: nodes.update({node_get_id(node): node}))
+            knowledge_graph_node(feature_name, table, filter_regex, biolink_class).bind(lambda node: add_node(nodes, node))
 
             knowledge_graph_edge(source_curie, feature_name, table, filter_regex, feature_list).bind(lambda edge: knowledge_graph_edges.append(edge))
     

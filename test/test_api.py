@@ -112,9 +112,13 @@ def do_verify_response(resp_json, results=True):
     assert "knowledge_graph" in return_value
     knowledge_graph = return_value["knowledge_graph"]
     nodes = knowledge_graph["nodes"]
-    node_ids = set(map(lambda x: x["id"], nodes))
+    node_ids_list = list(map(lambda x: x["id"], nodes))
+    node_ids = set(node_ids_list)
+    assert len(node_ids_list) == len(node_ids)
     edges = knowledge_graph["edges"]
-    edge_ids = set(map(lambda x: x["id"], edges))
+    edge_ids_list = list(map(lambda x: x["id"], edges))
+    edge_ids = set(edge_ids_list)
+    assert len(edge_ids_list) == len(edge_ids)
     for edge in edges:
         assert edge["source_id"] in node_ids
         assert edge["target_id"] in node_ids

@@ -43,6 +43,7 @@ subtypes = {
 
 edge_id_map = {}
 
+TOOL_VERSION = "3.1.0"
 
 def closure_subtype(node_type):
     return reduce(lambda x, y : x + y, map(closure_subtype, subtypes.get(node_type, [])), [node_type])
@@ -54,12 +55,21 @@ def name_to_ids(table, filter_regex, node_name):
 def gen_edge_id(cohort_id, node_name, node_id):
     return cohort_id + "_" + node_name + "_" + node_id
 
+def gen_node_id_and_equivalent_ids(node_ids):
+    id_prefixes = ["CHEBI", "CHEMBL", "DRUGBANK", "PUBCHEM", "MESH", "HMDB", "INCHI", "INCHIKEY", "UNII", "KEGG", "gtpo"]
+    inode_id = next(((i, node_id) for i, node_id in enumerate(node_ids) if any(node_id.upper().startswith(x.upper() + ":") for x in id_prefixes)), None)
+    if inode_id is None:
+        return node_ids[0], node_ids[1:]
+    else:
+        i, node_id = inode_id
+        return node_id, node_ids[:i] + node_ids[i+1:]
+    
 def result(source_id, source_curie, edge_id, node_name, target_id, table, filter_regex, score, score_name):
     node_ids = name_to_ids(table, filter_regex, node_name)
     if len(node_ids) == 0:
         return Nothing
     else:
-        node_id, *equivalent_ids = node_ids
+        node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
         return Just({
             "node_bindings" : {
@@ -78,7 +88,7 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
     if len(node_ids) == 0:
         return Nothing
     else:
-        node_id, *equivalent_ids = node_ids
+        node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
         return Just({
             "name": node_name,
@@ -93,7 +103,7 @@ def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_prop
     if len(node_ids) == 0:
         return Nothing
     else:
-        node_id, *equivalent_ids = node_ids
+        node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
         
         edge_name = "association"
         
@@ -189,7 +199,7 @@ def get(conn, query):
         
         message = {
             "reasoner_id": "ICEES",
-            "tool_version": "3.0.0",
+            "tool_version": TOOL_VERSION,
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "n_results": n_results,
             "message_code": "OK",
@@ -202,7 +212,7 @@ def get(conn, query):
         traceback.print_exc()
         message = {
             "reasoner_id": "ICEES",
-            "tool_version": "3.0.0",
+            "tool_version": TOOL_VERSION,
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "Error",
             "code_description": str(e),
@@ -394,7 +404,7 @@ def co_occurrence_overlay(conn, query):
                 if isinstance(edge_attributes, Left):
                     return {
                         "reasoner_id": "ICEES",
-                        "tool_version": "3.0.0",
+                        "tool_version": TOOL_VERSION,
                         "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
                         "message_code": "Error",
                         "code_description": edge_attributes.value,
@@ -408,7 +418,7 @@ def co_occurrence_overlay(conn, query):
         
         message = {
             "reasoner_id": "ICEES",
-            "tool_version": "3.0.0",
+            "tool_version": TOOL_VERSION,
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "OK",
             "code_description": "",
@@ -418,7 +428,7 @@ def co_occurrence_overlay(conn, query):
         traceback.print_exc()
         message = {
             "reasoner_id": "ICEES",
-            "tool_version": "3.0.0",
+            "tool_version": TOOL_VERSION,
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "Error",
             "code_description": str(e),
@@ -512,7 +522,7 @@ def one_hop(conn, query):
 
         message = {
             "reasoner_id": "ICEES",
-            "tool_version": "3.0.0",
+            "tool_version": TOOL_VERSION,
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "n_results": n_results,
             "message_code": "OK",
@@ -527,7 +537,7 @@ def one_hop(conn, query):
         traceback.print_exc()
         message = {
             "reasoner_id": "ICEES",
-            "tool_version": "3.0.0",
+            "tool_version": TOOL_VERSION,
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "Error",
             "code_description": traceback.format_exc(),

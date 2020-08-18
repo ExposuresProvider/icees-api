@@ -88,7 +88,7 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
     if len(node_ids) == 0:
         return Nothing
     else:
-        node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
+        node_id, equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
         return Just({
             "name": node_name,

@@ -112,6 +112,10 @@ def do_verify_response(resp_json, results=True):
     assert "knowledge_graph" in return_value
     knowledge_graph = return_value["knowledge_graph"]
     nodes = knowledge_graph["nodes"]
+    for node in nodes:
+        if "equivalent_identifiers" in node:
+            equivalent_ids = node["equivalent_identifiers"]
+            assert isinstance(equivalent_ids, list) and all(isinstance(x, str) for x in equivalent_ids)
     node_ids_list = list(map(lambda x: x["id"], nodes))
     node_ids = set(node_ids_list)
     assert len(node_ids_list) == len(node_ids)

@@ -11,6 +11,6 @@ COPY ./features /icees-api/features
 
 WORKDIR /icees-api
 
-ENTRYPOINT ["gunicorn","--workers", "4", "--timeout", "300", "--bind", "0.0.0.0:8080"]
+ENTRYPOINT ["gunicorn","--workers", "4", "--timeout", "1800", "--bind", "0.0.0.0:8080"]
 
 CMD ["app:app"]

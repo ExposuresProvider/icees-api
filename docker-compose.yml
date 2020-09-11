@@ -12,6 +12,7 @@ services:
       - $DB_PATH:/data
       - $DATA_PATH:/icees-api/db/data
       - $CONFIG_PATH:/icees-api/config
+    shm_size: 1g
     restart: always
   server:
     build: 

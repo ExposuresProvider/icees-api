@@ -15,6 +15,7 @@ from structlog.processors import JSONRenderer
 import db
 from features import model, schema, format, knowledgegraph, identifiers
 from utils import opposite, to_qualifiers
+from features.knowledgegraph import TOOL_VERSION
 
 OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8080')
 OPENAPI_SCHEME = os.getenv('OPENAPI_SCHEME', 'http')
@@ -81,7 +82,7 @@ template = {
 <br>[documentation](https://github.com/NCATS-Tangerine/icees-api/tree/master/docs) 
 <br>[source](https://github.com/NCATS-Tangerine/icees-api/tree/master/) 
 <br>[ICEES API example queries](https://github.com/NCATS-Tangerine/icees-api/tree/master/#examples) <br>dictionary for versioning of tables<br><table><tr><th>version</th><th>table content</th></tr><tr><td>1.0.0</td><td>cdw, acs, nearest road, and cmaq from 2010</td></tr><tr><td>2.0.0</td><td>cdw in FHIR format, acs, nearest road, and cmaq from 2010</td></tr><tr><td>3.0.0</td><td>cdw in FHIR format, acs, nearest road, cmaq, and EPR from 2010 to 2016</td></tr></table>""",
-    "version": "3.1.0"
+    "version": TOOL_VERSION
   },
   "consumes": [
     "application/json"

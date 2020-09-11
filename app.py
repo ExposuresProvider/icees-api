@@ -321,12 +321,13 @@ class SERVFeatureAssociation(Resource):
             feature_b = to_qualifiers(obj["feature_b"])
 
             with db.DBConnection() as conn:
-                cohort_features = model.get_features_by_id(conn, table, year, cohort_id)
+                cohort_meta = model.get_features_by_id(conn, table, cohort_id)
 
-                if cohort_features is None:
+                if cohort_meta is None:
                     return_value = "Input cohort_id invalid. Please try again."
                 else:
-                    return_value = model.select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+                    cohort_features, cohort_year = cohort_meta
+                    return_value = model.select_feature_matrix(conn, table, year, cohort_features, cohort_year, feature_a, feature_b)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -400,12 +401,13 @@ class SERVFeatureAssociation2(Resource):
                 validate_range(table, feature_b)
 
             with db.DBConnection() as conn:
-                cohort_features = model.get_features_by_id(conn, table, year, cohort_id)
+                cohort_meta = model.get_features_by_id(conn, table, cohort_id)
 
-                if cohort_features is None:
+                if cohort_meta is None:
                     return_value = "Input cohort_id invalid. Please try again."
                 else:
-                    return_value = model.select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+                    cohort_features, cohort_year = cohort_meta
+                    return_value = model.select_feature_matrix(conn, table, year, cohort_features, cohort_year, feature_a, feature_b)
 
         except ValidationError as e:
             traceback.print_exc()
@@ -559,11 +561,12 @@ class SERVFeatures(Resource):
         """
         try:
             with db.DBConnection() as conn:
-                cohort_features = model.get_features_by_id(conn, table, year, cohort_id)
-                if cohort_features is None:
+                cohort_meta = model.get_features_by_id(conn, table, cohort_id)
+                if cohort_meta is None:
                     return_value = "Input cohort_id invalid. Please try again."
                 else:
-                    return_value = model.get_cohort_features(conn, table, year, cohort_features)
+                    cohort_features, cohort_year = cohort_meta
+                    return_value = model.get_cohort_features(conn, table, year, cohort_features, cohort_year)
  
         except ValidationError as e:
             traceback.print_exc()

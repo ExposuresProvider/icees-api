@@ -60,7 +60,7 @@ if p == 0:
             logger.info("generating data " + t)
             temp = tempfile.NamedTemporaryFile()
             try:
-                sample.generate_data(t, [2010], 1000, temp.name)
+                sample.generate_data(t, [2010, 2011], 1000, temp.name)
                 dbutils.insert(temp.name, t)
             finally:
                 temp.close()

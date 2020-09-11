@@ -16,6 +16,7 @@ if wait is not None:
 
 table = "patient"
 year = 2010
+cohort_year = 2011
 tabular_headers = {"Content-Type" : "application/json", "accept": "text/tabular"}
 json_headers = {"Content-Type" : "application/json", "accept": "application/json"}
 host = "server" # "localhost"
@@ -146,6 +147,15 @@ def do_verify_response(resp_json, results=True):
             for edge_binding_value in edge_bindings.values():
                 assert set(edge_binding_value).issubset(edge_ids)
         
+    
+def do_verify_feature_matrix_response(respjson):
+    assert isinstance(respjson, dict)
+    assert "chi_squared" in respjson
+    assert "p_value" in respjson
+    assert "columns" in respjson
+    assert "rows" in respjson
+    assert "feature_matrix" in respjson
+
     
 def do_test_knowledge_graph(biolink_class):
 
@@ -456,6 +466,62 @@ def test_get_identifiers_OvarianDysfunctionDx():
 
 def test_get_identifiers_OvarianCancerDx():
         do_test_get_identifiers("OvarianCancerDx")
+
+def test_feature_association():
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        cohort_id = resp_json["return value"]["cohort_id"]
+        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
+        atafdata = {
+            "feature_a": {
+                "AgeStudyStart": {
+                    "operator": "=",
+                    "value": '0-2'
+                }
+            },
+            "feature_b": {
+                "AgeStudyStart": {
+                    "operator": "=",
+                    "value": '0-2'
+                }
+            }
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/feature_association".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        print(resp.text)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+        do_verify_feature_matrix_response(resp_json["return value"])
+
+        
+def test_feature_association_two_years():
+        cohort_year = 2010
+        year = 2011
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, cohort_year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        print(resp_json)
+        cohort_id = resp_json["return value"]["cohort_id"]
+        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
+        atafdata = {
+            "feature_a": {
+                "AgeStudyStart": {
+                    "operator": "=",
+                    "value": '0-2'
+                }
+            },
+            "feature_b": {
+                "AgeStudyStart": {
+                    "operator": "=",
+                    "value": '0-2'
+                }
+            }
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/feature_association".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+        do_verify_feature_matrix_response(resp_json["return value"])
+
 
 def test_associations_to_all_features2():
         feature_variables = {}

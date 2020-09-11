@@ -257,7 +257,7 @@ def co_occurrence_feature_edge(conn, table, year, cohort_features, src_feature, 
         .bind(lambda src_query_feature: (
             query_feature(table, tgt_feature)
             .map(lambda tgt_query_feature: (
-                select_feature_matrix(conn, table, year, cohort_features, src_query_feature, tgt_query_feature)["p_value"]
+                select_feature_matrix(conn, table, year, cohort_features, year, src_query_feature, tgt_query_feature)["p_value"]
             ))
         ))
     )

@@ -198,7 +198,8 @@ def do_test_knowledge_graph_overlay(**kwargs):
 
 def do_test_knowledge_graph_one_hop(**kwargs):
 
-    query2 = one_hop_query("PUBCHEM:2083", "chemical_substance", **kwargs)
+    source_id = "PUBCHEM:2083"
+    query2 = one_hop_query(source_id, "chemical_substance", **kwargs)
     resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_one_hop", data = json.dumps(query2), headers = json_headers, verify = False)
     resp_json = resp.json()
     logger.info(resp_json)
@@ -206,6 +207,10 @@ def do_test_knowledge_graph_one_hop(**kwargs):
     assert len(resp_json["return value"]["results"]) > 1
 
     assert "knowledge_graph" in resp_json["return value"]
+    assert "nodes" in resp_json["return value"]["knowledge_graph"]
+    assert any(map(lambda x: x["id"] == "PUBCHEM:2083", resp_json["return value"]["knowledge_graph"]["nodes"]))
+
+    
     assert "message_code" in resp_json["return value"]
     assert "tool_version" in resp_json["return value"]
     assert "datetime" in resp_json["return value"]

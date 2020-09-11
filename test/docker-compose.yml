@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: test/Dockerfile
     image: icees-api-test:0.2.0
-    command: ["-s", "-vv"] # , "-k", "knowledge_graph_overlay_year_table_features"]
+    command: ["-s", "-vv"] # , "-k", "test_knowledge_graph_one_hop_year_table_features"]
     environment:
       WAIT: 60
     depends_on:

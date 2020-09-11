@@ -14,7 +14,8 @@ import inflection
 from .identifiers import get_identifiers, get_features_by_identifier
 from functools import reduce, partial
 from tx.functional.either import Left, Right
-from tx.functional.maybe import maybe, Nothing, Just
+from tx.functional.maybe import Nothing, Just
+import tx.functional.maybe as maybe
 import re
 import logging
 
@@ -511,7 +512,7 @@ def one_hop(conn, query):
     
             result(source_id, source_curie, edge_id, feature_name, target_id, table, filter_regex, p_values(feature_list), "p value").bind(lambda item: results.append(item))
 
-        knowledge_graph_nodes = list(nodes.values())
+        knowledge_graph_nodes = [convert_qnode_to_node(source_node), *nodes.values()]
             
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,

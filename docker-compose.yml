@@ -24,6 +24,7 @@ services:
     restart: always
     volumes:
       - ./config:/icees-api/config
+      - /tmp:/tmp
     depends_on:
       - db
     ports:

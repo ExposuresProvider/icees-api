@@ -317,6 +317,7 @@ class SERVFeatureAssociation(Resource):
         """
         try:
             obj = request.get_json()
+            logger.info(f"validating {obj} schema {schema.feature_association_schema(table)}")
             validate(obj, schema.feature_association_schema(table))
             feature_a = to_qualifiers(obj["feature_a"])
             feature_b = to_qualifiers(obj["feature_b"])

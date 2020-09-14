@@ -26,20 +26,45 @@ def qualifier_schema(ty, levels):
                 "enum": ["<", ">", "<=", ">=", "=", "<>"]
             },
             "value": yamltype,
-            "year": {
-                "type": "integer"
-            }
         },
         "required": ["operator", "value"],
         "additionalProperties": False
     }
 
 
-def cohort_schema(table_name):
+def qualifier_schema_list(f, ty, levels):
     return {
         "type": "object",
-        "properties": {k: qualifier_schema(v, levels) for k, v, levels, _ in features[table_name]},
+        "properties": {
+            "feature_name": {
+                "type": "string",
+                "enum": [f],
+            },
+            "feature_qualifier": qualifier_schema(ty, levels),
+            "year": {
+                "type": "integer"
+            }
+        },
+        "required": ["feature_name", "feature_qualifier"],
         "additionalProperties": False
+    }
+
+
+def cohort_schema(table_name):
+    return {
+        "anyOf": [
+            {
+                "type": "object",
+                "properties": {k: qualifier_schema(v, levels) for k, v, levels, _ in features[table_name]},
+                "additionalProperties": False
+            },
+            {
+                "type": "array",
+                "items": {
+                    "anyOf": [qualifier_schema_list(k, v, levels) for k, v, levels, _ in features[table_name]]
+                }
+            }
+        ]
     }
 
 def name_schema_output():
@@ -138,14 +163,42 @@ def bin_qualifier_schema(ty, levels):
     }
 
 
-def bins_schema(table_name):
+def bin_qualifier_schema_list(f, ty, levels):
     return {
         "type": "object",
-        "properties": {k: {
-            "type": "array",
-            "items": bin_qualifier_schema(v, levels)
-        } for k, v, levels, _ in features[table_name]},
+        "properties": {
+            "feature_name": {
+                "type": "string",
+                "enum": [f]
+            },
+            "feature_qualifier": bin_qualifier_schema(ty, levels),
+            "year": {
+                "type": "integer"
+            }
+        },
+        "required": ["feature_name", "feature_qualifier"],
         "additionalProperties": False
+    }
+
+
+def bins_schema(table_name):
+    return {
+        "anyOf": [
+            {
+                "type": "object",
+                "properties": {k: {
+                    "type": "array",
+                    "items": bin_qualifier_schema(v, levels)
+                } for k, v, levels, _ in features[table_name]},
+                "additionalProperties": False
+            },
+            {
+                "type": "array",
+                "items": {
+                    "anyOf": [bin_qualifier_schema_list(k, v, levels) for k, v, levels, _ in features[table_name]]
+                }
+            }
+        ]
     }
 
 

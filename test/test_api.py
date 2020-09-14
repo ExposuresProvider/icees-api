@@ -544,17 +544,22 @@ def test_feature_association_two_years():
 def test_feature_association_cohort_features_two_years():
         cohort_year = 2010
         year = 2011
-        feature_variables = {
-            "Sex": {
-                "operator": "=",
-                "value": "Male"
-            },
-            "AvgDailyPM2.5Exposure_StudyAvg": {
-                "operator": "=",
-                "value": 1,
+        feature_variables = [
+            {
+                "feature_name": "Sex",
+                "feature_qualifier": {
+                    "operator": "=",
+                    "value": "Male"
+                }
+            }, {
+                "feature_name": "AvgDailyPM2.5Exposure_StudyAvg",
+                "feature_qualifier": {
+                    "operator": "=",
+                    "value": 1
+                },
                 "year": 2011
             }
-        }
+        ]
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, cohort_year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         print(resp_json)
@@ -583,17 +588,22 @@ def test_feature_association_cohort_features_two_years():
 def test_feature_count_cohort_features_two_years():
         cohort_year = 2010
         year = 2011
-        feature_variables = {
-            "Sex": {
-                "operator": "=",
-                "value": "Male"
-            },
-            "AvgDailyPM2.5Exposure_StudyAvg": {
-                "operator": "=",
-                "value": 1,
+        feature_variables = [
+            {
+                "feature_name": "Sex",
+                "feature_qualifier": {
+                    "operator": "=",
+                    "value": "Male"
+                }
+            }, {
+                "feature_name": "AvgDailyPM2.5Exposure_StudyAvg",
+                "feature_qualifier": {
+                    "operator": "=",
+                    "value": 1
+                },
                 "year": 2011
             }
-        }
+        ]
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, cohort_year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         print(resp_json)

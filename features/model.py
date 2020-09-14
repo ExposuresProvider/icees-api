@@ -13,6 +13,7 @@ from tx.functional.maybe import Nothing, Just
 import logging
 from datetime import datetime, timezone
 from collections import defaultdict
+from functools import cmp_to_key
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -48,7 +49,6 @@ cohort_id_seq = Sequence('cohort_id_seq', metadata=metadata)
 
 association_cols = [
     Column("table", String),
-    Column("year", Integer),
     Column("cohort_features", String),
     Column("cohort_year", Integer),
     Column("feature_a", String),
@@ -59,7 +59,20 @@ association_cols = [
 
 cache = Table("cache", metadata, *association_cols)
 
-Index("cache_index", cache.c.table, cache.c.year, cache.c.cohort_features, cache.c.feature_a, cache.c.feature_b)
+Index("cache_index", cache.c.table, cache.c.cohort_features, cache.c.feature_a, cache.c.feature_b)
+
+count_cols = [
+    Column("table", String),
+    Column("cohort_features", String),
+    Column("cohort_year", Integer),
+    Column("feature_a", String),
+    Column("count", String),
+    Column("access_time", DateTime)
+]
+
+cache_count = Table("cache_count", metadata, *count_cols)
+
+Index("cache_count_index", cache_count.c.table, cache_count.c.cohort_features, cache_count.c.feature_a)
 
 def op_dict(table, k, v):
     return {
@@ -82,17 +95,17 @@ def case_select(table, k, v):
     return func.coalesce(func.sum(case([(op_dict(table, k, v), 1)], else_=0)), 0)
 
 
-def case_select2(table, k, v, k2, v2):
-    return func.coalesce(func.sum(case([(and_(op_dict(table, k, v), op_dict(table, k2, v2)), 1)], else_=0)), 0)
+def case_select2(table, table2, k, v, k2, v2):
+    return func.coalesce(func.sum(case([(and_(op_dict(table, k, v), op_dict(table2, k2, v2)), 1)], else_=0)), 0)
 
 
 def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
-    table = tables[table_name]
+
+    cohort_features_norm = normalize_features(year, cohort_features)
+    
+    table, _ = generate_tables_from_features(table_name, cohort_features_norm, year, [])
+    
     s = select([func.count()]).select_from(table)
-    if year is not None:
-        s = s.where(table.c.year == year)
-    for k, v in cohort_features.items():
-        s = filter_select(s, table, k, v)
 
     n = conn.execute((s)).scalar()
     if n <= 10:
@@ -219,15 +232,17 @@ def timeit(method):
     return timed
 
 
-def generate_tables_from_features(table_name, year, cohort_features, cohort_year, columns):
+def generate_tables_from_features(table_name, cohort_features, cohort_year, columns):
     table = tables[table_name]
     primary_key = table_id(table_name)
         
     table_cohorts = []
 
     cohort_feature_groups = defaultdict(list)
-    for k, v in cohort_features.items():
-        feature_year = v.get("year", cohort_year)
+    for cohort_feature in cohort_features:
+        k = cohort_feature["feature_name"]
+        v = cohort_feature["feature_qualifier"]
+        feature_year = cohort_feature["year"]
         cohort_feature_groups[feature_year].append((k, v))
 
     for feature_year, features in cohort_feature_groups.items():
@@ -241,19 +256,39 @@ def generate_tables_from_features(table_name, year, cohort_features, cohort_year
                 
         table_cohort_feature_group = table_cohort_feature_group.alias()
         table_cohorts.append(table_cohort_feature_group)
+
+    if len(cohort_feature_groups) == 0:
+        table_cohort_feature_group = select([table.c[primary_key]]).select_from(table)
+        if cohort_year is not None:
+            table_cohort_feature_group = table_cohort_feature_group.where(table.c.year == cohort_year)
+
+        table_cohort_feature_group = table_cohort_feature_group.alias()
+        table_cohorts.append(table_cohort_feature_group)
+
+    table_matrices = {}
+    
+    column_groups = defaultdict(list)
+
+    for column_name, year in columns:
+        column_groups[year].append(column_name)
+
+    for year, column_names in column_groups.items():
         
-    table_matrix = select([table.c[x] for x in chain([primary_key], columns)]).select_from(table)
+        table_matrix = select([table.c[x] for x in chain([primary_key], column_names)]).select_from(table)
 
-    if year is not None:
-        table_matrix = table_matrix.where(table.c.year == year)
+        if year is not None:
+            table_matrix = table_matrix.where(table.c.year == year)
             
-    table_matrix = table_matrix.alias()
+        table_matrix = table_matrix.alias()
+        table_matrices[year] = table_matrix
 
-    table_filtered = table_matrix 
-    for table_cohort_feature_group in table_cohorts:
-        table_filtered.join(table_cohort_feature_group, onclause=table_matrix.c[primary_key] == table_cohort_feature_group.c[primary_key])
+    tables_all = [*table_matrices.values(), *table_cohorts]
+    table_cohort = tables_all[0]
+    table_filtered = table_cohort
+    for table in tables_all:
+        table_filtered.join(table, onclause=table_cohort.c[primary_key] == table.c[primary_key])
 
-    return table_filtered, table_matrix
+    return table_filtered, table_matrices
 
 
 def selection(conn, table, selections):
@@ -268,32 +303,74 @@ def selection(conn, table, selections):
 
     return result
 
+
+def normalize_features(year, cohort_features):
+    if isinstance(cohort_features, dict):
+        cohort_features = [{
+            "feature_name": k,
+            "feature_qualifier": v
+        } for k, v in cohort_features.items()]
+
+    cohort_features = [{
+        "feature_name": f["feature_name"],
+        "feature_qualifier": {
+            "operator": f["feature_qualifier"]["operator"],
+            "value": f["feature_qualifier"]["value"]
+        },
+        "year": f["feature_qualifier"].get("year", year)
+    } for f in cohort_features]
+
+    def feature_key(f):
+        return f["feature_name"], f["feature_qualifier"]["operator"], json.dumps(f["feature_qualifier"]["value"], sort_keys=True), f["year"]
+    
+    return sorted(cohort_features, key=feature_key)
+
+
+def normalize_feature(year, feature):
+
+    feature = {
+        "feature_name": feature["feature_name"],
+        "feature_qualifiers": feature["feature_qualifiers"],
+        "year": feature.get("year", year)
+    }
+
+    return feature
+
+
 @timeit
 def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, feature_a, feature_b):
 
-    cohort_features_json = json.dumps(cohort_features, sort_keys=True)
-    feature_a_json = json.dumps(feature_a, sort_keys=True)
-    feature_b_json = json.dumps(feature_b, sort_keys=True)
+    cohort_features_norm = normalize_features(cohort_year, cohort_features)
+    feature_a_norm = normalize_feature(year, feature_a)
+    feature_b_norm = normalize_feature(year, feature_b)
     
-    result = conn.execute(select([cache.c.association]).select_from(cache).where(cache.c.table == table_name).where(cache.c.year == year).where(cache.c.cohort_features == cohort_features_json).where(cache.c.cohort_year == cohort_year).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json)).first()
+    cohort_features_json = json.dumps(cohort_features_norm, sort_keys=True)
+    feature_a_json = json.dumps(feature_a_norm, sort_keys=True)
+    feature_b_json = json.dumps(feature_b_norm, sort_keys=True)
+
+    cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
+    
+    result = conn.execute(select([cache.c.association]).select_from(cache).where(cache.c.table == table_name).where(cache.c.cohort_features == cohort_features_json).where(cache.c.cohort_year == cohort_year).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json)).first()
 
     timestamp = datetime.now(timezone.utc)
     
     if result is None:
         
-        ka = feature_a["feature_name"]
-        vas = feature_a["feature_qualifiers"]
-        kb = feature_b["feature_name"]
-        vbs = feature_b["feature_qualifiers"]
+        ka = feature_a_norm["feature_name"]
+        vas = feature_a_norm["feature_qualifiers"]
+        ya = feature_a_norm["year"]
+        kb = feature_b_norm["feature_name"]
+        vbs = feature_b_norm["feature_qualifiers"]
+        yb = feature_b_norm["year"]
 
-        table, table_matrix = generate_tables_from_features(table_name, year, cohort_features, cohort_year, [ka, kb])
+        table, table_matrices = generate_tables_from_features(table_name, cohort_features_norm, cohort_year, [(ka, ya), (kb, yb)])
         
         selections = [
-            case_select2(table_matrix, kb, vb, ka, va) for vb, va in product(vbs, vas)
+            case_select2(table_matrices[yb], table_matrices[ya], kb, vb, ka, va) for vb, va in product(vbs, vas)
         ] + [
-            case_select(table_matrix, ka, va) for va in vas
+            case_select(table_matrices[ya], ka, va) for va in vas
         ] + [
-            case_select(table_matrix, kb, vb) for vb in vbs
+            case_select(table_matrices[yb], kb, vb) for vb in vbs
         ] + [
             func.count()
         ]
@@ -325,14 +402,19 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
             ] for i, row in enumerate(feature_matrix)
         ]
 
-        feature_a = feature_a.copy()
-        feature_b = feature_b.copy()
-        feature_a["biolink_class"] = inflection.underscore(lookUpFeatureClass(table_name, ka))
-        feature_b["biolink_class"] = inflection.underscore(lookUpFeatureClass(table_name, kb))
+        feature_a_norm_with_biolink_class = {
+            **feature_a_norm,
+            "biolink_class": inflection.underscore(lookUpFeatureClass(table_name, ka))
+        }
+        
+        feature_b_norm_with_biolink_class = {
+            **feature_b_norm,
+            "biolink_class": inflection.underscore(lookUpFeatureClass(table_name, kb))
+        }
         
         association = {
-            "feature_a": feature_a,
-            "feature_b": feature_b,
+            "feature_a": feature_a_norm_with_biolink_class,
+            "feature_b": feature_b_norm_with_biolink_class,
             "feature_matrix": feature_matrix2,
             "rows": [{"frequency": a, "percentage": b} for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))],
             "columns": [{"frequency": a, "percentage": b} for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))],
@@ -343,39 +425,69 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
 
         association_json = json.dumps(association, sort_keys=True)
 
-        conn.execute(cache.insert().values(association=association_json, table=table_name, year=year, cohort_features=cohort_features_json, cohort_year=cohort_year, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
+        conn.execute(cache.insert().values(association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
 
     else:
         association_json = result[0]
         association = json.loads(association_json)
-        conn.execute(cache.update().where(cache.c.table == table_name).where(cache.c.year == year).where(cache.c.cohort_features == cohort_features_json).where(cache.c.cohort_year == cohort_year).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json).values(access_time=timestamp))
+        conn.execute(cache.update().where(cache.c.table == table_name).where(cache.c.cohort_features == cohort_features_json).where(cache.c.cohort_year == cohort_year).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json).values(access_time=timestamp))
 
     return association
 
 
 def select_feature_count(conn, table_name, year, cohort_features, cohort_year, feature_a):
 
-    ka = feature_a["feature_name"]
-    vas = feature_a["feature_qualifiers"]
+    cohort_features_norm = normalize_features(cohort_year, cohort_features)
+    feature_a_norm = normalize_feature(year, feature_a)
+    
+    cohort_features_json = json.dumps(cohort_features_norm, sort_keys=True)
+    feature_a_json = json.dumps(feature_a_norm, sort_keys=True)
 
-    table, table_count = generate_tables_from_features(table_name, year, cohort_features, cohort_year, [ka])
+    cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
+    result = conn.execute(select([cache_count.c.count]).select_from(cache_count).where(cache_count.c.table == table_name).where(cache_count.c.cohort_features == cohort_features_json).where(cache_count.c.cohort_year == cohort_year).where(cache_count.c.feature_a == feature_a_json)).first()
 
-    selections = [
-        func.count(),
-        *(case_select(table_count, ka, va) for va in vas)
-    ]
-
-    result = selection(conn, table, selections)
+    timestamp = datetime.now(timezone.utc)
+    
+    if result is None:
         
-    total = result[0]
-    feature_matrix = result[1:]
+        ka = feature_a_norm["feature_name"]
+        vas = feature_a_norm["feature_qualifiers"]
+        ya = feature_a_norm["year"]
+        
+        table, table_count = generate_tables_from_features(table_name, cohort_features_norm, cohort_year, [(ka, ya)])
+        
+        selections = [
+            func.count(),
+            *(case_select(table_count[ya], ka, va) for va in vas)
+        ]
 
-    feature_percentage = map(lambda x: x/total, feature_matrix)
+        result = selection(conn, table, selections)
+        
+        total = result[0]
+        feature_matrix = result[1:]
+        
+        feature_percentage = map(lambda x: x/total, feature_matrix)
+        
+        feature_a_norm_with_biolink_class = {
+            **feature_a_norm,
+            "biolink_class": inflection.underscore(lookUpFeatureClass(table_name, ka))
+        }
+    
+        count = {
+            "feature": feature_a_norm_with_biolink_class,
+            "feature_matrix": [{"frequency": a, "percentage": b} for (a, b) in zip(feature_matrix, feature_percentage)]
+        }
 
-    return {
-        "feature": feature_a,
-        "feature_matrix": [{"frequency": a, "percentage": b} for (a, b) in zip(feature_matrix, feature_percentage)]
-    }
+        count_json = json.dumps(count, sort_keys=True)
+
+        conn.execute(cache_count.insert().values(count=count_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, access_time=timestamp))
+        
+    else:
+        count_json = result[0]
+        count = json.loads(count_json)
+        conn.execute(cache_count.update().where(cache_count.c.table == table_name).where(cache_count.c.cohort_features == cohort_features_json).where(cache_count.c.cohort_year == cohort_year).where(cache_count.c.feature_a == feature_a_json).values(access_time=timestamp))
+
+    return count
 
 
 def get_feature_levels(conn, table, year, feature):

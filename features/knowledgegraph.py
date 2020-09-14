@@ -44,7 +44,7 @@ subtypes = {
 
 edge_id_map = {}
 
-TOOL_VERSION = "3.2.0"
+TOOL_VERSION = "3.3.0"
 
 def closure_subtype(node_type):
     return reduce(lambda x, y : x + y, map(closure_subtype, subtypes.get(node_type, [])), [node_type])

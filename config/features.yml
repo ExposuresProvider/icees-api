@@ -1,4 +1,9 @@
 patient:
+  Active_In_Year:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: PhenotypicFeature
   AgeStudyStart:
     type: string
     enum:
@@ -1048,6 +1053,11 @@ patient:
     maximum: 1
     biolinkType: PhenotypicFeature
 visit:
+  Active_In_Year:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: PhenotypicFeature
   VisitType:
     type: string
     biolinkType: ActivityAndBehavior

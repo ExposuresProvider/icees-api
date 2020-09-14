@@ -25,7 +25,10 @@ def qualifier_schema(ty, levels):
                 "type": "string",
                 "enum": ["<", ">", "<=", ">=", "=", "<>"]
             },
-            "value": yamltype
+            "value": yamltype,
+            "year": {
+                "type": "integer"
+            }
         },
         "required": ["operator", "value"],
         "additionalProperties": False

@@ -4,7 +4,7 @@ from sqlalchemy.sql import select, func
 from scipy.stats import chi2_contingency
 import json
 import os
-from itertools import product
+from itertools import product, chain
 import inflection
 import numpy as np
 import time
@@ -12,6 +12,7 @@ from .features import features, lookUpFeatureClass, features_dict
 from tx.functional.maybe import Nothing, Just
 import logging
 from datetime import datetime, timezone
+from collections import defaultdict
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -217,6 +218,56 @@ def timeit(method):
         return result
     return timed
 
+
+def generate_tables_from_features(table_name, year, cohort_features, cohort_year, columns):
+    table = tables[table_name]
+    primary_key = table_id(table_name)
+        
+    table_cohorts = []
+
+    cohort_feature_groups = defaultdict(list)
+    for k, v in cohort_features.items():
+        feature_year = v.get("year", cohort_year)
+        cohort_feature_groups[feature_year].append((k, v))
+
+    for feature_year, features in cohort_feature_groups.items():
+            
+        table_cohort_feature_group = select([table.c[primary_key]]).select_from(table)
+        if feature_year is not None:
+            table_cohort_feature_group = table_cohort_feature_group.where(table.c.year == feature_year)
+
+        for k, v in features:
+            table_cohort_feature_group = filter_select(table_cohort_feature_group, table, k, v)
+                
+        table_cohort_feature_group = table_cohort_feature_group.alias()
+        table_cohorts.append(table_cohort_feature_group)
+        
+    table_matrix = select([table.c[x] for x in chain([primary_key], columns)]).select_from(table)
+
+    if year is not None:
+        table_matrix = table_matrix.where(table.c.year == year)
+            
+    table_matrix = table_matrix.alias()
+
+    table_filtered = table_matrix 
+    for table_cohort_feature_group in table_cohorts:
+        table_filtered.join(table_cohort_feature_group, onclause=table_matrix.c[primary_key] == table_cohort_feature_group.c[primary_key])
+
+    return table_filtered, table_matrix
+
+
+def selection(conn, table, selections):
+    result = []
+
+    for i in range(0, len(selections), MAX_ENTRIES_PER_ROW):
+        subs = selections[i:min(i+MAX_ENTRIES_PER_ROW, len(selections))]
+        
+        s = select(subs).select_from(table)
+
+        result.extend(list(conn.execute(s).first()))
+
+    return result
+
 @timeit
 def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, feature_a, feature_b):
 
@@ -230,29 +281,12 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
     
     if result is None:
         
-        table = tables[table_name]
-        primary_key = table_id(table_name)
-        
         ka = feature_a["feature_name"]
         vas = feature_a["feature_qualifiers"]
         kb = feature_b["feature_name"]
         vbs = feature_b["feature_qualifiers"]
 
-        table_cohort = select([table.c[primary_key], *(table.c[k] for k in cohort_features.keys())]).select_from(table)
-        if cohort_year is not None:
-            table_cohort = table_cohort.where(table.c.year == cohort_year)
-
-        for k, v in cohort_features.items():
-            table_cohort = filter_select(table_cohort, table, k, v)
-                
-        table_cohort = table_cohort.alias()
-        
-        table_matrix = select([table.c[primary_key], table.c[ka], table.c[kb]]).select_from(table)
-
-        if year is not None:
-            table_matrix = table_matrix.where(table.c.year == year)
-            
-        table_matrix = table_matrix.alias()
+        table, table_matrix = generate_tables_from_features(table_name, year, cohort_features, cohort_year, [ka, kb])
         
         selections = [
             case_select2(table_matrix, kb, vb, ka, va) for vb, va in product(vbs, vas)
@@ -264,20 +298,11 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
             func.count()
         ]
         
-        result = []
-
-        for i in range(0, len(selections), MAX_ENTRIES_PER_ROW):
-            subs = selections[i:min(i+MAX_ENTRIES_PER_ROW, len(selections))]
-            
-            s = select(subs).select_from(table_matrix.join(table_cohort, onclause=table_matrix.c[table_id(table_name)] == table_cohort.c[table_id(table_name)]))
-
-            result.extend(list(conn.execute(s).first()))
-        
+        result = selection(conn, table, selections)
 
         nvas = len(vas)
         nvbs = len(vbs)
         mat_size = nvas * nvbs
-
 
         feature_matrix = np.reshape(result[:mat_size], (nvbs, nvas)).tolist()
 
@@ -329,24 +354,21 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
 
 
 def select_feature_count(conn, table_name, year, cohort_features, cohort_year, feature_a):
-    table = tables[table_name]
-    primary_key = table_id(table_name)
 
     ka = feature_a["feature_name"]
     vas = feature_a["feature_qualifiers"]
 
-    cohort_table = select([primary_key]).select_from(table).where(table.c.year == cohort_year)
+    table, table_count = generate_tables_from_features(table_name, year, cohort_features, cohort_year, [ka])
 
-    for k, v in cohort_features.items():
-        cohort_table = filter_select(cohort_table, table, k, v)
+    selections = [
+        func.count(),
+        *(case_select(table_count, ka, va) for va in vas)
+    ]
 
-    cohort_table = cohort_table.alias()
-
-    count_table = select([primary_key, table.c[ka]]).select_from(table).where(table.c.year == year).alias()
-    
-    feature_matrix = [conn.execute((filter_select(s, table, ka, va))).scalar() for va in vas]
-    
-    total = conn.execute((s)).scalar()
+    result = selection(conn, table, selections)
+        
+    total = result[0]
+    feature_matrix = result[1:]
 
     feature_percentage = map(lambda x: x/total, feature_matrix)
 

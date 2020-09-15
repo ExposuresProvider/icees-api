@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime, Text
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime, Text, LargeBinary
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql import select, func
 from scipy.stats import chi2_contingency
@@ -14,6 +14,7 @@ import logging
 from datetime import datetime, timezone
 from collections import defaultdict
 from functools import cmp_to_key
+from hashlib import md5
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -49,6 +50,7 @@ cohort_id_seq = Sequence('cohort_id_seq', metadata=metadata)
 
 
 association_cols = [
+    Column("digest", LargeBinary),
     Column("table", String),
     Column("cohort_features", String),
     Column("cohort_year", Integer),
@@ -60,9 +62,10 @@ association_cols = [
 
 cache = Table("cache", metadata, *association_cols)
 
-Index("cache_index", cache.c.table, cache.c.cohort_features, cache.c.feature_a, cache.c.feature_b)
+Index("cache_index", cache.c.digest)
 
 count_cols = [
+    Column("digest", LargeBinary),
     Column("table", String),
     Column("cohort_features", String),
     Column("cohort_year", Integer),
@@ -73,8 +76,16 @@ count_cols = [
 
 cache_count = Table("cache_count", metadata, *count_cols)
 
-Index("cache_count_index", cache_count.c.table, cache_count.c.cohort_features, cache_count.c.feature_a)
+Index("cache_count_index", cache_count.c.digest)
 
+
+def get_digest(*args):
+    c = md5()
+    for arg in args:
+        c.update(arg.encode("utf-8"))
+    return c.digest()
+
+    
 def op_dict(table, k, v):
     return {
         ">": lambda: table.c[k] > v["value"],
@@ -350,8 +361,10 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
     feature_b_json = json.dumps(feature_b_norm, sort_keys=True)
 
     cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
+
+    digest = get_digest(json.dumps(table_name), cohort_features_json, json.dumps(cohort_year), feature_a_json, feature_b_json) 
     
-    result = conn.execute(select([cache.c.association]).select_from(cache).where(cache.c.table == table_name).where(cache.c.cohort_features == cohort_features_json).where(cache.c.cohort_year == cohort_year).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json)).first()
+    result = conn.execute(select([cache.c.association]).select_from(cache).where(cache.c.digest == digest).where(cache.c.table == table_name).where(cache.c.cohort_features == cohort_features_json).where(cache.c.cohort_year == cohort_year).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json)).first()
 
     timestamp = datetime.now(timezone.utc)
     
@@ -426,12 +439,12 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
 
         association_json = json.dumps(association, sort_keys=True)
 
-        conn.execute(cache.insert().values(association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
+        conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
 
     else:
         association_json = result[0]
         association = json.loads(association_json)
-        conn.execute(cache.update().where(cache.c.table == table_name).where(cache.c.cohort_features == cohort_features_json).where(cache.c.cohort_year == cohort_year).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json).values(access_time=timestamp))
+        conn.execute(cache.update().where(cache.c.digest == digest).where(cache.c.table == table_name).where(cache.c.cohort_features == cohort_features_json).where(cache.c.cohort_year == cohort_year).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json).values(access_time=timestamp))
 
     return association
 
@@ -445,7 +458,10 @@ def select_feature_count(conn, table_name, year, cohort_features, cohort_year, f
     feature_a_json = json.dumps(feature_a_norm, sort_keys=True)
 
     cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
-    result = conn.execute(select([cache_count.c.count]).select_from(cache_count).where(cache_count.c.table == table_name).where(cache_count.c.cohort_features == cohort_features_json).where(cache_count.c.cohort_year == cohort_year).where(cache_count.c.feature_a == feature_a_json)).first()
+
+    digest = get_digest(json.dumps(table_name), cohort_features_json, json.dumps(cohort_year), feature_a_json)
+    
+    result = conn.execute(select([cache_count.c.count]).select_from(cache_count).where(cache_count.c.digest == digest).where(cache_count.c.table == table_name).where(cache_count.c.cohort_features == cohort_features_json).where(cache_count.c.cohort_year == cohort_year).where(cache_count.c.feature_a == feature_a_json)).first()
 
     timestamp = datetime.now(timezone.utc)
     
@@ -481,12 +497,12 @@ def select_feature_count(conn, table_name, year, cohort_features, cohort_year, f
 
         count_json = json.dumps(count, sort_keys=True)
 
-        conn.execute(cache_count.insert().values(count=count_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, access_time=timestamp))
+        conn.execute(cache_count.insert().values(digest=digest, count=count_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, access_time=timestamp))
         
     else:
         count_json = result[0]
         count = json.loads(count_json)
-        conn.execute(cache_count.update().where(cache_count.c.table == table_name).where(cache_count.c.cohort_features == cohort_features_json).where(cache_count.c.cohort_year == cohort_year).where(cache_count.c.feature_a == feature_a_json).values(access_time=timestamp))
+        conn.execute(cache_count.update().where(cache_count.c.digest == digest).where(cache_count.c.table == table_name).where(cache_count.c.cohort_features == cohort_features_json).where(cache_count.c.cohort_year == cohort_year).where(cache_count.c.feature_a == feature_a_json).values(access_time=timestamp))
 
     return count
 

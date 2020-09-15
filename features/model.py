@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime, Text
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql import select, func
 from scipy.stats import chi2_contingency
@@ -48,15 +48,13 @@ cohort = Table("cohort", metadata, *cohort_cols)
 cohort_id_seq = Sequence('cohort_id_seq', metadata=metadata)
 
 
-MAX_TEXT_SIZE = 4 * 1024 * 1024
-
 association_cols = [
     Column("table", String),
     Column("cohort_features", String),
     Column("cohort_year", Integer),
     Column("feature_a", String),
     Column("feature_b", String),
-    Column("association", String(MAX_TEXT_SIZE)),
+    Column("association", Text),
     Column("access_time", DateTime)
 ]
 
@@ -69,7 +67,7 @@ count_cols = [
     Column("cohort_features", String),
     Column("cohort_year", Integer),
     Column("feature_a", String),
-    Column("count", String(MAX_TEXT_SIZE)),
+    Column("count", Text),
     Column("access_time", DateTime)
 ]
 

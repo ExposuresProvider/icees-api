@@ -298,7 +298,7 @@ def generate_tables_from_features(table_name, cohort_features, cohort_year, colu
     table_cohort = tables_all[0]
     table_filtered = table_cohort
     for table in tables_all:
-        table_filtered.join(table, onclause=table_cohort.c[primary_key] == table.c[primary_key])
+        table_filtered = table_filtered.join(table, onclause=table_cohort.c[primary_key] == table.c[primary_key])
 
     return table_filtered, table_matrices
 

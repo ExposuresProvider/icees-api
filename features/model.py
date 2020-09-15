@@ -483,7 +483,7 @@ def select_feature_count(conn, table_name, year, cohort_features, cohort_year, f
         total = result[0]
         feature_matrix = result[1:]
         
-        feature_percentage = map(lambda x: x/total, feature_matrix)
+        feature_percentage = map(lambda x: div(x, total), feature_matrix)
         
         feature_a_norm_with_biolink_class = {
             **feature_a_norm,

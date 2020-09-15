@@ -48,7 +48,7 @@ cohort = Table("cohort", metadata, *cohort_cols)
 cohort_id_seq = Sequence('cohort_id_seq', metadata=metadata)
 
 
-MAX_TEXT_SIZE = 1024 * 1024
+MAX_TEXT_SIZE = 4 * 1024 * 1024
 
 association_cols = [
     Column("table", String),

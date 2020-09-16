@@ -327,8 +327,25 @@ route
 ```
 schema
 ```
-{"feature":{"<feature name>":[{"operator":<operator>,"value":<value>}]},"maximum_p_value":<maximum p value>, "check_coverage_is_full":<boolean>}
+{
+  "feature":{
+    "<feature name>":[
+      {
+        "operator":<operator>,
+        "value":<value>
+      }
+    ]
+  },
+  "maximum_p_value":<maximum p value>, 
+  "check_coverage_is_full":<boolean>,
+  "correction":{
+    "method":<correction method>,
+    "alpha":<correction alpha>
+  }
+}
 ```
+where `correction` is optional, `alpha` is optional. `method` and `alpha` are specified here: https://www.statsmodels.org/dev/generated/statsmodels.stats.multitest.multipletests.html
+
 example
 ```
 {

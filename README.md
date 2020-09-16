@@ -300,8 +300,22 @@ route
 ```
 schema
 ```
-{"feature":{"<feature name>":{"operator":<operator>,"value":<value>}},"maximum_p_value":<maximum p value>}
+{
+  "feature":{
+    "<feature name>":{
+      "operator":<operator>,
+      "value":<value>
+    }
+  },"
+  maximum_p_value":<maximum p value>,
+  "correction":{
+    "method":<correction method>,
+    "alpha":<correction alpha>
+  }
+}
 ```
+where `correction` is optional, `alpha` is optional. `method` and `alpha` are specified here: https://www.statsmodels.org/dev/generated/statsmodels.stats.multitest.multipletests.html
+
 ### associations of one feature to all features using combined bins
 method
 ```

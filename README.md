@@ -121,6 +121,7 @@ Example
 }
 
 ```
+```
 <features> ::= [<feature>, ..., <feature>]
 ```
 

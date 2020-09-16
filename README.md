@@ -71,7 +71,7 @@ docker-compose up --build -d
 ```
 
 
-#### Build Container
+## Build Container
 
 ```
 docker build . -t icees-api:0.4.0

@@ -94,17 +94,6 @@ def add_name_by_id_schema():
         "additionalProperties": False
     }
 
-def feature_association_schema(table_name):
-    return {
-        "type": "object",
-        "properties": {
-            "feature_a": cohort_schema(table_name),
-            "feature_b": cohort_schema(table_name)
-        },
-        "required": ["feature_a", "feature_b"],
-        "additionalProperties": False
-    }
-
 def bin_qualifier_schema(ty, levels):
     if ty is String:
         yamltype = {
@@ -202,12 +191,20 @@ def bins_schema(table_name):
     }
 
 
+def feature_association_schema(table_name):
+    return feature_association_schema_common(table_name, cohort_schema(table_name))
+
+
 def feature_association2_schema(table_name):
+    return feature_association_schema_common(table_name, bins_schema(table_name))
+
+    
+def feature_association_schema_common(table_name, feature_schema):
     return {
         "type": "object",
         "properties": {
-            "feature_a": bins_schema(table_name),
-            "feature_b": bins_schema(table_name),
+            "feature_a": feature_schema,
+            "feature_b": feature_schema,
             "check_coverage_is_full": {
                 "type": "boolean"
             }
@@ -216,27 +213,66 @@ def feature_association2_schema(table_name):
         "additionalProperties": False
     }
 
+
 def associations_to_all_features_schema(table_name):
-    return {
-        "type": "object",
-        "properties": {
-            "feature": cohort_schema(table_name),
-            "maximum_p_value": {
-                "type": "number"
-            }
-        },
-        "required": ["feature", "maximum_p_value"],
-        "additionalProperties": False
-    }
+    return associations_to_all_features_schema_common(table_name, cohort_schema(table_name))
 
 
 def associations_to_all_features2_schema(table_name):
+    return associations_to_all_features_schema_common(table_name, bins_schema(table_name))
+
+
+def associations_to_all_features_schema_common(table_name, feature_schema):
     return {
         "type": "object",
         "properties": {
-            "feature": bins_schema(table_name),
+            "feature": feature_schema,
             "maximum_p_value": {
                 "type": "number"
+            },
+            "correction": {
+                "type": "object",
+                "anyOf": [
+                    {
+                        "properties": {
+                            "method": {
+                                "type": "string",
+                                "enum": [
+                                    "bonferroni",
+                                    "sidak",
+                                    "holm-sidak",
+                                    "holm",
+                                    "simes-hochberg",
+                                    "hommel",
+                                    "fdr_bh",
+                                    "fdr_by" 
+                                ]
+                            }
+                        },
+                        "required": [
+                            "method"
+                        ],
+                        "additionalProperties": False
+                    }, {
+                        "properties": {
+                            "method": {
+                                "type": "string",
+                                "enum": [
+                                    "fdr_tsbh" ,
+                                    "fdr_tsbky"
+                                ]
+                            },
+                            "alpha": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "method",
+                            "alpha"
+                        ],
+                        "additionalProperties": False
+                    }
+                ]
             },
             "check_coverage_is_full": {
                 "type": "boolean"

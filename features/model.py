@@ -15,6 +15,7 @@ from datetime import datetime, timezone
 from collections import defaultdict
 from functools import cmp_to_key
 from hashlib import md5
+from statsmodels.stats.multitest import multipletests
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -512,25 +513,32 @@ def get_feature_levels(conn, table, year, feature):
     return list(map(lambda row: row[0], conn.execute((s))))
 
 
-def select_feature_association(conn, table_name, year, cohort_features, cohort_year, feature, maximum_p_value, feature_set):
+def select_feature_association(conn, table_name, year, cohort_features, cohort_year, feature, maximum_p_value, feature_set, correction):
     table = tables[table_name]
     rs = []
     for k, v, levels, _ in filter(feature_set, features[table_name]):
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
-        if ret["p_value"] < maximum_p_value:
-            rs.append(ret)
-    return rs
+        rs.append(ret)
+    rsp = [ret["p_value"] for ret in rs]
+    if correction is not None:
+        method = correction["method"]
+        alpha = correction.get("alpha", 1)
+        _, pvals, _, _ = multipletests(rsp, alpha, method)
+    else:
+        pvals = rsp
+
+    return [ret for ret, pval in zip(rs, pvals) if pval < maximum_p_value]
 
 
-def select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x: True):
+def select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x: True, correction=None):
     cohort_meta = get_features_by_id(conn, table, cohort_id)
     if cohort_meta is None:
         return "Input cohort_id invalid. Please try again."
     else:
         cohort_features, cohort_year = cohort_meta
-        return select_feature_association(conn, table, year, cohort_features, cohort_year, feature, maximum_p_value, feature_set)
+        return select_feature_association(conn, table, year, cohort_features, cohort_year, feature, maximum_p_value, feature_set, correction)
 
 
 def validate_range(table_name, feature):

@@ -436,6 +436,7 @@ class SERVAssociationsToAllFeatures(Resource):
                   operator: "="
                   value: "Female"
               maximum_p_value: 1
+              correction_method: bonferroni
           - in: path
             name: table
             required: true
@@ -463,8 +464,9 @@ class SERVAssociationsToAllFeatures(Resource):
             validate(obj, schema.associations_to_all_features_schema(table))
             feature = to_qualifiers(obj["feature"])
             maximum_p_value = obj["maximum_p_value"]
+            correction = obj.get("correction")
             with db.DBConnection() as conn:
-                return_value = model.select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
+                return_value = model.select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, correction=correction)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -491,6 +493,7 @@ class SERVAssociationsToAllFeatures2(Resource):
                   - operator: "="
                     value: "Male"
               maximum_p_value: 1
+              correction_method: bonferroni
             required: true
           - in: path
             name: table
@@ -522,8 +525,9 @@ class SERVAssociationsToAllFeatures2(Resource):
             if to_validate_range:
                 validate_range(table, feature)
             maximum_p_value = obj["maximum_p_value"]
+            correction = obj.get("correction")
             with db.DBConnection() as conn:
-                return_value = model.select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
+                return_value = model.select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, correction=correction)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message

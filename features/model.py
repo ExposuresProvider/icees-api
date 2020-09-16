@@ -526,6 +526,8 @@ def select_feature_association(conn, table_name, year, cohort_features, cohort_y
         method = correction["method"]
         alpha = correction.get("alpha", 1)
         _, pvals, _, _ = multipletests(rsp, alpha, method)
+        for ret, pval in zip(rs, pvals):
+            ret["p_value_corrected"] = pval
     else:
         pvals = rsp
 

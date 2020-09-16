@@ -89,6 +89,10 @@ def format_tables(data, tables):
 
         columns = ["p_value", "chi_squared"]
         rows = [[data["p_value"], data["chi_squared"]]]
+        p_value_corrected = data.get("p_value_corrected")
+        if p_value_corrected is not None:
+            columns.append("p_value_corrected")
+            rows[0].append(p_value_corrected)
         tables.append([columns, rows])
     elif "feature" in data:
         feature = data["feature"]

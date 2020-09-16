@@ -8,6 +8,8 @@ services:
     container_name: ${ICEES_API_INSTANCE_NAME}-db
     env_file:
       - .env
+    environment:
+      CONFIG_PATH: /icees-api/config
     volumes:
       - $DB_PATH:/data
       - $DATA_PATH:/icees-api/db/data
@@ -22,8 +24,10 @@ services:
     env_file:
       - .env
     restart: always
+    environment:
+      CONFIG_PATH: /icees-api/config
     volumes:
-      - ./config:/icees-api/config
+      - $CONFIG_PATH:/icees-api/config
       - /tmp:/tmp
     depends_on:
       - db

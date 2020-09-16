@@ -3,10 +3,11 @@ import os
 import logging
 import yaml
 from tx.functional.either import Left, Right
+from .config import get_config_path
 
 logger = logging.getLogger(__name__)
 
-input_file = os.path.join(os.path.dirname(__file__), "..", "config", "identifiers.yml")
+input_file = os.path.join(get_config_path(), "identifiers.yml")
 
 with open(input_file) as inpf:
     input_dict = yaml.safe_load(inpf)

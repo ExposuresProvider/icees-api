@@ -1,8 +1,10 @@
 import yaml
+import os
 from sqlalchemy import Integer, String, Enum, Float
+from .config import get_config_path
 
 
-with open('config/features.yml', 'r') as f:
+with open(os.path.join(get_config_path(), 'features.yml'), 'r') as f:
     features_dict = yaml.load(f, Loader=yaml.SafeLoader)
 
 

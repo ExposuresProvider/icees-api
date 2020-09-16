@@ -79,6 +79,145 @@ docker build . -t icees-api:0.4.0
 
 ## REST API
 
+### features schema
+A feature qualifier limited values of a feature
+```
+<operator> ::= <
+             | >
+             | <=
+             | >=
+             | = 
+             | <>`
+
+<feature_qualifier> ::= {"operator":<operator>, "value":<value>}
+                      | {"operator":"in", "values":[<value>, ..., <value>]}
+                      | {"operator":"between", "value_a":<value>, "value_b":<value>}
+```
+
+There are two ways to specify a feature of a set of features, using a list or a dict. We show the schema for the former first, then show the schema for the latter.
+
+```
+<feature> ::= {
+    "feature_name": "<feature name>",
+    "feature_qualifier": <feature_qualifiere>,
+    "year": <year>
+  }
+```
+
+where 
+
+`feature name`: see config/features.yml
+
+`year` is optional. When `year` is specified, it uses features from that year, otherwise it gets year from context
+
+Example
+```
+{
+  "feature_name": "AgeStudyStart",
+  "feature_qualifier": {
+    "operator": "=",
+    "value": "0-2"
+  }
+}
+
+```
+<features> ::= [<feature>, ..., <feature>]
+```
+
+Example
+```
+[{
+  "feature_name": "AgeStudyStart",
+  "feature_qualifier": {
+    "operator": "=",
+    "value": "0-2"
+  }
+}, {
+  "feature_name": "ObesityBMI",
+  "feature_qualifier": {
+    "operator": "=",
+    "value": 0
+  }
+}]
+```
+
+In the apis that allows aggregation of bins, we can specify multiple feature qualifiers for each feature.
+```
+<feature2> ::= {
+  "feature_name": "<feature name>",
+  "feature_qualifier": [<feature_qualifiere>, ..., <feature_qualifier>],
+  "year": <year>
+}
+```
+
+Example:
+```
+{
+  "feature_name": "AgeStudyStart",
+  "feature_qualifiers": [
+            {
+                "operator":"=",
+                "value":"0-2"
+            }, {
+                "operator":"between",
+                "value_a":"3-17",
+                "value_b":"18-34"
+            }, {
+                "operator":"in", 
+                "values":["35-50","51-69"]
+            },{
+                "operator":"=",
+                "value":"70+"
+            }
+  ]
+}
+```
+
+similarly for a set of features
+```
+<features2> ::= [<feature2>, ..., <feature2>]
+```
+Example
+```
+[{
+  "feature_name": "AgeStudyStart",
+  "feature_qualifiers": [
+    {
+      "operator":"=",
+      "value":"0-2"
+    }, {
+      "operator":"between",
+      "value_a":"3-17",
+      "value_b":"18-34"
+    }, {
+      "operator":"in", 
+      "values":["35-50","51-69"]
+    },{
+      "operator":"=",
+      "value":"70+"
+    }
+  ]
+}, {
+  "feature_name": "EstResidentialDensity",
+  "feature_qualifiers": [
+    {
+      "operator": "<",
+      "value": 1
+    }
+  ]
+}]
+```
+
+`in` and `between` currently only supported in `<feature2>`.
+
+Now, we turn to defined a feature or a feature set using a dict.
+```
+<feature> ::= {"<feature name>": <feature_qualifier>} 
+<features> ::= {"<feature name>": <feature_qualifier>, ..., "<feature name>": <feature_qualifier>}
+<feature2> ::= {"<feature name>": [<feature_qualifier>, ..., <feature_qualifier>]} 
+<features2> ::= {"<feature name>": [<feature_qualifier>, ..., <feature_qualifier>], ..., "<feature name>": [<feature_qualifier>, ..., <feature_qualifier>]}
+```
+
 ### create cohort
 method
 ```
@@ -90,40 +229,9 @@ route
 /(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort
 ```
 schema
-
-there are two ways to specify a cohort.
-
-using a dict
 ```
-{"<feature name>":{"operator":<operator>,"value":<value>},...,"<feature name>":{"operator":<operator>,"value":<value>}}
+<features>
 ```
-using a list
-```
-[
-  {
-    "feature_name": "<feature name>",
-    "feature_qualifier":{
-      "operator":<operator>,
-      "value":<value>
-    },
-    "year": <year>
-  },
-  ...,
-  {
-    "feature_name": "<feature name>",
-    "feature_qualifier":{
-      "operator":<operator>,
-      "value":<value>
-    },
-    "year": <year>
-  }
-]
-```
-where `year` is optional. When `year` is specified, it uses features from that year.
-
-`feature name`: see Kara's spreadsheet
-
-`operator ::= <|>|<=|>=|=|<>`
 
 ### get cohort definition
 method
@@ -170,7 +278,7 @@ route
 ```
 schema
 ```
-{"feature_a":{"<feature name>":{"operator":<operator>,"value":<value>}},"feauture_b":{"<feature name>":{"operator":<operator>,"value":<value>}}}
+{"feature_a":<feature>,"feauture_b":<feature>}
 ```
 
 ### feature association between two features using combined bins
@@ -185,13 +293,14 @@ route
 ```
 schema
 ```
-{"feature_a":{"<feature name>":[{"operator":<operator>,"value":<value>}]},"feature_b":{"<feature name>":[{"operator":<operator>,"value":<value>}]},"check_coverage_is_full":<boolean>}
+{"feature_a":<feature2>,"feature_b":<feature2>,"check_coverage_is_full":<boolean>}
 ```
 example
 ```
 {
-    "feature_a":{
-        "AgeStudyStart":[
+    "feature_a": {
+      "feature_name": "AgeStudyStart",
+      "feature_qualifiers": [
             {
                 "operator":"=",
                 "value":"0-2"
@@ -206,10 +315,11 @@ example
                 "operator":"=",
                 "value":"70+"
             }
-        ]
+      ]
     },
-    "feature_b":{
-        "ObesityBMI":[
+    "feature_b": {
+      "feature_name": "ObesityBMI",
+      "feature_qualifiers": [
             {
                 "operator":"=",
                 "value":0
@@ -217,7 +327,7 @@ example
                 "operator":"<>", 
                 "value":0
             }
-        ]
+      ]
     }
 }
 ```
@@ -235,16 +345,11 @@ route
 schema
 ```
 {
-  "feature":{
-    "<feature name>":{
-      "operator":<operator>,
-      "value":<value>
-    }
-  },"
-  maximum_p_value":<maximum p value>,
-  "correction":{
-    "method":<correction method>,
-    "alpha":<correction alpha>
+  "feature": <feature>,
+  "maximum_p_value": <maximum p value>,
+  "correction": {
+    "method": <correction method>,
+    "alpha": <correction alpha>
   }
 }
 ```
@@ -262,19 +367,12 @@ route
 schema
 ```
 {
-  "feature":{
-    "<feature name>":[
-      {
-        "operator":<operator>,
-        "value":<value>
-      }
-    ]
-  },
-  "maximum_p_value":<maximum p value>, 
-  "check_coverage_is_full":<boolean>,
-  "correction":{
-    "method":<correction method>,
-    "alpha":<correction alpha>
+  "feature": <feature>,
+  "maximum_p_value": <maximum p value>, 
+  "check_coverage_is_full": <boolean>,
+  "correction": {
+    "method": <correction method>,
+    "alpha": <correction alpha>
   }
 }
 ```
@@ -365,6 +463,61 @@ example
         }
 }
 ```
+
+### knowledge graph overlay
+method
+```
+POST
+```
+
+route
+```
+/knowledge_graph_overlay?reasoner=
+```
+
+input parameters:
+```
+<query_options> ::= {
+                      "table": <string>,
+                      "year": <integer>,
+                      "cohort_features": <features>
+                    }
+                  | {
+                      "cohort_id": <string>
+                    }
+```
+
+```
+{
+   "message": {
+      "query_options": <query_options>,
+      "knowledge_graph": <knowledge_graph>
+   }
+}
+```
+if `reasoner` is specified, then it returns a Reason API response.
+
+### knowledge graph one hop
+method
+```
+POST
+```
+
+route
+```
+/knowledge_graph_one_hop?reasoner=
+```
+
+if `reasoner` is specified, then it returns a Reason API response.
+
+input parameters:
+```
+{
+   "query_options": <query_options>,
+   "query_graph": <query_graph>
+}
+```
+
 
 ## Examples
 

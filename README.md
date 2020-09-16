@@ -70,70 +70,12 @@ run
 docker-compose up --build -d
 ```
 
-### run docker
 
 #### Build Container
 
 ```
 docker build . -t icees-api:0.4.0
 ```
-
-#### Setup environment
-set env variables
-
-`ICEES_PORT`: the database port
-
-`ICEES_HOST`: the database host
-
-`ICEES_DBUSER`: the database user
-
-`ICEES_DBPASS`: the password for the database user
-
-`ICEES_DATABASE`: the database name
-
-`ICEES_API_LOG_PATH`: the path where logs are stored
-
-`ICEES_API_HOST_PORT`: the port where icees api is listening to on the host
-
-`OPENAPI_HOST`: the host where icees api is deployed
-
-`OPENAPI_SCHEME`: the protocol where icees api is deployed
-
-`DATA_PATH`: the directory where database tables csvs are stored
-
-`CONFIG_PATH`: the directory where schema and identifiers are stored
-
-run
-```
-pip install flask flask-restful flask-limiter sqlalchemy psycopg2-binary scipy gunicorn jsonschema pyyaml tabulate structlog pandas argparse inflection flasgger
-```
-#### Set up Database
-
-##### Create User
-
-```createuser -P <dbuser>```
-
-enter `<dbpass>` for new user
-
-##### Create Database
-
-```createdb <database>```
-
-##### Create Permissions
-
-```grant all privileges on database <database> to <dbuser>```
-
-##### popluating database
-
-```
-python dbutils.py create
-```
-
-```
-python dbutils.py insert <patient data input> patient
-python dbutils.py insert <visit data input> visit
-```
-
 
 ## REST API
 

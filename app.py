@@ -436,7 +436,8 @@ class SERVAssociationsToAllFeatures(Resource):
                   operator: "="
                   value: "Female"
               maximum_p_value: 1
-              correction_method: bonferroni
+              correction:
+                method: bonferroni
           - in: path
             name: table
             required: true
@@ -493,7 +494,8 @@ class SERVAssociationsToAllFeatures2(Resource):
                   - operator: "="
                     value: "Male"
               maximum_p_value: 1
-              correction_method: bonferroni
+              correction:
+                method: bonferroni
             required: true
           - in: path
             name: table

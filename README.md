@@ -49,7 +49,7 @@ The  `.env` file contains environmental variables that control the services. Edi
 
 `ICEES_DATABASE`: the database name in the container
 
-`ICEES_API_LOG_PATH`: the path where logs are store on the host
+`ICEES_API_LOG_PATH`: the path where logs are stored on the host
 
 `ICEES_API_HOST_PORT`: the port where icees api is listening to on the host
 
@@ -72,64 +72,26 @@ docker-compose up --build -d
 
 ### run docker
 
-The following steps can be run using the `redepoly.sh`
-
 #### Build Container
 
 ```
-docker build . -t icees-api:0.3.0
+docker build . -t icees-api:0.4.0
 ```
 
-#### Run Container in Standalone Mode (optional)
-
-```
-docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log -p 8080:8080 icees-api:0.3.0
-```
-
-```
-docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log --net host icees-api:0.2.0
-```
-
-#### Setting up `systemd` (optional)
-
-run docker containers
-```
-docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log -p 8080:8080 icees-api:0.2.0
-```
-
-```
-docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log --net host icees-api:0.3.0
-```
-
-```
-docker stop icees-api_server
-```
-
-copy `<repo>/icees-api-container.service` to `/etc/systemd/system/icees-api-container.service`
-
-start service
-
-```
-systemctl start icees-api-container
-```
-
-### Run manually
 #### Setup environment
 set env variables
 
-`ICEES_PORT`: the database port in the container
+`ICEES_PORT`: the database port
 
-`ICEES_HOST`: the database host in the container
+`ICEES_HOST`: the database host
 
-`ICEES_DBUSER`: the database user in the container
+`ICEES_DBUSER`: the database user
 
-`ICEES_DBPASS`: the password for the database user in the container
+`ICEES_DBPASS`: the password for the database user
 
-`POSTGRES_PASSWORD`: the password for database user `postgres` in the container
+`ICEES_DATABASE`: the database name
 
-`ICEES_DATABASE`: the database name in the container
-
-`ICEES_API_LOG_PATH`: the path where logs are store on the host
+`ICEES_API_LOG_PATH`: the path where logs are stored
 
 `ICEES_API_HOST_PORT`: the port where icees api is listening to on the host
 
@@ -137,7 +99,7 @@ set env variables
 
 `OPENAPI_SCHEME`: the protocol where icees api is deployed
 
-`DATA_PATH`: the directory where database tables csvs are stored on the host
+`DATA_PATH`: the directory where database tables csvs are stored
 
 `CONFIG_PATH`: the directory where schema and identifiers are stored
 
@@ -171,13 +133,6 @@ python dbutils.py create
 python dbutils.py insert <patient data input> patient
 python dbutils.py insert <visit data input> visit
 ```
-
-#### Run Flask 
-run
-```
-python app.py
-```
-
 
 
 ## REST API

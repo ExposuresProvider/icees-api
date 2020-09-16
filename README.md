@@ -109,7 +109,31 @@ systemctl start icees-api-container
 
 ### Run manually
 #### Setup environment
-set env variables [definitions](#start-services)
+set env variables
+
+`ICEES_PORT`: the database port in the container
+
+`ICEES_HOST`: the database host in the container
+
+`ICEES_DBUSER`: the database user in the container
+
+`ICEES_DBPASS`: the password for the database user in the container
+
+`POSTGRES_PASSWORD`: the password for database user `postgres` in the container
+
+`ICEES_DATABASE`: the database name in the container
+
+`ICEES_API_LOG_PATH`: the path where logs are store on the host
+
+`ICEES_API_HOST_PORT`: the port where icees api is listening to on the host
+
+`OPENAPI_HOST`: the host where icees api is deployed
+
+`OPENAPI_SCHEME`: the protocol where icees api is deployed
+
+`DATA_PATH`: the directory where database tables csvs are stored on the host
+
+`CONFIG_PATH`: the directory where schema and identifiers are stored
 
 run
 ```
@@ -164,11 +188,13 @@ route
 ```
 schema
 
-dict
+there are two ways to specify a cohort.
+
+using a dict
 ```
 {"<feature name>":{"operator":<operator>,"value":<value>},...,"<feature name>":{"operator":<operator>,"value":<value>}}
 ```
-list
+using a list
 ```
 [
   {

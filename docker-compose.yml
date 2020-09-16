@@ -10,10 +10,12 @@ services:
       - .env
     environment:
       CONFIG_PATH: /icees-api/config
+      ICEES_API_LOG_PATH: /log
     volumes:
       - $DB_PATH:/data
       - $DATA_PATH:/icees-api/db/data
       - $CONFIG_PATH:/icees-api/config
+      - $ICEES_API_LOG_PATH:/log
     shm_size: 1g
     restart: always
   server:
@@ -26,9 +28,10 @@ services:
     restart: always
     environment:
       CONFIG_PATH: /icees-api/config
+      ICEES_API_LOG_PATH: /log
     volumes:
       - $CONFIG_PATH:/icees-api/config
-      - /tmp:/tmp
+      - $ICEES_API_LOG_PATH:/log
     depends_on:
       - db
     ports:

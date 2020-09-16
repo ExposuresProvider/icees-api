@@ -11,6 +11,7 @@ services:
     environment:
       CONFIG_PATH: /icees-api/config
       ICEES_API_LOG_PATH: /log
+      DATA_PATH: /icees-api/db/data
     volumes:
       - $DB_PATH:/data
       - $DATA_PATH:/icees-api/db/data

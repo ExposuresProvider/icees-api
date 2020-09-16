@@ -47,7 +47,7 @@ if p == 0:
     cursor.execute("CREATE DATABASE " + db)
     cursor.execute("GRANT ALL ON DATABASE " + db + " to " + dbuser)
     dbutils.create()
-    csvdir = "db/data/"
+    csvdir = os.environ.get("DATA_PATH", "db/data/")
     for t in features.features_dict.keys():
         table_dir = csvdir + "/" + t
         if os.path.isdir(table_dir):

@@ -18,7 +18,8 @@ ICEES API allows define custom schema and identifiers. The schema is stored at `
 ICEES API has the following assumptions: 
  * Each table named `<table>` should have a column named `<table>Id` as the identifier.
  * Each table has a column named `year`. 
- These columns do not need to be specified in `features.yml`.
+
+These columns do not need to be specified in `features.yml`.
 
 #### Data for database
 

@@ -26,7 +26,7 @@ with open('terms.txt', 'r') as content_file:
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-handler = TimedRotatingFileHandler(os.environ["ICEES_API_LOG_PATH"])
+handler = TimedRotatingFileHandler(os.path.join(os.environ["ICEES_API_LOG_PATH"], "server"))
 
 logger.addHandler(handler)
 logger = wrap_logger(logger, processors=[JSONRenderer()])

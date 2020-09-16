@@ -109,27 +109,7 @@ systemctl start icees-api-container
 
 ### Run manually
 #### Setup environment
-set env variables
-
-`ICEES_DBUSER` 
-
-`ICEES_DBPASS`
-
-`ICEES_HOST` 
-
-`ICEES_PORT` 
-
-`ICEES_DATABASE`
-
-`ICEES_DB_POOL_SIZE`
-
-`ICEES_DB_MAX_OVERFLOW`
-
-`ICEES_API_LOG_PATH`
-
-`DB_PATH`
-
-`DATA_PATH`
+set env variables [definitions](#start-services)
 
 run
 ```

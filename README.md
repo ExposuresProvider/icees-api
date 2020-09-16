@@ -374,6 +374,12 @@ get cohort of all patients
 curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{}'
 ```
 
+get cohort of all patients active in a year
+
+```
+curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{}'
+```
+
 get cohort of patients with `AgeStudyStart = 0-2`
 
 ```
@@ -404,14 +410,29 @@ get feature association
 
 
 ```
-curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{
+  "feature_a": {
+    "feature_name": "AgeStudyStart",
+    "feature_qualifier: {"operator":"=", "value":"0-2"}
+  },
+  "feature_b": {
+    "feature_name": "ObesityBMI",
+    "feature_qualifier": {"operator":"=", "value":0}
+  }
+}'
 ```
 
 get association to all features
 
 
 ```
-curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
+curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{
+  "feature": {
+    "feature_name": "AgeStudyStart",
+    "feature_qualifier": {"operator":"=", "value":"0-2"}
+  },
+  "maximum_p_value":0.1
+}' -H "Accept: application/json"
 ```
 
 knowledge graph

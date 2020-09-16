@@ -183,9 +183,34 @@ route
 /(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort
 ```
 schema
+
+dict
 ```
 {"<feature name>":{"operator":<operator>,"value":<value>},...,"<feature name>":{"operator":<operator>,"value":<value>}}
 ```
+list
+```
+[
+  {
+    "feature_name": "<feature name>",
+    "feature_qualifier":{
+      "operator":<operator>,
+      "value":<value>
+    },
+    "year": <year>
+  },
+  ...,
+  {
+    "feature_name": "<feature name>",
+    "feature_qualifier":{
+      "operator":<operator>,
+      "value":<value>
+    },
+    "year": <year>
+  }
+]
+```
+where `year` is optional. When `year` is specified, it uses features from that year.
 
 `feature name`: see Kara's spreadsheet
 

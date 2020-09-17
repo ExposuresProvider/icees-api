@@ -115,10 +115,6 @@ def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_prop
         })
     
 
-def maybeToList(m):
-    return m.rec(lambda x: [x], [])
-
-
 def get(conn, query):
     try:
         message = query.get("message", query)

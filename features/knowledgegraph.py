@@ -16,6 +16,7 @@ from functools import reduce, partial
 from tx.functional.either import Left, Right
 from tx.functional.maybe import Nothing, Just
 import tx.functional.maybe as maybe
+from tx.functional.utils import compose
 import re
 import logging
 
@@ -339,13 +340,9 @@ def convert_qnode_to_node(qnode):
     return convert(attribute_map, qnode)
 
 
-def comp(f, g):
-    return lambda x: g(f(x))
-
-
 def convert_qedge_to_edge(qedge):
     attribute_map = {
-        "id": comp(edge_get_id, Just),
+        "id": compose(edge_get_id, Just),
         "type": attr("type"),
         "relation": attr("relation"),
         "source_id": attr("source_id"),

@@ -47,7 +47,7 @@ app.config["SWAGGER"] = {
           "/{table}/{year}/cohort/{cohort_id}/features", 
           "/{table}/{year}/cohort/{cohort_id}/feature_association", 
           "/{table}/{year}/cohort/{cohort_id}/feature_association2", 
-          "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features"
+          "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
           "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2"
         ]
         const apath = a.get("path")

@@ -528,7 +528,6 @@ def one_hop(conn, query):
             "n_results": n_results,
             "message_code": "OK",
             "code_description": "",
-            # "query_graph": query_graph,
             "query_graph": query_graph,
             "knowledge_graph": knowledge_graph,
             "results": results

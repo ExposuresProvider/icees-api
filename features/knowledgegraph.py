@@ -42,8 +42,6 @@ subtypes = {
     "named_thing": ["chemical_substance", "disease_or_phenotypeic_feature", "environment"]
 }
 
-edge_id_map = {}
-
 TOOL_VERSION = "4.0.0"
 
 def closure_subtype(node_type):

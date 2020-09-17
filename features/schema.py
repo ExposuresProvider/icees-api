@@ -61,14 +61,14 @@ def feature_qualifier_schema_explicit(f, ty, levels):
 def feature_schema_implicit(table_name):
     return {
         "type": "object",
-        "properties": {k: qualifier_schema(v, levels) for k, v, levels, _ in features[table_name]},
+        "properties": {f.name: qualifier_schema(f._type, f.options) for f in features[table_name]},
         "additionalProperties": False
     }
 
     
 def feature_schema_explicit(table_name):
     return {
-        "anyOf": [feature_qualifier_schema_explicit(k, v, levels) for k, v, levels, _ in features[table_name]]
+        "anyOf": [feature_qualifier_schema_explicit(f.name, f._type, f.options) for f in features[table_name]]
     }
 
 
@@ -192,17 +192,17 @@ def bin_feature_qualifier_schema_explicit(f, ty, levels):
 
 def feature2_schema_explicit(table_name):
     return {
-        "anyOf": [bin_feature_qualifier_schema_explicit(k, v, levels) for k, v, levels, _ in features[table_name]]
+        "anyOf": [bin_feature_qualifier_schema_explicit(f.name, f._type, f.options) for f in features[table_name]]
     }
 
 
 def feature2_schema_implicit(table_name):
     return {
         "type": "object",
-        "properties": {k: {
+        "properties": {f.name: {
             "type": "array",
-            "items": bin_qualifier_schema(v, levels)
-        } for k, v, levels, _ in features[table_name]},
+            "items": bin_qualifier_schema(f._type, f.options)
+        } for f in features[table_name]},
         "additionalProperties": False
     }
 

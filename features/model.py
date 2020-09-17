@@ -28,7 +28,7 @@ def table_id(table):
     return table[0].upper() + table[1:] + "Id"
 
 table_cols = {
-    table: [Column(table_id(table), Integer), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), table_features)) for table, table_features in features.items()
+    table: [Column(table_id(table), Integer), Column("year", Integer)] + list(map(lambda feature: Column(feature.name, feature._type), table_features)) for table, table_features in features.items()
 }
 
 tables = {
@@ -181,7 +181,10 @@ def get_cohort_by_id(conn, table_name, year, cohort_id):
 def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
     table = tables[table_name]
     rs = []
-    for k, v, levels, _ in features[table_name]:
+    for f in features[table_name]:
+        k = f.name
+        v = f._type
+        levels = f.options
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_count(conn, table_name, year, cohort_features, cohort_year, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
@@ -505,7 +508,10 @@ def get_feature_levels(conn, table, year, feature):
 def select_feature_association(conn, table_name, year, cohort_features, cohort_year, feature, maximum_p_value, feature_set, correction):
     table = tables[table_name]
     rs = []
-    for k, v, levels, _ in filter(feature_set, features[table_name]):
+    for f in filter(feature_set, features[table_name]):
+        k = f.name
+        v = f._type
+        levels = f.options
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})

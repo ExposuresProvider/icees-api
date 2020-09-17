@@ -13,7 +13,10 @@ def generate_data(table_name, years, n, fn):
 
         df["year"] = year
 
-        for col, t, levels, *_ in features.features[table_name]:
+        for f in features.features[table_name]:
+            t = f._type
+            col = f.name
+            levels = f.options
             if levels is None:
                 if t == Integer:
                     df[col] = np.random.randint(10, size=n)

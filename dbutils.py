@@ -42,7 +42,7 @@ def create_indices():
             tables = model.tables
             for table, table_features in features.features.items():
                 Index(truncate(table + "_year"), tables[table].c.year).create(conn)
-                cols = list(map(lambda a : a[0], table_features))
+                cols = list(map(lambda a : a.name, table_features))
                 for feature in cols:
                     Index(truncate(table + "_" + feature), tables[table].c[feature]).create(conn)
                     Index(truncate(table + "_year_" + feature), tables[table].c.year, tables[table].c[feature]).create(conn)

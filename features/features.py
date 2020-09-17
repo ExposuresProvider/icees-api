@@ -1,14 +1,24 @@
 import yaml
 import os
 from sqlalchemy import Integer, String, Enum, Float
+from typing import Union, List
+from dataclasses import dataclass
 from .config import get_config_path
+
+
+@dataclass
+class Feature:
+    name: str 
+    _type: Union[Integer, String, Enum, Float]
+    options: List[str]
+    biolink_class: str
 
 
 with open(os.path.join(get_config_path(), 'features.yml'), 'r') as f:
     features_dict = yaml.load(f, Loader=yaml.SafeLoader)
 
 
-def dict_to_tuple(table, key, value):
+def dict_to_Feature(table, key, value):
     """Convert feature from dict form to tuple."""
     if value['type'] == 'integer':
         _type = Integer
@@ -31,17 +41,17 @@ def dict_to_tuple(table, key, value):
     biolink_type = value.get('biolinkType')
     if biolink_type is None:
         print("cannot find biolinkType for " + key + " in " + str(value))
-    return (key, _type, options, biolink_type)
+    return Feature(key, _type, options, biolink_type)
 
 
 features = {
-    key0: [dict_to_tuple(key0, key1, value1) for key1, value1 in value0.items()]
+    key0: [dict_to_Feature(key0, key1, value1) for key1, value1 in value0.items()]
     for key0, value0 in features_dict.items()
 }
 
 
 def lookUpFeatureClass(table, feature):
-    for n, _, _, c in features[table]:
-        if n == feature:
-            return c
+    for f in features[table]:
+        if f.name == feature:
+            return f.biolink_class
     return None

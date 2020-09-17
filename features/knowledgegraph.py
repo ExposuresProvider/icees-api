@@ -167,7 +167,7 @@ def get(conn, query):
 
         supported_types = closure_subtype(target_node_type)
 
-        feature_list = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, lambda x : inflection.underscore(x[3]) in supported_types)
+        feature_list = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, lambda x : inflection.underscore(x.biolink_class) in supported_types)
         logger.info(f"feature_list = {feature_list}")
 
         nodes = {}
@@ -488,7 +488,7 @@ def one_hop(conn, query):
 
         for source_node_feature_name in source_node_feature_names:
             feature = query_feature(table, source_node_feature_name).value
-            ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x : inflection.underscore(x[3]) in supported_types)
+            ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x : inflection.underscore(x.biolink_class) in supported_types)
             for feature in ataf:
                 feature_name = feature["feature_b"]["feature_name"]
                 biolink_class = feature["feature_b"]["biolink_class"]

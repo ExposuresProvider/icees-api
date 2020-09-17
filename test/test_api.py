@@ -485,12 +485,13 @@ def test_get_identifiers_OvarianDysfunctionDx():
 def test_get_identifiers_OvarianCancerDx():
         do_test_get_identifiers("OvarianCancerDx")
 
+age_levels = next(feature.options for feature in features.features['patient'] if feature.name == 'AgeStudyStart')
+
 def test_feature_association():
         feature_variables = {}
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         cohort_id = resp_json["return value"]["cohort_id"]
-        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature_a": {
                 "AgeStudyStart": {
@@ -517,7 +518,6 @@ def test_feature_association_explicit():
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         cohort_id = resp_json["return value"]["cohort_id"]
-        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature_a": {
                 "feature_name": "AgeStudyStart",
@@ -549,7 +549,6 @@ def test_feature_association_two_years():
         resp_json = resp.json()
         print(resp_json)
         cohort_id = resp_json["return value"]["cohort_id"]
-        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature_a": {
                 "AgeStudyStart": {
@@ -593,7 +592,6 @@ def test_feature_association_cohort_features_two_years():
         resp_json = resp.json()
         print(resp_json)
         cohort_id = resp_json["return value"]["cohort_id"]
-        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature_a": {
                 "AgeStudyStart": {
@@ -649,7 +647,6 @@ def test_associations_to_all_features_explicit():
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         cohort_id = resp_json["return value"]["cohort_id"]
-        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature": {
                 "feature_name": "AgeStudyStart",
@@ -671,7 +668,6 @@ def test_associations_to_all_features_with_correction():
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         cohort_id = resp_json["return value"]["cohort_id"]
-        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature": {
                 "AgeStudyStart": {
@@ -695,7 +691,6 @@ def test_associations_to_all_features_with_correction_with_alpha():
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         cohort_id = resp_json["return value"]["cohort_id"]
-        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature": {
                 "AgeStudyStart": {
@@ -720,7 +715,6 @@ def test_associations_to_all_features2_explicit():
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         cohort_id = resp_json["return value"]["cohort_id"]
-        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature": {
                 "feature_name": "AgeStudyStart",
@@ -742,7 +736,6 @@ def test_associations_to_all_features2():
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
         resp_json = resp.json()
         cohort_id = resp_json["return value"]["cohort_id"]
-        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
         atafdata = {
             "feature": {
                 "AgeStudyStart": list(map(lambda x: {

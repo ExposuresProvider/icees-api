@@ -14,7 +14,7 @@ from structlog import wrap_logger
 from structlog.processors import JSONRenderer
 import db
 from features import model, schema, format, knowledgegraph, identifiers
-from utils import opposite, to_qualifiers
+from utils import opposite, to_qualifiers, to_qualifiers2
 from features.knowledgegraph import TOOL_VERSION
 
 OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8080')
@@ -145,7 +145,7 @@ class SERVCohort(Resource):
                 if req_features is None:
                     req_features = {}
                 else:
-                    validate(req_features, schema.cohort_schema(table))
+                    validate(req_features, schema.features_schema(table))
 
                 cohort_id, size = model.get_ids_by_feature(conn, table, year, req_features)
       
@@ -337,14 +337,6 @@ class SERVFeatureAssociation(Resource):
             traceback.print_exc()
             return_value = str(e)
         return wrapped(return_value)
-
-
-def to_qualifiers2(feature):
-    k, v = list(feature.items())[0]
-    return {
-        "feature_name": k,
-        "feature_qualifiers": v
-    }
 
 
 class SERVFeatureAssociation2(Resource):

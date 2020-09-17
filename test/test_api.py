@@ -512,6 +512,35 @@ def test_feature_association():
         do_verify_feature_matrix_response(resp_json["return value"])
 
         
+def test_feature_association_explicit():
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        cohort_id = resp_json["return value"]["cohort_id"]
+        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
+        atafdata = {
+            "feature_a": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifier": {
+                    "operator": "=",
+                    "value": '0-2'
+                }
+            },
+            "feature_b": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifier": {
+                    "operator": "=",
+                    "value": '0-2'
+                }
+            }
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/feature_association".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        print(resp.text)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+        do_verify_feature_matrix_response(resp_json["return value"])
+
+        
 def test_feature_association_two_years():
         cohort_year = 2010
         year = 2011
@@ -554,7 +583,7 @@ def test_feature_association_cohort_features_two_years():
             }, {
                 "feature_name": "AvgDailyPM2.5Exposure_StudyAvg",
                 "feature_qualifier": {
-                    "operator": "=",
+                    "operator": ">",
                     "value": 1
                 },
                 "year": 2011
@@ -615,6 +644,28 @@ def test_feature_count_cohort_features_two_years():
         do_verify_feature_count_response(resp_json["return value"])
 
 
+def test_associations_to_all_features_explicit():
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        cohort_id = resp_json["return value"]["cohort_id"]
+        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
+        atafdata = {
+            "feature": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifier": {
+                    "operator": "=",
+                    "value": "0-2"
+                }
+            },
+            "maximum_p_value": 1
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/associations_to_all_features".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+        assert isinstance(resp_json["return value"], list)
+
+
 def test_associations_to_all_features_with_correction():
         feature_variables = {}
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
@@ -637,6 +688,7 @@ def test_associations_to_all_features_with_correction():
         resp_json = resp.json()
         assert "return value" in resp_json
         assert isinstance(resp_json["return value"], list)
+
 
 def test_associations_to_all_features_with_correction_with_alpha():
         feature_variables = {}
@@ -661,6 +713,29 @@ def test_associations_to_all_features_with_correction_with_alpha():
         resp_json = resp.json()
         assert "return value" in resp_json
         assert isinstance(resp_json["return value"], list)
+
+        
+def test_associations_to_all_features2_explicit():
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        cohort_id = resp_json["return value"]["cohort_id"]
+        age_levels = next(feature[2] for feature in features.features['patient'] if feature[0] == 'AgeStudyStart')
+        atafdata = {
+            "feature": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifiers": list(map(lambda x: {
+                    "operator": "=",
+                    "value": x
+                }, age_levels))
+            },
+            "maximum_p_value": 1
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/associations_to_all_features2".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+        assert isinstance(resp_json["return value"], list)
+
 
 def test_associations_to_all_features2():
         feature_variables = {}

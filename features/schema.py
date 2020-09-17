@@ -1,10 +1,11 @@
 from .features import features
-from sqlalchemy import String, Integer
+from sqlalchemy import String, Enum, Integer, Float
 import yaml
 import os
 
-def qualifier_schema(ty, levels):
-    if ty is String:
+
+def jsonschema_type(ty, levels):
+    if ty is String or isinstance(ty, Enum):
         yamltype = {
             "type": "string"
         }
@@ -12,12 +13,19 @@ def qualifier_schema(ty, levels):
         yamltype = {
             "type": "integer"
         }
+    elif ty is Float:
+        yamltype = {
+            "type": "number"
+        }
     else:
         yamltype = {}
 
     if levels is not None:
         yamltype["enum"] = list(levels)
+    return yamltype
 
+
+def qualifier_schema(ty, levels):
     return {
         "type": "object",
         "properties": {
@@ -25,14 +33,14 @@ def qualifier_schema(ty, levels):
                 "type": "string",
                 "enum": ["<", ">", "<=", ">=", "=", "<>"]
             },
-            "value": yamltype,
+            "value": jsonschema_type(ty, levels),
         },
         "required": ["operator", "value"],
         "additionalProperties": False
     }
 
 
-def qualifier_schema_list(f, ty, levels):
+def feature_qualifier_schema_explicit(f, ty, levels):
     return {
         "type": "object",
         "properties": {
@@ -50,22 +58,40 @@ def qualifier_schema_list(f, ty, levels):
     }
 
 
-def cohort_schema(table_name):
+def feature_schema_implicit(table_name):
+    return {
+        "type": "object",
+        "properties": {k: qualifier_schema(v, levels) for k, v, levels, _ in features[table_name]},
+        "additionalProperties": False
+    }
+
+    
+def feature_schema_explicit(table_name):
+    return {
+        "anyOf": [feature_qualifier_schema_explicit(k, v, levels) for k, v, levels, _ in features[table_name]]
+    }
+
+
+def feature_schema(table_name):
     return {
         "anyOf": [
-            {
-                "type": "object",
-                "properties": {k: qualifier_schema(v, levels) for k, v, levels, _ in features[table_name]},
-                "additionalProperties": False
-            },
+            feature_schema_implicit(table_name),
+            feature_schema_explicit(table_name)
+        ]
+    }
+
+
+def features_schema(table_name):
+    return {
+        "anyOf": [
+            feature_schema_implicit(table_name),
             {
                 "type": "array",
-                "items": {
-                    "anyOf": [qualifier_schema_list(k, v, levels) for k, v, levels, _ in features[table_name]]
-                }
+                "items": feature_schema_explicit(table_name)
             }
         ]
     }
+
 
 def name_schema_output():
     return {
@@ -82,6 +108,7 @@ def name_schema_output():
         "additionalProperties": False
     }
 
+
 def add_name_by_id_schema():
     return {
         "type": "object",
@@ -94,21 +121,11 @@ def add_name_by_id_schema():
         "additionalProperties": False
     }
 
+
 def bin_qualifier_schema(ty, levels):
-    if ty is String:
-        yamltype = {
-            "type": "string"
-        }
-    elif ty is Integer:
-        yamltype = {
-            "type": "integer"
-        }
-    else:
-        yamltype = {}
 
-    if levels is not None:
-        yamltype["enum"] = list(levels)
-
+    yamltype = jsonschema_type(ty, levels)
+    
     return {
         "anyOf": [
             {
@@ -152,7 +169,7 @@ def bin_qualifier_schema(ty, levels):
     }
 
 
-def bin_qualifier_schema_list(f, ty, levels):
+def bin_feature_qualifier_schema_explicit(f, ty, levels):
     return {
         "type": "object",
         "properties": {
@@ -160,43 +177,63 @@ def bin_qualifier_schema_list(f, ty, levels):
                 "type": "string",
                 "enum": [f]
             },
-            "feature_qualifier": bin_qualifier_schema(ty, levels),
+            "feature_qualifiers": {
+                "type": "array",
+                "items": bin_qualifier_schema(ty, levels)
+            },
             "year": {
                 "type": "integer"
             }
         },
-        "required": ["feature_name", "feature_qualifier"],
+        "required": ["feature_name", "feature_qualifiers"],
         "additionalProperties": False
     }
 
 
-def bins_schema(table_name):
+def feature2_schema_explicit(table_name):
+    return {
+        "anyOf": [bin_feature_qualifier_schema_explicit(k, v, levels) for k, v, levels, _ in features[table_name]]
+    }
+
+
+def feature2_schema_implicit(table_name):
+    return {
+        "type": "object",
+        "properties": {k: {
+            "type": "array",
+            "items": bin_qualifier_schema(v, levels)
+        } for k, v, levels, _ in features[table_name]},
+        "additionalProperties": False
+    }
+
+
+def feature2_schema(table_name):
     return {
         "anyOf": [
-            {
-                "type": "object",
-                "properties": {k: {
-                    "type": "array",
-                    "items": bin_qualifier_schema(v, levels)
-                } for k, v, levels, _ in features[table_name]},
-                "additionalProperties": False
-            },
+            feature2_schema_implicit(table_name),
+            feature2_schema_explicit(table_name)
+        ]
+    }
+
+
+def features2_schema(table_name):
+    return {
+        "anyOf": [
+            feature2_schema_implicit(table_name),
             {
                 "type": "array",
-                "items": {
-                    "anyOf": [bin_qualifier_schema_list(k, v, levels) for k, v, levels, _ in features[table_name]]
-                }
+                "items": feature2_schema_explicit(table_name)
             }
         ]
     }
 
 
 def feature_association_schema(table_name):
-    return feature_association_schema_common(table_name, cohort_schema(table_name))
+    return feature_association_schema_common(table_name, feature_schema(table_name))
 
 
 def feature_association2_schema(table_name):
-    return feature_association_schema_common(table_name, bins_schema(table_name))
+    return feature_association_schema_common(table_name, feature2_schema(table_name))
 
     
 def feature_association_schema_common(table_name, feature_schema):
@@ -215,11 +252,11 @@ def feature_association_schema_common(table_name, feature_schema):
 
 
 def associations_to_all_features_schema(table_name):
-    return associations_to_all_features_schema_common(table_name, cohort_schema(table_name))
+    return associations_to_all_features_schema_common(table_name, feature_schema(table_name))
 
 
 def associations_to_all_features2_schema(table_name):
-    return associations_to_all_features_schema_common(table_name, bins_schema(table_name))
+    return associations_to_all_features_schema_common(table_name, feature2_schema(table_name))
 
 
 def associations_to_all_features_schema_common(table_name, feature_schema):

@@ -324,28 +324,17 @@ def normalize_features(year, cohort_features):
             "feature_qualifier": v
         } for k, v in cohort_features.items()]
 
-    cohort_features = [{
-        "feature_name": f["feature_name"],
-        "feature_qualifier": {
-            "operator": f["feature_qualifier"]["operator"],
-            "value": f["feature_qualifier"]["value"]
-        },
-        "year": f["feature_qualifier"].get("year", year)
-    } for f in cohort_features]
+    cohort_features = [normalize_feature(year, f) for f in cohort_features]
 
     def feature_key(f):
-        return f["feature_name"], f["feature_qualifier"]["operator"], json.dumps(f["feature_qualifier"]["value"], sort_keys=True), f["year"]
+        return json.dumps(f, sort_keys=True)
     
     return sorted(cohort_features, key=feature_key)
 
 
 def normalize_feature(year, feature):
 
-    feature = {
-        "feature_name": feature["feature_name"],
-        "feature_qualifiers": feature["feature_qualifiers"],
-        "year": feature.get("year", year)
-    }
+    feature = {**feature, "year": feature.get("year", year)}
 
     return feature
 

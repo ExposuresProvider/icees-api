@@ -193,7 +193,9 @@ def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
 
 
 def get_cohort_dictionary(conn, table_name, year):
-    s = select([cohort.c.cohort_id,cohort.c.features,cohort.c.size]).where(cohort.c.table == table_name).where(cohort.c.year == year)
+    s = select([cohort.c.cohort_id,cohort.c.features,cohort.c.size]).where(cohort.c.table == table_name)
+    if year is not None:
+        s = s.where(cohort.c.year == year)
     rs = []
     for cohort_id, features, size in conn.execute((s)):
         rs.append({

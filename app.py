@@ -42,10 +42,13 @@ app.config["SWAGGER"] = {
   "ui_params_text": '''{
     "operationsSorter" : (a,b) => {
         const ordering = [
+          "/{table}/{year}/cohort", 
+          "/{table}/{year}/cohort/{cohort_id}", 
           "/{table}/{year}/cohort/{cohort_id}/features", 
           "/{table}/{year}/cohort/{cohort_id}/feature_association", 
           "/{table}/{year}/cohort/{cohort_id}/feature_association2", 
           "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features"
+          "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2"
         ]
         const apath = a.get("path")
         const bpath = b.get("path")

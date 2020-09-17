@@ -39,6 +39,7 @@ def wait(ip, port):
 
 def query(year, biolink_class):
     return {
+        "message": {
             "query_options": {
                 "table": "patient", 
                 "year": year, 
@@ -56,7 +57,7 @@ def query(year, biolink_class):
                 }, 
                 "maximum_p_value":1
             }, 
-            "machine_question": {
+            "query_graph": {
                 "nodes": [
                     {
                         "id": "n00",
@@ -77,6 +78,7 @@ def query(year, biolink_class):
                 ]
             }
         }
+    }
 
     
 def one_hop_query(curie, biolink_class, **kwargs):

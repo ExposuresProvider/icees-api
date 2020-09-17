@@ -129,7 +129,7 @@ def get(conn, query):
         filter_regex = message["query_options"].get("regex", ".*")
         feature = to_qualifiers(message["query_options"]["feature"])
 
-        query_graph = query.get("query_graph", query.get("machine_question"))
+        query_graph = message.get("query_graph", message.get("machine_question"))
 
         nodes = query_graph["nodes"]
         edges = query_graph["edges"]

@@ -6,8 +6,14 @@ RUN pip3 install flask flask-restful flask-limiter sqlalchemy psycopg2-binary sc
 ENV PGDATA=/data
 ENV ICEES_DBUSER=icees_dbuser
 ENV ICEES_DBPASS=icees_dbpass
-ENV ICEES_DATABASE="{\"2.0.0\":\"icees_database\"}"
+ENV ICEES_DATABASE=icees_database
 
-COPY . icees-api
+RUN mkdir icees-api
+COPY ./initdb.py icees-api/initdb.py
+COPY ./db.py icees-api/db.py
+COPY ./dbutils.py icees-api/dbutils.py
+COPY ./sample.py icees-api/sample.py
+COPY ./db icees-api/db
+COPY ./features icees-api/features
 ENTRYPOINT ["icees-api/db/entrypoint.sh"]
 

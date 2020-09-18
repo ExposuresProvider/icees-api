@@ -1,23 +1,35 @@
-[![Build Status](https://travis-ci.com/xu-hao/icees-api.svg?branch=master)](https://travis-ci.com/xu-hao/icees-api)
+[![Build Status](https://travis-ci.com/NCATS-Tangerine/icees-api.svg?branch=master)](https://travis-ci.com/NCATS-Tangerine/icees-api)
 
 ## How to run
+
 ### Run docker compose
+
+#### Run tests
+```
+test/test.sh
+```
+
+#### schema
+
+edit `config/features.yml`
 
 #### database
 
-put `patient.csv` under `db/data/2.0.0/`
+for each table create dir with table name under `db/data` and put csv files under that dir
 
-put `visit.csv` under `db/data/2.0.0/`
+for example, put `patient.csv` under `db/data/patient`
 
-or 
+put `visit.csv` under `db/data/visit`
+
+to generate random samples
 
 run
 ```
-python samples.py patient 2010 1000 db/data/2.0.0/patient.csv
+python samples.py patient 2010 1000 db/data/patient/patient.csv
 ```
 
 ```
-python samples.py visit 2010 1000 db/data/2.0.0/visit.csv
+python samples.py visit 2010 1000 db/data/patient/visit.csv
 ```
 
 #### start services
@@ -28,9 +40,47 @@ run
 docker-compose up --build
 ```
 
-the postgres docker container create volumes that are persistent across runs. To prune the volume,
+### run docker
+
+The following steps can be run using the `redepoly.sh`
+
+#### Build Container
+
 ```
-docker volume prune
+docker build . -t icees-api:0.3.0
+```
+
+#### Run Container in Standalone Mode (optional)
+
+```
+docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log -p 8080:8080 icees-api:0.3.0
+```
+
+```
+docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log --net host icees-api:0.2.0
+```
+
+#### Setting up `systemd` (optional)
+
+run docker containers
+```
+docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log -p 8080:8080 icees-api:0.2.0
+```
+
+```
+docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log --net host icees-api:0.3.0
+```
+
+```
+docker stop icees-api_server
+```
+
+copy `<repo>/icees-api-container.service` to `/etc/systemd/system/icees-api-container.service`
+
+start service
+
+```
+systemctl start icees-api-container
 ```
 
 ### Run manually
@@ -45,19 +95,17 @@ set env variables
 
 `ICEES_PORT` 
 
-`ICEES_DATABASE`: json
+`ICEES_DATABASE`
 
 `ICEES_DB_POOL_SIZE`
 
 `ICEES_DB_MAX_OVERFLOW`
 
-Example:
-
-```
-{"1.0.0":"iceesdb"}
-```
-
 `ICEES_API_LOG_PATH`
+
+`DB_PATH`
+
+`DATA_PATH`
 
 run
 ```
@@ -82,12 +130,12 @@ enter `<dbpass>` for new user
 ##### popluating database
 
 ```
-python dbutils.py --version 2.0.0 create
+python dbutils.py create
 ```
 
 ```
-python dbutils.py --version 2.0.0 insert <patient data input> patient
-python dbutils.py --version 2.0.0 insert <visit data input> visit
+python dbutils.py insert <patient data input> patient
+python dbutils.py insert <visit data input> visit
 ```
 
 #### Run Flask 
@@ -97,63 +145,7 @@ python app.py
 ```
 
 
-#### Run tests
-```
-docker-compose up --build -V -d
-```
 
-```
-docker build . -f test/Dockerfile -t icees-api-test:0.2.0
-```
-
-```
-docker run --net host --rm icees-api-test:0.2.0
-```
-
-
-
-#### Deploy API
-
-The following steps can be run using the `redepoly.sh`
-
-##### Build Container
-
-```
-docker build . -t icees-api:0.2.0
-```
-
-##### Run Container in Standalone Mode (optional)
-
-```
-docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log -p 8080:8080 icees-api:0.2.0
-```
-
-```
-docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log --net host icees-api:0.2.0
-```
-
-##### Setting up `systemd`
-
-run docker containers
-```
-docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log -p 8080:8080 icees-api:0.2.0
-```
-
-```
-docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log --net host icees-api:0.2.0
-```
-
-```
-docker stop icees-api_server
-```
-
-copy `<repo>/icees-api-container.service` to `/etc/systemd/system/icees-api-container.service`
-
-start service
-
-```
-systemctl start icees-api-container
-```
 ## REST API
 
 ### create cohort
@@ -164,7 +156,7 @@ POST
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort
 ```
 schema
 ```
@@ -183,7 +175,7 @@ GET
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>
 ```
 
 ### get cohort features
@@ -194,7 +186,7 @@ GET
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/features
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>/features
 ```
 
 ### get cohort dictionary
@@ -205,7 +197,7 @@ GET
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/dictionary
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/dictionary
 ```
 
 ### feature association between two features
@@ -216,7 +208,7 @@ POST
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>/feature_association
 ```
 schema
 ```
@@ -231,7 +223,7 @@ POST
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/feature_association2
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>/feature_association2
 ```
 schema
 ```
@@ -280,7 +272,7 @@ POST
 
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>/associations_to_all_features
 ```
 schema
 ```
@@ -293,7 +285,7 @@ POST
 ```
 route
 ```
-/1.0.0/(patient|visit)/(2010|2011)/cohort/<cohort id>/associations_to_all_features2
+/(patient|visit)/(2010|2011|2012|2013|2014|2015|2016)/cohort/<cohort id>/associations_to_all_features2
 ```
 schema
 ```
@@ -331,7 +323,7 @@ POST
 
 route
 ```
-/2.0.0/knowledge_graph
+/knowledge_graph
 ```
 
 input parameters:
@@ -390,13 +382,13 @@ example
 get cohort of all patients
 
 ```
-curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{}'
 ```
 
 get cohort of patients with `AgeStudyStart = 0-2`
 
 ```
-curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
 ```
 
 Assuming we have cohort id `COHORT:10`
@@ -404,39 +396,39 @@ Assuming we have cohort id `COHORT:10`
 get definition of cohort
 
 ```
-curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10 -H "Accept: application/json"
+curl -k -XGET https://localhost:8080/patient/2010/cohort/COHORT:10 -H "Accept: application/json"
 ```
 
 get features of cohort
 
 ```
-curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/features -H "Accept: application/json"
+curl -k -XGET https://localhost:8080/patient/2010/cohort/COHORT:10/features -H "Accept: application/json"
 ```
 
 get cohort dictionary 
 
 ```
-curl -k -XGET https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/features -H "Accept: application/json"
+curl -k -XGET https://localhost:8080/patient/2010/cohort/COHORT:10/features -H "Accept: application/json"
 ```
 
 get feature association
 
 
 ```
-curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
 ```
 
 get association to all features
 
 
 ```
-curl -k -XPOST https://localhost:8080/1.0.0/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
+curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
 ```
 
 knowledge graph
 
 ```
-curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph" -H  "accept: application/json" -H  "Content-Type: application/json" -d '
+curl -X POST -k "http://localhost:5000/knowledge_graph" -H  "accept: application/json" -H  "Content-Type: application/json" -d '
 {
         "query_options": {
             "table": "patient", 
@@ -482,6 +474,6 @@ curl -X POST -k "http://localhost:5000/2.0.0/knowledge_graph" -H  "accept: appli
 knowledge graph schema
 
 ```
-curl -X GET -k "http://localhost:5000/2.0.0/knowledge_graph/schema" -H  "accept: application/json"
+curl -X GET -k "http://localhost:5000/knowledge_graph/schema" -H  "accept: application/json"
 ```
 

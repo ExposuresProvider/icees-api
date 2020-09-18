@@ -6,8 +6,18 @@ import time
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import tempfile
+from features import features
+import logging
 
-print("waiting for database startup")
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
+logger.info("waiting for database startup")
 time.sleep(10)
 
 os.environ["ICEES_HOST"]="localhost"
@@ -30,28 +40,34 @@ p = cursor.fetchall()[0][0]
 
 if p == 0:
 
-    print("user not found initializing db")
+    logger.info("user not found initializing db")
     cursor.execute("CREATE USER " + dbuser + " with password '" + dbpass + "'")
 
-    for version, db in json.loads(os.environ["ICEES_DATABASE"]).items():
-        cursor.execute("CREATE DATABASE " + db)
-        cursor.execute("GRANT ALL ON DATABASE " + db + " to " + dbuser)
-        dbutils.create(version)
-        def insert_data(t):
-            csvfile = "db/data/"+version+"/"+t+".csv"
-            if os.path.isfile(csvfile):
-                dbutils.insert(version, csvfile, t)
-            else:
-                print("generating data " + t)
-                temp = tempfile.NamedTemporaryFile()
-                try:
-                    sample.generate_data(version, t, [2010], 1000, temp.name)
-                    dbutils.insert(version, temp.name, t)
-                finally:
-                    temp.close()
-        insert_data("patient")
-        insert_data("visit")
-    print("db initialized")
+    db = os.environ["ICEES_DATABASE"]
+    cursor.execute("CREATE DATABASE " + db)
+    cursor.execute("GRANT ALL ON DATABASE " + db + " to " + dbuser)
+    dbutils.create()
+    csvdir = "db/data/"
+    for t in features.features_dict.keys():
+        table_dir = csvdir + "/" + t
+        if os.path.isdir(table_dir):
+            logger.info(table_dir + " exists")
+            for f in os.listdir(table_dir):
+                table = table_dir + "/" + f
+                logger.info("loading " + table)
+                dbutils.insert(table, t)
+        else:
+            logger.info("generating data " + t)
+            temp = tempfile.NamedTemporaryFile()
+            try:
+                sample.generate_data(t, [2010], 1000, temp.name)
+                dbutils.insert(temp.name, t)
+            finally:
+                temp.close()
+    dbutils.create_indices()
+    logger.info("db initialized")
+else:
+    logger.info("db already initialized")
 
 cursor.close()
 conn.close()

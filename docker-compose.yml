@@ -5,35 +5,26 @@ services:
       context: .
       dockerfile: db/Dockerfile
     image: icees-api-db:0.2.0
-#    ports:
-#    - "5432:5432"
-    environment:
-    - ICEES_DBUSER
-    - ICEES_DBPASS
-    - ICEES_DATABASE
-    - ICEES_DB_POOL_SIZE
-    - ICEES_DB_MAX_OVERFLOW
+    container_name: ${ICEES_API_INSTANCE_NAME}-db
+    env_file:
+      - .env
     volumes:
-      - data:/data
+      - $DB_PATH:/data
+      - $DATA_PATH:/icees-api/db/data
+      - ./config:/icees-api/config
     restart: always
   server:
     build: 
       context: .
     image: icees-api-server:0.2.0
-    environment:
-    - ICEES_DBUSER
-    - ICEES_DBPASS
-    - ICEES_HOST
-    - ICEES_PORT
-    - ICEES_DATABASE
-    - ICEES_API_LOG_PATH
-    - ICEES_DB_POOL_SIZE
-    - ICEES_DB_MAX_OVERFLOW
+    container_name: ${ICEES_API_INSTANCE_NAME}-server
+    env_file:
+      - .env
     restart: always
+    volumes:
+      - ./config:/icees-api/config
     depends_on:
       - db
     ports:
     - "${ICEES_API_HOST_PORT}:8080"
 
-volumes:
-  data:

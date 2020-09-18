@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 pat_dict = {}
 visit_dict = {}
-input_file = os.path.join(os.path.dirname(__file__), "ICEES_Identifiers_v7 06.03.19.csv")
+input_file = os.path.join(os.path.dirname(__file__), "..", "config", "identifiers.csv")
 with open(input_file, newline="") as f:
     csvreader = csv.reader(f, delimiter=",", quotechar="\"")
     next(csvreader)

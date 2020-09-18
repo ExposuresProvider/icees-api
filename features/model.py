@@ -1,28 +1,31 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index
 from sqlalchemy.sql import select
 from scipy.stats import chi2_contingency
 import json
 import os
-from .features import features
+from .features import features, lookUpFeatureClass, features_dict
+import inflection
 import numpy as np
 
 eps = np.finfo(float).eps
 
 metadata = MetaData()
 
-pat_cols = [Column("PatientId", String, primary_key=True), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), features["patient"]))
+def table_id(table):
+    return table[0].upper() + table[1:] + "Id"
 
-visit_cols = [Column("VisitId", String, primary_key=True), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), features["visit"]))
+table_cols = {
+    table: [Column(table_id(table), Integer), Column("year", Integer)] + list(map(lambda feature: Column(feature[0], feature[1]), table_features)) for table, table_features in features.items()
+}
 
 tables = {
-    "patient": Table("patient", metadata, *pat_cols),
-    "visit": Table("visit", metadata, *visit_cols)
+    table : Table(table, metadata, *tab_cols) for table, tab_cols in table_cols.items()
 }
 
 name_table = Table("name", metadata, Column("name", String, primary_key=True), Column("cohort_id", String), Column("table", String))
 
 cohort_cols = [
-    Column("cohort_id", String),
+    Column("cohort_id", String, primary_key=True),
     Column("table", String),
     Column("year", Integer),
     Column("size", Integer),
@@ -31,7 +34,7 @@ cohort_cols = [
 
 cohort = Table("cohort", metadata, *cohort_cols)
 
-cohort_id_seq = Sequence("cohort_id", metadata=metadata)
+cohort_id_seq = Sequence('cohort_id_seq', metadata=metadata)
 
 def filter_select(s, table, k, v):
     return {
@@ -113,7 +116,7 @@ def get_cohort_by_id(conn, table_name, year, cohort_id):
 def get_cohort_features(conn, table_name, year, cohort_features):
     table = tables[table_name]
     rs = []
-    for k, v, levels in features[table_name]:
+    for k, v, levels, _ in features[table_name]:
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_count(conn, table_name, year, cohort_features, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
@@ -185,6 +188,11 @@ def select_feature_matrix(conn, table_name, year, cohort_features, feature_a, fe
         ] for i, row in enumerate(feature_matrix)
     ]
 
+    feature_a = feature_a.copy()
+    feature_b = feature_b.copy()
+    feature_a["biolink_class"] = inflection.underscore(lookUpFeatureClass(table_name, ka))
+    feature_b["biolink_class"] = inflection.underscore(lookUpFeatureClass(table_name, kb))
+
     return {
         "feature_a": feature_a,
         "feature_b": feature_b,
@@ -206,7 +214,10 @@ def select_feature_count(conn, table_name, year, cohort_features, feature_a):
     ka = feature_a["feature_name"]
     vas = feature_a["feature_qualifiers"]
 
-    feature_matrix = [conn.execute(filter_select(s, table, ka, va)).scalar() for va in vas]
+    print(ka)
+    print(s)
+
+    feature_matrix = [conn.execute((filter_select(s, table, ka, va))).scalar() for va in vas]
     
     total = conn.execute((s)).scalar()
 
@@ -226,7 +237,7 @@ def get_feature_levels(conn, table, year, feature):
 def select_feature_association(conn, table_name, year, cohort_features, feature, maximum_p_value):
     table = tables[table_name]
     rs = []
-    for k, v, levels in features[table_name]:
+    for k, v, levels, _ in features[table_name]:
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
         ret = select_feature_matrix(conn, table_name, year, cohort_features, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
@@ -246,7 +257,7 @@ def select_associations_to_all_features(conn, table, year, cohort_id, feature, m
 def validate_range(table_name, feature):
     feature_name = feature["feature_name"]
     values = feature["feature_qualifiers"]
-    _, ty, levels = next(filter(lambda x: x[0] == feature_name, features[table_name]))
+    _, ty, levels, _ = next(filter(lambda x: x[0] == feature_name, features[table_name]))
     if levels:
         n = len(levels)
         coverMap = [False for _ in levels]

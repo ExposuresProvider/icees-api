@@ -1,0 +1,730 @@
+components:
+  schemas:
+    Edge:
+      additionalProperties: true
+      description: An edge in the thought subgraph linking two nodes
+      properties:
+        confidence:
+          description: 'Confidence metric for this edge, a value between (inclusive) 0.0 (no confidence) and 1.0 (highest confidence)'
+          example: 0.99
+          format: float
+          type: number
+        defined_datetime:
+          description: Datetime at which the KG builder/updater pulled the information from the original source. Used as a freshness indicator.
+          example: '2018-11-03 15:34:23'
+          type: string
+        edge_attributes:
+          description: A list of additional attributes for this edge
+          items:
+            $ref: '#/components/schemas/EdgeAttribute'
+          type: array
+        evidence_type:
+          description: A CURIE/URI for class of evidence supporting the statement made in an edge - typically a class from the ECO ontology
+          example: 'ECO:0000220'
+          type: string
+        id:
+          description: 'Local identifier for this node which is unique within this KnowledgeGraph, and perhaps within the source reasoner''s knowledge graph'
+          example: '553903'
+          type: string
+        is_defined_by:
+          description: A CURIE/URI for the translator group that made the KG
+          example: reasoner
+          type: string
+        negated:
+          description: 'Boolean that if set to true, indicates the edge statement is negated i.e. is not true'
+          example: true
+          type: boolean
+        provided_by:
+          description: A CURIE/URI for the knowledge source that defined this edge
+          example: OMIM
+          type: string
+        publications:
+          description: List of CURIEs for publications associated with this edge
+          example:
+            - 'PMID:12345562'
+          items:
+            type: string
+          type: array
+        qualifiers:
+          description: Terms representing qualifiers that modify or qualify the meaning of the statement made in an edge
+          example: 'ECO:0000220'
+          type: string
+        relation:
+          description: Lower-level relationship type of this edge
+          example: upregulates
+          type: string
+        source_id:
+          description: Corresponds to the @id of source node of this edge
+          example: 'https://omim.org/entry/603903'
+          type: string
+        target_id:
+          description: Corresponds to the @id of target node of this edge
+          example: 'https://www.uniprot.org/uniprot/P00738'
+          type: string
+        type:
+          description: Higher-level relationship type of this edge
+          example: affects
+          type: string
+        weight:
+          description: 'Weight metric for this edge, with no upper bound. Perhaps useful when formal confidence metrics are not available'
+          example: 0.99
+          format: float
+          type: number
+      required:
+        - id
+        - source_id
+        - target_id
+      type: object
+    EdgeAttribute:
+      additionalProperties: true
+      description: A generic additional attribute for an edge
+      properties:
+        name:
+          description: Formal name of the attribute
+          example: Cell type limitation
+          type: string
+        type:
+          description: Entity type of this attribute
+          example: localization
+          type: string
+        url:
+          description: A URL corresponding to this attribute
+          example: 'https://www.ncbi.nlm.nih.gov/pubmed/29309293'
+          type: string
+        value:
+          description: 'Value of the attribute. While all attributes should have a name, many will not have a value'
+          example: MFC cells
+          type: string
+      type: object
+    KnowledgeGraph:
+      additionalProperties: true
+      description: 'A thought graph associated with this result. This will commonly be a linear path subgraph from one concept to another, but related items aside of the path may be included.'
+      properties:
+        edges:
+          description: List of edges in the KnowledgeGraph
+          items:
+            $ref: '#/components/schemas/Edge'
+          type: array
+        nodes:
+          description: List of nodes in the KnowledgeGraph
+          items:
+            $ref: '#/components/schemas/Node'
+          type: array
+      required:
+        - nodes
+        - edges
+      type: object
+    Message:
+      additionalProperties: true
+      properties:
+        code_description:
+          description: Extended description denoting the success or mode of failure in the generation of the message
+          example: 9 results found
+          type: string
+        datetime:
+          description: Datetime string for the time that this message was generated
+          example: '2018-01-09 12:34:45'
+          type: string
+        message_code:
+          description: 'Set to OK for success, or some other short string to indicate and error (e.g., KGUnavailable, TermNotFound, etc.)'
+          example: OK
+          type: string
+        n_results:
+          description: Total number of results from the query (which may be less than what is returned if limits were placed on the number of results to return)
+          example: 42
+          type: integer
+        reasoner_id:
+          description: 'Identifier string of the reasoner that provided this message (one of RTX, Robokop, Indigo, Integrator, etc.)'
+          example: ICEES
+          type: string
+        results:
+          description: List of all returned potential answers for the query posed
+          items:
+            $ref: '#/components/schemas/Result'
+          type: array
+        tool_version:
+          description: Version label of the tool that generated this message
+          example: ICEES 2.0.0
+          type: string
+      type: object
+    Node:
+      additionalProperties: true
+      description: A node in the thought subgraph
+      properties:
+        description:
+          description: One to three sentences of description/definition of this entity
+          example: 'Haptoglobin captures, and combines with free plasma hemoglobin...'
+          type: string
+        id:
+          description: CURIE identifier for this node
+          example: 'OMIM:603903'
+          type: string
+        name:
+          description: Formal name of the entity
+          example: Haptoglobin
+          type: string
+        node_attributes:
+          description: A list of arbitrary attributes for the node
+          items:
+            $ref: '#/components/schemas/NodeAttribute'
+          type: array
+        symbol:
+          description: Short abbreviation or symbol for this entity
+          example: HP
+          type: string
+        type:
+          description: 'Entity type of this node (e.g., protein, disease, etc.)'
+          example:
+            - protein
+          items:
+            type: string
+          type: array
+        uri:
+          description: URI identifier for this node"
+          example: 'https://www.uniprot.org/uniprot/P00738'
+          type: string
+      required:
+        - id
+      type: object
+    NodeAttribute:
+      additionalProperties: true
+      description: A generic attribute for a node
+      properties:
+        name:
+          description: Formal name of the attribute
+          example: Wikipedia article
+          type: string
+        type:
+          description: Entity type of this attribute
+          example: article
+          type: string
+        url:
+          description: A URL corresponding to this attribute
+          example: 'https://en.wikipedia.org/wiki/Malaria'
+          type: string
+        value:
+          description: Value of the attribute
+          example: '7.23e-12'
+          type: string
+      type: object
+    QEdge:
+      additionalProperties: true
+      description: An edge in the QueryGraph
+      properties:
+        id:
+          description: 'QueryGraph internal identifier for this QEdge. Recommended form: e00, e01, e02, etc.'
+          example: e00
+          type: string
+        source_id:
+          description: Corresponds to the @id of source node of this edge
+          example: 'https://omim.org/entry/603903'
+          type: string
+        target_id:
+          description: Corresponds to the @id of target node of this edge
+          example: 'https://www.uniprot.org/uniprot/P00738'
+          type: string
+        type:
+          description: Higher-level relationship type of this edge
+          example: affects
+          type: string
+      required:
+        - source_id
+        - target_id
+      type: object
+    QMessage:
+      additionalProperties: true
+      properties:
+        query_graph:
+          $ref: '#/components/schemas/QueryGraph'
+          description: QueryGraph object that contains a serialization of a query in the form of a graph
+          type: object
+        query_options:
+          description: Dict of options that can be sent with the query. Options are tool specific and not stipulated here
+          example:
+            coalesce: true
+            threshold: 0.9
+          type: object
+      type: object
+    QNode:
+      additionalProperties: true
+      description: A node in the QueryGraph
+      properties:
+        id:
+          description: 'QueryGraph internal identifier for this QNode. Recommended form: n00, n01, n02, etc.'
+          example: n00
+          type: string
+        type:
+          description: 'Entity type of this node (e.g., protein, disease, etc.)'
+          example: disease
+          type: string
+      type: object
+    Query:
+      additionalProperties: true
+      properties:
+        query_message:
+          description: Message object that represents the query to be answered
+          items:
+            $ref: '#/components/schemas/QMessage'
+          type: object
+      type: object
+      x-body-name: request_body
+    QueryGraph:
+      additionalProperties: true
+      description: A graph intended to be the thought path to be followed by a reasoner to answer the question. This graph is a representation of a question.
+      properties:
+        edges:
+          description: List of edges in the QueryGraph
+          items:
+            $ref: '#/components/schemas/QEdge'
+          type: array
+        nodes:
+          description: List of nodes in the QueryGraph
+          items:
+            $ref: '#/components/schemas/QNode'
+          type: array
+      required:
+        - nodes
+        - edges
+      type: object
+    Result:
+      description: One of potentially several results or answers for a query
+      properties:
+        edge_bindings:
+          additionalProperties:
+            oneOf:
+              - type: string
+              - items:
+                  type: string
+                type: array
+          description: Lookup dict that maps QEdge identifiers in the QueryGraph to Edge identifiers in the KnowledgeGraph
+          type: object
+        node_bindings:
+          additionalProperties:
+            oneOf:
+              - type: string
+              - items:
+                  type: string
+                type: array
+          description: Lookup dict that maps QNode identifiers in the QueryGraph to Node identifiers in the KnowledgeGraph
+          type: object
+        score:
+          description: Any type of score associated with this result
+          example: 163.233
+          format: float
+          type: number
+        score_name:
+          description: Name for the score
+          example: Jaccard distance
+          type: string
+      type: object
+info:
+  description: |-
+    ICEES API 
+    <br>[ICEES Overview page](https://researchsoftwareinstitute.github.io/data-translator/apps/icees)
+    <br>[documentation](https://github.com/NCATS-Tangerine/icees-api/tree/master/docs) 
+    <br>[source](https://github.com/NCATS-Tangerine/icees-api/tree/master/) 
+    <br>[ICEES API example queries](https://github.com/NCATS-Tangerine/icees-api/tree/master/#examples) <br>dictionary for versioning of tables<br><table><tr><th>version</th><th>table content</th></tr><tr><td>1.0.0</td><td>cdw, acs, nearest road, and cmaq from 2010</td></tr><tr><td>2.0.0</td><td>cdw in FHIR format, acs, nearest road, and cmaq from 2010</td></tr></table>
+  title: ICEES API
+  version: 0.0.2
+openapi: 3.0.1
+paths:
+  /knowledge_graph:
+    post:
+      requestBody:
+        description: Input message
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Query'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+      summary: Query the ICEES clinical reasoner for knowledge graph associations between concepts.
+  /knowledge_graph/schema:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: Query the ICEES clinical reasoner for knowledge graph schema.
+  '/{table}/name/{name}':
+    get:
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: name
+          in: path
+          name: name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: cohort id and name
+      summary: Return cohort id associated with name.
+    post:
+      requestBody:
+        description: cohort id
+        content:
+          application/json:
+            schema:
+              type: string
+              example:
+                cohort_id: 'COHORT:22'
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: name
+          in: path
+          name: name
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: cohort id and name
+      summary: Associate name with cohort id.
+  '/{table}/{feature}/identifiers':
+    get:
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: feature
+          in: path
+          name: feature
+          required: true
+          schema:
+            type: string
+            default: null
+      responses:
+        '200':
+          description: feature identifiers
+      summary: Feature identifiers.
+  '/{table}/{year}/cohort':
+    post:
+      requestBody:
+        description: feature variables
+        content:
+          application/json:
+            schema:
+              type: object
+              example: {}
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: the year 2010
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+            default: 2010
+      responses:
+        '201':
+          description: The cohort has been created
+      summary: 'Cohort discovery. Users define a cohort using any number of defined feature variables as input parameters, and the service returns a sample size. If a cohort is already created for this set before, return cohort id and size. Otherwise, generate a new cohort id.'
+  '/{table}/{year}/cohort/dictionary':
+    get:
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: the year 2010
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+            default: 2010
+      responses:
+        '200':
+          description: cohort dictionray
+      summary: Get cohort dictionary
+  '/{table}/{year}/cohort/{cohort_id}':
+    get:
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: the year 2010
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+            default: 2010
+        - description: the cohort id
+          in: path
+          name: cohort_id
+          required: true
+          schema:
+            type: string
+            default: 'COHORT:22'
+      responses:
+        '200':
+          description: The features of the cohort
+      summary: Get definition of a cohort
+    put:
+      requestBody:
+        description: feature variables
+        content:
+          application/json:
+            schema:
+              type: object
+              example: {}
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            default: patient
+            type: string
+        - description: the year 2010
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+            default: 2010
+        - description: the cohort id
+          in: path
+          name: cohort_id
+          required: true
+          schema:
+            type: string
+            default: 'COHORT:22'
+      responses:
+        '201':
+          description: The cohort has been created
+      summary: 'Cohort discovery. Users define a cohort using any number of defined feature variables as input parameters, and the service returns a sample size. A new cohort is created even if a cohort was previously created using the same input parameters.'
+  '/{table}/{year}/cohort/{cohort_id}/associations_to_all_features':
+    post:
+      requestBody:
+        description: a feature variable and maximum p value
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                feature:
+                  Sex:
+                    operator: =
+                    value: Female
+                maximum_p_value: 1
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: the year 2010
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+            default: 2010
+        - description: the cohort id
+          in: path
+          name: cohort_id
+          required: true
+          schema:
+            type: string
+            default: 'COHORT:22'
+      responses:
+        '200':
+          description: Associations to all features
+      summary: 'Exploratory 1 X N feature associations: users select a predefined cohort and a feature variable of interest, and the service returns a 1 x N feature table with corrected Chi Square statistics and associated P values.'
+  '/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2':
+    post:
+      requestBody:
+        description: a feature variable and maximum p value
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                feature:
+                  Sex:
+                    operator: =
+                    value: Female
+                maximum_p_value: 1
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: the year 2010
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+            default: 2010
+        - description: the cohort id
+          in: path
+          name: cohort_id
+          required: true
+          schema:
+            type: string
+            default: 'COHORT:22'
+      responses:
+        '200':
+          description: Associations to all features
+      summary: 'Exploratory 1 X N feature associations: users select a predefined cohort and a feature variable of interest and bins, which can be combined, and the service returns a 1 x N feature table with corrected Chi Square statistics and associated P values.'
+  '/{table}/{year}/cohort/{cohort_id}/feature_association':
+    post:
+      requestBody:
+        description: two feature variables
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                feature_a:
+                  Sex:
+                    operator: =
+                    value: Female
+                feature_b:
+                  AsthmaDx:
+                    operator: =
+                    value: 1
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: the year 2010
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+            default: 2010
+        - description: the cohort id
+          in: path
+          name: cohort_id
+          required: true
+          schema:
+            type: string
+            default: 'COHORT:22'
+      responses:
+        '200':
+          description: The feature association
+      summary: 'Hypothesis-driven 2 x 2 feature associations: users select a predefined cohort and two feature variables, and the service returns a 2 x 2 feature table with a corresponding Chi Square statistic and P value.'
+  '/{table}/{year}/cohort/{cohort_id}/feature_association2':
+    post:
+      requestBody:
+        description: two feature variables
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                feature_a:
+                  Sex:
+                    - operator: =
+                      value: Female
+                    - operator: =
+                      value: Male
+                feature_b:
+                  AsthmaDx:
+                    - operator: =
+                      value: 1
+                    - operator: =
+                      value: 0
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: the year 2010
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+            default: 2010
+        - description: the cohort id
+          in: path
+          name: cohort_id
+          required: true
+          schema:
+            type: string
+            default: 'COHORT:22'
+      responses:
+        '200':
+          description: The feature association
+      summary: 'Hypothesis-driven N x N feature associations: users select a predefined cohort, two feature variables, and bins, which can be combined, and the service returns a N x N feature table with a corresponding Chi Square statistic and P value.'
+  '/{table}/{year}/cohort/{cohort_id}/features':
+    get:
+      parameters:
+        - description: the table patient|visit
+          in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            default: patient
+        - description: the year 2010
+          in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+            default: 2010
+        - description: the cohort id
+          in: path
+          name: cohort_id
+          required: true
+          schema:
+            type: string
+            default: 'COHORT:22'
+      responses:
+        '200':
+          description: features
+      summary: 'Feature-rich cohort discovery: users select a predefined cohort as the input parameter, and the service returns a profile of that cohort in terms of all feature variables.'

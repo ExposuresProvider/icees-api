@@ -30,7 +30,7 @@ handler = TimedRotatingFileHandler(os.environ["ICEES_API_LOG_PATH"])
 logger.addHandler(handler)
 logger = wrap_logger(logger, processors=[JSONRenderer()])
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='apidocs')
 limiter = Limiter(
     app,
     key_func=lambda: "client", # get_remote_address,

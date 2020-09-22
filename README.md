@@ -99,7 +99,7 @@ There are two ways to specify a feature of a set of features, using a list or a 
 ```
 <feature> ::= {
     "feature_name": "<feature name>",
-    "feature_qualifier": <feature_qualifiere>,
+    "feature_qualifier": <feature_qualifier>,
     "year": <year>
   }
 ```
@@ -146,7 +146,7 @@ In the apis that allows aggregation of bins, we can specify multiple feature qua
 ```
 <feature2> ::= {
   "feature_name": "<feature name>",
-  "feature_qualifier": [<feature_qualifiere>, ..., <feature_qualifier>],
+  "feature_qualifiers": [<feature_qualifiere>, ..., <feature_qualifier>],
   "year": <year>
 }
 ```

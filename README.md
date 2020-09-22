@@ -166,7 +166,7 @@ Example:
             }, {
                 "operator":"in", 
                 "values":["35-50","51-69"]
-            },{
+            }, {
                 "operator":"=",
                 "value":"70+"
             }

@@ -14,3 +14,5 @@ argparse
 inflection
 flasgger
 simplejson
+tx-functional
+statsmodels==0.12.0

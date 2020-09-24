@@ -18,7 +18,6 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 logger.info("waiting for database startup")
-time.sleep(10)
 
 os.environ["ICEES_HOST"]="localhost"
 os.environ["ICEES_PORT"]="5432"
@@ -29,7 +28,19 @@ import sample
 dbuser = os.environ["ICEES_DBUSER"]
 dbpass = os.environ["ICEES_DBPASS"]
 
-conn = psycopg2.connect(dbname='postgres', user="postgres", host='localhost', password="postgres")
+for idx in range(10):
+    try:
+        conn = psycopg2.connect(
+            dbname='postgres',
+            user="postgres",
+            host='localhost',
+            password="postgres",
+        )
+        break
+    except psycopg2.OperationalError as err:
+        time.sleep(2**idx)
+else:
+    raise psycopg2.OperationalError('Could not connect to Postgres')
 
 conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 

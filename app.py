@@ -12,8 +12,10 @@ import os
 from time import strftime
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
+from pydantic.schema import schema
 import db
-from features import model, schema, format, knowledgegraph, identifiers
+from features import model, format, knowledgegraph, identifiers
+from features.schema import features_schema
 from utils import opposite, to_qualifiers, to_qualifiers2
 from features.knowledgegraph import TOOL_VERSION
 
@@ -148,7 +150,7 @@ class SERVCohort(Resource):
                 if req_features is None:
                     req_features = {}
                 else:
-                    validate(req_features, schema.features_schema(table))
+                    validate(req_features, schema(features_schema(table)))
 
                 cohort_id, size = model.get_ids_by_feature(conn, table, year, req_features)
       
@@ -214,7 +216,7 @@ class SERVCohortId(Resource):
                 if req_features is None:
                     req_features = {}
                 else:
-                    validate(req_features, schema.cohort_schema(table))
+                    validate(req_features, schema(cohort_schema(table)))
 
                 cohort_id, size = model.select_cohort(conn, table, year, req_features, cohort_id)
 
@@ -320,8 +322,8 @@ class SERVFeatureAssociation(Resource):
         """
         try:
             obj = request.get_json()
-            logger.info(f"validating {obj} schema {schema.feature_association_schema(table)}")
-            validate(obj, schema.feature_association_schema(table))
+            logger.info(f"validating {obj} schema {feature_association_schema(table)}")
+            validate(obj, schema(feature_association_schema(table)))
             feature_a = to_qualifiers(obj["feature_a"])
             feature_b = to_qualifiers(obj["feature_b"])
 
@@ -389,13 +391,13 @@ class SERVFeatureAssociation2(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema.feature_association2_schema(table))
+            validate(obj, schema(feature_association2_schema(table)))
             feature_a = to_qualifiers2(obj["feature_a"])
             feature_b = to_qualifiers2(obj["feature_b"])
             to_validate_range = ("check_coverage_is_full" in obj) and obj["check_coverage_is_full"]
             if to_validate_range:
-                validate_range(table, feature_a)
-                validate_range(table, feature_b)
+                model.validate_range(table, feature_a)
+                model.validate_range(table, feature_b)
 
             with db.DBConnection() as conn:
                 cohort_meta = model.get_features_by_id(conn, table, cohort_id)
@@ -457,7 +459,7 @@ class SERVAssociationsToAllFeatures(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema.associations_to_all_features_schema(table))
+            validate(obj, schema(associations_to_all_features_schema(table)))
             feature = to_qualifiers(obj["feature"])
             maximum_p_value = obj["maximum_p_value"]
             correction = obj.get("correction")
@@ -516,11 +518,11 @@ class SERVAssociationsToAllFeatures2(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema.associations_to_all_features2_schema(table))
+            validate(obj, schema(associations_to_all_features2_schema(table)))
             feature = to_qualifiers2(obj["feature"])
             to_validate_range = ("check_coverage_is_full" in obj) and obj["check_coverage_is_full"]
             if to_validate_range:
-                validate_range(table, feature)
+                model.validate_range(table, feature)
             maximum_p_value = obj["maximum_p_value"]
             correction = obj.get("correction")
             with db.DBConnection() as conn:
@@ -706,7 +708,7 @@ class SERVName(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema.add_name_by_id_schema())
+            validate(obj, schema(add_name_by_id_schema()))
             with db.DBConnection() as conn:
                 return_value = model.add_name_by_id(conn, table, name, obj["cohort_id"])
         except ValidationError as e:
@@ -740,7 +742,7 @@ class SERVKnowledgeGraph(Resource):
         """
         try:
             obj = request.get_json()
-            # validate(obj, schema.add_name_by_id_schema())
+            # validate(obj, schema(add_name_by_id_schema()))
             with db.DBConnection() as conn:
                 return_value = knowledgegraph.get(conn, obj)
         except ValidationError as e:
@@ -755,7 +757,7 @@ class SERVKnowledgeGraph(Resource):
 class SERVKnowledgeGraphSchema(Resource):
     def get(self):
         """
-        Query the ICEES clinical reasoner for knowledge graph schema.
+        Query the ICEES clinical reasoner for knowledge graph 
         ---
         parameters: []
         responses:
@@ -801,7 +803,7 @@ class SERVKnowledgeGraphOverlay(Resource):
         """
         try:
             obj = request.get_json()
-            # validate(obj, schema.add_name_by_id_schema())
+            # validate(obj, schema(add_name_by_id_schema()))
             with db.DBConnection() as conn:
                 return_value = knowledgegraph.co_occurrence_overlay(conn, obj)
         except ValidationError as e:
@@ -841,7 +843,7 @@ class SERVKnowledgeGraphOneHop(Resource):
         """
         try:
             obj = request.get_json()
-            # validate(obj, schema.add_name_by_id_schema())
+            # validate(obj, schema(add_name_by_id_schema()))
             with db.DBConnection() as conn:
                 return_value = knowledgegraph.one_hop(conn, obj)
         except ValidationError as e:

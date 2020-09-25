@@ -1,6 +1,6 @@
 #!/bin/bash
 set -m
-./docker-entrypoint.sh postgres &
+/usr/local/bin/docker-entrypoint.sh postgres &
 pushd icees-api
 python3 initdb.py
 popd

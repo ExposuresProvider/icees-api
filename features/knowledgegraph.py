@@ -1,24 +1,23 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence, between
-from sqlalchemy.sql import select
 import json
 import os
-from .features import features, lookUpFeatureClass
-import numpy as np
-from .model import get_ids_by_feature, select_associations_to_all_features, select_feature_matrix
-from .features import features_dict
 import datetime
-from utils import to_qualifiers
 import traceback
 import itertools
-import inflection
-from .identifiers import get_identifiers, get_features_by_identifier
 from functools import reduce, partial
+import re
+import logging
+from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence, between
+from sqlalchemy.sql import select
+import numpy as np
+import inflection
 from tx.functional.either import Left, Right
 from tx.functional.maybe import Nothing, Just
 import tx.functional.maybe as maybe
 from tx.functional.utils import compose
-import re
-import logging
+from utils import to_qualifiers
+from .features import features, lookUpFeatureClass, features_dict
+from .model import get_ids_by_feature, select_associations_to_all_features, select_feature_matrix
+from .identifiers import get_identifiers, get_features_by_identifier
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

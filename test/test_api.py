@@ -543,6 +543,99 @@ def test_feature_association_explicit():
         do_verify_feature_matrix_response(resp_json["return value"])
 
         
+def test_feature_association2_explicit_check_coverage_is_full():
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        cohort_id = resp_json["return value"]["cohort_id"]
+        atafdata = {
+            "feature_a": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifiers": list(map(lambda x: {
+                    "operator": "=",
+                    "value": x
+                }, age_levels))
+            },
+            "feature_b": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifiers": [{
+                    "operator": ">",
+                    "value": '0-2'
+                }, {
+                    "operator": "<=",
+                    "value": '0-2'
+                }]
+            },
+            "check_coverage_is_full": True
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/feature_association2".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        print(resp.text)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+        do_verify_feature_matrix_response(resp_json["return value"])
+
+        
+def test_feature_association2_explicit_check_coverage_is_full_2():
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        cohort_id = resp_json["return value"]["cohort_id"]
+        atafdata = {
+            "feature_a": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifiers": list(map(lambda x: {
+                    "operator": "=",
+                    "value": x
+                }, age_levels))
+            },
+            "feature_b": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifiers": [{
+                    "operator": ">",
+                    "value": '0-2'
+                }]
+            },
+            "check_coverage_is_full": True
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/feature_association2".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        print(resp.text)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+        assert isinstance(resp_json["return value"], str)
+
+
+def test_feature_association2_explicit_check_coverage_is_full_3():
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        cohort_id = resp_json["return value"]["cohort_id"]
+        atafdata = {
+            "feature_a": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifiers": list(map(lambda x: {
+                    "operator": "=",
+                    "value": x
+                }, age_levels)[1:])
+            },
+            "feature_b": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifiers": [{
+                    "operator": ">",
+                    "value": '0-2'
+                }, {
+                    "operator": "<=",
+                    "value": '0-2'
+                }]
+            },
+            "check_coverage_is_full": True
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/feature_association2".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        print(resp.text)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+        assert isinstance(resp_json["return value"], str)
+
+
 def test_feature_association_two_years():
         cohort_year = 2010
         year = 2011

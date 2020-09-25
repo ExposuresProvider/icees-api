@@ -1,7 +1,6 @@
 import yaml
 import os
-from sqlalchemy import Integer, String, Enum, Float
-from typing import Union, List
+from typing import Union, List, Literal, Any
 from dataclasses import dataclass
 from .config import get_config_path
 
@@ -9,8 +8,8 @@ from .config import get_config_path
 @dataclass
 class Feature:
     name: str 
-    _type: Union[Integer, String, Enum, Float]
-    options: List[str]
+    _type: Literal[int, str, float]
+    options: List[Any]
     biolink_class: str
 
 
@@ -21,20 +20,19 @@ with open(os.path.join(get_config_path(), 'features.yml'), 'r') as f:
 def dict_to_Feature(table, key, value):
     """Convert feature from dict form to tuple."""
     if value['type'] == 'integer':
-        _type = Integer
+        _type = int
         if 'minimum' in value and 'maximum' in value:
             options = list(range(value['minimum'], value['maximum'] + 1))
         else:
             options = None
     elif value['type'] == 'string':
+        _type = str
         if 'enum' in value:
             options = value['enum']
-            _type = Enum(*options, name=table+"_"+key)
         else:
-            _type = String
             options = None
     elif value['type'] == 'number':
-        _type = Float
+        _type = float
         options = None
     else:
         raise ValueError('Unsupported type {}'.format(value['type']))

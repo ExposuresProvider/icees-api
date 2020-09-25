@@ -1,4 +1,5 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime, Text, LargeBinary
+import enum
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime, Text, LargeBinary, Enum
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql import select, func
 from scipy.stats import chi2_contingency
@@ -27,8 +28,21 @@ metadata = MetaData()
 def table_id(table):
     return table[0].upper() + table[1:] + "Id"
 
+def sql_type(ty):
+    if ty is int:
+        return Integer
+    elif ty is str:
+        return String
+    elif ty is float:
+        return Float
+    elif isinstance(ty, enum.Enum):
+        return Enum(ty)
+    else:
+        raise RuntimeError(f"not sql type for {ty}")
+
+
 table_cols = {
-    table: [Column(table_id(table), Integer), Column("year", Integer)] + list(map(lambda feature: Column(feature.name, feature._type), table_features)) for table, table_features in features.items()
+    table: [Column(table_id(table), Integer), Column("year", Integer)] + list(map(lambda feature: Column(feature.name, sql_type(feature._type)), table_features)) for table, table_features in features.items()
 }
 
 tables = {
@@ -183,7 +197,6 @@ def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
     rs = []
     for f in features[table_name]:
         k = f.name
-        v = f._type
         levels = f.options
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
@@ -512,7 +525,6 @@ def select_feature_association(conn, table_name, year, cohort_features, cohort_y
     rs = []
     for f in filter(feature_set, features[table_name]):
         k = f.name
-        v = f._type
         levels = f.options
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)

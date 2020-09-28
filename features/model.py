@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime, Text, LargeBinary
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql import select, func
@@ -86,30 +87,74 @@ def get_digest(*args):
         c.update(arg.encode("utf-8"))
     return c.digest()
 
-    
-def op_dict(table, k, v):
+
+def op_dict(table, k, v, table_name=None):
+    if table_name is None:
+        table_name = table.name
+    json_schema_type = features_dict[table_name][k]["type"]
+    python_type = {
+        "integer": int,
+        "string": str,
+    }[json_schema_type]
+    if not isinstance(v["value"], python_type):
+        raise HTTPException(
+            status_code=400,
+            detail="'{feature}' should be of type {type}, but {value} is not".format(
+                value=v["value"],
+                type=json_schema_type,
+                feature=k,
+            )
+        )
+    options = features_dict[table_name][k].get("enum", None)
+    if options is not None and v["value"] not in options:
+        raise HTTPException(
+            status_code=400,
+            detail="{value} is not in {options}".format(
+                value=v["value"],
+                options=options
+            )
+        )
+    try:
+        value = table.c[k]
+    except KeyError:
+        raise HTTPException(status_code=400, detail=f"No feature named '{k}'")
     return {
-        ">": lambda: table.c[k] > v["value"],
-        "<": lambda: table.c[k] < v["value"],
-        ">=": lambda: table.c[k] >= v["value"],
-        "<=": lambda: table.c[k] <= v["value"],
-        "=": lambda: table.c[k] == v["value"],
-        "<>": lambda: table.c[k] != v["value"],
-        "between": lambda: between(table.c[k], v["value_a"], v["value_b"]),
-        "in": lambda: table.c[k].in_(v["values"])
+        ">": lambda: value > v["value"],
+        "<": lambda: value < v["value"],
+        ">=": lambda: value >= v["value"],
+        "<=": lambda: value <= v["value"],
+        "=": lambda: value == v["value"],
+        "<>": lambda: value != v["value"],
+        "between": lambda: between(value, v["value_a"], v["value_b"]),
+        "in": lambda: value.in_(v["values"])
     }[v["operator"]]()
 
 
-def filter_select(s, table, k, v):
-    return s.where(op_dict(table, k, v))
+def filter_select(s, table, k, v, table_name=None):
+    return s.where(
+        op_dict(
+            table, k, v, table_name=table_name
+        )
+    )
 
 
-def case_select(table, k, v):
-    return func.coalesce(func.sum(case([(op_dict(table, k, v), 1)], else_=0)), 0)
+def case_select(table, k, v, table_name=None):
+    return func.coalesce(func.sum(case([(
+        op_dict(
+            table, k, v, table_name=table_name
+        ), 1
+    )], else_=0)), 0)
 
 
-def case_select2(table, table2, k, v, k2, v2):
-    return func.coalesce(func.sum(case([(and_(op_dict(table, k, v), op_dict(table2, k2, v2)), 1)], else_=0)), 0)
+def case_select2(table, table2, k, v, k2, v2, table_name=None):
+    return func.coalesce(func.sum(case([(and_(
+        op_dict(
+            table, k, v, table_name=table_name
+        ),
+        op_dict(
+            table2, k2, v2, table_name=table_name
+        )
+    ), 1)], else_=0)), 0)
 
 
 def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
@@ -132,7 +177,7 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
                 cohort_id = None
 
         if cohort_id_in_use(conn, cohort_id):
-            raise RuntimeError("Cohort id is in use.")
+            raise HTTPException(status_code=400, detail="Cohort id is in use.")
             ins = cohort.update().where(cohort.c.cohort_id == cohort_id).values(size=size,
                                                                     features=json.dumps(cohort_features,
                                                                                         sort_keys=True),
@@ -375,11 +420,11 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
         table, table_matrices = generate_tables_from_features(table_name, cohort_features_norm, cohort_year, [(ka, ya), (kb, yb)])
         
         selections = [
-            case_select2(table_matrices[yb], table_matrices[ya], kb, vb, ka, va) for vb, va in product(vbs, vas)
+            case_select2(table_matrices[yb], table_matrices[ya], kb, vb, ka, va, table_name=table_name) for vb, va in product(vbs, vas)
         ] + [
-            case_select(table_matrices[ya], ka, va) for va in vas
+            case_select(table_matrices[ya], ka, va, table_name=table_name) for va in vas
         ] + [
-            case_select(table_matrices[yb], kb, vb) for vb in vbs
+            case_select(table_matrices[yb], kb, vb, table_name=table_name) for vb in vbs
         ] + [
             func.count()
         ]

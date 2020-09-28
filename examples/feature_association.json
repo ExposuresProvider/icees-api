@@ -1,0 +1,14 @@
+{
+    "feature_a": {
+        "Sex": {
+            "operator": "=",
+            "value": "Female"
+        }
+    },
+    "feature_b": {
+        "AsthmaDx": {
+            "operator": "=",
+            "value": 1
+        }
+    }
+}

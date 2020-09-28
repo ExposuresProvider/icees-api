@@ -381,12 +381,16 @@ def post_name(
     return {"return value": return_value}
 
 
+with open("examples/knowledge_graph.json") as stream:
+    knowledge_graph_example = json.load(stream)
+
+
 @router.post(
     "/knowledge_graph",
     response_model=Dict,
 )
 def knowledge_graph(
-        obj: Query,
+        obj: Query = Body(..., example=knowledge_graph_example),
         reasoner: bool = False,
         conn=Depends(get_db),
 ) -> Message:

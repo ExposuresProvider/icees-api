@@ -1,0 +1,12 @@
+{
+    "feature": {
+        "Sex": {
+            "operator": "=",
+            "value": "Female"
+        }
+    },
+    "maximum_p_value": 1,
+    "correction": {
+        "method": "bonferroni"
+    }
+}

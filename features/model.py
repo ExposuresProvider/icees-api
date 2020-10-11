@@ -258,7 +258,7 @@ def timeit(method):
         ts = time.time()
         result = method(*args, **kw)
         te = time.time()
-        logger.info(f"{method.__name__} {args} {kw} {te - ts}s")
+        logger.debug(f"{method.__name__} {args} {kw} {te - ts}s")
         return result
     return timed
 
@@ -555,7 +555,9 @@ def select_associations_to_all_features(conn, table, year, cohort_id, feature, m
 def validate_range(table_name, feature):
     feature_name = feature["feature_name"]
     values = feature["feature_qualifiers"]
-    _, ty, levels, _ = next(filter(lambda x: x[0] == feature_name, features[table_name]))
+    x = next(filter(lambda x: x.name == feature_name, features[table_name]))
+    ty = x._type
+    levels = x.options
     if levels:
         n = len(levels)
         coverMap = [False for _ in levels]

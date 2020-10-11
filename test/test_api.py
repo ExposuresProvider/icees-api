@@ -615,7 +615,7 @@ def test_feature_association2_explicit_check_coverage_is_full_3():
                 "feature_qualifiers": list(map(lambda x: {
                     "operator": "=",
                     "value": x
-                }, age_levels)[1:])
+                }, age_levels))[1:]
             },
             "feature_b": {
                 "feature_name": "AgeStudyStart",
@@ -876,3 +876,17 @@ def test_associations_to_all_features2b():
     assert "return value" in resp_json
     assert isinstance(resp_json["return value"], list)
 
+def test_cohort_dictionary_explicit_tabular():
+        feature_variables = [{
+            "feature_name": "AgeStudyStart",
+            "feature_qualifier": {
+                "operator": "=",
+                "value": "0-2"
+            }
+        }]
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), json=feature_variables, headers = json_headers, verify = False)
+        resp2 = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), headers = {"Accept": "text/tabular"}, verify = False)
+        
+        assert resp2.status_code == 200
+
+    

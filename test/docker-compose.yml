@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: test/Dockerfile
     image: icees-api-test:0.2.0
-    command: ["-s", "-vv"] # , "-k", "test_associations_to_all_features2_explicit"]
+    command: ["-s", "-vv"] # , "test/test_api.py::test_feature_association2_explicit_check_coverage_is_full"]
     environment:
       WAIT: 60
     depends_on:

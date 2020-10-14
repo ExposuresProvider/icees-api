@@ -235,7 +235,7 @@ def associations_to_all_features_schema_common(model_name, table_name, feature_s
     return get_model(
         f"{model_name}_{table_name}",
         feature = (feature_schema, ...),
-        maximum_p_value = (int, ...),
+        maximum_p_value = (float, ...),
         correction = (Optional[Union[Correction, CorrectionWithAlpha]], None),
         check_coverage_is_full = (bool, False)
     )

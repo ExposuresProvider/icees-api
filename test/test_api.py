@@ -758,6 +758,27 @@ def test_associations_to_all_features_explicit():
         assert isinstance(resp_json["return value"], list)
 
 
+def test_associations_to_all_features_explicit_non_integer_p_value():
+        feature_variables = {}
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        cohort_id = resp_json["return value"]["cohort_id"]
+        atafdata = {
+            "feature": {
+                "feature_name": "AgeStudyStart",
+                "feature_qualifier": {
+                    "operator": "=",
+                    "value": "0-2"
+                }
+            },
+            "maximum_p_value": 0.5
+        }
+        resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort/{2}/associations_to_all_features".format(table, year, cohort_id), data=json.dumps(atafdata), headers = json_headers, verify = False)
+        resp_json = resp.json()
+        assert "return value" in resp_json
+        assert isinstance(resp_json["return value"], list)
+
+
 def test_associations_to_all_features_with_correction():
         feature_variables = {}
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers, verify = False)

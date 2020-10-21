@@ -326,6 +326,9 @@ info:
     <br>[ICEES API example queries](https://github.com/NCATS-Tangerine/icees-api/tree/master/#examples) <br>dictionary for versioning of tables<br><table><tr><th>version</th><th>table content</th></tr><tr><td>1.0.0</td><td>cdw, acs, nearest road, and cmaq from 2010</td></tr><tr><td>2.0.0</td><td>cdw in FHIR format, acs, nearest road, and cmaq from 2010</td></tr></table>
   title: ICEES API
   version: 0.0.2
+  termsOfService: 'https://raw.githubusercontent.com/NCATS-Tangerine/icees-api/master/terms.txt'
+servers:
+  - url: 'https://icees.renci.org:16340'
 openapi: 3.0.1
 paths:
   /knowledge_graph:
@@ -541,7 +544,7 @@ paths:
               example:
                 feature:
                   Sex:
-                    operator: =
+                    operator: '='
                     value: Female
                 maximum_p_value: 1
       parameters:
@@ -581,7 +584,7 @@ paths:
               example:
                 feature:
                   Sex:
-                    operator: =
+                    operator: '='
                     value: Female
                 maximum_p_value: 1
       parameters:
@@ -621,11 +624,11 @@ paths:
               example:
                 feature_a:
                   Sex:
-                    operator: =
+                    operator: '='
                     value: Female
                 feature_b:
                   AsthmaDx:
-                    operator: =
+                    operator: '='
                     value: 1
       parameters:
         - description: the table patient|visit
@@ -664,15 +667,15 @@ paths:
               example:
                 feature_a:
                   Sex:
-                    - operator: =
+                    - operator: '='
                       value: Female
-                    - operator: =
+                    - operator: '='
                       value: Male
                 feature_b:
                   AsthmaDx:
-                    - operator: =
+                    - operator: '='
                       value: 1
-                    - operator: =
+                    - operator: '='
                       value: 0
       parameters:
         - description: the table patient|visit

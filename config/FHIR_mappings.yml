@@ -1,0 +1,249 @@
+CharlsonComorbidityIndex:
+    Measurement:
+        - system: http://hl7.org/fhir/sid/icd-10-cm
+        - code: M65.32
+HypertensionDx:
+    Condition:
+        - system: https://icd.who.int/browse10/2019/en#/I10
+        - code: I10-I15
+Chronic Kidney Disease:
+    Condition:
+        - system: https://icd.who.int/browse10/2019/en#/N18 
+        - code: N18
+Coronary Artery Disease:
+    Condition:
+        - system: https://icd.who.int/browse10/2019/en#/I25.1 
+        - code: I25.1
+Heart Failure:
+    Condition:
+        - system: https://icd.who.int/browse10/2019/en#/I50 
+        - code: I50
+Chronic Obstructive Pulmonary Disease:
+    Condition:
+        - system: https://icd.who.int/browse10/2019/en#/J44 
+        - code: J44
+Liver Disease:
+    Condition:
+        - system: https://icd.who.int/browse10/2019/en#/K76.9 
+        - code: K70-K77
+Cancer:
+    Condition:
+        - system: https://icd.who.int/browse10/2019/en#/C80.9 
+        - code: C00-C97
+HIV Infection:
+    Condition:
+        - system: https://icd.who.int/browse10/2019/en#/B24
+        - code: B20-B24
+Erythrocyte Sedimentation Rate (ESR), mm/hr:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=erythrocyte+sedimentation+rate 
+        - code: https://loinc.org/30341-2/ 
+Procalcitonin, ng/mL:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=Procalcitonin 
+        - code: https://loinc.org/33959-8/ 
+Ferritin, units:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=ferritin 
+        - code: https://loinc.org/53048-5/
+C-reactive Protein (CRP), units:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=c+reactive+protein 
+        - code: https://loinc.org/16503-5/ 
+D-dimer, units:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=d+dimer
+LDH, units:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=ldh
+IL-6, units:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=il+6
+        - system: https://loinc.org/49732-1/ 
+pH:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=ph 
+        - codes: 33913-5, 27378-9, 50897-8, 53651-6, 53652-4, 53600-3, 2743-3, 53653-2, 11558-4, 2744-1, 2745-8, 14873-4, 28646-8, 28647-6, 19213-8, 2746-6, 2748-2, 50896-0, 2747-4, 10582-5, 53654-0, 55976-5, 2749-0, 42728-6, 33417-7, 68382-1, 2751-6, 68459-7, 2750-8, 50895-2, 80830-3, 56963-2, 2752-4, 2753-2, 2755-7, 2754-0, 68381-3, 55968-2, 2756-5, 5803-2, 50560-2, 48037-6, 72269-4, 42670-0, 9481-3, 17433-4, 9347-6, 9348-4, 9349-2, 49701-6, 33254-4, 39485-8, 47720-8, 49698-4, 49699-2, 50980-2, 39486-6, 35330-0, 35329-2, 35328-4, 35327-6, 35326-8, 76280-7
+pCO2, mmHg (arterial/venous):
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=pco2 
+pO2, mmHg (arterial):
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=po2 
+pO2/FiO2 ratio:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=horowitz 
+Base deficit:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=base+deficit 
+Lactate, mmol/L:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=lactate 
+        - codes: 59032-3, 30242-2, 51829-0, 30241-4, 29246-6, 27941-4, 14118-4, 35245-0, 29875-2, 34323-6, 32693-4, 19239-3, 75366-5, 55932-8, 19240-1, 14165-5, 55931-0, 32132-3, 32133-1, 34324-4, 74896-2, 15078-9, 57365-9, 57357-6, 59011-7, 59012-5, 27946-3, 57364-2, 57356-8, 59005-9, 57360-0, 27955-4, 57358-4, 57362-6, 59013-3, 27961-2, 57359-2, 57361-8, 59006-7, 57728-8, 27949-7, 57363-4, 59007-5, 57729-6, 59004-2, 27976-0, 68911-7, 59849-0, 51428-1, 57366-7
+SvO2, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=mixed+venous+oxygen+saturation 
+Serum Sodium, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+sodium
+        - code: 77139-4
+Serum Potassium, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+potassium
+        - code: 77142-8
+Serum Chloride, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+chloride
+        - code: 77138-6
+Serum Bicarbonate, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+bicarbonate
+        - code: 1963-8
+Blood Urea Nitrogen, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=blood+urea+nitrogen
+        - code: 6299-2
+Serum Creatinine, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+creatinine
+        - code: 77140-2
+Serum Glucose, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+glucose
+        - codes: 72650-5, 72649-7, 72651-3, 72648-9
+ALT, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=ALT
+        - code: 76625-3
+AST, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=AST
+        - code: 1920-8
+Troponin [type], [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=troponin
+        https://loinc.org/10839-9/
+        - code: 10839-9
+        https://loinc.org/6598-7/
+        - code: 6598-7
+Brain Natriuretic Peptide [type], [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=brain+natriuretic+peptide
+        - code: 30934-4
+CK [type], [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=CK
+        - code: 13969-1
+Hgb A1C, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=HGB+A1C
+        - code: 41995-2
+Estimated GFR, [units]:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=Estimated+GFR
+        - code: 69405-9
+Supplemental Oxygen:
+    Measurement:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=supplemental+oxygen
+        - code: 88658-0
+Invasive Ventilation:
+    Procedure:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=invasive+ventilation
+        - code: 87539-3
+Nitric Oxide or Flolan:
+    Drug:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=nitric%20oxide
+        - code: 7442
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=flolan
+        - code: 114221
+Amiodarone gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=703
+        - code: 703
+Dopamine gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dopamine
+        - code: 3628
+Dobutamine gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dobutamine
+        - code: 3616
+Epinephrine gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=epinephrine
+        - code: 3992
+Esmolol gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=esmolol
+        - code: 49737
+Isoproterenol gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=isoproterenol
+        - code: 6054
+Levosimendan gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=levosimendan
+        - code: 73107
+Milrinone gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=milrinone
+        - code: 52769
+Norepinephrine gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=norepinephrine
+        - code: 7512
+Phenylephrine gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=phenylephrine
+        - code: 8163
+Vasopressin gtt:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=vasopressin
+        - code: 11149
+Remdesivir:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=remdesivir
+        - code: 2284718
+Hydroxychloroquine:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=hydroxychloroquine
+        - code: 5521
+Antibiotics:
+    Substance:
+        - system: https://icd.who.int/browse10/2019/en#/Y40
+        - code: Y40-Y84
+Dexamethasone:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dexamethasone
+        - code: 3264
+Prednisone/Methylprednisolone:
+    Substance:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=prednisone
+        https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=methylprednisolone 
+        - code: 8640/6902
+IVIG:
+    Immunoglobulins, intravenous
+    Component:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=IVIG
+        - code: 42386
+Convalescent Plasma:
+    Component:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=convalescent+plasma
+        - code: 95355-4/95354-7
+Anakinra:
+    Ingredient:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=anakinra
+        - code: 72435
+Tocilizumab:
+    Ingredient:
+        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=tocilizumab
+        - code: 612865
+FeverDx:
+    Condition:
+        - system: https://icd.who.int/browse10/2019/en#/R50.9
+        - code: R50.9
+Discharge Status:
+    Finding:
+        - system: https://search.loinc.org/searchLOINC/search.zul?query=discharge+status
+        - code: 75527-2
+        

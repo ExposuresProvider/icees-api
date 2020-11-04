@@ -1,249 +1,1827 @@
+# SARS-CoV-2 Positive Cohort Characteristics and Clinical Course
 CharlsonComorbidityIndex:
     Measurement:
         - system: http://hl7.org/fhir/sid/icd-10-cm
           code: M65.32
+
+# Diagnoses - ICD-10
 HypertensionDx:
     Condition:
-        - system: https://icd.who.int/browse10/2019/en#/I10
+        - system: https://icd.who.int
           code: I10-I15
+          # note: https://icd.who.int/browse10/2019/en#/I10
 Chronic Kidney Disease:
     Condition:
-        - system: https://icd.who.int/browse10/2019/en#/N18 
+        - system: https://icd.who.int 
           code: N18
+          # note: https://icd.who.int/browse10/2019/en#/N18
 Coronary Artery Disease:
     Condition:
-        - system: https://icd.who.int/browse10/2019/en#/I25.1 
+        - system: https://icd.who.int 
           code: I25.1
+          # note: https://icd.who.int/browse10/2019/en#/I25.1
 Heart Failure:
     Condition:
-        - system: https://icd.who.int/browse10/2019/en#/I50 
+        - system: https://icd.who.int 
           code: I50
+          # note: https://icd.who.int/browse10/2019/en#/I50
 Chronic Obstructive Pulmonary Disease:
     Condition:
-        - system: https://icd.who.int/browse10/2019/en#/J44 
+        - system: https://icd.who.int 
           code: J44
+          # note: https://icd.who.int/browse10/2019/en#/J44
 Liver Disease:
     Condition:
-        - system: https://icd.who.int/browse10/2019/en#/K76.9 
+        - system: https://icd.who.int 
           code: K70-K77
+          # note: https://icd.who.int/browse10/2019/en#/K76.9
 Cancer:
     Condition:
-        - system: https://icd.who.int/browse10/2019/en#/C80.9 
+        - system: https://icd.who.int 
           code: C00-C97
+          # note: https://icd.who.int/browse10/2019/en#/C80.9
 HIV Infection:
     Condition:
-        - system: https://icd.who.int/browse10/2019/en#/B24
+        - system: https://icd.who.int
           code: B20-B24
+          # note: https://icd.who.int/browse10/2019/en#/B24
+
+# Laboratory results - LOINC
 Erythrocyte Sedimentation Rate (ESR), mm/hr:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=erythrocyte+sedimentation+rate 
-          code: https://loinc.org/30341-2/ 
+        - system: http://loinc.org
+          code: 4539-3
+        - system: http://loinc.org
+          code: 30341-2
+        - system: http://loinc.org
+          code: 43402-7
+        - system: http://loinc.org
+          code: 82477-1
+        - system: http://loinc.org
+          code: 4537-7
+        - system: http://loinc.org
+          code: 18184-2
+        - system: http://loinc.org
+          code: 4538-5
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=erythrocyte+sedimentation+rate
 Procalcitonin, ng/mL:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=Procalcitonin 
-          code: https://loinc.org/33959-8/ 
+        - system: http://loinc.org
+          code: 33959-8
+        - system: http://loinc.org
+          code: 75241-0
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=Procalcitonin
 Ferritin, units:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=ferritin 
-          code: https://loinc.org/53048-5/
+        - system: http://loinc.org
+          code: 48141-6
+        - system: http://loinc.org
+          code: 14724-9
+        - system: http://loinc.org
+          code: 24373-3
+        - system: http://loinc.org
+          code: 53048-5
+        - system: http://loinc.org
+          code: 2276-4
+        - system: http://loinc.org
+          code: 20567-4
+        - system: http://loinc.org
+          code: 14723-1
+        - system: http://loinc.org
+          code: 86914-9
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=ferritin
 C-reactive Protein (CRP), units:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=c+reactive+protein 
-          code: https://loinc.org/16503-5/ 
+        - system: http://loinc.org
+          code: 71426-1
+        - system: http://loinc.org
+          code: 48421-2
+        - system: http://loinc.org
+          code: 16503-5
+        - system: http://loinc.org
+          code: 45062-7
+        - system: http://loinc.org
+          code: 59182-6
+        - system: http://loinc.org
+          code: 1988-5
+        - system: http://loinc.org
+          code: 30522-7
+        - system: http://loinc.org
+          code: 11039-5
+        - system: http://loinc.org
+          code: 35648-5
+        - system: http://loinc.org
+          code: 76485-2
+        - system: http://loinc.org
+          code: 76486-0
+        - system: http://loinc.org
+          code: 14634-0
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=ferritin
 D-dimer, units:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=d+dimer
-LDH, units:
+        - system: http://loinc.org
+          code: 48141-6
+        - system: http://loinc.org
+          code: 14724-9
+        - system: http://loinc.org
+          code: 24373-3
+        - system: http://loinc.org
+          code: 53048-5
+        - system: http://loinc.org
+          code: 2276-4
+        - system: http://loinc.org
+          code: 20567-4
+        - system: http://loinc.org
+          code: 14723-1
+        - system: http://loinc.org
+          code: 86914-9
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=ferritin
+C-reactive Protein (CRP), units:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=ldh
+        - system: http://loinc.org
+          code: 71426-1
+        - system: http://loinc.org
+          code: 48421-2
+        - system: http://loinc.org
+          code: 16503-5
+        - system: http://loinc.org
+          code: 45062-7
+        - system: http://loinc.org
+          code: 59182-6
+        - system: http://loinc.org
+          code: 1988-5
+        - system: http://loinc.org
+          code: 30522-7
+        - system: http://loinc.org
+          code: 11039-5
+        - system: http://loinc.org
+          code: 35648-5
+        - system: http://loinc.org
+          code: 76485-2
+        - system: http://loinc.org
+          code: 76486-0
+        - system: http://loinc.org
+          code: 14634-0
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=c+reactive+protein 
+D-dimer, units:
+    Measurement:
+        - system: http://loinc.org
+          code: 55398-2
+        - system: http://loinc.org
+          code: 7799-0
+        - system: http://loinc.org
+          code: 3246-6
+        - system: http://loinc.org
+          code: 42499-4
+        - system: http://loinc.org
+          code: 15179-5
+        - system: http://loinc.org
+          code: 29280-5
+        - system: http://loinc.org
+          code: 38898-3
+        - system: http://loinc.org
+          code: 91556-1
+        - system: http://loinc.org
+          code: 42727-8
+        - system: http://loinc.org
+          code: 48066-5
+        - system: http://loinc.org
+          code: 48058-2
+        - system: http://loinc.org
+          code: 71427-9
+        - system: http://loinc.org
+          code: 48065-7
+        - system: http://loinc.org
+          code: 48067-3
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=d+dimer
+LDH- system, units:
+    Measurement:
+        - system: http://loinc.org
+          code: 47678-8
+        - system: http://loinc.org
+          code: 2527-0
+        - system: http://loinc.org
+          code: 14803-1
+        - system: http://loinc.org
+          code: 60017-1
+        - system: http://loinc.org
+          code: 60024-7
+        - system: http://loinc.org
+          code: 60023-9
+        - system: http://loinc.org
+          code: 5921-2
+        - system: http://loinc.org
+          code: 81430-1
+        - system: http://loinc.org
+          code: 14403-0
+        - system: http://loinc.org
+          code: 60019-7
+        - system: http://loinc.org
+          code: 60018-9
+        - system: http://loinc.org
+          code: 68387-0
+        - system: http://loinc.org
+          code: 60020-5
+        - system: http://loinc.org
+          code: 60022-1
+        - system: http://loinc.org
+          code: 60021-3
+        - system: http://loinc.org
+          code: 11053-6
+        - system: http://loinc.org
+          code: 57664-5
+        - system: http://loinc.org
+          code: 14804-9
+        - system: http://loinc.org
+          code: 14805-6
+        - system: http://loinc.org
+          code: 68453-0
+        - system: http://loinc.org
+          code: 68452-2
+        - system: http://loinc.org
+          code: 2534-6
+        - system: http://loinc.org
+          code: 32324-6
+        - system: http://loinc.org
+          code: 47863-6
+        - system: http://loinc.org
+          code: 17041-5
+        - system: http://loinc.org
+          code: 2537-9
+        - system: http://loinc.org
+          code: 2535-3
+        - system: http://loinc.org
+          code: 2540-3
+        - system: http://loinc.org
+          code: 2538-7
+        - system: http://loinc.org
+          code: 19248-4
+        - system: http://loinc.org
+          code: 2543-7
+        - system: http://loinc.org
+          code: 2541-1
+        - system: http://loinc.org
+          code: 2546-0
+        - system: http://loinc.org
+          code: 2544-5
+        - system: http://loinc.org
+          code: 2549-4
+        - system: http://loinc.org
+          code: 2547-8
+        - system: http://loinc.org
+          code: 42929-0
+        - system: http://loinc.org
+          code: 50688-1
+        - system: http://loinc.org
+          code: 53248-1
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=ldh
 IL-6, units:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=il+6
-        - system: https://loinc.org/49732-1/ 
+        - system: http://loinc.org
+          code: 49732-1
+        - system: http://loinc.org
+          code: 49919-4
+        - system: http://loinc.org
+          code: 26881-3
+        - system: http://loinc.org
+          code: 44322-6
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=il+6
 pH:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=ph 
-          codes: 33913-5, 27378-9, 50897-8, 53651-6, 53652-4, 53600-3, 2743-3, 53653-2, 11558-4, 2744-1, 2745-8, 14873-4, 28646-8, 28647-6, 19213-8, 2746-6, 2748-2, 50896-0, 2747-4, 10582-5, 53654-0, 55976-5, 2749-0, 42728-6, 33417-7, 68382-1, 2751-6, 68459-7, 2750-8, 50895-2, 80830-3, 56963-2, 2752-4, 2753-2, 2755-7, 2754-0, 68381-3, 55968-2, 2756-5, 5803-2, 50560-2, 48037-6, 72269-4, 42670-0, 9481-3, 17433-4, 9347-6, 9348-4, 9349-2, 49701-6, 33254-4, 39485-8, 47720-8, 49698-4, 49699-2, 50980-2, 39486-6, 35330-0, 35329-2, 35328-4, 35327-6, 35326-8, 76280-7
+        - system: http://loinc.org
+          code: 33913-5
+        - system: http://loinc.org
+          code: 27378-9
+        - system: http://loinc.org
+          code: 50897-8
+        - system: http://loinc.org
+          code: 53651-6
+        - system: http://loinc.org
+          code: 53652-4
+        - system: http://loinc.org
+          code: 53600-3
+        - system: http://loinc.org
+          code: 2743-3
+        - system: http://loinc.org
+          code: 53653-2
+        - system: http://loinc.org
+          code: 11558-4
+        - system: http://loinc.org
+          code: 2744-1
+        - system: http://loinc.org
+          code: 2745-8
+        - system: http://loinc.org
+          code: 14873-4
+        - system: http://loinc.org
+          code: 28646-8
+        - system: http://loinc.org
+          code: 28647-6
+        - system: http://loinc.org
+          code: 19213-8
+        - system: http://loinc.org
+          code: 2746-6
+        - system: http://loinc.org
+          code: 2748-2
+        - system: http://loinc.org
+          code: 50896-0
+        - system: http://loinc.org
+          code: 2747-4
+        - system: http://loinc.org
+          code: 10582-5
+        - system: http://loinc.org
+          code: 53654-0
+        - system: http://loinc.org
+          code: 55976-5
+        - system: http://loinc.org
+          code: 2749-0
+        - system: http://loinc.org
+          code: 42728-6
+        - system: http://loinc.org
+          code: 33417-7
+        - system: http://loinc.org
+          code: 68382-1
+        - system: http://loinc.org
+          code: 2751-6
+        - system: http://loinc.org
+          code: 68459-7
+        - system: http://loinc.org
+          code: 2750-8
+        - system: http://loinc.org
+          code: 50895-2
+        - system: http://loinc.org
+          code: 80830-3
+        - system: http://loinc.org
+          code: 56963-2
+        - system: http://loinc.org
+          code: 2752-4
+        - system: http://loinc.org
+          code: 2753-2
+        - system: http://loinc.org
+          code: 2755-7
+        - system: http://loinc.org
+          code: 2754-0
+        - system: http://loinc.org
+          code: 68381-3
+        - system: http://loinc.org
+          code: 55968-2
+        - system: http://loinc.org
+          code: 2756-5
+        - system: http://loinc.org
+          code: 5803-2
+        - system: http://loinc.org
+          code: 50560-2
+        - system: http://loinc.org
+          code: 48037-6
+        - system: http://loinc.org
+          code: 72269-4
+        - system: http://loinc.org
+          code: 42670-0
+        - system: http://loinc.org
+          code: 9481-3
+        - system: http://loinc.org
+          code: 17433-4
+        - system: http://loinc.org
+          code: 9347-6
+        - system: http://loinc.org
+          code: 9348-4
+        - system: http://loinc.org
+          code: 9349-2
+        - system: http://loinc.org
+          code: 49701-6
+        - system: http://loinc.org
+          code: 33254-4
+        - system: http://loinc.org
+          code: 39485-8
+        - system: http://loinc.org
+          code: 47720-8
+        - system: http://loinc.org
+          code: 49698-4
+        - system: http://loinc.org
+          code: 49699-2
+        - system: http://loinc.org
+          code: 50980-2
+        - system: http://loinc.org
+          code: 39486-6
+        - system: http://loinc.org
+          code: 35330-0
+        - system: http://loinc.org
+          code: 35329-2
+        - system: http://loinc.org
+          code: 35328-4
+        - system: http://loinc.org
+          code: 35327-6
+        - system: http://loinc.org
+          code: 35326-8
+        - system: http://loinc.org
+          code: 76280-7
+        # note: https://search.loinc.org/searchLOINC/search.zul?query=ph
 pCO2, mmHg (arterial/venous):
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=pco2 
+        - system: http://loinc.org
+          code: 60819-0
+        - system: http://loinc.org
+          code: 19879-6
+        - system: http://loinc.org
+          code: 19878-8
+        - system: http://loinc.org
+          code: 19881-2
+        - system: http://loinc.org
+          code: 19880-4
+        - system: http://loinc.org
+          code: 2018-0
+        - system: http://loinc.org
+          code: 11557-6
+        - system: http://loinc.org
+          code: 19887-9
+        - system: http://loinc.org
+          code: 19886-1
+        - system: http://loinc.org
+          code: 19885-3
+        - system: http://loinc.org
+          code: 19884-6
+        - system: http://loinc.org
+          code: 2019-8
+        - system: http://loinc.org
+          code: 2020-6
+        - system: http://loinc.org
+          code: 33022-5
+        - system: http://loinc.org
+          code: 14003-8
+        - system: http://loinc.org
+          code: 28644-3
+        - system: http://loinc.org
+          code: 28645-0
+        - system: http://loinc.org
+          code: 19212-0
+        - system: http://loinc.org
+          code: 2021-4
+        - system: http://loinc.org
+          code: 2023-0
+        - system: http://loinc.org
+          code: 2022-2
+        - system: http://loinc.org
+          code: 59165-1
+        - system: http://loinc.org
+          code: 53458-6
+        - system: http://loinc.org
+          code: 76184-1
+        - system: http://loinc.org
+          code: 32306-3
+        - system: http://loinc.org
+          code: 19883-8
+        - system: http://loinc.org
+          code: 19882-0
+        - system: http://loinc.org
+          code: 34705-4
+        - system: http://loinc.org
+          code: 32771-8
+        - system: http://loinc.org
+          code: 40620-7
+        - system: http://loinc.org
+          code: 47599-6
+        - system: http://loinc.org
+          code: 49694-3
+        - system: http://loinc.org
+          code: 49695-0
+        - system: http://loinc.org
+          code: 50981-0
+        - system: http://loinc.org
+          code: 40619-9
+        - system: http://loinc.org
+          code: 19891-1
+        - system: http://loinc.org
+          code: 19890-3
+        - system: http://loinc.org
+          code: 19897-8
+        - system: http://loinc.org
+          code: 19893-7
+        - system: http://loinc.org
+          code: 19892-9
+        - system: http://loinc.org
+          code: 19895-2
+        - system: http://loinc.org
+          code: 19894-5
+        - system: http://loinc.org
+          code: 19903-4
+        - system: http://loinc.org
+          code: 19902-6
+        - system: http://loinc.org
+          code: 19899-4
+        - system: http://loinc.org
+          code: 19898-6
+        - system: http://loinc.org
+          code: 19901-8
+        - system: http://loinc.org
+          code: 19900-0
+        - system: http://loinc.org
+          code: 19909-1
+        - system: http://loinc.org
+          code: 19908-3
+        - system: http://loinc.org
+          code: 19905-9
+        - system: http://loinc.org
+          code: 19904-2
+        - system: http://loinc.org
+          code: 19907-5
+        - system: http://loinc.org
+          code: 19906-7
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=pco2
 pO2, mmHg (arterial):
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=po2 
+        - system: http://loinc.org
+          code: 19981-0
+        - system: http://loinc.org
+          code: 19980-2
+        - system: http://loinc.org
+          code: 19983-6
+        - system: http://loinc.org
+          code: 19982-8
+        - system: http://loinc.org
+          code: 11556-8
+        - system: http://loinc.org
+          code: 19988-5
+        - system: http://loinc.org
+          code: 19987-7
+        - system: http://loinc.org
+          code: 19986-9
+        - system: http://loinc.org
+          code: 19985-1
+        - system: http://loinc.org
+          code: 2703-7
+        - system: http://loinc.org
+          code: 2704-5
+        - system: http://loinc.org
+          code: 33437-5
+        - system: http://loinc.org
+          code: 14864-3
+        - system: http://loinc.org
+          code: 28648-4
+        - system: http://loinc.org
+          code: 28649-2
+        - system: http://loinc.org
+          code: 19211-2
+        - system: http://loinc.org
+          code: 2705-2
+        - system: http://loinc.org
+          code: 2706-0
+        - system: http://loinc.org
+          code: 3147-6
+        - system: http://loinc.org
+          code: 3148-4
+        - system: http://loinc.org
+          code: 3149-2
+        - system: http://loinc.org
+          code: 19984-4
+        - system: http://loinc.org
+          code: 19254-2
+        - system: http://loinc.org
+          code: 19255-9
+        - system: http://loinc.org
+          code: 19256-7
+        - system: http://loinc.org
+          code: 47716-6
+        - system: http://loinc.org
+          code: 49696-8
+        - system: http://loinc.org
+          code: 49697-6
+        - system: http://loinc.org
+          code: 19257-5
+        - system: http://loinc.org
+          code: 19258-3
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=po2
 pO2/FiO2 ratio:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=horowitz 
+        - system: http://loinc.org
+          code: 50982-8
+        - system: http://loinc.org
+          code: 50984-4
+        - system: http://loinc.org
+          code: 50983-6
+        - system: http://loinc.org
+          code: 50985-1
+        - system: http://loinc.org
+          code: 50986-9
+        - system: http://loinc.org
+          code: 50987-7
+        - system: http://loinc.org
+          code: 50989-3
+        - system: http://loinc.org
+          code: 50988-5
+        - system: http://loinc.org
+          code: 50990-1
+        - system: http://loinc.org
+          code: 50991-9
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=horowitz
 Base deficit:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=base+deficit 
+        - system: http://loinc.org
+          code: 30318-0
+        - system: http://loinc.org
+          code: 1922-4
+        - system: http://loinc.org
+          code: 1923-2
+        - system: http://loinc.org
+          code: 59154-5
+        - system: http://loinc.org
+          code: 30317-2
+        - system: http://loinc.org
+          code: 28637-7
+        - system: http://loinc.org
+          code: 53116-0
+        - system: http://loinc.org
+          code: 1924-0
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=base+deficit
 Lactate, mmol/L:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=lactate 
-          codes: 59032-3, 30242-2, 51829-0, 30241-4, 29246-6, 27941-4, 14118-4, 35245-0, 29875-2, 34323-6, 32693-4, 19239-3, 75366-5, 55932-8, 19240-1, 14165-5, 55931-0, 32132-3, 32133-1, 34324-4, 74896-2, 15078-9, 57365-9, 57357-6, 59011-7, 59012-5, 27946-3, 57364-2, 57356-8, 59005-9, 57360-0, 27955-4, 57358-4, 57362-6, 59013-3, 27961-2, 57359-2, 57361-8, 59006-7, 57728-8, 27949-7, 57363-4, 59007-5, 57729-6, 59004-2, 27976-0, 68911-7, 59849-0, 51428-1, 57366-7
+        - system: http://loinc.org
+          code: 59032-3
+        - system: http://loinc.org
+          code: 30242-2
+        - system: http://loinc.org
+          code: 51829-0
+        - system: http://loinc.org
+          code: 30241-4
+        - system: http://loinc.org
+          code: 29246-6
+        - system: http://loinc.org
+          code: 27941-4
+        - system: http://loinc.org
+          code: 14118-4
+        - system: http://loinc.org
+          code: 35245-0
+        - system: http://loinc.org
+          code: 29875-2
+        - system: http://loinc.org
+          code: 34323-6
+        - system: http://loinc.org
+          code: 32693-4
+        - system: http://loinc.org
+          code: 19239-3
+        - system: http://loinc.org
+          code: 75366-5
+        - system: http://loinc.org
+          code: 55932-8
+        - system: http://loinc.org
+          code: 19240-1
+        - system: http://loinc.org
+          code: 14165-5
+        - system: http://loinc.org
+          code: 55931-0
+        - system: http://loinc.org
+          code: 32132-3
+        - system: http://loinc.org
+          code: 32133-1
+        - system: http://loinc.org
+          code: 34324-4
+        - system: http://loinc.org
+          code: 74896-2
+        - system: http://loinc.org
+          code: 15078-9
+        - system: http://loinc.org
+          code: 57365-9
+        - system: http://loinc.org
+          code: 57357-6
+        - system: http://loinc.org
+          code: 59011-7
+        - system: http://loinc.org
+          code: 59012-5
+        - system: http://loinc.org
+          code: 27946-3
+        - system: http://loinc.org
+          code: 57364-2
+        - system: http://loinc.org
+          code: 57356-8
+        - system: http://loinc.org
+          code: 59005-9
+        - system: http://loinc.org
+          code: 57360-0
+        - system: http://loinc.org
+          code: 27955-4
+        - system: http://loinc.org
+          code: 57358-4
+        - system: http://loinc.org
+          code: 57362-6
+        - system: http://loinc.org
+          code: 59013-3
+        - system: http://loinc.org
+          code: 27961-2
+        - system: http://loinc.org
+          code: 57359-2
+        - system: http://loinc.org
+          code: 57361-8
+        - system: http://loinc.org
+          code: 59006-7
+        - system: http://loinc.org
+          code: 57728-8
+        - system: http://loinc.org
+          code: 27949-7
+        - system: http://loinc.org
+          code: 57363-4
+        - system: http://loinc.org
+          code: 59007-5
+        - system: http://loinc.org
+          code: 57729-6
+        - system: http://loinc.org
+          code: 59004-2
+        - system: http://loinc.org
+          code: 27976-0
+        - system: http://loinc.org
+          code: 68911-7
+        - system: http://loinc.org
+          code: 59849-0
+        - system: http://loinc.org
+          code: 51428-1
+        - system: http://loinc.org
+          code: 57366-7
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=lactate
 SvO2, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=mixed+venous+oxygen+saturation 
+        - system: http://loinc.org
+          code: 74105-8
+        - system: http://loinc.org
+          code: 19217-9
+        - system: http://loinc.org
+          code: 19224-5
+        - system: http://loinc.org
+          code: 71846-0
+        - system: http://loinc.org
+          code: 56875-8
+        - system: http://loinc.org
+          code: 50187-4
+        - system: http://loinc.org
+          code: 34969-6
+        - system: http://loinc.org
+          code: 71837-9
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=mixed+venous+oxygen+saturation
+White blood cell count, cells 103/uL:
+    Measurement:
+        - system: http://loinc.org
+          code: 53286-1
+        - system: http://loinc.org
+          code: 33768-3
+        - system: http://loinc.org
+          code: 50233-6
+        - system: http://loinc.org
+          code: 6690-2
+        - system: http://loinc.org
+          code: 804-5
+        - system: http://loinc.org
+          code: 62239-9
+        - system: http://loinc.org
+          code: 33765-9
+        - system: http://loinc.org
+          code: 33028-2
+        - system: http://loinc.org
+          code: 95218-4
+        - system: http://loinc.org
+          code: 57845-0
+        - system: http://loinc.org
+          code: 6743-9
+        - system: http://loinc.org
+          code: 82587-7
+        - system: http://loinc.org
+          code: 14810-6
+        - system: http://loinc.org
+          code: 805-2
+        - system: http://loinc.org
+          code: 806-0
+        - system: http://loinc.org
+          code: 68368-0
+        - system: http://loinc.org
+          code: 57847-6
+        - system: http://loinc.org
+          code: 40533-2
+        - system: http://loinc.org
+          code: 14373-5
+        - system: http://loinc.org
+          code: 57846-8
+        - system: http://loinc.org
+          code: 14811-4
+        - system: http://loinc.org
+          code: 809-4
+        - system: http://loinc.org
+          code: 810-2
+        - system: http://loinc.org
+          code: 807-8
+        - system: http://loinc.org
+          code: 808-6
+        - system: http://loinc.org
+          code: 62251-4
+        - system: http://loinc.org
+          code: 72348-6
+        - system: http://loinc.org
+          code: 13349-6
+        - system: http://loinc.org
+          code: 813-6
+        - system: http://loinc.org
+          code: 814-4
+        - system: http://loinc.org
+          code: 68434-0
+        - system: http://loinc.org
+          code: 20584-9
+        - system: http://loinc.org
+          code: 47281-1
+        - system: http://loinc.org
+          code: 26464-8
+        - system: http://loinc.org
+          code: 49498-9
+        - system: http://loinc.org
+          code: 811-0
+        - system: http://loinc.org
+          code: 812-8
+        - system: http://loinc.org
+          code: 51487-7
+        - system: http://loinc.org
+          code: 24122-4
+        - system: http://loinc.org
+          code: 92635-2
+        - system: http://loinc.org
+          code: 26466-3
+        - system: http://loinc.org
+          code: 30401-4
+        - system: http://loinc.org
+          code: 26465-5
+        - system: http://loinc.org
+          code: 53518-7
+        - system: http://loinc.org
+          code: 49928-5
+        - system: http://loinc.org
+          code: 30402-2
+        - system: http://loinc.org
+          code: 30403-0
+        - system: http://loinc.org
+          code: 26468-9
+        - system: http://loinc.org
+          code: 26467-1
+        - system: http://loinc.org
+          code: 30404-8
+        - system: http://loinc.org
+          code: 26469-7
+        - system: http://loinc.org
+          code: 10579-1
+        - system: http://loinc.org
+          code: 30405-5
+        - system: http://loinc.org
+          code: 20408-1
+        - system: http://loinc.org
+          code: 58805-3
+        - system: http://loinc.org
+          code: 63555-7
+        - system: http://loinc.org
+          code: 18407-7
+        - system: http://loinc.org
+          code: 63554-0
+        - system: http://loinc.org
+          code: 59829-2
+        - system: http://loinc.org
+          code: 60433-0
+        - system: http://loinc.org
+          code: 46702-7
+        - system: http://loinc.org
+          code: 51383-8
+        - system: http://loinc.org
+          code: 729-4
+        - system: http://loinc.org
+          code: 66145-4
+        - system: http://loinc.org
+          code: 30406-3
+        - system: http://loinc.org
+          code: 13351-2
+        - system: http://loinc.org
+          code: 68428-2
+        - system: http://loinc.org
+          code: 68429-0
+        - system: http://loinc.org
+          code: 68430-8
+        - system: http://loinc.org
+          code: 68431-6
+        - system: http://loinc.org
+          code: 68433-2
+        - system: http://loinc.org
+          code: 15190-2
+        - system: http://loinc.org
+          code: 35051-2
+        - system: http://loinc.org
+          code: 26470-5
+        - system: http://loinc.org
+          code: 67830-0
+        - system: http://loinc.org
+          code: 35054-6
+        - system: http://loinc.org
+          code: 35052-0
+        - system: http://loinc.org
+          code: 67836-7
+        - system: http://loinc.org
+          code: 35053-8
+        - system: http://loinc.org
+          code: 17790-7
+        - system: http://loinc.org
+          code: 76674-1
+        - system: http://loinc.org
+          code: 46088-1
+        - system: http://loinc.org
+          code: 46089-9
+        - system: http://loinc.org
+          code: 46090-7
+        - system: http://loinc.org
+          code: 33256-9
+        - system: http://loinc.org
+          code: 66768-3
+        - system: http://loinc.org
+          code: 12227-5
+        - system: http://loinc.org
+          code: 61182-2
+        - system: http://loinc.org
+          code: 48052-5
+        - system: http://loinc.org
+          code: 55784-3
+        - system: http://loinc.org
+          code: 48034-3
+        - system: http://loinc.org
+          code: 70126-8
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=White+blood+cell+count
+Absolute neutrophil count (ANC), cells 103/uL:
+    Measurement:
+        - system: http://loinc.org
+          code: 751-8
+        - system: http://loinc.org
+          code: 753-4
+        - system: http://loinc.org
+          code: 66139-7
+        - system: http://loinc.org
+          code: 40566-2
+        - system: http://loinc.org
+          code: 754-2
+        - system: http://loinc.org
+          code: 755-9
+        - system: http://loinc.org
+          code: 68425-8
+        - system: http://loinc.org
+          code: 758-3
+        - system: http://loinc.org
+          code: 759-1
+        - system: http://loinc.org
+          code: 756-7
+        - system: http://loinc.org
+          code: 757-5
+        - system: http://loinc.org
+          code: 72347-8
+        - system: http://loinc.org
+          code: 17359-1
+        - system: http://loinc.org
+          code: 5906-3
+        - system: http://loinc.org
+          code: 760-9
+        - system: http://loinc.org
+          code: 761-7
+        - system: http://loinc.org
+          code: 762-5
+        - system: http://loinc.org
+          code: 68427-4
+        - system: http://loinc.org
+          code: 26499-4
+        - system: http://loinc.org
+          code: 85369-7
+        - system: http://loinc.org
+          code: 74398-9
+        - system: http://loinc.org
+          code: 32709-8
+        - system: http://loinc.org
+          code: 26500-9
+        - system: http://loinc.org
+          code: 67826-8
+        - system: http://loinc.org
+          code: 26502-5
+        - system: http://loinc.org
+          code: 26501-7
+        - system: http://loinc.org
+          code: 67832-6
+        - system: http://loinc.org
+          code: 26503-3
+        - system: http://loinc.org
+          code: 26504-1
+        - system: http://loinc.org
+          code: 30448-5
+        - system: http://loinc.org
+          code: 30229-9
+        - system: http://loinc.org
+          code: 763-3
+        - system: http://loinc.org
+          code: 66138-9
+        - system: http://loinc.org
+          code: 40572-0
+        - system: http://loinc.org
+          code: 26507-4
+        - system: http://loinc.org
+          code: 35014-0
+        - system: http://loinc.org
+          code: 35015-7
+        - system: http://loinc.org
+          code: 35013-2
+        - system: http://loinc.org
+          code: 766-6
+        - system: http://loinc.org
+          code: 30449-3
+        - system: http://loinc.org
+          code: 768-2
+        - system: http://loinc.org
+          code: 6745-4
+        - system: http://loinc.org
+          code: 30451-9
+        - system: http://loinc.org
+          code: 30452-7
+        - system: http://loinc.org
+          code: 35011-6
+        - system: http://loinc.org
+          code: 35010-8
+        - system: http://loinc.org
+          code: 35012-4
+        - system: http://loinc.org
+          code: 35009-0
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=Absolute+neutrophil+count
+Absolute lymphocyte count (ALC), cells 103/uL:
+    Measurement:
+        - system: http://loinc.org
+          code: 731-0
+        - system: http://loinc.org
+          code: 732-8
+        - system: http://loinc.org
+          code: 66140-5
+        - system: http://loinc.org
+          code: 6744-7
+        - system: http://loinc.org
+          code: 14106-9
+        - system: http://loinc.org
+          code: 68404-3
+        - system: http://loinc.org
+          code: 51627-8
+        - system: http://loinc.org
+          code: 68405-0
+        - system: http://loinc.org
+          code: 32697-5
+        - system: http://loinc.org
+          code: 68407-6
+        - system: http://loinc.org
+          code: 20585-6
+        - system: http://loinc.org
+          code: 26474-7
+        - system: http://loinc.org
+          code: 30364-4
+        - system: http://loinc.org
+          code: 74401-1
+        - system: http://loinc.org
+          code: 26476-2
+        - system: http://loinc.org
+          code: 26475-4
+        - system: http://loinc.org
+          code: 67827-6
+        - system: http://loinc.org
+          code: 35097-5
+        - system: http://loinc.org
+          code: 35098-3
+        - system: http://loinc.org
+          code: 67833-4
+        - system: http://loinc.org
+          code: 35049-6
+        - system: http://loinc.org
+          code: 11130-2
+        - system: http://loinc.org
+          code: 42759-1
+        - system: http://loinc.org
+          code: 35081-9
+        - system: http://loinc.org
+          code: 30118-4
+        - system: http://loinc.org
+          code: 30120-0
+        - system: http://loinc.org
+          code: 30113-5
+        - system: http://loinc.org
+          code: 30119-2
+        - system: http://loinc.org
+          code: 29262-3
+        - system: http://loinc.org
+          code: 30412-1
+        - system: http://loinc.org
+          code: 35046-2
+        - system: http://loinc.org
+          code: 35047-0
+        - system: http://loinc.org
+          code: 35048-8
+        - system: http://loinc.org
+          code: 30181-2
+        - system: http://loinc.org
+          code: 30418-8
+        - system: http://loinc.org
+          code: 33832-7
+        - system: http://loinc.org
+          code: 35040-5
+        - system: http://loinc.org
+          code: 30115-0
+        - system: http://loinc.org
+          code: 30114-3
+        - system: http://loinc.org
+          code: 35082-7
+        - system: http://loinc.org
+          code: 33834-3
+        - system: http://loinc.org
+          code: 35039-7
+        - system: http://loinc.org
+          code: 43743-4
+        - system: http://loinc.org
+          code: 734-4
+        - system: http://loinc.org
+          code: 66144-7
+        - system: http://loinc.org
+          code: 40573-8
+        - system: http://loinc.org
+          code: 26477-0
+        - system: http://loinc.org
+          code: 35045-4
+        - system: http://loinc.org
+          code: 35043-9
+        - system: http://loinc.org
+          code: 35041-3
+        - system: http://loinc.org
+          code: 35042-1
+        - system: http://loinc.org
+          code: 35044-7
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=Absolute+lymphocyte+count
+Hemoglobin, [units]:
+    Measurement:
+        - system: http://loinc.org
+          code: 31157-1
+        - system: http://loinc.org
+          code: 41995-2
+        - system: http://loinc.org
+          code: 4564-1
+        - system: http://loinc.org
+          code: 4567-4
+        - system: http://loinc.org
+          code: 4568-2
+        - system: http://loinc.org
+          code: 9749-3
+        - system: http://loinc.org
+          code: 53857-9
+        - system: http://loinc.org
+          code: 40549-8
+        - system: http://loinc.org
+          code: 28067-7
+        - system: http://loinc.org
+          code: 4579-9
+        - system: http://loinc.org
+          code: 4632-6
+        - system: http://loinc.org
+          code: 32140-6
+        - system: http://loinc.org
+          code: 18277-4
+        - system: http://loinc.org
+          code: 18278-2
+        - system: http://loinc.org
+          code: 4631-8
+        - system: http://loinc.org
+          code: 28006-5
+        - system: http://loinc.org
+          code: 30074-9
+        - system: http://loinc.org
+          code: 40721-3
+        - system: http://loinc.org
+          code: 42810-2
+        - system: http://loinc.org
+          code: 71694-4
+        - system: http://loinc.org
+          code: 14276-0
+        - system: http://loinc.org
+          code: 4578-1
+        - system: http://loinc.org
+          code: 4577-3
+        - system: http://loinc.org
+          code: 87433-9
+        - system: http://loinc.org
+          code: 53117-8
+        - system: http://loinc.org
+          code: 73895-5
+        - system: http://loinc.org
+          code: 718-7
+        - system: http://loinc.org
+          code: 20509-6
+        - system: http://loinc.org
+          code: 55782-7
+        - system: http://loinc.org
+          code: 54289-4
+        - system: http://loinc.org
+          code: 61180-6
+        - system: http://loinc.org
+          code: 30313-1
+        - system: http://loinc.org
+          code: 14775-1
+        - system: http://loinc.org
+          code: 30352-9
+        - system: http://loinc.org
+          code: 40719-7
+        - system: http://loinc.org
+          code: 30354-5
+        - system: http://loinc.org
+          code: 33026-6
+        - system: http://loinc.org
+          code: 30353-7
+        - system: http://loinc.org
+          code: 33025-8
+        - system: http://loinc.org
+          code: 30351-1
+        - system: http://loinc.org
+          code: 76768-1
+        - system: http://loinc.org
+          code: 30350-3
+        - system: http://loinc.org
+          code: 76769-9
+        - system: http://loinc.org
+          code: 33509-1
+        - system: http://loinc.org
+          code: 719-5
+        - system: http://loinc.org
+          code: 69950-4
+        - system: http://loinc.org
+          code: 723-7
+        - system: http://loinc.org
+          code: 722-9
+        - system: http://loinc.org
+          code: 724-5
+        - system: http://loinc.org
+          code: 726-0
+        - system: http://loinc.org
+          code: 49137-3
+        - system: http://loinc.org
+          code: 50559-4
+        - system: http://loinc.org
+          code: 35183-3
+        - system: http://loinc.org
+          code: 717-9
+        - system: http://loinc.org
+          code: 33517-4
+        - system: http://loinc.org
+          code: 48035-0
+        - system: http://loinc.org
+          code: 725-2
+        - system: http://loinc.org
+          code: 5794-3
+        - system: http://loinc.org
+          code: 57751-0
+        - system: http://loinc.org
+          code: 34618-9
+        - system: http://loinc.org
+          code: 59260-0
+        - system: http://loinc.org
+          code: 75928-2
+        - system: http://loinc.org
+          code: 93846-4
+        - system: http://loinc.org
+          code: 24360-0
+        - system: http://loinc.org
+          code: 10346-5
+        - system: http://loinc.org
+          code: 45208-6
+        - system: http://loinc.org
+          code: 12711-8
+        - system: http://loinc.org
+          code: 28559-3
+        - system: http://loinc.org
+          code: 27345-8
+        - system: http://loinc.org
+          code: 4550-0
+        - system: http://loinc.org
+          code: 4556-7
+        - system: http://loinc.org
+          code: 4557-5
+        - system: http://loinc.org
+          code: 10486-9
+        - system: http://loinc.org
+          code: 4558-3
+        - system: http://loinc.org
+          code: 4559-1
+        - system: http://loinc.org
+          code: 55783-5
+        - system: http://loinc.org
+          code: 4560-9
+        - system: http://loinc.org
+          code: 40720-5
+        - system: http://loinc.org
+          code: 40545-6
+        - system: http://loinc.org
+          code: 48707-4
+        - system: http://loinc.org
+          code: 12713-4
+        - system: http://loinc.org
+          code: 34174-3
+        - system: http://loinc.org
+          code: 4565-8
+        - system: http://loinc.org
+          code: 4566-6
+        - system: http://loinc.org
+          code: 4572-4
+        - system: http://loinc.org
+          code: 46740-7
+        - system: http://loinc.org
+          code: 46423-0
+        - system: http://loinc.org
+          code: 4571-6
+        - system: http://loinc.org
+          code: 4570-8
+        - system: http://loinc.org
+          code: 40546-4
+        - system: http://loinc.org
+          code: 4582-3
+        - system: http://loinc.org
+          code: 4581-5
+        - system: http://loinc.org
+          code: 4583-1
+        - system: http://loinc.org
+          code: 4584-9
+        - system: http://loinc.org
+          code: 4585-6
+        - system: http://loinc.org
+          code: 4586-4
+        - system: http://loinc.org
+          code: 40550-6
+        - system: http://loinc.org
+          code: 40547-2
+        - system: http://loinc.org
+          code: 17871-5
+        - system: http://loinc.org
+          code: 59185-9
+        - system: http://loinc.org
+          code: 4589-8
+        - system: http://loinc.org
+          code: 4590-6
+        - system: http://loinc.org
+          code: 4591-4
+        - system: http://loinc.org
+          code: 4592-2
+        - system: http://loinc.org
+          code: 94538-6
+        - system: http://loinc.org
+          code: 4593-0
+        - system: http://loinc.org
+          code: 4594-8
+        - system: http://loinc.org
+          code: 4595-5
+        - system: http://loinc.org
+          code: 4596-3
+        - system: http://loinc.org
+          code: 4597-1
+        - system: http://loinc.org
+          code: 4598-9
+        - system: http://loinc.org
+          code: 4599-7
+        - system: http://loinc.org
+          code: 4600-3
+        - system: http://loinc.org
+          code: 4601-1
+        - system: http://loinc.org
+          code: 4602-9
+        - system: http://loinc.org
+          code: 4603-7
+        - system: http://loinc.org
+          code: 4604-5
+        - system: http://loinc.org
+          code: 4605-2
+        - system: http://loinc.org
+          code: 53224-2
+        - system: http://loinc.org
+          code: 4611-0
+        - system: http://loinc.org
+          code: 4612-8
+        - system: http://loinc.org
+          code: 4606-0
+        - system: http://loinc.org
+          code: 4607-8
+        - system: http://loinc.org
+          code: 4608-6
+        - system: http://loinc.org
+          code: 4609-4
+        - system: http://loinc.org
+          code: 4610-2
+        - system: http://loinc.org
+          code: 4613-6
+        - system: http://loinc.org
+          code: 4614-4
+        - system: http://loinc.org
+          code: 4615-1
+        - system: http://loinc.org
+          code: 4616-9
+        - system: http://loinc.org
+          code: 4617-7
+        - system: http://loinc.org
+          code: 4618-5
+        - system: http://loinc.org
+          code: 94537-8
+        - system: http://loinc.org
+          code: 43113-0
+        - system: http://loinc.org
+          code: 4619-3
+        - system: http://loinc.org
+          code: 34663-5
+        - system: http://loinc.org
+          code: 4621-9
+        - system: http://loinc.org
+          code: 4622-7
+        - system: http://loinc.org
+          code: 4623-5
+        - system: http://loinc.org
+          code: 6864-3
+        - system: http://loinc.org
+          code: 92502-4
+        - system: http://loinc.org
+          code: 92540-4
+        - system: http://loinc.org
+          code: 12712-6
+        - system: http://loinc.org
+          code: 4626-8
+        - system: http://loinc.org
+          code: 4627-6
+        - system: http://loinc.org
+          code: 4628-4
+        - system: http://loinc.org
+          code: 4629-2
+        - system: http://loinc.org
+          code: 4630-0
+        - system: http://loinc.org
+          code: 48725-6
+        - system: http://loinc.org
+          code: 76686-5
+        - system: http://loinc.org
+          code: 76141-1
+        - system: http://loinc.org
+          code: 76139-5
+        - system: http://loinc.org
+          code: 64118-3
+        - system: http://loinc.org
+          code: 64119-1
+        - system: http://loinc.org
+          code: 89364-4
+        - system: http://loinc.org
+          code: 721-1
+        - system: http://loinc.org
+          code: 4635-9
+        - system: http://loinc.org
+          code: 4636-7
+        - system: http://loinc.org
+          code: 49000-3
+        - system: http://loinc.org
+          code: 720-3
+        - system: http://loinc.org
+          code: 33411-0
+        - system: http://loinc.org
+          code: 25433-4
+        - system: http://loinc.org
+          code: 48711-6
+        - system: http://loinc.org
+          code: 34743-5
+        - system: http://loinc.org
+          code: 4639-1
+        - system: http://loinc.org
+          code: 41619-8
+        - system: http://loinc.org
+          code: 58453-2
+        - system: http://loinc.org
+          code: 29771-3
+        - system: http://loinc.org
+          code: 57905-2
+        - system: http://loinc.org
+          code: 56490-6
+        - system: http://loinc.org
+          code: 56491-4
+        - system: http://loinc.org
+          code: 27396-1
+        - system: http://loinc.org
+          code: 2334-1
+        - system: http://loinc.org
+          code: 50017-3
+        - system: http://loinc.org
+          code: 2335-8
+        - system: http://loinc.org
+          code: 80372-6
+        - system: http://loinc.org
+          code: 48047-5
+        - system: http://loinc.org
+          code: 42909-2
+        - system: http://loinc.org
+          code: 14563-1
+        - system: http://loinc.org
+          code: 42913-4
+        - system: http://loinc.org
+          code: 42910-0
+        - system: http://loinc.org
+          code: 14564-9
+        - system: http://loinc.org
+          code: 42912-6
+        - system: http://loinc.org
+          code: 42911-8
+        - system: http://loinc.org
+          code: 14565-6
+        - system: http://loinc.org
+          code: 12503-9
+        - system: http://loinc.org
+          code: 12504-7
+        - system: http://loinc.org
+          code: 27401-9
+        - system: http://loinc.org
+          code: 27925-7
+        - system: http://loinc.org
+          code: 27926-5
+        - system: http://loinc.org
+          code: 73984-7
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=hemoglobin
+Platelet count, [units]:
+    Measurement:
+        - system: http://loinc.org
+          code: 74775-8
+        - system: http://loinc.org
+          code: 777-3
+        - system: http://loinc.org
+          code: 778-1
+        - system: http://loinc.org
+          code: 62244-9
+        - system: http://loinc.org
+          code: 74464-9
+        - system: http://loinc.org
+          code: 40574-6
+        - system: http://loinc.org
+          code: 13056-7
+        - system: http://loinc.org
+          code: 15201-7
+        - system: http://loinc.org
+          code: 71692-8
+        - system: http://loinc.org
+          code: 26515-7
+        - system: http://loinc.org
+          code: 49497-1
+        - system: http://loinc.org
+          code: 47284-5
+        - system: http://loinc.org
+          code: 55802-3
+        - system: http://loinc.org
+          code: 26516-5
+        - system: http://loinc.org
+          code: 53800-9
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=Platelet+count
+Blood Type:
+    Measurement:
+        - system: http://loinc.org
+          code: 933-2
+        - system: http://loinc.org
+          code: 34531-4
+        - system: http://loinc.org
+          code: 34532-2
+        - system: http://loinc.org
+          code: 881-3
+        - system: http://loinc.org
+          code: 14578-9
+        - system: http://loinc.org
+          code: 14907-0
+        - system: http://loinc.org
+          code: 884-7
+        - system: http://loinc.org
+          code: 34474-7
+        - system: http://loinc.org
+          code: 882-1
+        - system: http://loinc.org
+          code: 77397-8
+        - system: http://loinc.org
+          code: 88027-8
+         # note: https://search.loinc.org/searchLOINC/search.zul?query=blood+type
 Serum Sodium, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+sodium
+        - system: http://loinc.org
           code: 77139-4
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=serum+sodium
 Serum Potassium, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+potassium
+        - system: http://loinc.org
           code: 77142-8
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=serum+potassium
 Serum Chloride, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+chloride
+        - system: http://loinc.org
           code: 77138-6
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=serum+chloride
 Serum Bicarbonate, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+bicarbonate
+        - system: http://loinc.org
           code: 1963-8
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=serum+bicarbonate
 Blood Urea Nitrogen, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=blood+urea+nitrogen
+        - system: http://loinc.org
           code: 6299-2
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=blood+urea+nitrogen
 Serum Creatinine, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+creatinine
+        - system: http://loinc.org
           code: 77140-2
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=serum+creatinine
 Serum Glucose, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=serum+glucose
-          codes: 72650-5, 72649-7, 72651-3, 72648-9
+        - system: http://loinc.org
+          code: 72650-5
+        - system: http://loinc.org
+          code: 72649-7
+        - system: http://loinc.org
+          code: 72651-3
+        - system: http://loinc.org
+          code: 72648-9
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=serum+glucose
 ALT, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=ALT
+        - system: http://loinc.org
           code: 76625-3
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=ALT
 AST, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=AST
+        - system: http://loinc.org
           code: 1920-8
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=AST
 Troponin [type], [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=troponin
-        https://loinc.org/10839-9/
+        - system: http://loinc.org
           code: 10839-9
-        https://loinc.org/6598-7/
+        - system: http://loinc.org
           code: 6598-7
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=troponin
 Brain Natriuretic Peptide [type], [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=brain+natriuretic+peptide
+        - system: http://loinc.org
           code: 30934-4
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=brain+natriuretic+peptide
 CK [type], [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=CK
+        - system: http://loinc.org
           code: 13969-1
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=CK
 Hgb A1C, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=HGB+A1C
+        - system: http://loinc.org
           code: 41995-2
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=HGB+A1C
 Estimated GFR, [units]:
     Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=Estimated+GFR
+        - system: http://loinc.org
           code: 69405-9
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=Estimated+GFR
+
+# Medications/Treatments
 Supplemental Oxygen:
-    Measurement:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=supplemental+oxygen
-          code: 88658-0
+    Procedure:
+        - system: https://browser.ihtsdotools.org
+          code: "SCTID: 57485005"
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=57485005&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
+        - system: https://browser.ihtsdotools.org
+          code: "SCTID: 304577004"
+          # note:https://browser.ihtsdotools.org/?perspective=full&conceptId1=304577004&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
+HF NC:
+    Procedure:
+        - system: https://browser.ihtsdotools.org
+          code: "SCTID: 371907003"
+        - system: https://browser.ihtsdotools.org
+          code: "SCTID: 426854004"
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=426854004&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
+          # note: searched for nasal cannula
+NIPPV:
+    Procedure:
+        - system: https://browser.ihtsdotools.org
+          code: "SCTID: 447837008"
+        - system: https://browser.ihtsdotools.org
+          code: "SCTID: 428311008"
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=447837008&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
+          # note: searched for noninvasive ventilation
 Invasive Ventilation:
     Procedure:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=invasive+ventilation
-          code: 87539-3
+        - system: https://browser.ihtsdotools.org
+          code: "SCTID: 40617009"
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=40617009&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
+        - system: https://browser.ihtsdotools.org
+          code: "SCTID: 266700009"
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=266700009&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
 Nitric Oxide or Flolan:
-    Drug:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=nitric%20oxide
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 7442
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=flolan
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 114221
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=nitric%20oxide
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=flolan
 Amiodarone gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=703
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 703
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=703
 Dopamine gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dopamine
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 3628
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dopamine
 Dobutamine gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dobutamine
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 3616
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dobutamine
 Epinephrine gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=epinephrine
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 3992
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=epinephrine
 Esmolol gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=esmolol
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 49737
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=esmolol
 Isoproterenol gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=isoproterenol
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 6054
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=isoproterenol
 Levosimendan gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=levosimendan
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 73107
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=levosimendan
 Milrinone gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=milrinone
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 52769
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=milrinone
 Norepinephrine gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=norepinephrine
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 7512
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=norepinephrine
 Phenylephrine gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=phenylephrine
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 8163
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=phenylephrine
 Vasopressin gtt:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=vasopressin
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 11149
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=vasopressin
 Remdesivir:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=remdesivir
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 2284718
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=remdesivir
 Hydroxychloroquine:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=hydroxychloroquine
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 5521
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=hydroxychloroquine 
 Antibiotics:
-    Substance:
-        - system: https://icd.who.int/browse10/2019/en#/Y40
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: Y40-Y84
+          # note: https://icd.who.int/browse10/2019/en#/Y40
 Dexamethasone:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dexamethasone
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 3264
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dexamethasone
 Prednisone/Methylprednisolone:
-    Substance:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=prednisone
-        https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=methylprednisolone 
-          code: 8640/6902
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
+          code: 8640
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=prednisone
+        - system: 
+          code: 6902
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=methylprednisolone
 IVIG:
-    Immunoglobulins, intravenous
-    Component:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=IVIG
+    Substance:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 42386
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=IVIG
+          # note: Immunoglobulins, intravenous
 Convalescent Plasma:
-    Component:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=convalescent+plasma
-          code: 95355-4/95354-7
+    Substance:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
+          code: 95355-4
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
+          code: 95354-7
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=convalescent+plasma
 Anakinra:
-    Ingredient:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=anakinra
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 72435
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=anakinra
 Tocilizumab:
-    Ingredient:
-        - system: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=tocilizumab
+    Medication:
+        - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 612865
-FeverDx:
-    Condition:
-        - system: https://icd.who.int/browse10/2019/en#/R50.9
-          code: R50.9
-Discharge Status:
-    Finding:
-        - system: https://search.loinc.org/searchLOINC/search.zul?query=discharge+status
-          code: 75527-2
-        
+          # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=tocilizumab
+
+# FeverDx:
+#     Condition:
+#         - system: 
+#           code:
+
+# Discharge Status:
+#     Observation:
+#         - system: 
+#           code:

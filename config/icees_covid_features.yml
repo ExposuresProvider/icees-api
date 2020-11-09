@@ -18,6 +18,11 @@ patient:
       - '45-64'
       - '65-89'
     biolinkType: PhenotypicFeature
+  AgeInteger:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: PhenotypicFeature
   Sex:
     type: string
     enum:
@@ -240,6 +245,366 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: DiseaseOrPhenotypicFeature
+  ErythrocyteSedimentationRate:
+    type: string
+    enum: ['Normal', 'Low', 'High']
+    biolinkType: PhenotypicFeature
+  Procalcitonin: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature 
+  Ferritin: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature 
+  C-reactiveProtein:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature  
+  D-dimer:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  LDH: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  IL-6:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  pH:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  pCO2ArterialVenous:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  pCO2Arterial:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  pO2Arterial:
+    type: string
+    enum:
+    biolinkType: PhenotypicFeature
+  pO2FiO2ratio:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  SpO2FiO2ratio:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  BaseDeficit:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  Lactate:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  SvO2: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  WBCcount: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  AbsoluteNeutrophilCount:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  Hemoglobin: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  PlateletCount:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  BloodType:
+    type: string
+    enum: ['A+ ','A-','B+','B-','AB+','AB-','O+','O-']
+    biolinkType: PhenotypicFeature
+  SerumSodium: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  SerumPotassium: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  SerumChloride:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  SerumBicarbonate:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  BloodUreaNitrogen:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  SerumCreatinine:
+    type: string
+    enum:
+    biolinkType: PhenotypicFeature
+  SerumGlucose:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  ALT:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  AST: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  Troponin:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  BrainNatriureticPeptide:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  CK:
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  HgbA1C: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
+  EstimatedGFR:
+    type: integer
+    minimum:
+    maximum:
+    biolinkType: PhenotypicFeature
+  RespiratorySupportSupplementalO2:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+   RespiratorySupportHFNC:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug 
+  RespiratorySupportNIPPV:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  RespiratorySupportInvasiveVentilator:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  RespiratorySupportHNO3orFlolan:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CardiovascularSupportAmiodarone_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CardiovascularSupportDopamine_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CardiovascularSupportDobutamine_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CardiovascularSupportEpinephrine_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CardiovascularSupportEsmolol_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug 
+  CardiovascularSupportIsoproterenol_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug 
+  CardiovascularSupportLevosimendan_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug 
+  CardiovascularSupportLevosimendan_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CardiovascularSupportMilrinone_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CardiovascularSupportNorepinephrine_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CardiovascularSupportPhenylephrine_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug 
+  CardiovascularSupportVasopressin_gtt:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CardiovascularSupporyECLS:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  CRRT_HD:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  AntiInfectivesRemdesivir:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+   AntiInfectivesHydroxychloroquine:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  AntiInfectivesAntibiotics:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  ImmunodulationDexamethaone:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  ImmunodulationPredinoseOrMethylpredinose:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  ImmunodulationIVIG:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  ImmunodulationConvalescentPlasma:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  ImmunodulationAnakinra:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  ImmunodulationTocilizumab:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
+  WHOSeverityScore:
+    type: integer
+    minimum: 0
+    maximum: 10
+    biolinkType: 
+  Inflluenza7pointClinicalStatusScore:
+    type: integer
+    minimum: 0
+    maximum: 10
+    biolinkType: 
+  FeverDx:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  IsolationFlag:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: 
+  DischargeStatus: 
+    type: string
+    enum: 
+    biolinkType:
+  PCDDx: 
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  NeonatalRespiratoryDistress:
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  LateralityDefect_SitusInversusOrHeterotaxy:
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  DailyWetCough:
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  MiddleEarDisease:
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  ChronicNasalCongestion: 
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  Bronchietasis:
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  MaleInfertilityDueToSpermDysfunctoon: 
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  CysticFibrosis:
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  Antibiotics: 
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  DILIDx: 
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease 
   AvgDailyPM2.5Exposure:
     type: integer
     minimum: 1
@@ -1107,7 +1472,6 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: PhenotypicFeature
-
   he_a004a_birth_low_bw:
     type: integer
     minimum: 0
@@ -11188,21 +11552,7 @@ patient:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+    biolinkType: Environment    
 visit:
   VisitType:
     type: string
@@ -11225,6 +11575,11 @@ visit:
       - '18-44'
       - '45-64'
       - '65-89'
+    biolinkType: PhenotypicFeature
+  AgeInteger:
+    type: integer
+    minimum: 0
+    maximum: 1
     biolinkType: PhenotypicFeature
   Sex:
     type: string
@@ -11358,361 +11713,426 @@ visit:
     minimum: 0
     maximum: 1
     biolinkType: Disease
+  SmokingStatus:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: ChemicalExposure
+  ChalrsonComorbidityIndex:
+    type: interger
+    minimum: 0
+    maximum: 37
+    biolinkType: PhenotypicFeature
+  HypertensionDx:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  ChronicKidneyDisese: 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  ChronicArteryDisease:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  HeartFailure:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  LiverDisease: 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  Cancer:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  HIVInfection:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  HospitalLOS: 
+    type: integer
+    minimum:
+    maximum: 
+    biolinkType: 
+  ICU:
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType:
+  Ventilator: 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Device
   ErythrocyteSedimentationRate:
     type: string
-    enum: 
+    enum: ['Normal', 'Low', 'High']
     biolinkType: PhenotypicFeature
+  Procalcitonin: 
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature 
   Ferritin: 
     type: string
     enum: 
     biolinkType: PhenotypicFeature 
   C-reactiveProtein:
     type: string
-     enum: 
-     biolinkType: PhenotypicFeature  
+    enum: 
+    biolinkType: PhenotypicFeature  
   D-dimer:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   LDH: 
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   IL-6:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   pH:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   pCO2ArterialVenous:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   pCO2Arterial:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   pO2Arterial:
-     type: string
-     enum:
-     biolinkType: PhenotypicFeature
+    type: string
+    enum:
+    biolinkType: PhenotypicFeature
   pO2FiO2ratio:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   SpO2FiO2ratio:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   BaseDeficit:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   Lactate:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   SvO2: 
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   WBCcount: 
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   AbsoluteNeutrophilCount:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   Hemoglobin: 
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   PlateletCount:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   BloodType:
-     type: string
-     enum: ['A+ ','A-','B+','B-','AB+','AB-','O+','O-']
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: ['A+ ','A-','B+','B-','AB+','AB-','O+','O-']
+    biolinkType: PhenotypicFeature
   SerumSodium: 
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   SerumPotassium: 
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   SerumChloride:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   SerumBicarbonate:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   BloodUreaNitrogen:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   SerumCreatinine:
-     type: string
-     enum:
-     biolinkType: PhenotypicFeature
+    type: string
+    enum:
+    biolinkType: PhenotypicFeature
   SerumGlucose:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   ALT:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   AST: 
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   Troponin:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   BrainNatriureticPeptide:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   CK:
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   HgbA1C: 
-     type: string
-     enum: 
-     biolinkType: PhenotypicFeature
+    type: string
+    enum: 
+    biolinkType: PhenotypicFeature
   EstimatedGFR:
-     type: integer
-     minimum:
-     maximum:
-     biolinkType: PhenotypicFeature
+    type: integer
+    minimum:
+    maximum:
+    biolinkType: PhenotypicFeature
   RespiratorySupportSupplementalO2:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
    RespiratorySupportHFNC:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug 
   RespiratorySupportNIPPV:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   RespiratorySupportInvasiveVentilator:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   RespiratorySupportHNO3orFlolan:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   CardiovascularSupportAmiodarone_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   CardiovascularSupportDopamine_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   CardiovascularSupportDobutamine_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   CardiovascularSupportEpinephrine_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   CardiovascularSupportEsmolol_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug 
   CardiovascularSupportIsoproterenol_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug 
   CardiovascularSupportLevosimendan_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug 
   CardiovascularSupportLevosimendan_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   CardiovascularSupportMilrinone_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   CardiovascularSupportNorepinephrine_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   CardiovascularSupportPhenylephrine_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug 
   CardiovascularSupportVasopressin_gtt:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   CardiovascularSupporyECLS:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   CRRT_HD:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   AntiInfectivesRemdesivir:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
    AntiInfectivesHydroxychloroquine:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   AntiInfectivesAntibiotics:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   ImmunodulationDexamethaone:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   ImmunodulationPredinoseOrMethylpredinose:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   ImmunodulationIVIG:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   ImmunodulationConvalescentPlasma:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   ImmunodulationAnakinra:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   ImmunodulationTocilizumab:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Drug
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Drug
   WHOSeverityScore:
-     type: integer
-     minimum: 0
-     maximum: 10
-     biolinkType: 
+    type: integer
+    minimum: 0
+    maximum: 10
+    biolinkType: 
   Inflluenza7pointClinicalStatusScore:
-     type: integer
-     minimum: 0
-     maximum: 10
-     biolinkType: 
+    type: integer
+    minimum: 0
+    maximum: 10
+    biolinkType: 
   FeverDx:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   IsolationFlag:
-     type: integer
-     minimum: 0
-     maximum: 1
-     biolinkType: 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: 
   DischargeStatus: 
-     type: string
-     enum: 
-     biolinkType:
+    type: string
+    enum: 
+    biolinkType:
   PCDDx: 
-     type: interger
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   NeonatalRespiratoryDistress:
-     type: interger
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   LateralityDefect_SitusInversusOrHeterotaxy:
-     type: interger
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   DailyWetCough:
-     type: interger
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   MiddleEarDisease:
-     type: interger
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   ChronicNasalCongestion: 
-     type: interger
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   Bronchietasis:
-     type: interger
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   MaleInfertilityDueToSpermDysfunctoon: 
-     type: interger
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   CysticFibrosis:
     type: interger
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
+  Antibiotics: 
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease
   DILIDx: 
-     type: interger
-     minimum: 0
-     maximum: 1
-     biolinkType: Disease
-  DischargeStatus:
-     type: string
-     enum: 
-     biolinkType: 
+    type: interger
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease 
   AlcoholDependenceDxVisit:
     type: integer
     minimum: 0

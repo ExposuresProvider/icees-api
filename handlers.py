@@ -18,10 +18,10 @@ from models import (
 from utils import to_qualifiers, to_qualifiers2
 
 
-router = APIRouter()
+ROUTER = APIRouter()
 
 
-@router.post("/{table}/{year}/cohort", response_model=Dict)
+@ROUTER.post("/{table}/{year}/cohort", response_model=Dict)
 def discover_cohort(
         table: str,
         year: int,
@@ -49,7 +49,7 @@ def discover_cohort(
     return {"return value": return_value}
 
 
-@router.get(
+@ROUTER.get(
     "/{table}/{year}/cohort/dictionary",
     response_model=Dict,
 )
@@ -63,7 +63,7 @@ def dictionary(
     return {"return value": return_value}
 
 
-@router.put("/{table}/{year}/cohort/{cohort_id}", response_model=Dict)
+@ROUTER.put("/{table}/{year}/cohort/{cohort_id}", response_model=Dict)
 def edit_cohort(
         table: str,
         year: int,
@@ -93,7 +93,7 @@ def edit_cohort(
     return {"return value": return_value}
 
 
-@router.get("/{table}/{year}/cohort/{cohort_id}", response_model=Dict)
+@ROUTER.get("/{table}/{year}/cohort/{cohort_id}", response_model=Dict)
 def get_cohort(
         table: str,
         year: int,
@@ -119,7 +119,7 @@ with open("examples/feature_association.json") as stream:
     feature_association_example = json.load(stream)
 
 
-@router.post(
+@ROUTER.post(
     "/{table}/{year}/cohort/{cohort_id}/feature_association",
     response_model=Dict,
 )
@@ -164,7 +164,7 @@ with open("examples/feature_association2.json") as stream:
     feature_association2_example = json.load(stream)
 
 
-@router.post(
+@ROUTER.post(
     "/{table}/{year}/cohort/{cohort_id}/feature_association2",
     response_model=Dict,
 )
@@ -214,7 +214,7 @@ with open("examples/associations_to_all_features.json") as stream:
     associations_to_all_features_example = json.load(stream)
 
 
-@router.post(
+@ROUTER.post(
     "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
     response_model=Dict,
 )
@@ -253,7 +253,7 @@ with open("examples/associations_to_all_features2.json") as stream:
     associations_to_all_features2_example = json.load(stream)
 
 
-@router.post(
+@ROUTER.post(
     "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2",
     response_model=Dict,
 )
@@ -291,7 +291,7 @@ def associations_to_all_features2(
     return {"return value": return_value}
 
 
-@router.get(
+@ROUTER.get(
     "/{table}/{year}/cohort/{cohort_id}/features",
     response_model=Dict,
 )
@@ -322,7 +322,7 @@ def features(
     return {"return value": return_value}
 
 
-@router.get(
+@ROUTER.get(
     "/{table}/{feature}/identifiers",
     response_model=Dict,
 )
@@ -337,7 +337,7 @@ def identifiers(
     return {"return value": return_value}
 
 
-@router.get(
+@ROUTER.get(
     "/{table}/name/{name}",
     response_model=Dict,
 )
@@ -351,7 +351,7 @@ def get_name(
     return {"return value": return_value}
 
 
-@router.post(
+@ROUTER.post(
     "/{table}/name/{name}",
     response_model=Dict,
 )
@@ -375,7 +375,7 @@ with open("examples/knowledge_graph.json") as stream:
     knowledge_graph_example = json.load(stream)
 
 
-@router.post(
+@ROUTER.post(
     "/knowledge_graph",
     response_model=Dict,
 )
@@ -391,7 +391,7 @@ def knowledge_graph(
     return {"return value": return_value}
 
 
-@router.get(
+@ROUTER.get(
     "/knowledge_graph/schema",
     response_model=Dict,
 )
@@ -409,7 +409,7 @@ with open("examples/knowledge_graph_overlay.json") as stream:
     kg_overlay_example = json.load(stream)
 
 
-@router.post(
+@ROUTER.post(
     "/knowledge_graph_overlay",
     response_model=Dict,
 )
@@ -429,7 +429,7 @@ with open("examples/knowledge_graph_one_hop.json") as stream:
     kg_onehop_example = json.load(stream)
 
 
-@router.post(
+@ROUTER.post(
     "/knowledge_graph_one_hop",
     response_model=Dict,
 )
@@ -443,3 +443,12 @@ def knowledge_graph_one_hop(
     if reasoner:
         return return_value
     return {"return value": return_value}
+
+
+@ROUTER.get(
+    "/bins",
+    response_model=Dict,
+)
+def handle_bins() -> Dict:
+    """Return bin values."""
+    return dict()

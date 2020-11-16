@@ -17,7 +17,7 @@ from structlog.processors import JSONRenderer
 from features import format_
 from features.knowledgegraph import TOOL_VERSION
 
-from handlers import router
+from handlers import ROUTER
 
 with open("static/api_description.html", "r") as stream:
     description = stream.read()
@@ -27,9 +27,12 @@ OPENAPI_SCHEME = os.getenv('OPENAPI_SCHEME', 'http')
 
 
 class NaNResponse(JSONResponse):
+    """JSONResponse subclass inserting null for NaNs."""
+
     media_type = "application/json"
 
     def render(self, content: Any) -> bytes:
+        """Convert to str."""
         return json.dumps(
             content,
             ensure_ascii=False,
@@ -39,7 +42,7 @@ class NaNResponse(JSONResponse):
         ).replace(":NaN,", ":null,").encode("utf-8")
 
 
-app = FastAPI(
+APP = FastAPI(
     title="ICEES API",
     description=description,
     version=TOOL_VERSION,
@@ -53,25 +56,25 @@ app = FastAPI(
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+LOGGER = logging.getLogger()
+LOGGER.setLevel(logging.INFO)
 
-handler = TimedRotatingFileHandler(os.path.join(
+HANDLER = TimedRotatingFileHandler(os.path.join(
     os.environ["ICEES_API_LOG_PATH"],
     "server",
 ))
 
-logger.addHandler(handler)
-logger = wrap_logger(logger, processors=[JSONRenderer()])
+LOGGER.addHandler(HANDLER)
+LOGGER = wrap_logger(LOGGER, processors=[JSONRenderer()])
 
 
-@app.middleware("http")
+@APP.middleware("http")
 async def fix_tabular_outputs(request: Request, call_next):
     """Fix tabular outputs."""
     response = await call_next(request)
 
     timestamp = strftime('%Y-%b-%d %H:%M:%S')
-    logger.info(
+    LOGGER.info(
         event="request",
         timestamp=timestamp,
         remote_addr=request.client.host,
@@ -113,7 +116,7 @@ def prepare_output(func):
             return_value = func(*args, **kwargs)
             print(return_value)
         except Exception as err:
-            logger.exception(err)
+            LOGGER.exception(err)
             raise err
 
         # return tabular data, if requested
@@ -150,8 +153,8 @@ def prepare_output(func):
     return wrapper
 
 
-for route in router.routes:
-    app.add_api_route(
+for route in ROUTER.routes:
+    APP.add_api_route(
         route.path,
         prepare_output(route.endpoint),
         responses={

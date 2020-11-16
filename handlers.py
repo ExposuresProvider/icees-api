@@ -49,6 +49,20 @@ def discover_cohort(
     return {"return value": return_value}
 
 
+@router.get(
+    "/{table}/{year}/cohort/dictionary",
+    response_model=Dict,
+)
+def dictionary(
+        table: str,
+        year: int,
+        conn=Depends(get_db),
+) -> Dict:
+    """Get cohort dictionary."""
+    return_value = model.get_cohort_dictionary(conn, table, year)
+    return {"return value": return_value}
+
+
 @router.put("/{table}/{year}/cohort/{cohort_id}", response_model=Dict)
 def edit_cohort(
         table: str,
@@ -305,20 +319,6 @@ def features(
             cohort_year,
         )
 
-    return {"return value": return_value}
-
-
-@router.get(
-    "/{table}/{year}/cohort/dictionary",
-    response_model=Dict,
-)
-def dictionary(
-        table: str,
-        year: int,
-        conn=Depends(get_db),
-) -> Dict:
-    """Get cohort dictionary."""
-    return_value = model.get_cohort_dictionary(conn, table, year)
     return {"return value": return_value}
 
 

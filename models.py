@@ -68,7 +68,7 @@ Features = Union[FeaturesImplicit, List[FeatureExplicit]]
 
 class FeatureExplicit2(BaseModel):
     feature_name: str
-    feature_qualifier: List[Qualifier]
+    feature_qualifiers: List[Qualifier]
     year: Optional[int]
 
 

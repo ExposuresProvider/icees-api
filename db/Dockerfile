@@ -1,7 +1,7 @@
 FROM postgres:12.3
 
 RUN apt-get update && apt-get install python3 python3-pip -y
-RUN pip3 install flask flask-restful flask-limiter sqlalchemy psycopg2-binary scipy gunicorn jsonschema pyyaml tabulate structlog pandas argparse inflection flasgger tx-functional statsmodels==0.12.0 
+RUN pip3 install sqlalchemy psycopg2-binary scipy gunicorn jsonschema pyyaml tabulate structlog pandas argparse inflection flasgger tx-functional statsmodels==0.12.0 fastapi
 
 ENV PGDATA=/data
 ENV ICEES_DBUSER=icees_dbuser

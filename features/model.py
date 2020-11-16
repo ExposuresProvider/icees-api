@@ -96,24 +96,31 @@ def op_dict(table, k, v, table_name=None):
         "integer": int,
         "string": str,
     }[json_schema_type]
-    if not isinstance(v["value"], python_type):
-        raise HTTPException(
-            status_code=400,
-            detail="'{feature}' should be of type {type}, but {value} is not".format(
-                value=v["value"],
-                type=json_schema_type,
-                feature=k,
-            )
-        )
+    if v["operator"] == "in":
+        values = v["values"]
+    elif v["operator"] == "between":
+        values = [v["value_a"], v["value_b"]]
+    else:
+        values = [v["value"]]
     options = features_dict[table_name][k].get("enum", None)
-    if options is not None and v["value"] not in options:
-        raise HTTPException(
-            status_code=400,
-            detail="{value} is not in {options}".format(
-                value=v["value"],
-                options=options
+    for value in values:
+        if not isinstance(value, python_type):
+            raise HTTPException(
+                status_code=400,
+                detail="'{feature}' should be of type {type}, but {value} is not".format(
+                    value=value,
+                    feature=k,
+                    type=json_schema_type,
+                )
             )
-        )
+        if options is not None and value not in options:
+            raise HTTPException(
+                status_code=400,
+                detail="{value} is not in {options}".format(
+                    value=value,
+                    options=options
+                )
+            )
     try:
         value = table.c[k]
     except KeyError:

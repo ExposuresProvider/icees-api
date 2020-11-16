@@ -1,14 +1,16 @@
 """ICEES API entrypoint."""
 from functools import wraps
 import inspect
+import json
 import logging
 from logging.handlers import TimedRotatingFileHandler
 import os
 from time import strftime
+from typing import Any
 
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
-from starlette.responses import Response
+from starlette.responses import Response, JSONResponse
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
 
@@ -23,6 +25,20 @@ with open("static/api_description.html", "r") as stream:
 OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8080')
 OPENAPI_SCHEME = os.getenv('OPENAPI_SCHEME', 'http')
 
+
+class NaNResponse(JSONResponse):
+    media_type = "application/json"
+
+    def render(self, content: Any) -> bytes:
+        return json.dumps(
+            content,
+            ensure_ascii=False,
+            allow_nan=True,
+            indent=None,
+            separators=(",", ":"),
+        ).replace(":NaN,", ":null,").encode("utf-8")
+
+
 app = FastAPI(
     title="ICEES API",
     description=description,
@@ -31,6 +47,7 @@ app = FastAPI(
     servers=[
         {"url": f"{OPENAPI_SCHEME}://{OPENAPI_HOST}"},
     ],
+    default_response_class=NaNResponse,
 )
 
 with open('terms.txt', 'r') as content_file:

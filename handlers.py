@@ -3,11 +3,10 @@ import json
 from typing import Dict
 
 from fastapi import APIRouter, Body, Depends
-from jsonschema import validate
 from reasoner_pydantic import Request as Query, Message
 
 from dependencies import get_db
-from features import model, schema, knowledgegraph
+from features import model, knowledgegraph
 from features.identifiers import get_identifiers
 from features.model import validate_range
 from models import (
@@ -126,11 +125,6 @@ def feature_association(
     returns a 2 x 2 feature table with a correspondingChi Square statistic and
     P value.
     """
-    # logger.info("validating {0} schema {1}".format(
-    #     obj,
-    #     schema.feature_association_schema(table)
-    # ))
-    # validate(obj, schema.feature_association_schema(table))
     feature_a = to_qualifiers(obj["feature_a"])
     feature_b = to_qualifiers(obj["feature_b"])
 
@@ -176,7 +170,6 @@ def feature_association2(
     can be combined, and the service returns a N x N feature table with a
     corresponding Chi Square statistic and P value.
     """
-    validate(obj, schema.feature_association2_schema(table))
     feature_a = to_qualifiers2(obj["feature_a"])
     feature_b = to_qualifiers2(obj["feature_b"])
     to_validate_range = obj.get("check_coverage_is_full", False)
@@ -227,7 +220,6 @@ def associations_to_all_features(
     the service returns a 1 x N feature table with corrected Chi Square
     statistics and associated P values.
     """
-    validate(obj, schema.associations_to_all_features_schema(table))
     feature = to_qualifiers(obj["feature"])
     maximum_p_value = obj["maximum_p_value"]
     correction = obj.get("correction")
@@ -267,7 +259,6 @@ def associations_to_all_features2(
     bins, which can be combined, and the service returns a 1 x N feature table
     with corrected Chi Square statistics and associated P values.
     """
-    validate(obj, schema.associations_to_all_features2_schema(table))
     feature = to_qualifiers2(obj["feature"])
     to_validate_range = obj.get("check_coverage_is_full", False)
     if to_validate_range:
@@ -371,7 +362,6 @@ def post_name(
         conn=Depends(get_db),
 ) -> Dict:
     """Associate name with cohort id."""
-    validate(obj, schema.AddNameById())
     return_value = model.add_name_by_id(
         conn,
         table,
@@ -429,7 +419,6 @@ def knowledge_graph_overlay(
         conn=Depends(get_db),
 ) -> Message:
     """Query for knowledge graph co-occurrence overlay."""
-    # validate(obj, schema.AddNameById())
     return_value = knowledgegraph.co_occurrence_overlay(conn, obj)
     if reasoner:
         return return_value

@@ -3,16 +3,12 @@ from typing import Union, Literal, List, Optional, Dict
 from pydantic import BaseModel
 
 _Any = Union[str, int, float]
-Number = Union[int, float]
 
-InequalityComparator = Literal[
+Comparator = Literal[
     "<",
     ">",
     "<=",
     ">=",
-]
-
-EqualityComparator = Literal[
     "=",
     "<>",
 ]
@@ -39,23 +35,15 @@ class CorrectionWithAlpha(BaseModel):
     alpha: float
 
 
-class EqualityComparison(BaseModel):
-    operator: EqualityComparator
+class Comparison(BaseModel):
+    operator: Comparator
     value: _Any
-
-
-class InequalityComparison(BaseModel):
-    operator: InequalityComparator
-    value: Number
-
-
-Comparison = Union[EqualityComparison, InequalityComparison]
 
 
 class Between(BaseModel):
     operator: Literal["between"]
-    value_a: Number
-    value_b: Number
+    value_a: _Any
+    value_b: _Any
 
 
 class In(BaseModel):
@@ -65,13 +53,12 @@ class In(BaseModel):
 
 Qualifier = Union[Comparison, Between, In]
 
-
-FeaturesImplicit = Dict[str, Comparison]
+FeaturesImplicit = Dict[str, Qualifier]
 
 
 class FeatureExplicit(BaseModel):
     feature_name: str
-    feature_qualifier: Comparison
+    feature_qualifier: Qualifier
     year: Optional[int]
 
 
@@ -85,7 +72,7 @@ class FeatureExplicit2(BaseModel):
     year: Optional[int]
 
 
-FeaturesImplicit2 = Dict[str, List[Comparison]]
+FeaturesImplicit2 = Dict[str, List[Qualifier]]
 
 
 Feature2 = Union[FeaturesImplicit2, FeatureExplicit2]

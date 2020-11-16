@@ -1,8 +1,6 @@
 """Data models."""
-from typing import Union, Literal, List, Optional, Dict
+from typing import Any, Dict, List, Literal, Optional, Union
 from pydantic import BaseModel
-
-_Any = Union[str, int, float]
 
 Comparator = Literal[
     "<",
@@ -37,18 +35,18 @@ class CorrectionWithAlpha(BaseModel):
 
 class Comparison(BaseModel):
     operator: Comparator
-    value: _Any
+    value: Any
 
 
 class Between(BaseModel):
     operator: Literal["between"]
-    value_a: _Any
-    value_b: _Any
+    value_a: Any
+    value_b: Any
 
 
 class In(BaseModel):
     operator: Literal["in"]
-    values: List[_Any]
+    values: List[Any]
 
 
 Qualifier = Union[Comparison, Between, In]

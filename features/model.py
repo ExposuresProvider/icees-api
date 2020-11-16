@@ -515,7 +515,7 @@ def select_feature_count(conn, table_name, year, cohort_features, cohort_year, f
         
         selections = [
             func.count(),
-            *(case_select(table_count[ya], ka, va) for va in vas)
+            *(case_select(table_count[ya], ka, va, table_name) for va in vas)
         ]
 
         result = selection(conn, table, selections)

@@ -247,83 +247,83 @@ patient:
     biolinkType: DiseaseOrPhenotypicFeature
   ErythrocyteSedimentationRate:
     type: string
-    enum: ['Normal', 'Low', 'High']
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   Procalcitonin: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature 
   Ferritin: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature 
   C-reactiveProtein:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature  
   D-dimer:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   LDH: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   IL-6:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   pH:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   pCO2ArterialVenous:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   pCO2Arterial:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   pO2Arterial:
     type: string
-    enum:
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   pO2FiO2ratio:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SpO2FiO2ratio:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   BaseDeficit:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   Lactate:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SvO2: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   WBCcount: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   AbsoluteNeutrophilCount:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   Hemoglobin: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   PlateletCount:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   BloodType:
     type: string
@@ -331,60 +331,60 @@ patient:
     biolinkType: PhenotypicFeature
   SerumSodium: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SerumPotassium: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SerumChloride:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SerumBicarbonate:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   BloodUreaNitrogen:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SerumCreatinine:
     type: string
-    enum:
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SerumGlucose:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   ALT:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   AST: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   Troponin:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   BrainNatriureticPeptide:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   CK:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   HgbA1C: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   EstimatedGFR:
     type: integer
-    minimum:
-    maximum:
+    minimum: 0
+    maximum: 1
     biolinkType: PhenotypicFeature
   RespiratorySupportSupplementalO2:
     type: integer
@@ -11552,6 +11552,11 @@ patient:
     type: integer
     minimum: 1
     maximum: 6
+    biolinkType: Environment  
+  Landfill_Exposure:
+    type: integer
+    minimum: 1
+    maximum: 6
     biolinkType: Environment    
 visit:
   VisitType:
@@ -11775,83 +11780,83 @@ visit:
     biolinkType: Device
   ErythrocyteSedimentationRate:
     type: string
-    enum: ['Normal', 'Low', 'High']
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   Procalcitonin: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature 
   Ferritin: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature 
   C-reactiveProtein:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature  
   D-dimer:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   LDH: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   IL-6:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   pH:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   pCO2ArterialVenous:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   pCO2Arterial:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   pO2Arterial:
     type: string
-    enum:
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   pO2FiO2ratio:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SpO2FiO2ratio:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   BaseDeficit:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   Lactate:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SvO2: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   WBCcount: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   AbsoluteNeutrophilCount:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   Hemoglobin: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   PlateletCount:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   BloodType:
     type: string
@@ -11859,60 +11864,60 @@ visit:
     biolinkType: PhenotypicFeature
   SerumSodium: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SerumPotassium: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SerumChloride:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SerumBicarbonate:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   BloodUreaNitrogen:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SerumCreatinine:
     type: string
-    enum:
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   SerumGlucose:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   ALT:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   AST: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   Troponin:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   BrainNatriureticPeptide:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   CK:
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   HgbA1C: 
     type: string
-    enum: 
+    enum: ['Low', 'Normal', 'High']
     biolinkType: PhenotypicFeature
   EstimatedGFR:
     type: integer
-    minimum:
-    maximum:
+    minimum: 0
+    maximum: 1
     biolinkType: PhenotypicFeature
   RespiratorySupportSupplementalO2:
     type: integer
@@ -23122,3 +23127,8 @@ visit:
     minimum: 1
     maximum: 6
     biolinkType: Environment
+  Landfill_Exposure:
+    type: integer
+    minimum: 1
+    maximum: 6
+    biolinkType: Environment 

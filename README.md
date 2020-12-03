@@ -531,13 +531,25 @@ curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: appl
 get cohort of all patients active in a year
 
 ```
-curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '[{
+  "feature_name": "Active_In_Year",
+  "feature_qualifier": {
+    "operator": "=",
+    "value": 1
+  }
+}]'
 ```
 
 get cohort of patients with `AgeStudyStart = 0-2`
 
 ```
-curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '[{
+  "feature_name": "AgeStudyStart",
+  "feature_qualifier": {
+    "operator":"=",
+    "value":"0-2"
+  }
+}]'
 ```
 
 Assuming we have cohort id `COHORT:10`

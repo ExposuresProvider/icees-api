@@ -1567,8 +1567,6 @@ Platelet count, [units]:
 Blood Type:
     Measurement:
         - system: http://loinc.org
-          code: 933-2
-        - system: http://loinc.org
           code: 34531-4
         - system: http://loinc.org
           code: 34532-2
@@ -1672,11 +1670,11 @@ Estimated GFR, [units]:
 Supplemental Oxygen:
     Procedure:
         - system: https://browser.ihtsdotools.org
-          code: "SCTID: 57485005"
-          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=57485005&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
+          code: "SCTID: 931000119107"
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=931000119107&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
         - system: https://browser.ihtsdotools.org
-          code: "SCTID: 304577004"
-          # note:https://browser.ihtsdotools.org/?perspective=full&conceptId1=304577004&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
+          code: "SCTID: 60651000119103"
+          # note:https://browser.ihtsdotools.org/?perspective=full&conceptId1=60651000119103&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
 HF NC:
     Procedure:
         - system: https://browser.ihtsdotools.org
@@ -1689,8 +1687,6 @@ NIPPV:
     Procedure:
         - system: https://browser.ihtsdotools.org
           code: "SCTID: 447837008"
-        - system: https://browser.ihtsdotools.org
-          code: "SCTID: 428311008"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=447837008&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
           # note: searched for noninvasive ventilation
 Invasive Ventilation:

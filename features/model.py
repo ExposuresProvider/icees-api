@@ -396,7 +396,6 @@ def normalize_feature(year, feature):
     return feature
 
 
-@timeit
 def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, feature_a, feature_b):
 
     cohort_features_norm = normalize_features(cohort_year, cohort_features)

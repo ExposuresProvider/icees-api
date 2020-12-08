@@ -114,7 +114,6 @@ def prepare_output(func):
         # run func, logging errors
         try:
             return_value = func(*args, **kwargs)
-            print(return_value)
         except Exception as err:
             LOGGER.exception(err)
             raise err

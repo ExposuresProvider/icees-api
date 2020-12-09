@@ -12,9 +12,12 @@ import os
 from time import strftime
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
+from pydantic.schema import model_schema
 import db
-from features import model, schema, format, knowledgegraph, identifiers
-from utils import opposite, to_qualifiers
+from features import model, format, knowledgegraph, identifiers
+from features.schema import features_schema_model_wrapper, feature_association_schema, feature_association_bin_schema, associations_to_all_features_schema, associations_to_all_features_bin_schema
+from utils import opposite, to_qualifiers, to_qualifiers2
+from features.knowledgegraph import TOOL_VERSION
 
 OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8080')
 OPENAPI_SCHEME = os.getenv('OPENAPI_SCHEME', 'http')
@@ -25,7 +28,7 @@ with open('terms.txt', 'r') as content_file:
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-handler = TimedRotatingFileHandler(os.environ["ICEES_API_LOG_PATH"])
+handler = TimedRotatingFileHandler(os.path.join(os.environ["ICEES_API_LOG_PATH"], "server"))
 
 logger.addHandler(handler)
 logger = wrap_logger(logger, processors=[JSONRenderer()])
@@ -41,10 +44,13 @@ app.config["SWAGGER"] = {
   "ui_params_text": '''{
     "operationsSorter" : (a,b) => {
         const ordering = [
+          "/{table}/{year}/cohort", 
+          "/{table}/{year}/cohort/{cohort_id}", 
           "/{table}/{year}/cohort/{cohort_id}/features", 
           "/{table}/{year}/cohort/{cohort_id}/feature_association", 
           "/{table}/{year}/cohort/{cohort_id}/feature_association2", 
-          "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features"
+          "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
+          "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2"
         ]
         const apath = a.get("path")
         const bpath = b.get("path")
@@ -81,7 +87,7 @@ template = {
 <br>[documentation](https://github.com/NCATS-Tangerine/icees-api/tree/master/docs) 
 <br>[source](https://github.com/NCATS-Tangerine/icees-api/tree/master/) 
 <br>[ICEES API example queries](https://github.com/NCATS-Tangerine/icees-api/tree/master/#examples) <br>dictionary for versioning of tables<br><table><tr><th>version</th><th>table content</th></tr><tr><td>1.0.0</td><td>cdw, acs, nearest road, and cmaq from 2010</td></tr><tr><td>2.0.0</td><td>cdw in FHIR format, acs, nearest road, and cmaq from 2010</td></tr><tr><td>3.0.0</td><td>cdw in FHIR format, acs, nearest road, cmaq, and EPR from 2010 to 2016</td></tr></table>""",
-    "version": "3.0.0"
+    "version": TOOL_VERSION
   },
   "consumes": [
     "application/json"
@@ -101,13 +107,13 @@ swag = Swagger(app, template=template)
 
 @api.representation('application/json')
 def output_json(data, code, headers=None):
-    resp = make_response(simplejson.dumps({"terms and conditions": terms_and_conditions, "return value": data["return value"]}, ignore_nan=True), code)
+    resp = make_response(simplejson.dumps(data, ignore_nan=True), code)
     resp.headers.extend(headers or {})
     return resp
 
 @api.representation('text/tabular')
 def output_tabular(data, code, headers=None):
-    resp = make_response(format.format_tabular(terms_and_conditions, data["return value"]), code)
+    resp = make_response(format.format_tabular(terms_and_conditions, data.get("return value", data)), code)
     resp.headers.extend(headers or {})
     return resp
 
@@ -144,7 +150,9 @@ class SERVCohort(Resource):
                 if req_features is None:
                     req_features = {}
                 else:
-                    validate(req_features, schema.cohort_schema(table))
+                    validate({
+                        "value": req_features
+                    }, model_schema(features_schema_model_wrapper(table)))
 
                 cohort_id, size = model.get_ids_by_feature(conn, table, year, req_features)
       
@@ -165,10 +173,11 @@ class SERVCohort(Resource):
         return wrapped(return_value)
 
 
-def wrapped(data):
-    return {
-        "return value": data
-    }
+def wrapped(data, reasoner=False):
+    if reasoner:
+        return {"terms and conditions": terms_and_conditions, **data}
+    else:
+        return {"terms and conditions": terms_and_conditions, "return value": data}
 
 class SERVCohortId(Resource):
     def put(self, table, year, cohort_id):
@@ -209,7 +218,7 @@ class SERVCohortId(Resource):
                 if req_features is None:
                     req_features = {}
                 else:
-                    validate(req_features, schema.cohort_schema(table))
+                    validate(req_features, model_schema(cohort_schema(table)))
 
                 cohort_id, size = model.select_cohort(conn, table, year, req_features, cohort_id)
 
@@ -315,17 +324,19 @@ class SERVFeatureAssociation(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema.feature_association_schema(table))
+            logger.info(f"validating {obj} schema {feature_association_schema(table)}")
+            validate(obj, model_schema(feature_association_schema(table)))
             feature_a = to_qualifiers(obj["feature_a"])
             feature_b = to_qualifiers(obj["feature_b"])
 
             with db.DBConnection() as conn:
-                cohort_features = model.get_features_by_id(conn, table, year, cohort_id)
+                cohort_meta = model.get_features_by_id(conn, table, cohort_id)
 
-                if cohort_features is None:
+                if cohort_meta is None:
                     return_value = "Input cohort_id invalid. Please try again."
                 else:
-                    return_value = model.select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+                    cohort_features, cohort_year = cohort_meta
+                    return_value = model.select_feature_matrix(conn, table, year, cohort_features, cohort_year, feature_a, feature_b)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -333,14 +344,6 @@ class SERVFeatureAssociation(Resource):
             traceback.print_exc()
             return_value = str(e)
         return wrapped(return_value)
-
-
-def to_qualifiers2(feature):
-    k, v = list(feature.items())[0]
-    return {
-        "feature_name": k,
-        "feature_qualifiers": v
-    }
 
 
 class SERVFeatureAssociation2(Resource):
@@ -390,21 +393,22 @@ class SERVFeatureAssociation2(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema.feature_association2_schema(table))
+            validate(obj, model_schema(feature_association_bin_schema(table)))
             feature_a = to_qualifiers2(obj["feature_a"])
             feature_b = to_qualifiers2(obj["feature_b"])
             to_validate_range = ("check_coverage_is_full" in obj) and obj["check_coverage_is_full"]
             if to_validate_range:
-                validate_range(table, feature_a)
-                validate_range(table, feature_b)
+                model.validate_range(table, feature_a)
+                model.validate_range(table, feature_b)
 
             with db.DBConnection() as conn:
-                cohort_features = model.get_features_by_id(conn, table, year, cohort_id)
+                cohort_meta = model.get_features_by_id(conn, table, cohort_id)
 
-                if cohort_features is None:
+                if cohort_meta is None:
                     return_value = "Input cohort_id invalid. Please try again."
                 else:
-                    return_value = model.select_feature_matrix(conn, table, year, cohort_features, feature_a, feature_b)
+                    cohort_features, cohort_year = cohort_meta
+                    return_value = model.select_feature_matrix(conn, table, year, cohort_features, cohort_year, feature_a, feature_b)
 
         except ValidationError as e:
             traceback.print_exc()
@@ -431,6 +435,8 @@ class SERVAssociationsToAllFeatures(Resource):
                   operator: "="
                   value: "Female"
               maximum_p_value: 1
+              correction:
+                method: bonferroni
           - in: path
             name: table
             required: true
@@ -455,11 +461,12 @@ class SERVAssociationsToAllFeatures(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema.associations_to_all_features_schema(table))
+            validate(obj, model_schema(associations_to_all_features_schema(table)))
             feature = to_qualifiers(obj["feature"])
             maximum_p_value = obj["maximum_p_value"]
+            correction = obj.get("correction")
             with db.DBConnection() as conn:
-                return_value = model.select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
+                return_value = model.select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, correction=correction)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -486,6 +493,8 @@ class SERVAssociationsToAllFeatures2(Resource):
                   - operator: "="
                     value: "Male"
               maximum_p_value: 1
+              correction:
+                method: bonferroni
             required: true
           - in: path
             name: table
@@ -511,14 +520,15 @@ class SERVAssociationsToAllFeatures2(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema.associations_to_all_features2_schema(table))
+            validate(obj, model_schema(associations_to_all_features_bin_schema(table)))
             feature = to_qualifiers2(obj["feature"])
             to_validate_range = ("check_coverage_is_full" in obj) and obj["check_coverage_is_full"]
             if to_validate_range:
-                validate_range(table, feature)
+                model.validate_range(table, feature)
             maximum_p_value = obj["maximum_p_value"]
+            correction = obj.get("correction")
             with db.DBConnection() as conn:
-                return_value = model.select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value)
+                return_value = model.select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, correction=correction)
         except ValidationError as e:
             traceback.print_exc()
             return_value = e.message
@@ -558,11 +568,12 @@ class SERVFeatures(Resource):
         """
         try:
             with db.DBConnection() as conn:
-                cohort_features = model.get_features_by_id(conn, table, year, cohort_id)
-                if cohort_features is None:
+                cohort_meta = model.get_features_by_id(conn, table, cohort_id)
+                if cohort_meta is None:
                     return_value = "Input cohort_id invalid. Please try again."
                 else:
-                    return_value = model.get_cohort_features(conn, table, year, cohort_features)
+                    cohort_features, cohort_year = cohort_meta
+                    return_value = model.get_cohort_features(conn, table, year, cohort_features, cohort_year)
  
         except ValidationError as e:
             traceback.print_exc()
@@ -699,7 +710,7 @@ class SERVName(Resource):
         """
         try:
             obj = request.get_json()
-            validate(obj, schema.add_name_by_id_schema())
+            validate(obj, model_schema(add_name_by_id_schema()))
             with db.DBConnection() as conn:
                 return_value = model.add_name_by_id(conn, table, name, obj["cohort_id"])
         except ValidationError as e:
@@ -733,7 +744,7 @@ class SERVKnowledgeGraph(Resource):
         """
         try:
             obj = request.get_json()
-            # validate(obj, schema.add_name_by_id_schema())
+            # validate(obj, model_schema(add_name_by_id_schema()))
             with db.DBConnection() as conn:
                 return_value = knowledgegraph.get(conn, obj)
         except ValidationError as e:
@@ -742,13 +753,13 @@ class SERVKnowledgeGraph(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return wrapped(return_value)
+        return wrapped(return_value, reasoner=request.args.get("reasoner", False))
 
 
 class SERVKnowledgeGraphSchema(Resource):
     def get(self):
         """
-        Query the ICEES clinical reasoner for knowledge graph schema.
+        Query the ICEES clinical reasoner for knowledge graph 
         ---
         parameters: []
         responses:
@@ -763,7 +774,87 @@ class SERVKnowledgeGraphSchema(Resource):
         except Exception as e:
             traceback.print_exc()
             return_value = str(e)
-        return wrapped(return_value)
+        return wrapped(return_value, reasoner=request.args.get("reasoner", False))
+
+
+class SERVKnowledgeGraphOverlay(Resource):
+    def post(self):
+        """
+        Query the ICEES clinical reasoner for knowledge graph co-occurrence overlay.
+        ---
+        definitions:
+          import: "TranslatorReasonersAPI.yaml"
+        parameters:
+          - in: body
+            name: body
+            description: Input message
+            required: true
+            schema:
+                $ref: '#/definitions/QueryOverlay'
+          - in: query
+            name: reasoner
+            description: return conforming to the ReasonerStdApi
+            required: false
+            schema:
+                type: boolean
+        responses:
+            200:
+                description: Success
+                schema:
+                    $ref: '#/definitions/Message'
+        """
+        try:
+            obj = request.get_json()
+            # validate(obj, model_schema(add_name_by_id_schema()))
+            with db.DBConnection() as conn:
+                return_value = knowledgegraph.co_occurrence_overlay(conn, obj)
+        except ValidationError as e:
+            traceback.print_exc()
+            return_value = e.message
+        except Exception as e:
+            traceback.print_exc()
+            return_value = str(e)
+        return wrapped(return_value, reasoner=request.args.get("reasoner", False))
+
+
+class SERVKnowledgeGraphOneHop(Resource):
+    def post(self):
+        """
+        Query the ICEES clinical reasoner for knowledge graph one hop.
+        ---
+        definitions:
+          import: "TranslatorReasonersAPI.yaml"
+        parameters:
+          - in: body
+            name: body
+            description: Input message
+            required: true
+            schema:
+                $ref: '#/definitions/QueryOneHop'
+          - in: query
+            name: reasoner
+            description: return conforming to the ReasonerStdApi
+            required: false
+            schema:
+                type: boolean
+        responses:
+            200:
+                description: Success
+                schema:
+                    $ref: '#/definitions/Message'
+        """
+        try:
+            obj = request.get_json()
+            # validate(obj, model_schema(add_name_by_id_schema()))
+            with db.DBConnection() as conn:
+                return_value = knowledgegraph.one_hop(conn, obj)
+        except ValidationError as e:
+            traceback.print_exc()
+            return_value = e.message
+        except Exception as e:
+            traceback.print_exc()
+            return_value = str(e)
+        return wrapped(return_value, reasoner=request.args.get("reasoner", False))
 
 
 api.add_resource(SERVCohort, '/<string:table>/<int:year>/cohort')
@@ -778,6 +869,8 @@ api.add_resource(SERVIdentifiers, "/<string:table>/<string:feature>/identifiers"
 api.add_resource(SERVName, "/<string:table>/name/<string:name>")
 api.add_resource(SERVKnowledgeGraph, "/knowledge_graph")
 api.add_resource(SERVKnowledgeGraphSchema, "/knowledge_graph/schema")
+api.add_resource(SERVKnowledgeGraphOverlay, "/knowledge_graph_overlay")
+api.add_resource(SERVKnowledgeGraphOneHop, "/knowledge_graph_one_hop")
 
 if __name__ == '__main__':
     app.run()

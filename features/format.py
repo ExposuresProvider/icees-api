@@ -61,7 +61,8 @@ def format_tables(data, tables):
         rows = [[data["cohort_id"], data["name"]]]
         tables.append([columns, rows])
     elif "features" in data:
-        features = ",".join([feature_to_text(a, b) for (a, b) in data["features"].items()])
+        o = data["features"]
+        features = ",".join([feature_to_text(a, b) for (a, b) in (o.items() if isinstance(o, dict)  else ((a["feature_name"], a["feature_qualifier"]) for a in o))])
         if "cohort_id" in data:
             columns = ["cohort_id", "size", "features"]
             rows = [[data["cohort_id"], data["size"], features]]
@@ -89,6 +90,10 @@ def format_tables(data, tables):
 
         columns = ["p_value", "chi_squared"]
         rows = [[data["p_value"], data["chi_squared"]]]
+        p_value_corrected = data.get("p_value_corrected")
+        if p_value_corrected is not None:
+            columns.append("p_value_corrected")
+            rows[0].append(p_value_corrected)
         tables.append([columns, rows])
     elif "feature" in data:
         feature = data["feature"]

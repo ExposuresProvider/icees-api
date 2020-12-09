@@ -9,29 +9,79 @@
             $ref: '#/definitions/QMessage'
       additionalProperties: true
       example:
-        query_options:
-          table: patient
-          year: 2010
-          cohort_features:
-            AgeStudyStart:
-              operator: "="
-              value: "0-2"
-          feature:
-            EstResidentialDensity:
-              operator: "<"
-              value: 1
-          maximum_p_value: 1
-        machine_question:
-          nodes:
-          - id: n00
-            type: population_of_individual_organisms
-          - id: n01
-            type: chemical_substance
-          edges:
-          - id: e00
-            type: association
-            source_id: n00
-            target_id: n01
+        message:
+          query_options:
+            table: patient
+            year: 2010
+            cohort_features:
+              AgeStudyStart:
+                operator: "="
+                value: "0-2"
+            feature:
+              EstResidentialDensity:
+                operator: "<"
+                value: 1
+            maximum_p_value: 1
+          query_graph:
+            nodes:
+              - id: n00
+                type: population_of_individual_organisms
+              - id: n01
+                type: chemical_substance
+            edges:
+              - id: e00
+                type: association
+                source_id: n00
+                target_id: n01
+    QueryOverlay:
+      x-body-name: request_body
+      type: object
+      properties:
+        query_message:
+          type: object
+          description: Message object that represents the query to be answered
+          items:
+            $ref: '#/definitions/QMessage'
+      additionalProperties: true
+      example:
+        message:
+          knowledge_graph:
+            nodes:
+              - id: n00
+                curie: "PUBCHEM:2083"
+                type: drug
+              - id: n01
+                type: chemical_substance
+                curie: "PUBCHEM:281"
+            edges:
+              - id: e00
+                type: association
+                source_id: n00
+                target_id: n01
+    QueryOneHop:
+      x-body-name: request_body
+      type: object
+      properties:
+        query_message:
+          type: object
+          description: Message object that represents the query to be answered
+          items:
+            $ref: '#/definitions/QMessage'
+      additionalProperties: true
+      example:
+        message:
+          query_graph:
+            nodes:
+              - id: n00
+                curie: "PUBCHEM:2083"
+                type: drug
+              - id: n01
+                type: chemical_substance
+            edges:
+              - id: e00
+                type: association
+                source_id: n00
+                target_id: n01
     QMessage:
       type: object
       properties:

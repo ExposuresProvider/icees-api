@@ -4,25 +4,35 @@ services:
     build:
       context: .
       dockerfile: db/Dockerfile
-    image: icees-api-db:0.2.0
+    image: icees-api-db:0.4.0
     container_name: ${ICEES_API_INSTANCE_NAME}-db
     env_file:
       - .env
+    environment:
+      CONFIG_PATH: /icees-api/config
+      ICEES_API_LOG_PATH: /log
+      DATA_PATH: /icees-api/db/data
     volumes:
       - $DB_PATH:/data
       - $DATA_PATH:/icees-api/db/data
-      - ./config:/icees-api/config
+      - $CONFIG_PATH:/icees-api/config
+      - $ICEES_API_LOG_PATH:/log
+    shm_size: 1g
     restart: always
   server:
     build: 
       context: .
-    image: icees-api-server:0.2.0
+    image: icees-api-server:0.4.0
     container_name: ${ICEES_API_INSTANCE_NAME}-server
     env_file:
       - .env
     restart: always
+    environment:
+      CONFIG_PATH: /icees-api/config
+      ICEES_API_LOG_PATH: /log
     volumes:
-      - ./config:/icees-api/config
+      - $CONFIG_PATH:/icees-api/config
+      - $ICEES_API_LOG_PATH:/log
     depends_on:
       - db
     ports:

@@ -47,7 +47,7 @@ if p == 0:
     cursor.execute("CREATE DATABASE " + db)
     cursor.execute("GRANT ALL ON DATABASE " + db + " to " + dbuser)
     dbutils.create()
-    csvdir = "db/data/"
+    csvdir = os.environ.get("DATA_PATH", "db/data/")
     for t in features.features_dict.keys():
         table_dir = csvdir + "/" + t
         if os.path.isdir(table_dir):
@@ -60,7 +60,7 @@ if p == 0:
             logger.info("generating data " + t)
             temp = tempfile.NamedTemporaryFile()
             try:
-                sample.generate_data(t, [2010], 1000, temp.name)
+                sample.generate_data(t, [2010, 2011], 1000, temp.name)
                 dbutils.insert(temp.name, t)
             finally:
                 temp.close()

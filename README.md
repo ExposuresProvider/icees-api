@@ -1,152 +1,223 @@
 [![Build Status](https://travis-ci.com/NCATS-Tangerine/icees-api.svg?branch=master)](https://travis-ci.com/NCATS-Tangerine/icees-api)
 
-## How to run
+# How to run
 
-### Run docker compose
+## Run docker compose
 
-#### Run tests
+### Run tests
 ```
 test/test.sh
 ```
 
-#### schema
+### Deployment
 
-edit `config/features.yml`
+#### Edit schema and identifiers
 
-#### database
+ICEES API allows define custom schema and identifiers. The schema is stored at `config/features.yml`. The identifier is stored at `config/identifiers.yml`. Edit them to fit your dataset.
 
-for each table create dir with table name under `db/data` and put csv files under that dir
+ICEES API has the following assumptions: 
+ * Each table named `<table>` should have a column named `<table>Id` as the identifier.
+ * Each table has a column named `year`. 
 
-for example, put `patient.csv` under `db/data/patient`
+These columns do not need to be specified in `features.yml`.
 
-put `visit.csv` under `db/data/visit`
+#### Data for database
 
-to generate random samples
+For each table in the schema, create a directory with its table name under `db/data` and put csv files under that directory. The csv files should have the same headers as the table. For example, put `patient.csv` under `db/data/patient` and put `visit.csv` under `db/data/visit`.
 
-run
+To generate random samples, run
 ```
 python samples.py patient 2010 1000 db/data/patient/patient.csv
 ```
-
 ```
-python samples.py visit 2010 1000 db/data/patient/visit.csv
+python samples.py visit 2010 1000 db/data/visit/visit.csv
 ```
 
-#### start services
-edit `.env`
+#### Start services
+
+The  `.env` file contains environmental variables that control the services. Edit it to fit your application.
+
+`ICEES_PORT`: the database port in the container
+
+`ICEES_HOST`: the database host in the container
+
+`ICEES_DBUSER`: the database user in the container
+
+`ICEES_DBPASS`: the password for the database user in the container
+
+`POSTGRES_PASSWORD`: the password for database user `postgres` in the container
+
+`ICEES_DATABASE`: the database name in the container
+
+`ICEES_API_LOG_PATH`: the path where logs are stored on the host
+
+`ICEES_API_HOST_PORT`: the port where icees api is listening to on the host
+
+`OPENAPI_HOST`: the host where icees api is deployed
+
+`OPENAPI_SCHEME`: the protocol where icees api is deployed
+
+`DATA_PATH`: the directory where database tables csvs are stored on the host
+
+`DB_PATH`: the directory where the database files are stored on the host
+
+`CONFIG_PATH`: the directory where schema and identifiers are stored
+
+`ICEES_API_INSTANCE_NAME`: icees api instance name
 
 run
 ```
-docker-compose up --build
-```
-
-### run docker
-
-The following steps can be run using the `redepoly.sh`
-
-#### Build Container
-
-```
-docker build . -t icees-api:0.3.0
-```
-
-#### Run Container in Standalone Mode (optional)
-
-```
-docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log -p 8080:8080 icees-api:0.3.0
-```
-
-```
-docker run -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --rm -v log:/log --net host icees-api:0.2.0
-```
-
-#### Setting up `systemd` (optional)
-
-run docker containers
-```
-docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log -p 8080:8080 icees-api:0.2.0
-```
-
-```
-docker run -d -e ICEES_DBUSER=<dbuser> -e ICEES_DBPASS=<dbpass> -e ICEES_HOST=<host> -e ICEES_PORT=<port> -e ICEES_DATABASE=<database> --name icees-api_server -v log:/log --net host icees-api:0.3.0
-```
-
-```
-docker stop icees-api_server
-```
-
-copy `<repo>/icees-api-container.service` to `/etc/systemd/system/icees-api-container.service`
-
-start service
-
-```
-systemctl start icees-api-container
-```
-
-### Run manually
-#### Setup environment
-set env variables
-
-`ICEES_DBUSER` 
-
-`ICEES_DBPASS`
-
-`ICEES_HOST` 
-
-`ICEES_PORT` 
-
-`ICEES_DATABASE`
-
-`ICEES_DB_POOL_SIZE`
-
-`ICEES_DB_MAX_OVERFLOW`
-
-`ICEES_API_LOG_PATH`
-
-`DB_PATH`
-
-`DATA_PATH`
-
-run
-```
-pip install -r requirements.txt
-```
-#### Set up Database
-
-##### Create User
-
-```createuser -P <dbuser>```
-
-enter `<dbpass>` for new user
-
-##### Create Database
-
-```createdb <database>```
-
-##### Create Permissions
-
-```grant all privileges on database <database> to <dbuser>```
-
-##### popluating database
-
-```
-python dbutils.py create
-```
-
-```
-python dbutils.py insert <patient data input> patient
-python dbutils.py insert <visit data input> visit
-```
-
-#### Run Flask 
-run
-```
-python app.py
+docker-compose up --build -d
 ```
 
 
+## Build Container
+
+```
+docker build . -t icees-api:0.4.0
+```
 
 ## REST API
+
+### features schema
+A feature qualifier limited values of a feature
+```
+<operator> ::= <
+             | >
+             | <=
+             | >=
+             | = 
+             | <>`
+
+<feature_qualifier> ::= {"operator":<operator>, "value":<value>}
+                      | {"operator":"in", "values":[<value>, ..., <value>]}
+                      | {"operator":"between", "value_a":<value>, "value_b":<value>}
+```
+
+There are two ways to specify a feature of a set of features, using a list or a dict. We show the schema for the former first, then show the schema for the latter.
+
+```
+<feature> ::= {
+    "feature_name": "<feature name>",
+    "feature_qualifier": <feature_qualifier>,
+    "year": <year>
+  }
+```
+
+where 
+
+`feature name`: see config/features.yml
+
+`year` is optional. When `year` is specified, it uses features from that year, otherwise it gets year from context
+
+Example
+```
+{
+  "feature_name": "AgeStudyStart",
+  "feature_qualifier": {
+    "operator": "=",
+    "value": "0-2"
+  }
+}
+
+```
+```
+<features> ::= [<feature>, ..., <feature>]
+```
+
+Example
+```
+[{
+  "feature_name": "AgeStudyStart",
+  "feature_qualifier": {
+    "operator": "=",
+    "value": "0-2"
+  }
+}, {
+  "feature_name": "ObesityBMI",
+  "feature_qualifier": {
+    "operator": "=",
+    "value": 0
+  }
+}]
+```
+
+In the apis that allows aggregation of bins, we can specify multiple feature qualifiers for each feature.
+```
+<feature2> ::= {
+  "feature_name": "<feature name>",
+  "feature_qualifiers": [<feature_qualifiere>, ..., <feature_qualifier>],
+  "year": <year>
+}
+```
+
+Example:
+```
+{
+  "feature_name": "AgeStudyStart",
+  "feature_qualifiers": [
+            {
+                "operator":"=",
+                "value":"0-2"
+            }, {
+                "operator":"between",
+                "value_a":"3-17",
+                "value_b":"18-34"
+            }, {
+                "operator":"in", 
+                "values":["35-50","51-69"]
+            }, {
+                "operator":"=",
+                "value":"70+"
+            }
+  ]
+}
+```
+
+similarly for a set of features
+```
+<features2> ::= [<feature2>, ..., <feature2>]
+```
+Example
+```
+[{
+  "feature_name": "AgeStudyStart",
+  "feature_qualifiers": [
+    {
+      "operator":"=",
+      "value":"0-2"
+    }, {
+      "operator":"between",
+      "value_a":"3-17",
+      "value_b":"18-34"
+    }, {
+      "operator":"in", 
+      "values":["35-50","51-69"]
+    },{
+      "operator":"=",
+      "value":"70+"
+    }
+  ]
+}, {
+  "feature_name": "EstResidentialDensity",
+  "feature_qualifiers": [
+    {
+      "operator": "<",
+      "value": 1
+    }
+  ]
+}]
+```
+
+`in` and `between` currently only supported in `<feature2>`.
+
+Now, we turn to defined a feature or a feature set using a dict.
+```
+<feature> ::= {"<feature name>": <feature_qualifier>} 
+<features> ::= {"<feature name>": <feature_qualifier>, ..., "<feature name>": <feature_qualifier>}
+<feature2> ::= {"<feature name>": [<feature_qualifier>, ..., <feature_qualifier>]} 
+<features2> ::= {"<feature name>": [<feature_qualifier>, ..., <feature_qualifier>], ..., "<feature name>": [<feature_qualifier>, ..., <feature_qualifier>]}
+```
 
 ### create cohort
 method
@@ -160,12 +231,8 @@ route
 ```
 schema
 ```
-{"<feature name>":{"operator":<operator>,"value":<value>},...,"<feature name>":{"operator":<operator>,"value":<value>}}
+<features>
 ```
-
-`feature name`: see Kara's spreadsheet
-
-`operator ::= <|>|<=|>=|=|<>`
 
 ### get cohort definition
 method
@@ -212,7 +279,7 @@ route
 ```
 schema
 ```
-{"feature_a":{"<feature name>":{"operator":<operator>,"value":<value>}},"feauture_b":{"<feature name>":{"operator":<operator>,"value":<value>}}}
+{"feature_a":<feature>,"feauture_b":<feature>}
 ```
 
 ### feature association between two features using combined bins
@@ -227,13 +294,14 @@ route
 ```
 schema
 ```
-{"feature_a":{"<feature name>":[{"operator":<operator>,"value":<value>}]},"feature_b":{"<feature name>":[{"operator":<operator>,"value":<value>}]},"check_coverage_is_full":<boolean>}
+{"feature_a":<feature2>,"feature_b":<feature2>,"check_coverage_is_full":<boolean>}
 ```
 example
 ```
 {
-    "feature_a":{
-        "AgeStudyStart":[
+    "feature_a": {
+      "feature_name": "AgeStudyStart",
+      "feature_qualifiers": [
             {
                 "operator":"=",
                 "value":"0-2"
@@ -248,10 +316,11 @@ example
                 "operator":"=",
                 "value":"70+"
             }
-        ]
+      ]
     },
-    "feature_b":{
-        "ObesityBMI":[
+    "feature_b": {
+      "feature_name": "ObesityBMI",
+      "feature_qualifiers": [
             {
                 "operator":"=",
                 "value":0
@@ -259,7 +328,7 @@ example
                 "operator":"<>", 
                 "value":0
             }
-        ]
+      ]
     }
 }
 ```
@@ -276,8 +345,17 @@ route
 ```
 schema
 ```
-{"feature":{"<feature name>":{"operator":<operator>,"value":<value>}},"maximum_p_value":<maximum p value>}
+{
+  "feature": <feature>,
+  "maximum_p_value": <maximum p value>,
+  "correction": {
+    "method": <correction method>,
+    "alpha": <correction alpha>
+  }
+}
 ```
+where `correction` is optional, `alpha` is optional. `method` and `alpha` are specified here: https://www.statsmodels.org/dev/generated/statsmodels.stats.multitest.multipletests.html
+
 ### associations of one feature to all features using combined bins
 method
 ```
@@ -289,8 +367,18 @@ route
 ```
 schema
 ```
-{"feature":{"<feature name>":[{"operator":<operator>,"value":<value>}]},"maximum_p_value":<maximum p value>, "check_coverage_is_full":<boolean>}
+{
+  "feature": <feature>,
+  "maximum_p_value": <maximum p value>, 
+  "check_coverage_is_full": <boolean>,
+  "correction": {
+    "method": <correction method>,
+    "alpha": <correction alpha>
+  }
+}
 ```
+where `correction` is optional, `alpha` is optional. `method` and `alpha` are specified here: https://www.statsmodels.org/dev/generated/statsmodels.stats.multitest.multipletests.html
+
 example
 ```
 {
@@ -377,6 +465,61 @@ example
 }
 ```
 
+### knowledge graph overlay
+method
+```
+POST
+```
+
+route
+```
+/knowledge_graph_overlay?reasoner=
+```
+
+input parameters:
+```
+<query_options> ::= {
+                      "table": <string>,
+                      "year": <integer>,
+                      "cohort_features": <features>
+                    }
+                  | {
+                      "cohort_id": <string>
+                    }
+```
+
+```
+{
+   "message": {
+      "query_options": <query_options>,
+      "knowledge_graph": <knowledge_graph>
+   }
+}
+```
+if `reasoner` is specified, then it returns a Reason API response.
+
+### knowledge graph one hop
+method
+```
+POST
+```
+
+route
+```
+/knowledge_graph_one_hop?reasoner=
+```
+
+if `reasoner` is specified, then it returns a Reason API response.
+
+input parameters:
+```
+{
+   "query_options": <query_options>,
+   "query_graph": <query_graph>
+}
+```
+
+
 ## Examples
 
 get cohort of all patients
@@ -385,10 +528,28 @@ get cohort of all patients
 curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{}'
 ```
 
+get cohort of all patients active in a year
+
+```
+curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '[{
+  "feature_name": "Active_In_Year",
+  "feature_qualifier": {
+    "operator": "=",
+    "value": 1
+  }
+}]'
+```
+
 get cohort of patients with `AgeStudyStart = 0-2`
 
 ```
-curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '{"AgeStudyStart":{"operator":"=","value":"0-2"}}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort -H "Content-Type: application/json" -H "Accept: application/json" -d '[{
+  "feature_name": "AgeStudyStart",
+  "feature_qualifier": {
+    "operator":"=",
+    "value":"0-2"
+  }
+}]'
 ```
 
 Assuming we have cohort id `COHORT:10`
@@ -415,14 +576,29 @@ get feature association
 
 
 ```
-curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{"feature_a":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"feature_b":{"ObesityBMI":{"operator":"=", "value":0}}}'
+curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/feature_association -H "Content-Type: application/json" -d '{
+  "feature_a": {
+    "feature_name": "AgeStudyStart",
+    "feature_qualifier: {"operator":"=", "value":"0-2"}
+  },
+  "feature_b": {
+    "feature_name": "ObesityBMI",
+    "feature_qualifier": {"operator":"=", "value":0}
+  }
+}'
 ```
 
 get association to all features
 
 
 ```
-curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{"feature":{"AgeStudyStart":{"operator":"=", "value":"0-2"}},"maximum_p_value":0.1}' -H "Accept: application/json"
+curl -k -XPOST https://localhost:8080/patient/2010/cohort/COHORT:10/associations_to_all_features -H "Content-Type: application/json" -d '{
+  "feature": {
+    "feature_name": "AgeStudyStart",
+    "feature_qualifier": {"operator":"=", "value":"0-2"}
+  },
+  "maximum_p_value":0.1
+}' -H "Accept: application/json"
 ```
 
 knowledge graph

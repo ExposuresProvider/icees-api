@@ -14,3 +14,7 @@ argparse
 inflection
 flasgger
 simplejson
+tx-functional==0.1.2
+numpy
+statsmodels==0.12.0
+pydantic==1.6.1

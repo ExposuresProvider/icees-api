@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.8
 				
 RUN mkdir icees-api
 COPY ./app.py /icees-api/app.py
@@ -13,6 +13,6 @@ RUN pip install -r icees-api/requirements.txt
 
 WORKDIR /icees-api
 
-ENTRYPOINT ["gunicorn","--workers", "4", "--timeout", "300", "--bind", "0.0.0.0:8080"]
+ENTRYPOINT ["gunicorn","--workers", "4", "--timeout", "1800", "--bind", "0.0.0.0:8080"]
 
 CMD ["app:app"]

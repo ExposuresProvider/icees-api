@@ -1,194 +1,244 @@
-from .features import features
-from sqlalchemy import String, Integer
-import yaml
 import os
+from enum import Enum
+from typing import Union, Any, Literal, List, Optional
+import yaml
+from functools import reduce
+from pydantic import BaseModel, create_model
+from .features import features
 
-def qualifier_schema(ty, levels):
-    if ty is String:
-        yamltype = {
-            "type": "string"
-        }
-    elif ty is Integer:
-        yamltype = {
-            "type": "integer"
-        }
-    else:
-        yamltype = {}
+model_map = {}
 
+def get_model(name, *args, **kwargs):
+    model = model_map.get(name)
+    if model is None:
+        model = create_model(name, *args, **kwargs)
+        model_map[name] = model
+    return model
+
+
+def jsonschema_type(ty, levels):
     if levels is not None:
-        yamltype["enum"] = list(levels)
+        yamltype = Literal.__getitem__(tuple(levels))
+    elif ty is str:
+        yamltype = str
+    elif ty is int:
+        yamltype = int
+    elif ty is float:
+        yamltype = float
+    else:
+        yamltype = Any
 
-    return {
-        "type": "object",
-        "properties": {
-            "operator": {
-                "type": "string",
-                "enum": ["<", ">", "<=", ">=", "=", "<>"]
-            },
-            "value": yamltype
-        },
-        "required": ["operator", "value"],
-        "additionalProperties": False
-    }
+    return yamltype
 
 
-def cohort_schema(table_name):
-    return {
-        "type": "object",
-        "properties": {k: qualifier_schema(v, levels) for k, v, levels, _ in features[table_name]},
-        "additionalProperties": False
-    }
+def qualifier_schema(name, ty, levels):
+    return get_model(
+        f"{name}_qualifier_schema",
+        operator=(Literal["<", ">", "<=", ">=", "=", "<>"], ...),
+        value=(jsonschema_type(ty, levels), ...)
+    )
 
-def name_schema_output():
-    return {
-        "type": "object",
-        "properties": {
-            "name" : {
-                "type" : "string"
-            },
-            "cohort_id" : {
-                "type" : "string"
-            }
-        },
-        "required": ["name", "cohort_id"],
-        "additionalProperties": False
-    }
 
-def add_name_by_id_schema():
-    return {
-        "type": "object",
-        "properties": {
-            "cohort_id" : {
-                "type" : "string"
-            }
-        },
-        "required": ["cohort_id"],
-        "additionalProperties": False
-    }
+def feature_qualifier_schema_explicit(table_name, f, ty, levels):
+    name = f"{table_name}_{f}"
+    return get_model(
+        f"{name}_feature_qualifier_schema_explicit",
+        feature_name = (Literal[f], ...),
+        feature_qualifier = (qualifier_schema(name, ty, levels), ...),
+        year = (Optional[int], None)
+    )
+
+
+def feature_schema_implicit(table_name):
+    fields = {f.name: (Optional[qualifier_schema(f.name, f._type, f.options)], None) for f in features[table_name]}
+    return get_model(
+        f"{table_name}_feature_schema_implicit",
+        **fields
+    )
+
+    
+def union(schemas):
+    # can't specify empty list
+    return reduce(lambda x,y: Union[x, y], map(lambda x: Union[x], schemas))
+
+
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+
+def feature_schema_explicit(table_name):
+    models = [feature_qualifier_schema_explicit(table_name, f.name, f._type, f.options) for f in features[table_name]]
+    return union(models)
+
+
+def feature_schema(table_name):
+    return Union[
+        feature_schema_implicit(table_name),
+        feature_schema_explicit(table_name)
+    ]
+
+
+def feature_schema_model_wrapper(table_name):
+    return get_model(
+        f"{table_name}_feature_schema_model_wrapper",
+        value = (feature_schema(table_name), ...)
+    )
+
+
+def features_schema(table_name):
+    return Union[
+        feature_schema_implicit(table_name),
+        List[feature_schema_explicit(table_name)]
+    ]
+
+
+def features_schema_model_wrapper(table_name):
+    return get_model(
+        f"{table_name}_features_schema_model_wrapper",
+        value = (features_schema(table_name), ...)
+    )
+
+
+class name_schema_output(BaseModel):
+    name: str
+    cohort_id: str
+
+
+class add_name_by_id_schema:
+    cohort_id: str
+
+
+def bin_qualifier_schema(name, ty, levels):
+
+    yamltype = jsonschema_type(ty, levels)
+    
+    return Union[
+        get_model(
+            f"{name}_bin_qualifier_schema_comparision_operator",
+            operator=(Literal["<", ">", "<=", ">=", "=", "<>"], ...),
+            value=(yamltype, ...)
+        ),
+        get_model(
+            f"{name}_bin_qualifier_schema_between",
+            operator=(Literal["between"], ...),
+            value_a=(yamltype, ...),
+            value_b=(yamltype, ...)
+        ),
+        get_model(
+            f"{name}_bin_qualifier_schema_in",
+            operator=(Literal["in"], ...),
+            values=(List[yamltype], ...)
+        )
+    ]
+
+
+def bin_feature_qualifier_schema_explicit(table_name, f, ty, levels):
+    name = f"{table_name}_{f}"
+    
+    return get_model(
+        f"{name}_bin_faeture_qualifier_schema_explicit",
+        feature_name = (Literal[f], ...),
+        feature_qualifiers = (List[bin_qualifier_schema(name, ty, levels)], ...),
+        year = (Optional[int], None)
+    )
+
+
+def feature_bin_schema_explicit(table_name):
+    return union([bin_feature_qualifier_schema_explicit(table_name, f.name, f._type, f.options) for f in features[table_name]])
+
+
+def feature_bin_schema_implicit(table_name):
+    fields = {f.name: (Optional[List[bin_qualifier_schema(f"{table_name}_{f.name}", f._type, f.options)]], None) for f in features[table_name]}
+    return get_model(
+        f"{table_name}_bin_schema_implicit",
+        **fields
+    )
+
+
+def feature_bin_schema(table_name):
+    return Union[
+        feature_bin_schema_implicit(table_name),
+        feature_bin_schema_explicit(table_name)
+    ]
+
+
+def feature_bin_schema_model_wrapper(table_name):
+    return get_model(
+        f"{table_name}_feature_bin_schema_model_wrapper",
+        value = (feature_bin_schema(table_name), ...)
+    )        
+
+
+def features_bin_schema(table_name):
+    return Union[
+        feature_bin_schema_implicit(table_name),
+        List[feature_bin_schema_explicit(table_name)]
+    ]
+
+
+def features_bin_schema_model_wrapper(table_name):
+    return get_model(
+        f"{table_name}_features_bin_schema_model_wrapper",
+        value = (features_bin_schema(table_name), ...)
+    )
+
 
 def feature_association_schema(table_name):
-    return {
-        "type": "object",
-        "properties": {
-            "feature_a": cohort_schema(table_name),
-            "feature_b": cohort_schema(table_name)
-        },
-        "required": ["feature_a", "feature_b"],
-        "additionalProperties": False
-    }
-
-def bin_qualifier_schema(ty, levels):
-    if ty is String:
-        yamltype = {
-            "type": "string"
-        }
-    elif ty is Integer:
-        yamltype = {
-            "type": "integer"
-        }
-    else:
-        yamltype = {}
-
-    if levels is not None:
-        yamltype["enum"] = list(levels)
-
-    return {
-        "anyOf": [
-            {
-                "type": "object",
-                "properties": {
-                    "operator": {
-                        "type": "string",
-                        "enum": ["<", ">", "<=", ">=", "=", "<>"]
-                    },
-                    "value": yamltype
-                },
-                "required": ["operator", "value"],
-                "additionalProperties": False
-            },{
-                "type": "object",
-                "properties": {
-                    "operator": {
-                        "type": "string",
-                        "enum": ["between"]
-                    },
-                    "value_a": yamltype,
-                    "value_b": yamltype
-                },
-                "required": ["operator", "value_a", "value_b"],
-                "additionalProperties": False
-            },{
-                "type": "object",
-                "properties": {
-                    "operator": {
-                        "type": "string",
-                        "enum": ["in"]
-                    },
-                    "values": {
-                        "type" : "array",
-                        "items": yamltype
-                    }
-                },
-                "required": ["operator", "values"],
-                "additionalProperties": False
-            }]
-    }
+    return feature_association_schema_common("feature_association_schema", table_name, feature_schema(table_name))
 
 
-def bins_schema(table_name):
-    return {
-        "type": "object",
-        "properties": {k: {
-            "type": "array",
-            "items": bin_qualifier_schema(v, levels)
-        } for k, v, levels, _ in features[table_name]},
-        "additionalProperties": False
-    }
+def feature_association_bin_schema(table_name):
+    return feature_association_schema_common("feature_association_bin_schema", table_name, feature_bin_schema(table_name))
 
+    
+def feature_association_schema_common(model_name, table_name, feature_schema):
+    return get_model(
+        f"{model_name}_{table_name}",
+        feature_a = (feature_schema, ...),
+        feature_b = (feature_schema, ...),
+        check_coverage_is_full = (bool, False),
+    )
 
-def feature_association2_schema(table_name):
-    return {
-        "type": "object",
-        "properties": {
-            "feature_a": bins_schema(table_name),
-            "feature_b": bins_schema(table_name),
-            "check_coverage_is_full": {
-                "type": "boolean"
-            }
-        },
-        "required": ["feature_a", "feature_b"],
-        "additionalProperties": False
-    }
 
 def associations_to_all_features_schema(table_name):
-    return {
-        "type": "object",
-        "properties": {
-            "feature": cohort_schema(table_name),
-            "maximum_p_value": {
-                "type": "number"
-            }
-        },
-        "required": ["feature", "maximum_p_value"],
-        "additionalProperties": False
-    }
+    return associations_to_all_features_schema_common("associations_to_all_features_schema", table_name, feature_schema(table_name))
 
 
-def associations_to_all_features2_schema(table_name):
-    return {
-        "type": "object",
-        "properties": {
-            "feature": bins_schema(table_name),
-            "maximum_p_value": {
-                "type": "number"
-            },
-            "check_coverage_is_full": {
-                "type": "boolean"
-            }
-        },
-        "required": ["feature", "maximum_p_value"],
-        "additionalProperties": False
-    }
+def associations_to_all_features_bin_schema(table_name):
+    return associations_to_all_features_schema_common("associations_to_all_features_bin_schema", table_name, feature_bin_schema(table_name))
+
+
+class Correction(BaseModel):
+    method: Literal[
+        "bonferroni",
+        "sidak",
+        "holm-sidak",
+        "holm",
+        "simes-hochberg",
+        "hommel",
+        "fdr_bh",
+        "fdr_by" 
+    ]
+
+    
+class CorrectionWithAlpha(BaseModel):
+    method: Literal[
+        "fdr_tsbh" ,
+        "fdr_tsbky"
+    ]
+    alpha: float
+    
+
+def associations_to_all_features_schema_common(model_name, table_name, feature_schema):
+    return get_model(
+        f"{model_name}_{table_name}",
+        feature = (feature_schema, ...),
+        maximum_p_value = (float, ...),
+        correction = (Optional[Union[Correction, CorrectionWithAlpha]], None),
+        check_coverage_is_full = (bool, False)
+    )
 
 
 def features_schema_output(table_name):
@@ -226,64 +276,3 @@ def identifiers_output():
     }
 
 
-class ExplicitDumper(yaml.SafeDumper):
-    """
-    A dumper that will never emit aliases.
-    """
-
-    def ignore_aliases(self, data):
-        return True
-
-def generate_schema():
-    dir = "definitions"
-    if not os.path.exists(dir):
-        os.makedirs(dir)    
-    with open(dir + "/cohort_patient_input.yaml", "w") as f:
-        yaml.dump(cohort_schema("patient"), f, Dumper=ExplicitDumper)
-    with open(dir + "/feature_association_patient_input.yaml", "w") as f:
-        yaml.dump(feature_association_schema("patient"), f, Dumper=ExplicitDumper)
-    with open(dir + "/feature_association2_patient_input.yaml", "w") as f:
-        yaml.dump(feature_association2_schema("patient"), f, Dumper=ExplicitDumper)
-    with open(dir + "/associations_to_all_features_patient_input.yaml", "w") as f:
-        yaml.dump(associations_to_all_features_schema("patient"), f, Dumper=ExplicitDumper)
-    with open(dir + "/cohort_visit_input.yaml", "w") as f:
-        yaml.dump(cohort_schema("visit"), f, Dumper=ExplicitDumper)
-    with open(dir + "/feature_association_visit_input.yaml", "w") as f:
-        yaml.dump(feature_association_schema("visit"), f, Dumper=ExplicitDumper)
-    with open(dir + "/feature_association2_visit_input.yaml", "w") as f:
-        yaml.dump(feature_association2_schema("visit"), f, Dumper=ExplicitDumper)
-    with open(dir + "/associations_to_all_features_visit_input.yaml", "w") as f:
-        yaml.dump(associations_to_all_features_schema("visit"), f, Dumper=ExplicitDumper)
-    with open(dir + "/add_name_by_id_input.yaml", "w") as f:
-        yaml.dump(add_name_by_id_schema(), f, Dumper=ExplicitDumper)
-    with open(dir + "/features_patient_output.yaml", "w") as f:
-        yaml.dump(features_schema_output("patient"), f, Dumper=ExplicitDumper)
-    with open(dir + "/cohort_dictionary_patient_output.yaml", "w") as f:
-        yaml.dump(cohort_dictionary_schema_output("patient"), f, Dumper=ExplicitDumper)
-    with open(dir + "/cohort_patient_output.yaml", "w") as f:
-        yaml.dump(cohort_schema_output("patient"), f, Dumper=ExplicitDumper)
-    with open(dir + "/feature_association_patient_output.yaml", "w") as f:
-        yaml.dump(feature_association_schema_output("patient"), f, Dumper=ExplicitDumper)
-    with open(dir + "/feature_association2_patient_output.yaml", "w") as f:
-        yaml.dump(feature_association2_schema_output("patient"), f, Dumper=ExplicitDumper)
-    with open(dir + "/associations_to_all_features_patient_output.yaml", "w") as f:
-        yaml.dump(associations_to_all_features_schema_output("patient"), f, Dumper=ExplicitDumper)
-    with open(dir + "/cohort_visit_output.yaml", "w") as f:
-        yaml.dump(cohort_schema_output("visit"), f, Dumper=ExplicitDumper)
-    with open(dir + "/features_visit_output.yaml", "w") as f:
-        yaml.dump(features_schema_output("visit"), f, Dumper=ExplicitDumper)
-    with open(dir + "/cohort_dictionary_visit_output.yaml", "w") as f:
-        yaml.dump(cohort_dictionary_schema_output("visit"), f, Dumper=ExplicitDumper)
-    with open(dir + "/feature_association_visit_output.yaml", "w") as f:
-        yaml.dump(feature_association_schema_output("visit"), f, Dumper=ExplicitDumper)
-    with open(dir + "/feature_association2_visit_output.yaml", "w") as f:
-        yaml.dump(feature_association2_schema_output("visit"), f, Dumper=ExplicitDumper)
-    with open(dir + "/associations_to_all_features_visit_output.yaml", "w") as f:
-        yaml.dump(associations_to_all_features_schema_output("visit"), f, Dumper=ExplicitDumper)
-    with open(dir + "/name_output.yaml", "w") as f:
-        yaml.dump(name_schema_output(), f, Dumper=ExplicitDumper)
-    with open(dir + "/identifiers_output.yaml", "w") as f:
-        yaml.dump(identifiers_output(), f, Dumper=ExplicitDumper)
-    
-if __name__ == '__main__':
-    generate_schema()

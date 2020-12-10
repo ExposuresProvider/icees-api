@@ -99,8 +99,8 @@ There are two ways to specify a feature of a set of features, using a list or a 
 ```
 <feature> ::= {
     "feature_name": "<feature name>",
-    "feature_qualifier": <feature_qualifier>,
-    ["year": <year>]
+    "feature_qualifier": <feature_qualifier>
+    [,"year": <year>]
   }
 ```
 
@@ -142,12 +142,12 @@ Example
 }]
 ```
 
-In the apis that allows aggregation of bins, we can specify multiple feature qualifiers for each feature.
+In the apis that allow aggregation of bins, we can specify multiple feature qualifiers for each feature.
 ```
 <feature2> ::= {
   "feature_name": "<feature name>",
-  "feature_qualifiers": [<feature_qualifiere>, ..., <feature_qualifier>],
-  "year": <year>
+  "feature_qualifiers": [<feature_qualifiere>, ..., <feature_qualifier>]
+  [,"year": <year>]
 }
 ```
 
@@ -294,7 +294,7 @@ route
 ```
 schema
 ```
-{"feature_a":<feature2>,"feature_b":<feature2>,"check_coverage_is_full":<boolean>}
+{"feature_a":<feature2>,"feature_b":<feature2>[,"check_coverage_is_full":<boolean>]}
 ```
 example
 ```
@@ -349,8 +349,8 @@ schema
   "feature": <feature>,
   "maximum_p_value": <maximum p value>,
   "correction": {
-    "method": <correction method>,
-    "alpha": <correction alpha>
+    "method": <correction method>
+    [,"alpha": <correction alpha>]
   }
 }
 ```
@@ -369,11 +369,11 @@ schema
 ```
 {
   "feature": <feature>,
-  "maximum_p_value": <maximum p value>, 
-  "check_coverage_is_full": <boolean>,
+  "maximum_p_value": <maximum p value> 
+  [,"check_coverage_is_full": <boolean>],
   "correction": {
-    "method": <correction method>,
-    "alpha": <correction alpha>
+    "method": <correction method>
+    [,"alpha": <correction alpha>]
   }
 }
 ```

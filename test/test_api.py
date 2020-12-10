@@ -878,9 +878,8 @@ def test_associations_to_all_features2b():
                         "operator": "=",
                         "value": "0-2"
                     }, {
-                        "operator": "between",
-                        "value_a": "3-17", 
-                        "value_b": "18-34"
+                        "operator": "in",
+                        "values": ["3-17", "18-34"]
                     }, {
                         "operator":"in", 
                         "values":["35-50","51-69"]

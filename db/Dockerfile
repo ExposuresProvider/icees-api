@@ -18,6 +18,7 @@ RUN pip install inflection
 RUN pip install flasgger
 RUN pip install tx-functional
 RUN pip install statsmodels==0.12.0
+RUN pip install fastapi
 
 ENV PGDATA=/data
 ENV ICEES_DBUSER=icees_dbuser

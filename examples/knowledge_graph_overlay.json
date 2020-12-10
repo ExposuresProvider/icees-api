@@ -1,0 +1,24 @@
+{
+    "message": {
+        "knowledge_graph": {
+            "edges": [
+                {
+                    "id": "e00",
+                    "source_id": "PUBCHEM:2083",
+                    "target_id": "PUBCHEM:281",
+                    "type": "association"
+                }
+            ],
+            "nodes": [
+                {
+                    "id": "PUBCHEM:2083",
+                    "type": "drug"
+                },
+                {
+                    "id": "PUBCHEM:281",
+                    "type": "chemical_substance"
+                }
+            ]
+        }
+    }
+}

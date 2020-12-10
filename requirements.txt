@@ -1,6 +1,3 @@
-flask
-flask-restful
-flask-limiter
 sqlalchemy
 psycopg2-binary
 scipy
@@ -12,9 +9,10 @@ structlog
 pandas==0.25.3
 argparse
 inflection
-flasgger
 simplejson
 tx-functional==0.1.2
 numpy
 statsmodels==0.12.0
-pydantic==1.6.1
+fastapi
+uvicorn
+git+https://github.com/ranking-agent/reasoner-pydantic#egg=reasoner-pydantic

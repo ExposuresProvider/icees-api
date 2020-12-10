@@ -13,7 +13,7 @@ test/test.sh
 
 #### Edit schema and identifiers
 
-ICEES API allows define custom schema and identifiers. The schema is stored at `config/features.yml`. The identifier is stored at `config/identifiers.yml`. Edit them to fit your dataset.
+ICEES API allows define custom schema and identifiers. The schema is stored at `config/features.yml`. The identifiers are stored at `config/identifiers.yml`. Edit them to fit your dataset.
 
 ICEES API has the following assumptions: 
  * Each table named `<table>` should have a column named `<table>Id` as the identifier.

@@ -80,7 +80,7 @@ docker build . -t icees-api:0.4.0
 ## REST API
 
 ### features schema
-A feature qualifier limited values of a feature
+A feature qualifier limits values of a feature
 ```
 <operator> ::= <
              | >
@@ -94,7 +94,7 @@ A feature qualifier limited values of a feature
                       | {"operator":"between", "value_a":<value>, "value_b":<value>}
 ```
 
-There are two ways to specify a feature of a set of features, using a list or a dict. We show the schema for the former first, then show the schema for the latter.
+There are two ways to specify a feature or a set of features, using a list or a dict. We show the schema for the former first, then show the schema for the latter.
 
 ```
 <feature> ::= {
@@ -108,9 +108,9 @@ where
 
 `feature name`: see config/features.yml
 
-`year` is optional. When `year` is specified, it uses features from that year, otherwise it gets year from context
+`year` is optional. When `year` is specified, it uses features from that year, otherwise it gets the year from context
 
-Example
+Example:
 ```
 {
   "feature_name": "AgeStudyStart",
@@ -125,7 +125,7 @@ Example
 <features> ::= [<feature>, ..., <feature>]
 ```
 
-Example
+Example:
 ```
 [{
   "feature_name": "AgeStudyStart",
@@ -174,11 +174,11 @@ Example:
 }
 ```
 
-similarly for a set of features
+Similarly for a set of features
 ```
 <features2> ::= [<feature2>, ..., <feature2>]
 ```
-Example
+Example:
 ```
 [{
   "feature_name": "AgeStudyStart",
@@ -209,9 +209,9 @@ Example
 }]
 ```
 
-`in` and `between` currently only supported in `<feature2>`.
+`in` and `between` are currently only supported in `<feature2>`.
 
-Now, we turn to defined a feature or a feature set using a dict.
+Now, we turn to define a feature or a feature set using a dict.
 ```
 <feature> ::= {"<feature name>": <feature_qualifier>} 
 <features> ::= {"<feature name>": <feature_qualifier>, ..., "<feature name>": <feature_qualifier>}

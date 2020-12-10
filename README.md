@@ -23,7 +23,7 @@ These columns do not need to be specified in `features.yml`.
 
 #### Data for database
 
-For each table in the schema, create a directory with its table name under `DATA_PATH` and put csv files under that directory. The csv files should have the same headers as the table. For example, put `patient.csv` under `DATA_PATH/patient` and put `visit.csv` under `DATA_PATH/visit`.
+For each table in the schema, create a directory with its table name under `<data path>`, which is set by `DATA_PATH` in `.env`, and put csv files under that directory. The csv files should have the same headers as the table. For example, put `patient.csv` under `<data path>/patient` and put `visit.csv` under `<data path>/visit`.
 
 To generate random samples, run
 ```

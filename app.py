@@ -7,6 +7,7 @@ from logging.handlers import TimedRotatingFileHandler
 import os
 from time import strftime
 from typing import Any
+from jsonschema import ValidationError
 
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
@@ -114,9 +115,13 @@ def prepare_output(func):
         # run func, logging errors
         try:
             return_value = func(*args, **kwargs)
+            
+        except ValidationError as err:
+            LOGGER.exception(err)
+            return_value = {"return value": e.message}
         except Exception as err:
             LOGGER.exception(err)
-            raise err
+            return_value = {"return value": str(err)}
 
         # return tabular data, if requested
         if request.headers["accept"] == "text/tabular":

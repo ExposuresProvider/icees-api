@@ -1,7 +1,6 @@
 from features import features
 import pandas as pd
 import numpy as np
-from sqlalchemy import Integer, String, Enum
 import sys
 import argparse
 
@@ -18,12 +17,12 @@ def generate_data(table_name, years, n, fn):
             col = f.name
             levels = f.options
             if levels is None:
-                if t == Integer:
+                if t == int:
                     df[col] = np.random.randint(10, size=n)
-                elif t == String:
+                elif t == str:
                     df[col] = [''.join(chr(x + 97) for x in np.random.randint(26, size=2)) for _ in range(n)]
                 else:
-                    print ("error: " + col)
+                    print ("error: " + col + " " + str(t))
             else:
                 df[col] = np.random.choice(levels, size=n)
         if df_all is None:

@@ -905,7 +905,7 @@ def test_cohort_dictionary_explicit_tabular():
             }
         }]
         resp = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), json=feature_variables, headers = json_headers, verify = False)
-        resp2 = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), headers = {"Accept": "text/tabular"}, verify = False)
+        resp2 = requests.post(prot + "://"+host+":"+str(port)+"/{0}/{1}/cohort".format(table, year), json=feature_variables, headers = {"Content-Type": "application/json", "Accept": "text/tabular"}, verify = False)
         
         assert resp2.status_code == 200
 

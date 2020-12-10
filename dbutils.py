@@ -30,8 +30,6 @@ def create_indices():
     itrunc = 0
     def truncate(a, length=63):
         logger.info("creating index " + a)
-        sys.stdout.flush()
-        sys.stderr.flush()
         nonlocal itrunc
         prefix = "index" + str(itrunc)
         itrunc += 1

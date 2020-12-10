@@ -437,7 +437,7 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
         yb = feature_b_norm["year"]
 
         table, table_matrices = generate_tables_from_features(table_name, cohort_features_norm, cohort_year, [(ka, ya), (kb, yb)])
-        
+
         selections = [
             case_select2(table_matrices[yb], table_matrices[ya], kb, vb, ka, va, table_name=table_name) for vb, va in product(vbs, vas)
         ] + [
@@ -567,7 +567,7 @@ def select_feature_count(conn, table_name, year, cohort_features, cohort_year, f
 
 
 def get_feature_levels(conn, table, year, feature):
-    s = select([table.c[feature]]).where(table.c.year == year).distinct().order_by(table.c[feature])
+    s = select([table.c[feature]]).where(table.c.year == year).where(table.c[feature] != None).distinct().order_by(table.c[feature])
     return list(map(lambda row: row[0], conn.execute((s))))
 
 

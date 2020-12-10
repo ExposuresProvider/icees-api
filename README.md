@@ -16,7 +16,7 @@ test/test.sh
 ICEES API allows define custom schema and identifiers. The schema is stored at `config/features.yml`. The identifiers are stored at `config/identifiers.yml`. Edit them to fit your dataset.
 
 ICEES API has the following assumptions: 
- * Each table named `<table>` should have a column named `<table>Id` as the identifier.
+ * Each table named `<table>` should have a column named `<Table>Id` as the identifier where `<Table>` is `<table>` capitalized. For example, for table `patient`, the id column is `PatientId`.
  * Each table has a column named `year`. 
 
 These columns do not need to be specified in `features.yml`.

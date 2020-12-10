@@ -488,6 +488,16 @@ patient:
   RoadwayLanes:
     type: integer
     biolinkType: Environment
+  CAFO_Distance:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  LandfillDistance:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment  
   TotalEDVisits:
     type: integer
     biolinkType: ActivityAndBehavior
@@ -1545,6 +1555,16 @@ visit:
   RoadwayLanes:
     type: integer
     biolinkType: Environment
+  CAFO_Distance:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment
+  LandfillDistance:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: Environment  
   FentanylVisit:
     type: integer
     minimum: 0

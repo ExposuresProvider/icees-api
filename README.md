@@ -100,7 +100,7 @@ There are two ways to specify a feature of a set of features, using a list or a 
 <feature> ::= {
     "feature_name": "<feature name>",
     "feature_qualifier": <feature_qualifier>,
-    "year": <year>
+    ["year": <year>]
   }
 ```
 

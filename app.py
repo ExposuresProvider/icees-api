@@ -52,6 +52,7 @@ APP = FastAPI(
         {"url": f"{OPENAPI_SCHEME}://{OPENAPI_HOST}"},
     ],
     default_response_class=NaNResponse,
+    docs_url="/apidocs",
 )
 
 with open('terms.txt', 'r') as content_file:

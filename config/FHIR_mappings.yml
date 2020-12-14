@@ -1,11 +1,109 @@
 # SARS-CoV-2 Positive Cohort Characteristics and Clinical Course
-CharlsonComorbidityIndex:
+
+# ICEES-specific
+WHO Severity Score:
+    Observation:
+        - system: https://browser.ihtsdotools.org
+          code: "SCTID: 278305009"
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=278305009&edition=MAIN/2020-07-31&release=&languages=en 
+Fever Dx:
+    Condition:
+        - system: https://icd.who.int
+          code: R50
+          # note: https://icd.who.int/browse10/2019/en#/R50
+Isolation Flag:
+    Procedure:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 40174006
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=40174006&edition=MAIN/2020-07-31&release=&languages=en
+Discharge Status:
+    Observation:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 309039003
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=309039003&edition=MAIN/2020-07-31&release=&languages=en
+PCD Dx:
+    Condition:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 86204009
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=86204009&edition=MAIN/2020-07-31&release=&languages=en
+          # note: primary ciliary dyskinesia
+Neonatal respiratory distress syndrome:
+    Condition:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 46775006
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=46775006&edition=MAIN/2020-07-31&release=&languages=en
+Laterality defect (situs inversus or heterotaxy):
+    Condition:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 43876007
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=43876007&edition=MAIN/2020-07-31&release=&languages=en
+          # note: situs inversus
+          code: SCTID: 14821001
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=14821001&edition=MAIN/2020-07-31&release=&languages=en
+          # note: heterotaxy
+wet cough:
+    Condition:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 28743005
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=28743005&edition=MAIN/2020-07-31&release=&languages=en
+          # note: productive cough
+Middle ear disease:
+    Condition:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 7699004
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=7699004&edition=MAIN/2020-07-31&release=&languages=en
+Chronic nasal congestion:
+    Condition:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 68235000
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=68235000&edition=MAIN/2020-07-31&release=&languages=en
+Bronchiectasis:
+    Condition:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 12295008
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=12295008&edition=MAIN/2020-07-31&release=&languages=en
+Male infertility due to sperm tail dysfunction:
+    Condition:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 2904007
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=2904007&edition=MAIN/2020-07-31&release=&languages=en
+          # note: this is for general male infertility, could not determine which type was correct for sperm tail dysfunction
+Cystic fibrosis:
+    Condition:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 190905008
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=190905008&edition=MAIN/2020-07-31&release=&languages=en
+Antibiotics:
+    Medication:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 372599003
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=372599003&edition=MAIN/2020-07-31&release=&languages=en
+          # note: Cytotoxic antibiotic
+DILI Dx:
+	Condition:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 427399008
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=427399008&edition=MAIN/2020-07-31&release=&languages=en
+          # note: Drug-induced liver injury
+# CAFO Exposure:
+#     Observation:
+#         - system: 
+#           code:
+#           note: Concentrated Animal Feeding Operations
+#           note: I could not find a concentrated animal feeding exposure event or environment indicator. The closest thing I could find on SNOMED was “animal handlers’ lung” which is not the same thing. 
+Landfill Exposure:
+    Observation:
+        - system: https://browser.ihtsdotools.org
+          code: SCTID: 285101004
+          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=285101004&edition=MAIN/2020-07-31&release=&languages=en
+          # note: Landfill site (environment)
+Charlson Comorbidity Index:
     Measurement:
         - system: http://hl7.org/fhir/sid/icd-10-cm
           code: M65.32
 
 # Diagnoses - ICD-10
-HypertensionDx:
+Hypertension Dx:
     Condition:
         - system: https://icd.who.int
           code: I10-I15
@@ -1811,13 +1909,3 @@ Tocilizumab:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 612865
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=tocilizumab
-
-# FeverDx:
-#     Condition:
-#         - system: 
-#           code:
-
-# Discharge Status:
-#     Observation:
-#         - system: 
-#           code:

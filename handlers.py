@@ -449,6 +449,27 @@ def knowledge_graph_one_hop(
     "/bins",
     response_model=Dict,
 )
-def handle_bins() -> Dict:
+def handle_bins(
+        year: str = None,
+        table: str = None,
+        feature: str = None,
+) -> Dict:
     """Return bin values."""
-    return dict()
+    with open("config/bins.json", "r") as stream:
+        bins = json.load(stream)
+    if feature is not None:
+        bins = {
+            year_key: {
+                table_key: table_value.get(feature, None)
+                for table_key, table_value in year_value.items()
+            }
+            for year_key, year_value in bins.items()
+        }
+    if table is not None:
+        bins = {
+            year_key: year_value.get(table, None)
+            for year_key, year_value in bins.items()
+        }
+    if year is not None:
+        bins = bins.get(year, None)
+    return {"return_value": bins}

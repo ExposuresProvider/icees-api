@@ -74,7 +74,7 @@ Cystic fibrosis:
           code: SCTID: 190905008
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=190905008&edition=MAIN/2020-07-31&release=&languages=en
 Antibiotics:
-    Medication:
+    MedicationRequest:
         - system: https://browser.ihtsdotools.org
           code: SCTID: 372599003
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=372599003&edition=MAIN/2020-07-31&release=&languages=en
@@ -1796,7 +1796,7 @@ Invasive Ventilation:
           code: "SCTID: 266700009"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=266700009&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
 Nitric Oxide or Flolan:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 7442
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
@@ -1804,82 +1804,82 @@ Nitric Oxide or Flolan:
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=nitric%20oxide
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=flolan
 Amiodarone gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 703
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=703
 Dopamine gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 3628
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dopamine
 Dobutamine gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 3616
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dobutamine
 Epinephrine gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 3992
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=epinephrine
 Esmolol gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 49737
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=esmolol
 Isoproterenol gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 6054
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=isoproterenol
 Levosimendan gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 73107
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=levosimendan
 Milrinone gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 52769
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=milrinone
 Norepinephrine gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 7512
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=norepinephrine
 Phenylephrine gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 8163
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=phenylephrine
 Vasopressin gtt:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 11149
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=vasopressin
 Remdesivir:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 2284718
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=remdesivir
 Hydroxychloroquine:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 5521
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=hydroxychloroquine 
 Antibiotics:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: Y40-Y84
           # note: https://icd.who.int/browse10/2019/en#/Y40
 Dexamethasone:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 3264
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=dexamethasone
 Prednisone/Methylprednisolone:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 8640
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=prednisone
@@ -1900,12 +1900,12 @@ Convalescent Plasma:
           code: 95354-7
           # note: https://search.loinc.org/searchLOINC/search.zul?query=convalescent+plasma
 Anakinra:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 72435
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=anakinra
 Tocilizumab:
-    Medication:
+    MedicationRequest:
         - system: http://www.nlm.nih.gov/research/umls/rxnorm
           code: 612865
           # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=tocilizumab

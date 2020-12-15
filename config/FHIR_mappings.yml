@@ -50,7 +50,7 @@ wet cough:
 Middle ear disease:
     Condition:
         - system: https://browser.ihtsdotools.org
-          ccode: "SCTID: 65363002"
+          code: "SCTID: 65363002"
           # note: Otitis media (disorder)
 Chronic nasal congestion:
     Condition:

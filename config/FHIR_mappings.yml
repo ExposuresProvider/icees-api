@@ -14,75 +14,86 @@ Fever Dx:
 Isolation Flag:
     Procedure:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 40174006
+          code: "SCTID: 40174006"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=40174006&edition=MAIN/2020-07-31&release=&languages=en
 Discharge Status:
     Observation:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 309039003
+          code: "SCTID: 309039003"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=309039003&edition=MAIN/2020-07-31&release=&languages=en
 PCD Dx:
     Condition:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 86204009
+          code: "SCTID: 86204009"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=86204009&edition=MAIN/2020-07-31&release=&languages=en
           # note: primary ciliary dyskinesia
 Neonatal respiratory distress syndrome:
     Condition:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 46775006
+          code: "SCTID: 46775006"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=46775006&edition=MAIN/2020-07-31&release=&languages=en
 Laterality defect (situs inversus or heterotaxy):
     Condition:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 43876007
+          code: "SCTID: 43876007"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=43876007&edition=MAIN/2020-07-31&release=&languages=en
           # note: situs inversus
-          code: SCTID: 14821001
+          code: "SCTID: 14821001"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=14821001&edition=MAIN/2020-07-31&release=&languages=en
           # note: heterotaxy
 wet cough:
     Condition:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 28743005
+          code: "SCTID: 28743005"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=28743005&edition=MAIN/2020-07-31&release=&languages=en
           # note: productive cough
 Middle ear disease:
     Condition:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 7699004
-          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=7699004&edition=MAIN/2020-07-31&release=&languages=en
+          code: "SCTID: 65363002"
+          # note: Otitis media (disorder)
 Chronic nasal congestion:
     Condition:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 68235000
+          code: "SCTID: 68235000"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=68235000&edition=MAIN/2020-07-31&release=&languages=en
 Bronchiectasis:
     Condition:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 12295008
-          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=12295008&edition=MAIN/2020-07-31&release=&languages=en
+          code: "SCTID: 233629001"
+          # note: Idiopathic bronchiectasis (disorder)
 Male infertility due to sperm tail dysfunction:
     Condition:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 2904007
+          code: "SCTID: 2904007"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=2904007&edition=MAIN/2020-07-31&release=&languages=en
           # note: this is for general male infertility, could not determine which type was correct for sperm tail dysfunction
 Cystic fibrosis:
     Condition:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 190905008
+          code: "SCTID: 190905008"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=190905008&edition=MAIN/2020-07-31&release=&languages=en
 Antibiotics:
     MedicationRequest:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 372599003
-          # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=372599003&edition=MAIN/2020-07-31&release=&languages=en
-          # note: Cytotoxic antibiotic
+          code: "SCTID: 764146007"
+          # note: penicillin
+          code: "SCTID: 372687004"
+          # note: amoxicillin
+          code: "SCTID: 387170002"
+          # note: ampicillin
+          code: "SCTID: 372694001"
+          # note: erythromycin
+          code: "SCTID: 387223008"
+          # note: streptomycin
+          code: "SCTID: 387406002"
+          # note: sulfonamide
+          code: "SCTID: 372809001"
+          # note: tetracycline
 DILI Dx:
 	Condition:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 427399008
+          code: "SCTID: 427399008"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=427399008&edition=MAIN/2020-07-31&release=&languages=en
           # note: Drug-induced liver injury
 # CAFO Exposure:
@@ -94,7 +105,7 @@ DILI Dx:
 Landfill Exposure:
     Observation:
         - system: https://browser.ihtsdotools.org
-          code: SCTID: 285101004
+          code: "SCTID: 285101004"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=285101004&edition=MAIN/2020-07-31&release=&languages=en
           # note: Landfill site (environment)
 Charlson Comorbidity Index:

@@ -1,9 +1,11 @@
 """ICEES API handlers."""
+from functools import partial
 import json
 from typing import Dict
 
 from fastapi import APIRouter, Body, Depends
-from reasoner_pydantic import Request as Query, Message
+from reasoner_converter.interfaces import upgrade_reasoner
+from reasoner_pydantic import Query, Message
 
 from dependencies import get_db
 from features import model, knowledgegraph
@@ -439,7 +441,7 @@ def knowledge_graph_one_hop(
         conn=Depends(get_db),
 ) -> Message:
     """Query the ICEES clinical reasoner for knowledge graph one hop."""
-    return_value = knowledgegraph.one_hop(conn, obj)
+    return_value = upgrade_reasoner(partial(knowledgegraph.one_hop, conn))(obj)
     if reasoner:
         return return_value
     return {"return value": return_value}

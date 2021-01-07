@@ -71,13 +71,13 @@ def result(source_id, source_curie, edge_id, node_name, target_id, table, filter
         node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
         return Just({
-            "node_bindings" : {
-                source_id: source_curie,
-                target_id: node_id
-            },
-            "edge_bindings" : {
-                edge_id: [gen_edge_id(source_curie, node_name, node_id)]
-            },
+            "node_bindings" : [
+                {"qg_id": source_id, "kg_id": source_curie},
+                {"qg_id": target_id, "kg_id": node_id}
+            ],
+            "edge_bindings" : [
+                {"qg_id": edge_id, "kg_id": gen_edge_id(source_curie, node_name, node_id)}
+            ],
             "score": score,
             "score_name": score_name
         })

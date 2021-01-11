@@ -93,7 +93,7 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
             "name": node_name,
             "id": node_id,
             "equivalent_identifiers": equivalent_ids,
-            "type": biolink_class
+            "type": [biolink_class]
         })
     
 
@@ -182,7 +182,7 @@ def get(conn, query):
         knowledge_graph_nodes = [{
             "name": "cohort",
             "id": cohort_id,
-            "type": "population_of_individual_organisms"
+            "type": ["population_of_individual_organisms"]
         }] + list(nodes.values())
 
         knowledge_graph = {

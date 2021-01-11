@@ -39,24 +39,24 @@ def wait(ip, port):
 
 def query(year, biolink_class):
     return {
+        "query_options": {
+            "table": "patient",
+            "year": year,
+            "cohort_features": {
+                "AgeStudyStart": {
+                    "operator": "=",
+                    "value": "0-2"
+                }
+            },
+            "feature": {
+                "EstResidentialDensity": {
+                    "operator": "<",
+                    "value": 1
+                }
+            },
+            "maximum_p_value":1
+        },
         "message": {
-            "query_options": {
-                "table": "patient", 
-                "year": year, 
-                "cohort_features": {
-                    "AgeStudyStart": {
-                        "operator": "=",
-                        "value": "0-2"
-                    }
-                }, 
-                "feature": {
-                    "EstResidentialDensity": {
-                        "operator": "<",
-                        "value": 1
-                    }
-                }, 
-                "maximum_p_value":1
-            }, 
             "query_graph": {
                 "nodes": [
                     {
@@ -83,8 +83,8 @@ def query(year, biolink_class):
     
 def one_hop_query(curie, biolink_class, **kwargs):
     return {
+        **kwargs,
         "message": {
-            **kwargs,
             "query_graph": {
                 "nodes": [
                     {
@@ -194,8 +194,8 @@ def do_test_one_hop(curie, biolink_class, **kwargs):
 def do_test_knowledge_graph_overlay(**kwargs):
 
     query2 = {
+        **kwargs,
         "message": {
-            **kwargs, 
             "knowledge_graph": {
                 "nodes": [
                     {

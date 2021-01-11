@@ -118,10 +118,11 @@ def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_prop
 def get(conn, query):
     try:
         message = query.get("message", query)
-        cohort_id, table, year, cohort_features, size = message_cohort(conn, message)
-        maximum_p_value = message["query_options"].get("maximum_p_value", MAX_P_VAL_DEFAULT)
-        filter_regex = message["query_options"].get("regex", ".*")
-        feature = to_qualifiers(message["query_options"]["feature"])
+        query_options = query.get("query_options", {})
+        cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
+        maximum_p_value = query["query_options"].get("maximum_p_value", MAX_P_VAL_DEFAULT)
+        filter_regex = query["query_options"].get("regex", ".*")
+        feature = to_qualifiers(query["query_options"]["feature"])
 
         query_graph = message.get("query_graph", message.get("machine_question"))
 
@@ -351,8 +352,7 @@ def convert_qedge_to_edge(qedge):
     return convert(attribute_map, qedge)
     
 
-def message_cohort(conn, message):
-    cohort_definition = message.get("query_options", {})
+def message_cohort(conn, cohort_definition):
     cohort_id = cohort_definition.get("cohort_id")
     if cohort_id is None:
         table = cohort_definition.get("table", "patient")
@@ -377,8 +377,9 @@ MAX_P_VAL_DEFAULT = 1
 def co_occurrence_overlay(conn, query):
     try:
         message = query["message"]
+        query_options = query.get("query_options", {})
 
-        cohort_id, table, year, features, size = message_cohort(conn, message)
+        cohort_id, table, year, features, size = message_cohort(conn, query_options)
         
         query_graph = message.get("knowledge_graph")
 
@@ -440,7 +441,8 @@ def add_node(nodes, node):
 def one_hop(conn, query):
     try:
         message = query["message"]
-        cohort_id, table, year, cohort_features, size = message_cohort(conn, message)
+        query_options = query.get("query_options", {})
+        cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
         maximum_p_value = query.get("query_options", {}).get("maximum_p_value", MAX_P_VAL_DEFAULT)
         filter_regex = query.get("query_options", {}).get("regex", ".*")
         query_graph = message["query_graph"]

@@ -381,17 +381,17 @@ def co_occurrence_overlay(conn, query):
 
         cohort_id, table, year, features, size = message_cohort(conn, query_options)
         
-        query_graph = message.get("knowledge_graph")
+        kgraph = message.get("knowledge_graph")
 
-        query_nodes = query_graph["nodes"]
-        query_edges = query_graph["edges"]
+        knodes = kgraph["nodes"]
+        kedges = kgraph["edges"]
 
-        nodes = query_nodes
-        edges = query_edges
+        nodes = knodes
+        edges = kedges
 
         overlay_edges = []
-        for src_node in query_nodes:
-            for tgt_node in query_nodes:
+        for src_node in knodes:
+            for tgt_node in knodes:
                 edge_attributes = co_occurrence_edge(conn, table, year, features, src_node, tgt_node)
                 if isinstance(edge_attributes, Left):
                     return {

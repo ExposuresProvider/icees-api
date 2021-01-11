@@ -257,10 +257,10 @@ def co_occurrence_feature_edge(conn, table, year, cohort_features, src_feature, 
     )
 
 
-def feature_names(table, node):
+def feature_names(table, node_curie):
     return (
-        maybe.from_python(node.get("curie"))
-        .rec(Right, Left(f"no curie specified at node {node}"))
+        maybe.from_python(node_curie)
+        .rec(Right, Left("no curie specified at node"))
         .bind(partial(get_features_by_identifier, table))
     )
 
@@ -285,9 +285,9 @@ def co_occurrence_edge(conn, table, year, cohort_features, src_node, tgt_node):
             return Right(edge_property_value)
                     
     return (
-        feature_names(table, src_node)
+        feature_names(table, src_node["id"])
         .bind(lambda src_features: (
-            feature_names(table, tgt_node)
+            feature_names(table, tgt_node["id"])
             .bind(lambda tgt_features: (
                 handle_src_and_tgt_features(src_features, tgt_features)  
             ))
@@ -462,7 +462,7 @@ def one_hop(conn, query):
         source_node_type = source_node.get("type")
         source_curie = source_node["curie"]
 
-        msource_node_feature_names = feature_names(table, source_node)
+        msource_node_feature_names = feature_names(table, source_curie)
         if isinstance(msource_node_feature_names, Left):
             raise NotImplementedError(msource_node_feature_names)
         else:

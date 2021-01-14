@@ -1,24 +1,21 @@
 {
     "message": {
         "knowledge_graph": {
-            "edges": [
-                {
-                    "id": "e00",
-                    "source_id": "PUBCHEM:2083",
-                    "target_id": "PUBCHEM:281",
-                    "type": "association"
+            "edges": {
+                "e00": {
+                    "subject": "PUBCHEM:2083",
+                    "object": "PUBCHEM:281",
+                    "predicate": "biolink:association"
                 }
-            ],
-            "nodes": [
-                {
-                    "id": "PUBCHEM:2083",
-                    "type": "drug"
+            },
+            "nodes": {
+                "PUBCHEM:2083": {
+                    "category": "biolink:Drug"
                 },
-                {
-                    "id": "PUBCHEM:281",
-                    "type": "chemical_substance"
+                "PUBCHEM:281": {
+                    "category": "biolink:ChemicalSubstance"
                 }
-            ]
+            }
         }
     }
 }

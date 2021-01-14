@@ -1,41 +1,38 @@
 {
-    "message": {
-        "query_options": {
-            "table": "patient",
-            "year": 2010,
-            "cohort_features": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": "0-2"
-                }
-            },
-            "feature": {
-                "EstResidentialDensity": {
-                    "operator": "<",
-                    "value": 1
-                }
-            },
-            "maximum_p_value": 1
+    "query_options": {
+        "table": "patient",
+        "year": 2010,
+        "cohort_features": {
+            "AgeStudyStart": {
+                "operator": "=",
+                "value": "0-2"
+            }
         },
+        "feature": {
+            "EstResidentialDensity": {
+                "operator": "<",
+                "value": 1
+            }
+        },
+        "maximum_p_value": 1
+    },
+    "message": {
         "query_graph": {
-            "nodes": [
-                {
-                    "id": "n00",
-                    "type": "population_of_individual_organisms"
+            "nodes": {
+                "n00": {
+                    "category": "biolink:PopulationOfIndividualOrganisms"
                 },
-                {
-                    "id": "n01",
-                    "type": "chemical_substance"
+                "n01": {
+                    "category": "biolink:ChemicalSubstance"
                 }
-            ],
-            "edges": [
-                {
-                    "id": "e00",
-                    "type": "association",
-                    "source_id": "n00",
-                    "target_id": "n01"
+            },
+            "edges": {
+                "e00": {
+                    "predicate": "biolink:association",
+                    "subject": "n00",
+                    "object": "n01"
                 }
-            ]
+            }
         }
     }
 }

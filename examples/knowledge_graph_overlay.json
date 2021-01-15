@@ -5,7 +5,7 @@
                 "e00": {
                     "subject": "PUBCHEM:2083",
                     "object": "PUBCHEM:281",
-                    "predicate": "biolink:association"
+                    "predicate": "biolink:correlated_with"
                 }
             },
             "nodes": {

@@ -28,7 +28,7 @@
             },
             "edges": {
                 "e00": {
-                    "predicate": "biolink:association",
+                    "predicate": "biolink:correlated_with",
                     "subject": "n00",
                     "object": "n01"
                 }

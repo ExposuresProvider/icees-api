@@ -68,7 +68,7 @@ def query(year, biolink_class):
                 },
                 "edges": {
                     "e00": {
-                        "predicate": "biolink:association",
+                        "predicate": "biolink:correlated_with",
                         "subject": "n00",
                         "object": "n01"
                     }
@@ -93,7 +93,7 @@ def one_hop_query(curie, biolink_class, **kwargs):
                 }, 
                 "edges": {
                     "e00": {
-                        "predicate": "biolink:association",
+                        "predicate": "biolink:correlated_with",
                         "subject": "n00",
                         "object": "n01"
                     } 
@@ -435,7 +435,7 @@ def test_knowledge_graph_schema():
         assert "return value" in resp_json
         assert "population_of_individual_organisms" in resp_json["return value"]
         assert "chemical_substance" in resp_json["return value"]["population_of_individual_organisms"]
-        assert "association" in resp_json["return value"]["population_of_individual_organisms"]["chemical_substance"]
+        assert "correlated_with" in resp_json["return value"]["population_of_individual_organisms"]["chemical_substance"]
 
 def test_knowledge_graph_for_chemical_substance():
         do_test_knowledge_graph("biolink:ChemicalSubstance")

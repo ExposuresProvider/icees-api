@@ -24,15 +24,15 @@ logger = logging.getLogger(__name__)
 
 schema = {
         "population_of_individual_organisms": {
-            "chemical_substance": ["association"],
-            "disease": ["association"],
-            "phenotypic_feature": ["association"],
-            "disease_or_phenotypic_feature": ["association"],
-            "chemical_substance": ["association"],
-            "environment": ["association"],
-            "activity_and_behavior": ["association"],
-            "drug": ["association"],
-            "named_thing": ["association"]
+            "chemical_substance": ["correlated_with"],
+            "disease": ["correlated_with"],
+            "phenotypic_feature": ["correlated_with"],
+            "disease_or_phenotypic_feature": ["correlated_with"],
+            "chemical_substance": ["correlated_with"],
+            "environment": ["correlated_with"],
+            "activity_and_behavior": ["correlated_with"],
+            "drug": ["correlated_with"],
+            "named_thing": ["correlated_with"]
         }
     }
 
@@ -104,7 +104,7 @@ def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_prop
     else:
         node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
         
-        edge_name = "association"
+        edge_name = "correlated_with"
         
         return Just({
             "type": edge_name,
@@ -317,7 +317,7 @@ def attr(s):
 def generate_edge(src_node, tgt_node, edge_attributes=None):
     return {
         "id": generate_edge_id(src_node, tgt_node),
-        "type": "association",
+        "type": "correlated_with",
         "source_id": node_get_id(src_node),
         "target_id": node_get_id(tgt_node),
         **({

@@ -5,7 +5,7 @@
                 "e00": {
                     "subject": "n00",
                     "object": "n01",
-                    "predicate": "biolink:association"
+                    "predicate": "biolink:correlated_with"
                 }
             },
             "nodes": {

@@ -69,37 +69,37 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
-  ChronicKidneyDisese: 
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  ChronicKidneyDx: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
-  ChronicArteryDisease:
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  ChronicArteryDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   HeartFailure:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
-  LiverDisease: 
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  LiverDx: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   Cancer:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   HIVInfection:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   HospitalLOS: 
     type: integer
     minimum:
@@ -119,77 +119,77 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   CervicalCancerDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   OvarianCancerDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   CroupDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ReactiveAirwayDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   CoughDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   PneumoniaDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ObesityDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   UterineCancerDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ProstateCancerDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   TesticularCancerDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   KidneyCancerDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   EndometriosisDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   OvarianDysfunctionDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   TesticularDysfunctionDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   PregnancyDx:
     type: integer
     minimum: 0
@@ -204,42 +204,42 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   AlopeciaDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   FibromyalgiaDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   AlcoholDependenceDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   DrugDependenceDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   DepressionDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   AnxietyDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   AutismDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ObesityBMI:
     type: integer
     minimum: 0
@@ -247,83 +247,83 @@ patient:
     biolinkType: DiseaseOrPhenotypicFeature
   ErythrocyteSedimentationRate:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   Procalcitonin: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature 
   Ferritin: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature 
   C-reactiveProtein:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature  
   D-dimer:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   LDH: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   IL-6:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   pH:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   pCO2ArterialVenous:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   pCO2Arterial:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   pO2Arterial:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   pO2FiO2ratio:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SpO2FiO2ratio:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   BaseDeficit:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   Lactate:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SvO2: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   WBCcount: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   AbsoluteNeutrophilCount:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   Hemoglobin: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   PlateletCount:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   BloodType:
     type: string
@@ -331,55 +331,55 @@ patient:
     biolinkType: PhenotypicFeature
   SerumSodium: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SerumPotassium: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SerumChloride:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SerumBicarbonate:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   BloodUreaNitrogen:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SerumCreatinine:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SerumGlucose:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   ALT:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   AST: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   Troponin:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   BrainNatriureticPeptide:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   CK:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   HgbA1C: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   EstimatedGFR:
     type: integer
@@ -390,142 +390,142 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
    RespiratorySupportHFNC:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug 
+    biolinkType: ChemicalSubstance, Drug 
   RespiratorySupportNIPPV:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   RespiratorySupportInvasiveVentilator:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   RespiratorySupportHNO3orFlolan:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportAmiodarone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportDopamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportDobutamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportEpinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportEsmolol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug 
+    biolinkType: ChemicalSubstance, Drug 
   CardiovascularSupportIsoproterenol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug 
+    biolinkType: ChemicalSubstance, Drug 
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug 
+    biolinkType: ChemicalSubstance, Drug 
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportMilrinone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportNorepinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportPhenylephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug 
+    biolinkType: ChemicalSubstance, Drug 
   CardiovascularSupportVasopressin_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupporyECLS:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CRRT_HD:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   AntiInfectivesRemdesivir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
    AntiInfectivesHydroxychloroquine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   AntiInfectivesAntibiotics:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationDexamethaone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationPredinoseOrMethylpredinose:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationIVIG:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationConvalescentPlasma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationAnakinra:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationTocilizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   WHOSeverityScore:
     type: integer
     minimum: 0
@@ -554,57 +554,57 @@ patient:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   NeonatalRespiratoryDistress:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   LateralityDefect_SitusInversusOrHeterotaxy:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   DailyWetCough:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   MiddleEarDisease:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ChronicNasalCongestion: 
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   Bronchietasis:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   MaleInfertilityDueToSpermDysfunctoon: 
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   CysticFibrosis:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   Antibiotics: 
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   DILIDx: 
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease 
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   AvgDailyPM2.5Exposure:
     type: integer
     minimum: 1
@@ -829,85 +829,85 @@ patient:
     type: integer
     minimum: 1
     maximum: 3
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstResidentialDensity25Plus:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityNonHispWhite:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityHouseholdNonHispWhite:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityHighSchoolMaxEducation:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityNoAuto:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityNoHealthIns:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityESL:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstHouseholdIncome:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ur:
     type: string
     enum:
       - R
       - U
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   MajorRoadwayHighwayExposure:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   MajorRoadwayHighwayExposure2:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwayDistanceExposure:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwayDistanceExposure2:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwayType:
     type: string
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwayAADT:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwaySpeedLimit:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwayLanes:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TotalEDVisits:
     type: integer
     biolinkType: ActivityAndBehavior
@@ -921,222 +921,222 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Fluticasone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Mometasone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Budesonide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Beclomethasone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Ciclesonide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Flunisolide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Albuterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Metaproterenol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Diphenhydramine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Fexofenadine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Cetirizine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Ipratropium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Salmeterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Arformoterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Formoterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Indacaterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Theophylline:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Omalizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Mepolizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Sertraline:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Citalopram:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Fluoxetine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Paroxetine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Trazodone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Escitalopram:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Duloxetine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Venlafaxine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Propranolol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Hydroxyzine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Estradiol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Estropipate:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Estrogen:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Progesterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Medroxyprogresterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Testosterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Androstenedione:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Nandrolone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Prasterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Leuprolide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Goserelin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Triptorelin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Histrelin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   Tamoxifen:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   IN_FINAL_SAMPLE:
     type: string
     enum:
@@ -1314,154 +1314,154 @@ patient:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TLR4_DIST_1X_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TLR4_DIST_2X_cut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TLR4_DIST_2X_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TLR4_DIST_3X_cut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TLR4_DIST_3X_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTTOTALPOP:
     type: integer
     minimum: 1
     maximum: 3
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTTOTALPOP25PLUS_cut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTTOTALPOP25PLUS_qcut:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONSNONHISPWHITE_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONSNONHISPWHITE_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   MEDIANHOUSEHOLDINCOME_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   MEDIANHOUSEHOLDINCOME_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONSNOHEALTHINS_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONSNOHEALTHINS_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONS25PLUSHSMAX_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONS25PLUSHSMAX_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONS5PLUSNOENGLISH_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONS5PLUSNOENGLISH_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPHOUSEHOLDSNOAUTO_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPHOUSEHOLDSNOAUTO_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   DISTANCE:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   DISTANCE2:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   AADT:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ROADTYPE:
     type: string
     enum: ['Urban Unrestricted Access', 'Rural Unrestricted Access', 'Urban Restricted Access', 'Rural Restricted Access']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   SPEED:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   THROUGH_LANES:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   O3_ANNUAL_AVERAGE_cut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   O3_ANNUAL_AVERAGE_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   O3_N_OBS:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   PM25_ANNUAL_AVERAGE_cut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   PM25_ANNUAL_AVERAGE_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   PM25_N_OBS:
     type: integer
-    biolinkType: Environment    
+    biolinkType: EnvironmentalExposure    
   IN_ICEES:
     type: integer
     minimum: 0
@@ -1490,427 +1490,427 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b007a_hypertension_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b008_high_cholesterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b009_atherosclerosis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b010_cardiac_arrhythmia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b011_angina:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he _b012_heart_attack:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b013_coronary_artery:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b014_congestive_heart_failure:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b015_poor_blood_flow:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b016_raynauds:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b017_blood_clots:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b018_angioplasty:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b019_stroke_mini:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b020_stroke:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b020a_stroke_type:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c021_pre_diabetes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c021a_pre_diabetes_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022_diabetes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022a_diabetes_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022b_diabetes_insulin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022c_diabetes_insulin_first:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022d_diabetes_pills:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: PDisease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022e_diabetes_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c023_thyroid_disease: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c023a_hyperthyroidism: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c023b_hypothyroidism: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c023c_thyroid_enlarged: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c023d_nodule_benign: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d024_allergies: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d025_copd: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d026_ipf: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d027_tb: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d027a_tb_type:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d028_cough_breathlessness: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d029_chest_wheeze: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d030_asthma: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e031_epilepsy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e032_migraine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e033_parkinsons:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e034_ptsd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e035_alzheimers:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e036_ms:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f037_celiac:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f038_lactose_intolerance:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f039_crohns:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f040_ulcerative_colitis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f041_polyps:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f042_gallbladder_disease:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f043_stomach_ulcer:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f044_cirrhosis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f045_fatty_liver:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046_hepatitis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046a_hep_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046b_hep_b:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046c_hep_c:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046d_hep_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046e_hep_dk:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_g047_ckd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_g048_esrd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_g049_kidney_stones:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_g050_kidney_infection:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_g051_pkd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h052_allergic_reactions:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h053_scleroderma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h054_shingles:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h055_fibromyalgia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h056_lupus:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h057_sjogrens:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_i058_hemochromatosis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_i059_iron_anemia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_i060_pernicious_anemia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_i061_sickle_cell:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j062_bone_loss:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j063_osteoporosis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j064_gout: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j065_myositis: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j066_rheu_arthritis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j067_osteoarthritis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j068_arthritis_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_k069_psoriasis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_k070_eczema:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_k071_urticaria:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_l080_chronic_fatigue:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m086_pregnant:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m087_birth_control:
     type: integer
     minimum: 0
@@ -1920,242 +1920,242 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m089_endometriosis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m090_uterine_polyps:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m091_uterine_tumors:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m092_ovarian_cysts:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n093_enlarged_prostate:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n094_prostatitis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n095_epididymitis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n096_testicular_torsion:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n097_testicle_location_abn:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n098_sperm_abn:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n099_varicocele:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n100_cause_pregnancy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n101_trouble_having_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n102_testicle_surgery:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o103_cancer:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o104_cancer_bladder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o105_cancer_blood:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o106_cancer_bone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o107_cancer_brain:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o108_cancer_breast:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o109_cancer_cervix:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o110_cancer_colon:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o111_cancer_esophagus:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o112_cancer_gallbladder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o113_cancer_kidney:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o114_cancer_larynx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o115_cancer_leukemia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o116_cancer_liver:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o117_cancer_lung:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o118_cancer_lymphoma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o119_cancer_nonhodgkins:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o120_cancer_melanoma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o121_cancer_mouth:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o122_cancer_spinalcord:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o123_cancer_ovary:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o124_cancer_pancreas:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o125_cancer_prostate:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o126_cancer_rectum:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o127_cancer_skin_nonmel:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o128_cancer_skin_dk:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o129_cancer_soft_tissue:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o130_cancer_stomach:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o131_cancer_testis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o132_cancer_throat:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o133_cancer_thyroid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o134_cancer_uterus:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o135_cancer_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_q140_asbestos:
     type: integer
     minimum: 0
@@ -2265,7 +2265,7 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ea_a014_central_heat:
     type: integer
     minimum: 0
@@ -2360,42 +2360,42 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a026_water_source_drink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a027_water_filter:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a028_water_source_bath:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a038_water_damage_repair:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a059a_pet_dog:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a059b_pet_cat:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a059c_pet_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a060_pest_regularly:
     type: integer
     minimum: 0
@@ -2405,12 +2405,12 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a066_traffic_heavy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b092a_benzene:
     type: integer
     minimum: 0
@@ -2625,47 +2625,47 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b134b_fiberglass:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b134c_rock_dust:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b134d_silica:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b134e_talc:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b140a_nitrous_oxide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b140b_carbon_dioxide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b140c_carbon_monoxide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b140d_ozone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b146a_pbbs:
     type: integer
     minimum: 0
@@ -2995,287 +2995,287 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b043_med_angina:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b044_med_blood_thinner: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b045_med_coronary_hrt_disease:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b046_med_hrt_failure:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b047_med_high_cholest:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b048_med_hbp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b049_med_stroke:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b050_med_diabetes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b051_med_thyroid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b052_med_anxiety:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b053_med_depression:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b054_med_asthma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b055_med_copd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b056_med_reflux:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b057_med_chronic_pain:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b058_med_sleep_disorder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b059_med_birth_control:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b060_med_hormone_replace_ther:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_f100_chicken_pox:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f101_chlamydia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f102_cold_sores:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f103_crytpo:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f104_dysentery:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f105_flu:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f106_food_pois_bact:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f107_food_pois_vir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f108_genital_herpes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f109_genital_warts:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f110_german_measles:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f111_gonorrhea:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f113_hep_b:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f114_hep_c:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f115_hIV:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f116_legionnaires:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f117_lyme:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f118_malaria:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f119_measles:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f120_meningitis_bac:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f121_meningitis_vir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f122_mono:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f123_mumps:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f124_pneumonia_bac:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f125_pneumonia_vir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f126_rocky_mtn_spot:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f127_salmonella:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f128_shingles:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f129_staph:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f130_strep:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f131_syphilis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f132_TB:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f133_ulcers:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f134_whooping_cough:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_g159_dx_sleep_disorder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_g160a_sleep_apnea:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_g160b_insomnia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_g160c_restless_legs:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k293_blood_type:
     type: string
     enum: ['0 Positive', 'O Negative', 'A Positive', 'A Negative', 'B Positive', 'B Negative', 'AB Positive', 'AB Negative', 'Don't know']
@@ -3284,82 +3284,82 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k296a_down_syn_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k297a_hemochromatosis_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k298a_hemophilia_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k299a_hyperlipidemia_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k300a_huntingtons_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k301a_clot_prob_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k302a_klinefelter_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k303a_muscular_dyst_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k304a_niemann_pick_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k305a_PKU_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k306a_PKD_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k307a_sickle_cell_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k308a_taysachs_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k309a_thalassemia_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k310a_turner_syn_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_gender:
     type: string
     enum: ['Male', 'Female']
@@ -3373,22 +3373,22 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d030c_asthma_episode:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d030d_asthma_er:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d030e_asthma_med:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_k074_eye_color:
     type: string
     enum: ['Blue', 'Hazel', 'Brown/Black','Gray','Green']
@@ -3401,591 +3401,591 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m083_hysterectomy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m084_ovaries:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r156a_breast_cancer_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r156b_breast_cancer_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r156c_breast_cancer_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r156d_breast_cancer_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r156e_breast_cancer_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r157a_colon_cancer_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r157b_colon_cancer_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r157c_colon_cancer_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r157d_colon_cancer_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r157e_colon_cancer_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r158a_leukemia_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r158b_leukemia_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r158c_leukemia_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r158d_leukemia_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r158e_leukemia_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r159a_lung_cancer_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r159b_lung_cancer_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r159c_lung_cancer_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r159d_lung_cancer_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r159e_lung_cancer_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r160a_lymphoma_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r160b_lymphoma_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r160c_lymphoma_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r160d_lymphoma_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r160e_lymphoma_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r161b_prostate_cancer_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r161c_prostate_cancer_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r161e_prostate_cancer_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r162a_ovarian_cancer_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r162d_ovarian_cancer_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r162e_ovarian_cancer_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r163a_melanoma_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r163b_melanoma_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r163c_melanoma_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r163d_melanoma_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r163e_melanoma_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r164a_skin_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r164b_skin_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r164c_skin_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r164d_skin_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r164e_skin_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r165a_cancer_other_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r165b_cancer_other_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r165c_cancer_other_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r165d_cancer_other_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r165e_cancer_other_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r166a_diabetes_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r166b_diabetes_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r166c_diabetes_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r166d_diabetes_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r166e_diabetes_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r167a_hbp_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r167b_hbp_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r167c_hbp_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r167d_hbp_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r167e_hbp_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r168a_stroke_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r168b_stroke_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r168c_stroke_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r168d_stroke_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r168e_stroke_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r169a_heart_attack_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r169b_heart_attack_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r169c_heart_attack_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r169d_heart_attack_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r169e_heart_attack_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r170a_coronary_artery_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r170b_coronary_artery_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r170c_coronary_artery_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r170d_coronary_artery_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r170e_coronary_artery_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r171a_sickle_cell_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r171b_sickle_cell_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r171c_sickle_cell_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r171d_sickle_cell_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r171e_sickle_cell_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r172a_rheu_arthritis_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r172b_rheu_arthritis_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r172c_rheu_arthritis_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r172d_rheu_arthritis_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r172e_rheu_arthritis_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r173a_alzheimers_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r173b_alzheimers_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r173c_alzheimers_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r173d_alzheimers_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r173e_alzheimers_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r174a_asthma_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r174b_asthma_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r174c_asthma_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r174d_asthma_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r174e_asthma_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r175a_autism_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r175b_autism_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r175c_autism_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r175d_autism_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r175e_autism_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r176a_hayfever_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r176b_hayfever_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r176c_hayfever_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r176d_hayfever_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r176e_hayfever_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r177a_emphysema_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r177b_emphysema_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r177c_emphysema_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r177d_emphysema_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r177e_emphysema_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r178a_parkinsons_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r178b_parkinsons_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r178c_parkinsons_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r178d_parkinsons_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r178e_parkinsons_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_s187_alcohol_life: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_s188_alcohol_mo:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_u213_bipolar_relatives:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ea_a012_current_home_type:
     type: integer
     enum: ['Detached house', 'Duplex/triplex', 'Row house/townhouse', 'Low rise apartment or condo', 'High rise apartment or condo', 'Mobile home/trailer', 'Other' ]
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a017h_heat_other:
     type: integer
     minimum: 0
@@ -4079,96 +4079,96 @@ patient:
   ea_a067_animal_waste:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a068_bus_station:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a069_airport:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a070_dry_cleaners:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a071_farm:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a072_gas_station:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a073_golf_course:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a074_greenhouse:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a075_hazard_waste:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a076_power_lines:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a077_incinerator:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a078_landfill:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a079_tannery:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a080_military_base:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a081_oil_refinery:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a082_paper_mill:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a083_poultry_plant:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a084_coal_plant:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a085_gas_plant:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a086_oil_plant:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a087_nuclear_plant:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a088b_factory_d:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a091_farm_active:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b092_solvent_d:
     type: integer
     minimum: 0
@@ -4468,182 +4468,182 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environmental
+    biolinkType: EnvironmentalExposureal
   ea_e253_skin_rash:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environmental
+    biolinkType: EnvironmentalExposureal
   ea_e257_tan_booth:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environmental
+    biolinkType: EnvironmentalExposureal
   ea_e261_sunlamp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environmental
+    biolinkType: EnvironmentalExposureal
   eb_a001_multivitamin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a002_vitamin_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a003_vitamin_b3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a004_vitamin_b6:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a005_vitamin_b12:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a006_vitamin_b_comp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a007_vitamin_c:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a008_vitamin_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a009_vitamin_e:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a010_calcium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a011_chromium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a012_iron:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a013_magnesium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a014_potassium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a015_selenium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a016_zinc:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a017_blk_cohosh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a018_coq10:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a019_fish_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a020_flaxseed_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a021_folic_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a022_gingko_biloba:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a023_ginseng:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a024_glucosamine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a025_melatonin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a026_milk_thistle:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a027_omega3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a028_probiotic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a029_red_yeast_rice:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a030_resveratrol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a031_st_johns_wort:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_k294a_color_blind_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m313_ever_pregnant:
     type: integer
     minimum: 0
@@ -4653,57 +4653,57 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m316a_hypertension_preg_n:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m317_preeclampsia_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m317a_preeclampsia_preg_n:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m318_diabetes_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m318a_diabetes_preg_n:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m319_placenta_prob_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m319a_placenta_prob_preg_n:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m320_poor_growth_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m320a_poor_growth_preg_n:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m321_other_comp_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m322_babies_delivered_n:
    type: string 
    enum: '0', '1', '2', '>2'
@@ -11552,12 +11552,17 @@ patient:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment  
+    biolinkType: EnvironmentalExposure  
   Landfill_Exposure:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment    
+    biolinkType: EnvironmentalExposure 
+  AvgDailyCOExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance, ChemicalExposure   
 visit:
   VisitType:
     type: string
@@ -11622,77 +11627,77 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   CroupDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ReactiveAirwayDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   CoughDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   PneumoniaDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ObesityDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   UterineCancerDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   CervicalCancerDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   OvarianCancerDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ProstateCancerDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   TesticularCancerDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   KidneyCancerDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   EndometriosisDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   OvarianDysfunctionDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   TesticularDysfunctionDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   PregnancyDxVisit:
     type: integer
     minimum: 0
@@ -11707,17 +11712,17 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   AlopeciaDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   FibromyalgiaDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   SmokingStatus:
     type: integer
     minimum: 0
@@ -11732,37 +11737,37 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
-  ChronicKidneyDisese: 
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  ChronicKidneyDx: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
-  ChronicArteryDisease:
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  ChronicArteryDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
-  HeartFailure:
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  HeartFailureDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
-  LiverDisease: 
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  LiverDx: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
-  Cancer:
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  CancerDx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   HIVInfection:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   HospitalLOS: 
     type: integer
     minimum:
@@ -11780,83 +11785,83 @@ visit:
     biolinkType: Device
   ErythrocyteSedimentationRate:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   Procalcitonin: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature 
   Ferritin: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature 
   C-reactiveProtein:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature  
   D-dimer:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   LDH: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   IL-6:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   pH:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   pCO2ArterialVenous:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   pCO2Arterial:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   pO2Arterial:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   pO2FiO2ratio:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SpO2FiO2ratio:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   BaseDeficit:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   Lactate:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SvO2: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   WBCcount: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   AbsoluteNeutrophilCount:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   Hemoglobin: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   PlateletCount:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   BloodType:
     type: string
@@ -11864,55 +11869,55 @@ visit:
     biolinkType: PhenotypicFeature
   SerumSodium: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SerumPotassium: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SerumChloride:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SerumBicarbonate:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   BloodUreaNitrogen:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SerumCreatinine:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   SerumGlucose:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   ALT:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   AST: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   Troponin:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   BrainNatriureticPeptide:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   CK:
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   HgbA1C: 
     type: string
-    enum: ['Low', 'Normal', 'High']
+    enum: ['X', 'X_flag_first', 'X_flag_last']
     biolinkType: PhenotypicFeature
   EstimatedGFR:
     type: integer
@@ -11923,142 +11928,142 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
    RespiratorySupportHFNC:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug 
+    biolinkType: ChemicalSubstance, Drug 
   RespiratorySupportNIPPV:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   RespiratorySupportInvasiveVentilator:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   RespiratorySupportHNO3orFlolan:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportAmiodarone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportDopamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportDobutamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportEpinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportEsmolol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug 
+    biolinkType: ChemicalSubstance, Drug 
   CardiovascularSupportIsoproterenol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug 
+    biolinkType: ChemicalSubstance, Drug 
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug 
+    biolinkType: ChemicalSubstance, Drug 
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportMilrinone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportNorepinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupportPhenylephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug 
+    biolinkType: ChemicalSubstance, Drug 
   CardiovascularSupportVasopressin_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CardiovascularSupporyECLS:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CRRT_HD:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   AntiInfectivesRemdesivir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
    AntiInfectivesHydroxychloroquine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   AntiInfectivesAntibiotics:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationDexamethaone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationPredinoseOrMethylpredinose:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationIVIG:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationConvalescentPlasma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationAnakinra:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ImmunodulationTocilizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   WHOSeverityScore:
     type: integer
     minimum: 0
@@ -12073,7 +12078,7 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   IsolationFlag:
     type: integer
     minimum: 0
@@ -12087,87 +12092,87 @@ visit:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   NeonatalRespiratoryDistress:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   LateralityDefect_SitusInversusOrHeterotaxy:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   DailyWetCough:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   MiddleEarDisease:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ChronicNasalCongestion: 
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   Bronchietasis:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   MaleInfertilityDueToSpermDysfunctoon: 
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   CysticFibrosis:
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   Antibiotics: 
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   DILIDx: 
     type: interger
     minimum: 0
     maximum: 1
-    biolinkType: Disease 
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   AlcoholDependenceDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   DrugDependenceDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   DepressionDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   AnxietyDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   AutismDxVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ObesityBMIVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   Avg24hPM2.5Exposure:
     type: integer
     minimum: 1
@@ -12392,100 +12397,100 @@ visit:
     type: integer
     minimum: 1
     maximum: 3
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstResidentialDensity25Plus:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityNonHispWhite:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityHouseholdNonHispWhite:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityHighSchoolMaxEducation:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityNoAuto:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityNoHealthIns:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstProbabilityESL:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   EstHouseholdIncome:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ur:
     type: string
     enum:
       - R
       - U
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   MajorRoadwayHighwayExposure:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   MajorRoadwayHighwayExposure2:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwayDistanceExposure:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwayDistanceExposure2:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwayType:
     type: string
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwayAADT:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwaySpeedLimit:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   RoadwayLanes:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   FentanylVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   MorphineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   NaloxoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CodeBlueVisit:
     type: integer
     minimum: 0
@@ -12495,222 +12500,222 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   FluticasoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   MometasoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   BudesonideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   BeclomethasoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CiclesonideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   FlunisolideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   AlbuterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   MetaproterenolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   DiphenhydramineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   FexofenadineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CetirizineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   IpratropiumVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   SalmeterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ArformoterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   FormoterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   IndacaterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   TheophyllineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   OmalizumabVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   MepolizumabVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   SertralineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   CitalopramVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   FluoxetineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ParoxetineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   TrazodoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   EscitalopramVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   DuloxetineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   VenlafaxineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   PropranololVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   HydroxyzineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   EstradiolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   EstropipateVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   EstrogenVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   ProgesteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   MedroxyprogresteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   TestosteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   AndrostenedioneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   NandroloneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   PrasteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   LeuprolideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   GoserelinVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   TriptorelinVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   HistrelinVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   TamoxifenVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   IN_FINAL_SAMPLE:
     type: string
     enum:
@@ -12888,154 +12893,154 @@ visit:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TLR4_DIST_1X_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TLR4_DIST_2X_cut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TLR4_DIST_2X_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TLR4_DIST_3X_cut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   TLR4_DIST_3X_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTTOTALPOP:
     type: integer
     minimum: 1
     maximum: 3
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTTOTALPOP25PLUS_cut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTTOTALPOP25PLUS_qcut:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONSNONHISPWHITE_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONSNONHISPWHITE_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   MEDIANHOUSEHOLDINCOME_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   MEDIANHOUSEHOLDINCOME_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONSNOHEALTHINS_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONSNOHEALTHINS_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONS25PLUSHSMAX_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONS25PLUSHSMAX_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONS5PLUSNOENGLISH_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPPERSONS5PLUSNOENGLISH_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPHOUSEHOLDSNOAUTO_cut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ESTPROPHOUSEHOLDSNOAUTO_qcut:
     type: integer
     minimum: 1
     maximum: 4
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   DISTANCE:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   DISTANCE2:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   AADT:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ROADTYPE:
     type: string
     enum: ['Urban Unrestricted Access', 'Rural Unrestricted Access', 'Urban Restricted Access', 'Rural Restricted Access']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   SPEED:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   THROUGH_LANES:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   O3_ANNUAL_AVERAGE_cut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   O3_ANNUAL_AVERAGE_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   O3_N_OBS:
     type: integer
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   PM25_ANNUAL_AVERAGE_cut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   PM25_ANNUAL_AVERAGE_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   PM25_N_OBS:
     type: integer
-    biolinkType: Environment    
+    biolinkType: EnvironmentalExposure    
   IN_ICEES:
     type: integer
     minimum: 0
@@ -13064,472 +13069,472 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b007a_hypertension_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b008_high_cholesterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b009_atherosclerosis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b010_cardiac_arrhythmia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b011_angina:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he _b012_heart_attack:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b013_coronary_artery:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b014_congestive_heart_failure:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b015_poor_blood_flow:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b016_raynauds:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b017_blood_clots:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b018_angioplasty:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b019_stroke_mini:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b020_stroke:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_b020a_stroke_type:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c021_pre_diabetes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c021a_pre_diabetes_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022_diabetes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022a_diabetes_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022b_diabetes_insulin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022c_diabetes_insulin_first:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022d_diabetes_pills:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: PDisease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c022e_diabetes_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c023_thyroid_disease: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c023a_hyperthyroidism: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c023b_hypothyroidism: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c023c_thyroid_enlarged: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_c023d_nodule_benign: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d024_allergies: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d025_copd: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d026_ipf: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d027_tb: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d027a_tb_type:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d028_cough_breathlessness: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d029_chest_wheeze: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d030_asthma: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e031_epilepsy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e032_migraine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e033_parkinsons:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e034_ptsd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e035_alzheimers:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_e036_ms:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f037_celiac:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f038_lactose_intolerance:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f039_crohns:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f040_ulcerative_colitis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f041_polyps:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f042_gallbladder_disease:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f043_stomach_ulcer:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f044_cirrhosis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f045_fatty_liver:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046_hepatitis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046a_hep_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046b_hep_b:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046c_hep_c:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046d_hep_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_f046e_hep_dk:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_g047_ckd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_g048_esrd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_g049_kidney_stones:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_g050_kidney_infection:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_g051_pkd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h052_allergic_reactions:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h053_scleroderma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h054_shingles:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h055_fibromyalgia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h056_lupus:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_h057_sjogrens:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_i058_hemochromatosis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_i059_iron_anemia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_i060_pernicious_anemia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_i061_sickle_cell:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j062_bone_loss:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j063_osteoporosis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j064_gout: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j065_myositis: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j066_rheu_arthritis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j067_osteoarthritis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_j068_arthritis_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_k069_psoriasis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_k070_eczema:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_k071_urticaria:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_l080_chronic_fatigue:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m086_pregnant:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m087_birth_control:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: 
+    biolinkType: ChemicalSubstance, ChemicalSubstance, Drug
   he_m088_hormone_replacement:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m089_endometriosis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m090_uterine_polyps:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m091_uterine_tumors:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m092_ovarian_cysts:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n093_enlarged_prostate:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n094_prostatitis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n095_epididymitis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n096_testicular_torsion:
     type: integer
     minimum: 0
@@ -13539,197 +13544,197 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n098_sperm_abn:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n099_varicocele:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n100_cause_pregnancy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n101_trouble_having_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_n102_testicle_surgery:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o103_cancer:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o104_cancer_bladder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o105_cancer_blood:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o106_cancer_bone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o107_cancer_brain:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o108_cancer_breast:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o109_cancer_cervix:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o110_cancer_colon:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o111_cancer_esophagus:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o112_cancer_gallbladder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o113_cancer_kidney:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o114_cancer_larynx:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o115_cancer_leukemia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o116_cancer_liver:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o117_cancer_lung:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o118_cancer_lymphoma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o119_cancer_nonhodgkins:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o120_cancer_melanoma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o121_cancer_mouth:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o122_cancer_spinalcord:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o123_cancer_ovary:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o124_cancer_pancreas:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o125_cancer_prostate:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o126_cancer_rectum:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o127_cancer_skin_nonmel:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o128_cancer_skin_dk:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o129_cancer_soft_tissue:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o130_cancer_stomach:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o131_cancer_testis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o132_cancer_throat:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o133_cancer_thyroid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o134_cancer_uterus:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_o135_cancer_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_q140_asbestos:
     type: integer
     minimum: 0
@@ -13839,7 +13844,7 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ea_a014_central_heat:
     type: integer
     minimum: 0
@@ -13934,42 +13939,42 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a026_water_source_drink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a027_water_filter:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a028_water_source_bath:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a038_water_damage_repair:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a059a_pet_dog:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a059b_pet_cat:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a059c_pet_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a060_pest_regularly:
     type: integer
     minimum: 0
@@ -13979,12 +13984,12 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a066_traffic_heavy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b092a_benzene:
     type: integer
     minimum: 0
@@ -14199,47 +14204,47 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b134b_fiberglass:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b134c_rock_dust:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b134d_silica:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b134e_talc:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b140a_nitrous_oxide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b140b_carbon_dioxide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b140c_carbon_monoxide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b140d_ozone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b146a_pbbs:
     type: integer
     minimum: 0
@@ -14569,287 +14574,287 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b043_med_angina:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b044_med_blood_thinner: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b045_med_coronary_hrt_disease:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b046_med_hrt_failure:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b047_med_high_cholest:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b048_med_hbp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b049_med_stroke:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b050_med_diabetes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b051_med_thyroid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b052_med_anxiety:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b053_med_depression:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b054_med_asthma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b055_med_copd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b056_med_reflux:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b057_med_chronic_pain:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b058_med_sleep_disorder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b059_med_birth_control:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_b060_med_hormone_replace_ther:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_f100_chicken_pox:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f101_chlamydia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f102_cold_sores:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f103_crytpo:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f104_dysentery:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f105_flu:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f106_food_pois_bact:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f107_food_pois_vir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f108_genital_herpes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f109_genital_warts:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f110_german_measles:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f111_gonorrhea:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f113_hep_b:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f114_hep_c:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f115_hIV:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f116_legionnaires:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f117_lyme:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f118_malaria:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f119_measles:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f120_meningitis_bac:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f121_meningitis_vir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f122_mono:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f123_mumps:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f124_pneumonia_bac:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f125_pneumonia_vir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f126_rocky_mtn_spot:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f127_salmonella:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f128_shingles:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f129_staph:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f130_strep:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f131_syphilis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f132_TB:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f133_ulcers:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_f134_whooping_cough:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_g159_dx_sleep_disorder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_g160a_sleep_apnea:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_g160b_insomnia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_g160c_restless_legs:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k293_blood_type:
     type: string
     enum: ['0 Positive', 'O Negative', 'A Positive', 'A Negative', 'B Positive', 'B Negative', 'AB Positive', 'AB Negative', 'Don't know']
@@ -14858,82 +14863,82 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k296a_down_syn_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k297a_hemochromatosis_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k298a_hemophilia_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k299a_hyperlipidemia_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k300a_huntingtons_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k301a_clot_prob_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k302a_klinefelter_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k303a_muscular_dyst_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k304a_niemann_pick_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k305a_PKU_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k306a_PKD_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k307a_sickle_cell_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k308a_taysachs_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k309a_thalassemia_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k310a_turner_syn_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_gender:
     type: string
     enum: ['Male', 'Female']
@@ -14947,22 +14952,22 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d030c_asthma_episode:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d030d_asthma_er:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_d030e_asthma_med:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_k074_eye_color:
     type: string
     enum: ['Blue', 'Hazel', 'Brown/Black','Gray','Green']
@@ -14975,591 +14980,591 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m083_hysterectomy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_m084_ovaries:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r156a_breast_cancer_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r156b_breast_cancer_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r156c_breast_cancer_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r156d_breast_cancer_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r156e_breast_cancer_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r157a_colon_cancer_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r157b_colon_cancer_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r157c_colon_cancer_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r157d_colon_cancer_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r157e_colon_cancer_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r158a_leukemia_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r158b_leukemia_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r158c_leukemia_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r158d_leukemia_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r158e_leukemia_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r159a_lung_cancer_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r159b_lung_cancer_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r159c_lung_cancer_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r159d_lung_cancer_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r159e_lung_cancer_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r160a_lymphoma_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r160b_lymphoma_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r160c_lymphoma_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r160d_lymphoma_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r160e_lymphoma_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r161b_prostate_cancer_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r161c_prostate_cancer_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r161e_prostate_cancer_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r162a_ovarian_cancer_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r162d_ovarian_cancer_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r162e_ovarian_cancer_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r163a_melanoma_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r163b_melanoma_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r163c_melanoma_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r163d_melanoma_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r163e_melanoma_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r164a_skin_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r164b_skin_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r164c_skin_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r164d_skin_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r164e_skin_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r165a_cancer_other_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r165b_cancer_other_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r165c_cancer_other_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r165d_cancer_other_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r165e_cancer_other_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r166a_diabetes_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r166b_diabetes_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r166c_diabetes_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r166d_diabetes_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r166e_diabetes_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r167a_hbp_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r167b_hbp_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r167c_hbp_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r167d_hbp_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r167e_hbp_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r168a_stroke_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r168b_stroke_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r168c_stroke_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r168d_stroke_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r168e_stroke_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r169a_heart_attack_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r169b_heart_attack_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r169c_heart_attack_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r169d_heart_attack_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r169e_heart_attack_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r170a_coronary_artery_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r170b_coronary_artery_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r170c_coronary_artery_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r170d_coronary_artery_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r170e_coronary_artery_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r171a_sickle_cell_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r171b_sickle_cell_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r171c_sickle_cell_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r171d_sickle_cell_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r171e_sickle_cell_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r172a_rheu_arthritis_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r172b_rheu_arthritis_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r172c_rheu_arthritis_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r172d_rheu_arthritis_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r172e_rheu_arthritis_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r173a_alzheimers_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r173b_alzheimers_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r173c_alzheimers_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r173d_alzheimers_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r173e_alzheimers_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r174a_asthma_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r174b_asthma_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r174c_asthma_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r174d_asthma_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r174e_asthma_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r175a_autism_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r175b_autism_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r175c_autism_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r175d_autism_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r175e_autism_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r176a_hayfever_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r176b_hayfever_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r176c_hayfever_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r176d_hayfever_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r176e_hayfever_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r177a_emphysema_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r177b_emphysema_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r177c_emphysema_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r177d_emphysema_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r177e_emphysema_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r178a_parkinsons_mom:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r178b_parkinsons_dad:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r178c_parkinsons_bro:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r178d_parkinsons_sis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_r178e_parkinsons_child:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_s187_alcohol_life: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_s188_alcohol_mo:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   he_u213_bipolar_relatives:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   ea_a012_current_home_type:
     type: integer
     enum: ['Detached house', 'Duplex/triplex', 'Row house/townhouse', 'Low rise apartment or condo', 'High rise apartment or condo', 'Mobile home/trailer', 'Other' ]
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a017h_heat_other:
     type: integer
     minimum: 0
@@ -15653,96 +15658,96 @@ visit:
   ea_a067_animal_waste:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a068_bus_station:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a069_airport:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a070_dry_cleaners:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a071_farm:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a072_gas_station:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a073_golf_course:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a074_greenhouse:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a075_hazard_waste:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a076_power_lines:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a077_incinerator:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a078_landfill:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a079_tannery:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a080_military_base:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a081_oil_refinery:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a082_paper_mill:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a083_poultry_plant:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a084_coal_plant:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a085_gas_plant:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a086_oil_plant:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a087_nuclear_plant:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a088b_factory_d:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_a091_farm_active:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   ea_b092_solvent_d:
     type: integer
     minimum: 0
@@ -16042,182 +16047,182 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environmental
+    biolinkType: EnvironmentalExposureal
   ea_e253_skin_rash:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environmental
+    biolinkType: EnvironmentalExposureal
   ea_e257_tan_booth:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environmental
+    biolinkType: EnvironmentalExposureal
   ea_e261_sunlamp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Environmental
+    biolinkType: EnvironmentalExposureal
   eb_a001_multivitamin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a002_vitamin_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a003_vitamin_b3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a004_vitamin_b6:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a005_vitamin_b12:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a006_vitamin_b_comp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a007_vitamin_c:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a008_vitamin_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a009_vitamin_e:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a010_calcium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a011_chromium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a012_iron:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a013_magnesium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a014_potassium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a015_selenium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a016_zinc:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a017_blk_cohosh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a018_coq10:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a019_fish_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a020_flaxseed_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a021_folic_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a022_gingko_biloba:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a023_ginseng:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a024_glucosamine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a025_melatonin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a026_milk_thistle:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a027_omega3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a028_probiotic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a029_red_yeast_rice:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a030_resveratrol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_a031_st_johns_wort:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Drug
+    biolinkType: ChemicalSubstance, Drug
   eb_k294a_color_blind_you:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m313_ever_pregnant:
     type: integer
     minimum: 0
@@ -16227,57 +16232,57 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m316a_hypertension_preg_n:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m317_preeclampsia_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m317a_preeclampsia_preg_n:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m318_diabetes_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m318a_diabetes_preg_n:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m319_placenta_prob_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m319a_placenta_prob_preg_n:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m320_poor_growth_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m320a_poor_growth_preg_n:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m321_other_comp_preg:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: DiseaseOrPhenotypicFeature
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_m322_babies_delivered_n:
    type: string 
    enum: '0', '1', '2', '>2'
@@ -23126,9 +23131,14 @@ visit:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment
+    biolinkType: EnvironmentalExposure
   Landfill_Exposure:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: Environment 
+    biolinkType: ChemicalSubstance, EnvironmentalExposure
+  AvgDailyCOExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance, ChemicalExposure

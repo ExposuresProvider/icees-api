@@ -80,7 +80,7 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  HeartFailure:
+  HeartFailureDx:
     type: integer
     minimum: 0
     maximum: 1
@@ -90,12 +90,12 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  Cancer:
+  CancerDx:
     type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  HIVInfection:
+  HIVInfectionDx:
     type: integer
     minimum: 0
     maximum: 1
@@ -390,142 +390,142 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
    RespiratorySupportHFNC:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
   RespiratorySupportNIPPV:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   RespiratorySupportInvasiveVentilator:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   RespiratorySupportHNO3orFlolan:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportAmiodarone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportDopamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportDobutamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportEpinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportEsmolol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
   CardiovascularSupportIsoproterenol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportMilrinone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportNorepinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportPhenylephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
   CardiovascularSupportVasopressin_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupporyECLS:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CRRT_HD:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   AntiInfectivesRemdesivir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
    AntiInfectivesHydroxychloroquine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   AntiInfectivesAntibiotics:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationDexamethaone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationPredinoseOrMethylpredinose:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationIVIG:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationConvalescentPlasma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationAnakinra:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationTocilizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   WHOSeverityScore:
     type: integer
     minimum: 0
@@ -540,7 +540,7 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: Disease
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
   IsolationFlag:
     type: integer
     minimum: 0
@@ -921,222 +921,222 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Fluticasone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Mometasone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Budesonide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Beclomethasone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Ciclesonide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Flunisolide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Albuterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Metaproterenol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Diphenhydramine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Fexofenadine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Cetirizine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Ipratropium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Salmeterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Arformoterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Formoterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Indacaterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Theophylline:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Omalizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Mepolizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Sertraline:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Citalopram:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Fluoxetine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Paroxetine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Trazodone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Escitalopram:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Duloxetine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Venlafaxine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Propranolol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Hydroxyzine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Estradiol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Estropipate:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Estrogen:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Progesterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Medroxyprogresterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Testosterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Androstenedione:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Nandrolone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Prasterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Leuprolide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Goserelin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Triptorelin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Histrelin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   Tamoxifen:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   IN_FINAL_SAMPLE:
     type: string
     enum:
@@ -1915,7 +1915,7 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   he_m088_hormone_replacement:
     type: integer
     minimum: 0
@@ -2995,97 +2995,97 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b043_med_angina:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b044_med_blood_thinner: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b045_med_coronary_hrt_disease:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b046_med_hrt_failure:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b047_med_high_cholest:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b048_med_hbp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b049_med_stroke:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b050_med_diabetes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b051_med_thyroid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b052_med_anxiety:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b053_med_depression:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b054_med_asthma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b055_med_copd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b056_med_reflux:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b057_med_chronic_pain:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b058_med_sleep_disorder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b059_med_birth_control:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b060_med_hormone_replace_ther:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_f100_chicken_pox:
     type: integer
     minimum: 0
@@ -4488,157 +4488,157 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a002_vitamin_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a003_vitamin_b3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a004_vitamin_b6:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a005_vitamin_b12:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a006_vitamin_b_comp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a007_vitamin_c:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a008_vitamin_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a009_vitamin_e:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a010_calcium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a011_chromium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a012_iron:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a013_magnesium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a014_potassium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a015_selenium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a016_zinc:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a017_blk_cohosh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a018_coq10:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a019_fish_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a020_flaxseed_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a021_folic_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a022_gingko_biloba:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a023_ginseng:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a024_glucosamine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a025_melatonin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a026_milk_thistle:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a027_omega3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a028_probiotic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a029_red_yeast_rice:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a030_resveratrol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a031_st_johns_wort:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_k294a_color_blind_you:
     type: integer
     minimum: 0
@@ -6460,7 +6460,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs397844059-|:
+- rs397844059:
   - type: string
   - enum:
     - ZeroCopies
@@ -6716,7 +6716,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs17879933-|:
+- rs17879933:
   - type: string
   - enum:
     - ZeroCopies
@@ -8628,7 +8628,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs34461651-|:
+- rs34461651:
   - type: string
   - enum:
     - ZeroCopies
@@ -8660,7 +8660,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs34509569-|:
+- rs34509569:
   - type: string
   - enum:
     - ZeroCopies
@@ -8820,7 +8820,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs35145002-|:
+- rs35145002:
   - type: string
   - enum:
     - ZeroCopies
@@ -8988,7 +8988,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs35557421-|:
+- rs35557421:
   - type: string
   - enum:
     - ZeroCopies
@@ -9044,7 +9044,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs35652515-|:
+- rs35652515:
   - type: string
   - enum:
     - ZeroCopies
@@ -9124,7 +9124,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs35799259-|:
+- rs35799259:
   - type: string
   - enum:
     - ZeroCopies
@@ -9164,7 +9164,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs35853814-|:
+- rs35853814:
   - type: string
   - enum:
     - ZeroCopies
@@ -9300,7 +9300,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs36089148-|:
+- rs36089148:
   - type: string
   - enum:
     - ZeroCopies
@@ -10636,7 +10636,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs71785313-|:
+- rs71785313:
   - type: string
   - enum:
     - ZeroCopies
@@ -11412,7 +11412,7 @@ patient:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs9332131-|:
+- rs9332131:
   - type: string
   - enum:
     - ZeroCopies
@@ -11928,142 +11928,142 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
    RespiratorySupportHFNC:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
   RespiratorySupportNIPPV:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   RespiratorySupportInvasiveVentilator:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   RespiratorySupportHNO3orFlolan:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportAmiodarone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportDopamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportDobutamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportEpinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportEsmolol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
   CardiovascularSupportIsoproterenol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportMilrinone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportNorepinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupportPhenylephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug 
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
   CardiovascularSupportVasopressin_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CardiovascularSupporyECLS:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CRRT_HD:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   AntiInfectivesRemdesivir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
    AntiInfectivesHydroxychloroquine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   AntiInfectivesAntibiotics:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationDexamethaone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationPredinoseOrMethylpredinose:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationIVIG:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationConvalescentPlasma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationAnakinra:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ImmunodulationTocilizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   WHOSeverityScore:
     type: integer
     minimum: 0
@@ -12480,17 +12480,17 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   MorphineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   NaloxoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CodeBlueVisit:
     type: integer
     minimum: 0
@@ -12500,222 +12500,222 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   FluticasoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   MometasoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   BudesonideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   BeclomethasoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CiclesonideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   FlunisolideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   AlbuterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   MetaproterenolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   DiphenhydramineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   FexofenadineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CetirizineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   IpratropiumVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   SalmeterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ArformoterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   FormoterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   IndacaterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   TheophyllineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   OmalizumabVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   MepolizumabVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   SertralineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   CitalopramVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   FluoxetineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ParoxetineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   TrazodoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   EscitalopramVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   DuloxetineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   VenlafaxineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   PropranololVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   HydroxyzineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   EstradiolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   EstropipateVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   EstrogenVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   ProgesteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   MedroxyprogresteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   TestosteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   AndrostenedioneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   NandroloneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   PrasteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   LeuprolideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   GoserelinVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   TriptorelinVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   HistrelinVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   TamoxifenVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   IN_FINAL_SAMPLE:
     type: string
     enum:
@@ -13494,7 +13494,7 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   he_m088_hormone_replacement:
     type: integer
     minimum: 0
@@ -14574,97 +14574,97 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b043_med_angina:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b044_med_blood_thinner: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b045_med_coronary_hrt_disease:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b046_med_hrt_failure:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b047_med_high_cholest:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b048_med_hbp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b049_med_stroke:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b050_med_diabetes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b051_med_thyroid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b052_med_anxiety:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b053_med_depression:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b054_med_asthma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b055_med_copd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b056_med_reflux:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b057_med_chronic_pain:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b058_med_sleep_disorder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b059_med_birth_control:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_b060_med_hormone_replace_ther:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_f100_chicken_pox:
     type: integer
     minimum: 0
@@ -16067,157 +16067,157 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a002_vitamin_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a003_vitamin_b3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a004_vitamin_b6:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a005_vitamin_b12:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a006_vitamin_b_comp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a007_vitamin_c:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a008_vitamin_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a009_vitamin_e:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a010_calcium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a011_chromium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a012_iron:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a013_magnesium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a014_potassium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a015_selenium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a016_zinc:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a017_blk_cohosh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a018_coq10:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a019_fish_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a020_flaxseed_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a021_folic_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a022_gingko_biloba:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a023_ginseng:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a024_glucosamine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a025_melatonin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a026_milk_thistle:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a027_omega3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a028_probiotic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a029_red_yeast_rice:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a030_resveratrol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_a031_st_johns_wort:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug
+    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
   eb_k294a_color_blind_you:
     type: integer
     minimum: 0
@@ -18039,7 +18039,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs397844059-|:
+- rs397844059:
   - type: string
   - enum:
     - ZeroCopies
@@ -18295,7 +18295,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs17879933-|:
+- rs17879933:
   - type: string
   - enum:
     - ZeroCopies
@@ -20207,7 +20207,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs34461651-|:
+- rs34461651:
   - type: string
   - enum:
     - ZeroCopies
@@ -20239,7 +20239,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs34509569-|:
+- rs34509569:
   - type: string
   - enum:
     - ZeroCopies
@@ -20399,7 +20399,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs35145002-|:
+- rs35145002:
   - type: string
   - enum:
     - ZeroCopies
@@ -20567,7 +20567,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs35557421-|:
+- rs35557421:
   - type: string
   - enum:
     - ZeroCopies
@@ -20623,7 +20623,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs35652515-|:
+- rs35652515:
   - type: string
   - enum:
     - ZeroCopies
@@ -20703,7 +20703,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs35799259-|:
+- rs35799259:
   - type: string
   - enum:
     - ZeroCopies
@@ -20743,7 +20743,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs35853814-|:
+- rs35853814:
   - type: string
   - enum:
     - ZeroCopies
@@ -20879,7 +20879,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs36089148-|:
+- rs36089148:
   - type: string
   - enum:
     - ZeroCopies
@@ -22215,7 +22215,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs71785313-|:
+- rs71785313:
   - type: string
   - enum:
     - ZeroCopies
@@ -22991,7 +22991,7 @@ visit:
     - TwoCopies
   - bioLinkType:
     - SequenceVariant
-- rs9332131-|:
+- rs9332131:
   - type: string
   - enum:
     - ZeroCopies

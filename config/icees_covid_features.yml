@@ -59,7 +59,7 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalExposure
+    biolinkType: ChemicalExposure, ChemicalSubstance
   ChalrsonComorbidityIndex:
     type: interger
     minimum: 0
@@ -390,142 +390,142 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
    RespiratorySupportHFNC:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   RespiratorySupportNIPPV:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   RespiratorySupportInvasiveVentilator:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   RespiratorySupportHNO3orFlolan:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportAmiodarone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportDopamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportDobutamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportEpinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportEsmolol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
+    biolinkType: ChemicalSubstance, ChemicalExposure, Dru
   CardiovascularSupportIsoproterenol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportMilrinone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportNorepinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportPhenylephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportVasopressin_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupporyECLS:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CRRT_HD:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   AntiInfectivesRemdesivir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
    AntiInfectivesHydroxychloroquine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   AntiInfectivesAntibiotics:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationDexamethaone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationPredinoseOrMethylpredinose:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationIVIG:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationConvalescentPlasma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationAnakinra:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationTocilizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   WHOSeverityScore:
     type: integer
     minimum: 0
@@ -609,222 +609,222 @@ patient:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyPM2.5Exposure_StudyAvg:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyPM2.5Exposure_StudyMax:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyPM2.5Exposure:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyPM2.5Exposure_StudyAvg:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyPM2.5Exposure_StudyMax:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyOzoneExposure:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyOzoneExposure_StudyAvg:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyOzoneExposure_StudyMax:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyOzoneExposure:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyOzoneExposure_StudyAvg:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyOzoneExposure_StudyMax:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyPM2.5Exposure_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyPM2.5Exposure_StudyAvg_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyPM2.5Exposure_StudyMax_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyPM2.5Exposure_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyPM2.5Exposure_StudyAvg_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyPM2.5Exposure_StudyMax_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyOzoneExposure_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyOzoneExposure_StudyAvg_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyOzoneExposure_StudyMax_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyOzoneExposure_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyOzoneExposure_StudyAvg_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyOzoneExposure_StudyMax_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyPM2.5Exposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyOzoneExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyCOExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyNOExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyNO2Exposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyNOxExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailySO2Exposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyAcetaldehydeExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyFormaldehydeExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyBenzeneExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyPM2.5Exposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   MaxDailyOzoneExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyCOExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyNOExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyNO2Exposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyNOxExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailySO2Exposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyAcetaldehydeExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyFormaldehydeExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   AvgDailyBenzeneExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   EstResidentialDensity:
     type: integer
     minimum: 1
@@ -921,222 +921,222 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Fluticasone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Mometasone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Budesonide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Beclomethasone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Ciclesonide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Flunisolide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Albuterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Metaproterenol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Diphenhydramine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Fexofenadine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Cetirizine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Ipratropium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Salmeterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Arformoterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Formoterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Indacaterol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Theophylline:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Omalizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Mepolizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Sertraline:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Citalopram:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Fluoxetine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Paroxetine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Trazodone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Escitalopram:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Duloxetine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Venlafaxine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Propranolol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Hydroxyzine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Estradiol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Estropipate:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Estrogen:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Progesterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Medroxyprogresterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Testosterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Androstenedione:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Nandrolone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Prasterone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Leuprolide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Goserelin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Triptorelin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Histrelin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Tamoxifen:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   IN_FINAL_SAMPLE:
     type: string
     enum:
@@ -1915,7 +1915,7 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   he_m088_hormone_replacement:
     type: integer
     minimum: 0
@@ -2160,107 +2160,107 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q141_biohazards:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q142_chemicals:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q143_coal_dust:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q144_coal:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q145_diesel:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q146_dyes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q147_formaldehyde:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q148_gasoline:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance 
+    biolinkType: ChemicalSubstance, ChemicalExposure 
   he_q149_heavy_metals:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q150_pesticide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q151_sand:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q152_other_dust:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q153_textiles:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q154_wood_dust:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q155_xrays:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_s179_100_cigarettes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalExposure
+    biolinkType: ChemicalExposure, ChemicalSubstance
   he_s180_smoke:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalExposure
+    biolinkType: ChemicalExposure, ChemicalSubstance
   he_s183_tobacco_smokeless:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalExposure
+    biolinkType: ChemicalExposure, ChemicalSubstance
   he_s184_cigars_pipes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalExposure
+    biolinkType: ChemicalExposure, ChemicalSubstance
   he_s185_smoke_indoors:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalExposure
+    biolinkType: ChemicalExposure, ChemicalSubstance
   he_u214_bipolar:
     type: integer
     minimum: 0
@@ -2270,92 +2270,92 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017a_heat_natural_gas:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017b_heat_gas:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017c_heat_electricity:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017d_heat_oil_kerosene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017e_heat_coal:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017f_heat_wood:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017g_heat_solar_energy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a018_fireplace:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a020a_fireplace_wood:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a020b_fireplace_coal:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a020c_fireplace_natural_gas:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a020d_fireplace_art_logs:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021a_stove_electricity:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021b_stove_natural_gas:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021c_stove_woodfire:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021d_stove_coal:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021e_stove_propane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a022_ac:
     type: integer
     minimum: 0
@@ -2400,7 +2400,7 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a065_traffic:
     type: integer
     minimum: 0
@@ -2415,212 +2415,212 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092b_chloroform:
      type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092c_chloroprene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092d_dichlorobenzene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092e_ethyl_benzene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092f_ethyl_dichloride:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092g_perchloroethylene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092h_toluene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092i_trichloroethylene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092j_xylenes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098a_brake_fluid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098b_transmission_fluid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098c_hydraulic_fluid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098d_motor_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b104a_bleach:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b104b_ammonia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b104c_carbon_tetrachloride:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110a_arsenic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110b_beryllium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110c_cadmium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110d_chromates:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110e_lead:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110f_mercury:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110g_nickel:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116a_isopropanol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116b_methanol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116c_ethanol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116d_butanol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122a_ethyl_dibromide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122b_chlorinated_naph:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122c_insecticides:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122d_fungicides:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122e_herbicides:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122f_ethyl_fumigants:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122g_rodenticides:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128a_bpa:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128b_vinyl_chloride:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128c_styrene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128d_phosgene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128e_phenol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128f_tdi:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128g_methylene_bis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b134a_coal_dust:
     type: integer
     minimum: 0
@@ -2670,422 +2670,422 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146b_pcbs:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146c_radiation:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146d_xrays:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146e_welding:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152a_hydrochloric_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152b_sulfuric_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152c_phosphoric_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152d_acetic_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152e_nitric_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158a_sodium_oh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158b_calcium_oh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158c_potassium_oh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158d_magnesium_oh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164a_shellac:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164b_wood:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164c_resin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164d_polyurethane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164e_lacquer:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164f_acrylic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170a_primer:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170b_enamel:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170c_oil_based:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170d_acrylic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170e_luminescent:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170f_acetone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170g_turpentine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170h_naphtha:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170i_ethyl_ket:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176a_desflurane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176b_enflurane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176c_halothane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176d_isoflurane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176e_methoxyflurane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176f_nitrous:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176g_sevoflurane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182a_white_glue:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182b_rubber_cement:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182c_neoprene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182d_vinyl_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182e_epoxy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182f_urethane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182g_polyimides:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182h_cyanoacrylates:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182i_wallpaper_paste:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188a_eutectic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188b_tin_zinc:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188c_lead_silver:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188d_cadmium_silver:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188e_flux:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188f_solder_paste:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188g_solder_wire:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188h_rosin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188i_solder_fumes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194a_hair_dye:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194b_leather_dye:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194c_textile_dye:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194d_paper_dye:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194e_india_ink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194f_inkjet:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194g_gel_ink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194h_pen_ink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194i_toner:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194j_soy_ink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194k_pharma_ink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   eb_b042_med_abn_hrt_rhythm:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b043_med_angina:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b044_med_blood_thinner: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b045_med_coronary_hrt_disease:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b046_med_hrt_failure:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b047_med_high_cholest:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b048_med_hbp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b049_med_stroke:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b050_med_diabetes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b051_med_thyroid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b052_med_anxiety:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b053_med_depression:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b054_med_asthma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b055_med_copd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b056_med_reflux:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b057_med_chronic_pain:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b058_med_sleep_disorder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b059_med_birth_control:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b060_med_hormone_replace_ther:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_f100_chicken_pox:
     type: integer
     minimum: 0
@@ -3990,92 +3990,92 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017i_heat_none:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017j_heat_dk:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021f_stove_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a023a_ac_central:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a023b_ac_window:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a023c_ac_portable:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a036_mildew_odor_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a040_mold_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061a_pest_ants: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061b_pest_cockroaches:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061c_pest_bees_wasps:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061d_pest_flies:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061e_pest_spiders:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061f_pest_mosquitos:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061g_pest_flea_ticks:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061h_pest_termite:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061i_pest_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a067_animal_waste:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
@@ -4173,297 +4173,297 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092k_solvent_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b097a_solvent_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098_lube_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098e_lube_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a088b_factory_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a091_farm_active:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092_solvent_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092k_solvent_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b097a_solvent_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098_lube_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098e_lube_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b103a_lube_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b104_cleaning_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b104d_cleaning_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b109a_cleaning_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110_metal_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110h_metal_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b115a_metal_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116_alcohol_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116e_alcohol_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b121a_alcohol_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122_pest_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122h_pest_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b127a_pest_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128_plastic_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128h_plastic_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b134_dust_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b134f_dust_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b139a_dust_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b140_emissions_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b140e_emissions_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b145a_emissions_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146_carcinogens_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146f_carcinogens_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b151a_carcinogens_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152_acid_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152f_acid_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b157a_acid_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158_alkalis_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158e_alkalis_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b163a_alkalis_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164_stains_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164g_stains_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170_paint_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170j_paint_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b175a_paint_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176_anesthetic_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176h_anesthetic_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b181a_anesthetic_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182_adhesives_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182j_adhesives_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b187a_adhesives_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188_soldering_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188j_soldering_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b193a_soldering_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194_ink_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194l_ink_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b199a_ink_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_e249_sunburn:
     type: integer
     minimum: 0
@@ -4488,157 +4488,157 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a002_vitamin_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a003_vitamin_b3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a004_vitamin_b6:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a005_vitamin_b12:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a006_vitamin_b_comp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a007_vitamin_c:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a008_vitamin_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a009_vitamin_e:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a010_calcium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a011_chromium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a012_iron:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a013_magnesium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a014_potassium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a015_selenium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a016_zinc:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a017_blk_cohosh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a018_coq10:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a019_fish_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a020_flaxseed_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a021_folic_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a022_gingko_biloba:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a023_ginseng:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a024_glucosamine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a025_melatonin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a026_milk_thistle:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a027_omega3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a028_probiotic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a029_red_yeast_rice:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a030_resveratrol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a031_st_johns_wort:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_k294a_color_blind_you:
     type: integer
     minimum: 0
@@ -11562,7 +11562,7 @@ patient:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance, ChemicalExposure   
+    biolinkType: ChemicalSubstance, ChemicalExposure 
 visit:
   VisitType:
     type: string
@@ -11928,142 +11928,141 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
-   RespiratorySupportHFNC:
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   RespiratorySupportNIPPV:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   RespiratorySupportInvasiveVentilator:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   RespiratorySupportHNO3orFlolan:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportAmiodarone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportDopamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportDobutamine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportEpinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportEsmolol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportIsoproterenol_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportLevosimendan_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportMilrinone_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportNorepinephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportPhenylephrine_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure 
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupportVasopressin_gtt:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CardiovascularSupporyECLS:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CRRT_HD:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   AntiInfectivesRemdesivir:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
    AntiInfectivesHydroxychloroquine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   AntiInfectivesAntibiotics:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationDexamethaone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationPredinoseOrMethylpredinose:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationIVIG:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationConvalescentPlasma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationAnakinra:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ImmunodulationTocilizumab:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   WHOSeverityScore:
     type: integer
     minimum: 0
@@ -12177,222 +12176,222 @@ visit:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hPM2.5Exposure_StudyAvg:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hPM2.5Exposure_StudyMax:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hPM2.5Exposure:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hPM2.5Exposure_StudyAvg:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hPM2.5Exposure_StudyMax:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hOzoneExposure:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hOzoneExposure_StudyAvg:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hOzoneExposure_StudyMax:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hOzoneExposure:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hOzoneExposure_StudyAvg:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hOzoneExposure_StudyMax:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hPM2.5Exposure_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hPM2.5Exposure_StudyAvg_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hPM2.5Exposure_StudyMax_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hPM2.5Exposure_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hPM2.5Exposure_StudyAvg_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hPM2.5Exposure_StudyMax_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hOzoneExposure_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hOzoneExposure_StudyAvg_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hOzoneExposure_StudyMax_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hOzoneExposure_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hOzoneExposure_StudyAvg_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hOzoneExposure_StudyMax_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hPM2.5Exposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hOzoneExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hCOExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hNOExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hNO2Exposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hNOxExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hSO2Exposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hAcetaldehydeExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hFormaldehydeExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hBenzeneExposure_2:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hPM2.5Exposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Max24hOzoneExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hCOExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hNOExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hNO2Exposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hNOxExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hSO2Exposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hAcetaldehydeExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hFormaldehydeExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hBenzeneExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   EstResidentialDensity:
     type: integer
     minimum: 1
@@ -12480,17 +12479,17 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   MorphineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   NaloxoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CodeBlueVisit:
     type: integer
     minimum: 0
@@ -12500,222 +12499,222 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   FluticasoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   MometasoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   BudesonideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   BeclomethasoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CiclesonideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   FlunisolideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   AlbuterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   MetaproterenolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   DiphenhydramineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   FexofenadineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CetirizineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   IpratropiumVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   SalmeterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ArformoterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   FormoterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   IndacaterolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   TheophyllineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   OmalizumabVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   MepolizumabVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   SertralineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   CitalopramVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   FluoxetineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ParoxetineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   TrazodoneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   EscitalopramVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   DuloxetineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   VenlafaxineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   PropranololVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   HydroxyzineVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   EstradiolVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   EstropipateVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   EstrogenVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   ProgesteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   MedroxyprogresteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   TestosteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   AndrostenedioneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   NandroloneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   PrasteroneVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   LeuprolideVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   GoserelinVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   TriptorelinVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   HistrelinVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   TamoxifenVisit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   IN_FINAL_SAMPLE:
     type: string
     enum:
@@ -13494,7 +13493,7 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   he_m088_hormone_replacement:
     type: integer
     minimum: 0
@@ -13739,82 +13738,82 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q141_biohazards:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q142_chemicals:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q143_coal_dust:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q144_coal:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q145_diesel:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q146_dyes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q147_formaldehyde:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q148_gasoline:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance 
+    biolinkType: ChemicalSubstance, ChemicalExposure 
   he_q149_heavy_metals:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q150_pesticide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q151_sand:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q152_other_dust:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q153_textiles:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q154_wood_dust:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_q155_xrays:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   he_s179_100_cigarettes:
     type: integer
     minimum: 0
@@ -13849,92 +13848,92 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017a_heat_natural_gas:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017b_heat_gas:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017c_heat_electricity:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017d_heat_oil_kerosene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017e_heat_coal:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017f_heat_wood:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017g_heat_solar_energy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a018_fireplace:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a020a_fireplace_wood:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a020b_fireplace_coal:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a020c_fireplace_natural_gas:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a020d_fireplace_art_logs:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021a_stove_electricity:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021b_stove_natural_gas:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021c_stove_woodfire:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021d_stove_coal:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021e_stove_propane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a022_ac:
     type: integer
     minimum: 0
@@ -13979,7 +13978,7 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a065_traffic:
     type: integer
     minimum: 0
@@ -13994,212 +13993,212 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092b_chloroform:
      type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092c_chloroprene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092d_dichlorobenzene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092e_ethyl_benzene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092f_ethyl_dichloride:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092g_perchloroethylene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092h_toluene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092i_trichloroethylene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092j_xylenes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098a_brake_fluid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098b_transmission_fluid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098c_hydraulic_fluid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098d_motor_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b104a_bleach:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b104b_ammonia:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b104c_carbon_tetrachloride:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110a_arsenic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110b_beryllium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110c_cadmium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110d_chromates:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110e_lead:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110f_mercury:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110g_nickel:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116a_isopropanol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116b_methanol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116c_ethanol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116d_butanol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122a_ethyl_dibromide:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122b_chlorinated_naph:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122c_insecticides:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122d_fungicides:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122e_herbicides:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122f_ethyl_fumigants:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122g_rodenticides:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128a_bpa:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128b_vinyl_chloride:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128c_styrene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128d_phosgene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128e_phenol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128f_tdi:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128g_methylene_bis:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b134a_coal_dust:
     type: integer
     minimum: 0
@@ -14249,422 +14248,422 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146b_pcbs:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146c_radiation:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146d_xrays:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146e_welding:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152a_hydrochloric_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152b_sulfuric_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152c_phosphoric_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152d_acetic_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152e_nitric_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158a_sodium_oh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158b_calcium_oh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158c_potassium_oh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158d_magnesium_oh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164a_shellac:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164b_wood:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164c_resin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164d_polyurethane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164e_lacquer:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164f_acrylic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170a_primer:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170b_enamel:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170c_oil_based:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170d_acrylic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170e_luminescent:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170f_acetone:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170g_turpentine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170h_naphtha:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170i_ethyl_ket:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176a_desflurane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176b_enflurane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176c_halothane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176d_isoflurane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176e_methoxyflurane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176f_nitrous:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176g_sevoflurane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182a_white_glue:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182b_rubber_cement:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182c_neoprene:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182d_vinyl_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182e_epoxy:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182f_urethane:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182g_polyimides:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182h_cyanoacrylates:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182i_wallpaper_paste:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188a_eutectic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188b_tin_zinc:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188c_lead_silver:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188d_cadmium_silver:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188e_flux:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188f_solder_paste:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188g_solder_wire:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188h_rosin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188i_solder_fumes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194a_hair_dye:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194b_leather_dye:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194c_textile_dye:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194d_paper_dye:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194e_india_ink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194f_inkjet:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194g_gel_ink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194h_pen_ink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194i_toner:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194j_soy_ink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194k_pharma_ink:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   eb_b042_med_abn_hrt_rhythm:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b043_med_angina:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b044_med_blood_thinner: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b045_med_coronary_hrt_disease:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b046_med_hrt_failure:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b047_med_high_cholest:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b048_med_hbp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b049_med_stroke:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b050_med_diabetes:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b051_med_thyroid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b052_med_anxiety:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b053_med_depression:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b054_med_asthma:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b055_med_copd:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b056_med_reflux:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b057_med_chronic_pain:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b058_med_sleep_disorder:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b059_med_birth_control:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_b060_med_hormone_replace_ther:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_f100_chicken_pox:
     type: integer
     minimum: 0
@@ -15569,92 +15568,92 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017i_heat_none:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a017j_heat_dk:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a021f_stove_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a023a_ac_central:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a023b_ac_window:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a023c_ac_portable:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a036_mildew_odor_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a040_mold_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061a_pest_ants: 
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061b_pest_cockroaches:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061c_pest_bees_wasps:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061d_pest_flies:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061e_pest_spiders:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061f_pest_mosquitos:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061g_pest_flea_ticks:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061h_pest_termite:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a061i_pest_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a067_animal_waste:
     type: string
     enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
@@ -15752,297 +15751,297 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092k_solvent_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b097a_solvent_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098_lube_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098e_lube_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a088b_factory_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a091_farm_active:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092_solvent_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092k_solvent_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b097a_solvent_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098_lube_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b098e_lube_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b103a_lube_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b104_cleaning_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b104d_cleaning_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b109a_cleaning_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110_metal_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b110h_metal_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b115a_metal_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116_alcohol_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b116e_alcohol_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b121a_alcohol_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122_pest_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b122h_pest_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b127a_pest_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128_plastic_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b128h_plastic_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b134_dust_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b134f_dust_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b139a_dust_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b140_emissions_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b140e_emissions_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b145a_emissions_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146_carcinogens_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b146f_carcinogens_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b151a_carcinogens_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152_acid_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b152f_acid_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b157a_acid_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158_alkalis_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b158e_alkalis_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b163a_alkalis_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164_stains_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b164g_stains_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170_paint_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b170j_paint_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b175a_paint_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176_anesthetic_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b176h_anesthetic_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b181a_anesthetic_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182_adhesives_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b182j_adhesives_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b187a_adhesives_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188_soldering_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b188j_soldering_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b193a_soldering_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194_ink_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b194l_ink_other:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b199a_ink_ongoing_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance
+    biolinkType: ChemicalSubstance, ChemicalExposure
   ea_e249_sunburn:
     type: integer
     minimum: 0
@@ -16067,157 +16066,157 @@ visit:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a002_vitamin_a:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a003_vitamin_b3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a004_vitamin_b6:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a005_vitamin_b12:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a006_vitamin_b_comp:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a007_vitamin_c:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a008_vitamin_d:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a009_vitamin_e:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a010_calcium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a011_chromium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a012_iron:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a013_magnesium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a014_potassium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a015_selenium:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a016_zinc:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a017_blk_cohosh:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a018_coq10:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a019_fish_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a020_flaxseed_oil:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a021_folic_acid:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a022_gingko_biloba:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a023_ginseng:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a024_glucosamine:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a025_melatonin:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a026_milk_thistle:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a027_omega3:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a028_probiotic:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a029_red_yeast_rice:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a030_resveratrol:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_a031_st_johns_wort:
     type: integer
     minimum: 0
     maximum: 1
-    biolinkType: ChemicalSubstance, Drug, ChemicalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   eb_k294a_color_blind_you:
     type: integer
     minimum: 0
@@ -23136,7 +23135,7 @@ visit:
     type: integer
     minimum: 1
     maximum: 6
-    biolinkType: ChemicalSubstance, EnvironmentalExposure
+    biolinkType: ChemicalSubstance, ChemicalExposure, EnvironmentalExposure
   AvgDailyCOExposure_2:
     type: integer
     minimum: 1

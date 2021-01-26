@@ -39,43 +39,40 @@ def wait(ip, port):
 
 def query(year, biolink_class):
     return {
+        "query_options": {
+            "table": "patient",
+            "year": year,
+            "cohort_features": {
+                "AgeStudyStart": {
+                    "operator": "=",
+                    "value": "0-2"
+                }
+            },
+            "feature": {
+                "EstResidentialDensity": {
+                    "operator": "<",
+                    "value": 1
+                }
+            },
+            "maximum_p_value":1
+        },
         "message": {
-            "query_options": {
-                "table": "patient", 
-                "year": year, 
-                "cohort_features": {
-                    "AgeStudyStart": {
-                        "operator": "=",
-                        "value": "0-2"
-                    }
-                }, 
-                "feature": {
-                    "EstResidentialDensity": {
-                        "operator": "<",
-                        "value": 1
-                    }
-                }, 
-                "maximum_p_value":1
-            }, 
             "query_graph": {
-                "nodes": [
-                    {
-                        "id": "n00",
-                        "type": "population_of_individual_organisms"
+                "nodes": {
+                    "n00": {
+                        "category": "biolink:PopulationOfIndividualOrganisms"
                     },
-                    {
-                        "id": "n01",
-                        "type": biolink_class
-                    }   
-                ], 
-                "edges": [
-                    {
-                        "id": "e00",
-                        "type": "association",
-                        "source_id": "n00",
-                        "target_id": "n01"
-                    } 
-                ]
+                    "n01": {
+                        "category": biolink_class
+                    }
+                },
+                "edges": {
+                    "e00": {
+                        "predicate": "biolink:correlated_with",
+                        "subject": "n00",
+                        "object": "n01"
+                    }
+                }
             }
         }
     }
@@ -83,27 +80,24 @@ def query(year, biolink_class):
     
 def one_hop_query(curie, biolink_class, **kwargs):
     return {
+        **kwargs,
         "message": {
-            **kwargs,
             "query_graph": {
-                "nodes": [
-                    {
-                        "id": "n00",
-                        "curie": curie
+                "nodes": {
+                    "n00": {
+                        "id": curie
                     },
-                    {
-                        "id": "n01",
-                        "type": biolink_class
-                    }   
-                ], 
-                "edges": [
-                    {
-                        "id": "e00",
-                        "type": "association",
-                        "source_id": "n00",
-                        "target_id": "n01"
+                    "n01": {
+                        "category": biolink_class
+                    }
+                }, 
+                "edges": {
+                    "e00": {
+                        "predicate": "biolink:correlated_with",
+                        "subject": "n00",
+                        "object": "n01"
                     } 
-                ]
+                }
             }
         }
     }
@@ -112,42 +106,42 @@ def one_hop_query(curie, biolink_class, **kwargs):
 def do_verify_response(resp_json, results=True):
     assert "return value" in resp_json
     return_value = resp_json["return value"]
-    assert "knowledge_graph" in return_value
-    knowledge_graph = return_value["knowledge_graph"]
+    assert "knowledge_graph" in return_value["message"]
+    knowledge_graph = return_value["message"]["knowledge_graph"]
     nodes = knowledge_graph["nodes"]
     for node in nodes:
         if "equivalent_identifiers" in node:
             equivalent_ids = node["equivalent_identifiers"]
             assert isinstance(equivalent_ids, list) and all(isinstance(x, str) for x in equivalent_ids)
-    node_ids_list = list(map(lambda x: x["id"], nodes))
+    node_ids_list = list(nodes)
     node_ids = set(node_ids_list)
     assert len(node_ids_list) == len(node_ids)
     edges = knowledge_graph["edges"]
-    edge_ids_list = list(map(lambda x: x["id"], edges))
+    edge_ids_list = list(edges)
     edge_ids = set(edge_ids_list)
     assert len(edge_ids_list) == len(edge_ids)
-    for edge in edges:
-        assert edge["source_id"] in node_ids
-        assert edge["target_id"] in node_ids
+    for edge in edges.values():
+        assert edge["subject"] in node_ids
+        assert edge["object"] in node_ids
 
     assert "message_code" in resp_json["return value"]
     assert "tool_version" in resp_json["return value"]
     assert "datetime" in resp_json["return value"]
 
     if results:
-        assert len(return_value["results"]) > 1
+        assert len(return_value["message"]["results"]) > 1
         assert "n_results" in return_value
         n_results = return_value["n_results"]
-        assert "results" in return_value
-        results = return_value["results"]
+        assert "results" in return_value["message"]
+        results = return_value["message"]["results"]
         assert n_results == len(results)
         for result in results:
             node_bindings = result["node_bindings"]
             edge_bindings = result["edge_bindings"]
             for node_binding_value in node_bindings.values():
-                assert node_binding_value in node_ids
+                assert all(nbv["id"] in node_ids for nbv in node_binding_value)
             for edge_binding_value in edge_bindings.values():
-                assert set(edge_binding_value).issubset(edge_ids)
+                assert all(ebv["id"] in edge_ids for ebv in edge_binding_value)
         
     
 def do_verify_feature_matrix_response(respjson):
@@ -194,29 +188,24 @@ def do_test_one_hop(curie, biolink_class, **kwargs):
 def do_test_knowledge_graph_overlay(**kwargs):
 
     query2 = {
+        **kwargs,
         "message": {
-            **kwargs, 
             "knowledge_graph": {
-                "nodes": [
-                    {
-                        "id": "n00",
-                        "curie": "PUBCHEM:2083",
-                        "type": "drug"
+                "nodes": {
+                    "PUBCHEM:2083": {
+                        "category": "biolink:Drug"
                     },
-                    {
-                        "id": "n01",
-                        "curie": "MESH:D052638",
-                        "type": "chemical_substance"
+                    "MESH:D052638": {
+                        "category": "biolink:ChemicalSubstance"
                     }   
-                ], 
-                "edges": [
-                    {
-                        "id": "e00",
-                        "type": "association",
-                        "source_id": "n00",
-                        "target_id": "n01"
+                },
+                "edges": {
+                    "e00": {
+                        "predicate": "biolink:association",
+                        "subject": "PUBCHEM:2083",
+                        "object": "MESH:D052638"
                     } 
-                ]
+                }
             }
         }
     }
@@ -229,16 +218,16 @@ def do_test_knowledge_graph_overlay(**kwargs):
 def do_test_knowledge_graph_one_hop(**kwargs):
 
     source_id = "PUBCHEM:2083"
-    query2 = one_hop_query(source_id, "chemical_substance", **kwargs)
+    query2 = one_hop_query(source_id, "biolink:ChemicalSubstance", **kwargs)
     resp = requests.post(prot + "://"+host+":"+str(port)+"/knowledge_graph_one_hop", data = json.dumps(query2), headers = json_headers, verify = False)
     resp_json = resp.json()
     logger.info(resp_json)
     assert "return value" in resp_json
-    assert len(resp_json["return value"]["results"]) > 1
+    assert len(resp_json["return value"]["message"]["results"]) > 1
 
-    assert "knowledge_graph" in resp_json["return value"]
-    assert "nodes" in resp_json["return value"]["knowledge_graph"]
-    assert any(map(lambda x: x["id"] == "PUBCHEM:2083", resp_json["return value"]["knowledge_graph"]["nodes"]))
+    assert "knowledge_graph" in resp_json["return value"]["message"]
+    assert "nodes" in resp_json["return value"]["message"]["knowledge_graph"]
+    assert "PUBCHEM:2083" in resp_json["return value"]["message"]["knowledge_graph"]["nodes"]
 
     
     assert "message_code" in resp_json["return value"]
@@ -386,14 +375,14 @@ def do_test_knowledge_graph_unique_edge_ids(biolink_class):
         resp_json = resp.json()
         assert "return value" in resp_json
 
-        assert len(resp_json["return value"]["results"]) > 1
+        assert len(resp_json["return value"]["message"]["results"]) > 1
 
-        for edge_bindings in map(lambda x: x["edge_bindings"], resp_json["return value"]["results"]):
+        for edge_bindings in map(lambda x: x["edge_bindings"], resp_json["return value"]["message"]["results"]):
             assert "e00" in edge_bindings
             assert len(edge_bindings) == 1
             assert len(edge_bindings["e00"]) == 1
 
-        edge_ids = list(map(lambda x: x["edge_bindings"]["e00"][0], resp_json["return value"]["results"]))
+        edge_ids = list(map(lambda x: x["edge_bindings"]["e00"][0]["id"], resp_json["return value"]["message"]["results"]))
         assert len(edge_ids) == len(set(edge_ids))
 
 
@@ -446,34 +435,34 @@ def test_knowledge_graph_schema():
         assert "return value" in resp_json
         assert "population_of_individual_organisms" in resp_json["return value"]
         assert "chemical_substance" in resp_json["return value"]["population_of_individual_organisms"]
-        assert "association" in resp_json["return value"]["population_of_individual_organisms"]["chemical_substance"]
+        assert "correlated_with" in resp_json["return value"]["population_of_individual_organisms"]["chemical_substance"]
 
 def test_knowledge_graph_for_chemical_substance():
-        do_test_knowledge_graph("chemical_substance")
+        do_test_knowledge_graph("biolink:ChemicalSubstance")
 
 def test_knowledge_graph_for_phenotypic_feature():
-        do_test_knowledge_graph("phenotypic_feature")
+        do_test_knowledge_graph("biolink:PhenotypicFeature")
 
 def test_knowledge_graph_for_disease():
-        do_test_knowledge_graph("disease")
+        do_test_knowledge_graph("biolink:Disease")
 
 def test_knowledge_graph_unique_edge_ids_for_chemical_substance():
-        do_test_knowledge_graph_unique_edge_ids("chemical_substance")
+        do_test_knowledge_graph_unique_edge_ids("biolink:ChemicalSubstance")
 
 def test_knowledge_graph_unique_edge_ids_for_phenotypic_feature():
-        do_test_knowledge_graph_unique_edge_ids("phenotypic_feature")
+        do_test_knowledge_graph_unique_edge_ids("biolink:PhenotypicFeature")
 
 def test_knowledge_graph_unique_edge_ids_for_disease():
-        do_test_knowledge_graph_unique_edge_ids("disease")
+        do_test_knowledge_graph_unique_edge_ids("biolink:Disease")
 
 def test_knowledge_graph_edge_set_for_chemical_substance():
-        do_test_knowledge_graph_unique_edge_ids("chemical_substance")
+        do_test_knowledge_graph_unique_edge_ids("biolink:ChemicalSubstance")
 
 def test_knowledge_graph_edge_set_for_phenotypic_feature():
-        do_test_knowledge_graph_unique_edge_ids("phenotypic_feature")
+        do_test_knowledge_graph_unique_edge_ids("biolink:PhenotypicFeature")
 
 def test_knowledge_graph_edge_set_for_disease():
-        do_test_knowledge_graph_unique_edge_ids("disease")
+        do_test_knowledge_graph_unique_edge_ids("biolink:Disease")
 
 def test_get_identifiers_for_ObesityDx():
         do_test_get_identifiers("ObesityDx")

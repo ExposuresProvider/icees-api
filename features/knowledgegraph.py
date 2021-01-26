@@ -24,15 +24,15 @@ logger = logging.getLogger(__name__)
 
 schema = {
         "population_of_individual_organisms": {
-            "chemical_substance": ["association"],
-            "disease": ["association"],
-            "phenotypic_feature": ["association"],
-            "disease_or_phenotypic_feature": ["association"],
-            "chemical_substance": ["association"],
-            "environment": ["association"],
-            "activity_and_behavior": ["association"],
-            "drug": ["association"],
-            "named_thing": ["association"]
+            "chemical_substance": ["correlated_with"],
+            "disease": ["correlated_with"],
+            "phenotypic_feature": ["correlated_with"],
+            "disease_or_phenotypic_feature": ["correlated_with"],
+            "chemical_substance": ["correlated_with"],
+            "environment": ["correlated_with"],
+            "activity_and_behavior": ["correlated_with"],
+            "drug": ["correlated_with"],
+            "named_thing": ["correlated_with"]
         }
     }
 
@@ -71,13 +71,13 @@ def result(source_id, source_curie, edge_id, node_name, target_id, table, filter
         node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
         return Just({
-            "node_bindings" : {
-                source_id: source_curie,
-                target_id: node_id
-            },
-            "edge_bindings" : {
-                edge_id: [gen_edge_id(source_curie, node_name, node_id)]
-            },
+            "node_bindings" : [
+                {"qg_id": source_id, "kg_id": source_curie},
+                {"qg_id": target_id, "kg_id": node_id}
+            ],
+            "edge_bindings" : [
+                {"qg_id": edge_id, "kg_id": gen_edge_id(source_curie, node_name, node_id)}
+            ],
             "score": score,
             "score_name": score_name
         })
@@ -93,7 +93,7 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
             "name": node_name,
             "id": node_id,
             "equivalent_identifiers": equivalent_ids,
-            "type": biolink_class
+            "type": [biolink_class]
         })
     
 
@@ -104,7 +104,7 @@ def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_prop
     else:
         node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
         
-        edge_name = "association"
+        edge_name = "correlated_with"
         
         return Just({
             "type": edge_name,
@@ -118,10 +118,11 @@ def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_prop
 def get(conn, query):
     try:
         message = query.get("message", query)
-        cohort_id, table, year, cohort_features, size = message_cohort(conn, message)
-        maximum_p_value = message["query_options"].get("maximum_p_value", MAX_P_VAL_DEFAULT)
-        filter_regex = message["query_options"].get("regex", ".*")
-        feature = to_qualifiers(message["query_options"]["feature"])
+        query_options = query.get("query_options", {})
+        cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
+        maximum_p_value = query["query_options"].get("maximum_p_value", MAX_P_VAL_DEFAULT)
+        filter_regex = query["query_options"].get("regex", ".*")
+        feature = to_qualifiers(query["query_options"]["feature"])
 
         query_graph = message.get("query_graph", message.get("machine_question"))
 
@@ -182,7 +183,7 @@ def get(conn, query):
         knowledge_graph_nodes = [{
             "name": "cohort",
             "id": cohort_id,
-            "type": "population_of_individual_organisms"
+            "type": ["population_of_individual_organisms"]
         }] + list(nodes.values())
 
         knowledge_graph = {
@@ -257,10 +258,10 @@ def co_occurrence_feature_edge(conn, table, year, cohort_features, src_feature, 
     )
 
 
-def feature_names(table, node):
+def feature_names(table, node_curie):
     return (
-        maybe.from_python(node.get("curie"))
-        .rec(Right, Left(f"no curie specified at node {node}"))
+        maybe.from_python(node_curie)
+        .rec(Right, Left("no curie specified at node"))
         .bind(partial(get_features_by_identifier, table))
     )
 
@@ -285,9 +286,9 @@ def co_occurrence_edge(conn, table, year, cohort_features, src_node, tgt_node):
             return Right(edge_property_value)
                     
     return (
-        feature_names(table, src_node)
+        feature_names(table, src_node["id"])
         .bind(lambda src_features: (
-            feature_names(table, tgt_node)
+            feature_names(table, tgt_node["id"])
             .bind(lambda tgt_features: (
                 handle_src_and_tgt_features(src_features, tgt_features)  
             ))
@@ -316,7 +317,7 @@ def attr(s):
 def generate_edge(src_node, tgt_node, edge_attributes=None):
     return {
         "id": generate_edge_id(src_node, tgt_node),
-        "type": "association",
+        "type": "correlated_with",
         "source_id": node_get_id(src_node),
         "target_id": node_get_id(tgt_node),
         **({
@@ -351,8 +352,7 @@ def convert_qedge_to_edge(qedge):
     return convert(attribute_map, qedge)
     
 
-def message_cohort(conn, message):
-    cohort_definition = message.get("query_options", {})
+def message_cohort(conn, cohort_definition):
     cohort_id = cohort_definition.get("cohort_id")
     if cohort_id is None:
         table = cohort_definition.get("table", "patient")
@@ -377,20 +377,21 @@ MAX_P_VAL_DEFAULT = 1
 def co_occurrence_overlay(conn, query):
     try:
         message = query["message"]
+        query_options = query.get("query_options", {})
 
-        cohort_id, table, year, features, size = message_cohort(conn, message)
+        cohort_id, table, year, features, size = message_cohort(conn, query_options)
         
-        query_graph = message.get("knowledge_graph")
+        kgraph = message.get("knowledge_graph")
 
-        query_nodes = query_graph["nodes"]
-        query_edges = query_graph["edges"]
+        knodes = kgraph["nodes"]
+        kedges = kgraph["edges"]
 
-        nodes = query_nodes
-        edges = query_edges
+        nodes = knodes
+        edges = kedges
 
         overlay_edges = []
-        for src_node in query_nodes:
-            for tgt_node in query_nodes:
+        for src_node in knodes:
+            for tgt_node in knodes:
                 edge_attributes = co_occurrence_edge(conn, table, year, features, src_node, tgt_node)
                 if isinstance(edge_attributes, Left):
                     return {
@@ -440,7 +441,8 @@ def add_node(nodes, node):
 def one_hop(conn, query):
     try:
         message = query["message"]
-        cohort_id, table, year, cohort_features, size = message_cohort(conn, message)
+        query_options = query.get("query_options", {})
+        cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
         maximum_p_value = query.get("query_options", {}).get("maximum_p_value", MAX_P_VAL_DEFAULT)
         filter_regex = query.get("query_options", {}).get("regex", ".*")
         query_graph = message["query_graph"]
@@ -462,7 +464,7 @@ def one_hop(conn, query):
         source_node_type = source_node.get("type")
         source_curie = source_node["curie"]
 
-        msource_node_feature_names = feature_names(table, source_node)
+        msource_node_feature_names = feature_names(table, source_curie)
         if isinstance(msource_node_feature_names, Left):
             raise NotImplementedError(msource_node_feature_names)
         else:

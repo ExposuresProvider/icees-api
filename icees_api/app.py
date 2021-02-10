@@ -8,11 +8,11 @@ import os
 from pathlib import Path
 from time import strftime
 from typing import Any
-from jsonschema import ValidationError
 
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.openapi.utils import get_openapi
+from jsonschema import ValidationError
 from starlette.responses import Response, JSONResponse
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
@@ -23,7 +23,7 @@ from .features.knowledgegraph import TOOL_VERSION
 
 from .handlers import ROUTER
 
-with open("static/api_description.html", "r") as stream:
+with open(Path(__file__).parent / "static" / "api_description.html", "r") as stream:
     description = stream.read()
 
 OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8080')
@@ -93,7 +93,7 @@ def custom_openapi():
 
 APP.openapi = custom_openapi
 
-with open('terms.txt', 'r') as content_file:
+with open(Path(__file__).parent / "static" / "terms.txt", 'r') as content_file:
     terms_and_conditions = content_file.read()
 
 LOGGER = logging.getLogger()

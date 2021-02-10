@@ -1,14 +1,16 @@
+"""Database utilities."""
 import argparse
 import csv
 from contextlib import contextmanager
 import logging
 import os
+from pathlib import Path
+import sqlite3
 import sys
 
 import pandas as pd
 import psycopg2
 from sqlalchemy import Index
-import sqlite3
 
 from .db import DBConnection
 from .features import features
@@ -22,15 +24,20 @@ formatter = logging.Formatter('%(asctime)s:%(name)s:%(levelname)s:%(message)s')
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 
+
 def createargs(args):
     create()
 
+
 def create():
+    """Build database schema."""
     with DBConnection() as conn:
         with conn.begin() as trans:
             metadata.create_all(conn)
 
+
 def create_indices():
+    """Build database indexes."""
     itrunc = 0
     def truncate(a, length=63):
         logger.info("creating index " + a)
@@ -56,23 +63,25 @@ def create_indices():
 def insertargs(args):
     insert(args.input_file, args.table_name)
 
+
 type_dict = {
     "integer": lambda s : s.astype(pd.Int64Dtype()),
     "string": lambda s : s.astype(str, skipna=True)
 }
 
-
 db_ = os.environ["ICEES_DB"]
+host = os.environ["ICEES_HOST"]
+DATAPATH = Path(os.environ["DATA_PATH"])
 
 
 @contextmanager
 def db_connections():
     """Database connection context manager."""
     if db_ == "sqlite":
-        con = sqlite3.connect("example.db")
+        con = sqlite3.connect(DATAPATH / "example.db")
     elif db_ == "postgres":
         con = psycopg2.connect(
-            host="localhost",
+            host=host,
             database="icees_database",
             user="icees_dbuser",
             password="icees_dbpass",

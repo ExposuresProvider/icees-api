@@ -1,7 +1,9 @@
-from sqlalchemy import create_engine
-import os
+"""Database tools."""
 from contextlib import contextmanager
+import os
+from pathlib import Path
 
+from sqlalchemy import create_engine
 
 service_name = "ICEES"
 
@@ -16,14 +18,16 @@ serv_pool_size = int(os.environ[service_name + "_DB_POOL_SIZE"])
 
 engine = None
 
+DATAPATH = Path(os.environ["DATA_PATH"])
+
+
 def get_db_connection():
+    """Get database connection."""
     global engine
     if engine is None:
         if db == "sqlite":
             engine = create_engine(
-                "sqlite:///example.db?check_same_thread=False",
-                # pool_size=serv_pool_size,
-                # max_overflow=serv_max_overflow,
+                f"sqlite:///{DATAPATH / 'example.db'}?check_same_thread=False",
             )
         elif db == "postgres":
             engine = create_engine(
@@ -39,12 +43,10 @@ def get_db_connection():
 
 @contextmanager
 def DBConnection():
+    """Database connection."""
     engine = get_db_connection()
     conn = engine.connect()
     try:
         yield conn
     finally:
         conn.close()
-    #    engine.dispose()
-
-

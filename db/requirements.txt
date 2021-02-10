@@ -1,0 +1,12 @@
+sqlalchemy
+psycopg2-binary
+scipy
+pyyaml
+tabulate
+pandas
+argparse
+inflection
+tx-functional
+numpy
+statsmodels
+fastapi

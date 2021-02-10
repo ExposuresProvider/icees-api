@@ -5,16 +5,14 @@ from pathlib import Path
 
 from sqlalchemy import create_engine
 
-service_name = "ICEES"
-
-db = os.environ[service_name + "_DB"]
-serv_user = os.environ[service_name + "_DBUSER"]
-serv_password = os.environ[service_name + "_DBPASS"]
-serv_host = os.environ[service_name + "_HOST"]
-serv_port = os.environ[service_name + "_PORT"]
-serv_database = os.environ[service_name + "_DATABASE"]
-serv_max_overflow = int(os.environ[service_name + "_DB_MAX_OVERFLOW"])
-serv_pool_size = int(os.environ[service_name + "_DB_POOL_SIZE"])
+db = os.environ["ICEES_DB"]
+serv_user = os.environ["ICEES_DBUSER"]
+serv_password = os.environ["ICEES_DBPASS"]
+serv_host = os.environ["ICEES_HOST"]
+serv_port = os.environ["ICEES_PORT"]
+serv_database = os.environ["ICEES_DATABASE"]
+serv_max_overflow = int(os.environ["ICEES_DB_MAX_OVERFLOW"])
+serv_pool_size = int(os.environ["ICEES_DB_POOL_SIZE"])
 
 engine = None
 

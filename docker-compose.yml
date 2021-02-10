@@ -6,16 +6,10 @@ services:
     volumes:
       - $CONFIG_PATH:/config
       - ./db:/db
+    env_file:
+      - .env
     environment:
       ICEES_DB: sqlite
-      ICEES_DBUSER: ${ICEES_DBUSER}
-      ICEES_DBPASS: ${ICEES_DBPASS}
-      ICEES_HOST: ${ICEES_HOST}
-      ICEES_PORT: ${ICEES_PORT}
-      ICEES_DATABASE: ${ICEES_DATABASE}
-      ICEES_DB_MAX_OVERFLOW: ${ICEES_DB_MAX_OVERFLOW}
-      ICEES_DB_POOL_SIZE: ${ICEES_DB_POOL_SIZE}
-      DATA_PATH: ${DATA_PATH}
     command: "./db/initdb.sh"
   server:
     build: 
@@ -32,5 +26,6 @@ services:
     volumes:
       - $CONFIG_PATH:/icees-api/config
       - $ICEES_API_LOG_PATH:/log
+      - ./db:/db
     ports:
     - "${ICEES_API_HOST_PORT}:8080"

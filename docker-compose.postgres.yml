@@ -15,15 +15,11 @@ services:
     volumes:
       - $CONFIG_PATH:/config
       - ./db:/db
+    env_file:
+      - .env
     environment:
       ICEES_DB: postgres
-      ICEES_DBUSER: ${ICEES_DBUSER}
-      ICEES_DBPASS: ${ICEES_DBPASS}
       ICEES_HOST: db
-      ICEES_PORT: ${ICEES_PORT}
-      ICEES_DATABASE: ${ICEES_DATABASE}
-      ICEES_DB_MAX_OVERFLOW: ${ICEES_DB_MAX_OVERFLOW}
-      ICEES_DB_POOL_SIZE: ${ICEES_DB_POOL_SIZE}
     command: "./db/initdb.sh"
   server:
     build: 

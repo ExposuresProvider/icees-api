@@ -71,6 +71,9 @@ type_dict = {
 
 db_ = os.environ["ICEES_DB"]
 host = os.environ["ICEES_HOST"]
+user = os.environ["ICEES_DBUSER"]
+password = os.environ["ICEES_DBPASS"]
+database = os.environ["ICEES_DATABASE"]
 DATAPATH = Path(os.environ["DATA_PATH"])
 
 
@@ -82,9 +85,9 @@ def db_connections():
     elif db_ == "postgres":
         con = psycopg2.connect(
             host=host,
-            database="icees_database",
-            user="icees_dbuser",
-            password="icees_dbpass",
+            database=database,
+            user=user,
+            password=password,
         )
     else:
         raise ValueError(f"Unsupported database '{db_}'")

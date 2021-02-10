@@ -1,14 +1,18 @@
-import pandas as pd
-import sys
 import argparse
-import db
-import psycopg2
+import csv
+from contextlib import contextmanager
+import logging
 import os
 import sys
-import logging
-from sqlalchemy import Index
 
-from features import model, features
+import pandas as pd
+import psycopg2
+from sqlalchemy import Index
+import sqlite3
+
+from .db import DBConnection
+from .features import features
+from .model import metadata, tables, table_id
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -22,9 +26,9 @@ def createargs(args):
     create()
 
 def create():
-    with db.DBConnection() as conn:
+    with DBConnection() as conn:
         with conn.begin() as trans:
-            model.metadata.create_all(conn)
+            metadata.create_all(conn)
 
 def create_indices():
     itrunc = 0
@@ -34,11 +38,12 @@ def create_indices():
         prefix = "index" + str(itrunc)
         itrunc += 1
         return prefix + a[:63-len(prefix)]
-    with db.DBConnection() as conn:
+    with DBConnection() as conn:
         with conn.begin() as trans:
 
-            tables = model.tables
-            for table, table_features in features.features.items():
+            for table, table_features in features.items():
+                id_col = table[0].upper() + table[1:] + "Id"
+                Index(truncate(table + "_" + id_col), tables[table].c[id_col]).create(conn)
                 Index(truncate(table + "_year"), tables[table].c.year).create(conn)
                 cols = list(map(lambda a : a.name, table_features))
                 for feature in cols:
@@ -56,50 +61,63 @@ type_dict = {
     "string": lambda s : s.astype(str, skipna=True)
 }
 
-def insert(input_file, table_name):
-    pg_load_table(input_file, table_name)
-    # df0 = pd.read_csv(input_file)
-    # table_features = features.features_dict[table_name]
-    # # dtypes = {col: ty["type"] for col, ty in table_features.items()}
-    # # df = df0.astype(dtypes)
-    # df = df0
-    # print("processing table " + table_name)
-    # for col, ty in table_features.items():
-    #     df.rename(columns={"index": table_name[0].upper() + table_name[1:] + "Id"}, inplace=True)
-    #     if col in df:
-    #         df[col] = type_dict[ty["type"]](df[col])
-    # def toDType(table):
-    #     l = []
-    #     for col_name, col_type, *_ in table:
-    #         l.append((col_name, col_type))
-    #     return dict(l)
-        
-    # with db.DBConnection() as conn:
-    #     with conn.begin() as trans:
-    #         df.to_sql(name=table_name, con=conn,if_exists="append", 
-    #                   index=False, 
-    #                   dtype=toDType(features.features[table_name]),
-    #                   chunksize=4096)
 
-def pg_load_table(file_path, table_name):
-    dbname = os.environ["ICEES_DATABASE"]
-    host = os.environ["ICEES_HOST"]
-    port = os.environ["ICEES_PORT"]
-    user = os.environ["ICEES_DBUSER"]
-    pwd = os.environ["ICEES_DBPASS"]
+db_ = os.environ["ICEES_DB"]
 
-    with psycopg2.connect(dbname=dbname, host=host, port=port, user=user, password=pwd) as conn:
-        conn.autocommit = True
-        cur = conn.cursor()
-        logger.info("Loading data from {} into {}".format(file_path, table_name))
 
-        with open(file_path, "r") as f:
-            columns = ["\"" + (model.table_id(table_name) if x == "index" else x) + "\"" for x in next(f).strip().split(",")]
-            cur.copy_from(f, table_name, sep=",", null="", columns=columns)
+@contextmanager
+def db_connections():
+    """Database connection context manager."""
+    if db_ == "sqlite":
+        con = sqlite3.connect("example.db")
+    elif db_ == "postgres":
+        con = psycopg2.connect(
+            host="localhost",
+            database="icees_database",
+            user="icees_dbuser",
+            password="icees_dbpass",
+        )
+    else:
+        raise ValueError(f"Unsupported database '{db_}'")
+
+    yield con
+
+    con.commit()
+    con.close()
+
+
+def insert(file_path, table_name):
+    """Insert data from file into table."""
+    with open(file_path, "r") as f:
+        columns = [
+            (table_id(table_name) if x == "index" else x)
+            for x in next(f).strip().split(",")
+        ]
+
+    with open(file_path, "r") as stream:
+        reader = csv.DictReader(stream)
+        to_db = [
+            tuple(row.get(col) for col in columns)
+            for row in reader
+        ]
+
+    with db_connections() as con:
+
+        cur = con.cursor()
+        if db_ == "sqlite":
+            placeholders = ", ".join("?" for _ in columns)
+        else:
+            placeholders = ", ".join("%s" for _ in columns)
+        query = "INSERT INTO {0} ({1}) VALUES ({2});".format(
+            table_name,
+            ", ".join(f"\"{col}\"" for col in columns),
+            placeholders,
+        )
+        cur.executemany(query, to_db)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(prog='ICEES DB Utitilies')
+    parser = argparse.ArgumentParser(prog='ICEES DB Utilities')
     subparsers = parser.add_subparsers(help='subcommands')
     # create the parser for the "create" command
     parser_create = subparsers.add_parser('create', help='create tables')

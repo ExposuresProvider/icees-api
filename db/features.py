@@ -1,7 +1,8 @@
-import yaml
+from dataclasses import dataclass
 import os
 from typing import Union, List, Literal, Any
-from dataclasses import dataclass
+import yaml
+
 from .config import get_config_path
 
 
@@ -40,7 +41,6 @@ def dict_to_Feature(table, key, value):
     if biolink_type is None:
         print("cannot find biolinkType for " + key + " in " + str(value))
     return Feature(key, _type, options, biolink_type)
-
 
 features = {
     key0: [dict_to_Feature(key0, key1, value1) for key1, value1 in value0.items()]

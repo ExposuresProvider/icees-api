@@ -1,6 +1,7 @@
-import db
+from .db import DBConnection
+
 
 async def get_db():
     """Get database connection."""
-    with db.DBConnection() as conn:
+    with DBConnection() as conn:
         yield conn

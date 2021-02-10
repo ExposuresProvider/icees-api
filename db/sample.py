@@ -1,8 +1,9 @@
-from features import features
+import argparse
+
 import pandas as pd
 import numpy as np
-import sys
-import argparse
+
+from .features import features
 
 
 def generate_data(table_name, years, n, fn):
@@ -12,7 +13,7 @@ def generate_data(table_name, years, n, fn):
 
         df["year"] = year
 
-        for f in features.features[table_name]:
+        for f in features[table_name]:
             t = f._type
             col = f.name
             levels = f.options

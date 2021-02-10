@@ -18,10 +18,10 @@ from structlog import wrap_logger
 from structlog.processors import JSONRenderer
 import yaml
 
-from features import format_
-from features.knowledgegraph import TOOL_VERSION
+from .features import format_
+from .features.knowledgegraph import TOOL_VERSION
 
-from handlers import ROUTER
+from .handlers import ROUTER
 
 with open("static/api_description.html", "r") as stream:
     description = stream.read()

@@ -1,8 +1,10 @@
 import csv
-import os
 import logging
-import yaml
+import os
+
 from tx.functional.either import Left, Right
+import yaml
+
 from .config import get_config_path
 
 logger = logging.getLogger(__name__)

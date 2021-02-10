@@ -1,20 +1,23 @@
+import datetime
+from functools import reduce, partial
+import itertools
+from itertools import combinations
+import logging
 import json
 import os
-import datetime
-import traceback
-import itertools
-from functools import reduce, partial
 import re
-import logging
+import traceback
+
+import inflection
+import numpy as np
 from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence, between
 from sqlalchemy.sql import select
-import numpy as np
-import inflection
 from tx.functional.either import Left, Right
-from tx.functional.maybe import Nothing, Just
 import tx.functional.maybe as maybe
+from tx.functional.maybe import Nothing, Just
 from tx.functional.utils import compose
-from utils import to_qualifiers
+
+from ..utils import to_qualifiers
 from .features import features, lookUpFeatureClass, features_dict
 from .model import get_ids_by_feature, select_associations_to_all_features, select_feature_matrix
 from .identifiers import get_identifiers, get_features_by_identifier
@@ -390,19 +393,19 @@ def co_occurrence_overlay(conn, query):
         edges = kedges
 
         overlay_edges = []
-        for src_node in knodes:
-            for tgt_node in knodes:
-                edge_attributes = co_occurrence_edge(conn, table, year, features, src_node, tgt_node)
-                if isinstance(edge_attributes, Left):
-                    return {
-                        "reasoner_id": "ICEES",
-                        "tool_version": TOOL_VERSION,
-                        "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-                        "message_code": "Error",
-                        "code_description": edge_attributes.value,
-                    }
-                else:
-                    overlay_edges.append(generate_edge(src_node, tgt_node, edge_attributes=edge_attributes.value))
+        for src_node, tgt_node in combinations(knodes, r=2):
+            edge_attributes = co_occurrence_edge(conn, table, year, features, src_node, tgt_node)
+            # raise ValueError((src_node, tgt_node))
+            if isinstance(edge_attributes, Left):
+                return {
+                    "reasoner_id": "ICEES",
+                    "tool_version": TOOL_VERSION,
+                    "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
+                    "message_code": "Error",
+                    "code_description": edge_attributes.value,
+                }
+            else:
+                overlay_edges.append(generate_edge(src_node, tgt_node, edge_attributes=edge_attributes.value))
         knowledge_graph = {
             "nodes": nodes,
             "edges": edges + overlay_edges

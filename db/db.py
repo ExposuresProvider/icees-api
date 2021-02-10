@@ -5,6 +5,7 @@ from contextlib import contextmanager
 
 service_name = "ICEES"
 
+db = os.environ[service_name + "_DB"]
 serv_user = os.environ[service_name + "_DBUSER"]
 serv_password = os.environ[service_name + "_DBPASS"]
 serv_host = os.environ[service_name + "_HOST"]
@@ -18,7 +19,20 @@ engine = None
 def get_db_connection():
     global engine
     if engine is None:
-        engine = create_engine("postgresql+psycopg2://"+serv_user+":"+serv_password+"@"+serv_host+":"+serv_port+"/"+serv_database, pool_size=serv_pool_size, max_overflow=serv_max_overflow)
+        if db == "sqlite":
+            engine = create_engine(
+                "sqlite:///example.db?check_same_thread=False",
+                # pool_size=serv_pool_size,
+                # max_overflow=serv_max_overflow,
+            )
+        elif db == "postgres":
+            engine = create_engine(
+                f"postgresql+psycopg2://{serv_user}:{serv_password}@{serv_host}:{serv_port}/{serv_database}",
+                pool_size=serv_pool_size,
+                max_overflow=serv_max_overflow,
+            )
+        else:
+            raise ValueError(f"Unsupported database '{db}'")
 
     return engine
 

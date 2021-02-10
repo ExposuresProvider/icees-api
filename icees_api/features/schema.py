@@ -1,9 +1,8 @@
-import os
-from enum import Enum
-from typing import Union, Any, Literal, List, Optional
-import yaml
 from functools import reduce
+from typing import Union, Any, Literal, List, Optional
+
 from pydantic import BaseModel, create_model
+
 from .features import features
 
 model_map = {}

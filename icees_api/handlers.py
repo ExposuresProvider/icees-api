@@ -9,17 +9,17 @@ from reasoner_converter.interfaces import upgrade_reasoner
 from reasoner_converter.upgrading import upgrade_QueryGraph, upgrade_KnowledgeGraph, upgrade_Result
 from reasoner_pydantic import Query, Message
 
-from dependencies import get_db
-from features import model, knowledgegraph
-from features.identifiers import get_identifiers
-from features.model import validate_range
-from models import (
+from .dependencies import get_db
+from .features import model, knowledgegraph
+from .features.identifiers import get_identifiers
+from .features.model import validate_range
+from .models import (
     Features,
     FeatureAssociation, FeatureAssociation2,
     AllFeaturesAssociation, AllFeaturesAssociation2,
     AddNameById,
 )
-from utils import to_qualifiers, to_qualifiers2
+from .utils import to_qualifiers, to_qualifiers2
 
 
 ROUTER = APIRouter()
@@ -241,6 +241,7 @@ def associations_to_all_features(
     feature = to_qualifiers(obj["feature"])
     maximum_p_value = obj["maximum_p_value"]
     correction = obj.get("correction")
+    print(feature)
     return_value = model.select_associations_to_all_features(
         conn,
         table,

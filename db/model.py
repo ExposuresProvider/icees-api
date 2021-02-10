@@ -1,23 +1,26 @@
-from fastapi import HTTPException
 import enum
-from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime, Text, LargeBinary, Enum, Float
-from sqlalchemy.orm import aliased
-from sqlalchemy.sql import select, func
-from scipy.stats import chi2_contingency
-import json
-import os
-from itertools import product, chain
-import inflection
-import numpy as np
-import time
-from .features import features, lookUpFeatureClass, features_dict
-from tx.functional.maybe import Nothing, Just
-import logging
-from datetime import datetime, timezone
 from collections import defaultdict
+from datetime import datetime, timezone
 from functools import cmp_to_key
 from hashlib import md5
+from itertools import product, chain
+import json
+import logging
+import re
+import os
+import time
+
+from fastapi import HTTPException
+import inflection
+import numpy as np
+from scipy.stats import chi2_contingency
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime, Text, LargeBinary, Enum
+from sqlalchemy.orm import aliased
+from sqlalchemy.sql import select, func
 from statsmodels.stats.multitest import multipletests
+from tx.functional.maybe import Nothing, Just
+
+from .features import features, lookUpFeatureClass, features_dict
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -43,7 +46,11 @@ def sql_type(ty):
 
 
 table_cols = {
-    table: [Column(table_id(table), Integer), Column("year", Integer)] + list(map(lambda feature: Column(feature.name, sql_type(feature._type)), table_features)) for table, table_features in features.items()
+    table: [
+        Column(table_id(table), Integer),
+        Column("year", Integer),
+    ] + list(map(lambda feature: Column(feature.name, sql_type(feature._type)), table_features))
+    for table, table_features in features.items()
 }
 
 tables = {
@@ -191,8 +198,9 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
         return None, -1
     else:
         size = n
+        next_val = 0
         while cohort_id is None:
-            next_val = conn.execute(cohort_id_seq)
+            next_val += 1
             cohort_id = "COHORT:" + str(next_val)
             if cohort_id_in_use(conn, cohort_id):
                 cohort_id = None
@@ -382,7 +390,15 @@ def selection(conn, table, selections):
         
         s = select(subs).select_from(table)
 
+        start_time = time.time()
+        query = str(s)
+        # print(s.compile().params)
+        for key, value in s.compile().params.items():
+            query = re.sub(rf":{key}\b", repr(value), query)
+        print(query)
         result.extend(list(conn.execute(s).first()))
+        print(f"{time.time() - start_time} seconds spent executing a subset of selections")
+        # print(result)
 
     return result
 
@@ -409,24 +425,39 @@ def normalize_feature(year, feature):
     return feature
 
 
+import time
+
 def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, feature_a, feature_b):
 
+    start_time = time.time()
     cohort_features_norm = normalize_features(cohort_year, cohort_features)
     feature_a_norm = normalize_feature(year, feature_a)
     feature_b_norm = normalize_feature(year, feature_b)
+    print(f"{time.time() - start_time} seconds spent normalizing")
     
+    start_time = time.time()
     cohort_features_json = json.dumps(cohort_features_norm, sort_keys=True)
     feature_a_json = json.dumps(feature_a_norm, sort_keys=True)
     feature_b_json = json.dumps(feature_b_norm, sort_keys=True)
+    print(f"{time.time() - start_time} seconds spent json.dumping")
 
     cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
 
+    start_time = time.time()
     digest = get_digest(json.dumps(table_name), cohort_features_json, json.dumps(cohort_year), feature_a_json, feature_b_json) 
+    print(f"{time.time() - start_time} seconds spent getting digest")
     
+    start_time = time.time()
     result = conn.execute(select([cache.c.association]).select_from(cache).where(cache.c.digest == digest).where(cache.c.table == table_name).where(cache.c.cohort_features == cohort_features_json).where(cache.c.cohort_year == cohort_year).where(cache.c.feature_a == feature_a_json).where(cache.c.feature_b == feature_b_json)).first()
+    print(f"{time.time() - start_time} seconds spent checking cache")
+    if result is None:
+        print("cache miss...")
+    else:
+        print("cache hit!")
 
     timestamp = datetime.now(timezone.utc)
     
+    result = None  # ignore cache
     if result is None:
         
         ka = feature_a_norm["feature_name"]
@@ -436,8 +467,11 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
         vbs = feature_b_norm["feature_qualifiers"]
         yb = feature_b_norm["year"]
 
+        start_time = time.time()
         table, table_matrices = generate_tables_from_features(table_name, cohort_features_norm, cohort_year, [(ka, ya), (kb, yb)])
+        print(f"{time.time() - start_time} seconds spent generating tables")
 
+        start_time = time.time()
         selections = [
             case_select2(table_matrices[yb], table_matrices[ya], kb, vb, ka, va, table_name=table_name) for vb, va in product(vbs, vas)
         ] + [
@@ -447,8 +481,11 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
         ] + [
             func.count()
         ]
+        print(f"{time.time() - start_time} seconds spent building selections")
         
+        start_time = time.time()
         result = selection(conn, table, selections)
+        print(f"{time.time() - start_time} seconds spent executing all selections")
 
         nvas = len(vas)
         nvbs = len(vbs)
@@ -462,8 +499,11 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
 
         total = result[mat_size + nvas + nvbs]
         
+        start_time = time.time()
         chi_squared, p, *_ = chi2_contingency(list(map(lambda x : list(map(add_eps, x)), feature_matrix)), correction=False)
+        print(f"{time.time() - start_time} seconds spent on chi2 contingency")
 
+        start_time = time.time()
         feature_matrix2 = [
             [
                 {
@@ -497,8 +537,11 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
         }
 
         association_json = json.dumps(association, sort_keys=True)
+        print(f"{time.time() - start_time} seconds spent assembling results")
 
-        conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
+        # start_time = time.time()
+        # conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
+        # print(f"{time.time() - start_time} seconds spent writing to cache")
 
     else:
         association_json = result[0]
@@ -579,7 +622,15 @@ def select_feature_association(conn, table_name, year, cohort_features, cohort_y
         levels = f.options
         if levels is None:
             levels = get_feature_levels(conn, table, year, k)
-        ret = select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
+        print(f)
+        ret = select_feature_matrix(
+            conn, table_name, year,
+            cohort_features, cohort_year, feature,
+            {
+                "feature_name": k,
+                "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))
+            }
+        )
         rs.append(ret)
     rsp = [ret["p_value"] for ret in rs]
     if correction is not None:

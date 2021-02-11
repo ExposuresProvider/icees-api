@@ -391,7 +391,7 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-   RespiratorySupportHFNC:
+  RespiratorySupportHFNC:
     type: integer
     minimum: 0
     maximum: 1
@@ -486,7 +486,7 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-   AntiInfectivesHydroxychloroquine:
+  AntiInfectivesHydroxychloroquine:
     type: integer
     minimum: 0
     maximum: 1
@@ -1481,7 +1481,7 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-     iolinkType: 
+    biolinkType: 
   he_a004c_birth_multi:
     type: string
     enum: ['Twin', 'Triplet', 'Other Multiple']

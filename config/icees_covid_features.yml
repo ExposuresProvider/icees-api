@@ -102,8 +102,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   HospitalLOS: 
     type: integer
-    minimum:
-    maximum: 
+    minimum: 0
     biolinkType: 
   ICU:
     type: integer
@@ -11770,8 +11769,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   HospitalLOS: 
     type: integer
-    minimum:
-    maximum: 
+    minimum: 0
     biolinkType: 
   ICU:
     type: integer

@@ -61,7 +61,7 @@ patient:
     maximum: 1
     biolinkType: ChemicalExposure, ChemicalSubstance
   ChalrsonComorbidityIndex:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 37
     biolinkType: PhenotypicFeature
@@ -551,57 +551,57 @@ patient:
     enum: 
     biolinkType:
   PCDDx: 
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   NeonatalRespiratoryDistress:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   LateralityDefect_SitusInversusOrHeterotaxy:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   DailyWetCough:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   MiddleEarDisease:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   ChronicNasalCongestion: 
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   Bronchietasis:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   MaleInfertilityDueToSpermDysfunctoon: 
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   CysticFibrosis:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   Antibiotics: 
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   DILIDx: 
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
@@ -11729,7 +11729,7 @@ visit:
     maximum: 1
     biolinkType: ChemicalExposure
   ChalrsonComorbidityIndex:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 37
     biolinkType: PhenotypicFeature
@@ -12088,57 +12088,57 @@ visit:
     enum: 
     biolinkType:
   PCDDx: 
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   NeonatalRespiratoryDistress:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   LateralityDefect_SitusInversusOrHeterotaxy:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   DailyWetCough:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   MiddleEarDisease:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   ChronicNasalCongestion: 
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   Bronchietasis:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   MaleInfertilityDueToSpermDysfunctoon: 
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   CysticFibrosis:
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   Antibiotics: 
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   DILIDx: 
-    type: interger
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature

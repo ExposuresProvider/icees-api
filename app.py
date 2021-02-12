@@ -169,5 +169,7 @@ for route in ROUTER.routes:
             }
         },
         response_model=route.response_model,
+        tags=route.tags,
+        deprecated=route.deprecated,
         methods=route.methods,
     )

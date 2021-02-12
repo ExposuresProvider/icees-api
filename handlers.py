@@ -463,10 +463,6 @@ with open("examples/knowledge_graph_one_hop.json") as stream:
     kg_onehop_example = json.load(stream)
 
 
-@ROUTER.post(
-    "/knowledge_graph_one_hop",
-    response_model=Dict,
-)
 def knowledge_graph_one_hop(
         obj: Query = Body(..., example=kg_onehop_example),
         reasoner: bool = False,
@@ -492,6 +488,18 @@ def knowledge_graph_one_hop(
     if reasoner:
         return return_value
     return {"return value": return_value}
+
+
+ROUTER.post(
+    "/knowledge_graph_one_hop",
+    response_model=Dict,
+    deprecated=True,
+)(knowledge_graph_one_hop)
+ROUTER.post(
+    "/query",
+    response_model=Dict,
+    tags=["reasoner"],
+)(knowledge_graph_one_hop)
 
 
 @ROUTER.get(

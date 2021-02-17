@@ -71,6 +71,7 @@ def custom_openapi():
 
     openapi_schema = get_openapi(
         title=APP.title,
+        description=APP.description,
         version=APP.version,
         servers=APP.servers,
         routes=APP.routes,

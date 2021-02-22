@@ -9830,6 +9830,255 @@ patient:
   ea_b194i_toner:
   ea_b194j_soy_ink:
   ea_b194k_pharma_ink:
+  ea_a012_current_home_type:
+  ea_a017h_heat_other:
+  ea_a017i_heat_none:
+  ea_a017j_heat_dk:
+  ea_a021f_stove_other:
+  ea_a023a_ac_central:
+  - ENVO:00002874
+  ea_a023b_ac_window:
+  - ENVO:00002874
+  ea_a023c_ac_portable:
+  - ENVO:00002874
+  ea_a036_mildew_odor_d:
+  ea_a040_mold_d:
+  ea_a061a_pest_ants: 
+  - ENVO:00005804
+  ea_a061b_pest_cockroaches:
+  ea_a061c_pest_bees_wasps:
+  ea_a061d_pest_flies:
+  ea_a061e_pest_spiders:
+  ea_a061f_pest_mosquitos:
+  ea_a061g_pest_flea_ticks:
+  ea_a061h_pest_termite:
+  - ENVO:2000006
+  ea_a061i_pest_other:
+  ea_a067_animal_waste:
+  - ENVO:00002276
+  ea_a068_bus_station:
+  - ENVO:01000611
+  ea_a069_airport:
+  ea_a070_dry_cleaners:
+  ea_a071_farm:
+  - ENVO:00000078
+  ea_a072_gas_station:
+  ea_a073_golf_course:
+  ea_a074_greenhouse:
+  ea_a075_hazard_waste:
+  - ENVO_01001264
+  - ENVO:00002206
+  - ENVO:00002001
+  - ENVO:00002267
+  ea_a076_power_lines:
+  ea_a077_incinerator:
+  ea_a078_landfill:
+  - ENVO:00000533
+  - ENVO:01000916
+  ea_a079_tannery:
+  ea_a080_military_base:
+  ea_a081_oil_refinery:
+  - ENVO:01000003
+  - ENVO:00002185
+  ea_a082_paper_mill:
+  - ENVO:00003895
+  ea_a083_poultry_plant:
+  - ENVO:00002214
+  ea_a084_coal_plant:
+  - ENVO:2000038
+  ea_a085_gas_plant:
+  - ENVO:2000039
+  - ENVO:2000037
+  ea_a086_oil_plant:
+  - ENVO:00000120
+  - ENVO:01000003
+  - ENVO:00002185
+  ea_a087_nuclear_plant:
+  - ENVO:00002271
+  ea_a088b_factory_d:
+  - ENVO_01000536 
+  ea_a091_farm_active:
+  - ENVO:01001170
+  ea_b092_solvent_d:
+  ea_b092k_solvent_other:
+  ea_b097a_solvent_ongoing_d:
+  ea_b098_lube_d:
+  ea_b098e_lube_other:
+  ea_b103a_lube_ongoing_d:
+  ea_b104_cleaning_d:
+  ea_b104d_cleaning_other:
+  ea_b109a_cleaning_ongoing_d:
+  ea_b110_metal_d:
+  ea_b110h_metal_other:
+  ea_b115a_metal_ongoing_d:
+  ea_b116_alcohol_d:
+  ea_b116e_alcohol_other:
+  ea_b121a_alcohol_ongoing_d:
+  ea_b122_pest_d:
+  ea_b122h_pest_other:
+  ea_b127a_pest_ongoing_d:
+  ea_b128_plastic_d:
+  ea_b128h_plastic_other:
+  ea_b134_dust_d:
+  ea_b134f_dust_other:
+  ea_b139a_dust_ongoing_d:
+  ea_b140_emissions_d:
+  ea_b140e_emissions_other:
+  ea_b145a_emissions_ongoing_d:
+  ea_b146_carcinogens_d:
+  ea_b146f_carcinogens_other:
+  ea_b151a_carcinogens_ongoing_d:
+  ea_b152_acid_d:
+  a_b152f_acid_other:
+  ea_b157a_acid_ongoing_d:
+  ea_b158_alkalis_d:
+  - CHEBI_22313
+  - CHEBI_22314
+  ea_b158e_alkalis_other:
+  - CHEBI_22313
+  - CHEBI_22314
+  ea_b163a_alkalis_ongoing_d:
+  ea_b164_stains_d:
+  ea_b164g_stains_other:
+  ea_b170_paint_d:
+  ea_b170j_paint_other:
+  ea_b175a_paint_ongoing_d:
+  ea_b176_anesthetic_d:
+  ea_b176h_anesthetic_other:
+  ea_b181a_anesthetic_ongoing_d:
+  ea_b182_adhesives_d:
+  ea_b182j_adhesives_other:
+  ea_b187a_adhesives_ongoing_d:
+  ea_b188_soldering_d:
+  ea_b188j_soldering_other:
+  ea_b193a_soldering_ongoing_d:
+  ea_b194_ink_d:
+  ea_b194l_ink_other:
+  ea_b199a_ink_ongoing_d:
+  ea_e249_sunburn:
+  - C3395
+  - MESH:D013471
+  - SCTID:403194002 
+  - MONDO:0005326
+  ea_e253_skin_rash:
+  - NCIT:C62596
+  - NCIT:C90259
+  - NCIT:C118464
+  - NCIT:C54450
+  - NCIT:C96388
+  - NCIT:C167409
+  - NCIT:C118468
+  ea_e257_tan_booth:
+  ea_e261_sunlamp:
+  - NCIT:C50197
+
+  eb_a001_multivitamin:
+  - LOINC:81950-8
+  - NCIT:C1654 
+  - UMLSCUI:C0301532
+  eb_a002_vitamin_a:
+  - CHEBI:17336
+  - CHEBI:12777
+  - MeSH:D014802
+  - MeSH:D014801
+  - LOINC:LP31687-4
+  - SCTID:36922411000001109 
+  - SCTID:3270000007
+  - SCTID:3438501000124103
+  - SCTID:331109009
+  eb_a003_vitamin_b3:
+  - CHEBI:15940
+  eb_a004_vitamin_b6:
+  - MeSH:D025101
+  - LOINC:LP102725-1
+  - CHEBI:16709
+  eb_a005_vitamin_b12:
+  - MeSH:D014805
+  - LOINC:LP102723-6
+  - CHEBI:15982
+  - CHEBI:17439
+  - CHEBI:48568
+  eb_a006_vitamin_b_comp:
+  - CHEBI:17439
+  eb_a007_vitamin_c:
+  - LOINC:LP102727-7
+  - CHEBI:29073
+  eb_a008_vitamin_d:
+  - MeSH:D014807
+  - LOINC:LP102730-1
+  - CHEBI:89324
+  - CHEBI:27300
+  eb_a009_vitamin_e:
+  - MeSH:D014810
+  - LOINC:LP102732-7
+  - CHEBI:18145
+  - CHEBI:46430
+  eb_a010_calcium:
+  - LOINC:LP72204-8
+  - LOINC:LP102624-6
+  - LOINC:35264-1
+  - LOINC:9051-4
+  - LOINC:LP111162-6
+  - MeSH:D019355
+  - MeSH:D002129
+  - MeSH:D000077250
+  - MeSH:D002122
+  - MeSH:C042131
+  - MeSH:D002124
+  - MeSH:D002126
+  - SCTID:230122008
+  - SCTID:390070000
+  - SCTID:389337007
+  eb_a011_chromium:
+  - LOINC:LP203246-6
+  - LOINC:81024-2
+  - MeSH:D002857
+  - SCTID:700166004
+  eb_a012_iron:
+  - MeSH:D007501
+  - LOINC:LP203272-2
+  - LOINC:81083-8
+  - LOINC:81082-0
+  - SCTID:286614006
+  eb_a013_magnesium:
+  - SCTID:230122008
+  - SCTID:390070000
+  - SCTID:389337007
+  - LOINC:LP72204-8
+  - LOINC:LP102624-6
+  - LOINC:80975-6
+  - LOINC:35264-1
+  - LOINC:9046-4
+  eb_a014_potassium:
+  - SCTID:788479004
+  - SCTID:282029009
+  - SCTID:139798000
+  - LOINC:LP73135-3
+  - LOINC:10322-6
+  - LOINC:81009-3
+  - LOINC:9074-6
+  - LOINC:9073-8
+  - LOINC:81010-1
+  eb_a015_selenium:
+  - MeSH:D012643
+  - SCTID:286616008
+  - SCTID:440981000124101
+  - SCTID:700172004
+  - SCTID:700173009
+  - LOINC:LP203293-8
+  - LOINC:81086-1
+  - LOINC:81087-9
+  eb_a016_zinc:
+  - LOINC:8LP203296-1
+  - LOINC:881088-7
+  - LOINC:881896-3
+  - MeSH:D015032
+  - SCTID:286617004
+  - SCTID:788651004
+  eb_a017_blk_cohosh:
+  - SCTID:7404711000001103
+  - SCTID:7404811000001106
+  - LOINC:LA14584-9
 visit:
   Acetaldehyde: *id010
   AgeVisit: *id011
@@ -16800,3 +17049,252 @@ visit:
   ea_b194i_toner:
   ea_b194j_soy_ink:
   ea_b194k_pharma_ink:
+    ea_a012_current_home_type:
+  ea_a017h_heat_other:
+  ea_a017i_heat_none:
+  ea_a017j_heat_dk:
+  ea_a021f_stove_other:
+  ea_a023a_ac_central:
+  - ENVO:00002874
+  ea_a023b_ac_window:
+  - ENVO:00002874
+  ea_a023c_ac_portable:
+  - ENVO:00002874
+  ea_a036_mildew_odor_d:
+  ea_a040_mold_d:
+  ea_a061a_pest_ants: 
+  - ENVO:00005804
+  ea_a061b_pest_cockroaches:
+  ea_a061c_pest_bees_wasps:
+  ea_a061d_pest_flies:
+  ea_a061e_pest_spiders:
+  ea_a061f_pest_mosquitos:
+  ea_a061g_pest_flea_ticks:
+  ea_a061h_pest_termite:
+  - ENVO:2000006
+  ea_a061i_pest_other:
+  ea_a067_animal_waste:
+  - ENVO:00002276
+  ea_a068_bus_station:
+  - ENVO:01000611
+  ea_a069_airport:
+  ea_a070_dry_cleaners:
+  ea_a071_farm:
+  - ENVO:00000078
+  ea_a072_gas_station:
+  ea_a073_golf_course:
+  ea_a074_greenhouse:
+  ea_a075_hazard_waste:
+  - ENVO_01001264
+  - ENVO:00002206
+  - ENVO:00002001
+  - ENVO:00002267
+  ea_a076_power_lines:
+  ea_a077_incinerator:
+  ea_a078_landfill:
+  - ENVO:00000533
+  - ENVO:01000916
+  ea_a079_tannery:
+  ea_a080_military_base:
+  ea_a081_oil_refinery:
+  - ENVO:01000003
+  - ENVO:00002185
+  ea_a082_paper_mill:
+  - ENVO:00003895
+  ea_a083_poultry_plant:
+  - ENVO:00002214
+  ea_a084_coal_plant:
+  - ENVO:2000038
+  ea_a085_gas_plant:
+  - ENVO:2000039
+  - ENVO:2000037
+  ea_a086_oil_plant:
+  - ENVO:00000120
+  - ENVO:01000003
+  - ENVO:00002185
+  ea_a087_nuclear_plant:
+  - ENVO:00002271
+  ea_a088b_factory_d:
+  - ENVO_01000536 
+  ea_a091_farm_active:
+  - ENVO:01001170
+  ea_b092_solvent_d:
+  ea_b092k_solvent_other:
+  ea_b097a_solvent_ongoing_d:
+  ea_b098_lube_d:
+  ea_b098e_lube_other:
+  ea_b103a_lube_ongoing_d:
+  ea_b104_cleaning_d:
+  ea_b104d_cleaning_other:
+  ea_b109a_cleaning_ongoing_d:
+  ea_b110_metal_d:
+  ea_b110h_metal_other:
+  ea_b115a_metal_ongoing_d:
+  ea_b116_alcohol_d:
+  ea_b116e_alcohol_other:
+  ea_b121a_alcohol_ongoing_d:
+  ea_b122_pest_d:
+  ea_b122h_pest_other:
+  ea_b127a_pest_ongoing_d:
+  ea_b128_plastic_d:
+  ea_b128h_plastic_other:
+  ea_b134_dust_d:
+  ea_b134f_dust_other:
+  ea_b139a_dust_ongoing_d:
+  ea_b140_emissions_d:
+  ea_b140e_emissions_other:
+  ea_b145a_emissions_ongoing_d:
+  ea_b146_carcinogens_d:
+  ea_b146f_carcinogens_other:
+  ea_b151a_carcinogens_ongoing_d:
+  ea_b152_acid_d:
+  a_b152f_acid_other:
+  ea_b157a_acid_ongoing_d:
+  ea_b158_alkalis_d:
+  - CHEBI_22313
+  - CHEBI_22314
+  ea_b158e_alkalis_other:
+  - CHEBI_22313
+  - CHEBI_22314
+  ea_b163a_alkalis_ongoing_d:
+  ea_b164_stains_d:
+  ea_b164g_stains_other:
+  ea_b170_paint_d:
+  ea_b170j_paint_other:
+  ea_b175a_paint_ongoing_d:
+  ea_b176_anesthetic_d:
+  ea_b176h_anesthetic_other:
+  ea_b181a_anesthetic_ongoing_d:
+  ea_b182_adhesives_d:
+  ea_b182j_adhesives_other:
+  ea_b187a_adhesives_ongoing_d:
+  ea_b188_soldering_d:
+  ea_b188j_soldering_other:
+  ea_b193a_soldering_ongoing_d:
+  ea_b194_ink_d:
+  ea_b194l_ink_other:
+  ea_b199a_ink_ongoing_d:
+  ea_e249_sunburn:
+  - C3395
+  - MESH:D013471
+  - SCTID:403194002 
+  - MONDO:0005326
+  ea_e253_skin_rash:
+  - NCIT:C62596
+  - NCIT:C90259
+  - NCIT:C118464
+  - NCIT:C54450
+  - NCIT:C96388
+  - NCIT:C167409
+  - NCIT:C118468
+  ea_e257_tan_booth:
+  ea_e261_sunlamp:
+  - NCIT:C50197
+
+  eb_a001_multivitamin:
+  - LOINC:81950-8
+  - NCIT:C1654 
+  - UMLSCUI:C0301532
+  eb_a002_vitamin_a:
+  - CHEBI:17336
+  - CHEBI:12777
+  - MeSH:D014802
+  - MeSH:D014801
+  - LOINC:LP31687-4
+  - SCTID:36922411000001109 
+  - SCTID:3270000007
+  - SCTID:3438501000124103
+  - SCTID:331109009
+  eb_a003_vitamin_b3:
+  - CHEBI:15940
+  eb_a004_vitamin_b6:
+  - MeSH:D025101
+  - LOINC:LP102725-1
+  - CHEBI:16709
+  eb_a005_vitamin_b12:
+  - MeSH:D014805
+  - LOINC:LP102723-6
+  - CHEBI:15982
+  - CHEBI:17439
+  - CHEBI:48568
+  eb_a006_vitamin_b_comp:
+  - CHEBI:17439
+  eb_a007_vitamin_c:
+  - LOINC:LP102727-7
+  - CHEBI:29073
+  eb_a008_vitamin_d:
+  - MeSH:D014807
+  - LOINC:LP102730-1
+  - CHEBI:89324
+  - CHEBI:27300
+  eb_a009_vitamin_e:
+  - MeSH:D014810
+  - LOINC:LP102732-7
+  - CHEBI:18145
+  - CHEBI:46430
+  eb_a010_calcium:
+  - LOINC:LP72204-8
+  - LOINC:LP102624-6
+  - LOINC:35264-1
+  - LOINC:9051-4
+  - LOINC:LP111162-6
+  - MeSH:D019355
+  - MeSH:D002129
+  - MeSH:D000077250
+  - MeSH:D002122
+  - MeSH:C042131
+  - MeSH:D002124
+  - MeSH:D002126
+  - SCTID:230122008
+  - SCTID:390070000
+  - SCTID:389337007
+  eb_a011_chromium:
+  - LOINC:LP203246-6
+  - LOINC:81024-2
+  - MeSH:D002857
+  - SCTID:700166004
+  eb_a012_iron:
+  - MeSH:D007501
+  - LOINC:LP203272-2
+  - LOINC:81083-8
+  - LOINC:81082-0
+  - SCTID:286614006
+  eb_a013_magnesium:
+  - SCTID:230122008
+  - SCTID:390070000
+  - SCTID:389337007
+  - LOINC:LP72204-8
+  - LOINC:LP102624-6
+  - LOINC:80975-6
+  - LOINC:35264-1
+  - LOINC:9046-4
+  eb_a014_potassium:
+  - SCTID:788479004
+  - SCTID:282029009
+  - SCTID:139798000
+  - LOINC:LP73135-3
+  - LOINC:10322-6
+  - LOINC:81009-3
+  - LOINC:9074-6
+  - LOINC:9073-8
+  - LOINC:81010-1
+  eb_a015_selenium:
+  - MeSH:D012643
+  - SCTID:286616008
+  - SCTID:440981000124101
+  - SCTID:700172004
+  - SCTID:700173009
+  - LOINC:LP203293-8
+  - LOINC:81086-1
+  - LOINC:81087-9
+  eb_a016_zinc:
+  - LOINC:8LP203296-1
+  - LOINC:881088-7
+  - LOINC:881896-3
+  - MeSH:D015032
+  - SCTID:286617004
+  - SCTID:788651004
+  eb_a017_blk_cohosh:
+  - SCTID:7404711000001103
+  - SCTID:7404811000001106
+  - LOINC:LA14584-9

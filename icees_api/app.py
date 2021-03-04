@@ -23,8 +23,9 @@ from .features.knowledgegraph import TOOL_VERSION
 
 from .handlers import ROUTER
 
-with open(Path(__file__).parent / "static" / "api_description.html", "r") as stream:
-    description = stream.read()
+DESCRIPTION_FILE = Path(__file__).parent / "static" / "api_description.html"
+with open(DESCRIPTION_FILE, "r") as stream:
+    DESCRIPTION = stream.read()
 
 OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8080')
 OPENAPI_SCHEME = os.getenv('OPENAPI_SCHEME', 'http')
@@ -48,7 +49,7 @@ class NaNResponse(JSONResponse):
 
 APP = FastAPI(
     title="ICEES API",
-    description=description,
+    description=DESCRIPTION,
     version=TOOL_VERSION,
     servers=[
         {"url": f"{OPENAPI_SCHEME}://{OPENAPI_HOST}"},
@@ -94,7 +95,7 @@ def custom_openapi():
 APP.openapi = custom_openapi
 
 with open(Path(__file__).parent / "static" / "terms.txt", 'r') as content_file:
-    terms_and_conditions = content_file.read()
+    TERMS_AND_CONDITIONS = content_file.read()
 
 LOGGER = logging.getLogger()
 LOGGER.setLevel(logging.INFO)
@@ -154,10 +155,10 @@ def prepare_output(func):
         # run func, logging errors
         try:
             return_value = func(*args, **kwargs)
-            
+
         except ValidationError as err:
             LOGGER.exception(err)
-            return_value = {"return value": e.message}
+            return_value = {"return value": err.message}
         except Exception as err:
             LOGGER.exception(err)
             return_value = {"return value": str(err)}
@@ -165,7 +166,7 @@ def prepare_output(func):
         # return tabular data, if requested
         if request.headers["accept"] == "text/tabular":
             content = format_.format_tabular(
-                terms_and_conditions,
+                TERMS_AND_CONDITIONS,
                 return_value.get("return value", return_value),
             )
             return Response(
@@ -175,7 +176,7 @@ def prepare_output(func):
 
         # add terms and conditions
         return {
-            "terms and conditions": terms_and_conditions,
+            "terms and conditions": TERMS_AND_CONDITIONS,
             **return_value,
         }
 

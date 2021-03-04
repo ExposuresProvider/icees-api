@@ -11,7 +11,6 @@ from fastapi.testclient import TestClient
 from icees_api.app import APP
 from icees_api.features.sql import get_features
 
-
 testclient = TestClient(APP)
 
 wait = os.environ.get("WAIT")
@@ -31,6 +30,7 @@ port = 8080
 logging.basicConfig(level=logging.DEBUG, stream=sys.stderr)
 logger = logging.getLogger()
 
+
 def wait(ip, port):
     while True:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -41,6 +41,7 @@ def wait(ip, port):
             time.sleep(1)
         finally:
             s.close()
+
 
 def query(year, biolink_class):
     return {
@@ -95,19 +96,19 @@ def one_hop_query(curie, biolink_class, **kwargs):
                     "n01": {
                         "category": biolink_class
                     }
-                }, 
+                },
                 "edges": {
                     "e00": {
                         "predicate": "biolink:correlated_with",
                         "subject": "n00",
                         "object": "n01"
-                    } 
+                    }
                 }
             }
         }
     }
 
-    
+
 def do_verify_response(resp_json, results=True):
     """Perform basic formatting checks on response object.
 
@@ -254,25 +255,9 @@ def do_test_knowledge_graph_one_hop(**kwargs):
     assert "nodes" in resp_json["return value"]["message"]["knowledge_graph"]
     assert "PUBCHEM:2083" in resp_json["return value"]["message"]["knowledge_graph"]["nodes"]
 
-    
     assert "message_code" in resp_json["return value"]
     assert "tool_version" in resp_json["return value"]
     assert "datetime" in resp_json["return value"]
-
-
-def test_knowledge_graph_overlay_year_table_features():
-    do_test_knowledge_graph_overlay(
-        query_options={
-            "table": "patient",
-            "year": 2010,
-            "cohort_features": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": "0-2"
-                }
-            }
-        }
-    )
 
 
 def test_knowledge_graph_overlay_year_table_features():

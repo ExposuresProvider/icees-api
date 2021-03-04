@@ -1,43 +1,39 @@
+"""Knowledge graph methods."""
 import datetime
 from functools import reduce, partial
-import itertools
 from itertools import combinations
 import logging
-import json
-import os
 import re
 import traceback
 
-import inflection
-import numpy as np
-from sqlalchemy import Table, Column, Integer, String, MetaData, create_engine, func, Sequence, between
-from sqlalchemy.sql import select
 from tx.functional.either import Left, Right
 import tx.functional.maybe as maybe
 from tx.functional.maybe import Nothing, Just
 from tx.functional.utils import compose
 
+from reasoner_converter.downgrading import downgrade_BiolinkEntity
+
 from ..utils import to_qualifiers
-from .features import features, lookUpFeatureClass, features_dict
-from .model import get_ids_by_feature, select_associations_to_all_features, select_feature_matrix
+from .mappings import mappings
+from .sql import get_ids_by_feature, select_associations_to_all_features, select_feature_matrix, get_feature_levels
 from .identifiers import get_identifiers, get_features_by_identifier
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 schema = {
-        "population_of_individual_organisms": {
-            "chemical_substance": ["correlated_with"],
-            "disease": ["correlated_with"],
-            "phenotypic_feature": ["correlated_with"],
-            "disease_or_phenotypic_feature": ["correlated_with"],
-            "chemical_substance": ["correlated_with"],
-            "environment": ["correlated_with"],
-            "activity_and_behavior": ["correlated_with"],
-            "drug": ["correlated_with"],
-            "named_thing": ["correlated_with"]
-        }
+    "population_of_individual_organisms": {
+        "chemical_substance": ["correlated_with"],
+        "disease": ["correlated_with"],
+        "phenotypic_feature": ["correlated_with"],
+        "disease_or_phenotypic_feature": ["correlated_with"],
+        "chemical_substance": ["correlated_with"],
+        "environment": ["correlated_with"],
+        "activity_and_behavior": ["correlated_with"],
+        "drug": ["correlated_with"],
+        "named_thing": ["correlated_with"]
     }
+}
 
 subtypes = {
     "chemical_substance": ["drug"],
@@ -47,76 +43,125 @@ subtypes = {
 
 TOOL_VERSION = "4.0.0"
 
+
 def closure_subtype(node_type):
-    return reduce(lambda x, y : x + y, map(closure_subtype, subtypes.get(node_type, [])), [node_type])
+    return reduce(
+        lambda x, y : x + y,
+        map(
+            closure_subtype,
+            subtypes.get(node_type, [])
+        ),
+        [node_type],
+    )
 
 
 def name_to_ids(table, filter_regex, node_name):
-    return list(dict.fromkeys(filter(lambda x: re.match(filter_regex, x), get_identifiers(table, node_name, True))))
+    return list(dict.fromkeys(filter(
+        lambda x: re.match(filter_regex, x),
+        get_identifiers(table, node_name, True)
+    )))
+
 
 def gen_edge_id(cohort_id, node_name, node_id):
     return cohort_id + "_" + node_name + "_" + node_id
 
+
 def gen_node_id_and_equivalent_ids(node_ids):
-    id_prefixes = ["CHEBI", "CHEMBL", "DRUGBANK", "PUBCHEM", "MESH", "HMDB", "INCHI", "INCHIKEY", "UNII", "KEGG", "gtpo"]
-    inode_id = next(((i, node_id) for i, node_id in enumerate(node_ids) if any(node_id.upper().startswith(x.upper() + ":") for x in id_prefixes)), None)
+    id_prefixes = [
+        "CHEBI",
+        "CHEMBL",
+        "DRUGBANK",
+        "PUBCHEM",
+        "MESH",
+        "HMDB",
+        "INCHI",
+        "INCHIKEY",
+        "UNII",
+        "KEGG",
+        "gtpo",
+    ]
+    inode_id = next((
+        (i, node_id)
+        for i, node_id in enumerate(node_ids)
+        if any(
+            node_id.upper().startswith(x.upper() + ":")
+            for x in id_prefixes
+        )
+    ), None)
     if inode_id is None:
         return node_ids[0], node_ids[1:]
-    else:
-        i, node_id = inode_id
-        return node_id, node_ids[:i] + node_ids[i+1:]
-    
-def result(source_id, source_curie, edge_id, node_name, target_id, table, filter_regex, score, score_name):
+    i, node_id = inode_id
+    return node_id, node_ids[:i] + node_ids[i+1:]
+
+
+def result(
+        source_id,
+        source_curie,
+        edge_id,
+        node_name,
+        target_id,
+        table,
+        filter_regex,
+        score,
+        score_name,
+):
     node_ids = name_to_ids(table, filter_regex, node_name)
     if len(node_ids) == 0:
         return Nothing
-    else:
-        node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
+    node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
-        return Just({
-            "node_bindings" : [
-                {"qg_id": source_id, "kg_id": source_curie},
-                {"qg_id": target_id, "kg_id": node_id}
-            ],
-            "edge_bindings" : [
-                {"qg_id": edge_id, "kg_id": gen_edge_id(source_curie, node_name, node_id)}
-            ],
-            "score": score,
-            "score_name": score_name
-        })
+    return Just({
+        "node_bindings": [
+            {"qg_id": source_id, "kg_id": source_curie},
+            {"qg_id": target_id, "kg_id": node_id}
+        ],
+        "edge_bindings": [
+            {
+                "qg_id": edge_id,
+                "kg_id": gen_edge_id(source_curie, node_name, node_id),
+            }
+        ],
+        "score": score,
+        "score_name": score_name
+    })
+
 
 def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
     node_ids = name_to_ids(table, filter_regex, node_name)
     if len(node_ids) == 0:
         return Nothing
-    else:
-        node_id, equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
+    node_id, equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
-        return Just({
-            "name": node_name,
-            "id": node_id,
-            "equivalent_identifiers": equivalent_ids,
-            "type": [biolink_class]
-        })
-    
+    return Just({
+        "name": node_name,
+        "id": node_id,
+        "equivalent_identifiers": equivalent_ids,
+        "type": [biolink_class]
+    })
 
-def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_property):
+
+def knowledge_graph_edge(
+        source_id,
+        node_name,
+        table,
+        filter_regex,
+        feature_property,
+):
     node_ids = name_to_ids(table, filter_regex, node_name)
     if len(node_ids) == 0:
         return Nothing
-    else:
-        node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
-        
-        edge_name = "correlated_with"
-        
-        return Just({
-            "type": edge_name,
-            "id": gen_edge_id(source_id, node_name, node_id),
-            "source_id": source_id,
-            "target_id": node_id,
-            "edge_attributes": feature_property
-        })
-    
+    node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
+
+    edge_name = "correlated_with"
+
+    return Just({
+        "type": edge_name,
+        "id": gen_edge_id(source_id, node_name, node_id),
+        "source_id": source_id,
+        "target_id": node_id,
+        "edge_attributes": feature_property
+    })
+
 
 def get(conn, query):
     try:
@@ -165,7 +210,15 @@ def get(conn, query):
 
         supported_types = closure_subtype(target_node_type)
 
-        feature_list = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, lambda x : inflection.underscore(x.biolink_class) in supported_types)
+        feature_list = select_associations_to_all_features(
+            conn,
+            table,
+            year,
+            cohort_id,
+            feature,
+            maximum_p_value,
+            lambda x: downgrade_BiolinkEntity(mappings.get(x)["categories"][0]) in supported_types,
+        )
         logger.info(f"feature_list = {feature_list}")
 
         nodes = {}
@@ -177,11 +230,32 @@ def get(conn, query):
             biolink_class = feature_b["biolink_class"]
             p_value = feature["p_value"]
             
-            knowledge_graph_node(feature_name, table, filter_regex, biolink_class).bind(lambda node: add_node(nodes, node))
+            knowledge_graph_node(
+                feature_name,
+                table,
+                filter_regex,
+                biolink_class,
+            ).bind(lambda node: add_node(nodes, node))
 
-            knowledge_graph_edge(source_curie, feature_name, table, filter_regex, feature).bind(lambda edge: knowledge_graph_edges.append(edge))
+            knowledge_graph_edge(
+                source_curie,
+                feature_name,
+                table,
+                filter_regex,
+                feature,
+            ).bind(lambda edge: knowledge_graph_edges.append(edge))
 
-            result(source_id, cohort_id, edge_id, feature_name, target_id, table, filter_regex, p_value, "p value").bind(lambda item: results.append(item))
+            result(
+                source_id,
+                cohort_id,
+                edge_id,
+                feature_name,
+                target_id,
+                table,
+                filter_regex,
+                p_value,
+                "p value",
+            ).bind(lambda item: results.append(item))
             
         knowledge_graph_nodes = [{
             "name": "cohort",
@@ -220,48 +294,37 @@ def get(conn, query):
     return message
 
 
-def query_feature(table, feature):
-    feature_def = features_dict[table][feature]
-    ty = feature_def["type"]
-    if ty == "string":
-        if "enum" not in feature_def:
-            return Left("node has type string but has no enum")
-        else:
-            return Right({
-                "feature_name": feature,
-                "feature_qualifiers": [{
-                    "operator":"=",
-                    "value":v
-                } for v in feature_def["enum"]]
-            })
-    elif ty == "integer":
-        if "maximum" not in feature_def or "minimum" not in feature_def:
-            return Left("node has type integer but has no maximum or has no minimum")
-        else:
-            return Right({
-                "feature_name": feature,
-                "feature_qualifiers": [{
-                    "operator":"=",
-                    "value":v
-                } for v in range(feature_def["minimum"], feature_def["maximum"]+1)]
-            })
-    else:
-        return Left(f"unsupported node type {ty}")
+def query_feature(conn, table_name, feature):
+    """Generate feature specification."""
+    table = conn.tables[table_name]
+    levels = get_feature_levels(conn, table, None, feature)
+    return {
+        "feature_name": feature,
+        "feature_qualifiers": [{
+            "operator": "=",
+            "value": v
+        } for v in levels]
+    }
 
-    
-def co_occurrence_feature_edge(conn, table, year, cohort_features, src_feature, tgt_feature):
-    return (
-        query_feature(table, src_feature)
-        .bind(lambda src_query_feature: (
-            query_feature(table, tgt_feature)
-            .map(lambda tgt_query_feature: (
-                select_feature_matrix(conn, table, year, cohort_features, year, src_query_feature, tgt_query_feature)["p_value"]
-            ))
-        ))
-    )
+
+def co_occurrence_feature_edge(
+        conn,
+        table,
+        year,
+        cohort_features,
+        src_feature,
+        tgt_feature,
+):
+    """Get co-occurrence p-value."""
+    return select_feature_matrix(
+        conn, table, year, cohort_features, year,
+        query_feature(conn, table, src_feature),
+        query_feature(conn, table, tgt_feature),
+    )["p_value"]
 
 
 def feature_names(table, node_curie):
+    """Get feature names from concept curie."""
     return (
         maybe.from_python(node_curie)
         .rec(Right, Left("no curie specified at node"))
@@ -269,12 +332,26 @@ def feature_names(table, node_curie):
     )
 
 
-def co_occurrence_edge(conn, table, year, cohort_features, src_node, tgt_node):
+def co_occurrence_edge(
+        conn,
+        table_name: str,
+        year,
+        cohort_features,
+        src_node,
+        tgt_node,
+):
     def handle_src_and_tgt_features(src_features, tgt_features):
         edge_property_value = []
         for src_feature in src_features:
             for tgt_feature in tgt_features:
-                edge = co_occurrence_feature_edge(conn, table, year, cohort_features, src_feature, tgt_feature)
+                edge = Right(co_occurrence_feature_edge(
+                    conn,
+                    table_name,
+                    year,
+                    cohort_features,
+                    src_feature,
+                    tgt_feature,
+                ))
                 if isinstance(edge, Right):
                     edge_property_value.append({
                         "src_feature": src_feature,
@@ -285,21 +362,24 @@ def co_occurrence_edge(conn, table, year, cohort_features, src_node, tgt_node):
                     return edge
         if len(edge_property_value) == 0:
             return Left("no edge found")
-        else:
-            return Right(edge_property_value)
-                    
-    return (
-        feature_names(table, src_node["id"])
-        .bind(lambda src_features: (
-            feature_names(table, tgt_node["id"])
-            .bind(lambda tgt_features: (
-                handle_src_and_tgt_features(src_features, tgt_features)  
-            ))
-        ))
-    )
-            
+        return Right(edge_property_value)
+
+    src_features = feature_names(table_name, src_node["id"]).value
+    tgt_features = feature_names(table_name, tgt_node["id"]).value
+    columns = conn.tables[table_name].columns
+    src_features = [
+        feature for feature in src_features
+        if feature in columns
+    ]
+    tgt_features = [
+        feature for feature in tgt_features
+        if feature in columns
+    ]
+    return Right(handle_src_and_tgt_features(src_features, tgt_features))
+
 
 def generate_edge_id(src_node, tgt_node):
+    """Generate edge id."""
     return node_get_id(src_node) + "_" + node_get_id(tgt_node)
 
 
@@ -316,7 +396,7 @@ def edge_get_id(node):
 def attr(s):
     return lambda d: maybe.from_python(d.get(s))
 
-    
+
 def generate_edge(src_node, tgt_node, edge_attributes=None):
     return {
         "id": generate_edge_id(src_node, tgt_node),
@@ -324,14 +404,16 @@ def generate_edge(src_node, tgt_node, edge_attributes=None):
         "source_id": node_get_id(src_node),
         "target_id": node_get_id(tgt_node),
         **({
-           "edge_attributes": edge_attributes
+            "edge_attributes": edge_attributes
         } if edge_attributes is not None else {})
     }
 
 
 def convert(attribute_map, qnode):
     return {
-        k : res.value for k, k_qnode in attribute_map.items() if isinstance((res := k_qnode(qnode)), Just)
+        k : res.value
+        for k, k_qnode in attribute_map.items()
+        if isinstance((res := k_qnode(qnode)), Just)
     }
 
 
@@ -353,7 +435,7 @@ def convert_qedge_to_edge(qedge):
         "negated": attr("negated")
     }
     return convert(attribute_map, qedge)
-    
+
 
 def message_cohort(conn, cohort_definition):
     cohort_id = cohort_definition.get("cohort_id")
@@ -377,13 +459,14 @@ def message_cohort(conn, cohort_definition):
 
 MAX_P_VAL_DEFAULT = 1
 
+
 def co_occurrence_overlay(conn, query):
     try:
         message = query["message"]
         query_options = query.get("query_options", {})
 
         cohort_id, table, year, features, size = message_cohort(conn, query_options)
-        
+
         kgraph = message.get("knowledge_graph")
 
         knodes = kgraph["nodes"]
@@ -405,12 +488,16 @@ def co_occurrence_overlay(conn, query):
                     "code_description": edge_attributes.value,
                 }
             else:
-                overlay_edges.append(generate_edge(src_node, tgt_node, edge_attributes=edge_attributes.value))
+                overlay_edges.append(generate_edge(
+                    src_node,
+                    tgt_node,
+                    edge_attributes=edge_attributes.value,
+                ))
         knowledge_graph = {
             "nodes": nodes,
             "edges": edges + overlay_edges
         }
-        
+
         message = {
             "reasoner_id": "ICEES",
             "tool_version": TOOL_VERSION,
@@ -440,12 +527,13 @@ def add_node(nodes, node):
     else:
         node_curr["name"] += f",{node['name']}"
 
-    
+
 def one_hop(conn, query):
     try:
         message = query["message"]
         query_options = query.get("query_options", {})
         cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
+        print("YEAR:", year)
         maximum_p_value = query.get("query_options", {}).get("maximum_p_value", MAX_P_VAL_DEFAULT)
         filter_regex = query.get("query_options", {}).get("regex", ".*")
         query_graph = message["query_graph"]
@@ -482,8 +570,16 @@ def one_hop(conn, query):
         supported_types = closure_subtype(target_node_type)
 
         for source_node_feature_name in source_node_feature_names:
-            feature = query_feature(table, source_node_feature_name).value
-            ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x : inflection.underscore(x.biolink_class) in supported_types)
+            feature = query_feature(conn, table, source_node_feature_name)
+            ataf = select_associations_to_all_features(
+                conn,
+                table,
+                year,
+                cohort_id,
+                feature,
+                maximum_p_value,
+                feature_set=lambda x: downgrade_BiolinkEntity(mappings.get(x)["categories"][0]) in supported_types,
+            )
             for feature in ataf:
                 feature_name = feature["feature_b"]["feature_name"]
                 biolink_class = feature["feature_b"]["biolink_class"]

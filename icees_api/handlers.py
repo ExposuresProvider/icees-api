@@ -1,18 +1,18 @@
 """ICEES API handlers."""
-from functools import partial
 import json
-from typing import Dict
+from typing import Dict, Union
 
 from fastapi import APIRouter, Body, Depends
 from reasoner_converter.downgrading import downgrade_Query
-from reasoner_converter.interfaces import upgrade_reasoner
-from reasoner_converter.upgrading import upgrade_QueryGraph, upgrade_KnowledgeGraph, upgrade_Result
+from reasoner_converter.upgrading import (
+    upgrade_QueryGraph, upgrade_KnowledgeGraph, upgrade_Result,
+)
 from reasoner_pydantic import Query, Message
 
 from .dependencies import get_db
-from .features import model, knowledgegraph
+from .features import knowledgegraph, sql
 from .features.identifiers import get_identifiers
-from .features.model import validate_range
+from .features.sql import validate_range
 from .models import (
     Features,
     FeatureAssociation, FeatureAssociation2,
@@ -33,7 +33,7 @@ def discover_cohort(
         conn=Depends(get_db),
 ) -> Dict:
     """Cohort discovery."""
-    cohort_id, size = model.get_ids_by_feature(
+    cohort_id, size = sql.get_ids_by_feature(
         conn,
         table,
         year,
@@ -63,7 +63,7 @@ def dictionary(
         conn=Depends(get_db),
 ) -> Dict:
     """Get cohort dictionary."""
-    return_value = model.get_cohort_dictionary(conn, table, year)
+    return_value = sql.get_cohort_dictionary(conn, table, year)
     return {"return value": return_value}
 
 
@@ -76,7 +76,7 @@ def edit_cohort(
         conn=Depends(get_db),
 ) -> Dict:
     """Cohort discovery."""
-    cohort_id, size = model.select_cohort(
+    cohort_id, size = sql.select_cohort(
         conn,
         table,
         year,
@@ -105,7 +105,7 @@ def get_cohort(
         conn=Depends(get_db),
 ) -> Dict:
     """Get definition of a cohort."""
-    cohort_features = model.get_cohort_by_id(
+    cohort_features = sql.get_cohort_by_id(
         conn,
         table,
         year,
@@ -120,7 +120,7 @@ def get_cohort(
 
 
 with open("examples/feature_association.json") as stream:
-    feature_association_example = json.load(stream)
+    FEATURE_ASSOCIATION_EXAMPLE = json.load(stream)
 
 
 @ROUTER.post(
@@ -133,7 +133,7 @@ def feature_association(
         cohort_id: str,
         obj: FeatureAssociation = Body(
             ...,
-            example=feature_association_example,
+            example=FEATURE_ASSOCIATION_EXAMPLE,
         ),
         conn=Depends(get_db),
 ) -> Dict:
@@ -146,13 +146,13 @@ def feature_association(
     feature_a = to_qualifiers(obj["feature_a"])
     feature_b = to_qualifiers(obj["feature_b"])
 
-    cohort_meta = model.get_features_by_id(conn, table, cohort_id)
+    cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
 
     if cohort_meta is None:
         return_value = "Input cohort_id invalid. Please try again."
     else:
         cohort_features, cohort_year = cohort_meta
-        return_value = model.select_feature_matrix(
+        return_value = sql.select_feature_matrix(
             conn,
             table,
             year,
@@ -165,7 +165,7 @@ def feature_association(
 
 
 with open("examples/feature_association2.json") as stream:
-    feature_association2_example = json.load(stream)
+    FEATURE_ASSOCIATION2_EXAMPLE = json.load(stream)
 
 
 @ROUTER.post(
@@ -178,7 +178,7 @@ def feature_association2(
         cohort_id: str,
         obj: FeatureAssociation2 = Body(
             ...,
-            example=feature_association2_example,
+            example=FEATURE_ASSOCIATION2_EXAMPLE,
         ),
         conn=Depends(get_db),
 ) -> Dict:
@@ -192,16 +192,16 @@ def feature_association2(
     feature_b = to_qualifiers2(obj["feature_b"])
     to_validate_range = obj.get("check_coverage_is_full", False)
     if to_validate_range:
-        validate_range(table, feature_a)
-        validate_range(table, feature_b)
+        validate_range(conn, table, feature_a)
+        validate_range(conn, table, feature_b)
 
-    cohort_meta = model.get_features_by_id(conn, table, cohort_id)
+    cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
 
     if cohort_meta is None:
         return_value = "Input cohort_id invalid. Please try again."
     else:
         cohort_features, cohort_year = cohort_meta
-        return_value = model.select_feature_matrix(
+        return_value = sql.select_feature_matrix(
             conn,
             table,
             year,
@@ -215,7 +215,7 @@ def feature_association2(
 
 
 with open("examples/associations_to_all_features.json") as stream:
-    associations_to_all_features_example = json.load(stream)
+    ASSOCIATIONS_TO_ALL_FEATURES_EXAMPLE = json.load(stream)
 
 
 @ROUTER.post(
@@ -228,7 +228,7 @@ def associations_to_all_features(
         cohort_id: str,
         obj: AllFeaturesAssociation = Body(
             ...,
-            example=associations_to_all_features_example,
+            example=ASSOCIATIONS_TO_ALL_FEATURES_EXAMPLE,
         ),
         conn=Depends(get_db),
 ) -> Dict:
@@ -242,7 +242,7 @@ def associations_to_all_features(
     maximum_p_value = obj["maximum_p_value"]
     correction = obj.get("correction")
     print(feature)
-    return_value = model.select_associations_to_all_features(
+    return_value = sql.select_associations_to_all_features(
         conn,
         table,
         year,
@@ -255,7 +255,7 @@ def associations_to_all_features(
 
 
 with open("examples/associations_to_all_features2.json") as stream:
-    associations_to_all_features2_example = json.load(stream)
+    ASSOCIATIONS_TO_ALL_FEATURES2_EXAMPLE = json.load(stream)
 
 
 @ROUTER.post(
@@ -268,7 +268,7 @@ def associations_to_all_features2(
         cohort_id: str,
         obj: AllFeaturesAssociation2 = Body(
             ...,
-            example=associations_to_all_features2_example,
+            example=ASSOCIATIONS_TO_ALL_FEATURES2_EXAMPLE,
         ),
         conn=Depends(get_db),
 ) -> Dict:
@@ -281,10 +281,10 @@ def associations_to_all_features2(
     feature = to_qualifiers2(obj["feature"])
     to_validate_range = obj.get("check_coverage_is_full", False)
     if to_validate_range:
-        validate_range(table, feature)
+        validate_range(conn, table, feature)
     maximum_p_value = obj["maximum_p_value"]
     correction = obj.get("correction")
-    return_value = model.select_associations_to_all_features(
+    return_value = sql.select_associations_to_all_features(
         conn,
         table,
         year,
@@ -311,12 +311,12 @@ def features(
     Users select a predefined cohort as the input parameter, and the service
     returns a profile of that cohort in terms of all feature variables.
     """
-    cohort_meta = model.get_features_by_id(conn, table, cohort_id)
+    cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
     if cohort_meta is None:
         return_value = "Input cohort_id invalid. Please try again."
     else:
         cohort_features, cohort_year = cohort_meta
-        return_value = model.get_cohort_features(
+        return_value = sql.get_cohort_features(
             conn,
             table,
             year,
@@ -352,7 +352,7 @@ def get_name(
         conn=Depends(get_db),
 ) -> Dict:
     """Return cohort id associated with name."""
-    return_value = model.get_id_by_name(conn, table, name)
+    return_value = sql.get_id_by_name(conn, table, name)
     return {"return value": return_value}
 
 
@@ -367,7 +367,7 @@ def post_name(
         conn=Depends(get_db),
 ) -> Dict:
     """Associate name with cohort id."""
-    return_value = model.add_name_by_id(
+    return_value = sql.add_name_by_id(
         conn,
         table,
         name,
@@ -377,26 +377,31 @@ def post_name(
 
 
 with open("examples/knowledge_graph.json") as stream:
-    knowledge_graph_example = json.load(stream)
+    KNOWLEDGE_GRAPH_EXAMPLE = json.load(stream)
 
 
 @ROUTER.post(
     "/knowledge_graph",
-    response_model=Dict,
+    response_model=Union[Message, Dict],
 )
 def knowledge_graph(
-        obj: Query = Body(..., example=knowledge_graph_example),
+        obj: Query = Body(..., example=KNOWLEDGE_GRAPH_EXAMPLE),
         reasoner: bool = False,
         conn=Depends(get_db),
-) -> Message:
+) -> Dict:
     """Query for knowledge graph associations between concepts."""
     return_value = knowledgegraph.get(conn, downgrade_Query(obj))
+    print("return_value", return_value)
 
     message = dict()
     if "query_graph" in return_value:
-        message["query_graph"] = upgrade_QueryGraph(return_value.pop("query_graph"))
+        message["query_graph"] = upgrade_QueryGraph(
+            return_value.pop("query_graph")
+        )
     if "knowledge_graph" in return_value:
-        message["knowledge_graph"] = upgrade_KnowledgeGraph(return_value.pop("knowledge_graph"))
+        message["knowledge_graph"] = upgrade_KnowledgeGraph(
+            return_value.pop("knowledge_graph")
+        )
     if "results" in return_value:
         message["results"] = [
             upgrade_Result(result)
@@ -450,26 +455,34 @@ def predicates():
 
 
 with open("examples/knowledge_graph_overlay.json") as stream:
-    kg_overlay_example = json.load(stream)
+    KG_OVERLAY_EXAMPLE = json.load(stream)
 
 
 @ROUTER.post(
     "/knowledge_graph_overlay",
-    response_model=Dict,
+    response_model=Union[Message, Dict],
 )
 def knowledge_graph_overlay(
-        obj: Query = Body(..., example=kg_overlay_example),
+        obj: Query = Body(..., example=KG_OVERLAY_EXAMPLE),
         reasoner: bool = False,
         conn=Depends(get_db),
-) -> Message:
+) -> Dict:
     """Query for knowledge graph co-occurrence overlay."""
-    return_value = knowledgegraph.co_occurrence_overlay(conn, downgrade_Query(obj))
+
+    return_value = knowledgegraph.co_occurrence_overlay(
+        conn,
+        downgrade_Query(obj),
+    )
 
     message = dict()
     if "query_graph" in return_value:
-        message["query_graph"] = upgrade_QueryGraph(return_value.pop("query_graph"))
+        message["query_graph"] = upgrade_QueryGraph(
+            return_value.pop("query_graph")
+        )
     if "knowledge_graph" in return_value:
-        message["knowledge_graph"] = upgrade_KnowledgeGraph(return_value.pop("knowledge_graph"))
+        message["knowledge_graph"] = upgrade_KnowledgeGraph(
+            return_value.pop("knowledge_graph")
+        )
     if "results" in return_value:
         message["results"] = [
             upgrade_Result(result)
@@ -485,22 +498,30 @@ def knowledge_graph_overlay(
 
 
 with open("examples/knowledge_graph_one_hop.json") as stream:
-    kg_onehop_example = json.load(stream)
+    KG_ONEHOP_EXAMPLE = json.load(stream)
 
 
+@ROUTER.post(
+    "/knowledge_graph_one_hop",
+    response_model=Union[Message, Dict],
+)
 def knowledge_graph_one_hop(
-        obj: Query = Body(..., example=kg_onehop_example),
-        reasoner: bool = True,
+        obj: Query = Body(..., example=KG_ONEHOP_EXAMPLE),
+        reasoner: bool = False,
         conn=Depends(get_db),
-) -> Message:
+) -> Dict:
     """Query the ICEES clinical reasoner for knowledge graph one hop."""
     return_value = knowledgegraph.one_hop(conn, downgrade_Query(obj))
 
     message = dict()
     if "query_graph" in return_value:
-        message["query_graph"] = upgrade_QueryGraph(return_value.pop("query_graph"))
+        message["query_graph"] = upgrade_QueryGraph(
+            return_value.pop("query_graph")
+        )
     if "knowledge_graph" in return_value:
-        message["knowledge_graph"] = upgrade_KnowledgeGraph(return_value.pop("knowledge_graph"))
+        message["knowledge_graph"] = upgrade_KnowledgeGraph(
+            return_value.pop("knowledge_graph")
+        )
     if "results" in return_value:
         message["results"] = [
             upgrade_Result(result)

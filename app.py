@@ -5,15 +5,18 @@ import json
 import logging
 from logging.handlers import TimedRotatingFileHandler
 import os
+from pathlib import Path
 from time import strftime
 from typing import Any
 from jsonschema import ValidationError
 
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
+from fastapi.openapi.utils import get_openapi
 from starlette.responses import Response, JSONResponse
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
+import yaml
 
 from features import format_
 from features.knowledgegraph import TOOL_VERSION
@@ -47,13 +50,48 @@ APP = FastAPI(
     title="ICEES API",
     description=description,
     version=TOOL_VERSION,
-    terms_of_service='N/A',
     servers=[
         {"url": f"{OPENAPI_SCHEME}://{OPENAPI_HOST}"},
     ],
-    default_response_class=NaNResponse,
     docs_url="/apidocs",
+    default_response_class=NaNResponse,
+    redoc_url=None,
 )
+
+
+def custom_openapi():
+    """Build custom OpenAPI schema."""
+    if APP.openapi_schema:
+        return APP.openapi_schema
+
+    extra_info_file = Path(__file__).parent / "openapi-info.yml"
+
+    with open(extra_info_file) as stream:
+        extra_info = yaml.load(stream, Loader=yaml.SafeLoader)
+
+    openapi_schema = get_openapi(
+        title=APP.title,
+        description=APP.description,
+        version=APP.version,
+        servers=APP.servers,
+        routes=APP.routes,
+        tags=[
+            {
+                "name": "translator",
+            },
+            {
+                "name": "reasoner",
+            }
+        ],
+    )
+
+    openapi_schema["info"].update(extra_info)
+
+    APP.openapi_schema = openapi_schema
+    return APP.openapi_schema
+
+
+APP.openapi = custom_openapi
 
 with open('terms.txt', 'r') as content_file:
     terms_and_conditions = content_file.read()
@@ -169,5 +207,7 @@ for route in ROUTER.routes:
             }
         },
         response_model=route.response_model,
+        tags=route.tags,
+        deprecated=route.deprecated,
         methods=route.methods,
     )

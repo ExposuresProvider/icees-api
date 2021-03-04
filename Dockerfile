@@ -17,6 +17,7 @@ COPY ./features /icees-api/features
 COPY ./examples icees-api/examples
 COPY ./static /icees-api/static
 COPY ./main.sh /icees-api/main.sh
+COPY ./openapi-info.yml /icees-api/openapi-info.yml
 
 WORKDIR /icees-api
 

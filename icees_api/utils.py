@@ -1,3 +1,6 @@
+"""Utilities."""
+
+
 def opposite(qualifier):
     return {
         "operator": {
@@ -26,6 +29,7 @@ def to_qualifiers(feature):
             "feature_name": k,
             "feature_qualifiers": [v, opposite(v)]
         }
+
 
 def to_qualifiers2(feature):
     if len(feature) == 1:

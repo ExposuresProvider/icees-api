@@ -1,8 +1,9 @@
 patient:
-  Acetaldehyde: &id010
+  AvgailyAcetaldehydeExposure_2: &id010
   - CHEBI:15343
   - PUBCHEM:177
   - MESH:D000079
+  AvgailyAcetaldehydeExposure_2_qcut: &id010
   AgeStudyStart: &id011
   - NCIT:C25150
   - UMLSCUI:C0001779
@@ -3090,6 +3091,13 @@ patient:
   - NCIT:C68605
   - UMLSCUI:C2348993
   - SCTID:103324002
+  TotalInpatientVisits:
+  - NCIT:C53513
+  - UMLSCUI:C0562508
+  - NCIT:C150760
+  - NCIT:C68605
+  - UMLSCUI:C2348993
+  - SCTID:103324002
   Trazodone: &id089
   - RXCUI:82112
   - RXCUI:10737
@@ -3133,6 +3141,7 @@ patient:
   - SCTID:766931000000106
   - SCTID:390902009
   - SCTID:390904005
+  - SCTID:365980008
   ChalrsonComorbidityIndex:
   - NCIT:C176422
   - SCTID:762713009
@@ -3207,7 +3216,7 @@ patient:
   - MONDO:0008169
   - NCIT:C3117
   - UMLSCUI:C0020538
-  ChronicKidneyDx: 
+  ChronicKidneyDiseaseDx: 
   - MONDO:0005240
   - MONDO:0001343
   - MONDO:0002473
@@ -3251,12 +3260,23 @@ patient:
   - MONDO:0021163
   - NCIT:C80078
   - UMLSCUI:C1561643
-  ChronicArteryDx:
+  ChronicObstructivePulmonaryDiseaseDx:
+  - MONDO:0011751
+  - MONDO:0009937
+  - MONDO:0005002
+  - MONDO:0023540
+  - MONDO:0010220
+  - SCTID:171230000
+  - SCTID:313299006
+  - SCTID:702839006
+  - LOINC:LA28200-6
+  - LOINC:LA27422-7
+  ChronicArteryDiseaseDx:
   - NCIT:C12372
   - UMLSCUI:C0003842
   - MONDO:0000473
   - SCTID:27624003
-  HeartFailureDx:
+  HeartFailureDiseaseDx:
   - MONDO:0005009
   - MONDO:0001899
   - MONDO:0006932
@@ -3267,7 +3287,7 @@ patient:
   - LOINC:LP269425-7
   - LOINC:LP269421-6
   - SCTID:84114007
-  LiverDx: 
+  LiverDiseaseDx: 
   - MONDO:000515
   - MONDO:0009220
   - MONDO:0043693
@@ -3290,7 +3310,7 @@ patient:
   - LOINC:LA25810-5
   - SCTID:235890007
   - SCTID:328383001
-  CancerDx:
+  CancerDiseaseDx:
   - MONDO:0005070
   - MONDO:0004992
   - MONDO:0002236
@@ -3850,7 +3870,7 @@ patient:
   - CHEBI:144656
   - CHEBI:144654
   - CHEBI:144657
-  GO:1902262
+  - GO:1902262
   - NCIT:C61009 
   - UMLSCUI:C2825086
   - NCIT:C133243
@@ -7633,7 +7653,7 @@ patient:
   - NCIT:C126675
   - NCIT:C126674
   - NCIT:C126667
-  Inflluenza7pointClinicalStatusScore:
+  Influenza7pointClinicalStatusScore:
   FeverDx:
   - MONDO:0015137
   - MONDO:0005324
@@ -9030,7 +9050,6 @@ patient:
   - UMLSCUI:C3203357
   - NCIT:C26804
   - UMLSCUI:C0022415
-
   he_q140_asbestos:
   - ENVO_2000026
   he_q141_biohazards:
@@ -9058,7 +9077,7 @@ patient:
   - ENVO_2000012
   he_q150_pesticide:
   - CHEBI_33287
-  he_q151_sand:f
+  he_q151_sand:
   he_q152_other_dust:
   - ENVO:02000127
   - ENVO:02000128
@@ -9070,6 +9089,18 @@ patient:
   - ENVO_2000023
   he_s179_100_cigarettes:
   - NCIT:C127059
+  - NCIT:C1519386
+  - UMLSCUI:C1519386
+  - MONDO:0008575
+  - LOINC:LP114183-9
+  - LOINC:LP156992-2
+  - LOINC:63638-1
+  - LOINC:72166-2
+  - LOINC:LP111730-0
+  - LOINC:LP212149-1
+  - SCTID:766931000000106
+  - SCTID:390902009
+  - SCTID:390904005
   he_s180_smoke:
   - NCIT:C172730
   - NCIT:C70989, 
@@ -9971,7 +10002,6 @@ patient:
   ea_e257_tan_booth:
   ea_e261_sunlamp:
   - NCIT:C50197
-
   eb_a001_multivitamin:
   - LOINC:81950-8
   - NCIT:C1654 
@@ -10099,6 +10129,7 @@ visit:
   Avg24hNOxExposure_2: *id005
   Avg24hNOxExposure_2_qcut: *id005
   Avg24hOzoneExposure: *id006
+  - CHEBI_25812
   Avg24hOzoneExposure_StudyAvg: *id006
   Avg24hOzoneExposure_StudyAvg_qcut: *id006
   Avg24hOzoneExposure_StudyMax: *id006
@@ -10237,6 +10268,7 @@ visit:
   LeuprolideVisit: *id058
   MajorRoadwayHighwayExposure: *id059
   Max24hOzoneExposure: *id006
+  - CHEBI_25812
   Max24hOzoneExposure_2: *id006
   Max24hOzoneExposure_2_qcut: *id006
   Max24hOzoneExposure_StudyAvg: *id006
@@ -10427,7 +10459,7 @@ visit:
   - MONDO:0008169
   - NCIT:C3117
   - UMLSCUI:C0020538
-  ChronicKidneyDx: 
+  ChronicKidneyDiseaseDx: 
   - MONDO:0005240
   - MONDO:0001343
   - MONDO:0002473
@@ -10471,12 +10503,24 @@ visit:
   - MONDO:0021163
   - NCIT:C80078
   - UMLSCUI:C1561643
-  ChronicArteryDx:
+  ChronicObstructivePulmonaryDiseaseDx:
+  - MONDO:0011751
+  - MONDO:0009937
+  - MONDO:0005002
+  - MONDO:0023540
+  - MONDO:0010220
+  - SCTID:171230000
+  - SCTID:313299006
+  - SCTID:702839006
+  - LOINC:LA28200-6
+  - LOINC:LA27422-7
+  - LOINC:LA27872-3
+  ChronicArteryDiseaseDx:
   - NCIT:C12372
   - UMLSCUI:C0003842
   - MONDO:0000473
   - SCTID:27624003
-  HeartFailureDx:
+  HeartFailureDiseaseDx:
   - MONDO:0005009
   - MONDO:0001899
   - MONDO:0006932
@@ -10487,7 +10531,7 @@ visit:
   - LOINC:LP269425-7
   - LOINC:LP269421-6
   - SCTID:84114007
-  LiverDx: 
+  LiverDiseaseDx: 
   - MONDO:000515
   - MONDO:0009220
   - MONDO:0043693
@@ -10510,7 +10554,7 @@ visit:
   - LOINC:LA25810-5
   - SCTID:235890007
   - SCTID:328383001
-  CancerDx:
+  CancerDiseaseDx:
   - MONDO:0005070
   - MONDO:0004992
   - MONDO:0002236
@@ -11070,7 +11114,7 @@ visit:
   - CHEBI:144656
   - CHEBI:144654
   - CHEBI:144657
-  GO:1902262
+  - GO:1902262
   - NCIT:C61009 
   - UMLSCUI:C2825086
   - NCIT:C133243
@@ -11179,6 +11223,8 @@ visit:
   - LOINC:2075-0
   - NCIT:C61021 
   - UMLSCUI:C1317978
+  - LOINC:77138-6
+  - LOINC LG6373-7
   SerumBicarbonate:
   - SCTID:271239003
   - SCTID:1000681000000103
@@ -11434,6 +11480,7 @@ visit:
   - SCTID:1104411000000106
   - NCIT:C94624 
   - UMLSCUI:C0184633 
+  - LOINC:LL737-8
   RespiratorySupportHFNC:
   - SCTID:426854004
   - SCTID:701101003
@@ -14853,7 +14900,7 @@ visit:
   - NCIT:C126675
   - NCIT:C126674
   - NCIT:C126667
-  Inflluenza7pointClinicalStatusScore:
+  Influenza7pointClinicalStatusScore:
   FeverDx:
   - MONDO:0015137
   - MONDO:0005324
@@ -16277,7 +16324,7 @@ visit:
   - ENVO_2000012
   he_q150_pesticide:
   - CHEBI_33287
-  he_q151_sand:f
+  he_q151_sand:
   he_q152_other_dust:
   - ENVO:02000127
   - ENVO:02000128

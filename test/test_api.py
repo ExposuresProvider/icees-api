@@ -344,21 +344,6 @@ def test_knowledge_graph_one_hop_year_table_features():
             }
         }
     )
-    
-    
-def test_knowledge_graph_one_hop_year_table_features():
-    do_test_knowledge_graph_one_hop(
-        query_options={
-            "table": "patient",
-            "year": 2010,
-            "cohort_features": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": "0-2"
-                }
-            }
-        }
-    )
 
 
 def test_knowledge_graph_one_hop_table_features():
@@ -412,12 +397,18 @@ def do_test_knowledge_graph_unique_edge_ids(biolink_class):
 
     assert len(resp_json["return value"]["message"]["results"]) > 1
 
-    for edge_bindings in map(lambda x: x["edge_bindings"], resp_json["return value"]["message"]["results"]):
+    for edge_bindings in map(
+        lambda x: x["edge_bindings"],
+        resp_json["return value"]["message"]["results"]
+    ):
         assert "e00" in edge_bindings
         assert len(edge_bindings) == 1
         assert len(edge_bindings["e00"]) == 1
 
-    edge_ids = list(map(lambda x: x["edge_bindings"]["e00"][0]["id"], resp_json["return value"]["message"]["results"]))
+    edge_ids = list(map(
+        lambda x: x["edge_bindings"]["e00"][0]["id"],
+        resp_json["return value"]["message"]["results"],
+    ))
     assert len(edge_ids) == len(set(edge_ids))
 
 
@@ -439,7 +430,10 @@ def do_test_knowledge_graph_edge_set(biolink_class):
 
 def do_test_get_identifiers(i):
     feature_variables = {}
-    resp = testclient.get("/{0}/{1}/identifiers".format(table, i), headers = json_headers)
+    resp = testclient.get(
+        "/{0}/{1}/identifiers".format(table, i),
+        headers=json_headers,
+    )
     resp_json = resp.json()
     assert "return value" in resp_json
     assert "identifiers" in resp_json["return value"]
@@ -449,7 +443,10 @@ def do_test_get_identifiers(i):
 
 def test_post_cohort():
     feature_variables = {}
-    resp = testclient.post("/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers)
+    resp = testclient.post(
+        "/{0}/{1}/cohort".format(table, year),
+        json=feature_variables,
+    )
     resp_json = resp.json()
     assert "return value" in resp_json
     assert "cohort_id" in resp_json["return value"]
@@ -458,10 +455,16 @@ def test_post_cohort():
 
 def test_cohort_dictionary():
     feature_variables = {}
-    resp = testclient.post("/{0}/{1}/cohort".format(table, year), data=json.dumps(feature_variables), headers = json_headers)
+    resp = testclient.post(
+        "/{0}/{1}/cohort".format(table, year),
+        json=feature_variables,
+    )
     resp_json = resp.json()
 
-    resp1 = testclient.get("/{0}/{1}/cohort/dictionary".format(table, year), headers = json_headers)
+    resp1 = testclient.get(
+        "/{0}/{1}/cohort/dictionary".format(table, year),
+        headers=json_headers,
+    )
     resp_json1 = resp1.json()
     assert {
         "features": {}, 
@@ -488,47 +491,47 @@ def test_knowledge_graph_for_phenotypic_feature():
 
 
 def test_knowledge_graph_for_disease():
-        do_test_knowledge_graph("biolink:Disease")
+    do_test_knowledge_graph("biolink:Disease")
 
 
 def test_knowledge_graph_unique_edge_ids_for_chemical_substance():
-        do_test_knowledge_graph_unique_edge_ids("biolink:ChemicalSubstance")
+    do_test_knowledge_graph_unique_edge_ids("biolink:ChemicalSubstance")
 
 
 def test_knowledge_graph_unique_edge_ids_for_phenotypic_feature():
-        do_test_knowledge_graph_unique_edge_ids("biolink:PhenotypicFeature")
+    do_test_knowledge_graph_unique_edge_ids("biolink:PhenotypicFeature")
 
 
 def test_knowledge_graph_unique_edge_ids_for_disease():
-        do_test_knowledge_graph_unique_edge_ids("biolink:Disease")
+    do_test_knowledge_graph_unique_edge_ids("biolink:Disease")
 
 
 def test_knowledge_graph_edge_set_for_chemical_substance():
-        do_test_knowledge_graph_unique_edge_ids("biolink:ChemicalSubstance")
+    do_test_knowledge_graph_unique_edge_ids("biolink:ChemicalSubstance")
 
 
 def test_knowledge_graph_edge_set_for_phenotypic_feature():
-        do_test_knowledge_graph_unique_edge_ids("biolink:PhenotypicFeature")
+    do_test_knowledge_graph_unique_edge_ids("biolink:PhenotypicFeature")
 
 
 def test_knowledge_graph_edge_set_for_disease():
-        do_test_knowledge_graph_unique_edge_ids("biolink:Disease")
+    do_test_knowledge_graph_unique_edge_ids("biolink:Disease")
 
 
 def test_get_identifiers_for_ObesityDx():
-        do_test_get_identifiers("ObesityDx")
+    do_test_get_identifiers("ObesityDx")
 
 
 def test_get_identifiers_Sex2():
-        do_test_get_identifiers("Sex2")
+    do_test_get_identifiers("Sex2")
 
 
 def test_get_identifiers_OvarianDysfunctionDx():
-        do_test_get_identifiers("OvarianDysfunctionDx")
+    do_test_get_identifiers("OvarianDysfunctionDx")
 
 
 def test_get_identifiers_OvarianCancerDx():
-        do_test_get_identifiers("OvarianCancerDx")
+    do_test_get_identifiers("OvarianCancerDx")
 
 
 age_levels = [
@@ -607,113 +610,113 @@ def test_feature_association_explicit():
 
         
 def test_feature_association2_explicit_check_coverage_is_full():
-        feature_variables = {}
-        resp = testclient.post(
-            "/{0}/{1}/cohort".format(table, year),
-            json=feature_variables,
-        )
-        resp_json = resp.json()
-        cohort_id = resp_json["return value"]["cohort_id"]
-        atafdata = {
-            "feature_a": {
-                "feature_name": "AgeStudyStart",
-                "feature_qualifiers": list(map(lambda x: {
-                    "operator": "=",
-                    "value": x
-                }, age_levels))
-            },
-            "feature_b": {
-                "feature_name": "AgeStudyStart",
-                "feature_qualifiers": [{
-                    "operator": ">",
-                    "value": '0-2'
-                }, {
-                    "operator": "<=",
-                    "value": '0-2'
-                }]
-            },
-            "check_coverage_is_full": True
-        }
-        resp = testclient.post(
-            f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
-            data=json.dumps(atafdata),
-            headers=json_headers,
-        )
-        resp_json = resp.json()
-        assert "return value" in resp_json
-        do_verify_feature_matrix_response(resp_json["return value"])
+    feature_variables = {}
+    resp = testclient.post(
+        "/{0}/{1}/cohort".format(table, year),
+        json=feature_variables,
+    )
+    resp_json = resp.json()
+    cohort_id = resp_json["return value"]["cohort_id"]
+    atafdata = {
+        "feature_a": {
+            "feature_name": "AgeStudyStart",
+            "feature_qualifiers": list(map(lambda x: {
+                "operator": "=",
+                "value": x
+            }, age_levels))
+        },
+        "feature_b": {
+            "feature_name": "AgeStudyStart",
+            "feature_qualifiers": [{
+                "operator": ">",
+                "value": '0-2'
+            }, {
+                "operator": "<=",
+                "value": '0-2'
+            }]
+        },
+        "check_coverage_is_full": True
+    }
+    resp = testclient.post(
+        f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
+        data=json.dumps(atafdata),
+        headers=json_headers,
+    )
+    resp_json = resp.json()
+    assert "return value" in resp_json
+    do_verify_feature_matrix_response(resp_json["return value"])
 
         
 def test_feature_association2_explicit_check_coverage_is_full_2():
-        feature_variables = {}
-        resp = testclient.post(
-            f"/{table}/{year}/cohort",
-            json=feature_variables,
-        )
-        resp_json = resp.json()
-        cohort_id = resp_json["return value"]["cohort_id"]
-        atafdata = {
-            "feature_a": {
-                "feature_name": "AgeStudyStart",
-                "feature_qualifiers": list(map(lambda x: {
-                    "operator": "=",
-                    "value": x
-                }, age_levels))
-            },
-            "feature_b": {
-                "feature_name": "AgeStudyStart",
-                "feature_qualifiers": [{
-                    "operator": ">",
-                    "value": '0-2'
-                }]
-            },
-            "check_coverage_is_full": True
-        }
-        resp = testclient.post(
-            f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
-            json=atafdata,
-        )
-        resp_json = resp.json()
-        assert "return value" in resp_json
-        assert isinstance(resp_json["return value"], str)
+    feature_variables = {}
+    resp = testclient.post(
+        f"/{table}/{year}/cohort",
+        json=feature_variables,
+    )
+    resp_json = resp.json()
+    cohort_id = resp_json["return value"]["cohort_id"]
+    atafdata = {
+        "feature_a": {
+            "feature_name": "AgeStudyStart",
+            "feature_qualifiers": list(map(lambda x: {
+                "operator": "=",
+                "value": x
+            }, age_levels))
+        },
+        "feature_b": {
+            "feature_name": "AgeStudyStart",
+            "feature_qualifiers": [{
+                "operator": ">",
+                "value": '0-2'
+            }]
+        },
+        "check_coverage_is_full": True
+    }
+    resp = testclient.post(
+        f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
+        json=atafdata,
+    )
+    resp_json = resp.json()
+    assert "return value" in resp_json
+    assert isinstance(resp_json["return value"], str)
 
 
 def test_feature_association2_explicit_check_coverage_is_full_3():
-        feature_variables = {}
-        resp = testclient.post(
-            "/{0}/{1}/cohort".format(table, year),
-            json=feature_variables,
-        )
-        resp_json = resp.json()
-        cohort_id = resp_json["return value"]["cohort_id"]
-        atafdata = {
-            "feature_a": {
-                "feature_name": "AgeStudyStart",
-                "feature_qualifiers": list(map(lambda x: {
-                    "operator": "=",
-                    "value": x
-                }, age_levels))[1:]
-            },
-            "feature_b": {
-                "feature_name": "AgeStudyStart",
-                "feature_qualifiers": [{
-                    "operator": ">",
-                    "value": '0-2'
-                }, {
-                    "operator": "<=",
-                    "value": '0-2'
-                }]
-            },
-            "check_coverage_is_full": True
-        }
-        resp = testclient.post(
-            f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
-            data=json.dumps(atafdata),
-            headers=json_headers,
-        )
-        resp_json = resp.json()
-        assert "return value" in resp_json
-        assert isinstance(resp_json["return value"], str)
+    feature_variables = {}
+    resp = testclient.post(
+        "/{0}/{1}/cohort".format(table, year),
+        json=feature_variables,
+    )
+    resp_json = resp.json()
+    cohort_id = resp_json["return value"]["cohort_id"]
+    atafdata = {
+        "feature_a": {
+            "feature_name": "AgeStudyStart",
+            "feature_qualifiers": list(map(lambda x: {
+                "operator": "=",
+                "value": x
+            }, age_levels))[1:]
+        },
+        "feature_b": {
+            "feature_name": "AgeStudyStart",
+            "feature_qualifiers": [{
+                "operator": ">",
+                "value": '0-2'
+            }, {
+                "operator": "<=",
+                "value": '0-2'
+            }]
+        },
+        "check_coverage_is_full": True
+    }
+    resp = testclient.post(
+        f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
+        data=json.dumps(atafdata),
+        headers=json_headers,
+    )
+    resp_json = resp.json()
+    assert "return value" in resp_json
+    assert isinstance(resp_json["return value"], str)
 
 
 def test_feature_association_two_years():

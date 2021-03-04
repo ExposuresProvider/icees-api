@@ -10110,7 +10110,8 @@ patient:
   - SCTID:7404811000001106
   - LOINC:LA14584-9
 visit:
-  Acetaldehyde: *id010
+  AvgailyAcetaldehydeExposure_2: &id010
+  AvgailyAcetaldehydeExposure_2_qcut: &id010
   AgeVisit: *id011
   AlbuterolVisit: *id012
   AlcoholDependenceVisit: *id013

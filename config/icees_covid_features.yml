@@ -70,27 +70,32 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  ChronicKidneyDx: 
+  ChronicKidneyDiseaseDx: 
     type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  ChronicArteryDx:
+  ChronicObstructivePulmonaryDiseaseDx:
     type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  HeartFailureDx:
+  ChronicArteryDiseaseDx:
     type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  LiverDx: 
+  HeartFailureDiseaseDx:
     type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  CancerDx:
+  LiverDiseaseDx: 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  CancerDiseaseDx:
     type: integer
     minimum: 0
     maximum: 1
@@ -391,7 +396,7 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-   RespiratorySupportHFNC:
+  RespiratorySupportHFNC:
     type: integer
     minimum: 0
     maximum: 1
@@ -486,7 +491,7 @@ patient:
     minimum: 0
     maximum: 1
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-   AntiInfectivesHydroxychloroquine:
+  AntiInfectivesHydroxychloroquine:
     type: integer
     minimum: 0
     maximum: 1
@@ -760,7 +765,12 @@ patient:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance, ChemicalExposure
-  AvgDailyAcetaldehydeExposure_2:
+  Avg24hAcetaldehydeExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance, ChemicalExposure
+  AvgailyAcetaldehydeExposure_2:
     type: integer
     minimum: 1
     maximum: 5
@@ -1481,7 +1491,7 @@ patient:
     type: integer
     minimum: 0
     maximum: 1
-     iolinkType: 
+    biolinkType: 
   he_a004c_birth_multi:
     type: string
     enum: ['Twin', 'Triplet', 'Other Multiple']
@@ -2417,7 +2427,7 @@ patient:
     maximum: 1
     biolinkType: ChemicalSubstance, ChemicalExposure
   ea_b092b_chloroform:
-     type: integer
+    type: integer
     minimum: 0
     maximum: 1
     biolinkType: ChemicalSubstance, ChemicalExposure
@@ -3278,7 +3288,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k293_blood_type:
     type: string
-    enum: ['0 Positive', 'O Negative', 'A Positive', 'A Negative', 'B Positive', 'B Negative', 'AB Positive', 'AB Negative', 'Don't know']
+    enum: ['O Positive', 'O Negative', 'A Positive', 'A Negative', 'B Positive', 'B Negative', 'AB Positive', 'AB Negative', 'Don't know']
     biolinkType: PhenotypicFeature
   eb_k295a_cystic_fibrosis_you:
     type: integer
@@ -3394,7 +3404,7 @@ patient:
     enum: ['Blue', 'Hazel', 'Brown/Black','Gray','Green']
     biolinkType: PhenotypicFeature
   he_k075_hair_color:
-     type: string
+    type: string
     enum: ['Brown', 'Red', 'Black','Auburn','Blonde']
     biolinkType: PhenotypicFeature
   he_m082_menstrual_periods_o:
@@ -3984,7 +3994,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   ea_a012_current_home_type:
     type: integer
-    enum: ['Detached house', 'Duplex/triplex', 'Row house/townhouse', 'Low rise apartment or condo', 'High rise apartment or condo', 'Mobile home/trailer', 'Other' ]
+    enum: ['Detached house', 'Duplex/triplex', 'Row house/townhouse', 'Low rise apartment or condo', 'High rise apartment or condo', 'Mobile home/trailer', 'Other']
     biolinkType: EnvironmentalExposure
   ea_a017h_heat_other:
     type: integer
@@ -4078,91 +4088,91 @@ patient:
     biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a067_animal_waste:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a068_bus_station:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a069_airport:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a070_dry_cleaners:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a071_farm:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a072_gas_station:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a073_golf_course:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a074_greenhouse:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a075_hazard_waste:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a076_power_lines:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a077_incinerator:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a078_landfill:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a079_tannery:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a080_military_base:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a081_oil_refinery:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a082_paper_mill:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a083_poultry_plant:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a084_coal_plant:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a085_gas_plant:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a086_oil_plant:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a087_nuclear_plant:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a088b_factory_d:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don't know']
     biolinkType: EnvironmentalExposure
   ea_a091_farm_active:
     type: integer
@@ -11738,27 +11748,32 @@ visit:
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  ChronicKidneyDx: 
+  ChronicKidneyDiseaseDx: 
     type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  ChronicArteryDx:
+  ChronicObstructivePulmonaryDiseaseDx:
     type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  HeartFailureDx:
+  ChronicArteryDiseaseDx:
     type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  LiverDx: 
+  HeartFailureDiseaseDx:
     type: integer
     minimum: 0
     maximum: 1
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-  CancerDx:
+  LiverDiseaseDx: 
+    type: integer
+    minimum: 0
+    maximum: 1
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  CancerDiseaseDx:
     type: integer
     minimum: 0
     maximum: 1
@@ -12328,6 +12343,16 @@ visit:
     maximum: 5
     biolinkType: ChemicalSubstance, ChemicalExposure
   Avg24hAcetaldehydeExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance, ChemicalExposure
+  AvgailyAcetaldehydeExposure_2:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: ChemicalSubstance, ChemicalExposure
+  AvgailyAcetaldehydeExposure_2_qcut:
     type: integer
     minimum: 1
     maximum: 5
@@ -14856,7 +14881,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k293_blood_type:
     type: string
-    enum: ['0 Positive', 'O Negative', 'A Positive', 'A Negative', 'B Positive', 'B Negative', 'AB Positive', 'AB Negative', 'Don't know']
+    enum: ['O Positive', 'O Negative', 'A Positive', 'A Negative', 'B Positive', 'B Negative', 'AB Positive', 'AB Negative', 'Don't know']
     biolinkType: PhenotypicFeature
   eb_k295a_cystic_fibrosis_you:
     type: integer

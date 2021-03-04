@@ -8,7 +8,6 @@ tabulate
 structlog
 pandas==0.25.3
 argparse
-inflection
 simplejson
 tx-functional==0.1.2
 numpy

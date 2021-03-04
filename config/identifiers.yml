@@ -1,9 +1,9 @@
 patient:
-  AvgailyAcetaldehydeExposure_2: &id010
+  AvgDailyAcetaldehydeExposure_2: &id010
   - CHEBI:15343
   - PUBCHEM:177
   - MESH:D000079
-  AvgailyAcetaldehydeExposure_2_qcut: &id010
+  AvgDailyAcetaldehydeExposure_2_qcut: &id010
   AgeStudyStart: &id011
   - NCIT:C25150
   - UMLSCUI:C0001779

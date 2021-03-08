@@ -187,16 +187,6 @@ def do_verify_feature_count_response(respjson):
             assert "percentage" in stats
 
 
-def do_test_knowledge_graph(biolink_class):
-    resp = testclient.post(
-        "/knowledge_graph",
-        data=json.dumps(query(year, biolink_class)),
-        headers=json_headers,
-    )
-    resp_json = resp.json()
-    do_verify_response(resp_json)
-
-
 def do_test_one_hop(curie, biolink_class, **kwargs):
     resp = testclient.post(
         "/knowledge_graph_one_hop",
@@ -205,60 +195,6 @@ def do_test_one_hop(curie, biolink_class, **kwargs):
     )
     resp_json = resp.json()
     do_verify_response(resp_json)
-
-
-def do_test_knowledge_graph_overlay(**kwargs):
-    query2 = {
-        **kwargs,
-        "message": {
-            "knowledge_graph": {
-                "nodes": {
-                    "PUBCHEM:2083": {
-                        "category": "biolink:Drug"
-                    },
-                    "MESH:D052638": {
-                        "category": "biolink:ChemicalSubstance"
-                    }
-                },
-                "edges": {
-                    "e00": {
-                        "predicate": "biolink:association",
-                        "subject": "PUBCHEM:2083",
-                        "object": "MESH:D052638"
-                    }
-                }
-            }
-        }
-    }
-    resp = testclient.post(
-        "/knowledge_graph_overlay",
-        data=json.dumps(query2),
-        headers=json_headers,
-    )
-    resp_json = resp.json()
-    logger.info(json.dumps(resp_json, indent=4))
-    do_verify_response(resp_json, results=False)
-
-
-def do_test_knowledge_graph_one_hop(**kwargs):
-    source_id = "PUBCHEM:2083"
-    query2 = one_hop_query(source_id, "biolink:ChemicalSubstance", **kwargs)
-    resp = testclient.post(
-        "/knowledge_graph_one_hop",
-        json=query2,
-    )
-    resp_json = resp.json()
-    logger.info(resp_json)
-    assert "return value" in resp_json
-    assert len(resp_json["return value"]["message"]["results"]) > 1
-
-    assert "knowledge_graph" in resp_json["return value"]["message"]
-    assert "nodes" in resp_json["return value"]["message"]["knowledge_graph"]
-    assert "PUBCHEM:2083" in resp_json["return value"]["message"]["knowledge_graph"]["nodes"]
-
-    assert "message_code" in resp_json["return value"]
-    assert "tool_version" in resp_json["return value"]
-    assert "datetime" in resp_json["return value"]
 
 
 kg_options = [
@@ -301,79 +237,70 @@ kg_options = [
 @pytest.mark.parametrize("query_options", kg_options)
 def test_knowledge_graph_overlay(query_options):
     """Test knowlege graph overlay."""
-    do_test_knowledge_graph_overlay(
-        query_options=query_options
+    query2 = {
+        "query_options": query_options,
+        "message": {
+            "knowledge_graph": {
+                "nodes": {
+                    "PUBCHEM:2083": {
+                        "category": "biolink:Drug"
+                    },
+                    "MESH:D052638": {
+                        "category": "biolink:ChemicalSubstance"
+                    }
+                },
+                "edges": {
+                    "e00": {
+                        "predicate": "biolink:association",
+                        "subject": "PUBCHEM:2083",
+                        "object": "MESH:D052638"
+                    }
+                }
+            }
+        }
+    }
+    resp = testclient.post(
+        "/knowledge_graph_overlay",
+        data=json.dumps(query2),
+        headers=json_headers,
     )
+    resp_json = resp.json()
+    logger.info(json.dumps(resp_json, indent=4))
+    do_verify_response(resp_json, results=False)
 
 
 @pytest.mark.parametrize("query_options", kg_options)
 def test_knowledge_graph_one_hop(query_options):
     """Test one-hop."""
-    do_test_knowledge_graph_one_hop(
-        query_options=query_options
+    source_id = "PUBCHEM:2083"
+    query2 = one_hop_query(
+        source_id,
+        "biolink:ChemicalSubstance",
+        query_options=query_options,
     )
-
-
-def do_test_knowledge_graph_unique_edge_ids(biolink_class):
     resp = testclient.post(
-        "/knowledge_graph",
-        json=query(year, biolink_class),
+        "/knowledge_graph_one_hop",
+        json=query2,
     )
     resp_json = resp.json()
+    logger.info(resp_json)
     assert "return value" in resp_json
-
     assert len(resp_json["return value"]["message"]["results"]) > 1
 
-    for edge_bindings in map(
-        lambda x: x["edge_bindings"],
-        resp_json["return value"]["message"]["results"]
-    ):
-        assert "e00" in edge_bindings
-        assert len(edge_bindings) == 1
-        assert len(edge_bindings["e00"]) == 1
+    assert "knowledge_graph" in resp_json["return value"]["message"]
+    assert "nodes" in resp_json["return value"]["message"]["knowledge_graph"]
+    assert "PUBCHEM:2083" in resp_json["return value"]["message"]["knowledge_graph"]["nodes"]
 
-    edge_ids = list(map(
-        lambda x: x["edge_bindings"]["e00"][0]["id"],
-        resp_json["return value"]["message"]["results"],
-    ))
-    assert len(edge_ids) == len(set(edge_ids))
-
-
-def do_test_knowledge_graph_edge_set(biolink_class):
-    resp = testclient.post(
-        "/knowledge_graph",
-        json=query(year, biolink_class),
-    )
-    resp_json = resp.json()
-    assert "return value" in resp_json
-
-    assert len(resp_json["return value"]["message"]["results"]) > 1
-
-    edge_ids = set(map(
-        lambda x: x["edge_bindings"]["e00"][0]["id"],
-        resp_json["return value"]["message"]["results"]
-    ))
-    edge_ids2 = set(resp_json["return value"]["message"]["knowledge_graph"]["edges"].keys())
-    assert edge_ids == edge_ids2
-
-
-def do_test_get_identifiers(i):
-    feature_variables = {}
-    resp = testclient.get(
-        "/{0}/{1}/identifiers".format(table, i),
-        headers=json_headers,
-    )
-    resp_json = resp.json()
-    assert "return value" in resp_json
-    assert "identifiers" in resp_json["return value"]
-    for iden in resp_json["return value"]["identifiers"]:
-        assert "_" not in iden
+    assert "message_code" in resp_json["return value"]
+    assert "tool_version" in resp_json["return value"]
+    assert "datetime" in resp_json["return value"]
 
 
 def test_post_cohort():
+    """Test creating a cohort."""
     feature_variables = {}
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
     )
     resp_json = resp.json()
@@ -383,27 +310,32 @@ def test_post_cohort():
 
 
 def test_cohort_dictionary():
+    """Test getting a cohort definition."""
     feature_variables = {}
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
     )
     resp_json = resp.json()
 
     resp1 = testclient.get(
-        "/{0}/{1}/cohort/dictionary".format(table, year),
+        f"/{table}/{year}/cohort/dictionary",
         headers=json_headers,
     )
     resp_json1 = resp1.json()
     assert {
-        "features": {}, 
-        "cohort_id": resp_json["return value"]["cohort_id"], 
+        "features": {},
+        "cohort_id": resp_json["return value"]["cohort_id"],
         "size": resp_json["return value"]["size"]
     } in resp_json1["return value"]
 
 
 def test_knowledge_graph_schema():
-    resp = testclient.get("/knowledge_graph/schema", headers = json_headers)
+    """Test getting the knowledge graph schema."""
+    resp = testclient.get(
+        "/knowledge_graph/schema",
+        headers=json_headers,
+    )
     resp_json = resp.json()
     assert "return value" in resp_json
     assert "population_of_individual_organisms" in resp_json["return value"]
@@ -420,17 +352,61 @@ categories = [
 
 @pytest.mark.parametrize("category", categories)
 def test_knowledge_graph(category):
-    do_test_knowledge_graph(category)
+    """Test /knowledge_graph."""
+    resp = testclient.post(
+        "/knowledge_graph",
+        data=json.dumps(query(year, category)),
+        headers=json_headers,
+    )
+    resp_json = resp.json()
+    do_verify_response(resp_json)
 
 
 @pytest.mark.parametrize("category", categories)
 def test_knowledge_graph_unique_edge_ids(category):
-    do_test_knowledge_graph_unique_edge_ids(category)
+    """Test that the /knowledge_graph edge bindings are unique."""
+    resp = testclient.post(
+        "/knowledge_graph",
+        json=query(year, category),
+    )
+    resp_json = resp.json()
+    assert "return value" in resp_json
+
+    assert len(resp_json["return value"]["message"]["results"]) > 1
+
+    for edge_bindings in map(
+            lambda x: x["edge_bindings"],
+            resp_json["return value"]["message"]["results"]
+    ):
+        assert "e00" in edge_bindings
+        assert len(edge_bindings) == 1
+        assert len(edge_bindings["e00"]) == 1
+
+    edge_ids = list(map(
+        lambda x: x["edge_bindings"]["e00"][0]["id"],
+        resp_json["return value"]["message"]["results"],
+    ))
+    assert len(edge_ids) == len(set(edge_ids))
 
 
 @pytest.mark.parametrize("category", categories)
 def test_knowledge_graph_edge_set(category):
-    do_test_knowledge_graph_edge_set(category)
+    """Test that the /knowledge_graph result bindings match the kedges."""
+    resp = testclient.post(
+        "/knowledge_graph",
+        json=query(year, category),
+    )
+    resp_json = resp.json()
+    assert "return value" in resp_json
+
+    assert len(resp_json["return value"]["message"]["results"]) > 1
+
+    edge_ids = set(map(
+        lambda x: x["edge_bindings"]["e00"][0]["id"],
+        resp_json["return value"]["message"]["results"]
+    ))
+    edge_ids2 = set(resp_json["return value"]["message"]["knowledge_graph"]["edges"].keys())
+    assert edge_ids == edge_ids2
 
 
 names = [
@@ -440,9 +416,19 @@ names = [
     "OvarianCancerDx",
 ]
 
+
 @pytest.mark.parametrize("name", names)
 def test_get_identifiers(name):
-    do_test_get_identifiers(name)
+    """Test getting identifiers."""
+    resp = testclient.get(
+        f"/{table}/{name}/identifiers",
+        headers=json_headers,
+    )
+    resp_json = resp.json()
+    assert "return value" in resp_json
+    assert "identifiers" in resp_json["return value"]
+    for iden in resp_json["return value"]["identifiers"]:
+        assert "_" not in iden
 
 
 age_levels = [
@@ -458,7 +444,7 @@ age_levels = [
 def test_feature_association():
     feature_variables = {}
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         data=json.dumps(feature_variables),
         headers=json_headers,
     )
@@ -486,7 +472,7 @@ def test_feature_association():
     assert "return value" in resp_json
     do_verify_feature_matrix_response(resp_json["return value"])
 
-        
+
 def test_feature_association_explicit():
     feature_variables = {}
     resp = testclient.post(
@@ -519,11 +505,11 @@ def test_feature_association_explicit():
     assert "return value" in resp_json
     do_verify_feature_matrix_response(resp_json["return value"])
 
-        
+
 def test_feature_association2_explicit_check_coverage_is_full():
     feature_variables = {}
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
     )
     resp_json = resp.json()
@@ -557,7 +543,7 @@ def test_feature_association2_explicit_check_coverage_is_full():
     assert "return value" in resp_json
     do_verify_feature_matrix_response(resp_json["return value"])
 
-        
+
 def test_feature_association2_explicit_check_coverage_is_full_2():
     feature_variables = {}
     resp = testclient.post(
@@ -595,7 +581,7 @@ def test_feature_association2_explicit_check_coverage_is_full_2():
 def test_feature_association2_explicit_check_coverage_is_full_3():
     feature_variables = {}
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
     )
     resp_json = resp.json()
@@ -631,36 +617,36 @@ def test_feature_association2_explicit_check_coverage_is_full_3():
 
 
 def test_feature_association_two_years():
-        cohort_year = 2010
-        year = 2011
-        feature_variables = {}
-        resp = testclient.post(
-            "/{0}/{1}/cohort".format(table, cohort_year),
-            json=feature_variables,
-        )
-        resp_json = resp.json()
-        cohort_id = resp_json["return value"]["cohort_id"]
-        atafdata = {
-            "feature_a": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": '0-2'
-                }
-            },
-            "feature_b": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": '0-2'
-                }
+    cohort_year = 2010
+    year = 2011
+    feature_variables = {}
+    resp = testclient.post(
+        f"/{table}/{cohort_year}/cohort",
+        json=feature_variables,
+    )
+    resp_json = resp.json()
+    cohort_id = resp_json["return value"]["cohort_id"]
+    atafdata = {
+        "feature_a": {
+            "AgeStudyStart": {
+                "operator": "=",
+                "value": '0-2'
+            }
+        },
+        "feature_b": {
+            "AgeStudyStart": {
+                "operator": "=",
+                "value": '0-2'
             }
         }
-        resp = testclient.post(
-            f"/{table}/{year}/cohort/{cohort_id}/feature_association",
-            json=atafdata,
-        )
-        resp_json = resp.json()
-        assert "return value" in resp_json
-        do_verify_feature_matrix_response(resp_json["return value"])
+    }
+    resp = testclient.post(
+        f"/{table}/{year}/cohort/{cohort_id}/feature_association",
+        json=atafdata,
+    )
+    resp_json = resp.json()
+    assert "return value" in resp_json
+    do_verify_feature_matrix_response(resp_json["return value"])
 
 
 def test_feature_association_cohort_features_two_years():

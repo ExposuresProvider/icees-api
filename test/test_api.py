@@ -14,34 +14,19 @@ from icees_api.features.sql import get_features
 
 testclient = TestClient(APP)
 
-wait = os.environ.get("WAIT")
-if wait is not None:
-    time.sleep(int(wait))
-
 table = "patient"
 year = 2010
-cohort_year = 2011
-tabular_headers = {"Content-Type": "application/json", "accept": "text/tabular"}
-json_headers = {"Content-Type": "application/json", "accept": "application/json"}
-# host = "server"
-host = "localhost"
-prot = "http"
-port = 8080
+tabular_headers = {
+    "Content-Type": "application/json",
+    "accept": "text/tabular",
+}
+json_headers = {
+    "Content-Type": "application/json",
+    "accept": "application/json",
+}
 
 logging.basicConfig(level=logging.DEBUG, stream=sys.stderr)
 logger = logging.getLogger()
-
-
-def wait(ip, port):
-    while True:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        try:
-            s.connect((ip, port))
-            break
-        except:
-            time.sleep(1)
-        finally:
-            s.close()
 
 
 def query(year, biolink_class):
@@ -61,7 +46,7 @@ def query(year, biolink_class):
                     "value": 1
                 }
             },
-            "maximum_p_value":1.1
+            "maximum_p_value": 1.1
         },
         "message": {
             "query_graph": {
@@ -337,8 +322,7 @@ def test_knowledge_graph(category):
     """Test /knowledge_graph."""
     resp = testclient.post(
         "/knowledge_graph",
-        data=json.dumps(query(year, category)),
-        headers=json_headers,
+        json=query(year, category),
     )
     resp_json = resp.json()
     do_verify_response(resp_json)
@@ -691,7 +675,7 @@ def test_feature_association_cohort_features_two_years():
         }
     }
     resp = testclient.post(
-        "/{0}/{1}/cohort/{2}/feature_association".format(table, year, cohort_id),
+        f"/{table}/{year}/cohort/{cohort_id}/feature_association",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -846,7 +830,7 @@ def test_associations_to_all_features_with_correction_with_alpha():
     assert "return value" in resp_json
     assert isinstance(resp_json["return value"], list)
 
-        
+
 def test_associations_to_all_features2_explicit():
     feature_variables = {}
     resp = testclient.post(
@@ -918,11 +902,11 @@ def test_associations_to_all_features2b():
                     "operator": "in",
                     "values": ["3-17", "18-34"]
                 }, {
-                    "operator":"in", 
-                    "values":["35-50","51-69"]
+                    "operator": "in",
+                    "values": ["35-50", "51-69"]
                 }, {
-                    "operator":"=",
-                    "value":"70-89"
+                    "operator": "=",
+                    "value": "70-89"
                 }
             ]
         },

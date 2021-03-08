@@ -219,7 +219,6 @@ def get(conn, query):
             maximum_p_value,
             lambda x: downgrade_BiolinkEntity(mappings.get(x)["categories"][0]) in supported_types,
         )
-        logger.info(f"feature_list = {feature_list}")
 
         nodes = {}
         knowledge_graph_edges = []

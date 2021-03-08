@@ -342,16 +342,18 @@ def do_test_knowledge_graph_unique_edge_ids(biolink_class):
 def do_test_knowledge_graph_edge_set(biolink_class):
     resp = testclient.post(
         "/knowledge_graph",
-        data=json.dumps(query(year, biolink_class)),
-        headers=json_headers,
+        json=query(year, biolink_class),
     )
     resp_json = resp.json()
     assert "return value" in resp_json
 
-    assert len(resp_json["return value"]["results"]) > 1
+    assert len(resp_json["return value"]["message"]["results"]) > 1
 
-    edge_ids = set(map(lambda x: x["edge_bindings"]["e00"][0], resp_json["return value"]["results"]))
-    edge_ids2 = set(map(lambda x: x["id"], resp_json["return value"]["knowlegde_graph"]["edges"]))
+    edge_ids = set(map(
+        lambda x: x["edge_bindings"]["e00"][0]["id"],
+        resp_json["return value"]["message"]["results"]
+    ))
+    edge_ids2 = set(resp_json["return value"]["message"]["knowledge_graph"]["edges"].keys())
     assert edge_ids == edge_ids2
 
 
@@ -421,44 +423,26 @@ def test_knowledge_graph(category):
     do_test_knowledge_graph(category)
 
 
-def test_knowledge_graph_unique_edge_ids_for_chemical_substance():
-    do_test_knowledge_graph_unique_edge_ids("biolink:ChemicalSubstance")
+@pytest.mark.parametrize("category", categories)
+def test_knowledge_graph_unique_edge_ids(category):
+    do_test_knowledge_graph_unique_edge_ids(category)
 
 
-def test_knowledge_graph_unique_edge_ids_for_phenotypic_feature():
-    do_test_knowledge_graph_unique_edge_ids("biolink:PhenotypicFeature")
+@pytest.mark.parametrize("category", categories)
+def test_knowledge_graph_edge_set(category):
+    do_test_knowledge_graph_edge_set(category)
 
 
-def test_knowledge_graph_unique_edge_ids_for_disease():
-    do_test_knowledge_graph_unique_edge_ids("biolink:Disease")
+names = [
+    "ObesityDx",
+    "Sex2",
+    "OvarianDysfunctionDx",
+    "OvarianCancerDx",
+]
 
-
-def test_knowledge_graph_edge_set_for_chemical_substance():
-    do_test_knowledge_graph_unique_edge_ids("biolink:ChemicalSubstance")
-
-
-def test_knowledge_graph_edge_set_for_phenotypic_feature():
-    do_test_knowledge_graph_unique_edge_ids("biolink:PhenotypicFeature")
-
-
-def test_knowledge_graph_edge_set_for_disease():
-    do_test_knowledge_graph_unique_edge_ids("biolink:Disease")
-
-
-def test_get_identifiers_for_ObesityDx():
-    do_test_get_identifiers("ObesityDx")
-
-
-def test_get_identifiers_Sex2():
-    do_test_get_identifiers("Sex2")
-
-
-def test_get_identifiers_OvarianDysfunctionDx():
-    do_test_get_identifiers("OvarianDysfunctionDx")
-
-
-def test_get_identifiers_OvarianCancerDx():
-    do_test_get_identifiers("OvarianCancerDx")
+@pytest.mark.parametrize("name", names)
+def test_get_identifiers(name):
+    do_test_get_identifiers(name)
 
 
 age_levels = [

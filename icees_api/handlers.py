@@ -391,7 +391,6 @@ def knowledge_graph(
 ) -> Dict:
     """Query for knowledge graph associations between concepts."""
     return_value = knowledgegraph.get(conn, downgrade_Query(obj))
-    print("return_value", return_value)
 
     message = dict()
     if "query_graph" in return_value:

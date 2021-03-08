@@ -463,7 +463,7 @@ MAX_P_VAL_DEFAULT = 1
 def co_occurrence_overlay(conn, query):
     try:
         message = query["message"]
-        query_options = query.get("query_options", {})
+        query_options = query.get("query_options", None) or {}
 
         cohort_id, table, year, features, size = message_cohort(conn, query_options)
 

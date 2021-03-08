@@ -7,6 +7,7 @@ import sys
 import time
 
 from fastapi.testclient import TestClient
+import pytest
 
 from icees_api.app import APP
 from icees_api.features.sql import get_features
@@ -217,7 +218,7 @@ def do_test_knowledge_graph_overlay(**kwargs):
                     },
                     "MESH:D052638": {
                         "category": "biolink:ChemicalSubstance"
-                    }   
+                    }
                 },
                 "edges": {
                     "e00": {
@@ -260,60 +261,48 @@ def do_test_knowledge_graph_one_hop(**kwargs):
     assert "datetime" in resp_json["return value"]
 
 
-def test_knowledge_graph_overlay_year_table_features():
-    do_test_knowledge_graph_overlay(
-        query_options={
-            "table": "patient",
-            "year": 2010,
-            "cohort_features": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": "0-2"
-                }
+overlay_options = [
+    {
+        "table": "patient",
+        "year": 2010,
+        "cohort_features": {
+            "AgeStudyStart": {
+                "operator": "=",
+                "value": "0-2"
             }
         }
-    )
-
-
-def test_knowledge_graph_overlay_table_features():
-    do_test_knowledge_graph_overlay(
-        query_options={
-            "table": "patient",
-            "cohort_features": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": "0-2"
-                }
+    },
+    {
+        "table": "patient",
+        "cohort_features": {
+            "AgeStudyStart": {
+                "operator": "=",
+                "value": "0-2"
             }
         }
-    )
-
-
-def test_knowledge_graph_overlay_year_features():
-    do_test_knowledge_graph_overlay(
-        query_options={
-            "year": 2010,
-            "cohort_features": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": "0-2"
-                }
+    },
+    {
+        "year": 2010,
+        "cohort_features": {
+            "AgeStudyStart": {
+                "operator": "=",
+                "value": "0-2"
             }
         }
-    )
+    },
+    {
+        "table": "patient",
+        "year": 2010
+    },
+    None,
+]
 
 
-def test_knowledge_graph_overlay_table_year():
+@pytest.mark.parametrize("query_options", overlay_options)
+def test_knowledge_graph_overlay_year_table_features(query_options):
     do_test_knowledge_graph_overlay(
-        query_options = {
-            "table": "patient",
-            "year": 2010
-        }
+        query_options=query_options
     )
-
-
-def test_knowledge_graph_overlay():
-    do_test_knowledge_graph_overlay()
 
 
 def test_knowledge_graph_one_hop_year_table_features():

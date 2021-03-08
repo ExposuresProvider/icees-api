@@ -9,10 +9,17 @@ from .config import get_config_path
 
 logger = logging.getLogger(__name__)
 
-input_file = os.path.join(get_config_path(), "identifiers.yml")
+input_file = os.path.join(get_config_path(), "mappings.yml")
 
 with open(input_file) as inpf:
-    input_dict = yaml.safe_load(inpf)
+    id_mappings = {
+        key: value.get("identifiers", [])
+        for key, value in yaml.safe_load(inpf).items()
+    }
+    input_dict = {
+        "patient": id_mappings,
+        "visit": id_mappings,
+    }
 
 
 def get_identifiers(table, feature, return_empty_list=False):

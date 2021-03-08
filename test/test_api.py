@@ -1,16 +1,15 @@
 """Test API."""
 import json
 import logging
-import os
-import socket
 import sys
-import time
 
 from fastapi.testclient import TestClient
 import pytest
 
 from icees_api.app import APP
 from icees_api.features.sql import get_features
+
+from .util import load_data
 
 testclient = TestClient(APP)
 
@@ -88,7 +87,10 @@ def do_verify_response(resp_json, results=True):
     for node in nodes:
         if "equivalent_identifiers" in node:
             equivalent_ids = node["equivalent_identifiers"]
-            assert isinstance(equivalent_ids, list) and all(isinstance(x, str) for x in equivalent_ids)
+            assert (
+                isinstance(equivalent_ids, list) and
+                all(isinstance(x, str) for x in equivalent_ids)
+            )
     node_ids_list = list(nodes)
     node_ids = set(node_ids_list)
     assert len(node_ids_list) == len(node_ids)
@@ -185,9 +187,16 @@ kg_options = [
 
 
 @pytest.mark.parametrize("query_options", kg_options)
+@load_data(APP, """
+    PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure
+    varchar(255),int,varchar(255),varchar(255),int
+    1,2010,0-2,0,1
+    2,2010,0-2,1,2
+    3,2010,0-2,>1,3
+""")
 def test_knowledge_graph_overlay(query_options):
     """Test knowlege graph overlay."""
-    query2 = {
+    query = {
         "query_options": query_options,
         "message": {
             "knowledge_graph": {
@@ -211,8 +220,7 @@ def test_knowledge_graph_overlay(query_options):
     }
     resp = testclient.post(
         "/knowledge_graph_overlay",
-        data=json.dumps(query2),
-        headers=json_headers,
+        json=query,
     )
     resp_json = resp.json()
     logger.info(json.dumps(resp_json, indent=4))
@@ -411,8 +419,7 @@ def test_feature_association():
     feature_variables = {}
     resp = testclient.post(
         f"/{table}/{year}/cohort",
-        data=json.dumps(feature_variables),
-        headers=json_headers,
+        json=feature_variables,
     )
     resp_json = resp.json()
     cohort_id = resp_json["return value"]["cohort_id"]
@@ -502,8 +509,7 @@ def test_feature_association2_explicit_check_coverage_is_full():
     }
     resp = testclient.post(
         f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
-        data=json.dumps(atafdata),
-        headers=json_headers,
+        json=atafdata,
     )
     resp_json = resp.json()
     assert "return value" in resp_json
@@ -574,8 +580,7 @@ def test_feature_association2_explicit_check_coverage_is_full_3():
     }
     resp = testclient.post(
         f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
-        data=json.dumps(atafdata),
-        headers=json_headers,
+        json=atafdata,
     )
     resp_json = resp.json()
     assert "return value" in resp_json
@@ -703,14 +708,14 @@ def test_feature_count_cohort_features_two_years():
         }
     ]
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, cohort_year),
+        f"/{table}/{cohort_year}/cohort",
         json=feature_variables,
     )
     resp_json = resp.json()
     cohort_id = resp_json["return value"]["cohort_id"]
 
     resp = testclient.get(
-        "/{0}/{1}/cohort/{2}/features".format(table, year, cohort_id),
+        f"/{table}/{year}/cohort/{cohort_id}/features",
         headers=json_headers,
     )
     resp_json = resp.json()

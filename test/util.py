@@ -25,7 +25,7 @@ def generate_kgraph(shorthand):
     MESH:D052638 (( category biolink:ChemicalSubstance ))
     PUBCHEM:2083 -- predicate biolink:association --> MESH:D052638
     """
-    node_pattern = r"(.*?) \(\( category (.*?) \)\)"
+    node_pattern = r"(.*?) \(\( category (.*) \)\)"
     edge_pattern = r"(.*?) -- predicate (.*?) --> (.*)"
     kgraph = {
         "nodes": dict(),

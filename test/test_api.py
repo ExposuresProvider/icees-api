@@ -85,31 +85,6 @@ def query(year, biolink_class):
     }
 
 
-def one_hop_query(curie, biolink_class, **kwargs):
-    return {
-        **kwargs,
-        "message": {
-            "query_graph": {
-                "nodes": {
-                    "n00": {
-                        "id": curie
-                    },
-                    "n01": {
-                        "category": biolink_class
-                    }
-                },
-                "edges": {
-                    "e00": {
-                        "predicate": "biolink:correlated_with",
-                        "subject": "n00",
-                        "object": "n01"
-                    }
-                }
-            }
-        }
-    }
-
-
 def do_verify_response(resp_json, results=True):
     """Perform basic formatting checks on response object.
 
@@ -185,16 +160,6 @@ def do_verify_feature_count_response(respjson):
         for stats in feature_count["feature_matrix"]:
             assert "frequency" in stats
             assert "percentage" in stats
-
-
-def do_test_one_hop(curie, biolink_class, **kwargs):
-    resp = testclient.post(
-        "/knowledge_graph_one_hop",
-        data=json.dumps(query(curie, biolink_class, **kwargs)),
-        headers=json_headers,
-    )
-    resp_json = resp.json()
-    do_verify_response(resp_json)
 
 
 kg_options = [
@@ -273,14 +238,31 @@ def test_knowledge_graph_overlay(query_options):
 def test_knowledge_graph_one_hop(query_options):
     """Test one-hop."""
     source_id = "PUBCHEM:2083"
-    query2 = one_hop_query(
-        source_id,
-        "biolink:ChemicalSubstance",
-        query_options=query_options,
-    )
+    query = {
+        "query_options": query_options,
+        "message": {
+            "query_graph": {
+                "nodes": {
+                    "n00": {
+                        "id": source_id
+                    },
+                    "n01": {
+                        "category": "biolink:ChemicalSubstance"
+                    }
+                },
+                "edges": {
+                    "e00": {
+                        "predicate": "biolink:correlated_with",
+                        "subject": "n00",
+                        "object": "n01"
+                    }
+                }
+            }
+        }
+    }
     resp = testclient.post(
         "/knowledge_graph_one_hop",
-        json=query2,
+        json=query,
     )
     resp_json = resp.json()
     logger.info(resp_json)
@@ -755,7 +737,7 @@ def test_feature_count_cohort_features_two_years():
 def test_associations_to_all_features_explicit():
     feature_variables = {}
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
     )
     resp_json = resp.json()
@@ -771,7 +753,7 @@ def test_associations_to_all_features_explicit():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        "/{0}/{1}/cohort/{2}/associations_to_all_features".format(table, year, cohort_id),
+        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -809,7 +791,7 @@ def test_associations_to_all_features_explicit_non_integer_p_value():
 def test_associations_to_all_features_with_correction():
     feature_variables = {}
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
     )
     resp_json = resp.json()
@@ -827,7 +809,7 @@ def test_associations_to_all_features_with_correction():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        "/{0}/{1}/cohort/{2}/associations_to_all_features".format(table, year, cohort_id),
+        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -838,7 +820,7 @@ def test_associations_to_all_features_with_correction():
 def test_associations_to_all_features_with_correction_with_alpha():
     feature_variables = {}
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
     )
     resp_json = resp.json()
@@ -857,7 +839,7 @@ def test_associations_to_all_features_with_correction_with_alpha():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        "/{0}/{1}/cohort/{2}/associations_to_all_features".format(table, year, cohort_id),
+        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -868,7 +850,7 @@ def test_associations_to_all_features_with_correction_with_alpha():
 def test_associations_to_all_features2_explicit():
     feature_variables = {}
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
     )
     resp_json = resp.json()
@@ -884,7 +866,7 @@ def test_associations_to_all_features2_explicit():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        "/{0}/{1}/cohort/{2}/associations_to_all_features2".format(table, year, cohort_id),
+        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -895,7 +877,7 @@ def test_associations_to_all_features2_explicit():
 def test_associations_to_all_features2():
     feature_variables = {}
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
     )
     resp_json = resp.json()
@@ -910,7 +892,7 @@ def test_associations_to_all_features2():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        "/{0}/{1}/cohort/{2}/associations_to_all_features2".format(table, year, cohort_id),
+        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -964,15 +946,15 @@ def test_cohort_dictionary_explicit_tabular():
         }
     }]
     resp = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
     )
     resp2 = testclient.post(
-        "/{0}/{1}/cohort".format(table, year),
+        f"/{table}/{year}/cohort",
         json=feature_variables,
         headers={"Content-Type": "application/json", "Accept": "text/tabular"},
     )
-    
+
     assert resp2.status_code == 200
 
 

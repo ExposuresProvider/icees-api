@@ -531,11 +531,11 @@ def add_node(nodes, node):
 def one_hop(conn, query):
     try:
         message = query["message"]
-        query_options = query.get("query_options", {})
+        query_options = query.get("query_options", None) or {}
         cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
         print("YEAR:", year)
-        maximum_p_value = query.get("query_options", {}).get("maximum_p_value", MAX_P_VAL_DEFAULT)
-        filter_regex = query.get("query_options", {}).get("regex", ".*")
+        maximum_p_value = query_options.get("maximum_p_value", MAX_P_VAL_DEFAULT)
+        filter_regex = query_options.get("regex", ".*")
         query_graph = message["query_graph"]
 
         nodes = query_graph["nodes"]

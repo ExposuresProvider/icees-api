@@ -261,7 +261,7 @@ def do_test_knowledge_graph_one_hop(**kwargs):
     assert "datetime" in resp_json["return value"]
 
 
-overlay_options = [
+kg_options = [
     {
         "table": "patient",
         "year": 2010,
@@ -298,67 +298,20 @@ overlay_options = [
 ]
 
 
-@pytest.mark.parametrize("query_options", overlay_options)
-def test_knowledge_graph_overlay_year_table_features(query_options):
+@pytest.mark.parametrize("query_options", kg_options)
+def test_knowledge_graph_overlay(query_options):
+    """Test knowlege graph overlay."""
     do_test_knowledge_graph_overlay(
         query_options=query_options
     )
 
 
-def test_knowledge_graph_one_hop_year_table_features():
+@pytest.mark.parametrize("query_options", kg_options)
+def test_knowledge_graph_one_hop(query_options):
+    """Test one-hop."""
     do_test_knowledge_graph_one_hop(
-        query_options={
-            "table": "patient",
-            "year": 2010,
-            "cohort_features": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": "0-2"
-                }
-            }
-        }
+        query_options=query_options
     )
-
-
-def test_knowledge_graph_one_hop_table_features():
-    do_test_knowledge_graph_one_hop(
-        query_options={
-            "table": "patient",
-            "cohort_features": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": "0-2"
-                }
-            }
-        }
-    )
-
-
-def test_knowledge_graph_one_hop_year_features():
-    do_test_knowledge_graph_one_hop(
-        query_options={
-            "year": 2010,
-            "cohort_features": {
-                "AgeStudyStart": {
-                    "operator": "=",
-                    "value": "0-2"
-                }
-            }
-        }
-    )
-
-
-def test_knowledge_graph_one_hop_table_year():
-    do_test_knowledge_graph_one_hop(
-        query_options = {
-            "table": "patient",
-            "year": 2010
-        }
-    )
-
-
-def test_knowledge_graph_one_hop():
-    do_test_knowledge_graph_one_hop()
 
 
 def do_test_knowledge_graph_unique_edge_ids(biolink_class):
@@ -445,7 +398,7 @@ def test_cohort_dictionary():
         "cohort_id": resp_json["return value"]["cohort_id"], 
         "size": resp_json["return value"]["size"]
     } in resp_json1["return value"]
-   
+
 
 def test_knowledge_graph_schema():
     resp = testclient.get("/knowledge_graph/schema", headers = json_headers)
@@ -456,16 +409,16 @@ def test_knowledge_graph_schema():
     assert "correlated_with" in resp_json["return value"]["population_of_individual_organisms"]["chemical_substance"]
 
 
-def test_knowledge_graph_for_chemical_substance():
-    do_test_knowledge_graph("biolink:ChemicalSubstance")
+categories = [
+    "biolink:ChemicalSubstance",
+    "biolink:PhenotypicFeature",
+    "biolink:Disease",
+]
 
 
-def test_knowledge_graph_for_phenotypic_feature():
-    do_test_knowledge_graph("biolink:PhenotypicFeature")
-
-
-def test_knowledge_graph_for_disease():
-    do_test_knowledge_graph("biolink:Disease")
+@pytest.mark.parametrize("category", categories)
+def test_knowledge_graph(category):
+    do_test_knowledge_graph(category)
 
 
 def test_knowledge_graph_unique_edge_ids_for_chemical_substance():

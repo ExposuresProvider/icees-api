@@ -1,0 +1,10 @@
+contact:
+  email: patrick@covar.com
+  name: Patrick Wang
+  x-id: 'https://github.com/patrickkwang'
+  x-role: responsible developer
+termsOfService: 'N/A'
+x-translator:
+  component: KP
+  team:
+  - Exposures Provider

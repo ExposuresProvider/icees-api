@@ -43,13 +43,7 @@ age_levels = [
     """
 )
 def test_associations_to_all_features2_explicit():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature": {
             "feature_name": "AgeStudyStart",
@@ -93,13 +87,7 @@ def test_associations_to_all_features2_explicit():
     """
 )
 def test_associations_to_all_features2():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature": {
             "AgeStudyStart": list(map(lambda x: {
@@ -142,13 +130,7 @@ def test_associations_to_all_features2():
     """
 )
 def test_associations_to_all_features2b():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature": {
             "AgeStudyStart": [

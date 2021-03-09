@@ -43,13 +43,7 @@ age_levels = [
     """
 )
 def test_feature_association2_explicit_check_coverage_is_full_2():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature_a": {
             "feature_name": "AgeStudyStart",
@@ -100,13 +94,7 @@ def test_feature_association2_explicit_check_coverage_is_full_2():
     """
 )
 def test_feature_association2_explicit_check_coverage_is_full_3():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature_a": {
             "feature_name": "AgeStudyStart",

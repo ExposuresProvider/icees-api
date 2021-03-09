@@ -35,13 +35,7 @@ year = 2010
     """
 )
 def test_associations_to_all_features_explicit():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature": {
             "feature_name": "AgeStudyStart",
@@ -85,13 +79,7 @@ def test_associations_to_all_features_explicit():
     """
 )
 def test_associations_to_all_features_explicit_non_integer_p_value():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature": {
             "feature_name": "AgeStudyStart",
@@ -135,13 +123,7 @@ def test_associations_to_all_features_explicit_non_integer_p_value():
     """
 )
 def test_associations_to_all_features_with_correction():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature": {
             "AgeStudyStart": {
@@ -187,13 +169,7 @@ def test_associations_to_all_features_with_correction():
     """
 )
 def test_associations_to_all_features_with_correction_with_alpha():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature": {
             "AgeStudyStart": {

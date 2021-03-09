@@ -45,13 +45,7 @@ age_levels = [
     """
 )
 def test_feature_association():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature_a": {
             "AgeStudyStart": {
@@ -99,13 +93,7 @@ def test_feature_association():
     """
 )
 def test_feature_association_explicit():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature_a": {
             "feature_name": "AgeStudyStart",
@@ -155,13 +143,7 @@ def test_feature_association_explicit():
     """
 )
 def test_feature_association2_explicit_check_coverage_is_full():
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature_a": {
             "feature_name": "AgeStudyStart",
@@ -215,15 +197,8 @@ def test_feature_association2_explicit_check_coverage_is_full():
     """
 )
 def test_feature_association_two_years():
-    cohort_year = 2010
     year = 2011
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{cohort_year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature_a": {
             "AgeStudyStart": {
@@ -309,14 +284,8 @@ def test_feature_association_cohort_features_two_years():
        * Possibly joins should not be as slow as they are. SQLite uses only
          nested-loop joins: O(NM).
     """
-    cohort_year = 2010
-    resp = testclient.post(
-        f"/{table}/{cohort_year}/cohort",
-        json=feature_variables,
-    )
     year = 2011
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
     atafdata = {
         "feature_a": {
             "AgeStudyStart": {

@@ -74,21 +74,14 @@ def test_post_cohort():
 )
 def test_cohort_dictionary():
     """Test getting a cohort definition."""
-    feature_variables = {}
-    resp = testclient.post(
-        f"/{table}/{year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-
     resp1 = testclient.get(
         f"/{table}/{year}/cohort/dictionary",
     )
     resp_json1 = resp1.json()
     assert {
         "features": {},
-        "cohort_id": resp_json["return value"]["cohort_id"],
-        "size": resp_json["return value"]["size"]
+        "cohort_id": "COHORT:1",
+        "size": 12
     } in resp_json1["return value"]
 
 
@@ -163,14 +156,8 @@ feature_variables = [
     """.format(escape_quotes(json.dumps(feature_variables, sort_keys=True)))
 )
 def test_feature_count_cohort_features_two_years():
-    cohort_year = 2010
     year = 2011
-    resp = testclient.post(
-        f"/{table}/{cohort_year}/cohort",
-        json=feature_variables,
-    )
-    resp_json = resp.json()
-    cohort_id = resp_json["return value"]["cohort_id"]
+    cohort_id = "COHORT:1"
 
     resp = testclient.get(
         f"/{table}/{year}/cohort/{cohort_id}/features",

@@ -16,6 +16,27 @@ from icees_api.dependencies import get_db, ConnectionWithTables
 
 testclient = TestClient(APP)
 
+table = "patient"
+year = 2010
+tabular_headers = {
+    "Content-Type": "application/json",
+    "accept": "text/tabular",
+}
+json_headers = {
+    "Content-Type": "application/json",
+    "accept": "application/json",
+}
+
+names = [
+    "ObesityDx",
+    "Sex2",
+    "OvarianDysfunctionDx",
+    "OvarianCancerDx",
+]
+
+DATAPATH = Path(os.environ["DATA_PATH"])
+db_ = os.environ["ICEES_DB"]
+
 
 def generate_kgraph(shorthand):
     """Generate TRAPI-style knowledge graph.
@@ -48,10 +69,6 @@ def generate_kgraph(shorthand):
             }
             continue
     return kgraph
-
-
-DATAPATH = Path(os.environ["DATA_PATH"])
-db_ = os.environ["ICEES_DB"]
 
 
 async def get_db_(data: str):
@@ -129,37 +146,122 @@ def load_data(app, data):
     return decorator
 
 
-@load_data(APP, """
-    PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure
-    varchar(255),int,varchar(255),varchar(255),int
-    1,2010,0-2,0,1
-    2,2010,0-2,1,2
-    3,2010,0-2,>1,3
-""")
-def test_knowledge_graph_overlay_year_table_features():
-    """Test knowledge graph overlay with year, table, and features."""
-    payload = {
+def query(year, biolink_class):
+    return {
         "query_options": {
             "table": "patient",
-            "year": 2010,
+            "year": year,
             "cohort_features": {
                 "AgeStudyStart": {
                     "operator": "=",
                     "value": "0-2"
                 }
-            }
+            },
+            "feature": {
+                "EstResidentialDensity": {
+                    "operator": "<",
+                    "value": 1
+                }
+            },
+            "maximum_p_value": 1.1
         },
         "message": {
-            "knowledge_graph": generate_kgraph("""
-                PUBCHEM:2083 (( category biolink:Drug ))
-                MESH:D052638 (( category biolink:ChemicalSubstance ))
-                PUBCHEM:2083 -- predicate biolink:association --> MESH:D052638
-            """)
+            "query_graph": {
+                "nodes": {
+                    "n00": {
+                        "category": "biolink:PopulationOfIndividualOrganisms"
+                    },
+                    "n01": {
+                        "category": biolink_class
+                    }
+                },
+                "edges": {
+                    "e00": {
+                        "predicate": "biolink:correlated_with",
+                        "subject": "n00",
+                        "object": "n01"
+                    }
+                }
+            }
         }
     }
-    resp = testclient.post(
-        "/knowledge_graph_overlay",
-        json=payload,
-    )
-    resp_json = resp.json()
-    print(resp_json)
+
+
+def do_verify_response(resp_json, results=True):
+    """Perform basic formatting checks on response object.
+
+    knode keys should be unique
+    kedge keys should be unique
+    equivalent_identifiers should be a list of strings
+    kedges should reference real knodes
+    message_code, tool_version, and datetime should exist
+    result bindings should reference real kgraph elements
+    """
+    assert "return value" in resp_json
+    return_value = resp_json["return value"]
+    assert "knowledge_graph" in return_value["message"]
+    knowledge_graph = return_value["message"]["knowledge_graph"]
+    nodes = knowledge_graph["nodes"]
+    for node in nodes:
+        if "equivalent_identifiers" in node:
+            equivalent_ids = node["equivalent_identifiers"]
+            assert (
+                isinstance(equivalent_ids, list) and
+                all(isinstance(x, str) for x in equivalent_ids)
+            )
+    node_ids_list = list(nodes)
+    node_ids = set(node_ids_list)
+    assert len(node_ids_list) == len(node_ids)
+    edges = knowledge_graph["edges"]
+    edge_ids_list = list(edges)
+    edge_ids = set(edge_ids_list)
+    assert len(edge_ids_list) == len(edge_ids)
+    for edge in edges.values():
+        assert edge["subject"] in node_ids
+        assert edge["object"] in node_ids
+
+    assert "message_code" in resp_json["return value"]
+    assert "tool_version" in resp_json["return value"]
+    assert "datetime" in resp_json["return value"]
+
+    if results:
+        assert len(return_value["message"]["results"]) > 1
+        assert "n_results" in return_value
+        n_results = return_value["n_results"]
+        assert "results" in return_value["message"]
+        results = return_value["message"]["results"]
+        assert n_results == len(results)
+        for result in results:
+            node_bindings = result["node_bindings"]
+            edge_bindings = result["edge_bindings"]
+            for node_binding_value in node_bindings.values():
+                assert all(nbv["id"] in node_ids for nbv in node_binding_value)
+            for edge_binding_value in edge_bindings.values():
+                assert all(ebv["id"] in edge_ids for ebv in edge_binding_value)
+
+
+def do_verify_feature_matrix_response(respjson):
+    assert isinstance(respjson, dict)
+    assert "chi_squared" in respjson
+    assert "p_value" in respjson
+    assert "columns" in respjson
+    assert "rows" in respjson
+    assert "feature_matrix" in respjson
+
+
+def do_verify_feature_count_response(respjson):
+    assert isinstance(respjson, list)
+    for feature_count in respjson:
+        assert "feature" in feature_count
+        feature = feature_count["feature"]
+        assert "feature_name" in feature
+        assert "feature_qualifiers" in feature
+        feature_qualifiers = feature["feature_qualifiers"]
+        assert isinstance(feature_qualifiers, list)
+        for feature_qualifier in feature_qualifiers:
+            assert "operator" in feature_qualifier
+            assert "value" in feature_qualifier
+        assert "feature_matrix" in feature_count
+        for stats in feature_count["feature_matrix"]:
+            assert "frequency" in stats
+            assert "percentage" in stats

@@ -250,140 +250,667 @@ patient:
     maximum: 1
     biolinkType: DiseaseOrPhenotypicFeature
   ErythrocyteSedimentationRate:
+    type: integer
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  ErythrocyteSedimentationRate_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: Phenotypic Feature
+  ErythrocyteSedimentationRate_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   Procalcitonin: 
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  Procalcitonin_flag_first: 
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
-    biolinkType: PhenotypicFeature 
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Procalcitonin_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
   Ferritin: 
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  Ferritin_flag_first: 
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
-    biolinkType: PhenotypicFeature 
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Ferritin_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
   C-reactiveProtein:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature  
+  C-reactiveProtein_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature  
+  C-reactiveProtein_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature  
   D-dimer:
+    type: interger
+    enum:
+    - 0
+    - 1
+  D-dimer_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
-  LDH: 
+  D-dimer_flag_last:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  LDH:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature 
+  LDH_flag_first: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  LDH_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   IL-6:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature 
+  IL-6_flag_last:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  IL-6_flag_first:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   pH:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  pH_flag_last:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  pH_flag_first:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   pCO2ArterialVenous:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  pCO2ArterialVenous_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  pCO2ArterialVenous_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   pCO2Arterial:
+    type: interger
+    enum:
+      - 0
+      - 1
+    biolinkType: PhenotypicFeature
+  pCO2Arterial_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  pCO2Arterial_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   pO2Arterial:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  pO2Arterial_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  pO2Arterial_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   pO2FiO2ratio:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  pO2FiO2ratio_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  pO2FiO2ratio_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SpO2FiO2ratio:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SpO2FiO2ratio_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SpO2FiO2ratio_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   BaseDeficit:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  BaseDeficit_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  BaseDeficit_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   Lactate:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  Lactate_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Lactate_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SvO2: 
-    type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    type: interger
+    enum:
+    - 0
+    - 1
     biolinkType: PhenotypicFeature
-  WBCcount: 
+  SvO2_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SvO2_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  WBCcount:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  WBCcount_flag_first: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  WBCcount_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   AbsoluteNeutrophilCount:
-    type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    type: interger
+    enum:
+    - 0
+    - 1
     biolinkType: PhenotypicFeature
-  Hemoglobin: 
+  AbsoluteNeutrophilCount_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  AbsoluteNeutrophilCount_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Hemoglobin:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  Hemoglobin_flag_first: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Hemoglobin_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   PlateletCount:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  PlateletCount_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  PlateletCount_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   BloodType:
     type: string
     enum: ['A+ ','A-','B+','B-','AB+','AB-','O+','O-']
     biolinkType: PhenotypicFeature
-  SerumSodium: 
-    type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+  SerumSodium:
+    type: interger
+    enum:
+    - 0
+    - 1
     biolinkType: PhenotypicFeature
-  SerumPotassium: 
+  SerumSodium_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumSodium_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumPotassium:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SerumPotassium_flag_first:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumPotassium_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SerumChloride:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SerumChloride_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumChloride_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SerumBicarbonate:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SerumBicarbonate_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumBicarbonate_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   BloodUreaNitrogen:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  BloodUreaNitrogen_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  BloodUreaNitrogen_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SerumCreatinine:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SerumCreatinine_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumCreatinine_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SerumGlucose:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SerumGlucose_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumGlucose_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   ALT:
-    type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    type: interger
+    enum:
+    - 0
+    - 1
     biolinkType: PhenotypicFeature
-  AST: 
+  ALT_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  ALT_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  AST:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  AST_flag_first:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  AST_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   Troponin:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  Troponin_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Troponin_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   BrainNatriureticPeptide:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  BrainNatriureticPeptide_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  BrainNatriureticPeptide_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   CK:
-    type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    type: interger
+    enum:
+    - 0
+    - 1
     biolinkType: PhenotypicFeature
-  HgbA1C: 
+  CK_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  CK_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  HgbA1C:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  HgbA1C_flag_first: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  HgbA1C_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   EstimatedGFR:
     type: integer
@@ -3287,7 +3814,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k293_blood_type:
     type: string
-    enum: ['O Positive', 'O Negative', 'A Positive', 'A Negative', 'B Positive', 'B Negative', 'AB Positive', 'AB Negative', 'Don''t know']
+    enum: ['O Positive', 'O Negative', 'A Positive', 'A Negative', 'B Positive', 'B Negative', 'AB Positive', 'AB Negative', "Don't know"]
     biolinkType: PhenotypicFeature
   eb_k295a_cystic_fibrosis_you:
     type: integer
@@ -4087,91 +4614,91 @@ patient:
     biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a067_animal_waste:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a068_bus_station:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a069_airport:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a070_dry_cleaners:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a071_farm:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a072_gas_station:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a073_golf_course:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a074_greenhouse:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a075_hazard_waste:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a076_power_lines:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a077_incinerator:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a078_landfill:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a079_tannery:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a080_military_base:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a081_oil_refinery:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a082_paper_mill:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a083_poultry_plant:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a084_coal_plant:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a085_gas_plant:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a086_oil_plant:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a087_nuclear_plant:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a088b_factory_d:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know'
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a091_farm_active:
     type: integer
@@ -4716,14 +5243,14 @@ patient:
   eb_m322_babies_delivered_n:
     type: string 
     enum: ['0', '1', '2', '>2']
-    bioLinkType: 
+    biolinkType:: 
   rs10065172-T:
     type: string
     enum:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10081-T:
     type: string
@@ -4739,7 +5266,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10121901-G:
     type: string
@@ -4747,7 +5274,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10137972-C:
     type: string
@@ -4755,7 +5282,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10137972-G:
     type: string
@@ -4763,7 +5290,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10151658-A:
     type: string
@@ -4771,7 +5298,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10170546-T:
     type: string
@@ -4779,7 +5306,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10179975-A:
     type: string
@@ -4787,7 +5314,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10209937-C:
     type: string
@@ -4795,7 +5322,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10209937-A:
     type: string
@@ -4803,7 +5330,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10231504-A:
     type: string
@@ -4811,7 +5338,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs1023430-G:
     type: string
@@ -4819,7 +5346,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10249240-G:
     type: string
@@ -4827,7 +5354,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10305741-C:
     type: string
@@ -4835,7 +5362,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs10305741-T:
     type: string
@@ -4851,7 +5378,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs1032912-A:
     type: string
@@ -4859,7 +5386,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs1042032-G:
     type: string
@@ -4867,7 +5394,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs1042123-T:
     type: string
@@ -4875,7 +5402,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs1042522-T:
     type: string
@@ -4883,7 +5410,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs1042522-C:
     type: string
@@ -4891,7 +5418,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs1042779-G:
     type: string
@@ -4899,7 +5426,7 @@ patient:
     - ZeroCopies
     - OneCopy
     - TwoCopies
-    biolinkType:
+    biolinkType::
     - SequenceVariant
   rs1043930-T:
     type: string
@@ -11572,7 +12099,7 @@ patient:
     minimum: 1
     maximum: 5
     biolinkType: ChemicalSubstance, ChemicalExposure 
-visit:
+visit: 
   VisitType:
     type: string
     biolinkType: ActivityAndBehavior
@@ -11797,140 +12324,667 @@ visit:
     maximum: 1
     biolinkType: Device
   ErythrocyteSedimentationRate:
+    type: integer
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  ErythrocyteSedimentationRate_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: Phenotypic Feature
+  ErythrocyteSedimentationRate_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   Procalcitonin: 
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  Procalcitonin_flag_first: 
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
-    biolinkType: PhenotypicFeature 
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Procalcitonin_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
   Ferritin: 
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  Ferritin_flag_first: 
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
-    biolinkType: PhenotypicFeature 
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Ferritin_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
   C-reactiveProtein:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature  
+  C-reactiveProtein_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature  
+  C-reactiveProtein_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature  
   D-dimer:
+    type: interger
+    enum:
+    - 0
+    - 1
+  D-dimer_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
-  LDH: 
+  D-dimer_flag_last:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  LDH:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature 
+  LDH_flag_first: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  LDH_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   IL-6:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature 
+  IL-6_flag_last:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  IL-6_flag_first:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   pH:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  pH_flag_last:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  pH_flag_first:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   pCO2ArterialVenous:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  pCO2ArterialVenous_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  pCO2ArterialVenous_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   pCO2Arterial:
+    type: interger
+    enum:
+      - 0
+      - 1
+    biolinkType: PhenotypicFeature
+  pCO2Arterial_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  pCO2Arterial_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   pO2Arterial:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  pO2Arterial_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  pO2Arterial_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   pO2FiO2ratio:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  pO2FiO2ratio_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  pO2FiO2ratio_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SpO2FiO2ratio:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SpO2FiO2ratio_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SpO2FiO2ratio_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   BaseDeficit:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  BaseDeficit_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  BaseDeficit_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   Lactate:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  Lactate_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Lactate_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SvO2: 
-    type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    type: interger
+    enum:
+    - 0
+    - 1
     biolinkType: PhenotypicFeature
-  WBCcount: 
+  SvO2_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SvO2_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  WBCcount:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  WBCcount_flag_first: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  WBCcount_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   AbsoluteNeutrophilCount:
-    type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    type: interger
+    enum:
+    - 0
+    - 1
     biolinkType: PhenotypicFeature
-  Hemoglobin: 
+  AbsoluteNeutrophilCount_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  AbsoluteNeutrophilCount_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Hemoglobin:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  Hemoglobin_flag_first: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Hemoglobin_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   PlateletCount:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  PlateletCount_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  PlateletCount_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   BloodType:
     type: string
     enum: ['A+ ','A-','B+','B-','AB+','AB-','O+','O-']
     biolinkType: PhenotypicFeature
-  SerumSodium: 
-    type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+  SerumSodium:
+    type: interger
+    enum:
+    - 0
+    - 1
     biolinkType: PhenotypicFeature
-  SerumPotassium: 
+  SerumSodium_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumSodium_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumPotassium:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SerumPotassium_flag_first:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumPotassium_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SerumChloride:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SerumChloride_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumChloride_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SerumBicarbonate:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SerumBicarbonate_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumBicarbonate_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   BloodUreaNitrogen:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  BloodUreaNitrogen_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  BloodUreaNitrogen_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SerumCreatinine:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SerumCreatinine_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumCreatinine_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   SerumGlucose:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  SerumGlucose_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  SerumGlucose_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   ALT:
-    type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    type: interger
+    enum:
+    - 0
+    - 1
     biolinkType: PhenotypicFeature
-  AST: 
+  ALT_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  ALT_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  AST:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  AST_flag_first:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  AST_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   Troponin:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  Troponin_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  Troponin_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   BrainNatriureticPeptide:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  BrainNatriureticPeptide_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  BrainNatriureticPeptide_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   CK:
-    type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    type: interger
+    enum:
+    - 0
+    - 1
     biolinkType: PhenotypicFeature
-  HgbA1C: 
+  CK_flag_first:
     type: string
-    enum: ['X', 'X_flag_first', 'X_flag_last']
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  CK_flag_last:
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  HgbA1C:
+    type: interger
+    enum:
+    - 0
+    - 1
+    biolinkType: PhenotypicFeature
+  HgbA1C_flag_first: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
+    biolinkType: PhenotypicFeature
+  HgbA1C_flag_last: 
+    type: string
+    enum:
+    - 'low'
+    - 'normal'
+    - 'high'
     biolinkType: PhenotypicFeature
   EstimatedGFR:
     type: integer
@@ -14879,7 +15933,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
   eb_k293_blood_type:
     type: string
-    enum: ['O Positive', 'O Negative', 'A Positive', 'A Negative', 'B Positive', 'B Negative', 'AB Positive', 'AB Negative', 'Don''t know']
+    enum: ['O Positive', 'O Negative', 'A Positive', 'A Negative', 'B Positive', 'B Negative', 'AB Positive', 'AB Negative', "Don't know"]
     biolinkType: PhenotypicFeature
   eb_k295a_cystic_fibrosis_you:
     type: integer
@@ -15679,91 +16733,91 @@ visit:
     biolinkType: ChemicalSubstance, ChemicalExposure
   ea_a067_animal_waste:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a068_bus_station:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a069_airport:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a070_dry_cleaners:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a071_farm:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a072_gas_station:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a073_golf_course:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a074_greenhouse:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a075_hazard_waste:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a076_power_lines:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a077_incinerator:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a078_landfill:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a079_tannery:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a080_military_base:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a081_oil_refinery:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a082_paper_mill:
     type: string
-    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: [ 'Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a083_poultry_plant:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a084_coal_plant:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a085_gas_plant:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a086_oil_plant:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a087_nuclear_plant:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a088b_factory_d:
     type: string
-    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', 'Don''t know']
+    enum: ['Live more than 2 miles away', 'Live within 2 miles but more than 1 mile', 'Live within 1 mile but more than 1/4 mile', 'Live within 1/4 mile or less', "Don't know"]
     biolinkType: EnvironmentalExposure
   ea_a091_farm_active:
     type: integer
@@ -16308,7 +17362,7 @@ visit:
   eb_m322_babies_delivered_n:
    type: string 
    enum: ['0', '1', '2', '>2']
-   bioLinkType: 
+   biolinkType:: 
   rs10065172-T:
     type: string
     enum:

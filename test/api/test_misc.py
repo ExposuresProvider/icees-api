@@ -1,23 +1,41 @@
 """Test miscellaneous endpoints."""
+import json
+
 from fastapi.testclient import TestClient
 import pytest
 
 from icees_api.app import APP
-from icees_api.features.sql import get_features
 
-from ..util import load_data, do_verify_feature_count_response
+from ..util import load_data, do_verify_feature_count_response, escape_quotes
 
 testclient = TestClient(APP)
 table = "patient"
 year = 2010
 names = [
-    "ObesityDx",
-    "Sex2",
-    "OvarianDysfunctionDx",
-    "OvarianCancerDx",
+    "AgeStudyStart",
+    "Albuterol",
+    "AvgDailyPM2.5Exposure",
+    "EstResidentialDensity",
+    "AsthmaDx",
 ]
 
 
+@load_data(APP, """
+    PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
+    varchar(255),int,varchar(255),varchar(255),int,int,int
+    1,2010,0-2,0,1,0,1
+    2,2010,0-2,1,1,0,1
+    3,2010,0-2,>1,1,0,1
+    4,2010,0-2,0,2,0,1
+    5,2010,0-2,1,2,0,1
+    6,2010,0-2,>1,2,0,1
+    7,2010,0-2,0,3,0,1
+    8,2010,0-2,1,3,0,1
+    9,2010,0-2,>1,3,0,1
+    10,2010,0-2,0,4,0,1
+    11,2010,0-2,1,4,0,1
+    12,2010,0-2,>1,4,0,1
+""")
 def test_post_cohort():
     """Test creating a cohort."""
     feature_variables = {}
@@ -31,6 +49,29 @@ def test_post_cohort():
     assert "size" in resp_json["return value"]
 
 
+@load_data(
+    APP,
+    """
+        PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
+        varchar(255),int,varchar(255),varchar(255),int,int,int
+        1,2010,0-2,0,1,0,1
+        2,2010,0-2,1,1,0,1
+        3,2010,0-2,>1,1,0,1
+        4,2010,0-2,0,2,0,1
+        5,2010,0-2,1,2,0,1
+        6,2010,0-2,>1,2,0,1
+        7,2010,0-2,0,3,0,1
+        8,2010,0-2,1,3,0,1
+        9,2010,0-2,>1,3,0,1
+        10,2010,0-2,0,4,0,1
+        11,2010,0-2,1,4,0,1
+        12,2010,0-2,>1,4,0,1
+    """,
+    """
+        cohort_id,size,features,table,year
+        COHORT:1,12,"{}",patient,2010
+    """
+)
 def test_cohort_dictionary():
     """Test getting a cohort definition."""
     feature_variables = {}
@@ -52,6 +93,22 @@ def test_cohort_dictionary():
 
 
 @pytest.mark.parametrize("name", names)
+@load_data(APP, """
+    PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
+    varchar(255),int,varchar(255),varchar(255),int,int,int
+    1,2010,0-2,0,1,0,1
+    2,2010,0-2,1,1,0,1
+    3,2010,0-2,>1,1,0,1
+    4,2010,0-2,0,2,0,1
+    5,2010,0-2,1,2,0,1
+    6,2010,0-2,>1,2,0,1
+    7,2010,0-2,0,3,0,1
+    8,2010,0-2,1,3,0,1
+    9,2010,0-2,>1,3,0,1
+    10,2010,0-2,0,4,0,1
+    11,2010,0-2,1,4,0,1
+    12,2010,0-2,>1,4,0,1
+""")
 def test_get_identifiers(name):
     """Test getting identifiers."""
     resp = testclient.get(
@@ -64,25 +121,50 @@ def test_get_identifiers(name):
         assert "_" not in iden
 
 
+feature_variables = [
+    {
+        "feature_name": "AgeStudyStart",
+        "feature_qualifier": {
+            "operator": "=",
+            "value": "0-2"
+        }
+    }, {
+        "feature_name": "AvgDailyPM2.5Exposure",
+        "feature_qualifier": {
+            "operator": "=",
+            "value": 1
+        },
+        "year": 2011
+    }
+]
+
+
+@load_data(
+    APP,
+    """
+        PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
+        varchar(255),int,varchar(255),varchar(255),int,int,int
+        1,2011,0-2,0,1,0,1
+        2,2011,0-2,1,1,0,1
+        3,2011,0-2,>1,1,0,1
+        4,2011,0-2,0,1,0,1
+        5,2011,0-2,1,1,0,1
+        6,2011,0-2,>1,1,0,1
+        7,2011,0-2,0,1,0,1
+        8,2011,0-2,1,1,0,1
+        9,2011,0-2,>1,1,0,1
+        10,2011,0-2,0,1,0,1
+        11,2011,0-2,1,1,0,1
+        12,2011,0-2,>1,1,0,1
+    """,
+    """
+        cohort_id,size,features,table,year
+        COHORT:1,12,"{0}",patient,2010
+    """.format(escape_quotes(json.dumps(feature_variables, sort_keys=True)))
+)
 def test_feature_count_cohort_features_two_years():
     cohort_year = 2010
     year = 2011
-    feature_variables = [
-        {
-            "feature_name": "Sex",
-            "feature_qualifier": {
-                "operator": "=",
-                "value": "Male"
-            }
-        }, {
-            "feature_name": "AvgDailyPM2.5Exposure_StudyAvg",
-            "feature_qualifier": {
-                "operator": "=",
-                "value": 1
-            },
-            "year": 2011
-        }
-    ]
     resp = testclient.post(
         f"/{table}/{cohort_year}/cohort",
         json=feature_variables,
@@ -98,6 +180,25 @@ def test_feature_count_cohort_features_two_years():
     do_verify_feature_count_response(resp_json["return value"])
 
 
+@load_data(
+    APP,
+    """
+        PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
+        varchar(255),int,varchar(255),varchar(255),int,int,int
+        1,2010,0-2,0,1,0,1
+        2,2010,0-2,1,1,0,1
+        3,2010,0-2,>1,1,0,1
+        4,2010,0-2,0,2,0,1
+        5,2010,0-2,1,2,0,1
+        6,2010,0-2,>1,2,0,1
+        7,2010,0-2,0,3,0,1
+        8,2010,0-2,1,3,0,1
+        9,2010,0-2,>1,3,0,1
+        10,2010,0-2,0,4,0,1
+        11,2010,0-2,1,4,0,1
+        12,2010,0-2,>1,4,0,1
+    """,
+)
 def test_cohort_dictionary_explicit_tabular():
     feature_variables = [{
         "feature_name": "AgeStudyStart",
@@ -117,8 +218,3 @@ def test_cohort_dictionary_explicit_tabular():
     )
 
     assert resp.status_code == 200
-
-
-def test_get_features():
-    """Test get_features()."""
-    print(get_features("patient"))

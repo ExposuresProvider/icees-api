@@ -19,6 +19,29 @@ age_levels = [
 ]
 
 
+@load_data(
+    APP,
+    """
+        PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
+        varchar(255),int,varchar(255),varchar(255),int,int,int
+        1,2010,0-2,0,1,0,1
+        2,2010,0-2,1,1,0,1
+        3,2010,0-2,>1,1,0,1
+        4,2010,0-2,0,2,0,1
+        5,2010,0-2,1,2,0,1
+        6,2010,0-2,>1,2,0,1
+        7,2010,0-2,0,3,0,1
+        8,2010,0-2,1,3,0,1
+        9,2010,0-2,>1,3,0,1
+        10,2010,0-2,0,4,0,1
+        11,2010,0-2,1,4,0,1
+        12,2010,0-2,>1,4,0,1
+    """,
+    """
+        cohort_id,size,features,table,year
+        COHORT:1,12,"{}",patient,2010
+    """
+)
 def test_associations_to_all_features2_explicit():
     feature_variables = {}
     resp = testclient.post(
@@ -46,6 +69,29 @@ def test_associations_to_all_features2_explicit():
     assert isinstance(resp_json["return value"], list)
 
 
+@load_data(
+    APP,
+    """
+        PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
+        varchar(255),int,varchar(255),varchar(255),int,int,int
+        1,2010,0-2,0,1,0,1
+        2,2010,0-2,1,1,0,1
+        3,2010,0-2,>1,1,0,1
+        4,2010,0-2,0,2,0,1
+        5,2010,0-2,1,2,0,1
+        6,2010,0-2,>1,2,0,1
+        7,2010,0-2,0,3,0,1
+        8,2010,0-2,1,3,0,1
+        9,2010,0-2,>1,3,0,1
+        10,2010,0-2,0,4,0,1
+        11,2010,0-2,1,4,0,1
+        12,2010,0-2,>1,4,0,1
+    """,
+    """
+        cohort_id,size,features,table,year
+        COHORT:1,12,"{}",patient,2010
+    """
+)
 def test_associations_to_all_features2():
     feature_variables = {}
     resp = testclient.post(
@@ -72,6 +118,29 @@ def test_associations_to_all_features2():
     assert isinstance(resp_json["return value"], list)
 
 
+@load_data(
+    APP,
+    """
+        PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
+        varchar(255),int,varchar(255),varchar(255),int,int,int
+        1,2010,0-2,0,1,0,1
+        2,2010,0-2,1,1,0,1
+        3,2010,0-2,>1,1,0,1
+        4,2010,0-2,0,2,0,1
+        5,2010,0-2,1,2,0,1
+        6,2010,0-2,>1,2,0,1
+        7,2010,0-2,0,3,0,1
+        8,2010,0-2,1,3,0,1
+        9,2010,0-2,>1,3,0,1
+        10,2010,0-2,0,4,0,1
+        11,2010,0-2,1,4,0,1
+        12,2010,0-2,>1,4,0,1
+    """,
+    """
+        cohort_id,size,features,table,year
+        COHORT:1,12,"{}",patient,2010
+    """
+)
 def test_associations_to_all_features2b():
     feature_variables = {}
     resp = testclient.post(

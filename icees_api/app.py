@@ -135,7 +135,7 @@ def jsonable_safe(obj):
     Based on fastapi.encoders.jsonable_encoder.
     """
     try:
-        return jsonable_encoder(obj)
+        return jsonable_encoder(obj, exclude_none=True)
     except:
         return obj
 

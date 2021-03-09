@@ -157,9 +157,9 @@ def get_ids_by_feature(conn, table_name, year, cohort_features):
     return cohort_id, size
 
 
-def get_features(table_name: str) -> List[str]:
+def get_features(conn, table_name: str) -> List[str]:
     """Get features by id."""
-    table = tables[table_name]
+    table = conn.tables[table_name]
     return [
         col for col in table.columns.keys()
         if col.lower() not in [table_name.lower() + "id", "year"]
@@ -196,7 +196,7 @@ def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
     """Get cohort features."""
     table = tables[table_name]
     rs = []
-    for k in get_features(table_name):
+    for k in get_features(conn, table_name):
         # k = f.name
         # levels = f.options
         # if levels is None:
@@ -733,7 +733,7 @@ def select_feature_association(
     """Select feature association."""
     table = tables[table_name]
     rs = []
-    feature_names = filter(feature_set, get_features(table_name))
+    feature_names = filter(feature_set, get_features(conn, table_name))
     for feature_name in feature_names:
         levels = get_feature_levels(conn, table, year, feature_name)
         ret = select_feature_matrix(

@@ -52,7 +52,7 @@ def generate_kgraph(shorthand):
     return kgraph
 
 
-async def get_db_(data: str):
+async def get_db_(data: str, cohort_data: str):
     """Get database connection."""
     engine = create_engine(
         f"sqlite://",
@@ -68,7 +68,7 @@ async def get_db_(data: str):
     # get data
     with io.StringIO(data) as stream:
         reader = csv.DictReader(stream)
-        columns = next(reader)
+        columns = next(reader)  # captures the SQL datatypes
         to_db = [
             tuple(row.get(col) for col in columns)
             for row in reader
@@ -104,6 +104,36 @@ async def get_db_(data: str):
     ) + ");"
     conn.execute(query)
 
+    if cohort_data:
+        # remove extraneous whitespace
+        cohort_data = "\n".join(
+            line.strip()
+            for line in cohort_data.split("\n")
+            if line.strip()
+        )
+
+        # get cohort data
+        with io.StringIO(cohort_data) as stream:
+            reader = csv.DictReader(stream, escapechar="\\")
+            rows = list(reader)
+            columns = list(rows[0].keys())
+            to_db = [
+                tuple(row.values())
+                for row in rows
+            ]
+
+        # add cohort data
+        if db_ == "sqlite":
+            placeholders = ", ".join("?" for _ in columns)
+        else:
+            placeholders = ", ".join("%s" for _ in columns)
+        query = "INSERT INTO {0} ({1}) VALUES ({2});".format(
+            "cohort",
+            ", ".join(f"\"{col}\"" for col in columns),
+            placeholders,
+        )
+        conn.execute(query, to_db)
+
     # get tables
     Base = automap_base()
     Base.prepare(conn.engine, reflect=True)  # reflect the tables
@@ -115,12 +145,16 @@ async def get_db_(data: str):
         conn.close()
 
 
-def load_data(app, data):
+def escape_quotes(string: str) -> str:
+    return string.replace("\"", "\\\"")
+
+
+def load_data(app, data, cohort_data=""):
     """Create decorator loading data into ICEES db."""
     def decorator(fcn):
         @wraps(fcn)
         def wrapper(*args, **kwargs):
-            app.dependency_overrides[get_db] = partial(get_db_, data)
+            app.dependency_overrides[get_db] = partial(get_db_, data, cohort_data)
             fcn(*args, **kwargs)
             app.dependency_overrides = {}
         return wrapper
@@ -206,7 +240,7 @@ def do_verify_response(resp_json, results=True):
     assert "datetime" in resp_json["return value"]
 
     if results:
-        assert len(return_value["message"]["results"]) > 1
+        assert len(return_value["message"]["results"]) > 0
         assert "n_results" in return_value
         n_results = return_value["n_results"]
         assert "results" in return_value["message"]

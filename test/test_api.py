@@ -1,8 +1,4 @@
 """Test API."""
-import json
-import logging
-import sys
-
 from fastapi.testclient import TestClient
 import pytest
 
@@ -23,9 +19,6 @@ json_headers = {
     "Content-Type": "application/json",
     "accept": "application/json",
 }
-
-logging.basicConfig(level=logging.DEBUG, stream=sys.stderr)
-logger = logging.getLogger()
 
 
 def query(year, biolink_class):
@@ -223,7 +216,6 @@ def test_knowledge_graph_overlay(query_options):
         json=query,
     )
     resp_json = resp.json()
-    logger.info(json.dumps(resp_json, indent=4))
     do_verify_response(resp_json, results=False)
 
 
@@ -258,7 +250,6 @@ def test_knowledge_graph_one_hop(query_options):
         json=query,
     )
     resp_json = resp.json()
-    logger.info(resp_json)
     assert "return value" in resp_json
     assert len(resp_json["return value"]["message"]["results"]) > 1
 

@@ -15,25 +15,6 @@ from icees_api.app import APP
 from icees_api.dependencies import get_db, ConnectionWithTables
 
 testclient = TestClient(APP)
-
-table = "patient"
-year = 2010
-tabular_headers = {
-    "Content-Type": "application/json",
-    "accept": "text/tabular",
-}
-json_headers = {
-    "Content-Type": "application/json",
-    "accept": "application/json",
-}
-
-names = [
-    "ObesityDx",
-    "Sex2",
-    "OvarianDysfunctionDx",
-    "OvarianCancerDx",
-]
-
 DATAPATH = Path(os.environ["DATA_PATH"])
 db_ = os.environ["ICEES_DB"]
 

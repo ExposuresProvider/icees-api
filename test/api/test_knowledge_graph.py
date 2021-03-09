@@ -7,19 +7,7 @@ from icees_api.app import APP
 from ..util import load_data, query, do_verify_response
 
 testclient = TestClient(APP)
-
-table = "patient"
 year = 2010
-tabular_headers = {
-    "Content-Type": "application/json",
-    "accept": "text/tabular",
-}
-json_headers = {
-    "Content-Type": "application/json",
-    "accept": "application/json",
-}
-
-
 kg_options = [
     {
         "table": "patient",
@@ -145,7 +133,6 @@ def test_knowledge_graph_schema():
     """Test getting the knowledge graph schema."""
     resp = testclient.get(
         "/knowledge_graph/schema",
-        headers=json_headers,
     )
     resp_json = resp.json()
     assert "return value" in resp_json

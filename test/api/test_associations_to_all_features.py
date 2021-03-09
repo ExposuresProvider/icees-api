@@ -7,7 +7,6 @@ from icees_api.app import APP
 from ..util import load_data
 
 testclient = TestClient(APP)
-
 table = "patient"
 year = 2010
 

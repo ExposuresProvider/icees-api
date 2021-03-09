@@ -8,33 +8,13 @@ from icees_api.features.sql import get_features
 from ..util import load_data, do_verify_feature_count_response
 
 testclient = TestClient(APP)
-
 table = "patient"
 year = 2010
-tabular_headers = {
-    "Content-Type": "application/json",
-    "accept": "text/tabular",
-}
-json_headers = {
-    "Content-Type": "application/json",
-    "accept": "application/json",
-}
-
-
 names = [
     "ObesityDx",
     "Sex2",
     "OvarianDysfunctionDx",
     "OvarianCancerDx",
-]
-
-age_levels = [
-    '0-2',
-    '3-17',
-    '18-34',
-    '35-50',
-    '51-69',
-    '70-89',
 ]
 
 
@@ -62,7 +42,6 @@ def test_cohort_dictionary():
 
     resp1 = testclient.get(
         f"/{table}/{year}/cohort/dictionary",
-        headers=json_headers,
     )
     resp_json1 = resp1.json()
     assert {
@@ -77,7 +56,6 @@ def test_get_identifiers(name):
     """Test getting identifiers."""
     resp = testclient.get(
         f"/{table}/{name}/identifiers",
-        headers=json_headers,
     )
     resp_json = resp.json()
     assert "return value" in resp_json
@@ -114,7 +92,6 @@ def test_feature_count_cohort_features_two_years():
 
     resp = testclient.get(
         f"/{table}/{year}/cohort/{cohort_id}/features",
-        headers=json_headers,
     )
     resp_json = resp.json()
     assert "return value" in resp_json

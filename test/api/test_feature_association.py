@@ -3,22 +3,12 @@ from fastapi.testclient import TestClient
 import pytest
 
 from icees_api.app import APP
-from icees_api.features.sql import get_features
 
 from ..util import load_data, do_verify_feature_matrix_response
 
 testclient = TestClient(APP)
-
 table = "patient"
 year = 2010
-tabular_headers = {
-    "Content-Type": "application/json",
-    "accept": "text/tabular",
-}
-json_headers = {
-    "Content-Type": "application/json",
-    "accept": "application/json",
-}
 age_levels = [
     '0-2',
     '3-17',

@@ -3,12 +3,10 @@ from fastapi.testclient import TestClient
 import pytest
 
 from icees_api.app import APP
-from icees_api.features.sql import get_features
 
-from ..util import load_data, do_verify_feature_count_response, do_verify_feature_matrix_response
+from ..util import load_data
 
 testclient = TestClient(APP)
-
 table = "patient"
 year = 2010
 age_levels = [

@@ -1,7 +1,7 @@
 """FastAPI dependencies."""
 from sqlalchemy.ext.automap import automap_base
 
-from icees_db.db import DBConnection, Connection
+from .db import DBConnection, Connection
 
 
 class ConnectionWithTables():

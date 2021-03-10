@@ -2,7 +2,7 @@
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.automap import automap_base
 
-from icees_db.db import get_db_connection
+from ..db import get_db_connection
 
 Base = automap_base()
 

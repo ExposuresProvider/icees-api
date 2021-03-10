@@ -15,7 +15,6 @@ from icees_api.app import APP
 from icees_api.dependencies import get_db, ConnectionWithTables
 
 testclient = TestClient(APP)
-DATAPATH = Path(os.environ["DATA_PATH"])
 db_ = os.environ["ICEES_DB"]
 
 

@@ -532,7 +532,6 @@ def one_hop(conn, query):
         message = query["message"]
         query_options = query.get("query_options", None) or {}
         cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
-        print("YEAR:", year)
         maximum_p_value = query_options.get("maximum_p_value", MAX_P_VAL_DEFAULT)
         filter_regex = query_options.get("regex", ".*")
         query_graph = message["query_graph"]

@@ -20,7 +20,7 @@ from statsmodels.stats.multitest import multipletests
 from tx.functional.maybe import Nothing, Just
 
 from .mappings import mappings
-from .tables import cache, cache_count, cohort, name_table, table_id, tables
+from .tables import cache, cohort, name_table, table_id, tables
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -632,79 +632,48 @@ def select_feature_count(
         feature_a_json,
     )
 
-    result = conn.execute(
-        select([cache_count.c.count])\
-        .select_from(cache_count)\
-        .where(cache_count.c.digest == digest)\
-        .where(cache_count.c.table == table_name)\
-        .where(cache_count.c.cohort_features == cohort_features_json)\
-        .where(cache_count.c.cohort_year == cohort_year)\
-        .where(cache_count.c.feature_a == feature_a_json)
-    ).first()
-
     timestamp = datetime.now(timezone.utc)
 
-    if result is None:
+    ka = feature_a_norm["feature_name"]
+    vas = feature_a_norm["feature_qualifiers"]
+    ya = feature_a_norm["year"]
 
-        ka = feature_a_norm["feature_name"]
-        vas = feature_a_norm["feature_qualifiers"]
-        ya = feature_a_norm["year"]
+    table, table_count = generate_tables_from_features(
+        table_name,
+        cohort_features_norm,
+        cohort_year,
+        [(ka, ya)],
+    )
 
-        table, table_count = generate_tables_from_features(
-            table_name,
-            cohort_features_norm,
-            cohort_year,
-            [(ka, ya)],
-        )
+    selections = [
+        func.count(),
+        *(case_select(table_count[ya], ka, va, table_name) for va in vas)
+    ]
 
-        selections = [
-            func.count(),
-            *(case_select(table_count[ya], ka, va, table_name) for va in vas)
+    result = selection(conn, table, selections)
+
+    total = result[0]
+    feature_matrix = result[1:]
+
+    feature_percentage = map(lambda x: div(x, total), feature_matrix)
+
+    if ka not in mappings:
+        raise ValueError(f"No mappings for {ka}")
+    feature_mappings = mappings[ka]
+    feature_a_norm_with_biolink_class = {
+        **feature_a_norm,
+        "biolink_class": feature_mappings["categories"][0]
+    }
+
+    count = {
+        "feature": feature_a_norm_with_biolink_class,
+        "feature_matrix": [
+            {"frequency": a, "percentage": b}
+            for (a, b) in zip(feature_matrix, feature_percentage)
         ]
+    }
 
-        result = selection(conn, table, selections)
-
-        total = result[0]
-        feature_matrix = result[1:]
-
-        feature_percentage = map(lambda x: div(x, total), feature_matrix)
-
-        feature_a_norm_with_biolink_class = {
-            **feature_a_norm,
-            "biolink_class": mappings.get(ka)["categories"][0]
-        }
-
-        count = {
-            "feature": feature_a_norm_with_biolink_class,
-            "feature_matrix": [
-                {"frequency": a, "percentage": b}
-                for (a, b) in zip(feature_matrix, feature_percentage)
-            ]
-        }
-
-        count_json = json.dumps(count, sort_keys=True)
-
-        conn.execute(cache_count.insert().values(
-            digest=digest,
-            count=count_json,
-            table=table_name,
-            cohort_features=cohort_features_json,
-            feature_a=feature_a_json,
-            access_time=timestamp,
-        ))
-
-    else:
-        count_json = result[0]
-        count = json.loads(count_json)
-        conn.execute(
-            cache_count.update()\
-            .where(cache_count.c.digest == digest)\
-            .where(cache_count.c.table == table_name)\
-            .where(cache_count.c.cohort_features == cohort_features_json)\
-            .where(cache_count.c.cohort_year == cohort_year)\
-            .where(cache_count.c.feature_a == feature_a_json)\
-            .values(access_time=timestamp)
-        )
+    count_json = json.dumps(count, sort_keys=True)
 
     return count
 

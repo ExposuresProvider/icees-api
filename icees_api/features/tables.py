@@ -21,5 +21,4 @@ def table_id(table):
 
 name_table = tables["name"]
 cache = tables["cache"]
-cache_count = tables["cache_count"]
 cohort = tables["cohort"]

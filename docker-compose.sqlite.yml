@@ -1,16 +1,5 @@
 version: '3'
 services:
-  db_init:
-    image: python:3.9.1-buster
-    container_name: ${ICEES_API_INSTANCE_NAME}-db-initializer
-    volumes:
-      - $CONFIG_PATH:/config
-      - ./db:/db
-    env_file:
-      - .env
-    environment:
-      ICEES_DB: sqlite
-    command: "./db/initdb.sh"
   server:
     build: 
       context: .
@@ -23,9 +12,16 @@ services:
       CONFIG_PATH: /icees-api/config
       ICEES_API_LOG_PATH: /log
       ICEES_HOST: db
+      ICEES_DB: sqlite
     volumes:
       - $CONFIG_PATH:/icees-api/config
       - $ICEES_API_LOG_PATH:/log
-      - ./db:/db
     ports:
     - "${ICEES_API_HOST_PORT}:8080"
+    networks:
+    - icees
+
+networks:
+  icees:
+    external:
+      name: icees-postgres

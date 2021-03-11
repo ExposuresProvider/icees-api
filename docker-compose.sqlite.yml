@@ -11,17 +11,11 @@ services:
     environment:
       CONFIG_PATH: /icees-api/config
       ICEES_API_LOG_PATH: /log
-      ICEES_HOST: db
       ICEES_DB: sqlite
+      DB_PATH: /data
     volumes:
+      - $DB_PATH:/data
       - $CONFIG_PATH:/icees-api/config
       - $ICEES_API_LOG_PATH:/log
     ports:
     - "${ICEES_API_HOST_PORT}:8080"
-    networks:
-    - icees
-
-networks:
-  icees:
-    external:
-      name: icees-postgres

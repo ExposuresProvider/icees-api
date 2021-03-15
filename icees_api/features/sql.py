@@ -13,14 +13,13 @@ from typing import Callable, List
 from fastapi import HTTPException
 import numpy as np
 from scipy.stats import chi2_contingency
-from sqlalchemy import between, case, and_
+from sqlalchemy import and_, between, case, column, table
 from sqlalchemy.engine import Connection
 from sqlalchemy.sql import select, func
 from statsmodels.stats.multitest import multipletests
 from tx.functional.maybe import Nothing, Just
 
 from .mappings import mappings
-from .tables import cache, cohort, name_table, table_id, tables
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -36,11 +35,9 @@ def get_digest(*args):
     return c.digest()
 
 
-def op_dict(table, k, v, table_name=None):
-    if table_name is None:
-        table_name = table.name
+def op_dict(k, v):
     try:
-        value = table.c[k]
+        value = column(k)
     except KeyError:
         raise HTTPException(status_code=400, detail=f"No feature named '{k}'")
     # python_type = value.type.python_type
@@ -81,10 +78,10 @@ def op_dict(table, k, v, table_name=None):
     }[v["operator"]]()
 
 
-def filter_select(s, table, k, v, table_name=None):
+def filter_select(s, k, v):
     return s.where(
         op_dict(
-            table, k, v, table_name=table_name
+            k, v,
         )
     )
 
@@ -92,7 +89,7 @@ def filter_select(s, table, k, v, table_name=None):
 def case_select(table, k, v, table_name=None):
     return func.coalesce(func.sum(case([(
         op_dict(
-            table, k, v, table_name=table_name
+            k, v,
         ), 1
     )], else_=0)), 0)
 
@@ -100,10 +97,10 @@ def case_select(table, k, v, table_name=None):
 def case_select2(table, table2, k, v, k2, v2, table_name=None):
     return func.coalesce(func.sum(case([(and_(
         op_dict(
-            table, k, v, table_name=table_name
+            k, v,
         ),
         op_dict(
-            table2, k2, v2, table_name=table_name
+            k2, v2,
         )
     ), 1)], else_=0)), 0)
 
@@ -131,24 +128,26 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
         if cohort_id_in_use(conn, cohort_id):
             raise HTTPException(status_code=400, detail="Cohort id is in use.")
 
-        ins = cohort.insert().values(
-            cohort_id=cohort_id,
-            size=size,
-            features=json.dumps(cohort_features, sort_keys=True),
-            table=table_name,
-            year=year,
-        )
-
-        conn.execute(ins)
+        conn.execute((
+            "INSERT INTO cohort (cohort_id, size, features, \"table\", year) "
+            "VALUES (?, ?, ?, ?, ?)"
+        ), (
+            cohort_id,
+            size,
+            json.dumps(cohort_features, sort_keys=True),
+            table_name,
+            year,
+        ))
         return cohort_id, size
 
 
 def get_ids_by_feature(conn, table_name, year, cohort_features):
     """Get ids by feature."""
-    s = select([cohort.c.cohort_id, cohort.c.size])\
-        .where(cohort.c.table == table_name)\
-        .where(cohort.c.year == year)\
-        .where(cohort.c.features == json.dumps(cohort_features, sort_keys=True))
+    s = select([column("cohort_id"), column("size")])\
+        .select_from(table("cohort"))\
+        .where(column("table") == table_name)\
+        .where(column("year") == year)\
+        .where(column("features") == json.dumps(cohort_features, sort_keys=True))
     rs = list(conn.execute(s))
     if len(rs) == 0:
         cohort_id, size = select_cohort(conn, table_name, year, cohort_features)
@@ -168,9 +167,10 @@ def get_features(conn, table_name: str) -> List[str]:
 
 def get_features_by_id(conn, table_name, cohort_id):
     """Get features by id."""
-    s = select([cohort.c.features, cohort.c.year])\
-        .where(cohort.c.cohort_id == cohort_id)\
-        .where(cohort.c.table == table_name)
+    s = select([column("features"), column("year")])\
+        .select_from(table("cohort"))\
+        .where(column("cohort_id") == cohort_id)\
+        .where(column("table") == table_name)
     rs = list(conn.execute((s)))
     if len(rs) == 0:
         return None
@@ -179,10 +179,11 @@ def get_features_by_id(conn, table_name, cohort_id):
 
 def get_cohort_by_id(conn, table_name, year, cohort_id):
     """Get cohort by id."""
-    s = select([cohort.c.features,cohort.c.size])\
-        .where(cohort.c.cohort_id == cohort_id)\
-        .where(cohort.c.table == table_name)\
-        .where(cohort.c.year == year)
+    s = select([column("features"), column("size")])\
+        .select_from(table("cohort"))\
+        .where(column("cohort_id") == cohort_id)\
+        .where(column("table") == table_name)\
+        .where(column("year") == year)
     rs = list(conn.execute((s)))
     if len(rs) == 0:
         return None
@@ -194,7 +195,6 @@ def get_cohort_by_id(conn, table_name, year, cohort_id):
 
 def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
     """Get cohort features."""
-    table = tables[table_name]
     rs = []
     for k in get_features(conn, table_name):
         # k = f.name
@@ -221,10 +221,11 @@ def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
 
 def get_cohort_dictionary(conn, table_name, year):
     """Get cohort dictionary."""
-    s = select([cohort.c.cohort_id,cohort.c.features,cohort.c.size])\
-        .where(cohort.c.table == table_name)
+    s = select([column("cohort_id"), column("features"), column("size")])\
+        .select_from(table("cohort"))\
+        .where(column("table") == table_name)
     if year is not None:
-        s = s.where(cohort.c.year == year)
+        s = s.where(column("year") == year)
     rs = []
     for cohort_id, features, size in conn.execute((s)):
         rs.append({
@@ -237,12 +238,13 @@ def get_cohort_dictionary(conn, table_name, year):
 
 def get_cohort_definition_by_id(conn, cohort_id):
     s = select([
-        cohort.c.cohort_id,
-        cohort.c.features,
-        cohort.c.size,
-        cohort.c.table,
-        cohort.c.year,
-    ]).where(cohort.c.cohort_id == cohort_id)
+        column("cohort_id"),
+        column("features"),
+        column("size"),
+        column("table"),
+        column("year"),
+    ]).select_from(table("cohort"))\
+        .where(column("cohort_id") == cohort_id)
     for cohort_id, features, size, table, year in conn.execute((s)):
         return Just({
             "cohort_id": cohort_id,
@@ -258,8 +260,8 @@ def cohort_id_in_use(conn, cohort_id):
     """Determine whether cohort is in use."""
     return conn.execute((
         select([func.count()])
-        .select_from(cohort)
-        .where(cohort.c.cohort_id == cohort_id)
+        .select_from(table("cohort"))\
+        .where(column("cohort_id") == cohort_id)
     )).scalar() > 0
 
 
@@ -299,9 +301,8 @@ def generate_tables_from_features(
         columns,
 ):
     """Generate tables from features."""
-    table = tables[table_name]
-    primary_key = table_id(table_name)
-        
+    primary_key = table_name[0].upper() + table_name[1:] + "Id"
+
     table_cohorts = []
 
     cohort_feature_groups = defaultdict(list)
@@ -312,69 +313,68 @@ def generate_tables_from_features(
         cohort_feature_groups[feature_year].append((k, v))
 
     for feature_year, features in cohort_feature_groups.items():
-            
+
         table_cohort_feature_group = (
-            select([table.c[primary_key]])\
-            .select_from(table)
+            select([column(primary_key)])\
+            .select_from(table(table_name))
         )
         if feature_year is not None:
             table_cohort_feature_group = (
                 table_cohort_feature_group\
-                .where(table.c.year == feature_year)
+                .where(column("year") == feature_year)
             )
 
         for k, v in features:
             table_cohort_feature_group = filter_select(
                 table_cohort_feature_group,
-                table,
                 k,
                 v,
             )
-                
+
         table_cohort_feature_group = table_cohort_feature_group.alias()
         table_cohorts.append(table_cohort_feature_group)
 
     if len(cohort_feature_groups) == 0:
         table_cohort_feature_group = (
-            select([table.c[primary_key]])\
-            .select_from(table)
+            select([column(primary_key)])\
+            .select_from(table(table_name))
         )
         if cohort_year is not None:
             table_cohort_feature_group = (
                 table_cohort_feature_group\
-                .where(table.c.year == cohort_year)
+                .where(column("year") == cohort_year)
             )
 
         table_cohort_feature_group = table_cohort_feature_group.alias()
         table_cohorts.append(table_cohort_feature_group)
 
     table_matrices = {}
-    
+
     column_groups = defaultdict(list)
 
     for column_name, year in columns:
         column_groups[year].append(column_name)
 
     for year, column_names in column_groups.items():
-        
+
         table_matrix = select([
-            table.c[x]
+            column(x)
             for x in chain([primary_key], column_names)
-        ]).select_from(table)
+        ]).select_from(table(table_name))
 
         if year is not None:
-            table_matrix = table_matrix.where(table.c.year == year)
-            
+            table_matrix = table_matrix.where(column("year") == year)
+
         table_matrix = table_matrix.alias()
         table_matrices[year] = table_matrix
 
     tables_all = [*table_matrices.values(), *table_cohorts]
     table_cohort = tables_all[0]
     table_filtered = table_cohort
-    for table in tables_all[1:]:
+    for _table in tables_all[1:]:
         table_filtered = table_filtered.join(
-            table,
-            onclause=table_cohort.c[primary_key] == table.c[primary_key],
+            _table,
+            onclause=table_cohort.c[primary_key] == _table.c[primary_key],
         )
 
     return table_filtered, table_matrices
@@ -480,130 +480,113 @@ def select_feature_matrix(
 
     timestamp = datetime.now(timezone.utc)
 
-    result = None  # ignore cache
-    if result is None:
+    ka = feature_a_norm["feature_name"]
+    vas = feature_a_norm["feature_qualifiers"]
+    ya = feature_a_norm["year"]
+    kb = feature_b_norm["feature_name"]
+    vbs = feature_b_norm["feature_qualifiers"]
+    yb = feature_b_norm["year"]
 
-        ka = feature_a_norm["feature_name"]
-        vas = feature_a_norm["feature_qualifiers"]
-        ya = feature_a_norm["year"]
-        kb = feature_b_norm["feature_name"]
-        vbs = feature_b_norm["feature_qualifiers"]
-        yb = feature_b_norm["year"]
+    start_time = time.time()
+    table, table_matrices = generate_tables_from_features(
+        table_name,
+        cohort_features_norm,
+        cohort_year,
+        [(ka, ya), (kb, yb)],
+    )
+    print(f"{time.time() - start_time} seconds spent generating tables")
 
-        start_time = time.time()
-        table, table_matrices = generate_tables_from_features(
-            table_name,
-            cohort_features_norm,
-            cohort_year,
-            [(ka, ya), (kb, yb)],
+    start_time = time.time()
+    selections = [
+        case_select2(
+            table_matrices[yb],
+            table_matrices[ya],
+            kb,
+            vb,
+            ka,
+            va,
+            table_name=table_name,
         )
-        print(f"{time.time() - start_time} seconds spent generating tables")
+        for vb, va in product(vbs, vas)
+    ] + [
+        case_select(table_matrices[ya], ka, va, table_name=table_name)
+        for va in vas
+    ] + [
+        case_select(table_matrices[yb], kb, vb, table_name=table_name)
+        for vb in vbs
+    ] + [
+        func.count()
+    ]
+    print(f"{time.time() - start_time} seconds spent building selections")
 
-        start_time = time.time()
-        selections = [
-            case_select2(
-                table_matrices[yb],
-                table_matrices[ya],
-                kb,
-                vb,
-                ka,
-                va,
-                table_name=table_name,
-            )
-            for vb, va in product(vbs, vas)
-        ] + [
-            case_select(table_matrices[ya], ka, va, table_name=table_name)
-            for va in vas
-        ] + [
-            case_select(table_matrices[yb], kb, vb, table_name=table_name)
-            for vb in vbs
-        ] + [
-            func.count()
-        ]
-        print(f"{time.time() - start_time} seconds spent building selections")
+    start_time = time.time()
+    result = selection(conn, table, selections)
+    print(f"{time.time() - start_time} seconds spent executing all selections")
+    print(result)
 
-        start_time = time.time()
-        result = selection(conn, table, selections)
-        print(f"{time.time() - start_time} seconds spent executing all selections")
-        print(result)
+    nvas = len(vas)
+    nvbs = len(vbs)
+    mat_size = nvas * nvbs
 
-        nvas = len(vas)
-        nvbs = len(vbs)
-        mat_size = nvas * nvbs
+    feature_matrix = np.reshape(result[:mat_size], (nvbs, nvas)).tolist()
 
-        feature_matrix = np.reshape(result[:mat_size], (nvbs, nvas)).tolist()
+    total_cols = result[mat_size : mat_size + nvas]
+    total_rows = result[mat_size + nvas : mat_size + nvas + nvbs]
 
-        total_cols = result[mat_size : mat_size + nvas]
-        total_rows = result[mat_size + nvas : mat_size + nvas + nvbs]
+    total = result[mat_size + nvas + nvbs]
 
-        total = result[mat_size + nvas + nvbs]
+    start_time = time.time()
+    chi_squared, p, *_ = chi2_contingency(list(map(
+        lambda x: list(map(add_eps, x)),
+        feature_matrix
+    )), correction=False)
+    print(f"{time.time() - start_time} seconds spent on chi2 contingency")
 
-        start_time = time.time()
-        chi_squared, p, *_ = chi2_contingency(list(map(
-            lambda x: list(map(add_eps, x)),
-            feature_matrix
-        )), correction=False)
-        print(f"{time.time() - start_time} seconds spent on chi2 contingency")
+    start_time = time.time()
+    feature_matrix2 = [
+        [
+            {
+                "frequency": cell,
+                "row_percentage": div(cell, total_rows[i]),
+                "column_percentage": div(cell, total_cols[j]),
+                "total_percentage": div(cell, total)
+            } for j, cell in enumerate(row)
+        ] for i, row in enumerate(feature_matrix)
+    ]
 
-        start_time = time.time()
-        feature_matrix2 = [
-            [
-                {
-                    "frequency": cell,
-                    "row_percentage": div(cell, total_rows[i]),
-                    "column_percentage": div(cell, total_cols[j]),
-                    "total_percentage": div(cell, total)
-                } for j, cell in enumerate(row)
-            ] for i, row in enumerate(feature_matrix)
-        ]
+    feature_a_norm_with_biolink_class = {
+        **feature_a_norm,
+        "biolink_class": mappings.get(ka)["categories"][0]
+    }
 
-        feature_a_norm_with_biolink_class = {
-            **feature_a_norm,
-            "biolink_class": mappings.get(ka)["categories"][0]
-        }
+    feature_b_norm_with_biolink_class = {
+        **feature_b_norm,
+        "biolink_class": mappings.get(kb)["categories"][0]
+    }
 
-        feature_b_norm_with_biolink_class = {
-            **feature_b_norm,
-            "biolink_class": mappings.get(kb)["categories"][0]
-        }
+    association = {
+        "feature_a": feature_a_norm_with_biolink_class,
+        "feature_b": feature_b_norm_with_biolink_class,
+        "feature_matrix": feature_matrix2,
+        "rows": [
+            {"frequency": a, "percentage": b}
+            for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
+        ],
+        "columns": [
+            {"frequency": a, "percentage": b}
+            for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
+        ],
+        "total": total,
+        "p_value": p,
+        "chi_squared": chi_squared
+    }
 
-        association = {
-            "feature_a": feature_a_norm_with_biolink_class,
-            "feature_b": feature_b_norm_with_biolink_class,
-            "feature_matrix": feature_matrix2,
-            "rows": [
-                {"frequency": a, "percentage": b}
-                for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
-            ],
-            "columns": [
-                {"frequency": a, "percentage": b}
-                for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
-            ],
-            "total": total,
-            "p_value": p,
-            "chi_squared": chi_squared
-        }
+    association_json = json.dumps(association, sort_keys=True)
+    print(f"{time.time() - start_time} seconds spent assembling results")
 
-        association_json = json.dumps(association, sort_keys=True)
-        print(f"{time.time() - start_time} seconds spent assembling results")
-
-        # start_time = time.time()
-        # conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
-        # print(f"{time.time() - start_time} seconds spent writing to cache")
-
-    else:
-        association_json = result[0]
-        association = json.loads(association_json)
-        conn.execute(
-            cache.update()\
-            .where(cache.c.digest == digest)\
-            .where(cache.c.table == table_name)\
-            .where(cache.c.cohort_features == cohort_features_json)\
-            .where(cache.c.cohort_year == cohort_year)\
-            .where(cache.c.feature_a == feature_a_json)\
-            .where(cache.c.feature_b == feature_b_json)\
-            .values(access_time=timestamp)
-        )
+    # start_time = time.time()
+    # conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
+    # print(f"{time.time() - start_time} seconds spent writing to cache")
 
     return association
 
@@ -699,7 +682,6 @@ def select_feature_association(
         correction,
 ):
     """Select feature association."""
-    table = tables[table_name]
     rs = []
     feature_names = filter(feature_set, get_features(conn, table_name))
     for feature_name in feature_names:
@@ -762,7 +744,6 @@ def validate_range(conn, table_name, feature):
     values = feature["feature_qualifiers"]
     # x = next(filter(lambda x: x.name == feature_name, features[table_name]))
     # levels = x.options
-    table = tables[table_name]
     year = None
     levels = get_feature_levels(conn, table_name, year, feature_name)
     if levels:
@@ -798,15 +779,15 @@ def validate_range(conn, table_name, feature):
 def get_id_by_name(conn, table, name):
     """Get cohort id by name."""
     s = select([func.count()])\
-        .select_from(name_table)\
-        .where((name_table.c.name == name) & (name_table.c.table == table))
+        .select_from(table("name"))\
+        .where((column("name") == name) & (column("table") == table))
     n = conn.execute((s)).scalar()
     if n == 0:
         raise RuntimeError("Input name invalid. Please try again.")
     else:
-        s = select([name_table.c.cohort_id])\
-            .select_from(name_table)\
-            .where((name_table.c.name == name) & (name_table.c.table == table))
+        s = select([column("cohort_id")])\
+            .select_from(table("name"))\
+            .where((column("name") == name) & (column("table") == table))
         cohort_id = conn.execute((s)).scalar()
 
         return {
@@ -818,17 +799,15 @@ def get_id_by_name(conn, table, name):
 def add_name_by_id(conn, table, name, cohort_id):
     """Add cohort name by id."""
     s = select([func.count()])\
-        .select_from(name_table)\
-        .where((name_table.c.name == name) & (name_table.c.table == table))
+        .select_from(table("name"))\
+        .where((column("name") == name) & (column("table") == table))
     n = conn.execute(s).scalar()
     if n == 1:
         raise RuntimeError("Name is already taken. Please choose another name.")
-    i = name_table.insert().values(
-        name=name,
-        table=table,
-        cohort_id=cohort_id,
+    conn.execute(
+        "INSERT INTO name (name, \"table\", cohort_id) VALUES (?, ?, ?)",
+        (name, table, cohort_id),
     )
-    conn.execute((i))
 
     return {
         "cohort_id": cohort_id,

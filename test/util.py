@@ -3,18 +3,15 @@ import csv
 from functools import partial, wraps
 import io
 import os
-from pathlib import Path
 import re
 from uuid import uuid4
 
-from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
+from sqlalchemy.engine import Connection
 from sqlalchemy.ext.automap import automap_base
 
-from icees_api.app import APP
 from icees_api.dependencies import get_db, ConnectionWithTables
 
-testclient = TestClient(APP)
 db_ = os.environ["ICEES_DB"]
 
 
@@ -51,14 +48,8 @@ def generate_kgraph(shorthand):
     return kgraph
 
 
-async def get_db_(data: str, cohort_data: str):
-    """Get database connection."""
-    engine = create_engine(
-        f"sqlite://",
-        connect_args={"check_same_thread": False},
-    )
-    conn = engine.connect()
-
+async def fill_db(conn: Connection, data: str, cohort_data: str):
+    """Fill database with data."""
     table_name = "patient"
 
     # remove extraneous whitespace
@@ -69,7 +60,10 @@ async def get_db_(data: str, cohort_data: str):
         reader = csv.DictReader(stream)
         columns = next(reader)  # captures the SQL datatypes
         to_db = [
-            tuple(row.get(col) for col in columns)
+            tuple(
+                value if (value:=row.get(col)) != "" else None
+                for col in columns
+            )
             for row in reader
         ]
 
@@ -132,6 +126,17 @@ async def get_db_(data: str, cohort_data: str):
             placeholders,
         )
         conn.execute(query, to_db)
+
+
+async def get_db_(data: str, cohort_data: str):
+    """Get database connection."""
+    engine = create_engine(
+        f"sqlite://",
+        connect_args={"check_same_thread": False},
+    )
+    conn = engine.connect()
+
+    await fill_db(conn, data, cohort_data)
 
     # get tables
     Base = automap_base()

@@ -24,9 +24,11 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           if [ -f requirements-test.txt ]; then pip install -r requirements-test.txt; fi
+
       - name: Run pytest
         run: |
-          python -m pytest --cov=json_schema_fuzz --cov-report=xml tests/
+          python -m pytest --cov=icees_api --cov-report=xml tests/
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:

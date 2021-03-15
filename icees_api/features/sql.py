@@ -200,7 +200,7 @@ def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
         # k = f.name
         # levels = f.options
         # if levels is None:
-        levels = get_feature_levels(conn, table, year, k)
+        levels = get_feature_levels(conn, table_name, year, k)
         ret = select_feature_count(
             conn,
             table_name,
@@ -678,14 +678,13 @@ def select_feature_count(
     return count
 
 
-def get_feature_levels(conn, table, year, feature):
+def get_feature_levels(conn, table_name, year, feature):
     """Get feature levels."""
-    s = select([table.c[feature]])\
-        .where(table.c[feature] != None)
+    s = f"SELECT DISTINCT \"{feature}\" FROM {table_name} WHERE \"{feature}\" IS NOT NULL"
     if year is not None:
-        s = s.where(table.c.year == year)
-    s = s.distinct().order_by(table.c[feature])
-    return list(map(lambda row: row[0], conn.execute((s))))
+        s += f" AND year == {year}"
+    s += f" ORDER BY \"{feature}\";"
+    return list(map(lambda row: row[0], conn.execute(s)))
 
 
 def select_feature_association(
@@ -704,7 +703,7 @@ def select_feature_association(
     rs = []
     feature_names = filter(feature_set, get_features(conn, table_name))
     for feature_name in feature_names:
-        levels = get_feature_levels(conn, table, year, feature_name)
+        levels = get_feature_levels(conn, table_name, year, feature_name)
         ret = select_feature_matrix(
             conn, table_name, year,
             cohort_features, cohort_year, feature,
@@ -765,7 +764,7 @@ def validate_range(conn, table_name, feature):
     # levels = x.options
     table = tables[table_name]
     year = None
-    levels = get_feature_levels(conn, table, year, feature_name)
+    levels = get_feature_levels(conn, table_name, year, feature_name)
     if levels:
         n = len(levels)
         coverMap = [False for _ in levels]

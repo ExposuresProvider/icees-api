@@ -101,7 +101,7 @@ LOGGER = logging.getLogger()
 LOGGER.setLevel(logging.INFO)
 
 HANDLER = TimedRotatingFileHandler(os.path.join(
-    os.environ["ICEES_API_LOG_PATH"],
+    os.environ.get("ICEES_API_LOG_PATH", "./logs"),
     "server",
 ))
 

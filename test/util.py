@@ -12,7 +12,7 @@ from sqlalchemy.ext.automap import automap_base
 
 from icees_api.dependencies import get_db, ConnectionWithTables
 
-db_ = os.environ["ICEES_DB"]
+db_ = os.environ.get("ICEES_DB", "sqlite")
 
 
 def generate_kgraph(shorthand):

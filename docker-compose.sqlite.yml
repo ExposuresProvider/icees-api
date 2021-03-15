@@ -12,7 +12,7 @@ services:
       CONFIG_PATH: /icees-api/config
       ICEES_API_LOG_PATH: /log
       ICEES_DB: sqlite
-      DB_PATH: /data
+      DB_PATH: /data/example.db
     volumes:
       - $DB_PATH:/data
       - $CONFIG_PATH:/icees-api/config

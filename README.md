@@ -41,14 +41,6 @@ The  `.env` file contains environmental variables that control the services. Edi
 
 `ICEES_HOST`: the database host in the container
 
-`ICEES_DBUSER`: the database user in the container
-
-`ICEES_DBPASS`: the password for the database user in the container
-
-`POSTGRES_PASSWORD`: the password for database user `postgres` in the container
-
-`ICEES_DATABASE`: the database name in the container
-
 `ICEES_API_LOG_PATH`: the path where logs are stored on the host
 
 `ICEES_API_HOST_PORT`: the port where icees api is listening to on the host
@@ -57,9 +49,7 @@ The  `.env` file contains environmental variables that control the services. Edi
 
 `OPENAPI_SCHEME`: the protocol where icees api is deployed
 
-`DATA_PATH`: the directory where database tables csvs are stored on the host
-
-`DB_PATH`: the directory where the database files are stored on the host
+`DB_PATH`: the path to the SQLite database file on the host
 
 `CONFIG_PATH`: the directory where schema and identifiers are stored
 

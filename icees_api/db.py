@@ -18,7 +18,7 @@ def get_db_connection():
         if db == "sqlite":
             DB_PATH = Path(os.environ["DB_PATH"])
             engine = create_engine(
-                f"sqlite:///{DB_PATH / 'example.db'}?check_same_thread=False",
+                f"sqlite:///{DB_PATH}?check_same_thread=False",
             )
         elif db == "postgres":
             serv_host = os.environ["ICEES_HOST"]

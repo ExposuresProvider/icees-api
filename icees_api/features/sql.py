@@ -667,7 +667,7 @@ def get_feature_levels(conn, table_name, year, feature):
     """Get feature levels."""
     s = f"SELECT DISTINCT \"{feature}\" FROM {table_name} WHERE \"{feature}\" IS NOT NULL"
     if year is not None:
-        s += f" AND year == {year}"
+        s += f" AND year = {year}"
     s += f" ORDER BY \"{feature}\";"
     return list(map(lambda row: row[0], conn.execute(s)))
 

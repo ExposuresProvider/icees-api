@@ -128,10 +128,12 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
         if cohort_id_in_use(conn, cohort_id):
             raise HTTPException(status_code=400, detail="Cohort id is in use.")
 
-        conn.execute((
-            "INSERT INTO cohort (cohort_id, size, features, \"table\", year) "
-            "VALUES (?, ?, ?, ?, ?)"
-        ), (
+        query = "INSERT INTO cohort (cohort_id, size, features, \"table\", year)"
+        if os.environ.get("ICEES_DB", "sqlite") == "sqlite":
+            query += " VALUES (?, ?, ?, ?, ?)"
+        else:
+            query += " VALUES (%s, %s, %s, %s, %s)"
+        conn.execute(query, (
             cohort_id,
             size,
             json.dumps(cohort_features, sort_keys=True),

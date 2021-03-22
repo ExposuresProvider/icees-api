@@ -500,10 +500,6 @@ with open("examples/knowledge_graph_one_hop.json") as stream:
     KG_ONEHOP_EXAMPLE = json.load(stream)
 
 
-@ROUTER.post(
-    "/knowledge_graph_one_hop",
-    response_model=Union[Message, Dict],
-)
 def knowledge_graph_one_hop(
         obj: Query = Body(..., example=KG_ONEHOP_EXAMPLE),
         reasoner: bool = False,

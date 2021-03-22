@@ -65,7 +65,7 @@ def custom_openapi():
     if APP.openapi_schema:
         return APP.openapi_schema
 
-    extra_info_file = Path(__file__).parent / "openapi-info.yml"
+    extra_info_file = Path(__file__).parent.parent / "openapi-info.yml"
 
     with open(extra_info_file) as stream:
         extra_info = yaml.load(stream, Loader=yaml.SafeLoader)

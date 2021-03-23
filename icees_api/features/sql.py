@@ -66,7 +66,8 @@ def op_dict(k, v, table_):
     #                 options=options
     #             )
     #         )
-    return {
+
+    operations = {
         ">": lambda: value > v["value"],
         "<": lambda: value < v["value"],
         ">=": lambda: value >= v["value"],
@@ -75,10 +76,12 @@ def op_dict(k, v, table_):
         "<>": lambda: value != v["value"],
         "between": lambda: between(value, v["value_a"], v["value_b"]),
         "in": lambda: value.in_(v["values"])
-    }[v["operator"]]()
+    }
+    return operations[v["operator"]]()
 
 
 def filter_select(s, k, v, table_):
+    """Add WHERE clause to selection."""
     return s.where(
         op_dict(
             k, v, table_,

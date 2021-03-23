@@ -363,12 +363,17 @@ def generate_tables_from_features(
     for column_name, year in columns:
         column_groups[year].append(column_name)
 
+    table_ = table(table_name)
+    for year, column_names in column_groups.items():
+        for column_name in chain([primary_key], column_names):
+            table_.append_column(column(column_name))
+
     for year, column_names in column_groups.items():
 
         table_matrix = select([
-            column(x)
+            table_.c[x]
             for x in chain([primary_key], column_names)
-        ]).select_from(table(table_name))
+        ]).select_from(table_)
 
         if year is not None:
             table_matrix = table_matrix.where(column("year") == year)

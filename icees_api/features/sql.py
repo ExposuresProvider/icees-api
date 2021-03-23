@@ -725,7 +725,7 @@ def select_associations_to_all_features(
 ):
     cohort_meta = get_features_by_id(conn, table, cohort_id)
     if cohort_meta is None:
-        return "Input cohort_id invalid. Please try again."
+        raise ValueError("Input cohort_id invalid. Please try again.")
 
     cohort_features, cohort_year = cohort_meta
     return select_feature_association(

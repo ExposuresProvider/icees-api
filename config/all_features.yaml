@@ -6,8 +6,8 @@ patient:
     biolinkType:
  AgeQualifyingLab:
     type: integer
-    minimum:
-    maximum:
+    minimum: 1
+    maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
  Sex:
     type: string

@@ -35,9 +35,9 @@ def get_digest(*args):
     return c.digest()
 
 
-def op_dict(k, v):
+def op_dict(k, v, table_):
     try:
-        value = column(k)
+        value = table_.c[k]
     except KeyError:
         raise HTTPException(status_code=400, detail=f"No feature named '{k}'")
     # python_type = value.type.python_type
@@ -78,10 +78,10 @@ def op_dict(k, v):
     }[v["operator"]]()
 
 
-def filter_select(s, k, v):
+def filter_select(s, k, v, table_):
     return s.where(
         op_dict(
-            k, v,
+            k, v, table_,
         )
     )
 
@@ -89,7 +89,7 @@ def filter_select(s, k, v):
 def case_select(table, k, v, table_name=None):
     return func.coalesce(func.sum(case([(
         op_dict(
-            k, v,
+            k, v, table,
         ), 1
     )], else_=0)), 0)
 
@@ -97,10 +97,10 @@ def case_select(table, k, v, table_name=None):
 def case_select2(table, table2, k, v, k2, v2, table_name=None):
     return func.coalesce(func.sum(case([(and_(
         op_dict(
-            k, v,
+            k, v, table,
         ),
         op_dict(
-            k2, v2,
+            k2, v2, table2,
         )
     ), 1)], else_=0)), 0)
 
@@ -304,6 +304,7 @@ def generate_tables_from_features(
 ):
     """Generate tables from features."""
     primary_key = table_name[0].upper() + table_name[1:] + "Id"
+    table_ = table(table_name, column(primary_key))
 
     table_cohorts = []
 
@@ -317,8 +318,8 @@ def generate_tables_from_features(
     for feature_year, features in cohort_feature_groups.items():
 
         table_cohort_feature_group = (
-            select([column(primary_key)])\
-            .select_from(table(table_name))
+            select([table_.c[primary_key]])\
+            .select_from(table_)
         )  # SELECT "PatientId" FROM patient
         if feature_year is not None:
             table_cohort_feature_group = (
@@ -327,10 +328,12 @@ def generate_tables_from_features(
             )  # SELECT "PatientId" FROM patient WHERE year = 2010
 
         for k, v in features:
+            table_.append_column(column(k))
             table_cohort_feature_group = filter_select(
                 table_cohort_feature_group,
                 k,
                 v,
+                table_,
             )  # SELECT "PatientId" FROM patient WHERE patient."AgeStudyStart" = '0-2'
 
         table_cohort_feature_group = table_cohort_feature_group.alias()
@@ -338,8 +341,8 @@ def generate_tables_from_features(
 
     if len(cohort_feature_groups) == 0:
         table_cohort_feature_group = (
-            select([column(primary_key)])\
-            .select_from(table(table_name))
+            select([table_.c[primary_key]])\
+            .select_from(table_)
         )  # SELECT "PatientId" FROM patient
         if cohort_year is not None:
             table_cohort_feature_group = (

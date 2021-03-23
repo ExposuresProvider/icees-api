@@ -113,7 +113,7 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
 
     s = select([func.count()]).select_from(table)
 
-    n = conn.execute((s)).scalar()
+    n = conn.execute(s).scalar()
     if n <= 10:
         return None, -1
     else:
@@ -319,19 +319,19 @@ def generate_tables_from_features(
         table_cohort_feature_group = (
             select([column(primary_key)])\
             .select_from(table(table_name))
-        )
+        )  # SELECT "PatientId" FROM patient
         if feature_year is not None:
             table_cohort_feature_group = (
                 table_cohort_feature_group\
                 .where(column("year") == feature_year)
-            )
+            )  # SELECT "PatientId" FROM patient WHERE year = 2010
 
         for k, v in features:
             table_cohort_feature_group = filter_select(
                 table_cohort_feature_group,
                 k,
                 v,
-            )
+            )  # SELECT "PatientId" FROM patient WHERE patient."AgeStudyStart" = '0-2'
 
         table_cohort_feature_group = table_cohort_feature_group.alias()
         table_cohorts.append(table_cohort_feature_group)
@@ -340,12 +340,12 @@ def generate_tables_from_features(
         table_cohort_feature_group = (
             select([column(primary_key)])\
             .select_from(table(table_name))
-        )
+        )  # SELECT "PatientId" FROM patient
         if cohort_year is not None:
             table_cohort_feature_group = (
                 table_cohort_feature_group\
                 .where(column("year") == cohort_year)
-            )
+            )  # SELECT "PatientId" FROM patient WHERE year = 2010
 
         table_cohort_feature_group = table_cohort_feature_group.alias()
         table_cohorts.append(table_cohort_feature_group)
@@ -490,7 +490,7 @@ def select_feature_matrix(
     yb = feature_b_norm["year"]
 
     start_time = time.time()
-    table, table_matrices = generate_tables_from_features(
+    table_, table_matrices = generate_tables_from_features(
         table_name,
         cohort_features_norm,
         cohort_year,
@@ -522,7 +522,7 @@ def select_feature_matrix(
     print(f"{time.time() - start_time} seconds spent building selections")
 
     start_time = time.time()
-    result = selection(conn, table, selections)
+    result = selection(conn, table_, selections)
     print(f"{time.time() - start_time} seconds spent executing all selections")
     print(result)
 
@@ -623,7 +623,7 @@ def select_feature_count(
     vas = feature_a_norm["feature_qualifiers"]
     ya = feature_a_norm["year"]
 
-    table, table_count = generate_tables_from_features(
+    table_, table_count = generate_tables_from_features(
         table_name,
         cohort_features_norm,
         cohort_year,
@@ -635,7 +635,7 @@ def select_feature_count(
         *(case_select(table_count[ya], ka, va, table_name) for va in vas)
     ]
 
-    result = selection(conn, table, selections)
+    result = selection(conn, table_, selections)
 
     total = result[0]
     feature_matrix = result[1:]

@@ -14,6 +14,53 @@ year = 2010
 @load_data(
     APP,
     """
+        PatientId,year,AgeStudyStart,Albuterol
+        varchar(255),int,varchar(255),varchar(255)
+        1,2010,0-2,
+        2,2010,0-2,
+        3,2010,0-2,
+        4,2010,0-2,
+        5,2010,0-2,
+        6,2010,0-2,
+        7,2010,0-2,
+        8,2010,0-2,
+        9,2010,0-2,
+        10,2010,0-2,
+        11,2010,0-2,
+        12,2010,0-2,
+    """,
+    """
+        cohort_id,size,features,table,year
+        COHORT:1,12,"{}",patient,2010
+    """
+)
+def test_associations_to_all_features_nulls():
+    cohort_id = "COHORT:1"
+    atafdata = {
+        "feature": {
+            "feature_name": "AgeStudyStart",
+            "feature_qualifier": {
+                "operator": "=",
+                "value": "0-2"
+            }
+        },
+        "maximum_p_value": 1,
+        "correction": {
+            "method": "bonferroni"
+        }
+    }
+    resp = testclient.post(
+        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
+        json=atafdata,
+    )
+    resp_json = resp.json()
+    assert "return value" in resp_json
+    assert isinstance(resp_json["return value"], list)
+
+
+@load_data(
+    APP,
+    """
         PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
         varchar(255),int,varchar(255),varchar(255),int,int,int
         1,2010,0-2,0,1,0,1

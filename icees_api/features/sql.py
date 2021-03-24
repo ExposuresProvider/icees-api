@@ -728,7 +728,6 @@ def select_feature_association(
             }
         )
         rs.append(ret)
-    rsp = [ret["p_value"] for ret in rs]
     if correction is not None:
         method = correction["method"]
         alpha = correction.get("alpha", 1)

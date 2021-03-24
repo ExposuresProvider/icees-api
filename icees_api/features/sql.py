@@ -548,14 +548,11 @@ def select_feature_matrix(
 
     total = result[mat_size + nvas + nvbs]
 
-    start_time = time.time()
-    chi_squared, p, *_ = chi2_contingency(list(map(
+    observed = list(map(
         lambda x: list(map(add_eps, x)),
         feature_matrix
-    )), correction=False)
-    print(f"{time.time() - start_time} seconds spent on chi2 contingency")
+    ))
 
-    start_time = time.time()
     feature_matrix2 = [
         [
             {
@@ -576,26 +573,46 @@ def select_feature_matrix(
         **feature_b_norm,
         "biolink_class": mappings.get(kb)["categories"][0]
     }
+    if observed:
+        start_time = time.time()
+        chi_squared, p, *_ = chi2_contingency(observed, correction=False)
+        print(f"{time.time() - start_time} seconds spent on chi2 contingency")
 
-    association = {
-        "feature_a": feature_a_norm_with_biolink_class,
-        "feature_b": feature_b_norm_with_biolink_class,
-        "feature_matrix": feature_matrix2,
-        "rows": [
-            {"frequency": a, "percentage": b}
-            for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
-        ],
-        "columns": [
-            {"frequency": a, "percentage": b}
-            for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
-        ],
-        "total": total,
-        "p_value": p,
-        "chi_squared": chi_squared
-    }
+        association = {
+            "feature_a": feature_a_norm_with_biolink_class,
+            "feature_b": feature_b_norm_with_biolink_class,
+            "feature_matrix": feature_matrix2,
+            "rows": [
+                {"frequency": a, "percentage": b}
+                for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
+            ],
+            "columns": [
+                {"frequency": a, "percentage": b}
+                for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
+            ],
+            "total": total,
+            "p_value": p,
+            "chi_squared": chi_squared
+        }
+    else:
+        association = {
+            "feature_a": feature_a_norm_with_biolink_class,
+            "feature_b": feature_b_norm_with_biolink_class,
+            "feature_matrix": feature_matrix2,
+            "rows": [
+                {"frequency": a, "percentage": b}
+                for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
+            ],
+            "columns": [
+                {"frequency": a, "percentage": b}
+                for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
+            ],
+            "total": total,
+            "p_value": None,
+            "chi_squared": None
+        }
 
     association_json = json.dumps(association, sort_keys=True)
-    print(f"{time.time() - start_time} seconds spent assembling results")
 
     # start_time = time.time()
     # conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
@@ -715,13 +732,21 @@ def select_feature_association(
     if correction is not None:
         method = correction["method"]
         alpha = correction.get("alpha", 1)
-        _, pvals, _, _ = multipletests(rsp, alpha, method)
-        for ret, pval in zip(rs, pvals):
-            ret["p_value_corrected"] = pval
+        for ret in rs:
+            if ret["p_value"] is None:
+                ret["p_value_corrected"] = None
+                continue
+            rsp = [ret["p_value"]]
+            _, pvals, _, _ = multipletests(rsp, alpha, method)
+            ret["p_value_corrected"] = pvals[0]
+        pvals = [ret["p_value_corrected"] for ret in rs]
     else:
-        pvals = rsp
+        pvals = [ret["p_value"] for ret in rs]
 
-    return [ret for ret, pval in zip(rs, pvals) if pval < maximum_p_value]
+    return [
+        ret for ret, pval in zip(rs, pvals)
+        if pval is not None and pval < maximum_p_value
+    ]
 
 
 def select_associations_to_all_features(

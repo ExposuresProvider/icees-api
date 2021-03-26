@@ -199,7 +199,11 @@ def prepare_output(func):
 for route in ROUTER.routes:
     APP.add_api_route(
         route.path,
-        prepare_output(route.endpoint),
+        (
+            prepare_output(route.endpoint)
+            if route.path != "/predicates" else
+            route.endpoint
+        ),
         responses={
             200: {
                 "content": {"text/tabular": {}},

@@ -424,6 +424,30 @@ def knowledge_graph_schema(
     return {"return value": return_value}
 
 
+@ROUTER.get(
+    "/predicates",
+    tags=["reasoner"],
+)
+def predicates():
+    """Get meta-knowledge graph."""
+    categories = [
+        "biolink:ActivityAndBehavior",
+        "biolink:ChemicalSubstance",
+        "biolink:Disease",
+        "biolink:Drug",
+        "biolink:Environment",
+        "biolink:NamedThing",
+        "biolink:PhenotypicFeature",
+    ]
+    return {
+        sub: {
+            obj: ["biolink:correlated_with"]
+            for obj in categories
+        }
+        for sub in categories
+    }
+
+
 with open("examples/knowledge_graph_overlay.json") as stream:
     kg_overlay_example = json.load(stream)
 

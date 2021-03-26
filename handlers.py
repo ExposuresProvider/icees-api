@@ -465,7 +465,7 @@ with open("examples/knowledge_graph_one_hop.json") as stream:
 
 def knowledge_graph_one_hop(
         obj: Query = Body(..., example=kg_onehop_example),
-        reasoner: bool = False,
+        reasoner: bool = True,
         conn=Depends(get_db),
 ) -> Message:
     """Query the ICEES clinical reasoner for knowledge graph one hop."""

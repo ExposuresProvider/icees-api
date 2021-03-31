@@ -420,25 +420,50 @@ ALT_Onset:
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+ALT_Onset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
 AST_Onset:
     type: integer
     minimum: 1
     maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+AST_Onset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
 AlkalinePhosphatase_Onset:
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+AlkalinePhosphatase_Onset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
 Bilirubin_Onset:
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+Bilirubin_Onset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
 INR_Onset:
     type: integer
     minimum: 1
     maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+INR_Onset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
 PatternLiverInjury_Onset:
   type: string
@@ -457,25 +482,50 @@ ALT_Peak_DILIOnsetToMonth6:
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+ALT_Peak_DILIOnsetToMonth6_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
 AST_Peak_DILIOnsetToMonth6:
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AlkalinePhosphate_Peak_DILIOnsetToMonth6:
+AST_Peak_DILIOnsetToMonth6_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+AlkalinePhosphatase_Peak_DILIOnsetToMonth6:
     type: integer
     minimum: 1
     maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+AlkalinePhosphatase_Peak_DILIOnsetToMonth6_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
 Bilirubin_Peak_DILIOnsetToMonth6:
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+Bilirubin_Peak_DILIOnsetToMonth6_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
 INR_Peak_DILIOnsetToMonth6:
     type: integer
     minimum: 1
     maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+INR_Peak_DILIOnsetToMonth6_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
 Days_Bilirubin_OnsetToPeak:
     type: number

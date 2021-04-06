@@ -23,6 +23,26 @@ patient:
       - 'Asian'
       - 'Other/Multiracial'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Ethnicity:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  PCA_Race:
+    type: string
+    enum:
+      - 'White'
+      - 'Black'
+      - 'East Asian'
+      - 'Hispanic'
+      - 'Other/Multiracial'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Weight:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature  
   BMI:
     type: integer
     minimum: 1
@@ -36,6 +56,12 @@ patient:
       - 'Overweight'
       - 'Obese'
       - 'Other/Multiracial'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AlcoholUse:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   DrugAllergy:
     type: string
@@ -243,7 +269,7 @@ patient:
       - '2 to 4'
       - '>4'
     biolinkType: PhenotypicFeature
-  Days_EarliestSignToInitialVisit:
+  Days_DILIOnsetInitialVisit:
     type: integer
     minimum: 1
     maximum: 9999
@@ -483,6 +509,11 @@ patient:
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ALT_DILIOnset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   ALT_Peak_DILIOnsetToMonth6_ULN:
     type: integer
     minimum: 1
@@ -492,6 +523,11 @@ patient:
     type: integer
     minimum: 1
     maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AST_DILIOnset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   AST_Peak_DILIOnsetToMonth6_ULN:
     type: integer
@@ -503,6 +539,11 @@ patient:
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AlkalinePhosphatase_DILIOnset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   AlkalinePhosphatase_Peak_DILIOnsetToMonth6_ULN:
     type: integer
     minimum: 1
@@ -512,6 +553,11 @@ patient:
     type: integer
     minimum: 1
     maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Bilirubin_DILIOnset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   Bilirubin_Peak_DILIOnsetToMonth6_ULN:
     type: integer

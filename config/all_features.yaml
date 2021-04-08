@@ -154,8 +154,9 @@ patient:
     enum:
       - 'No'
       - 'Yes'
-    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature UnexplainedAbnormalLiverTests:  
-  type: string
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature 
+  UnexplainedAbnormalLiverTests:  
+    type: string
     enum:
       - 'No'
       - 'Yes'

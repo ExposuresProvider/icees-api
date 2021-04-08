@@ -588,7 +588,7 @@ patient:
   Initial_RUCAM:
     type: string
     enum:
-      - 'Excluded’
+      - 'Excluded'
       - 'Unlikely'
       - 'Possible'
       - 'Probable'

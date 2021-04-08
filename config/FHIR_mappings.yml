@@ -91,7 +91,7 @@ Antibiotics:
           code: "SCTID: 372809001"
           # note: tetracycline
 DILI Dx:
-	Condition:
+    Condition:
         - system: https://browser.ihtsdotools.org
           code: "SCTID: 427399008"
           # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=427399008&edition=MAIN/2020-07-31&release=&languages=en

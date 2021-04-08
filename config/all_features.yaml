@@ -616,15 +616,15 @@ patient:
     type: string
     enum:
       - 'Amoxicillin W/Clavulanic Acid'
-     - ‘Other’
+      - 'Other'
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Implicated_Drug1_Assessment:
     type: string
     enum:
-      - 'Possible 25-50%’
-      - ‘Probable 50-75%’
-      - ‘Highly likely 75-95%’
-      - ‘Definite Greater than 95%’
+      - 'Possible 25-50%'
+      - 'Probable 50-75%'
+      - 'Highly likely 75-95%'
+      - 'Definite Greater than 95%'
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   WHONAME_Implicated_Drug2:
     type: string
@@ -650,10 +650,10 @@ patient:
   Implicated_Drug2_Assessment:
     type: string
     enum:
-      - 'Possible 25-50%’
-      - ‘Probable 50-75%’
-      - ‘Highly likely 75-95%’
-      - ‘Definite Greater than 95%’
+      - 'Possible 25-50%'
+      - 'Probable 50-75%'
+      - 'Highly likely 75-95%'
+      - 'Definite Greater than 95%'
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   WHONAME_Implicated_Drug3:
     type: string
@@ -667,10 +667,10 @@ patient:
   Implicated_Drug3_Assessment:
     type: string
     enum:
-      - 'Possible 25-50%’
-      - ‘Probable 50-75%’
-      - ‘Highly likely 75-95%’
-      - ‘Definite Greater than 95%’
+      - 'Possible 25-50%'
+      - 'Probable 50-75%'
+      - 'Highly likely 75-95%'
+      - 'Definite Greater than 95%'
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
   Year_DILI_Onset:
     type: integer

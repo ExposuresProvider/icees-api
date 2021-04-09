@@ -1,5 +1,5 @@
 import sys
-from yaml import safe_load
+from ruamel.yaml import YAML
 import Levenshtein
 import argparse
 from prettytable import PrettyTable
@@ -91,6 +91,12 @@ parser.add_argument('--ignore_suffix', metavar='IGNORE_SUFFIX', type=str, defaul
                     help='the suffix to ignore')
 parser.add_argument("--similarity_threshold", metavar="SIMILARITY_THRESHOLD", type=float, default=0.5,
                     help="the threshold for similarity suggestions")
+parser.add_argument("--update_features", metavar="UPDATE_FEATURES", type=str,
+                    help="yaml file for the updated features. if this file is not specified then the features cannot be updated")
+parser.add_argument("--update_mapping", metavar="UPDATE_MAPPING", type=str,
+                    help="yaml file for the updated mapping. if this file is not specified then the mapping cannot be updated")
+parser.add_argument("--update_identifiers", metavar="update_identifiers", type=str,
+                    help="yaml file for the updated identifiers. if this file is not specified then the identifiers cannot be updated")
 
 args = parser.parse_args()
 
@@ -100,24 +106,32 @@ identifiers = args.identifiers
 n = args.n
 ignore_suffix = args.ignore_suffix
 similarity_threshold = args.similarity_threshold
+update_features = args.update_features
+update_mapping = args.update_mapping
+update_identifiers = args.update_identifiers
+
+interactive_mapping = update_features is not None or update_mapping is not None
+interacitve_identifiers = update_features is not None or update_identifiers is not None
+
+yaml = YAML(typ="safe")
 
 try:
     with open(features) as ff:
-        features_obj = safe_load(ff)
+        features_obj = yaml.load(ff)
 except Exception as e:
     print(f"error loading features yaml: {e}")
     sys.exit(-1)
 
 try:
     with open(mapping) as fm:
-        mapping_obj = safe_load(fm)
+        mapping_obj = yaml.load(fm)
 except Exception as e:
     print(f"error loading mapping yaml: {e}")
     sys.exit(-1)
 
 try:
     with open(identifiers) as fi:
-        identifiers_obj = safe_load(fi)
+        identifiers_obj = yaml.load(fi)
 except Exception as e:
     print(f"error loading identifiers yaml: {e}")
     sys.exit(-1)

@@ -656,7 +656,7 @@ curl -X GET -k "http://localhost:5000/knowledge_graph/schema" -H  "accept: appli
 
 # How to run qc tool
 
-The qc tool is under the `qctool` directory. The following commands are in the `qctool` directory
+The qc tool is under the `qctool` directory. The following commands are run in the `qctool` directory
 
 ## installation
 

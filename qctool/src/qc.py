@@ -2,10 +2,12 @@ import sys
 from ruamel.yaml import YAML
 import Levenshtein
 import argparse
+from argparse import RawTextHelpFormatter
 from prettytable import PrettyTable
 import difflib
 from colorama import init, Fore, Back, Style
 from itertools import chain
+import asyncio
 
 init()
 
@@ -13,8 +15,33 @@ init()
 def update_key(d, ok, nk):
     i = list(d.keys()).index(ok)
     d.insert(i, nk, d.pop(ok))
-    
-class FeaturesFile:
+
+
+class File:
+    async def dump(self, filename):
+        async def write_file():
+            with open(filename, "w+") as of:
+                self.yaml.dump(self.obj, of)
+
+        asyncio.create_task(write_file())
+        
+
+
+class FeaturesFile(File):
+
+    def __init__(self, filename):
+        self.yaml = YAML(typ="rt")
+        with open(filename) as inf:
+            self.obj = self.yaml.load(inf)
+
+    def get_keys(self, table):
+        return self.obj[table].keys()
+        
+    def update_key(self, table, old_key, new_key):
+        update_key(self.obj[table], old_key, new_key)
+
+        
+class IdentifiersFile(File):
 
     def __init__(self, filename):
         self.yaml = YAML(typ="rt")
@@ -32,25 +59,7 @@ class FeaturesFile:
             self.yaml.dump(self.obj, of)
         
 
-class IdentifiersFile:
-
-    def __init__(self, filename):
-        self.yaml = YAML(typ="rt")
-        with open(filename) as inf:
-            self.obj = self.yaml.load(inf)
-
-    def get_keys(self, table):
-        return self.obj[table].keys()
-        
-    def update_key(self, table, old_key, new_key):
-        update_key(self.obj[table], old_key, new_key)
-
-    def dump(self, filename):
-        with open(filename, "w+") as of:
-            self.yaml.dump(self.obj, of)
-        
-
-class MappingFile:
+class MappingFile(File):
 
     def __init__(self, filename):
         self.yaml = YAML(typ="rt")
@@ -107,10 +116,6 @@ class MappingFile:
         
         print("variable {old_key} no longer exists")
 
-    def dump(self, filename):
-        with open(filename, "w+") as of:
-            self.yaml.dump(self.obj, of)
-
 
 def make_file(ty, filename):
     if ty == "features":
@@ -134,7 +139,7 @@ def difference_ignore_suffix(a, b, ignore_suffix):
     return diff
             
     
-def truncate_set(a, b, n, ignore_suffix):
+def truncate_set(a, b, similarity_threshold, n, ignore_suffix):
     diff_a = difference_ignore_suffix(a, b, ignore_suffix)
     diff_b = difference_ignore_suffix(b, a, ignore_suffix)
 
@@ -201,7 +206,7 @@ def print_matches(left, right, table, ellipsis):
     print(x)
     
     
-def interactive_update(left, right, a_file, b_file, table_name, table, ellipsis):
+async def interactive_update(left, right, a_file, b_file, a_update, b_update, table_name, table, ellipsis):
     done = False
     n = len(table)
     for i, row in enumerate(table):
@@ -213,105 +218,113 @@ def interactive_update(left, right, a_file, b_file, table_name, table, ellipsis)
         
         print(x)
 
-        while True:
-            if b_file is not None:
-                print("a) use a")
-            if a_file is not None:
-                print("b) use b")
+        if row[0] is not None and row[1] is not None:
+            while True:
                 if b_file is not None:
-                    print("c) customize")
-            print("""s) skip
+                    print("a) use a")
+                if a_file is not None:
+                    print("b) use b")
+                    if b_file is not None:
+                        print("c) customize")
+                print("""s) skip
 e) exit""")
-            action = input()
+                action = input()
 
-            if action == "a":
-                b_file.update_key(table_name, row[1], row[0])
+                if action == "a":
+                    b_file.update_key(table_name, row[1], row[0])
+                    if b_update is not None:
+                        b_file.dump(b_update)
+                    break
+                elif action == "b":
+                    a_file.update_key(table_name, row[0], row[1])
+                    if a_update is not None:
+                        a_file.dump(a_update)
+                    break
+                elif action == "c":
+                    var_name = input("input variable name: ")
+                    a_file.update_key(table_name, row[0], var_name)
+                    b_file.update_key(table_name, row[1], var_name)
+                    if a_update is not None:
+                        a_file.dump(a_update)
+                    if b_update is not None:
+                        b_file.dump(b_update)
+                    break
+                elif action == "s":
+                    break
+                elif action == "e":
+                    done = True
+                    break
+                else:
+                    print("unsupported action, try again")
+            if done:
                 break
-            elif action == "b":
-                a_file.update_key(table_name, row[0], row[1])
-                break
-            elif action == "c":
-                var_name = input("input variable name: ")
-                a_file.update_key(table_name, row[0], var_name)
-                b_file.update_key(table_name, row[1], var_name)
-                break
-            elif action == "s":
-                break
-            elif action == "e":
-                done = True
-                break
-            else:
-                print("unsupported action, try again")
-        if done:
-            break
                 
     if ellipsis:
         print("more diff remaining")
     
-parser = argparse.ArgumentParser(description='ICEES FHIR-PIT QC Tool')
-parser.add_argument('--a', metavar='A', type=str,
-                    help='file a')
-parser.add_argument('--b', metavar='B', type=str,
-                    help='file b')
-parser.add_argument('--a_type', metavar='A_TYPE', choices=["features", "mapping", "identifiers"], required=True,
-                    help='type of file a')
-parser.add_argument('--b_type', metavar='B_TYPE', choices=["features", "mapping", "identifiers"], required=True,
-                    help='type of file b')
-parser.add_argument('-n', metavar='N', type=int, default=-1,
-                    help='number of entries to display, -1 for unlimited')
-parser.add_argument('--ignore_suffix', metavar='IGNORE_SUFFIX', type=str, default="",
-                    help='the suffix to ignore')
-parser.add_argument("--similarity_threshold", metavar="SIMILARITY_THRESHOLD", type=float, default=0.5,
-                    help="the threshold for similarity suggestions")
-parser.add_argument('--table', metavar='TABLE', type=str, required=True, nargs="+",
-                    help='tables')
-parser.add_argument("--update_a", metavar="UPDATE_A", type=str,
-                    help="yaml file for the updated a. if this file is not specified then a cannot be updated")
-parser.add_argument("--update_b", metavar="UPDATE_B", type=str,
-                    help="yaml file for the updated b. if this file is not specified then b cannot be updated")
+async def main():
+    parser = argparse.ArgumentParser(description="""ICEES FHIR-PIT QC Tool
 
-args = parser.parse_args()
+Compare feature variable names in two files. Use --a and --b to specify filenames, --a_type and --b_type to specify file types, --update_a and --update_b to specify output files. Files types are one of features, mapping, and identifiers. If --update_a or --update_b is not specified then the files cannot be updated.""", formatter_class=RawTextHelpFormatter)
+    parser.add_argument('--a', metavar='A', type=str, required=True,
+                        help='file a')
+    parser.add_argument('--b', metavar='B', type=str, required=True,
+                        help='file b')
+    parser.add_argument('--a_type', metavar='A_TYPE', choices=["features", "mapping", "identifiers"], required=True,
+                        help='type of file a')
+    parser.add_argument('--b_type', metavar='B_TYPE', choices=["features", "mapping", "identifiers"], required=True,
+                        help='type of file b')
+    parser.add_argument('--number_entries', metavar='NUMBER_ENTRIES', type=int, default=-1,
+                        help='number of entries to display, -1 for unlimited')
+    parser.add_argument('--ignore_suffix', metavar='IGNORE_SUFFIX', type=str, default="",
+                        help='the suffix to ignore')
+    parser.add_argument("--similarity_threshold", metavar="SIMILARITY_THRESHOLD", type=float, default=0.5,
+                        help="the threshold for similarity suggestions")
+    parser.add_argument('--table', metavar='TABLE', type=str, required=True, nargs="+",
+                        help='tables')
+    parser.add_argument("--update_a", metavar="UPDATE_A", type=str,
+                        help="YAML file for the updated a. If this file is not specified then a cannot be updated")
+    parser.add_argument("--update_b", metavar="UPDATE_B", type=str,
+                        help="YAML file for the updated b. If this file is not specified then b cannot be updated")
 
-a_filename = args.a
-a_type = args.a_type
-a_update = args.update_a
+    args = parser.parse_args()
 
-b_filename = args.b
-b_type = args.b_type
-b_update = args.update_b
+    a_filename = args.a
+    a_type = args.a_type
+    a_update = args.update_a
 
-tables = args.table
-n = args.n
-ignore_suffix = args.ignore_suffix
-similarity_threshold = args.similarity_threshold
+    b_filename = args.b
+    b_type = args.b_type
+    b_update = args.update_b
 
-interactive = a_update is not None or b_update is not None
+    tables = args.table
+    n = args.number_entries
+    ignore_suffix = args.ignore_suffix
+    similarity_threshold = args.similarity_threshold
 
-try:
-    a_file = make_file(a_type, a_filename)
-except Exception as e:
-    print(f"error loading {a_filename}: {e}")
-    sys.exit(-1)
+    interactive = a_update is not None or b_update is not None
 
-try:
-    b_file = make_file(b_type, b_filename)
-except Exception as e:
-    print(f"error loading {b_filename}: {e}")
-    sys.exit(-1)
+    try:
+        a_file = make_file(a_type, a_filename)
+    except Exception as e:
+        print(f"error loading {a_filename}: {e}")
+        sys.exit(-1)
 
-for table in tables:
-    a_var_names = a_file.get_keys(table)
-    b_var_names = b_file.get_keys(table) 
-    print(f"feature vars table {table}:")
-    print(f"{a_filename} diff {b_filename}:")
-    if interactive:
-        interactive_update(a_filename, b_filename, a_file, b_file, table, *truncate_set(a_var_names, b_var_names, n, ignore_suffix))
-        if a_update is not None:
-            a_file.dump(a_update)
-        if b_update is not None:
-            b_file.dump(b_update)
-    else:
-        print_matches(a_filename, b_filename, *truncate_set(a_var_names, b_var_names, n, ignore_suffix))
+    try:
+        b_file = make_file(b_type, b_filename)
+    except Exception as e:
+        print(f"error loading {b_filename}: {e}")
+        sys.exit(-1)
 
-    
+    for table in tables:
+        a_var_names = a_file.get_keys(table)
+        b_var_names = b_file.get_keys(table) 
+        print(f"feature vars table {table}:")
+        print(f"{a_filename} diff {b_filename}:")
+        if interactive:
+            await interactive_update(a_filename, b_filename, a_file, b_file, a_update, b_update, table, *truncate_set(a_var_names, b_var_names, similarity_threshold, n, ignore_suffix))
+        else:
+            print_matches(a_filename, b_filename, *truncate_set(a_var_names, b_var_names, similarity_threshold, n, ignore_suffix))
+
+asyncio.run(main())    
 

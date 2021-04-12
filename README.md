@@ -653,3 +653,19 @@ knowledge graph schema
 curl -X GET -k "http://localhost:5000/knowledge_graph/schema" -H  "accept: application/json"
 ```
 
+
+# How to run qc tool
+
+## installation
+
+```
+pip install -r requirements.txt
+```
+
+## running
+
+Example:
+```
+python src/qc.py --a_type features --a ../config/all_features.yaml --b_type mapping --b ../config/FHIR_mappings.yml --number_entries 10 --table patient visit
+```
+

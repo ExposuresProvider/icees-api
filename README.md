@@ -675,6 +675,7 @@ Example:
 python src/qc.py --a_type features --a ../config/all_features.yaml --update_a ../config/all_features_update.yaml --b_type mapping --b ../config/FHIR_mappings.yml --update_b ../config/FHIR_mappings_update.yaml --table patient visit
 ```
 
+### noninteractive mode
 If run without `--update_a` or `--update_b` options, then it runs in noninteractive mode.
 
 Example:

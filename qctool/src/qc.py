@@ -23,7 +23,7 @@ class File:
             with open(filename, "w+") as of:
                 self.yaml.dump(self.obj, of)
 
-        asyncio.create_task(write_file())
+        await write_file()
         
 
 
@@ -209,6 +209,7 @@ def print_matches(left, right, table, ellipsis):
 async def interactive_update(left, right, a_file, b_file, a_update, b_update, table_name, table, ellipsis):
     done = False
     n = len(table)
+    aws = []
     for i, row in enumerate(table):
 
         print(f"{i+1} / {n}")
@@ -233,21 +234,21 @@ e) exit""")
                 if action == "a":
                     b_file.update_key(table_name, row[1], row[0])
                     if b_update is not None:
-                        b_file.dump(b_update)
+                        aws.append(b_file.dump(b_update))
                     break
                 elif action == "b":
                     a_file.update_key(table_name, row[0], row[1])
                     if a_update is not None:
-                        a_file.dump(a_update)
+                        aws.append(a_file.dump(a_update))
                     break
                 elif action == "c":
                     var_name = input("input variable name: ")
                     a_file.update_key(table_name, row[0], var_name)
                     b_file.update_key(table_name, row[1], var_name)
                     if a_update is not None:
-                        a_file.dump(a_update)
+                        aws.append(a_file.dump(a_update))
                     if b_update is not None:
-                        b_file.dump(b_update)
+                        aws.append(b_file.dump(b_update))
                     break
                 elif action == "s":
                     break
@@ -261,6 +262,9 @@ e) exit""")
                 
     if ellipsis:
         print("more diff remaining")
+
+    await asyncio.gather(*aws)
+    
     
 async def main():
     parser = argparse.ArgumentParser(description="""ICEES FHIR-PIT QC Tool

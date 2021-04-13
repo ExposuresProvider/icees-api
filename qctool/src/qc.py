@@ -192,7 +192,7 @@ def colorize_diff(a, b):
     return (a_colorized, b_colorized)
     
     
-def f(l):
+def to_prettytable(l):
     if l[1] is None:
         return [l[0], "", ""]
     else:
@@ -207,7 +207,7 @@ def print_matches(left, right, table, ellipsis):
     x = PrettyTable()
     x.field_names = [left, right, "ratio"]
         
-    x.add_rows(map(f, table_copy))
+    x.add_rows(map(to_prettytable, table_copy))
     print(x)
     
     

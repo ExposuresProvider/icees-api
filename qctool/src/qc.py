@@ -17,7 +17,12 @@ def update_key(d, ok, nk):
     d.insert(i, nk, d.pop(ok))
 
 
-class File:
+class YAMLFile:
+    def __init__(self, filename):
+        self.yaml = YAML(typ="rt")
+        with open(filename) as inf:
+            self.obj = self.yaml.load(inf)
+
     async def dump(self, filename):
         async def write_file():
             with open(filename, "w+") as of:
@@ -27,12 +32,10 @@ class File:
         
 
 
-class FeaturesFile(File):
+class FeaturesFile(YAMLFile):
 
     def __init__(self, filename):
-        self.yaml = YAML(typ="rt")
-        with open(filename) as inf:
-            self.obj = self.yaml.load(inf)
+        super().__init__(filename)
 
     def get_keys(self, table):
         return self.obj[table].keys()
@@ -41,12 +44,10 @@ class FeaturesFile(File):
         update_key(self.obj[table], old_key, new_key)
 
         
-class IdentifiersFile(File):
+class IdentifiersFile(YAMLFile):
 
     def __init__(self, filename):
-        self.yaml = YAML(typ="rt")
-        with open(filename) as inf:
-            self.obj = self.yaml.load(inf)
+        super().__init__(filename)
 
     def get_keys(self, table):
         return self.obj[table].keys()
@@ -59,12 +60,10 @@ class IdentifiersFile(File):
             self.yaml.dump(self.obj, of)
         
 
-class MappingFile(File):
+class MappingFile(YAMLFile):
 
     def __init__(self, filename):
-        self.yaml = YAML(typ="rt")
-        with open(filename) as inf:
-            self.obj = self.yaml.load(inf)
+        super().__init__(filename)
 
     def get_sub_objects(self):
         FHIR = self.obj.get("FHIR", {})
@@ -77,14 +76,20 @@ class MappingFile(File):
     def get_sub_keys(self, FHIR, GEOID, NearestRoad, NearestPoint, Visit):
         FHIR_keys = list(FHIR.keys())
         GEOID_keys = {name: list(dataset["columns"].values()) for name, dataset in GEOID.items()}
-        NearestRoad_keys = {name: list(map(lambda x: x["feature_name"], dataset["attributes_to_features_map"].values())) for name, dataset in NearestRoad.items()}
-        NearestPoint_keys = {name: list(map(lambda x: x["feature_name"], dataset["attributes_to_features_map"].values())) for name, dataset in NearestPoint.items()}
+        NearestRoad_keys = {name: {"distance_feature_name": dataset["distance_feature_name"], "attributes_to_features_map": list(map(lambda x: x["feature_name"], dataset["attributes_to_features_map"].values()))} for name, dataset in NearestRoad.items()}
+        NearestPoint_keys = {name: {"distance_feature_name": dataset["distance_feature_name"], "attributes_to_features_map": list(map(lambda x: x["feature_name"], dataset["attributes_to_features_map"].values()))} for name, dataset in NearestPoint.items()}
         Visit_keys = []
         return FHIR_keys, GEOID_keys, NearestRoad_keys, NearestPoint_keys, Visit_keys
     
     def get_keys(self, table):
         FHIR_keys, GEOID_keys, NearestRoad_keys, NearestPoint_keys, Visit_keys = self.get_sub_keys(*self.get_sub_objects())
-        return FHIR_keys + list(chain(GEOID_keys.values())) + list(chain(NearestRoad_keys.values())) + list(chain(NearestPoint_keys.values())) + Visit_keys
+        def list_keys(x):
+            keys = []
+            for _, a in x.items():
+                keys.append(a["distance_feature_name"])
+                keys.extend(a["attributes_to_features_map"])
+            return keys
+        return FHIR_keys + list(chain(*GEOID_keys.values())) + list_keys(NearestRoad_keys) + list_keys(NearestPoint_keys) + Visit_keys
         
     def update_key(self, table, old_key, new_key):
         FHIR, GEOID, NearestRoad, NearestPoint, Visit = self.get_sub_objects()
@@ -330,5 +335,6 @@ Compare feature variable names in two files. Use --a and --b to specify filename
         else:
             print_matches(a_filename, b_filename, *truncate_set(a_var_names, b_var_names, similarity_threshold, n, ignore_suffix))
 
-asyncio.run(main())    
+if __name__ == "__main__":
+    asyncio.run(main())    
 

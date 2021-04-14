@@ -9,26 +9,26 @@ patient:
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-  # Sex:
-  #   type: string
-  #   enum:
-  #     - 'Male'
-  #     - 'Female'
-  #   biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-  # Race:
-  #   type: string
-  #   enum:
-  #     - 'White or Caucasian'
-  #     - 'Black or African American'
-  #     - 'Asian'
-  #     - 'Other/Multiracial'
-  #   biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-  # Ethnicity:
-  #   type: string
-  #   enum:
-  #     - 'No'
-  #     - 'Yes'
-  #   biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Sex:
+    type: string
+    enum:
+      - 'Male'
+      - 'Female'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Race:
+    type: string
+    enum:
+      - 'White or Caucasian'
+      - 'Black or African American'
+      - 'Asian'
+      - 'Other/Multiracial'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Ethnicity:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   PCA_Race:
     type: string
     enum:
@@ -181,7 +181,7 @@ patient:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature 
-  UnexplainedAbnormalLiverTests:  
+  UnexplainedAbnormalLiverTest:  
     type: string
     enum:
       - 'No'
@@ -269,7 +269,7 @@ patient:
       - '2 to 4'
       - '>4'
     biolinkType: PhenotypicFeature
-  Days_DILIOnsetInitialVisit:
+  Days_DILIOnsetToInitialVisit:
     type: integer
     minimum: 1
     maximum: 9999
@@ -574,22 +574,22 @@ patient:
     minimum: 1
     maximum: 5
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-  Days_Bilirubin_OnsetToPeak:
+  Days_Bilirubin_DILIOnsetToPeak:
     type: number
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-  Days_ALT_OnsetToPeak:
+  Days_ALT_DILIOnsetToPeak:
     type: number
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-  Days_AST_OnsetToPeak:
+  Days_AST_DILIOnsetToPeak:
     type: number
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-  Days_AKP_OnsetToPeak:
+  Days_AlkalinePhosphatase_DILIOnsetToPeak:
     type: number
     minimum: 1
     maximum: 9999
@@ -865,17 +865,17 @@ patient:
     maximum: 1
     minimum: 0
     type: integer
-  AntiInfectivesAntibiotics:
+  Antibiotics:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  AntiInfectivesHydroxychloroquine:
+  Hydroxychloroquine:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  AntiInfectivesRemdesivir:
+  Remdesivir:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
@@ -1229,62 +1229,62 @@ patient:
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportAmiodarone_gtt:
+  Amiodarone_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportDobutamine_gtt:
+  Dobutamine_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportDopamine_gtt:
+  Dopamine_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportEpinephrine_gtt:
+  Epinephrine_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportEsmolol_gtt:
+  Esmolol_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Dru
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportIsoproterenol_gtt:
+  Isoproterenol_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportLevosimendan_gtt:
+  Levosimendan_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportMilrinone_gtt:
+  Milrinone_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportNorepinephrine_gtt:
+  Norepinephrine_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportPhenylephrine_gtt:
+  Phenylephrine_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportVasopressin_gtt:
+  Vasopressin_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupporyECLS:
+  ECLS:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
@@ -1825,32 +1825,32 @@ patient:
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationAnakinra:
+  Anakinra:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationConvalescentPlasma:
+  ConvalescentPlasma:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationDexamethaone:
+  Dexamethaone:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationIVIG:
+  IntravenousImmunoglobulin:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationPredinoseOrMethylpredinose:
+  PredinoseOrMethylpredinose:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationTocilizumab:
+  Tocilizumab:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
@@ -2279,22 +2279,22 @@ patient:
     maximum: 1
     minimum: 0
     type: integer
-  RespiratorySupportHFNC:
+  HighFlowNasalCannula:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  RespiratorySupportHNO3orFlolan:
+  NitricAcidOrFlolan:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  RespiratorySupportInvasiveVentilator:
+  InvasiveVentilation:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  RespiratorySupportNIPPV:
+  NonInvasivePositivePressureVentilation:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0

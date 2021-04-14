@@ -24,12 +24,8 @@ class YAMLFile:
             self.obj = self.yaml.load(inf)
 
     async def dump(self, filename):
-        async def write_file():
-            with open(filename, "w+") as of:
-                self.yaml.dump(self.obj, of)
-
-        await write_file()
-        
+        with open(filename, "w+") as of:
+            self.yaml.dump(self.obj, of)
 
 
 class FeaturesFile(YAMLFile):
@@ -220,7 +216,7 @@ async def interactive_update(left, right, a_file, b_file, a_update, b_update, ta
         print(f"{i+1} / {n}")
         x = PrettyTable()
         x.field_names = [left, right, "ratio"]
-        x.add_row(f(row))
+        x.add_row(to_prettytable(row))
         
         print(x)
 

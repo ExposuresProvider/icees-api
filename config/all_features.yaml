@@ -9,26 +9,26 @@ patient:
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-  # Sex:
-  #   type: string
-  #   enum:
-  #     - 'Male'
-  #     - 'Female'
-  #   biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-  # Race:
-  #   type: string
-  #   enum:
-  #     - 'White or Caucasian'
-  #     - 'Black or African American'
-  #     - 'Asian'
-  #     - 'Other/Multiracial'
-  #   biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-  # Ethnicity:
-  #   type: string
-  #   enum:
-  #     - 'No'
-  #     - 'Yes'
-  #   biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Sex:
+    type: string
+    enum:
+      - 'Male'
+      - 'Female'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Race:
+    type: string
+    enum:
+      - 'White or Caucasian'
+      - 'Black or African American'
+      - 'Asian'
+      - 'Other/Multiracial'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Ethnicity:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   PCA_Race:
     type: string
     enum:

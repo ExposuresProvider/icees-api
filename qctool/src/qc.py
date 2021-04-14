@@ -51,11 +51,7 @@ class IdentifiersFile(YAMLFile):
     def update_key(self, table, old_key, new_key):
         update_key(self.obj[table], old_key, new_key)
 
-    def dump(self, filename):
-        with open(filename, "w+") as of:
-            self.yaml.dump(self.obj, of)
-        
-
+    
 class MappingFile(YAMLFile):
 
     def __init__(self, filename):

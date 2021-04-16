@@ -1742,11 +1742,60 @@ ALT, [units]:
         - system: http://loinc.org
           code: 76625-3
           # note: https://search.loinc.org/searchLOINC/search.zul?query=ALT
+        - system: http://loinc.org
+          code: 77144-4
+        - system: http://loinc.org
+          code: 1742-6           
+        - system: http://loinc.org
+          code: 1744-2
+        - system: http://loinc.org
+          code: 1743-4
+        - system: http://loinc.org
+          code: 44785-4
+        - system: http://loinc.org
+          code: 25302-1
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=alanine+aminotransferase+serum+or+plasma
 AST, [units]:
     Measurement:
         - system: http://loinc.org
           code: 1920-8
           # note: https://search.loinc.org/searchLOINC/search.zul?query=AST
+        - system: http://loinc.org
+          code: 88112-8
+        - system: http://loinc.org
+          code: 30239-8
+        - system: http://loinc.org
+          code: 44786-2
+        - system: http://loinc.org
+          code: 27344-1
+        - system: http://loinc.org
+          code: 48136-6
+        - system: http://loinc.org
+          code: 1919-0
+        - system: http://loinc.org
+          code: 43822-6      
+           # note: https://search.loinc.org/searchLOINC/search.zul?query=aspartate+aminotransferase+serum+or+plasma
+Albumin:
+    Measurement:
+        - system: http://loinc.org
+          code: 76631-1
+        - system: http://loinc.org
+          code: 77148-5
+        - system: http://loinc.org
+          code: 1751-7
+        - system: http://loinc.org
+          code: 61151-7
+        - system: http://loinc.org
+          code: 61152-5
+        - system: http://loinc.org
+          code: 2862-1
+        - system: http://loinc.org
+          code: 54347-0
+        - system: http://loinc.org
+          code: 62235-7
+        - system: http://loinc.org
+          code: 62234-0
+          # note: https://search.loinc.org/searchLOINC/search.zul?query=albumin+serum+or+plasma
 Troponin [type], [units]:
     Measurement:
         - system: http://loinc.org

@@ -761,6 +761,26 @@ patient:
   AADT:
     biolinkType: EnvironmentalExposure
     type: integer
+  Albumin:
+    biolinkType: PhenotypicFeature
+    enum:
+    - 0
+    - 1
+    type: integer
+  Albumin_flag_first:
+    biolinkType: PhenotypicFeature
+    enum:
+    - low
+    - normal
+    - high
+    type: string
+  Albumin_flag_last:
+    biolinkType: PhenotypicFeature
+    enum:
+    - low
+    - normal
+    - high
+    type: string  
   ALT:
     biolinkType: PhenotypicFeature
     enum:

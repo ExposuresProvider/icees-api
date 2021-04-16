@@ -548,13 +548,13 @@ Days_AKP_OnsetToPeak:
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
 Hospitalization_NewProlonged:
-  type: string
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: ActivityAndBehavior, PhenotypicFeature, DiseaseOrPhenotypicFeature
 Weeks_DurationOfSickness:
-  type: string
+    type: string
     enum:
       - '<1'
       - '2-4'

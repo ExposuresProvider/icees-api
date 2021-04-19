@@ -141,7 +141,12 @@ def truncate_set(a, b, similarity_threshold, n, ignore_suffix):
     diff_b = difference_ignore_suffix(b, a, ignore_suffix)
 
     def find_match(b, an):
-        bn, ratio = max([(bn, Levenshtein.ratio(an, bn)) for bn in b], key=lambda x: x[1])
+        bns = [(bn, Levenshtein.ratio(an, bn)) for bn in b]
+        if len(bns) == 0:
+            bn = None
+            ratio = 0
+        else:
+            bn, ratio = max([(bn, Levenshtein.ratio(an, bn)) for bn in b], key=lambda x: x[1])
         return (an, bn, ratio)
 
     diff_a_match = [find_match(b, an) for an in diff_a]

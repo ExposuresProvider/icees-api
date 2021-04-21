@@ -1,1 +1,10 @@
-{}
+extends: default
+
+rules:
+  line-length: disable
+  new-lines:
+    type: unix
+  new-line-at-end-of-file:
+    level: warning
+  trailing-spaces:
+    level: warning

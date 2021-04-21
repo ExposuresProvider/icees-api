@@ -25370,6 +25370,7 @@ visit:
   WilsonsDisease:
   - MONDO:0010200
   - SCTID:88518009
+  - NCIT:C84756
   YearDILIOnset:
   rs1363907a:
   rs2476601a:

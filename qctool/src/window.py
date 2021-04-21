@@ -142,7 +142,7 @@ class Pane(Widget):
         if self.max_lines is not None and len(self.lines) + nlines > self.max_lines:
             self.lines = self.lines[len(self.lines) + nlines - self.max_lines:]
         self.lines.extend(colorize(s))
-        self._move(0, 0)
+        self._clip_coordinates()
 
     def replace(self, s):
         self._replace(s)
@@ -157,9 +157,23 @@ class Pane(Widget):
         self.update()
 
     def _move(self, document_dy, document_dx):
+        self.current_document_y += document_dy
+        self.current_document_x += document_dx
+        self._clip_coordinates()
+
+    def move_abs(self, document_y, document_x):
+        self._move_abs(document_y, document_x)
+        self.update()
+
+    def _move_abs(self, document_y, document_x):
+        self.current_document_y = document_y
+        self.current_document_x = document_x
+        self._clip_coordinates()
+
+    def _clip_coordinates(self):
         document_height = len(self.lines)
-        self.current_document_y = clip(self.current_document_y + document_dy, self.top_padding, max(0, document_height - 1 - self.bottom_padding))
-        self.current_document_x = clip(self.current_document_x + document_dx, self.left_padding, max(0, len(self.lines[self.current_document_y]) - 1 - self.right_padding) if document_height > 0 else 0)
+        self.current_document_y = clip(self.current_document_y, self.top_padding, max(0, document_height - 1 - self.bottom_padding))
+        self.current_document_x = clip(self.current_document_x, self.left_padding, max(0, len(self.lines[self.current_document_y]) - 1 - self.right_padding) if document_height > 0 else 0)
         
     def move_page(self, document_dy, document_dx):
         window_h, window_w = self.window.getmaxyx()

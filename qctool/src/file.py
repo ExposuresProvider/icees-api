@@ -1,7 +1,6 @@
 import sys
 from ruamel.yaml import YAML
 from itertools import chain
-import asyncio
 from tx.functional.either import Left, Right
 from io import StringIO
 import logging
@@ -40,7 +39,7 @@ class YAMLFile:
         with open(filename) as inf:
             self.obj = self.yaml.load(inf)
 
-    async def dump(self, filename):
+    def dump(self, filename):
         with open(filename, "w+") as of:
             self.yaml.dump(self.obj, of)
 

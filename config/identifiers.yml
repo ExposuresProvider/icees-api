@@ -10130,7 +10130,6 @@ visit:
   Avg24hNOxExposure_2: *id005
   Avg24hNOxExposure_2_qcut: *id005
   Avg24hOzoneExposure: *id006
-  - CHEBI_25812
   Avg24hOzoneExposure_StudyAvg: *id006
   Avg24hOzoneExposure_StudyAvg_qcut: *id006
   Avg24hOzoneExposure_StudyMax: *id006
@@ -10269,7 +10268,6 @@ visit:
   LeuprolideVisit: *id058
   MajorRoadwayHighwayExposure: *id059
   Max24hOzoneExposure: *id006
-  - CHEBI_25812
   Max24hOzoneExposure_2: *id006
   Max24hOzoneExposure_2_qcut: *id006
   Max24hOzoneExposure_StudyAvg: *id006

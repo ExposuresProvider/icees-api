@@ -25368,6 +25368,8 @@ visit:
   - LOINC:LP29703-3
   - LOINC:LP65139-5
   WilsonsDisease:
+  - MONDO:0010200
+  - SCTID:88518009
   YearDILIOnset:
   rs1363907a:
   rs2476601a:

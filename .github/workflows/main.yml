@@ -1,12 +1,14 @@
-name: Yaml Lint
-on: [push]
+name: yamllint
+
+on: [push, pull_request]
+
 jobs:
-  lintAllTheThings:
+  delivery:
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v1
-    - name: yaml-lint
-      uses: ibiqlik/action-yamllint@v3
-      with:
-        file_or_dir: config
-        config_file: .yamllint.yml
+    - name: Check out code
+      uses: actions/checkout@main
+    - name: Run yamllint
+      uses: actionshub/yamllint@main

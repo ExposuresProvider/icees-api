@@ -1,10 +1,10 @@
 patient:
- PseudoID:
+  PseudoID:
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType:
- AgeQualifyingLab:
+  AgeQualifyingLab:
     type: integer
     minimum: 1
     maximum: 9999
@@ -15,13 +15,46 @@ patient:
       - 'Male'
       - 'Female'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Race:
+  Race:
     type: string
     enum:
       - 'White or Caucasian'
       - 'Black or African American'
       - 'Asian'
       - 'Other/Multiracial'
+  SexDILI:
+    type: string
+    enum:
+    - Male
+    - Female
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  RaceDILI:
+    type: string
+    enum:
+    - White or Caucasian
+    - Black or African American
+    - Asian
+    - Other/Multiracial
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  EthnicityDILI:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  PCA_Race:
+    type: string
+    enum:
+    - White
+    - Black
+    - East Asian
+    - Hispanic
+    - Other/Multiracial
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Weight:
+    type: integer
+    minimum: 1
+    maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   BMI:
     type: integer
@@ -37,65 +70,136 @@ Race:
       - 'Obese'
       - 'Other/Multiracial'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-DrugAllergy:
+  DrugAllergy:
     type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-DiabetesEndocrineDisorder:
+  DiabetesEndocrineDisorder:
     type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-NeurologicalDisease:
+  NeurologicalDisease:
     type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-HeartDisease:
+  HeartDisease:
     type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-RenalDisease:
+  RenalDisease:
     type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-PulmonaryDisease:
+  PulmonaryDisease:
     type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-GastrointestinalDisease:
+  GastrointestinalDisease:
     type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-Malignancy:
+  Malignancy:
     type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-CongestiveHeartFailure:
+  CongestiveHeartFailure:
     type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-HIV_Positive:  
-  type: string
+  HIV_Positive:  
+    type: string
     enum:
       - 'No'
       - 'Yes'
+      - Underweight
+      - Normal
+      - Overweight
+      - Obese
+      - Other/Multiracial
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AlcoholUse:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  DrugAllergy:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  DiabetesEndocrineDisorder:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  NeurologicalDisease:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  HeartDisease:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  RenalDisease:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  PulmonaryDisease:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  GastrointestinalDisease:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  Malignancy:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  CongestiveHeartFailure:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  HIV_Positive:
+    type: string
+    enum:
+    - No
+    - Yes
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   HCV_Positive:
     type: integer
@@ -107,59 +211,54 @@ HIV_Positive:
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AlcoholRelatedLiverDisease:  
-  type: string
+  AlcoholRelatedLiverDisease:  
+    type: string
     enum:
-      - 'No'
-      - 'Yes'
+     - 'No'
+     - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-NAFLD:
-  type: string
+  NAFLD:
+    type: string
     enum:
-      - 'No'
-      - 'Yes'
+     - 'No'
+     - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-WilsonsDisease:
-  type: string
+  WilsonsDisease:
+    type: string
     enum:
-      - 'No'
-      - 'Yes'
+     - 'No'
+     - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-Hemochromatosis:  
-  type: string
+  Hemochromatosis:  
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-PrimaryBiliaryCirrhosis:  
-  type: string
+  PrimaryBiliaryCirrhosis:  
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-PrimarySclerosingCholangitis: 
-  type: string
+  PrimarySclerosingCholangitis: 
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-GilbertsSyndrome:  
-  type: string
+  GilbertsSyndrome:  
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-A1AT_Deficiency:  
-  type: string
+  A1AT_Deficiency:  
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature UnexplainedAbnormalLiverTests:  
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
 Cirrhosis:  
   type: string
     enum:
@@ -203,389 +302,671 @@ ChronicHepatitisC_Screening:
       - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
 Days_DrugStartToEarliestSign:  
+  AlcoholRelatedLiverDisease:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  NAFLD:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  WilsonsDisease:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  Hemochromatosis:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  PrimaryBiliaryCirrhosis:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  PrimarySclerosingCholangitis:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  GilbertsSyndrome:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  A1AT_Deficiency:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  UnexplainedAbnormalLiverTest:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  Cirrhosis:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  IschemicHepatitis:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  HepatitisA:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  AutoimmuneHepatitis:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  FamilyHistoryLiverDisease:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ChronicHepatitisB_Screening:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  ChronicHepatitisC_Screening:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  Days_DrugStartToEarliestSign:
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature
-Days_EarliestSignToDrugStop:
+  Days_EarliestSignToDrugStop:
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature
-Latency:  
+  Latency:  
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature
-Weeks_DrugStartToDILI:
-  type: string
+  Weeks_DrugStartToDILI:
+    type: string
     enum:
       - '<=1'
       - '2 to 4'
       - '5 to 12'
       - '13 to 24'
     biolinkType: PhenotypicFeature
-Days_DrugStartToEarliestSignOrDILI:
+  Weeks_DrugStartToDILI:
+    type: string
+    enum:
+    - <=1
+    - 2 to 4
+    - 5 to 12
+    - 13 to 24
+    biolinkType: PhenotypicFeature
+  Days_DrugStartToEarliestSignOrDILI:
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature
-Days_EarliestSignToDILI:
+  Days_EarliestSignToDILI:
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature
-Weeks_EarliestSignToDILI:
-  type: string
+  Weeks_EarliestSignToDILI:
+    type: string
     enum:
       - '<=1'
       - '2 to 4'
       - '>4'
     biolinkType: PhenotypicFeature
-Days_EarliestSignToInitialVisit:
+  Days_DILIOnsetToInitialVisit:
     type: integer
     minimum: 1
     maximum: 9999
     biolinkType: PhenotypicFeature
-Jaundice:
-  type: string
+  Jaundice:
+    type: string
     enum:
-      - 'No'
-      - 'Yes'
+     - 'No'
+     - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-Nausea:
-  type: string
+  Nausea:
+    type: string
     enum:
+     - 'No'
+     - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Fever:
+    type: string
+     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Fever:
-  type: string
+  AbdominalPain:
+    type: string
     enum:
-      - 'No'
-      - 'Yes'
+     - 'No'
+     - 'Yes'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AbdominalPain:
-  type: string
+  Rash:
+    type: string
     enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Rash:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
+     - 'No'
+     - 'Yes'
     biolinkType: PhenotypicFeature, DiseaseOrPhentoypicFeature
-Itching:
-  type: string
+  Itching:
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Neutropenia:
-  type: string
+  Neutropenia:
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-Thrombocytopenia:
+  Thrombocytopenia:
   type: string
     enum:
-      - 'No'
-      - 'Yes'
+     - 'No'
+     - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-StevensJohnsonSyndrome:
-  type: string
+  StevensJohnsonSyndrome:
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: Disease, DiseaseOrPhenotypicFeature
-ConcomitantDrugs:
-  type: string
+  ConcomitantDrugs:
+    type: string
     enum:
       - '0-2'
       - '3-4'
       - '>5'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-LiverBiopsy_Screen:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-PrednisoneOrCorticosteroids_Tx:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-Anti_HAV:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Anti_HCV:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-HCV_RNA:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-HBsAg:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Anti_HBc:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Anti_HBc_IgM:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Anti_HBs:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-HBeAg:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Anti_HBe:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-ANA:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-ASMA:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature , DiseaseOrPhenotypicFeature
-Serum_IgM:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Serum_IgG:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Serum_IgA:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-EosinophilCount:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Eosinophil_GreaterThan500:
-  type: string
-    enum:
-      - 'No'
-      - 'Yes'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-ALT_Onset:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-ALT_Onset_ULN:
-    type: integer
-    minimum: 1
-    maximum: 5
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AST_Onset:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AST_Onset_ULN:
-    type: integer
-    minimum: 1
-    maximum: 5
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AlkalinePhosphatase_Onset:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AlkalinePhosphatase_Onset_ULN:
-    type: integer
-    minimum: 1
-    maximum: 5
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Bilirubin_Onset:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Bilirubin_Onset_ULN:
-    type: integer
-    minimum: 1
-    maximum: 5
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-INR_Onset:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-INR_Onset_ULN:
-    type: integer
-    minimum: 1
-    maximum: 5
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-PatternLiverInjury_Onset:
-  type: string
-    enum:
-      - 'Cholestatic'
-      - 'Hepatocellular'
-      - 'Mixed'
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-RValue_Onset:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-ALT_Peak_DILIOnsetToMonth6:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-ALT_Peak_DILIOnsetToMonth6_ULN:
-    type: integer
-    minimum: 1
-    maximum: 5
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AST_Peak_DILIOnsetToMonth6:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AST_Peak_DILIOnsetToMonth6_ULN:
-    type: integer
-    minimum: 1
-    maximum: 5
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AlkalinePhosphatase_Peak_DILIOnsetToMonth6:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-AlkalinePhosphatase_Peak_DILIOnsetToMonth6_ULN:
-    type: integer
-    minimum: 1
-    maximum: 5
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Bilirubin_Peak_DILIOnsetToMonth6:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Bilirubin_Peak_DILIOnsetToMonth6_ULN:
-    type: integer
-    minimum: 1
-    maximum: 5
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-INR_Peak_DILIOnsetToMonth6:
-    type: integer
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-INR_Peak_DILIOnsetToMonth6_ULN:
-    type: integer
-    minimum: 1
-    maximum: 5
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Days_Bilirubin_OnsetToPeak:
-    type: number
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Days_ALT_OnsetToPeak:
-    type: number
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Days_AST_OnsetToPeak:
-    type: number
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Days_AKP_OnsetToPeak:
-    type: number
-    minimum: 1
-    maximum: 9999
-    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Hospitalization_NewProlonged:
+  LiverBiopsy_Screen:
     type: string
     enum:
       - 'No'
       - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  PrednisoneOrCorticosteroids_Tx:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+  Anti_HAV:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Anti_HCV:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  HCV_RNA:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  HBsAg:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Anti_HBc:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Anti_HBc_IgM:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Anti_HBs:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  HBeAg:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Anti_HBe:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ANA:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ASMA:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature , DiseaseOrPhenotypicFeature
+  Serum_IgM:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Serum_IgG:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Serum_IgA:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Jaundice:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  Nausea:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Fever:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AbdominalPain:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Rash:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhentoypicFeature
+  Itching:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Neutropenia:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  Thrombocytopenia:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  StevensJohnsonSyndrome:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: Disease, DiseaseOrPhenotypicFeature
+  ConcomitantDrugs:
+    type: string
+    enum:
+    - 0-2
+    - 3-4
+    - '>5'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  LiverBiopsy_Screen:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  PrednisoneOrCorticosteroids_Tx:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+  Anti_HAV:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Anti_HCV:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  HCV_RNA:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  HBsAg:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Anti_HBc:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Anti_HBc_IgM:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Anti_HBs:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  HBeAg:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Anti_HBe:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ANA:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ASMA:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature , DiseaseOrPhenotypicFeature
+  Serum_IgM:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Serum_IgG:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Serum_IgA:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  EosinophilCount:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Eosinophil_GreaterThan500:
+    type: string
+    enum:
+      - 'No'
+      - 'Yes'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ALT_Onset:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ALT_Onset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AST_Onset:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AST_Onset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AlkalinePhosphatase_Onset:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AlkalinePhosphatase_Onset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Bilirubin_Onset:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Bilirubin_Onset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  INR_Onset:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  INR_Onset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  PatternLiverInjury_Onset:
+    type: string
+    enum:
+    - Cholestatic
+    - Hepatocellular
+    - Mixed
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  RValue_Onset:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ALT_Peak_DILIOnsetToMonth6:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ALT_DILIOnset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ALT_Peak_DILIOnsetToMonth6_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AST_Peak_DILIOnsetToMonth6:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AST_DILIOnset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AST_Peak_DILIOnsetToMonth6_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AlkalinePhosphatase_Peak_DILIOnsetToMonth6:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AlkalinePhosphatase_DILIOnset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  AlkalinePhosphatase_Peak_DILIOnsetToMonth6_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Bilirubin_Peak_DILIOnsetToMonth6:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Bilirubin_DILIOnset_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Bilirubin_Peak_DILIOnsetToMonth6_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  INR_Peak_DILIOnsetToMonth6:
+    type: integer
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  INR_Peak_DILIOnsetToMonth6_ULN:
+    type: integer
+    minimum: 1
+    maximum: 5
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Days_Bilirubin_DILIOnsetToPeak:
+    type: number
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Days_ALT_DILIOnsetToPeak:
+    type: number
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Days_AST_DILIOnsetToPeak:
+    type: number
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Days_AlkalinePhosphatase_DILIOnsetToPeak:
+    type: number
+    minimum: 1
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Hospitalization_NewProlonged:
+    type: string
+    enum:
+     - 'No'
+     - 'Yes'
     biolinkType: ActivityAndBehavior, PhenotypicFeature, DiseaseOrPhenotypicFeature
-Weeks_DurationOfSickness:
+  Weeks_DurationOfSickness:
     type: string
     enum:
       - '<1'
       - '2-4'
       - '>4'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-Death:
-  type: string
+  Death:
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-LiverRelatedDeath:
-  type: string
+  LiverRelatedDeath:
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-LiverTransplant:
-  type: string
+  LiverTransplant:
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-ChronicDILI:
-  type: string
+  ChronicDILI:
+    type: string
     enum:
       - 'No'
       - 'Yes'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-Initial_RUCAM:
-  type: string
+  Initial_RUCAM:
+    type: string
     enum:
       - 'Excluded’
       - 'Unlikely'
@@ -593,8 +974,8 @@ Initial_RUCAM:
       - 'Probable'
       - 'Highly Probable'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-FinalCausalityScore:
-  type: string
+  FinalCausalityScore:
+    type: string
     enum:
       - 'Unlikely'
       - 'Possible'
@@ -602,8 +983,8 @@ FinalCausalityScore:
       - 'Highly Likely'
       - 'Definite'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-DILIN_SeverityScore:
-  type: string
+  DILIN_SeverityScore:
+    type: string
     enum:
       - 'Mild'
       - 'Moderate'
@@ -611,22 +992,22 @@ DILIN_SeverityScore:
       - 'Severe'
       - 'Fatal'
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
-WHONAME_Implicated_Drug1:
-  type: string
+  WHONAME_Implicated_Drug1:
+    type: string
     enum:
       - 'Amoxicillin W/Clavulanic Acid'
      - ‘Other’
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-Implicated_Drug1_Assessment:
-  type: string
+  Implicated_Drug1_Assessment:
+    type: string
     enum:
       - 'Possible 25-50%’
       - ‘Probable 50-75%’
       - ‘Highly likely 75-95%’
       - ‘Definite Greater than 95%’
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-WHONAME_Implicated_Drug2:
-  type: string
+  WHONAME_Implicated_Drug2:
+    type: string
     enum:
       - 'Amoxicillin'
       - 'Telithromycin'
@@ -646,16 +1027,16 @@ WHONAME_Implicated_Drug2:
       - ‘Unspecified Herbal’
       - ‘Other’
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-Implicated_Drug2_Assessment:
-  type: string
+  Implicated_Drug2_Assessment:
+    type: string
     enum:
       - 'Possible 25-50%’
       - ‘Probable 50-75%’
       - ‘Highly likely 75-95%’
       - ‘Definite Greater than 95%’
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-WHONAME_Implicated_Drug3:
-  type: string
+  WHONAME_Implicated_Drug3:
+    type: string
     enum:
       - 'Ivermectin'
       - 'Levofloxacin'
@@ -663,57 +1044,201 @@ WHONAME_Implicated_Drug3:
       - 'Lecithin W/Protein'
       - 'Other'
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-Implicated_Drug3_Assessment:
-  type: string
+  Implicated_Drug3_Assessment:
+    type: string
     enum:
       - 'Possible 25-50%’
       - ‘Probable 50-75%’
       - ‘Highly likely 75-95%’
       - ‘Definite Greater than 95%’
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-Year_DILI_Onset:
+  Hospitalization_NewProlonged:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: ActivityAndBehavior, PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Weeks_DurationOfSickness:
+    type: string
+    enum:
+    - <1
+    - 2-4
+    - '>4'
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  Death:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  LiverRelatedDeath:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  LiverTransplant:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
+  ChronicDILI:
+    type: string
+    enum:
+    - No
+    - Yes
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  Initial_RUCAM:
+    type: string
+    enum:
+    - Excluded
+    - Unlikely
+    - Possible
+    - Probable
+    - Highly Probable
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  FinalCausalityScore:
+    type: string
+    enum:
+    - Unlikely
+    - Possible
+    - Probable
+    - Highly Likely
+    - Definite
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  DILIN_SeverityScore:
+    type: string
+    enum:
+    - Mild
+    - Moderate
+    - Moderate Hospitalized
+    - Severe
+    - Fatal
+    biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
+  WHONAME_Implicated_Drug1:
+    type: string
+    enum:
+    - Amoxicillin W/Clavulanic Acid
+    - Other
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+  Implicated_Drug1_Assessment:
+    type: string
+    enum:
+    - Possible 25-50%
+    - Probable 50-75%
+    - Highly likely 75-95%
+    - Definite Greater than 95%
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+  WHONAME_Implicated_Drug2:
+    type: string
+    enum:
+    - Amoxicillin
+    - Telithromycin
+    - Cefazolin
+    - ‘Sulfamethoxazole W/Trimethoprim’
+    - ‘Cefalexin’
+    - ‘Azithromycin’
+    - ‘Amoxicillin W/Clavulanic Acid’
+    - ‘Levofloxacin’
+    - ‘Penicillin Nos’
+    - ‘Nitrofurantoin’
+    - ‘Cefepime’
+    - ‘Cefuroxime’
+    - ‘Cefdinir’
+    - ‘Ceftriaxone’
+    - ‘Hydroxycut - Ephedra Free’
+    - ‘Unspecified Herbal’
+    - ‘Other’
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+  Implicated_Drug2_Assessment:
+    type: string
+    enum:
+    - Possible 25-50%
+    - Probable 50-75%
+    - Highly likely 75-95%
+    - Definite Greater than 95%
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+  WHONAME_Implicated_Drug3:
+    type: string
+    enum:
+    - Ivermectin
+    - Levofloxacin
+    - ‘Ertapenem'
+    - Lecithin W/Protein
+    - Other
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+  Implicated_Drug3_Assessment:
+    type: string
+    enum:
+    - Possible 25-50%
+    - Probable 50-75%
+    - Highly likely 75-95%
+    - Definite Greater than 95%
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+  Year_DILI_Onset:
     type: integer
     minimum: 1900
     maximum: 2050
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-rs2476601_a:
-  type: string
+  rs2476601_a:
+    type: string
     enum:
-      - TwoCopies
-      - OneCopy
-      - TwoCopies
+    - TwoCopies
+    - OneCopy
+    - TwoCopies
     biolinkType: SequenceVariant
-A*02:01: 
-  type: string
+  A*02:01:
+    type: string
     enum:
-      - TwoCopies
-      - OneCopy
-      - TwoCopies
+    - TwoCopies
+    - OneCopy
+    - TwoCopies
     biolinkType: SequenceVariant
-DRB1*15:01:
-  type: string
+  DRB1*15:01:
+    type: string
     enum:
-      - TwoCopies
-      - OneCopy
-      - TwoCopies
+    - TwoCopies
+    - OneCopy
+    - TwoCopies
     biolinkType: SequenceVariant
-rs1363907_a:
-  type: string
+  rs1363907_a:
+    type: string
     enum:
-      - TwoCopies
-      - OneCopy
-      - TwoCopies
+    - TwoCopies
+    - OneCopy
+    - TwoCopies
     biolinkType: SequenceVariant
-HLA-B*15:18:
-  type: string
+  HLA-B*15:18:
+    type: string
     enum:
-      - TwoCopies
-      - OneCopy
-      - TwoCopies
-    biolinkType: SequenceVariant 
+    - TwoCopies
+    - OneCopy
+    - TwoCopies
+    biolinkType: SequenceVariant
   AADT:
     biolinkType: EnvironmentalExposure
     type: integer
+  Albumin:
+    biolinkType: PhenotypicFeature
+    enum:
+    - 0
+    - 1
+    type: integer
+  Albumin_flag_first:
+    biolinkType: PhenotypicFeature
+    enum:
+    - low
+    - normal
+    - high
+    type: string
+  Albumin_flag_last:
+    biolinkType: PhenotypicFeature
+    enum:
+    - low
+    - normal
+    - high
+    type: string
   ALT:
     biolinkType: PhenotypicFeature
     enum:
@@ -818,26 +1343,21 @@ HLA-B*15:18:
     maximum: 1
     minimum: 0
     type: integer
-  AntiInfectivesAntibiotics:
-    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-    maximum: 1
-    minimum: 0
-    type: integer
-  AntiInfectivesHydroxychloroquine:
-    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-    maximum: 1
-    minimum: 0
-    type: integer
-  AntiInfectivesRemdesivir:
-    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-    maximum: 1
-    minimum: 0
-    type: integer
   Antibiotics:
-    biolinkType: Disease, DiseaseOrPhenotypicFeature
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
+  Hydroxychloroquine:
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+    maximum: 1
+    minimum: 0
+    type: integer
+  Remdesivir:
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+    maximum: 1
+    minimum: 0
+    type: integer
   AnxietyDx:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
@@ -1098,7 +1618,7 @@ HLA-B*15:18:
     - normal
     - high
     type: string
-  Bronchietasis:
+  Bronchiectasis:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
@@ -1182,62 +1702,62 @@ HLA-B*15:18:
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportAmiodarone_gtt:
+  Amiodarone_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportDobutamine_gtt:
+  Dobutamine_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportDopamine_gtt:
+  Dopamine_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportEpinephrine_gtt:
+  Epinephrine_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportEsmolol_gtt:
+  Esmolol_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Dru
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportIsoproterenol_gtt:
+  Isoproterenol_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportLevosimendan_gtt:
+  Levosimendan_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportMilrinone_gtt:
+  Milrinone_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportNorepinephrine_gtt:
+  Norepinephrine_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportPhenylephrine_gtt:
+  Phenylephrine_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupportVasopressin_gtt:
+  Vasopressin_gtt:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  CardiovascularSupporyECLS:
+  ECLS:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
@@ -1252,7 +1772,7 @@ HLA-B*15:18:
     maximum: 1
     minimum: 0
     type: integer
-  ChalrsonComorbidityIndex:
+  CharlsonComorbidityIndex:
     biolinkType: PhenotypicFeature
     maximum: 37
     minimum: 0
@@ -1416,7 +1936,7 @@ HLA-B*15:18:
     type: integer
   DischargeStatus:
     type: string
-    enum: null
+    enum:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   DrugDependenceDx:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
@@ -1739,8 +2259,8 @@ HLA-B*15:18:
   ICU:
     type: string
     enum:
-    - 'No'
-    - 'Yes'
+    - No
+    - Yes
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   IL-6:
     biolinkType: PhenotypicFeature
@@ -1778,32 +2298,32 @@ HLA-B*15:18:
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationAnakinra:
+  Anakinra:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationConvalescentPlasma:
+  ConvalescentPlasma:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationDexamethaone:
+  Dexamethasone:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationIVIG:
+  IntravenousImmunoglobulin:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationPredinoseOrMethylpredinose:
+  PrednisoneOrMethylprednisone:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  ImmunodulationTocilizumab:
+  Tocilizumab:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
@@ -1814,7 +2334,7 @@ HLA-B*15:18:
     minimum: 0
     type: integer
   Inflluenza7pointClinicalStatusScore:
-    biolinkType: null
+    biolinkType:
     maximum: 10
     minimum: 0
     type: integer
@@ -1824,7 +2344,7 @@ HLA-B*15:18:
     minimum: 0
     type: integer
   IsolationFlag:
-    biolinkType: null
+    biolinkType:
     maximum: 1
     minimum: 0
     type: integer
@@ -2232,22 +2752,22 @@ HLA-B*15:18:
     maximum: 1
     minimum: 0
     type: integer
-  RespiratorySupportHFNC:
+  HighFlowNasalCannula:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  RespiratorySupportHNO3orFlolan:
+  NitricAcidOrFlolan:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  RespiratorySupportInvasiveVentilator:
+  InvasiveVentilation:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
     type: integer
-  RespiratorySupportNIPPV:
+  NonInvasivePositivePressureVentilation:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
@@ -2663,7 +3183,7 @@ HLA-B*15:18:
     - high
     type: string
   WHOSeverityScore:
-    biolinkType: null
+    biolinkType:
     maximum: 10
     minimum: 0
     type: integer
@@ -4511,7 +5031,7 @@ HLA-B*15:18:
     minimum: 0
     type: integer
   eb_m313_ever_pregnant:
-    biolinkType: null
+    biolinkType:
     maximum: 1
     minimum: 0
     type: integer
@@ -4571,7 +5091,7 @@ HLA-B*15:18:
     minimum: 0
     type: integer
   eb_m322_babies_delivered_n:
-    biolinkType: null
+    biolinkType:
     enum:
     - '0'
     - '1'
@@ -4584,17 +5104,17 @@ HLA-B*15:18:
     minimum: 0
     type: integer
   he_a004a_birth_low_bw:
-    biolinkType: null
+    biolinkType:
     maximum: 1
     minimum: 0
     type: integer
   he_a004b_birth_preterm:
-    biolinkType: null
+    biolinkType:
     maximum: 1
     minimum: 0
     type: integer
   he_a004c_birth_multi:
-    biolinkType: null
+    biolinkType:
     enum:
     - Twin
     - Triplet
@@ -13667,8 +14187,8 @@ visit:
     minimum: 0
     type: integer
   DischargeStatus:
-    biolinkType: null
-    enum: null
+    biolinkType:
+    enum:
     type: string
   DrugDependenceDxVisit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
@@ -13979,9 +14499,9 @@ visit:
     minimum: 0
     type: integer
   HospitalLOS:
-    biolinkType: null
-    maximum: null
-    minimum: null
+    biolinkType:
+    maximum:
+    minimum:
     type: integer
   HydroxyzineVisit:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
@@ -13994,7 +14514,7 @@ visit:
     minimum: 0
     type: integer
   ICU:
-    biolinkType: null
+    biolinkType:
     maximum: 1
     minimum: 0
     type: integer
@@ -14070,7 +14590,7 @@ visit:
     minimum: 0
     type: integer
   Inflluenza7pointClinicalStatusScore:
-    biolinkType: null
+    biolinkType:
     maximum: 10
     minimum: 0
     type: integer
@@ -14080,7 +14600,7 @@ visit:
     minimum: 0
     type: integer
   IsolationFlag:
-    biolinkType: null
+    biolinkType:
     maximum: 1
     minimum: 0
     type: integer
@@ -14482,17 +15002,17 @@ visit:
     - Urban Restricted Access
     - Rural Restricted Access
     type: string
-  Race:
-    biolinkType: PhenotypicFeature
-    enum:
-    - Native Hawaiian/Pacific Islander
-    - Caucasian
-    - African American
-    - Asian
-    - Unknown
-    - American/Alaskan Native
-    - Other
-    type: string
+#  Race:
+#    biolinkType: PhenotypicFeature
+#    enum:
+#    - Native Hawaiian/Pacific Islander
+#    - Caucasian
+#    - African American
+#    - Asian
+#    - Unknown
+#    - American/Alaskan Native
+#    - Other
+#    type: string
   ReactiveAirwayDxVisit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
@@ -14918,7 +15438,7 @@ visit:
     - high
     type: string
   WHOSeverityScore:
-    biolinkType: null
+    biolinkType:
     maximum: 10
     minimum: 0
     type: integer
@@ -16766,7 +17286,7 @@ visit:
     minimum: 0
     type: integer
   eb_m313_ever_pregnant:
-    biolinkType: null
+    biolinkType:
     maximum: 1
     minimum: 0
     type: integer
@@ -16826,7 +17346,7 @@ visit:
     minimum: 0
     type: integer
   eb_m322_babies_delivered_n:
-    biolinkType: null
+    biolinkType:
     enum:
     - '0'
     - '1'
@@ -16839,17 +17359,17 @@ visit:
     minimum: 0
     type: integer
   he_a004a_birth_low_bw:
-    biolinkType: null
+    biolinkType:
     maximum: 1
     minimum: 0
     type: integer
   he_a004b_birth_preterm:
-    biolinkType: null
+    biolinkType:
     maximum: 1
     minimum: 0
     type: integer
   he_a004c_birth_multi:
-    biolinkType: null
+    biolinkType:
     enum:
     - Twin
     - Triplet

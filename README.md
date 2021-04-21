@@ -666,18 +666,6 @@ pip install -r requirements.txt
 
 ## running
 
-### interactive mode
-
-If run with `--update_a` or `--update_b` options, then it runs in interactive mode.
-
-Example:
-```
-python src/qc.py --a_type features --a ../config/all_features.yaml --update_a ../config/all_features_update.yaml --b_type mapping --b ../config/FHIR_mappings.yml --update_b ../config/FHIR_mappings_update.yaml --table patient visit
-```
-
-### noninteractive mode
-If run without `--update_a` or `--update_b` options, then it runs in noninteractive mode.
-
 Example:
 
 ```
@@ -688,8 +676,6 @@ python src/qc.py \
     --b ../config/FHIR_mappings.yml \
     --update_a ../config/all_features_update.yaml \
     --update_b ../config/FHIR_mappings.yml \
-    --number_entries 10 \
-    --similarity_threshold 0.5 \
     --table patient visit \
     --ignore_suffix Table _flag_first _flag_last 
 ```

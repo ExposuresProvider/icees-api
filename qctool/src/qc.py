@@ -1,126 +1,63 @@
 import sys
-from ruamel.yaml import YAML
 import Levenshtein
 import argparse
 from argparse import RawTextHelpFormatter
 from prettytable import PrettyTable
 import difflib
-from colorama import init, Fore, Back, Style
 from itertools import chain
 import asyncio
+import curses
+import logging
+from tx.functional.either import Left, Right
+from window import Window, Pane, HIGHLIGHT, RESET, init_colors, SELECTED_NORMAL_COLOR
+from file import make_file
 
-init()
+APPLICATION_TITLE = "ICEES FHIR-PIT Configuration Tool"
+HELP_TEXT = "TAB switch table UP DOWN PAGE UP PAGE DOWN navigate A use a B use b C customize S skip U update tables Q exit"
 
+# from https://stackoverflow.com/a/6386990
+logging.basicConfig(filename="qctool.log",
+                            filemode='a',
+                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                            datefmt='%H:%M:%S',
+                            level=logging.DEBUG)
 
-def update_key(d, ok, nk):
-    i = list(d.keys()).index(ok)
-    d.insert(i, nk, d.pop(ok))
+logger = logging.getLogger(__name__)
 
+class Noop:
+    def __str__(self):
+        return ""
 
-class YAMLFile:
-    def __init__(self, filename):
-        self.yaml = YAML(typ="rt")
-        with open(filename) as inf:
-            self.obj = self.yaml.load(inf)
-
-    async def dump(self, filename):
-        with open(filename, "w+") as of:
-            self.yaml.dump(self.obj, of)
-
-
-class FeaturesFile(YAMLFile):
-
-    def __init__(self, filename):
-        super().__init__(filename)
-
-    def get_keys(self, table):
-        return self.obj[table].keys()
-        
-    def update_key(self, table, old_key, new_key):
-        update_key(self.obj[table], old_key, new_key)
-
-        
-class IdentifiersFile(YAMLFile):
-
-    def __init__(self, filename):
-        super().__init__(filename)
-
-    def get_keys(self, table):
-        return self.obj[table].keys()
-        
-    def update_key(self, table, old_key, new_key):
-        update_key(self.obj[table], old_key, new_key)
+    def update(self, name, key_a, file_a, key_b, file_b):
+        pass
 
     
-class MappingFile(YAMLFile):
+class UseA:
+    def __str__(self):
+        return "use a"
 
-    def __init__(self, filename):
-        super().__init__(filename)
+    def update(self, name, key_a, file_a, key_b, file_b):
+        file_b.update_key(name, key_b, key_a)
 
-    def get_sub_objects(self):
-        FHIR = self.obj.get("FHIR", {})
-        GEOID = self.obj.get("GEOID", {})
-        NearestRoad = self.obj.get("NearestRoad", {})
-        NearestPoint = self.obj.get("NearestPoint", {})
-        Visit = self.obj.get("Visit", {})
-        return FHIR, GEOID, NearestRoad, NearestPoint, Visit
+        
+class UseB:
+    def __str__(self):
+        return "use b"
 
-    def get_sub_keys(self, FHIR, GEOID, NearestRoad, NearestPoint, Visit):
-        FHIR_keys = list(FHIR.keys())
-        GEOID_keys = {name: list(dataset["columns"].values()) for name, dataset in GEOID.items()}
-        NearestRoad_keys = {name: {"distance_feature_name": dataset["distance_feature_name"], "attributes_to_features_map": list(map(lambda x: x["feature_name"], dataset["attributes_to_features_map"].values()))} for name, dataset in NearestRoad.items()}
-        NearestPoint_keys = {name: {"distance_feature_name": dataset["distance_feature_name"], "attributes_to_features_map": list(map(lambda x: x["feature_name"], dataset["attributes_to_features_map"].values()))} for name, dataset in NearestPoint.items()}
-        Visit_keys = []
-        return FHIR_keys, GEOID_keys, NearestRoad_keys, NearestPoint_keys, Visit_keys
+    def update(self, name, key_a, file_a, key_b, file_b):
+        file_a.update_key(name, key_a, key_b)
+
     
-    def get_keys(self, table):
-        FHIR_keys, GEOID_keys, NearestRoad_keys, NearestPoint_keys, Visit_keys = self.get_sub_keys(*self.get_sub_objects())
-        def list_keys(x):
-            keys = []
-            for _, a in x.items():
-                keys.append(a["distance_feature_name"])
-                keys.extend(a["attributes_to_features_map"])
-            return keys
-        return FHIR_keys + list(chain(*GEOID_keys.values())) + list_keys(NearestRoad_keys) + list_keys(NearestPoint_keys) + Visit_keys
-        
-    def update_key(self, table, old_key, new_key):
-        FHIR, GEOID, NearestRoad, NearestPoint, Visit = self.get_sub_objects()
-        FHIR_keys, GEOID_keys, NearestRoad_keys, NearestPoint_keys, Visit_keys = self.get_sub_keys(FHIR, GEOID, NearestRoad, NearestPoint, Visit)
-        if old_key in FHIR_keys:
-            update_key(self.obj["FHIR"], old_key, new_key)
-            return
+class Customize:
+    def __init__(self, var_name):
+        self.var_name = var_name
 
-        for name, keys in GEOID_keys.items():
-            if old_key in keys:
-                for column_name, var_name in GEOID[name]["columns"].items():
-                    if var_name == old_key:
-                        GEOID[name]["columns"][column_name] = new_key
-                        return
+    def __str__(self):
+        return f"customize: {self.var_name}"
 
-        for name, keys in NearestRoad_keys.items():
-            if old_key in keys:
-                for attribute_name, feature in NearestRoad[name]["attributes_to_features_map"].items():
-                    if feature["feature_name"] == old_key:
-                        NearestRoad[name]["attributes_to_features_map"][attribute_name]["feature_name"] = new_key
-                        return
-        
-        for name, keys in NearestPoint_keys.items():
-            if old_key in keys:
-                for attribute_name, feature in NearestPoint[name]["attributes_to_features_map"].items():
-                    if feature["feature_name"] == old_key:
-                        NearestPoint[name]["attributes_to_features_map"][attribute_name]["feature_name"] = new_key
-                        return
-        
-        print("variable {old_key} no longer exists")
-
-
-def make_file(ty, filename):
-    if ty == "features":
-        return FeaturesFile(filename)
-    elif ty == "mapping":
-        return MappingFile(filename)
-    elif ty == "identifiers":
-        return IdentifiersFile(filename)
+    def update(self, name, key_a, file_a, key_b, file_b):
+        file_a.update_key(name, key_a, self.var_name)
+        file_b.update_key(name, key_b, self.var_name)
 
     
 def difference_ignore_suffix(a, b, ignore_suffix):
@@ -128,7 +65,7 @@ def difference_ignore_suffix(a, b, ignore_suffix):
     for an in a:
         found = False
         for bn in b:
-            if an == bn or an == bn + ignore_suffix or an + ignore_suffix == bn:
+            if an == bn or any([an == bn + suffix or an + suffix == bn for suffix in ignore_suffix]):
                 found = True
                 break
         if not found:
@@ -136,9 +73,9 @@ def difference_ignore_suffix(a, b, ignore_suffix):
     return diff
             
     
-def truncate_set(a, b, similarity_threshold, n, ignore_suffix):
-    diff_a = difference_ignore_suffix(a, b, ignore_suffix)
-    diff_b = difference_ignore_suffix(b, a, ignore_suffix)
+def truncate_set(a, b, a_only, b_only, similarity_threshold, n, ignore_suffix):
+    diff_a = [] if b_only else difference_ignore_suffix(a, b, ignore_suffix)
+    diff_b = [] if a_only else difference_ignore_suffix(b, a, ignore_suffix)
 
     def find_match(b, an):
         bns = [(bn, Levenshtein.ratio(an, bn)) for bn in b]
@@ -152,18 +89,24 @@ def truncate_set(a, b, similarity_threshold, n, ignore_suffix):
     diff_a_match = [find_match(b, an) for an in diff_a]
     diff_b_match = [find_match(a, bn) for bn in diff_b]
 
-    diff_b_match_switched = [(an, bn, ratio) for bn, an, ratio in diff_b_match]
+    diff_a_match_truncated = [(an, bn, ratio) if ratio >= similarity_threshold else (an, None, None) for an, bn, ratio in diff_a_match]
+    diff_b_match_truncated = [(bn, an, ratio) if ratio >= similarity_threshold else (bn, None, None) for bn, an, ratio in diff_b_match]
 
-    diff_match = sorted(list(set(diff_a_match) | set(diff_b_match_switched)), reverse=True, key=lambda t: t[2])
+    diff_b_match_switched = [(an, bn, ratio) for bn, an, ratio in diff_b_match_truncated]
+
+    diff_a_match_dir = {(an, bn, ratio, "ab" if bn in diff_b else "a") for an, bn, ratio in diff_a_match_truncated}
+    diff_b_match_dir = {(an, bn, ratio, "ab" if an in diff_a else "b") for an, bn, ratio in diff_b_match_switched}
+
+    ls = sorted(list(diff_a_match_dir | diff_b_match_dir), reverse=True, key=lambda t: t[2] or 0)
     
-    ls = [(an, bn, ratio) if ratio >= similarity_threshold else (an, None, None) for an, bn, ratio in diff_match]
-
     if n == -1:
         topn = ls
     else:
         topn = ls[:n]
+
+    topnaction = list(map(lambda x: [x[0], x[1], x[2], x[3], Noop()], ls))
         
-    return topn, n >= 0 and len(ls) > n
+    return topnaction, n >= 0 and len(ls) > n
 
 
 def colorize_diff(a, b):
@@ -171,8 +114,9 @@ def colorize_diff(a, b):
     opcodes = sm.get_opcodes()
     a_colorized = ""
     b_colorized = ""
-    ab = Back.BLUE
-    bb = Back.BLUE
+    ab = HIGHLIGHT
+    bb = HIGHLIGHT
+    reset_all = RESET
     for tag, i1, i2, j1, j2 in opcodes:
         a_segment = a[i1:i2]
         b_segment = b[j1:j2]
@@ -180,95 +124,320 @@ def colorize_diff(a, b):
             a_colorized += a_segment
             b_colorized += b_segment
         elif tag == "delete":
-            a_colorized += Fore.WHITE + ab + a_segment + Style.RESET_ALL
+            a_colorized += ab + a_segment + reset_all
         elif tag == "insert":
-            b_colorized += Fore.WHITE + bb + b_segment + Style.RESET_ALL
+            b_colorized += bb + b_segment + reset_all
         elif tag == "replace":
-            a_colorized += Fore.WHITE + ab + a_segment + Style.RESET_ALL
-            b_colorized += Fore.WHITE + bb + b_segment + Style.RESET_ALL
+            a_colorized += ab + a_segment + reset_all
+            b_colorized += bb + b_segment + reset_all
     return (a_colorized, b_colorized)
     
     
 def to_prettytable(l):
-    if l[1] is None:
-        return [l[0], "", ""]
+    if l[0] is None:
+        return ["", l[1], "", l[3], str(l[4])]
+    elif l[1] is None:
+        return [l[0], "", "", l[3], str(l[4])]
     else:
-        return list(colorize_diff(l[0], l[1])) + [f"{l[2]:.2f}"]
+        return list(colorize_diff(l[0], l[1])) + [f"{l[2]:.2f}", l[3], str(l[4])]
 
 
-def print_matches(left, right, table, ellipsis):
-    table_copy = list(table)
-    if ellipsis:
-        table_copy.append(["...", None, None])
+def print_matches(window, left, right, a_type, b_type, a_only, b_only, a_update, b_update, table_names, similarity_threshold, max_entries, ignore_suffix):
+    
+    top_pane = window.children["top_pane"]
+    left_pane = window.children["left_pane"]
+    right_pane = window.children["right_pane"]
+    horizontal_splitter = window.children["horizontal_splitter"]
+    vertical_splitter = window.children["vertical_splitter"]
+    
+    ntables = len(table_names)
+    current_table = 0
 
-    x = PrettyTable()
-    x.field_names = [left, right, "ratio"]
+    def get_current_row_id():
+        return max(0, top_pane.current_document_y - 3)
+
+    def get_total_rows(tables):
+        name = table_names[current_table]
+        table, _ = tables[name]
+        return len(table)
         
-    x.add_rows(map(to_prettytable, table_copy))
-    print(x)
-    
-    
-async def interactive_update(left, right, a_file, b_file, a_update, b_update, table_name, table, ellipsis):
-    done = False
-    n = len(table)
-    aws = []
-    for i, row in enumerate(table):
+    def get_current_row(tables):
+        name = table_names[current_table]
+        table, ellipsis = tables[name]
+        table_y = get_current_row_id()
+        row = table[table_y] if table_y < len(table) else [None, None, None, None, None]
+        return row
 
-        print(f"{i+1} / {n}")
+    def refresh_bottom_panes(a_file, b_file, tables):
+        name = table_names[current_table]
+        key_a, key_b, _, _, _ = get_current_row(tables)
+        if key_a is None:
+            dump_get_a = ""
+        else:
+            dump_get_a = a_file.dump_get(name, key_a)
+    
+        if key_b is None:
+            dump_get_b = ""
+        else:
+            dump_get_b = b_file.dump_get(name, key_b)
+
+        left_pane._clear()
+        right_pane._clear()
+        left_pane._append(dump_get_a)
+        right_pane._append(dump_get_b)
+        i = get_current_row_id() + 1
+        n = get_total_rows(tables)
+        if i > n: # i might be on the ...
+            i = n
+
+        footer = f"{HIGHLIGHT}{i} / {n}{RESET} {HELP_TEXT}"
+        window._set_footer(footer)
+
+        window.update()
+
+    def refresh_content(a_file, b_file, tables):
+        nav = f"{APPLICATION_TITLE} "
+        for i, n in enumerate(table_names):
+            if i > 0:
+                nav += " "
+            if i == current_table:
+                nav += HIGHLIGHT
+                nav += n
+                nav += RESET
+            else:
+                nav += n
+        window._set_header(nav)
+
+        name = table_names[current_table]
+        table, ellipsis = tables[name]
+        table_copy = list(table)
+        if ellipsis:
+            table_copy.append(["...", None, None, "", Noop()])
+
         x = PrettyTable()
-        x.field_names = [left, right, "ratio"]
-        x.add_row(to_prettytable(row))
-        
-        print(x)
+        x.field_names = [left, right, "ratio", "direction", "update"]
 
-        if row[0] is not None and row[1] is not None:
-            while True:
-                if b_file is not None:
-                    print("a) use a")
-                if a_file is not None:
-                    print("b) use b")
-                    if b_file is not None:
-                        print("c) customize")
-                print("""s) skip
-e) exit""")
-                action = input()
+        x.add_rows(map(to_prettytable, table_copy))
+        top_pane.top_padding = 3
+        top_pane.bottom_padding = 1
+        top_pane._replace(str(x))
+        window.update()
+        refresh_bottom_panes(a_file, b_file, tables)
 
-                if action == "a":
-                    b_file.update_key(table_name, row[1], row[0])
-                    if b_update is not None:
-                        aws.append(b_file.dump(b_update))
-                    break
-                elif action == "b":
-                    a_file.update_key(table_name, row[0], row[1])
-                    if a_update is not None:
-                        aws.append(a_file.dump(a_update))
-                    break
-                elif action == "c":
-                    var_name = input("input variable name: ")
-                    a_file.update_key(table_name, row[0], var_name)
-                    b_file.update_key(table_name, row[1], var_name)
-                    if a_update is not None:
-                        aws.append(a_file.dump(a_update))
-                    if b_update is not None:
-                        aws.append(b_file.dump(b_update))
-                    break
-                elif action == "s":
-                    break
-                elif action == "e":
-                    done = True
-                    break
-                else:
-                    print("unsupported action, try again")
-            if done:
-                break
-                
-    if ellipsis:
-        print("more diff remaining")
+    def refresh(a_file, b_file, tables):
+        top_pane._clear()
+        nav = f"{APPLICATION_TITLE} "
+        for i, n in enumerate(table_names):
+            if i > 0:
+                nav += " "
+            if i == current_table:
+                nav += HIGHLIGHT
+                nav += n
+                nav += RESET
+            else:
+                nav += n
+        window._set_header(nav)
 
-    await asyncio.gather(*aws)
-    
-    
-async def main():
+        name = table_names[current_table]
+        table, ellipsis = tables[name]
+        table_copy = list(table)
+        if ellipsis:
+            table_copy.append(["...", None, None, "", Noop()])
+
+        x = PrettyTable()
+        x.field_names = [left, right, "ratio", "direction", "update"]
+
+        x.add_rows(map(to_prettytable, table_copy))
+        top_pane.top_padding = 3
+        top_pane.bottom_padding = 1
+        top_pane._append(str(x))
+        window.update()
+        refresh_bottom_panes(a_file, b_file, tables)
+
+    def refresh_files():
+        window.set_header(APPLICATION_TITLE)
+        window.set_footer(f"loading {left} ...")
+        try:
+            a_file = make_file(a_type, left)
+        except Exception as e:
+            sys.stderr.write(f"error loading {left}: {e}\n")
+            sys.exit(-1)
+
+        window.set_footer(f"loading {right} ...")
+        try:
+            b_file = make_file(b_type, right)
+        except Exception as e:
+            sys.stderr.write(f"error loading {right}: {e}\n")
+            sys.exit(-1)
+
+        window.set_footer(f"comparing...")
+        tables = {}
+        for table in table_names:
+            a_var_names = a_file.get_keys(table)
+
+            b_var_names = b_file.get_keys(table)
+
+            tables[table] = truncate_set(a_var_names, b_var_names, a_only, b_only, similarity_threshold, max_entries, ignore_suffix)
+
+        refresh(a_file, b_file, tables)
+        return a_file, b_file, tables
+
+    a_file, b_file, tables = refresh_files()
+
+    while True:
+
+        ch = window.getch()
+        if ch == curses.KEY_RESIZE:
+            height, width = window.size()
+            splitterx = width // 2
+            splittery = height // 2
+            top_height = max(0, splittery - 1)
+            bottom_height = max(0, height - splittery - 2)
+            left_width = splitterx
+            right_width = width - splitterx - 1
+            top_pane.resize_move(top_height, width, 1, 0)
+            left_pane.resize_move(bottom_height, left_width, splittery + 1, 0)
+            right_pane.resize_move(bottom_height, right_width, splittery + 1, splitterx + 1)
+            horizontal_splitter.resize_move(1, width, splittery, 0)
+            vertical_splitter.resize_move(bottom_height, 1, splittery + 1, splitterx)
+            window.update()
+        elif ch == curses.KEY_UP:
+            top_pane.move(-1, 0)
+            refresh_bottom_panes(a_file, b_file, tables)
+        elif ch == curses.KEY_DOWN:
+            top_pane.move(+1, 0)
+            refresh_bottom_panes(a_file, b_file, tables)
+        elif ch == curses.KEY_PPAGE:
+            top_pane.move_page(-1, 0)
+            refresh_bottom_panes(a_file, b_file, tables)
+        elif ch == curses.KEY_NPAGE:
+            top_pane.move_page(+1, 0)
+            refresh_bottom_panes(a_file, b_file, tables)
+        elif ch == ord("\t"):
+            current_table += 1
+            current_table %= ntables
+            refresh(tables)
+        elif ch == ord("a"):
+            if b_update is not None:
+                name = table_names[current_table]
+                row = get_current_row(tables)
+                row[4] = UseA()
+                refresh_content(a_file, b_file, tables)
+        elif ch == ord("b"):
+            if a_update is not None:
+                name = table_names[current_table]
+                row = get_current_row(tables)
+                row[4] = UseB()
+                refresh_content(a_file, b_file, tables)
+        elif ch == ord("c"):
+            if a_update is not None or b_update is not None:
+                name = table_names[current_table]
+                row = get_current_row(tables)
+                key_a, key_b, _, _, _ = row
+
+                window.set_footer("ENTER confirm ESCAPE exit")
+                h, w = window.size()
+                popw = w * 4 // 5
+                poph = 5
+                popy = (h - 5) // 2
+                popx = w // 10
+                pop = curses.newwin(poph, popw, popy, popx)
+                c = ""
+
+                def refresh_customization():
+                    pop.clear()
+                    pop.insstr(0,0,"-" * popw)
+                    pop.insstr(1,0,f"|a: {key_a}")
+                    pop.insstr(2,0,f"|b: {key_b}")
+                    pop.insstr(3,0,f"|c: ")
+                    pop.insstr(4,0,"-" * popw)
+                    text = c[-popw+6:]
+                    padding = " " * (popw - 5)
+                    pop.insstr(3,4, padding, curses.color_pair(SELECTED_NORMAL_COLOR))
+                    for i in range(1,4):
+                        pop.insstr(i,popw-1, "|")
+                    pop.addstr(3,4,text, curses.color_pair(SELECTED_NORMAL_COLOR))
+                    pop.refresh()
+
+                refresh_customization()
+
+                while True:
+                    ch = pop.getch()
+                    if ch == curses.KEY_ENTER or ch == ord("\n") or ch == ord("\r"):
+                        break
+                    elif ch == curses.KEY_BACKSPACE or ch == ord("\b") or ch == 127:
+                        c = c[:-1]
+                        refresh_customization()
+                    elif ch == 27:
+                        c = None
+                        break
+                    else:
+                        c += chr(ch)
+                        refresh_customization()
+                del pop
+
+                if c is not None:
+                    row[4] = Customize(c)
+                refresh_content(a_file, b_file, tables)
+        elif ch == ord("s"):
+            if a_update is not None:
+                name = table_names[current_table]
+                row = get_current_row(tables)
+                row[4] = Noop()
+                refresh_content(a_file, b_file, tables)
+        elif ch == ord("u"):
+            for name, (table, _) in tables.items():
+                window.set_footer(f"updating table {name}...")
+                for row in table:
+                    key_a, key_b, _, _, action = row
+                    action.update(name, key_a, a_file, key_b, b_file)
+                    row[4] = Noop()
+                if a_update is not None:
+                    a_file.dump(a_update)
+                if b_update is not None:
+                    b_file.dump(b_update)
+            file_a, file_b, tables = refresh_files()
+        elif ch == ord("q"):
+            break
+        else:
+            continue
+
+
+def curses_main(stdscr, args):
+    a_filename = args.a
+    a_type = args.a_type
+    a_update = args.update_a
+    a_only = args.a_only
+
+    b_filename = args.b
+    b_type = args.b_type
+    b_update = args.update_b
+    b_only = args.b_only
+
+    tables = args.table
+    max_entries = args.number_entries
+    ignore_suffix = args.ignore_suffix
+    similarity_threshold = args.similarity_threshold
+
+    init_colors()
+    height, width = stdscr.getmaxyx()
+    window = Window(stdscr)
+    splitterx = width // 2
+    splittery = height // 2
+    top_height = max(0, splittery - 1)
+    bottom_height = max(0, height - splittery - 2)
+    left_width = splitterx
+    right_width = width - splitterx - 1
+    top_pane = window.pane("top_pane", top_height, width, 1, 0, True)
+    left_pane = window.pane("left_pane", bottom_height, left_width, splittery + 1, 0, False)
+    right_pane = window.pane("right_pane", bottom_height, right_width, splittery + 1, splitterx + 1, False)
+    horizontal_splitter = window.fill("horizontal_splitter", 1, width, splittery, 0, "-")
+    vertical_splitter = window.fill("vertical_splitter", bottom_height, 1, splittery + 1, splitterx, "|")
+
+    print_matches(window, a_filename, b_filename, a_type, b_type, a_only, b_only, a_update, b_update, tables, similarity_threshold, max_entries, ignore_suffix)
+
+
+def main():
     parser = argparse.ArgumentParser(description="""ICEES FHIR-PIT QC Tool
 
 Compare feature variable names in two files. Use --a and --b to specify filenames, --a_type and --b_type to specify file types, --update_a and --update_b to specify output files. Files types are one of features, mapping, and identifiers. If --update_a or --update_b is not specified then the files cannot be updated.""", formatter_class=RawTextHelpFormatter)
@@ -280,9 +449,13 @@ Compare feature variable names in two files. Use --a and --b to specify filename
                         help='type of file a')
     parser.add_argument('--b_type', metavar='B_TYPE', choices=["features", "mapping", "identifiers"], required=True,
                         help='type of file b')
+    parser.add_argument('--a_only', default=False, action="store_true",
+                        help='only show variable names in a that are not in b')
+    parser.add_argument('--b_only', default=False, action="store_true",
+                        help='only show variable names in b that are not in a')
     parser.add_argument('--number_entries', metavar='NUMBER_ENTRIES', type=int, default=-1,
                         help='number of entries to display, -1 for unlimited')
-    parser.add_argument('--ignore_suffix', metavar='IGNORE_SUFFIX', type=str, default="",
+    parser.add_argument('--ignore_suffix', metavar='IGNORE_SUFFIX', type=str, default=[], nargs="*",
                         help='the suffix to ignore')
     parser.add_argument("--similarity_threshold", metavar="SIMILARITY_THRESHOLD", type=float, default=0.5,
                         help="the threshold for similarity suggestions")
@@ -295,43 +468,9 @@ Compare feature variable names in two files. Use --a and --b to specify filename
 
     args = parser.parse_args()
 
-    a_filename = args.a
-    a_type = args.a_type
-    a_update = args.update_a
+    curses.wrapper(lambda stdscr: curses_main(stdscr, args))
 
-    b_filename = args.b
-    b_type = args.b_type
-    b_update = args.update_b
-
-    tables = args.table
-    n = args.number_entries
-    ignore_suffix = args.ignore_suffix
-    similarity_threshold = args.similarity_threshold
-
-    interactive = a_update is not None or b_update is not None
-
-    try:
-        a_file = make_file(a_type, a_filename)
-    except Exception as e:
-        print(f"error loading {a_filename}: {e}")
-        sys.exit(-1)
-
-    try:
-        b_file = make_file(b_type, b_filename)
-    except Exception as e:
-        print(f"error loading {b_filename}: {e}")
-        sys.exit(-1)
-
-    for table in tables:
-        a_var_names = a_file.get_keys(table)
-        b_var_names = b_file.get_keys(table) 
-        print(f"feature vars table {table}:")
-        print(f"{a_filename} diff {b_filename}:")
-        if interactive:
-            await interactive_update(a_filename, b_filename, a_file, b_file, a_update, b_update, table, *truncate_set(a_var_names, b_var_names, similarity_threshold, n, ignore_suffix))
-        else:
-            print_matches(a_filename, b_filename, *truncate_set(a_var_names, b_var_names, similarity_threshold, n, ignore_suffix))
 
 if __name__ == "__main__":
-    asyncio.run(main())    
+    main()
 

@@ -19,7 +19,7 @@ from sqlalchemy.sql import select, func
 from statsmodels.stats.multitest import multipletests
 from tx.functional.maybe import Nothing, Just
 
-from .mappings import mappings
+from .mappings import mappings, value_sets
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -205,7 +205,7 @@ def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
         # k = f.name
         # levels = f.options
         # if levels is None:
-        levels = get_feature_levels(conn, table_name, year, k)
+        levels = get_feature_levels(k)
         ret = select_feature_count(
             conn,
             table_name,
@@ -691,13 +691,9 @@ def select_feature_count(
     return count
 
 
-def get_feature_levels(conn, table_name, year, feature):
+def get_feature_levels(feature):
     """Get feature levels."""
-    s = f"SELECT DISTINCT \"{feature}\" FROM {table_name} WHERE \"{feature}\" IS NOT NULL"
-    if year is not None:
-        s += f" AND year = {year}"
-    s += f" ORDER BY \"{feature}\";"
-    return list(map(lambda row: row[0], conn.execute(s)))
+    return value_sets[feature]
 
 
 def select_feature_association(
@@ -715,7 +711,7 @@ def select_feature_association(
     rs = []
     feature_names = filter(feature_set, get_features(conn, table_name))
     for feature_name in feature_names:
-        levels = get_feature_levels(conn, table_name, year, feature_name)
+        levels = get_feature_levels(feature_name)
         ret = select_feature_matrix(
             conn, table_name, year,
             cohort_features, cohort_year, feature,
@@ -782,7 +778,7 @@ def validate_range(conn, table_name, feature):
     # x = next(filter(lambda x: x.name == feature_name, features[table_name]))
     # levels = x.options
     year = None
-    levels = get_feature_levels(conn, table_name, year, feature_name)
+    levels = get_feature_levels(feature_name)
     if levels:
         n = len(levels)
         coverMap = [False for _ in levels]

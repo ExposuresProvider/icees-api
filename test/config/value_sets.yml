@@ -1,0 +1,23 @@
+AgeStudyStart:
+  - 0-2
+  - 3-17
+  - 18-34
+  - 35-50
+  - 51-69
+  - 70-89
+AsthmaDx:
+  - 0
+  - 1
+Albuterol:
+  - 0
+  - 1
+AvgDailyPM2.5Exposure:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+EstResidentialDensity:
+  - 1
+  - 2
+  - 3

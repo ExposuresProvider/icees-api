@@ -295,7 +295,7 @@ def get(conn, query):
 
 def query_feature(conn, table_name, feature):
     """Generate feature specification."""
-    levels = get_feature_levels(conn, table_name, None, feature)
+    levels = get_feature_levels(feature)
     return {
         "feature_name": feature,
         "feature_qualifiers": [{

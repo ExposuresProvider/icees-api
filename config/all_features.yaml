@@ -806,7 +806,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   AST_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -826,7 +826,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   AbsoluteNeutrophilCount_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -835,6 +835,26 @@ patient:
     - high
     type: string
   AbsoluteNeutrophilCount_flag_last:
+    biolinkType: PhenotypicFeature
+    enum:
+    - low
+    - normal
+    - high
+    type: string
+  AbsoluteLymphocyteCount:
+    biolinkType: PhenotypicFeature
+    enum:
+    - 0
+    - 1
+    type: integer
+  AbsoluteLymphocyteCount_flag_first:
+    biolinkType: PhenotypicFeature
+    enum:
+    - low
+    - normal
+    - high
+    type: string
+  AbsoluteLymphocyteCount_flag_last:
     biolinkType: PhenotypicFeature
     enum:
     - low
@@ -1088,7 +1108,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   BaseDeficit_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1125,7 +1145,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   BloodUreaNitrogen_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1145,7 +1165,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   BrainNatriureticPeptide_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1164,7 +1184,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   Budesonide:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
@@ -1175,7 +1195,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   C-reactiveProtein_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1200,7 +1220,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   CK_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1239,7 +1259,7 @@ patient:
     - 45-64
     - 65-89
     type: string
-  CancerDiseaseDx:
+  CancerDx:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
@@ -1318,7 +1338,7 @@ patient:
     biolinkType: PhenotypicFeature
     maximum: 37
     minimum: 0
-    type: interger
+    type: integer
   CoronaryArteryDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
@@ -1333,7 +1353,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   ChronicObstructivePulmonaryDiseaseDx:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
@@ -1363,12 +1383,12 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   D-dimer:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   D-dimer_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1445,7 +1465,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   DISTANCE:
     biolinkType: EnvironmentalExposure
     maximum: 6
@@ -1460,7 +1480,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   DepressionDx:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
@@ -1667,7 +1687,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   Ferritin_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1743,7 +1763,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   Hemoglobin_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1763,7 +1783,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   HgbA1C_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1809,7 +1829,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   IL-6_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1900,7 +1920,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   LDH_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1920,7 +1940,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   Lactate_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -1944,7 +1964,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   Leuprolide:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
@@ -1979,7 +1999,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   MaxDailyOzoneExposure:
     biolinkType: ChemicalSubstance, ChemicalExposure
     maximum: 5
@@ -2074,7 +2094,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   Mometasone:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
@@ -2089,7 +2109,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   O3_ANNUAL_AVERAGE_cut:
     biolinkType: EnvironmentalExposure
     maximum: 5
@@ -2138,7 +2158,7 @@ patient:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   PM25_ANNUAL_AVERAGE_cut:
     biolinkType: EnvironmentalExposure
     maximum: 5
@@ -2162,7 +2182,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   PlateletCount_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2202,7 +2222,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   Procalcitonin_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2399,7 +2419,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumBicarbonate_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2419,7 +2439,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumChloride_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2439,7 +2459,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumCreatinine_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2459,7 +2479,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumGlucose_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2479,7 +2499,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumPotassium_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2499,7 +2519,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumSodium_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2538,7 +2558,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SpO2FiO2ratio_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2558,7 +2578,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SvO2_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2674,7 +2694,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   Troponin_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -2709,7 +2729,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   WBCcount_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -6076,13 +6096,13 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   pCO2ArterialVenous:
     biolinkType: PhenotypicFeature
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   pCO2ArterialVenous_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -6116,7 +6136,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   pH_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -6136,7 +6156,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   pO2Arterial_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -6156,7 +6176,7 @@ patient:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   pO2FiO2ratio_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13018,7 +13038,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   ALT_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13038,7 +13058,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   AST_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13058,7 +13078,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   AbsoluteNeutrophilCount_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13330,7 +13350,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   BaseDeficit_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13367,7 +13387,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   BloodUreaNitrogen_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13387,7 +13407,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   BrainNatriureticPeptide_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13406,7 +13426,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   BudesonideVisit:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
@@ -13417,7 +13437,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   C-reactiveProtein_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13442,7 +13462,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   CK_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13560,7 +13580,7 @@ visit:
     biolinkType: PhenotypicFeature
     maximum: 37
     minimum: 0
-    type: interger
+    type: integer
   ChronicArteryDiseaseDx:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
@@ -13575,7 +13595,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   ChronicObstructivePulmonaryDiseaseDx:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
@@ -13610,12 +13630,12 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   D-dimer:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   D-dimer_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13692,7 +13712,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   DISTANCE:
     biolinkType: EnvironmentalExposure
     maximum: 6
@@ -13707,7 +13727,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   DepressionDxVisit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
@@ -13919,7 +13939,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   Ferritin_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -13995,7 +14015,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   Hemoglobin_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14015,7 +14035,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   HgbA1C_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14060,7 +14080,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   IL-6_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14151,7 +14171,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   LDH_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14171,7 +14191,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   Lactate_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14195,7 +14215,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   LeuprolideVisit:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
@@ -14230,7 +14250,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   Max24hOzoneExposure:
     biolinkType: ChemicalSubstance, ChemicalExposure
     maximum: 5
@@ -14325,7 +14345,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   MometasoneVisit:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
@@ -14350,7 +14370,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   O3_ANNUAL_AVERAGE_cut:
     biolinkType: EnvironmentalExposure
     maximum: 5
@@ -14399,7 +14419,7 @@ visit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
-    type: interger
+    type: integer
   PM25_ANNUAL_AVERAGE_cut:
     biolinkType: EnvironmentalExposure
     maximum: 5
@@ -14423,7 +14443,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   PlateletCount_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14463,7 +14483,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   Procalcitonin_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14655,7 +14675,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumBicarbonate_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14675,7 +14695,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumChloride_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14695,7 +14715,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumCreatinine_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14715,7 +14735,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumGlucose_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14735,7 +14755,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumPotassium_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14755,7 +14775,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SerumSodium_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14794,7 +14814,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SpO2FiO2ratio_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14814,7 +14834,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   SvO2_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14921,7 +14941,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   Troponin_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -14959,7 +14979,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   WBCcount_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -18326,13 +18346,13 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   pCO2ArterialVenous:
     biolinkType: PhenotypicFeature
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   pCO2ArterialVenous_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -18366,7 +18386,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   pH_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -18386,7 +18406,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   pO2Arterial_flag_first:
     biolinkType: PhenotypicFeature
     enum:
@@ -18406,7 +18426,7 @@ visit:
     enum:
     - 0
     - 1
-    type: interger
+    type: integer
   pO2FiO2ratio_flag_first:
     biolinkType: PhenotypicFeature
     enum:

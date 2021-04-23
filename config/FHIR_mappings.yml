@@ -43,7 +43,7 @@ FHIR:
       code: 'SCTID: 14821001'
             # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=14821001&edition=MAIN/2020-07-31&release=&languages=en
             # note: heterotaxy
-  wet cough:
+  DailyWetCough:
     Condition:
     - system: https://browser.ihtsdotools.org
       code: 'SCTID: 28743005'
@@ -265,7 +265,7 @@ FHIR:
     - system: http://loinc.org
       code: 48067-3
             # note: https://search.loinc.org/searchLOINC/search.zul?query=d+dimer
-  LDH- system, units:
+  LDH:
     Measurement:
     - system: http://loinc.org
       code: 47678-8
@@ -805,7 +805,7 @@ FHIR:
     - system: http://loinc.org
       code: 57366-7
             # note: https://search.loinc.org/searchLOINC/search.zul?query=lactate
-  SvO2, [units]:
+  SvO2:
     Measurement:
     - system: http://loinc.org
       code: 74105-8
@@ -824,7 +824,7 @@ FHIR:
     - system: http://loinc.org
       code: 71837-9
             # note: https://search.loinc.org/searchLOINC/search.zul?query=mixed+venous+oxygen+saturation
-  White blood cell count, cells 103/uL:
+  WBCcount:
     Measurement:
     - system: http://loinc.org
       code: 53286-1
@@ -1110,7 +1110,7 @@ FHIR:
     - system: http://loinc.org
       code: 35009-0
             # note: https://search.loinc.org/searchLOINC/search.zul?query=Absolute+neutrophil+count
-  Absolute lymphocyte count (ALC), cells 103/uL:
+  AbsoluteLymphocyteCount:
     Measurement:
     - system: http://loinc.org
       code: 731-0
@@ -1699,7 +1699,7 @@ FHIR:
     - system: http://loinc.org
       code: 72648-9
             # note: https://search.loinc.org/searchLOINC/search.zul?query=serum+glucose
-  ALT, [units]:
+  ALT:
     Measurement:
     - system: http://loinc.org
       code: 76625-3
@@ -1717,7 +1717,7 @@ FHIR:
     - system: http://loinc.org
       code: 25302-1
             # note: https://search.loinc.org/searchLOINC/search.zul?query=alanine+aminotransferase+serum+or+plasma
-  AST, [units]:
+  AST:
     Measurement:
     - system: http://loinc.org
       code: 1920-8
@@ -1770,7 +1770,7 @@ FHIR:
     - system: http://loinc.org
       code: 30934-4
             # note: https://search.loinc.org/searchLOINC/search.zul?query=brain+natriuretic+peptide
-  CK [type], [units]:
+  CK:
     Measurement:
     - system: http://loinc.org
       code: 13969-1
@@ -1787,7 +1787,7 @@ FHIR:
             # note: https://search.loinc.org/searchLOINC/search.zul?query=Estimated+GFR
 
   # Medications/Treatments
-  Supplemental Oxygen:
+  RespiratorySupportSupplementalO2:
     Procedure:
     - system: https://browser.ihtsdotools.org
       code: 'SCTID: 931000119107'
@@ -1795,7 +1795,7 @@ FHIR:
     - system: https://browser.ihtsdotools.org
       code: 'SCTID: 60651000119103'
             # note:https://browser.ihtsdotools.org/?perspective=full&conceptId1=60651000119103&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
-  HF NC:
+  HighFlowNasalCannula:
     Procedure:
     - system: https://browser.ihtsdotools.org
       code: 'SCTID: 371907003'
@@ -1803,7 +1803,7 @@ FHIR:
       code: 'SCTID: 426854004'
             # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=426854004&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
             # note: searched for nasal cannula
-  NIPPV:
+  NonInvasivePositivePressureVentilation:
     Procedure:
     - system: https://browser.ihtsdotools.org
       code: 'SCTID: 447837008'
@@ -1908,7 +1908,7 @@ FHIR:
     - system: null
       code: 6902
             # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=methylprednisolone
-  IVIG:
+  IntravenousImmunoglobulin:
     Substance:
     - system: http://www.nlm.nih.gov/research/umls/rxnorm
       code: 42386

@@ -14303,7 +14303,6 @@ visit:
   Avg24hNOxExposure_2: *id005
   Avg24hNOxExposure_2_qcut: *id005
   Avg24hOzoneExposure: *id006
-  - CHEBI_25812
   Avg24hOzoneExposure_StudyAvg: *id006
   Avg24hOzoneExposure_StudyAvg_qcut: *id006
   Avg24hOzoneExposure_StudyMax: *id006

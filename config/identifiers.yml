@@ -14441,7 +14441,6 @@ visit:
   LeuprolideVisit: *id058
   MajorRoadwayHighwayExposure: *id059
   Max24hOzoneExposure: *id006
-  - CHEBI_25812
   Max24hOzoneExposure_2: *id006
   Max24hOzoneExposure_2_qcut: *id006
   Max24hOzoneExposure_StudyAvg: *id006

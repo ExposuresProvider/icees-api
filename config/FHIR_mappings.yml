@@ -132,7 +132,7 @@ FHIR:
     - system: https://icd.who.int
       code: N18
             # note: https://icd.who.int/browse10/2019/en#/N18
-  Coronary Artery Disease:
+  CoronaryArteryDisease:
     Condition:
     - system: https://icd.who.int
       code: I25.1
@@ -152,7 +152,7 @@ FHIR:
     - system: https://icd.who.int
       code: K70-K77
             # note: https://icd.who.int/browse10/2019/en#/K76.9
-  Cancer:
+  CancerDx:
     Condition:
     - system: https://icd.who.int
       code: C00-C97
@@ -1817,7 +1817,7 @@ FHIR:
     - system: https://browser.ihtsdotools.org
       code: 'SCTID: 266700009'
             # note: https://browser.ihtsdotools.org/?perspective=full&conceptId1=266700009&edition=MAIN/SNOMEDCT-US/2020-09-01&release=&languages=en
-  Nitric Oxide or Flolan:
+  NitricOxideOrFolan:
     MedicationRequest:
     - system: http://www.nlm.nih.gov/research/umls/rxnorm
       code: 7442
@@ -1905,7 +1905,7 @@ FHIR:
     - system: http://www.nlm.nih.gov/research/umls/rxnorm
       code: 8640
             # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=prednisone
-    - system:
+    - system: null
       code: 6902
             # note: https://mor.nlm.nih.gov/RxNav/search?searchBy=String&searchTerm=methylprednisolone
   IVIG:

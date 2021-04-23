@@ -3,7 +3,7 @@ patient:
     type: integer
     minimum: 1
     maximum: 9999
-    biolinkType:
+    biolinkType: null
   AgeQualifyingLab:
     type: integer
     minimum: 1
@@ -1319,7 +1319,7 @@ patient:
     maximum: 37
     minimum: 0
     type: interger
-  ChronicArteryDiseaseDx:
+  CoronaryArteryDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
@@ -1478,7 +1478,7 @@ patient:
     type: integer
   DischargeStatus:
     type: string
-    enum:
+    enum: null
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   DrugDependenceDx:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
@@ -1876,7 +1876,7 @@ patient:
     minimum: 0
     type: integer
   Inflluenza7pointClinicalStatusScore:
-    biolinkType:
+    biolinkType: null
     maximum: 10
     minimum: 0
     type: integer
@@ -1886,7 +1886,7 @@ patient:
     minimum: 0
     type: integer
   IsolationFlag:
-    biolinkType:
+    biolinkType: null
     maximum: 1
     minimum: 0
     type: integer
@@ -2299,7 +2299,7 @@ patient:
     maximum: 1
     minimum: 0
     type: integer
-  NitricAcidOrFlolan:
+  NitricOxideOrFolan:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0
@@ -2725,7 +2725,7 @@ patient:
     - high
     type: string
   WHOSeverityScore:
-    biolinkType:
+    biolinkType: null
     maximum: 10
     minimum: 0
     type: integer
@@ -4573,7 +4573,7 @@ patient:
     minimum: 0
     type: integer
   eb_m313_ever_pregnant:
-    biolinkType:
+    biolinkType: null
     maximum: 1
     minimum: 0
     type: integer
@@ -4633,7 +4633,7 @@ patient:
     minimum: 0
     type: integer
   eb_m322_babies_delivered_n:
-    biolinkType:
+    biolinkType: null
     enum:
     - '0'
     - '1'
@@ -4646,17 +4646,17 @@ patient:
     minimum: 0
     type: integer
   he_a004a_birth_low_bw:
-    biolinkType:
+    biolinkType: null
     maximum: 1
     minimum: 0
     type: integer
   he_a004b_birth_preterm:
-    biolinkType:
+    biolinkType: null
     maximum: 1
     minimum: 0
     type: integer
   he_a004c_birth_multi:
-    biolinkType:
+    biolinkType: null
     enum:
     - Twin
     - Triplet
@@ -13402,7 +13402,7 @@ visit:
     - normal
     - high
     type: string
-  Bronchietasis:
+  Bronchiectasis:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
@@ -13481,7 +13481,7 @@ visit:
     - 45-64
     - 65-89
     type: string
-  CancerDiseaseDx:
+  CancerDx:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0
@@ -13556,7 +13556,7 @@ visit:
     maximum: 1
     minimum: 0
     type: integer
-  ChalrsonComorbidityIndex:
+  CharlsonComorbidityIndex:
     biolinkType: PhenotypicFeature
     maximum: 37
     minimum: 0
@@ -13724,8 +13724,8 @@ visit:
     minimum: 0
     type: integer
   DischargeStatus:
-    biolinkType:
-    enum:
+    biolinkType: null
+    enum: null
     type: string
   DrugDependenceDxVisit:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
@@ -14036,9 +14036,9 @@ visit:
     minimum: 0
     type: integer
   HospitalLOS:
-    biolinkType:
-    maximum:
-    minimum:
+    biolinkType: null
+    maximum: null
+    minimum: null
     type: integer
   HydroxyzineVisit:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
@@ -14051,7 +14051,7 @@ visit:
     minimum: 0
     type: integer
   ICU:
-    biolinkType:
+    biolinkType: null
     maximum: 1
     minimum: 0
     type: integer
@@ -14127,7 +14127,7 @@ visit:
     minimum: 0
     type: integer
   Inflluenza7pointClinicalStatusScore:
-    biolinkType:
+    biolinkType: null
     maximum: 10
     minimum: 0
     type: integer
@@ -14137,7 +14137,7 @@ visit:
     minimum: 0
     type: integer
   IsolationFlag:
-    biolinkType:
+    biolinkType: null
     maximum: 1
     minimum: 0
     type: integer
@@ -14975,7 +14975,7 @@ visit:
     - high
     type: string
   WHOSeverityScore:
-    biolinkType:
+    biolinkType: null
     maximum: 10
     minimum: 0
     type: integer
@@ -16823,7 +16823,7 @@ visit:
     minimum: 0
     type: integer
   eb_m313_ever_pregnant:
-    biolinkType:
+    biolinkType: null
     maximum: 1
     minimum: 0
     type: integer
@@ -16883,7 +16883,7 @@ visit:
     minimum: 0
     type: integer
   eb_m322_babies_delivered_n:
-    biolinkType:
+    biolinkType: null
     enum:
     - '0'
     - '1'
@@ -16896,17 +16896,17 @@ visit:
     minimum: 0
     type: integer
   he_a004a_birth_low_bw:
-    biolinkType:
+    biolinkType: null
     maximum: 1
     minimum: 0
     type: integer
   he_a004b_birth_preterm:
-    biolinkType:
+    biolinkType: null
     maximum: 1
     minimum: 0
     type: integer
   he_a004c_birth_multi:
-    biolinkType:
+    biolinkType: null
     enum:
     - Twin
     - Triplet

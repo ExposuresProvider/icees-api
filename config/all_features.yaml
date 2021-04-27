@@ -1090,7 +1090,7 @@ patient:
     maximum: 5
     minimum: 1
     type: integer
-  AvgailyAcetaldehydeExposure_2:
+  AvgDailyAcetaldehydeExposure_2:
     biolinkType: ChemicalSubstance, ChemicalExposure
     maximum: 5
     minimum: 1
@@ -1895,7 +1895,7 @@ patient:
     maximum: 1
     minimum: 0
     type: integer
-  Inflluenza7pointClinicalStatusScore:
+  Influenza7pointClinicalStatusScore:
     biolinkType: null
     maximum: 10
     minimum: 0
@@ -1995,7 +1995,7 @@ patient:
     maximum: 6
     minimum: 1
     type: integer
-  MaleInfertilityDueToSpermDysfunctoon:
+  MaleInfertilityDueToSpermDysfunction:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     maximum: 1
     minimum: 0

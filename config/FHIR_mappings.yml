@@ -64,7 +64,7 @@ FHIR:
     - system: https://browser.ihtsdotools.org
       code: 'SCTID: 233629001'
             # note: Idiopathic bronchiectasis (disorder)
-  MaleInfertilityDueToSpermDysfunctoon:
+  MaleInfertilityDueToSpermDysfunction:
     Condition:
     - system: https://browser.ihtsdotools.org
       code: 'SCTID: 2904007'

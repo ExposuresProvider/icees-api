@@ -1,9 +1,9 @@
 patient:
-  AvgDailyAcetaldehydeExposure_2: &id010
+  AvgDailyAcetaldehydeExposure_2: &id001
   - CHEBI:15343
   - PUBCHEM:177
   - MESH:D000079
-  AvgDailyAcetaldehydeExposure_2_qcut: *id010
+  AvgDailyAcetaldehydeExposure_2_qcut: *id001
   AgeStudyStart: &id011
   - NCIT:C25150
   - UMLSCUI:C0001779
@@ -13,7 +13,7 @@ patient:
   - UMLSCUI:C1510829
   - SCTID:424144002
   - SCTID:397669002
-  Albuterol: &id012
+  Albuterol: &id014
   - SMILES:CC(C)(C)NCC(O)C1CCC(O)C(CO)C1
   - CAS:18559-94-9
   - CAS:35763-26-9
@@ -136,7 +136,7 @@ patient:
   - SCTID:320141001
   - SCTID:377496003
   - SCTID:320151000
-  AlcoholDependenceDx: &id013
+  AlcoholDependenceDx: &id015
   - SCTID:66590003
   - SCTID:713583005
   - SCTID:273264006
@@ -149,7 +149,7 @@ patient:
   - SCTID:288031000119105
   - SCTID:443504004
   - SCTID:191802004
-  AlopeciaDx: &id014
+  AlopeciaDx: &id016
   - SCTID:56317004
   - SCTID:160409001
   - SCTID:403334008
@@ -211,9 +211,9 @@ patient:
   - SCTID:717055000
   - SCTID:77363004
   - SCTID:237894002
-  Androstenedione: &id015
+  Androstenedione: &id017
   - RXCUI:784
-  Arformoterol: &id016
+  Arformoterol: &id018
   - SMILES:COC1CCC(C[C@@H](C)NC[C@H](O)C2CCC(O)C(NC:O)C2)CC1
   - CAS:208102-40-3
   - CAS:289657-27-8
@@ -229,7 +229,7 @@ patient:
   - SCTID:427097003
   - SCTID:423317005
   - SCTID:424662007
-  AsthmaDx: &id017
+  AsthmaDx: &id019
   - MONDO:0004766
   - MONDO:0004979
   - MONDO:0008834
@@ -295,59 +295,59 @@ patient:
   - ICD10:J45.%
   - NCIT:C28397
   - UMLSCUI:C0004096
-  AvgDailyBenzeneExposure_2: &id001
+  AvgDailyBenzeneExposure_2: &id002
   - CHEBI:16716
   - PUBCHEM:241
   - MESH:D001554
-  AvgDailyBenzeneExposure_2_qcut: *id001
-  AvgDailyCOExposure_2: &id002
+  AvgDailyBenzeneExposure_2_qcut: *id002
+  AvgDailyCOExposure_2: &id003
   - CHEBI:17245
   - PUBCHEM:281
   - MESH:D002248
-  AvgDailyCOExposure_2_qcut: *id002
-  AvgDailyNO2Exposure_2: &id003
+  AvgDailyCOExposure_2_qcut: *id003
+  AvgDailyNO2Exposure_2: &id004
   - CHEBI:33101
   - PUBCHEM:3032552
   - MESH:D009585
-  AvgDailyNO2Exposure_2_qcut: *id003
-  AvgDailyNOExposure_2: &id004
+  AvgDailyNO2Exposure_2_qcut: *id004
+  AvgDailyNOExposure_2: &id005
   - CHEBI:16480
   - PUBCHEM:145068
   - MESH:D009569
-  AvgDailyNOExposure_2_qcut: *id004
-  AvgDailyNOxExposure_2: &id005
+  AvgDailyNOExposure_2_qcut: *id005
+  AvgDailyNOxExposure_2: &id006
   - CHEBI:35196
-  AvgDailyNOxExposure_2_qcut: *id005
-  AvgDailyOzoneExposure: &id006
+  AvgDailyNOxExposure_2_qcut: *id006
+  AvgDailyOzoneExposure: &id007
   - MESH:D010126
   - PUBCHEM:24823
   - SCTID:40057008
   - CHEBI:25812
   - ENVO:01000537
-  AvgDailyOzoneExposure_StudyAvg: *id006
-  AvgDailyOzoneExposure_StudyAvg_qcut: *id006
-  AvgDailyOzoneExposure_StudyMax: *id006
-  AvgDailyOzoneExposure_StudyMax_qcut: *id006
-  AvgDailyOzoneExposure_qcut: *id006
-  AvgDailyPM2.5Exposure: &id007
+  AvgDailyOzoneExposure_StudyAvg: *id007
+  AvgDailyOzoneExposure_StudyAvg_qcut: *id007
+  AvgDailyOzoneExposure_StudyMax: *id007
+  AvgDailyOzoneExposure_StudyMax_qcut: *id007
+  AvgDailyOzoneExposure_qcut: *id007
+  AvgDailyPM2.5Exposure: &id008
   - MESH:D052638
   - NCIT:C29886
   - UMLSCUI:C1510837
   - SCTID:278694008
   - ENVO:01000060
-  AvgDailyPM2.5Exposure_2: *id007
-  AvgDailyPM2.5Exposure_2_qcut: *id007
-  AvgDailyPM2.5Exposure_StudyAvg: *id007
-  AvgDailyPM2.5Exposure_StudyAvg_qcut: *id007
-  AvgDailyPM2.5Exposure_StudyMax: *id007
-  AvgDailyPM2.5Exposure_StudyMax_qcut: *id007
-  AvgDailyPM2.5Exposure_qcut: *id007
-  AvgDailySO2Exposure_2: &id008
+  AvgDailyPM2.5Exposure_2: *id008
+  AvgDailyPM2.5Exposure_2_qcut: *id008
+  AvgDailyPM2.5Exposure_StudyAvg: *id008
+  AvgDailyPM2.5Exposure_StudyAvg_qcut: *id008
+  AvgDailyPM2.5Exposure_StudyMax: *id008
+  AvgDailyPM2.5Exposure_StudyMax_qcut: *id008
+  AvgDailyPM2.5Exposure_qcut: *id008
+  AvgDailySO2Exposure_2: &id009
   - CHEBI:18422
   - PUBCHEM:1119
   - MESH:D013458
-  AvgDailySO2Exposure_2_qcut: *id008
-  Beclomethasone: &id018
+  AvgDailySO2Exposure_2_qcut: *id009
+  Beclomethasone: &id020
   - SMILES:C[C@H]1C[C@H]2[C@@H]3CCC4:CC(:O)C:C[C@]4(C)[C@@]3(CL)[C@@H](O)C[C@]2(C)[C@@]1(O)C(:O)CO
   - CAS:4419-39-0
   - MESH:D001507
@@ -455,7 +455,7 @@ patient:
   - SCTID:407769008
   - SCTID:320631003
   - SCTID:320543009
-  Budesonide: &id019
+  Budesonide: &id021
   - SMILES:CCCC1O[C@@H]2C[C@H]3[C@@H]4CCC5:CC(:O)C:C[C@]5(C)[C@H]4[C@@H](O)C[C@]3(C)[C@@]2(O1)C(:O)CO
   - CAS:51333-22-3
   - MESH:D019819
@@ -572,7 +572,7 @@ patient:
   - SCTID:134499006
   - SCTID:413719005
   - SCTID:408023003
-  CervicalCancerDx: &id020
+  CervicalCancerDx: &id022
   - SCTID:363354003
   - SCTID:423973006
   - SCTID:315266007
@@ -606,7 +606,7 @@ patient:
   - MONDO:0004259
   - MONDO:0006143
   - MONDO:0016274
-  Cetirizine: &id021
+  Cetirizine: &id023
   - SMILES:OC(:O)COCCN1CCN(CC1)C(C2CCCCC2)C3CCC(CL)CC3
   - CAS:83881-51-0
   - MESH:D017332
@@ -678,7 +678,7 @@ patient:
   - SCTID:320820009
   - SCTID:400462001
   - SCTID:377275008
-  Ciclesonide: &id022
+  Ciclesonide: &id024
   - SMILES:CC(C)C(:O)OCC(:O)[C@@]12O[C@@H](O[C@@H]1C[C@H]3[C@@H]4CCC5:CC(:O)C:C[C@]5(C)[C@H]4[C@@H](O)C[C@]23C)C6CCCCC6
   - CAS:126544-47-6
   - MESH:C120481
@@ -707,11 +707,11 @@ patient:
   - SCTID:416739001
   - SCTID:424048001
   - SCTID:423579004
-  Citalopram: &id023
+  Citalopram: &id025
   - RXCUI:221078
   - RXCUI:2556
   - RXCUI:321988
-  CoughDx: &id024
+  CoughDx: &id026
   - MONDO:000149
   - SCTID:11641008
   - SCTID:208136003
@@ -730,7 +730,7 @@ patient:
   - ICD10R:05.%
   - NCIT:C37935
   - UMLSCUOI:C0010200
-  CroupDx: &id025
+  CroupDx: &id027
   - MONDO:0005722
   - MONDO:0018597
   - SCTID:195714005
@@ -743,7 +743,7 @@ patient:
   - ICD10:J05.%
   - NCIT:C26735
   - UMLSCUI:C0010380
-  DiabetesDx: &id026
+  DiabetesDx: &id028
   - SCTID:405751000
   - SCTID:11530004
   - SCTID:702706001
@@ -813,7 +813,7 @@ patient:
   - SCTID:77274005
   - SCTID:170775008
   - SCTID:421920002
-  Diphenhydramine: &id027
+  Diphenhydramine: &id029
   - SMILES:CN(C)CCOC(C1CCCCC1)C2CCCCC2
   - CAS:58-73-1
   - MESH:D004155
@@ -1223,7 +1223,7 @@ patient:
   - SCTID:423376005
   - SCTID:392555003
   - SCTID:412493000
-  DrugDependenceDx: &id028
+  DrugDependenceDx: &id030
   - SCTID:191816009
   - SCTID:231482005
   - SCTID:153501000119105
@@ -1257,10 +1257,10 @@ patient:
   - SCTID:267206008
   - SCTID:34150001
   - SCTID:199255000
-  Duloxetine: &id029
+  Duloxetine: &id031
   - RXCUI:476250
   - RXCUI:72625
-  EndometriosisDx: &id030
+  EndometriosisDx: &id032
   - SCTID:396224008
   - SCTID:129103003
   - SCTID:53913001
@@ -1307,54 +1307,54 @@ patient:
   - SCTID:724454004
   - SCTID:416155004
   - SCTID:263638005
-  Escitalopram: &id031
+  Escitalopram: &id033
   - RXCUI:353108
   - RXCUI:321988
-  EstHouseholdIncome: &id032
+  EstHouseholdIncome: &id034
   - NCIT:C70811
   - UMLSCUI:C0557163
   - SCTID:224168007
   - SCTID:365553008
-  EstProbabilityESL: &id033
+  EstProbabilityESL: &id035
   - SCTID:161140009
-  EstProbabilityHighSchoolMaxEducation: &id034
+  EstProbabilityHighSchoolMaxEducation: &id036
   - NCIT:C89278
   - UMLSCUI:C0599395
   - NCIT:C67136
   - UMLSCUI:C0870649
   - SCTID:473461003
-  EstProbabilityHouseholdNonHispWhite: &id035
+  EstProbabilityHouseholdNonHispWhite: &id037
   - NCIT:C93992
   - UMLSCUI:C2986190
   - SCTID:185984009
-  EstProbabilityNoAuto: &id036
+  EstProbabilityNoAuto: &id038
   - SCTID:71783008
-  EstProbabilityNoHealthIns: &id037
+  EstProbabilityNoHealthIns: &id039
   - NCIT:C70696
   - UMLSCUI:C2347682
   - SCTID:419808006
-  EstProbabilityNonHispWhite: &id038
+  EstProbabilityNonHispWhite: &id040
   - NCIT:C93992
   - UMLSCUI:C2986190
   - SCTID:185984009
-  EstResidentialDensity: &id039
+  EstResidentialDensity: &id041
   - NCIT:C45781
   - UMLSCUI:C0178587
   - SCTID:272497004
-  EstResidentialDensity25Plus: &id040
+  EstResidentialDensity25Plus: &id042
   - NCIT:C45781
   - UMLSCUI:C0178587
   - SCTID:272497004
-  Estradiol: &id041
+  Estradiol: &id043
   - RXCUI:4083
   - RXCUI:24395
   - RXCUI:405416
   - RXCUI:60661
-  Estrogen: &id042
+  Estrogen: &id044
   - RXCUI:4100
-  Estropipate: &id043
+  Estropipate: &id045
   - RXCUI:33747
-  Ethnicity: &id044
+  Ethnicity: &id012
   - NCIT:C29933
   - NCIT:C16564
   - UMLSCUI:C0015031
@@ -1362,7 +1362,7 @@ patient:
   - UMLS:C2733502
   - UMLS:C1287117
   - UMLS:C1301552
-  Fexofenadine: &id045
+  Fexofenadine: &id046
   - SMILES:CC(C)(C(O):O)C1CCC(CC1)C(O)CCCN2CCC(CC2)C(O)(C3CCCCC3)C4CCCCC4
   - CAS:159389-12-5
   - CAS:76815-58-2
@@ -1425,10 +1425,10 @@ patient:
   - SCTID:400883003
   - SCTID:371751004
   - SCTID:409176001
-  FibromyalgiaDx: &id046
+  FibromyalgiaDx: &id047
   - SCTID:203082005
   - SCTID:95417003
-  Flunisolide: &id047
+  Flunisolide: &id048
   - SMILES:O.CC1(C)O[C@@H]2CC3[C@@H]4C[C@H](F)C5:CC(:O)C:CC5(C)[C@H]4[C@@H](O)C[C@]3(C)[C@@]2(O1)C(:O)CO.CC6(C)O[C@@H]7CC8[C@@H]9C[C@H](F)C%10:CC(:O)C:CC%10(C)[C@H]9[C@@H](O)C[C@]8(C)[C@@]7(O6)C(:O)CO
   - CAS:77326-96-6
   - MESH:C007734
@@ -1453,10 +1453,10 @@ patient:
   - SCTID:331035006
   - SCTID:66125007
   - SCTID:422287006
-  Fluoxetine: &id048
+  Fluoxetine: &id049
   - RXCUI:227224
   - RXCUI:4493
-  Fluticasone: &id049
+  Fluticasone: &id050
   - SMILES:C[C@@H]1C[C@H]2[C@@H]3C[C@@H](C4:CC(:O)C:C[C@@]4([C@]3([C@H](C[C@@]2([C@]1(C(:O)SCF)O)C)O)F)C)F
   - CAS:90566-53-3
   - MESH:D000068298
@@ -1700,10 +1700,18 @@ patient:
   - SCTID:320603007
   - SCTID:320605000
   - SCTID:320604001
-  Formaldehyde: &id050
+  he_q147_formaldehyde:
   - CHEBI:16842
   - PUBCHEM:712
   - MESH:D005557
+  AvgDailyFormaldehydeExposure_2:
+  - CHEBI:16842
+  - PUBCHEM:712
+  - MESH:D005557
+  AvgDailyFormaldehydeExposure_2_qcut:
+  - CHEBI:16842
+  - PUBCHEM:712
+  - MESH:D005557 
   Formoterol: &id051
   - SMILES:COC1CCC(CC(C)NCC(O)C2CCC(O)C(NC:O)C2)CC1
   - CAS:73573-87-2
@@ -1896,20 +1904,20 @@ patient:
   - RXCUI:203217
   MajorRoadwayHighwayExposure: &id059
   - SCTID:272510001
-  MaxDailyOzoneExposure: *id006
-  MaxDailyOzoneExposure_2: *id006
-  MaxDailyOzoneExposure_2_qcut: *id006
-  MaxDailyOzoneExposure_StudyAvg: *id006
-  MaxDailyOzoneExposure_StudyAvg_qcut: *id006
-  MaxDailyOzoneExposure_StudyMax: *id006
-  MaxDailyOzoneExposure_StudyMax_qcut: *id006
-  MaxDailyOzoneExposure_qcut: *id006
-  MaxDailyPM2.5Exposure: *id007
-  MaxDailyPM2.5Exposure_StudyAvg: *id007
-  MaxDailyPM2.5Exposure_StudyAvg_qcut: *id007
-  MaxDailyPM2.5Exposure_StudyMax: *id007
-  MaxDailyPM2.5Exposure_StudyMax_qcut: *id007
-  MaxDailyPM2.5Exposure_qcut: *id007
+  MaxDailyOzoneExposure: *id007
+  MaxDailyOzoneExposure_2: *id007
+  MaxDailyOzoneExposure_2_qcut: *id007
+  MaxDailyOzoneExposure_StudyAvg: *id007
+  MaxDailyOzoneExposure_StudyAvg_qcut: *id007
+  MaxDailyOzoneExposure_StudyMax: *id007
+  MaxDailyOzoneExposure_StudyMax_qcut: *id007
+  MaxDailyOzoneExposure_qcut: *id007
+  MaxDailyPM2.5Exposure: *id008
+  MaxDailyPM2.5Exposure_StudyAvg: *id008
+  MaxDailyPM2.5Exposure_StudyAvg_qcut: *id008
+  MaxDailyPM2.5Exposure_StudyMax: *id008
+  MaxDailyPM2.5Exposure_StudyMax_qcut: *id008
+  MaxDailyPM2.5Exposure_qcut: *id008
   Medroxyprogresterone: &id060
   - RXCUI:6691
   - RXCUI:1000112
@@ -2003,9 +2011,7 @@ patient:
   - SCTID:371696002
   - SCTID:371697006
   Metformin: &id064
-  - 'SMILES:
-
-    CN(C)C(:N)NC(:N)N'
+  - "SMILES:\nCN(C)C(:N)NC(:N)N"
   - CAS:657-24-9
   - MESH:D008687
   - PUBCHEM:4091
@@ -2772,7 +2778,7 @@ patient:
   - SCTID:406077007
   - SCTID:421714007
   - SCTID:406076003
-  Race: &id080
+  Race: &id013
   - NCIT:C17049
   - UMLSCUI:C0034510
   - NCIT:C93992
@@ -2935,7 +2941,7 @@ patient:
   - PUBCHEM.COMPOUND:102140113
   - PUBCHEM.COMPOUND:129865605
   - NCIT:C37932
-  ReactiveAirwayDx: &id081
+  ReactiveAirwayDx: &id080
   - SCTID:991000119106
   - SCTID:371088008
   - HP:0002099
@@ -2945,7 +2951,7 @@ patient:
   - ICD10:J66.%
   - NCIT:C113673
   - UMLSCUI:C3714497
-  Salmeterol: &id082
+  Salmeterol: &id081
   - SMILES:OCC1CC(CCC1O)C(O)CNCCCCCCOCCCCC2CCCCC2
   - CAS:89365-50-4
   - CHEMBL:CHEMBL1263
@@ -3037,10 +3043,10 @@ patient:
   - SCTID:320280004
   - SCTID:320277000
   - SCTID:320279002
-  Sertraline: &id083
+  Sertraline: &id082
   - RXCUI:155137
   - RXCUI:36437
-  Sex: &id009
+  Sex: &id010
   - NCIT:C28421
   - UMLSCUI:C1522384
   - NCIT:C93992
@@ -3156,22 +3162,22 @@ patient:
   - UMLS:C0002761
   - NCIT:C35932
   - UMLS:C0233877
-  Sex2: *id009
-  Tamoxifen: &id084
+  Sex2: *id010
+  Tamoxifen: &id083
   - RXCUI:10324
   - RXCUI:40137
-  TesticularCancerDx: &id085
+  TesticularCancerDx: &id084
   - SCTID:315272007
   - SCTID:717041008
-  TesticularDysfunctionDx: &id086
+  TesticularDysfunctionDx: &id085
   - SCTID:73820008
   - SCTID:442782008
   - SCTID:3761000119104
-  Testosterone: &id087
+  Testosterone: &id086
   - RXCUI:10379
   - RXCUI:10382
   - RXCUI:37858
-  Theophylline: &id088
+  Theophylline: &id087
   - SMILES:CN1C(:O)N(C)C2NC[NH]C2C1:O
   - CAS:58-55-9
   - CAS:56645-32-0
@@ -3368,18 +3374,18 @@ patient:
   - NCIT:C68605
   - UMLSCUI:C2348993
   - SCTID:103324002
-  Trazodone: &id089
+  Trazodone: &id088
   - RXCUI:82112
   - RXCUI:10737
-  Triptorelin: &id090
+  Triptorelin: &id089
   - RXCUI:38782
   - RXCUI:236538
   - RXCUI:338529
-  UrbanRural: &id091
+  ur: &id090
   - NCIT:C45781
   - UMLSCUI:C0178587
   - SCTID:272497004
-  UterineCancerDx: &id092
+  UterineCancerDx: &id091
   - SCTID:371973000
   - SCTID:363354003
   - SCTID:428941002
@@ -3389,13 +3395,13 @@ patient:
   - SCTID:406043002
   - SCTID:406044008
   - MONDO:0002715
-  - MONDO:0016252 
+  - MONDO:0016252
   - MONDO:0006003
   - MONDO:0005131
   - MONDO:0003612
   - MONDO:0000553
   - MONDO:0006485
-  Venlafaxine: &id093
+  Venlafaxine: &id092
   - RXCUI:39786
   - RXCUI:39786
   SmokingStatus:
@@ -3412,7 +3418,7 @@ patient:
   - SCTID:390902009
   - SCTID:390904005
   - SCTID:365980008
-  ChalrsonComorbidityIndex:
+  CharlsonComorbidityIndex:
   - NCIT:C176422
   - SCTID:762713009
   - SCTID:446619003
@@ -3486,7 +3492,7 @@ patient:
   - MONDO:0008169
   - NCIT:C3117
   - UMLSCUI:C0020538
-  ChronicKidneyDiseaseDx: 
+  ChronicKidneyDiseaseDx:
   - MONDO:0005240
   - MONDO:0001343
   - MONDO:0002473
@@ -3541,7 +3547,7 @@ patient:
   - SCTID:702839006
   - LOINC:LA28200-6
   - LOINC:LA27422-7
-  ChronicArteryDiseaseDx:
+  CoronaryArteryDisease:
   - NCIT:C12372
   - UMLSCUI:C0003842
   - MONDO:0000473
@@ -3552,12 +3558,12 @@ patient:
   - MONDO:0006932
   - MONDO:0015280
   - MONDO:0010851
-  - NCIT:C50577 
+  - NCIT:C50577
   - UMLSCUI:C0018801
   - LOINC:LP269425-7
   - LOINC:LP269421-6
   - SCTID:84114007
-  LiverDiseaseDx: 
+  LiverDiseaseDx:
   - MONDO:000515
   - MONDO:0009220
   - MONDO:0043693
@@ -3570,7 +3576,7 @@ patient:
   - NCIT:C113609
   - UMLSCUI:C0341439
   - NCIT:C3196
-  - UMLSCUIC0023895 
+  - UMLSCUIC0023895
   - NCIT:C82833
   - UMLSCUI:C0158683
   - NCIT:C82996
@@ -3580,7 +3586,7 @@ patient:
   - LOINC:LA25810-5
   - SCTID:235890007
   - SCTID:328383001
-  CancerDiseaseDx:
+  CancerDx:
   - MONDO:0005070
   - MONDO:0004992
   - MONDO:0002236
@@ -3717,9 +3723,9 @@ patient:
   - LOINC:LP173045-8
   - SCTID:309904001
   - LOINC:LP76050-1
-  Ventilator: 
+  Ventilator:
   - NCIT:C38388
-  - UMLSCUI:C0087153 
+  - UMLSCUI:C0087153
   - NCIT:C50430
   - UMLSCUI:C0750173
   - NCIT:C123909
@@ -3730,7 +3736,7 @@ patient:
   - SCTID:706172005
   - SCTID:470320000
   - SCTID:409025002
-  ErythrocyteSedimentationRate:
+  ErythrocyteSedimentationRate: null
   Procalcitonin:
   - LOINC:LP31682-5
   - SCTID:418752001
@@ -3741,7 +3747,7 @@ patient:
   - NCIT:C173465
   - NCIT:C103430
   - UMLSCUI:C1535922
-  Ferritin: 
+  Ferritin:
   - CHEBI:2784
   - MONDO:0011638
   - MONDO:0014274
@@ -3750,9 +3756,9 @@ patient:
   - NCIT:C16577
   - UMLSCUI:C0015879
   - NCIT:C74737
-  - UMLSCUI:C0373607 
+  - UMLSCUI:C0373607
   - NCIT:C172522
-  C-reactiveProtein:
+  C-reactiveProtein: null
   D-dimer:
   - SCTID:25607008
   - SCTID:70648006
@@ -3761,7 +3767,7 @@ patient:
   - NCIT:C82621
   - UMLSCUI:C2826333
   - NCIT:C161494
-  LDH: 
+  LDH:
   - MONDO:0013587
   - SCTID:259319003
   - LOINC:LP15033-1
@@ -3772,7 +3778,7 @@ patient:
   - LOINC:LG13284-1
   - LOINC:LG9072-2
   - LOINC:LG19834-7
-  IL-6:
+  IL-6: null
   pH:
   - CHEBI:30396
   - LOINC:LA22405-7
@@ -3782,16 +3788,16 @@ patient:
   - RxNORM:405069
   - NCIT:C45997
   - UMLSCUI:C4048290
-  - NCIT:C133500 
+  - NCIT:C133500
   - UMLSCUI:CL521348
   - NCIT:C63342
   - UMLSCUI:C1882074
   - NCIT:C62981
   - UMLSCUI:C1881695
-  pCO2ArterialVenous:
+  pCO2ArterialVenous: null
   pCO2Arterial:
   - NCIT:C82625
-  - UMLSCUI:C0201931 
+  - UMLSCUI:C0201931
   - NCIT:C147411
   - UMLSCUI:CL545325
   - LOINC:28644-3
@@ -3800,7 +3806,7 @@ patient:
   - SCTID:144270002
   - LOINC:LP15765-8
   - LOINC:LP71270-0
-  - NCIT:C71251 
+  - NCIT:C71251
   - UMLSCUI:C0202155
   - NCIT:C147417
   - UMLSCUI:CL545320
@@ -3809,7 +3815,7 @@ patient:
   - UMLSCUI:C3897988
   - SCTID:438173002
   - LOINC:LP71271-8
-  SpO2FiO2ratio:
+  SpO2FiO2ratio: null
   BaseDeficit:
   - SCTID:102634007
   - SCTID:26154000
@@ -3917,8 +3923,8 @@ patient:
   - NCIT:C129425
   - NCIT:C76926
   - UMLSCUI:C0064582
-  SvO2: 
-  WBCcount: 
+  SvO2: null
+  WBCcount:
   - MONDO:0003785
   - SCTID:767002
   - SCTID:165506007
@@ -3926,11 +3932,11 @@ patient:
   - NCIT:C51948
   - UMLSCUI:C0023508
   - NCIT:C35524
-  - UMLSCUI:C0023518 
+  - UMLSCUI:C0023518
   - NCIT:C162110
   AbsoluteNeutrophilCount:
   - MONDO:0001953
-  - NCIT:C51950 
+  - NCIT:C51950
   - UMLSCUI:C0200633
   - NCIT:C53271
   - UMLSCUI:C1709221
@@ -3953,7 +3959,7 @@ patient:
   - SCTID:165520000
   Hemoglobin:
   - NCIT:C64848
-  - UMLSCUI:C0518015 
+  - UMLSCUI:C0518015
   - NCIT:C16676
   - UMLSCUI:C0019046
   - NCIT:C55991
@@ -4022,14 +4028,14 @@ patient:
   - MONDO:000224
   - MONDO:0008585
   - NCIT:C51951
-  - UMLSCUI:C0032181 
+  - UMLSCUI:C0032181
   - NCIT:C143764
   - UMLSCUI:CL545991
   - NCIT:C53266
   - UMLSCUI:C1709566
   - NCIT:C53267
   - UMLSCUI:C1709567
-  - NCIT:C154723 
+  - NCIT:C154723
   - UMLSCUI:CL556888
   - NCIT:C154733
   - UMLSCUI:CL556904
@@ -4038,8 +4044,8 @@ patient:
   - NCIT:C162107
   - UMLSCUI:CL471574
   - NCIT:C168963
-  - UMLSCUI:CL1378780 
-  - NCIT:C74729 
+  - UMLSCUI:CL1378780
+  - NCIT:C74729
   - UMLSCUI:C2697898
   - NCIT:C74728
   - UMLSCUI:C2697501
@@ -4141,7 +4147,7 @@ patient:
   - CHEBI:144654
   - CHEBI:144657
   - GO:1902262
-  - NCIT:C61009 
+  - NCIT:C61009
   - UMLSCUI:C2825086
   - NCIT:C133243
   - UMLSCUI:CL520980
@@ -4171,7 +4177,7 @@ patient:
   - LOINC:LP284840-8
   - LOINC:LP284841-6
   - LOINC:LP284842-4
-  SerumSodium: 
+  SerumSodium:
   - SCTID:166691007
   - SCTID:143995000
   - SCTID:1000661000000107
@@ -4186,7 +4192,7 @@ patient:
   - UMLSCUI:C1559978
   - NCIT:C55229
   - UMLSCUI:C1559977
-  - NCIT:C55235 
+  - NCIT:C55235
   - UMLSCUI:C1559983
   - NCIT:C55226
   - UMLSCUI:C1559974
@@ -4197,14 +4203,14 @@ patient:
   - NCIT:C55233
   - UMLSCUI:C1559981
   - NCIT:C55227
-  - UMLSCUI:C1559975 
+  - UMLSCUI:C1559975
   - NCIT:C55228
-  - UMLSCUI:C1559976 
-  - NCIT:C55231 
+  - UMLSCUI:C1559976
+  - NCIT:C55231
   - UMLSCUI:C1559979
-  - NCIT:C55225 
+  - NCIT:C55225
   - UMLSCUI:C1559973
-  SerumPotassium: 
+  SerumPotassium:
   - LOINC:LP175655-2
   - LOINC:LP270132-6
   - LOINC:LP232138-0
@@ -4216,7 +4222,7 @@ patient:
   - NCIT:C61030
   - UMLSCUI:C0302353
   - NCIT:C55215
-  - UMLSCUI:C1559964 
+  - UMLSCUI:C1559964
   - NCIT:C55212
   - UMLSCUI:C1559961
   - NCIT:C55211
@@ -4231,11 +4237,11 @@ patient:
   - UMLSCUI:C1559965
   - NCIT:C55209
   - UMLSCUI:C1559958
-  - NCIT:C55213 
+  - NCIT:C55213
   - UMLSCUI:C1559962
   - NCIT:C55208
   - UMLSCUI:C1559957
-  - NCIT:C55214 
+  - NCIT:C55214
   - UMLSCUI:C1559963
   SerumChloride:
   - SCTID:166694004
@@ -4247,7 +4253,7 @@ patient:
   - OXMIS:L118NN
   - LOINC:LP386588-0
   - LOINC:2075-0
-  - NCIT:C61021 
+  - NCIT:C61021
   - UMLSCUI:C1317978
   SerumBicarbonate:
   - SCTID:271239003
@@ -4289,7 +4295,7 @@ patient:
   - NCIT:C1753
   - UMLSCUI:C0600137
   - NCIT:C122438
-  - UMLSCUI:C0151539 
+  - UMLSCUI:C0151539
   SerumCreatinine:
   - LOINC:LP175654-5
   - LOINC:LP112369-6
@@ -4310,7 +4316,7 @@ patient:
   - SCTID:313629005
   - SCTID:313630000
   - SCTID:313698005
-  - NCIT:C61027 
+  - NCIT:C61027
   - UMLSCUI:C0202041
   - NCIT:C55174
   - UMLSCUI:C1559925
@@ -4330,12 +4336,12 @@ patient:
   - NCIT:C25293
   - UMLSCUI:C0376147
   - NCIT:C64433
-  - UMLSCUI:C0201836 
+  - UMLSCUI:C0201836
   - NCIT:C38507
   - UMLSCUI:C0001899
   - NCIT:C143267
   - UMLSCUI:CL541630
-  - NCIT:C145734 
+  - NCIT:C145734
   - UMLSCUI:CL543823
   - NCIT:C38509
   - UMLSCUI:C2364022
@@ -4357,8 +4363,8 @@ patient:
   - LOINC:LP43338-0
   - LOINC:LP43340-6
   - NCIT:C25202
-  - UMLSCUI:C0242192 
-  - NCIT:C64467 
+  - UMLSCUI:C0242192
+  - NCIT:C64467
   - UMLSCUI:C0201899
   - NCIT:C143301
   - UMLSCUI:CL541699
@@ -4366,10 +4372,10 @@ patient:
   - UMLSCUI:C0684153
   - NCIT:C26947
   - UMLSCUI:C4076281
-  - NCIT:C38500 
-  - UMLSCUI:C0949643 
+  - NCIT:C38500
+  - UMLSCUI:C0949643
   Troponin:
-  - NCIT:C111327 
+  - NCIT:C111327
   - UMLSCUI:C0523952
   - MONDO:0011539
   - NCIT:C104220
@@ -4380,8 +4386,8 @@ patient:
   - LOINC:LP14890-5
   - LOINC:LP17145-1
   - SCTID:102680009
-  - PUBCHEM:16131354 
-  - PUBCHEM:44152811  
+  - PUBCHEM:16131354
+  - PUBCHEM:44152811
   BrainNatriureticPeptide:
   - CHEBI:135919
   - NCIT:C74735
@@ -4424,7 +4430,7 @@ patient:
   CK:
   - NCIT:C113245
   - UMLSCUI:C0010287
-  - NCIT:C64489 
+  - NCIT:C64489
   - UMLSCUI:C0201973
   - NCIT:C16473
   - UMLSCUI:C0010289
@@ -4471,7 +4477,7 @@ patient:
   HgbA1C:
   - NCIT:C122507
   - UMLSCUI:C0239940
-  - NCIT:C64849 
+  - NCIT:C64849
   - UMLSCUI:C0202054
   - SCTID:733829007
   - SCTID:143080000
@@ -4490,7 +4496,7 @@ patient:
   - LOINC:71875-9
   - LOINC:4548-4
   - LOINC:86910-7
-  EstimatedGFR:
+  EstimatedGFR: null
   RespiratorySupportSupplementalO2:
   - LOINC:LA17976-4
   - LOINC:LA20142-8
@@ -4502,9 +4508,9 @@ patient:
   - SCTID:60651000119103
   - SCTID:89201000119106
   - SCTID:1104411000000106
-  - NCIT:C94624 
-  - UMLSCUI:C0184633 
-  RespiratorySupportHFNC:
+  - NCIT:C94624
+  - UMLSCUI:C0184633
+  HighFlowNasalCannula:
   - SCTID:426854004
   - SCTID:701101003
   - SCTID:336623009
@@ -4518,16 +4524,16 @@ patient:
   - LOINC:LA11914-1
   - LOINC:LP72976-1
   - LOINC:19979-4
-  RespiratorySupportNIPPV:
+  NonInvasivePositivePressureVentilation:
   - SCTID:428311008
   - SCTID:447837008
   - SCTID:430191008
-  RespiratorySupportInvasiveVentilator:
+  InvasiveVentilation:
   - LOINC:LA28889-6
   - LOINC:LP263712-4
   - LOINC:86851-3
   - LOINC:LA30356-2
-  RespiratorySupportHNO3orFlolan:
+  NitricOxideOrFolan:
   - NCIT:C47514
   - UMLSCUI:C0354594
   - CHEBI:15552
@@ -4555,11 +4561,11 @@ patient:
   - SCTID:33592611000001103
   - SCTID:4627511000001101
   - SCTID:33593511000001109
-  - PUBCHEM:53394235  
+  - PUBCHEM:53394235
   - PUBCHEM:23695838
-  - PUBCHEM:6364626 
-  - PUBCHEM:5282411  
-  CardiovascularSupportAmiodarone_gtt:
+  - PUBCHEM:6364626
+  - PUBCHEM:5282411
+  Amiodarone_gtt:
   - PUBCHEM:2157
   - CHEBI:2663
   - CHEBI:2664
@@ -4570,8 +4576,8 @@ patient:
   - NCIT:C10307
   - UMLSCUI:C0280651
   - NCIT:C9974
-  - UMLSCUI:C0279280 
-  - NCIT:C9973 
+  - UMLSCUI:C0279280
+  - NCIT:C9973
   - UMLSCUI:C0279279
   - RxNorm:703
   - RxNorm:1663223
@@ -4587,17 +4593,17 @@ patient:
   - SCTID:291954007
   - SCTID:318180009
   - SCTID:52574003
-  CardiovascularSupportDobutamine_gtt:
+  Dobutamine_gtt:
   - CHEBI:4670
   - CHEBI:4671
   - PUBCHEM:36811
   - NCIT:C61733
-  - UMLSCUI:C0012963 
+  - UMLSCUI:C0012963
   - NCIT:C171751
   - NCIT:C28997
   - UMLSCUI:C0700450
   - NCIT:C65452
-  - UMLSCUI:C0887392 
+  - UMLSCUI:C0887392
   - SCTID:387145002
   - SCTID:3528911000001100
   - SCTID:26523005
@@ -4614,7 +4620,7 @@ patient:
   - RxNorm:328215
   - RxNorm:345811
   - LOINC:LP46807-1
-  CardiovascularSupportEpinephrine_gtt:
+  Epinephrine_gtt:
   - CHEBI:28918
   - CHEBI:40751
   - CHEBI:18357
@@ -4683,13 +4689,13 @@ patient:
   - SCTID:374918004
   - SCTID:124789005
   - SCTID:96254001
-  CardiovascularSupportEsmolol_gtt:
+  Esmolol_gtt:
   - CHEBI:88206
   - CHEBI:4857
-  - NCIT:C72617 
+  - NCIT:C72617
   - UMLSCUI:C0116569
   - NCIT:C47519
-  - UMLSCUI:C0700606 
+  - UMLSCUI:C0700606
   - PUBCHEM:126961356
   - PUBCHEM:101731067
   - PUBCHEM:101731066
@@ -4737,7 +4743,7 @@ patient:
   - SCTID:17033711000001101
   - SCTID:374170004
   - SCTID:407866009
-  CardiovascularSupportIsoproterenol_gtt:
+  Isoproterenol_gtt:
   - CHEBI:64317
   - CHEBI:6257
   - CHEBI:8463
@@ -4745,11 +4751,11 @@ patient:
   - CHEBI:31453
   - MONDO:0010937
   - PUBCHEM:3779
-  - NCIT:C62041 
+  - NCIT:C62041
   - UMLSCUI:C0022245
   - NCIT:C29133
-  - UMLSCUI:C0282210 
-  - NCIT:C65983 
+  - UMLSCUI:C0282210
+  - NCIT:C65983
   - UMLSCUI:C0282211
   - RxNorm:6054
   - RxNorm:1667908
@@ -4780,10 +4786,10 @@ patient:
   - RxNorm:1299671
   - SCTID:372781009
   - SCTID:349931000
-  CardiovascularSupportLevosimendan_gtt:
+  Levosimendan_gtt:
   - CHEBI:50567
   - PUBCHEM:3033825
-  - PUBCHEM:161928  
+  - PUBCHEM:161928
   - NCIT:C174653
   - RxNorm:73107
   - RxNorm:901046
@@ -4796,20 +4802,20 @@ patient:
   - SCTID:30137411000001102
   - SCTID:786238006
   - SCTID:442874003
-  CardiovascularSupportMilrinone_gtt:
+  Milrinone_gtt:
   - CHEBI:50693
   - CHEBI:34850
-  - PUBCHEM:138109998 
-  - PUBCHEM:13669855  
-  - PUBCHEM:12960308 
-  - PUBCHEM:12873360  
-  - PUBCHEM:12799331 
-  - PUBCHEM:172293  
-  - PUBCHEM:4197  
+  - PUBCHEM:138109998
+  - PUBCHEM:13669855
+  - PUBCHEM:12960308
+  - PUBCHEM:12873360
+  - PUBCHEM:12799331
+  - PUBCHEM:172293
+  - PUBCHEM:4197
   - NCIT:C61848
-  - UMLSCUI:C0128513 
-  - NCIT:C29263 
-  - UMLSCUI:C0600487 
+  - UMLSCUI:C0128513
+  - NCIT:C29263
+  - UMLSCUI:C0600487
   - RxNorm:52769
   - RxNorm:1791839
   - RxNorm:155120
@@ -4841,7 +4847,7 @@ patient:
   - LOINC:LP165031-8
   - LOINC:LP165032-6
   - LOINC:LP165033-4
-  CardiovascularSupportNorepinephrine_gtt:
+  Norepinephrine_gtt:
   - CHEBI:18357
   - CHEBI:33569
   - CHEBI:134857
@@ -4930,7 +4936,7 @@ patient:
   - SCTID:776939000
   - SCTID:780029005
   - SCTID:782024006
-  CardiovascularSupportPhenylephrine_gtt:
+  Phenylephrine_gtt:
   - PUBCHEM:6102
   - CHEBI:8093
   - CHEBI:134779
@@ -4968,7 +4974,7 @@ patient:
   - RxNorm:331191
   - RxNorm:373368
   - RxNorm:373369
-  CardiovascularSupportVasopressin_gtt:
+  Vasopressin_gtt:
   - CHEBI:9937
   - CHEBI:34543
   - CHEBI:94802
@@ -4986,7 +4992,7 @@ patient:
   - CHEBI:59726
   - MONDO:0006802
   - CHEBI:59728
-  - PUBCHEM:11979316  
+  - PUBCHEM:11979316
   - RxNorm:1149
   - RxNorm:2103181
   - RxNorm:374283
@@ -5031,7 +5037,7 @@ patient:
   - LOINC:LP15949-8
   - SCTID:126192003
   - SCTID:71338005
-  CardiovascularSupporyECLS:
+  ECLS:
   - SCTID:78823007
   - SCTID:243185007
   - SCTID:243179000
@@ -5065,10 +5071,10 @@ patient:
   - UMLSCUI:C0011946
   - NCIT:C15248
   - UMLSCUI:C0019004
-  AntiInfectivesRemdesivir:
+  Remdesivir:
   - NCIT:C152185
   - UMLSCUI:CL553517
-  - PUBCHEM:121304016 
+  - PUBCHEM:121304016
   - RxNorm:2284718
   - RxNorm:2284959
   - RxNorm:2284957
@@ -5081,8 +5087,8 @@ patient:
   - RxNorm:2395503
   - RxNorm:2395502
   - RxNorm:2395505
-  - RxNorm:2367758 
-  AntiInfectivesHydroxychloroquine:
+  - RxNorm:2367758
+  Hydroxychloroquine:
   - RxNorm:5521
   - RxNorm:1164628
   - RxNorm:370656
@@ -5141,7 +5147,7 @@ patient:
   - SCTID:12625011000001107
   - SCTID:8559711000001106
   - SCTID:8559811000001103
-  - SCTID:12625111000001108 
+  - SCTID:12625111000001108
   - SCTID:12625211000001102
   - SCTID:24155411000001107
   - SCTID:1018811000001108
@@ -5181,13 +5187,13 @@ patient:
   - SCTID:12568511000001106
   - SCTID:12569211000001103
   - SCTID:12569111000001109
-  - SCTID:12569511000001100 
+  - SCTID:12569511000001100
   - SCTID:12569411000001104
   - SCTID:8537811000001107
   - SCTID:8537611000001108
   - SCTID:8539511000001102
   - SCTID:8539111000001106
-  - SCTID:12570111000001107 
+  - SCTID:12570111000001107
   - SCTID:12569911000001107
   - SCTID:12570411000001102
   - NCIT:C557
@@ -5195,112 +5201,8 @@ patient:
   - NCIT:C29101
   - UMLSCUI:C0596007
   - CHEBI:5801
-  - PUBCHEM:3652  
-  AntiInfectivesAntibiotics:
-  - PUBCHEM:102585999  
-  - PUBCHEM:101715062
-  - CHEBI:33281
-  - CHEBI:71644
-  - CHEBI:86323
-  - CHEBI:26177
-  - CHEBI:71645
-  - CHEBI:71647
-  - CHEBI:53268
-  - CHEBI:86322
-  - CHEBI:25105
-  - CHEBI:86324
-  - CHEBI:24392
-  - CHEBI:87230
-  - CHEBI:27933
-  - CHEBI:70737
-  - CHEBI:87228
-  - CHEBI:140190
-  - CHEBI:49322
-  - CHEBI:22507
-  - CHEBI:87211
-  - CHEBI:88225
-  - CHEBI:25558
-  - NCIT:C258
-  - UMLSCUI:C0003232
-  - RxNorm:261226
-  - RxNorm:213625
-  - RxNorm:562699
-  - RxNorm:614842
-  - RxNorm:206509
-  - RxNorm:206519
-  - RxNorm:209769
-  - RxNorm:220476
-  - RxNorm:215326
-  - RxNorm:215658
-  - RxNorm:573496
-  - RxNorm:261681
-  - RxNorm:308509
-  - RxNorm:218506
-  - RxNorm:261463
-  - RxNorm:616919
-  - RxNorm:262104
-  - RxNorm:574458
-  - RxNorm:567340
-  - RxNorm:570349
-  - RxNorm:616920
-  - RxNorm:794206
-  - RxNorm:806329
-  - RxNorm:806363
-  - RxNorm:846039
-  - RxNorm:846041
-  - RxNorm:1166027
-  - RxNorm:1172229
-  - RxNorm:1172234
-  - RxNorm:1184422
-  - RxNorm:1427297
-  - RxNorm:362139
-  - RxNorm:367321
-  - RxNorm:367297
-  - RxNorm:367294
-  - RxNorm:367322
-  - RxNorm:367356
-  - RxNorm:260450
-  - RxNorm:351575
-  - RxNorm:209773
-  - RxNorm:261228
-  - RxNorm:261122
-  - RxNorm:365323
-  - RxNorm:366132
-  - RxNorm:575482
-  - RxNorm:574234
-  - RxNorm:542467
-  - RxNorm:574233
-  - RxNorm:575481
-  - RxNorm:542468
-  - RxNorm:542466
-  - RxNorm:570353
-  - RxNorm:542470
-  - RxNorm:542469
-  - RxNorm:574460
-  - RxNorm:574366
-  - RxNorm:616929
-  - RxNorm:616928
-  - RxNorm:630952
-  - RxNorm:630950
-  - RxNorm:806365
-  - RxNorm:806331
-  - RxNorm:806366
-  - RxNorm:806364
-  - RxNorm:806332
-  - RxNorm:806330
-  - RxNorm:846040
-  - RxNorm:1304960
-  - RxNorm:1359358
-  - RxNorm:1359359
-  - RxNorm:1427296
-  - RxNorm:1427298
-  - RxNorm:1427295
-  - RxNorm:1427294
-  - LOINC:LP31426-7
-  - LOINC:LA30285-3
-  - LOINC:75791-4
-  - LOINC:67443-2
-  ImmunodulationDexamethaone:
+  - PUBCHEM:3652
+  Dexamethasone:
   - LOINC:77665-8
   - LOINC:46948-6
   - LOINC:14062-4
@@ -6067,15 +5969,15 @@ patient:
   - RxNorm:1545696
   - SCTID:121528001
   - SCTID:296845006
-  ImmunodulationPrednisoneOrMethylPrednisone:
+  PrednisoneOrMethylprednisone:
   - CHEBI:8382
   - CHEBI:34655
   - CHEBI:8380
   - CHEBI:79702
-  - PUBCHEM:5865  
+  - PUBCHEM:5865
   - NCIT:C770
   - UMLSCUI:C0032952
-  - NCIT:C29376 
+  - NCIT:C29376
   - UMLSCUI:C1516983
   - NCIT:C11187
   - UMLSCUI:C0392928
@@ -6083,9 +5985,9 @@ patient:
   - UMLSCUI:C0935735
   - NCIT:C37848
   - UMLSCUI:CL448647
-  - NCIT:C9844 
+  - NCIT:C9844
   - UMLSCUI:C0278972
-  - NCIT:C10938 
+  - NCIT:C10938
   - UMLSCUI:C0281679
   - SCTID:33425811000001105
   - SCTID:33428411000001103
@@ -7686,11 +7588,11 @@ patient:
   - LOINC:LP42145-0
   - LOINC:73196-8
   - LOINC:73197-6
-  ImmunodulationIVIG:
-  - PUBCHEM:135312669  
-  - PUBCHEM:135331634  
-  - PUBCHEM:347911208 
-  - PUBCHEM:347911474  
+  IntravenousImmunoglobulin:
+  - PUBCHEM:135312669
+  - PUBCHEM:135331634
+  - PUBCHEM:347911208
+  - PUBCHEM:347911474
   - NCIT:C121331
   - LOINC:LA9437-0
   - LOINC:LA11258-3
@@ -7772,7 +7674,7 @@ patient:
   - RxNorm:205851
   - RxNorm:205853
   - SCITD:350344000
-  ImmunodulationConvalescentPlasma:
+  ConvalescentPlasma:
   - NCIT:C171633
   - NCIT:C173750
   - LOINC:LP418814-2
@@ -7781,7 +7683,7 @@ patient:
   - LOINC:95355-4
   - LOINC:95354-7
   - LOINC:LP418995-9
-  ImmunodulationAnakinra:
+  Anakinra:
   - NCIT:C38717
   - UMLSCUI:C0245109
   - SCITD:4751511000001100
@@ -7829,7 +7731,7 @@ patient:
   - RxNorm:1359602
   - RxNorm:1359724
   - RxNorm:1359793
-  ImmunodulationTocilizumab:
+  Tocilizumab:
   - RxNorm:2106072
   - RxNorm:2106074
   - RxNorm:2106076
@@ -7923,7 +7825,7 @@ patient:
   - NCIT:C126675
   - NCIT:C126674
   - NCIT:C126667
-  Influenza7pointClinicalStatusScore:
+  Influenza7pointClinicalStatusScore: null
   FeverDx:
   - MONDO:0015137
   - MONDO:0005324
@@ -8029,12 +7931,12 @@ patient:
   - NCIT:C0015967
   - NCIT:C143485
   - NCIT:C35547
-  - UMLSCUI:C0043395 
+  - UMLSCUI:C0043395
   - NCIT:C34984
   - UMLSCUI:C0035436
   - NCIT:C34528
   - UMLSCUI:C0011311
-  - NCIT:C35089 
+  - NCIT:C35089
   - UMLSCUI:C0041466
   - NCIT:C97156
   - UMLSCUI:C0724724
@@ -8045,7 +7947,7 @@ patient:
   - NCIT:C144665
   - NCIT:C128335
   - UMLSCUI:C0343528
-  - NCIT:C128418 
+  - NCIT:C128418
   - UMLSCUI:C0023092
   - NCIT:C145285
   - LOINC:LP37005-3
@@ -8161,8 +8063,8 @@ patient:
   - SCITD:200951007
   - SCITD:17658005
   - SCITD:19065005
-  IsolationFlag:
-  DischargeStatus: 
+  IsolationFlag: null
+  DischargeStatus:
   - LOINC:LP74745-8
   - LOINC:LA162-0
   - LOINC:52523-8
@@ -8170,7 +8072,7 @@ patient:
   - SCITD:309039003
   - SCITD:58000006
   - MeSH:D010351
-  PCDDx: 
+  PCDDx:
   - MONDO:0016575
   - MONDO:0033204
   - MONDO:0009477
@@ -8257,7 +8159,7 @@ patient:
   - NCIT:C87083
   - SCITD:C0266642
   - NCIT:C117273
-  - NCIT:C87121 
+  - NCIT:C87121
   - UMLSCUI:C0037221
   DailyWetCough:
   - NCIT:C78569
@@ -8280,9 +8182,9 @@ patient:
   - SCITD:20916007
   - SCITD:68996008
   - SCITD:155260002
-  ChronicNasalCongestion: 
+  ChronicNasalCongestion:
   - NCIT:C78500
-  - UMLSCUI:C0027424 
+  - UMLSCUI:C0027424
   - NCIT:C143698
   - NCIT:C144284
   - NCIT:C144860
@@ -8290,7 +8192,7 @@ patient:
   - SCITD:162380009
   - SCITD:68235000
   - LOINC:LA9263-0
-  Bronchietasis:
+  Bronchiectasis:
   - SCITD:12295008
   - SCITD:77593006
   - SCITD:195985008
@@ -8301,12 +8203,12 @@ patient:
   - SCITD:233630006
   - LOINC:LA25633-1
   - MeSH:D001987
-  MaleInfertilityDueToSpermDysfunction: 
+  MaleInfertilityDueToSpermDysfunction:
   - MeSH:D013081
   - SCITD:414643008
   CysticFibrosis:
   - NCIT:C2975
-  - UMLSCUI:C0010674 
+  - UMLSCUI:C0010674
   - NCIT:C121562
   - UMLSCUI:C1135342
   - NCIT:C103233
@@ -8324,7 +8226,9 @@ patient:
   - SCITD:762270003
   - SCITD:762269004
   - SCITD:762271004
-  Antibiotics: 
+  Antibiotics:
+  - PUBCHEM:102585999
+  - PUBCHEM:101715062
   - CHEBI:33281
   - CHEBI:71644
   - CHEBI:86323
@@ -8347,7 +8251,108 @@ patient:
   - CHEBI:88225
   - CHEBI:25558
   - NCIT:C258
-  - UMLSCUI:C0003232 
+  - UMLSCUI:C0003232
+  - RxNorm:261226
+  - RxNorm:213625
+  - RxNorm:562699
+  - RxNorm:614842
+  - RxNorm:206509
+  - RxNorm:206519
+  - RxNorm:209769
+  - RxNorm:220476
+  - RxNorm:215326
+  - RxNorm:215658
+  - RxNorm:573496
+  - RxNorm:261681
+  - RxNorm:308509
+  - RxNorm:218506
+  - RxNorm:261463
+  - RxNorm:616919
+  - RxNorm:262104
+  - RxNorm:574458
+  - RxNorm:567340
+  - RxNorm:570349
+  - RxNorm:616920
+  - RxNorm:794206
+  - RxNorm:806329
+  - RxNorm:806363
+  - RxNorm:846039
+  - RxNorm:846041
+  - RxNorm:1166027
+  - RxNorm:1172229
+  - RxNorm:1172234
+  - RxNorm:1184422
+  - RxNorm:1427297
+  - RxNorm:362139
+  - RxNorm:367321
+  - RxNorm:367297
+  - RxNorm:367294
+  - RxNorm:367322
+  - RxNorm:367356
+  - RxNorm:260450
+  - RxNorm:351575
+  - RxNorm:209773
+  - RxNorm:261228
+  - RxNorm:261122
+  - RxNorm:365323
+  - RxNorm:366132
+  - RxNorm:575482
+  - RxNorm:574234
+  - RxNorm:542467
+  - RxNorm:574233
+  - RxNorm:575481
+  - RxNorm:542468
+  - RxNorm:542466
+  - RxNorm:570353
+  - RxNorm:542470
+  - RxNorm:542469
+  - RxNorm:574460
+  - RxNorm:574366
+  - RxNorm:616929
+  - RxNorm:616928
+  - RxNorm:630952
+  - RxNorm:630950
+  - RxNorm:806365
+  - RxNorm:806331
+  - RxNorm:806366
+  - RxNorm:806364
+  - RxNorm:806332
+  - RxNorm:806330
+  - RxNorm:846040
+  - RxNorm:1304960
+  - RxNorm:1359358
+  - RxNorm:1359359
+  - RxNorm:1427296
+  - RxNorm:1427298
+  - RxNorm:1427295
+  - RxNorm:1427294
+  - LOINC:LP31426-7
+  - LOINC:LA30285-3
+  - LOINC:75791-4
+  - LOINC:67443-2
+  - CHEBI:33281
+  - CHEBI:71644
+  - CHEBI:86323
+  - CHEBI:26177
+  - CHEBI:71645
+  - CHEBI:71647
+  - CHEBI:53268
+  - CHEBI:86322
+  - CHEBI:25105
+  - CHEBI:86324
+  - CHEBI:24392
+  - CHEBI:87230
+  - CHEBI:27933
+  - CHEBI:70737
+  - CHEBI:87228
+  - CHEBI:140190
+  - CHEBI:49322
+  - CHEBI:22507
+  - CHEBI:87211
+  - CHEBI:88225
+  - CHEBI:25558
+  - NCIT:C258
+  - UMLSCUI:C0003232
   - NCIT:C259
   - UMLSCUI:C0003236
   - LOINC:LP31426-7
@@ -8358,7 +8363,7 @@ patient:
   DILIDx:
   - NCIT:C84427
   - UMLSCUI:C0860207
-  - SCITD:427399008 
+  - SCITD:427399008
   - MONDO:0043693
   - MONDO:0001505
   - MONDO:0021105
@@ -8393,7 +8398,7 @@ patient:
   - SCITD:29997008
   - SCITD:13859001
   - SCITD:59403008
-  - SCITD:4886009 
+  - SCITD:4886009
   - SCITD:20272009
   - SCITD:25192009
   - SCITD:65588006
@@ -8405,7 +8410,7 @@ patient:
   - MeSH:D047928
   - MeSH:D007234
   he_a004c_birth_multi:
-  - NCIT:C81271 
+  - NCIT:C81271
   - UMLSCUI:C2015861
   - NCIT:C93517
   - UMLSCUI:C0005607
@@ -8482,17 +8487,17 @@ patient:
   - MONDO:0011243
   - MONDO:0008169
   - NCIT:C3117
-  - UMLSCUI:C0020538 
+  - UMLSCUI:C0020538
   - NCIT:C55060
   - UMLSCUI:C1963138
   - NCIT:C168203
-  - UMLSCUI:C0455405 
+  - UMLSCUI:C0455405
   - NCIT:C3120
   - UMLSCUI:C0020542
   - NCIT:C55068
-  - UMLSCUI:C1963220 
+  - UMLSCUI:C1963220
   - NCIT:C3119
-  - UMLSCUI:C0020541 
+  - UMLSCUI:C0020541
   - NCIT:C537095
   - LOINC:LA7444-8
   - LOINC:LA19982-0
@@ -8523,9 +8528,9 @@ patient:
   - UMLSCUI:C1314753
   - NCIT:C9243
   - UMLSCUI:C0852260
-  - NCIT:C128009 
+  - NCIT:C128009
   - NCIT:C128010
-  - NCIT:C128011 
+  - NCIT:C128011
   - LOINC:LA19980-4
   - LOINC:LA19981-2
   - MeSH:D046110
@@ -8555,9 +8560,9 @@ patient:
   - SCITD:707124003
   - SCITD:707125002
   he_b009_atherosclerosis:
-  - PUBCHEM:72941823 
-  - PUBCHEM:11607970  
-  - PUBCHEM:10224454 
+  - PUBCHEM:72941823
+  - PUBCHEM:11607970
+  - PUBCHEM:10224454
   - NCIT:C35768
   - UMLSCUI:C0004153
   - NCIT:C34459
@@ -8629,13 +8634,13 @@ patient:
   - UMLSCUI:C1560250
   - NCIT:C54817
   - UMLSCUI:C1560251
-  - NCIT:C54849 
+  - NCIT:C54849
   - UMLSCUI:C1560252
   - NCIT:C54911
-  - UMLSCUI:C1560254 
+  - UMLSCUI:C1560254
   - NCIT:C54880
   - UMLSCUI:C1560253
-  - NCIT:C54775 
+  - NCIT:C54775
   - UMLSCUI:C0494598
   - SCITD:698247007
   - SCITD:131471000119104
@@ -8752,7 +8757,7 @@ patient:
   - LOINC:LA12740-9
   - LOINC:LA25635-6
   - LOINC:LA27840-0
-  he_b015_poor_blood_flow:
+  he_b015_poor_blood_flow: null
   he_b016_raynauds:
   - MeSH:D011928
   - SCITD:22954002
@@ -8797,10 +8802,10 @@ patient:
   he_b019_stroke_mini:
   - MONDO:0005264
   - NCIT:C50781
-  - UMLSCUI:C0007787 
+  - UMLSCUI:C0007787
   - NCIT:C143886
   - NCIT:C144443
-  - NCIT:C145048 
+  - NCIT:C145048
   - SCITD:473129008
   - SCITD:161511000
   - SCITD:230716006
@@ -8839,7 +8844,7 @@ patient:
   - NCIT:C116715
   - UMLSCUI:C3897199
   - NCIT:C172675
-  - NCIT:C172674 
+  - NCIT:C172674
   - NCIT:C35047
   - UMLSCUI:C0038819
   - SCITD:413758000
@@ -9025,19 +9030,19 @@ patient:
   - MeSH:D007328
   - MeSH:C091593
   - MeSH:D000069057
-  he_c022c_diabetes_insulin_first:
+  he_c022c_diabetes_insulin_first: null
   he_c022d_diabetes_pills:
   - LOINC:LP124918-6
   - LOINC:66176-9
   - SCITD:389840003
   - SCITD:390572003
-  he_c022e_diabetes_a:
+  he_c022e_diabetes_a: null
   he_c023_thyroid_disease:
   - MeSH:D013959
   - LOINC:LA15157-3
   - LOINC:LA15303-3
   - SCITD:170780004
-  he_c023a_hyperthyroidism: 
+  he_c023a_hyperthyroidism:
   - SCITD:34486009
   - SCITD:722942005
   - SCITD:722941003
@@ -9067,7 +9072,7 @@ patient:
   - MONDO:0011309
   - MONDO:0014448
   - MONDO:0007784
-  he_c023b_hypothyroidism: 
+  he_c023b_hypothyroidism:
   - LOINC:LA14303-4
   - LOINC:LP74946-2
   - LOINC:LP56766-6
@@ -9143,7 +9148,7 @@ patient:
   - SCITD:237568003
   - SCITD:267370001
   - SCITD:190235005
-  - NCIT:C26785 
+  - NCIT:C26785
   - UMLSCUI:C0018021
   - NCIT:C35271
   - UMLSCUI:C0221777
@@ -9156,11 +9161,11 @@ patient:
   - UMLSCUI:C0342114
   - NCIT:C131437
   - UMLSCUI:C0018023
-  he_c023d_nodule_benign: 
+  he_c023d_nodule_benign:
   - LOINC:LA14304-2
   - MeSH:D016606
   - MeSH:D012218
-  he_d024_allergies: 
+  he_d024_allergies:
   - MONDO:0005659
   - MONDO:0005709
   - MONDO:0011786
@@ -9173,11 +9178,11 @@ patient:
   - MeSH:D006255
   - MeSH:D012221
   - MeSH:C567078
-  he_d025_copd: 
+  he_d025_copd:
   - MONDO:0011751
   - MONDO:0005002
   - NCIT:C3199
-  - UMLSCUI:C0024117 
+  - UMLSCUI:C0024117
   - LOINC:LA28200-6
   - LOINC:LA27422-7
   - LOINC:LA27514-1
@@ -9193,7 +9198,7 @@ patient:
   - SCITD:195996000
   - SCITD:155583003
   - SCITD:195997009
-  he_d026_ipf: 
+  he_d026_ipf:
   - NCIT:C35716
   - UMLSCUI:C1800706
   - SCITD:700250006
@@ -9211,9 +9216,9 @@ patient:
   - MONDO:0008345
   - MONDO:0002429
   - MONDO:0019203
-  he_d027_tb: 
+  he_d027_tb:
   - NCIT:C3423
-  - UMLSCUI:C0041296 
+  - UMLSCUI:C0041296
   - LOINC:LA10513-2
   - LOINC:LP75796-0
   - SCITD:56717001
@@ -9315,7 +9320,7 @@ patient:
   - NCIT:C123020
   - UMLSCUI:C0041328
   - NCIT:C171226
-  - UMLSCUI:C0041332 
+  - UMLSCUI:C0041332
   - NCIT:C26897
   - UMLSCUI:C3203357
   - NCIT:C26804
@@ -9337,8 +9342,7 @@ patient:
   he_q145_diesel:
   - ENVO_2000037
   - ENVO_2000012
-  he_q146_dyes:
-  he_q147_formaldehyde:
+  he_q146_dyes: null
   he_q148_gasoline:
   - ENVO_2000037
   - ENVO_2000012
@@ -9347,14 +9351,14 @@ patient:
   - ENVO_2000012
   he_q150_pesticide:
   - CHEBI_33287
-  he_q151_sand:
+  he_q151_sand: null
   he_q152_other_dust:
   - ENVO:02000127
   - ENVO:02000128
-  - ENVO:02000129 
-  he_q153_textiles:
+  - ENVO:02000129
+  he_q153_textiles: null
   he_q154_wood_dust:
-  - ENVO:02000126 
+  - ENVO:02000126
   he_q155_xrays:
   - ENVO_2000023
   he_s179_100_cigarettes:
@@ -9373,15 +9377,15 @@ patient:
   - SCTID:390904005
   he_s180_smoke:
   - NCIT:C172730
-  - NCIT:C70989, 
-  - NCIT:C167376, 
-  - NCIT:C118169, 
-  - NCIT:C157711, 
+  - NCIT:C70989,
+  - NCIT:C167376,
+  - NCIT:C118169,
+  - NCIT:C157711,
   - NCIT:C116977
   he_s183_tobacco_smokeless:
   - NCIT:C105050
   - UMLSCUI:C3641918
-  he_s184_cigars_pipes:
+  he_s184_cigars_pipes: null
   he_s185_smoke_indoors:
   - NCIT:C127108
   - NCIT:C127106
@@ -9400,7 +9404,7 @@ patient:
   - MONDO:0012882
   - MONDO:0024612
   - MONDO:0012319
-  ea_a014_central_heat:
+  ea_a014_central_heat: null
   ea_a017a_heat_natural_gas:
   - ENVO:01000556
   - ENVO:01000559
@@ -9431,11 +9435,11 @@ patient:
   ea_a020b_fireplace_coal:
   - NCIT:C164056
   - NCIT:C157711
-  ea_a020c_fireplace_natural_gas:
-  ea_a020d_fireplace_art_logs:
-  ea_a021a_stove_electricity:
-  ea_a021b_stove_natural_gas:
-  ea_a021c_stove_woodfire:
+  ea_a020c_fireplace_natural_gas: null
+  ea_a020d_fireplace_art_logs: null
+  ea_a021a_stove_electricity: null
+  ea_a021b_stove_natural_gas: null
+  ea_a021c_stove_woodfire: null
   ea_a021d_stove_coal:
   - ENVO:2000013
   ea_a021e_stove_propane:
@@ -9448,15 +9452,15 @@ patient:
   - ENVO:00003096
   - ENVO:00005792
   - ENVO:01001565
-  ea_a027_water_filter:
-  ea_a028_water_source_bath:
-  ea_a038_water_damage_repair:
-  ea_a059a_pet_dog:
-  ea_a059b_pet_cat:
-  ea_a059c_pet_other:
-  ea_a060_pest_regularly:
-  ea_a065_traffic:
-  a_a066_traffic_heavy:
+  ea_a027_water_filter: null
+  ea_a028_water_source_bath: null
+  ea_a038_water_damage_repair: null
+  ea_a059a_pet_dog: null
+  ea_a059b_pet_cat: null
+  ea_a059c_pet_other: null
+  ea_a060_pest_regularly: null
+  ea_a065_traffic: null
+  ea_a066_traffic_heavy: null
   ea_b092a_benzene:
   - CHEBI_27798
   ea_b092b_chloroform:
@@ -9468,7 +9472,7 @@ patient:
   - CHEBI:48236
   - CHEBI:29365
   - CHEBI:34576
-  - PUBCHEM:6212  
+  - PUBCHEM:6212
   ea_b092c_chloroprene:
   - PUBCHEM:31369
   - CHEBI:39481
@@ -9496,9 +9500,9 @@ patient:
   - UMLSCUI:C0040905
   ea_b092j_xylenes:
   - CHEBI:27338
-  ea_b098a_brake_fluid:
-  ea_b098b_transmission_fluid:
-  ea_b098c_hydraulic_fluid:
+  ea_b098a_brake_fluid: null
+  ea_b098b_transmission_fluid: null
+  ea_b098c_hydraulic_fluid: null
   ea_b098d_motor_oil:
   - ENVO:00002984
   ea_b104a_bleach:
@@ -9746,7 +9750,7 @@ patient:
   - CHEBI:131518
   - CHEBI:139496
   - CHEBI:6794
-  ea_b116b_methanol:
+  ea_b116b_methanol: null
   ea_b116c_ethanol:
   - CHEBI_16236
   - CHEBI:17790
@@ -9982,9 +9986,9 @@ patient:
   - ENVO_01001058
   ea_b122e_herbicides:
   - CHEBI:24527
-  ea_b122f_ethyl_fumigants:
+  ea_b122f_ethyl_fumigants: null
   ea_b122g_rodenticides:
-  - CHEBI_33288 
+  - CHEBI_33288
   ea_b128a_bpa:
   - ENVO:02500040
   ea_b128b_vinyl_chloride:
@@ -10000,8 +10004,8 @@ patient:
   ea_b128g_methylene_bis:
   - ENVO:02500040
   ea_b134a_coal_dust:
-  - ENVO:02000127 
-  ea_b134b_fiberglass:
+  - ENVO:02000127
+  ea_b134b_fiberglass: null
   ea_b134c_rock_dust:
   - ENVO_01001398
   - ENVO_01001108
@@ -10011,7 +10015,7 @@ patient:
   ea_b134e_talc:
   - ENVO_01001285
   - CHEBI_32178
-  ea_b140a_nitrous_oxide:
+  ea_b140a_nitrous_oxide: null
   ea_b140b_carbon_dioxide:
   - CHEBI_23014
   ea_b140c_carbon_monoxide:
@@ -10025,23 +10029,23 @@ patient:
   - CHEBI:35446
   ea_b146c_radiation:
   - ENVO_21001218
-  - ENVO:01001857 
+  - ENVO:01001857
   - ENVO:01001861
-  - ENVO:01001864 
+  - ENVO:01001864
   ea_b146d_xrays:
   - ENVO_21001217
   ea_b146e_welding:
-  - ENVO_02000113 
+  - ENVO_02000113
   ea_b152a_hydrochloric_acid:
   - CHEBI:37527
   - ENVO:03000127
   - ENVO:03000128
   ea_b152b_sulfuric_acid:
   - ENVO:03000127
-  - ENVO:03000128 
+  - ENVO:03000128
   ea_b152c_phosphoric_acid:
   - CHEBI:26079
-  ea_b152d_acetic_acid:
+  ea_b152d_acetic_acid: null
   ea_b152e_nitric_acid:
   - CHEBI:48107
   - ENVO:03000123
@@ -10058,28 +10062,28 @@ patient:
   - NCIT:C66001
   ea_b164b_wood:
   - ENVO:02000126
-  ea_b164c_resin:
-  ea_b164d_polyurethane:
-  ea_b164e_lacquer:
-  ea_b164f_acrylic:
+  ea_b164c_resin: null
+  ea_b164d_polyurethane: null
+  ea_b164e_lacquer: null
+  ea_b164f_acrylic: null
   ea_b170a_primer:
   - ENVO:02000123
   - NCIT:C122420
-  - NCIT:C158520 
-  - NCIT:C157075 
+  - NCIT:C158520
+  - NCIT:C157075
   - NCIT:C156952
-  ea_b170b_enamel:
-  ea_b170c_oil_based:
+  ea_b170b_enamel: null
+  ea_b170c_oil_based: null
   ea_b170d_acrylic:
   - CHEBI:18308
-  ea_b170e_luminescent:
+  ea_b170e_luminescent: null
   ea_b170f_acetone:
   - CHEBI:15347
   ea_b170g_turpentine:
   - NCIT:C63923
   ea_b170h_naphtha:
   - ENVO:00002983
-  ea_b170i_ethyl_ket:
+  ea_b170i_ethyl_ket: null
   ea_b176a_desflurane:
   - CHEBI:4445
   ea_b176b_enflurane:
@@ -10090,94 +10094,94 @@ patient:
   - CHEBI:6015
   ea_b176e_methoxyflurane:
   - CHEBI:6843
-  ea_b176f_nitrous:
+  ea_b176f_nitrous: null
   ea_b176g_sevoflurane:
   - CHEBI:9130
   ea_b182a_white_glue:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182b_rubber_cement:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182c_neoprene:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182d_vinyl_a:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182e_epoxy:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182f_urethane:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182g_polyimides:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182h_cyanoacrylates:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182i_wallpaper_paste:
-  - ENVO_00003076 
-  ea_b188a_eutectic:
-  ea_b188b_tin_zinc:
-  ea_b188c_lead_silver:
-  ea_b188d_cadmium_silver:
-  ea_b188e_flux:
-  ea_b188f_solder_paste:
-  ea_b188g_solder_wire:
-  ea_b188h_rosin:
-  ea_b188i_solder_fumes:
-  ea_b194a_hair_dye:
-  ea_b194b_leather_dye:
-  ea_b194c_textile_dye:
-  ea_b194d_paper_dye:
-  ea_b194e_india_ink:
-  ea_b194f_inkjet:
-  ea_b194g_gel_ink:
-  ea_b194h_pen_ink:
-  ea_b194i_toner:
-  ea_b194j_soy_ink:
-  ea_b194k_pharma_ink:
-  ea_a012_current_home_type:
-  ea_a017h_heat_other:
-  ea_a017i_heat_none:
-  ea_a017j_heat_dk:
-  ea_a021f_stove_other:
+  - ENVO_00003076
+  ea_b188a_eutectic: null
+  ea_b188b_tin_zinc: null
+  ea_b188c_lead_silver: null
+  ea_b188d_cadmium_silver: null
+  ea_b188e_flux: null
+  ea_b188f_solder_paste: null
+  ea_b188g_solder_wire: null
+  ea_b188h_rosin: null
+  ea_b188i_solder_fumes: null
+  ea_b194a_hair_dye: null
+  ea_b194b_leather_dye: null
+  ea_b194c_textile_dye: null
+  ea_b194d_paper_dye: null
+  ea_b194e_india_ink: null
+  ea_b194f_inkjet: null
+  ea_b194g_gel_ink: null
+  ea_b194h_pen_ink: null
+  ea_b194i_toner: null
+  ea_b194j_soy_ink: null
+  ea_b194k_pharma_ink: null
+  ea_a012_current_home_type: null
+  ea_a017h_heat_other: null
+  ea_a017i_heat_none: null
+  ea_a017j_heat_dk: null
+  ea_a021f_stove_other: null
   ea_a023a_ac_central:
   - ENVO:00002874
   ea_a023b_ac_window:
   - ENVO:00002874
   ea_a023c_ac_portable:
   - ENVO:00002874
-  ea_a036_mildew_odor_d:
-  ea_a040_mold_d:
-  ea_a061a_pest_ants: 
+  ea_a036_mildew_odor_d: null
+  ea_a040_mold_d: null
+  ea_a061a_pest_ants:
   - ENVO:00005804
-  ea_a061b_pest_cockroaches:
-  ea_a061c_pest_bees_wasps:
-  ea_a061d_pest_flies:
-  ea_a061e_pest_spiders:
-  ea_a061f_pest_mosquitos:
-  ea_a061g_pest_flea_ticks:
+  ea_a061b_pest_cockroaches: null
+  ea_a061c_pest_bees_wasps: null
+  ea_a061d_pest_flies: null
+  ea_a061e_pest_spiders: null
+  ea_a061f_pest_mosquitos: null
+  ea_a061g_pest_flea_ticks: null
   ea_a061h_pest_termite:
   - ENVO:2000006
-  ea_a061i_pest_other:
+  ea_a061i_pest_other: null
   ea_a067_animal_waste:
   - ENVO:00002276
   ea_a068_bus_station:
   - ENVO:01000611
-  ea_a069_airport:
-  ea_a070_dry_cleaners:
+  ea_a069_airport: null
+  ea_a070_dry_cleaners: null
   ea_a071_farm:
   - ENVO:00000078
-  ea_a072_gas_station:
-  ea_a073_golf_course:
-  ea_a074_greenhouse:
+  ea_a072_gas_station: null
+  ea_a073_golf_course: null
+  ea_a074_greenhouse: null
   ea_a075_hazard_waste:
   - ENVO_01001264
   - ENVO:00002206
   - ENVO:00002001
   - ENVO:00002267
-  ea_a076_power_lines:
-  ea_a077_incinerator:
+  ea_a076_power_lines: null
+  ea_a077_incinerator: null
   ea_a078_landfill:
   - ENVO:00000533
   - ENVO:01000916
-  ea_a079_tannery:
-  ea_a080_military_base:
+  ea_a079_tannery: null
+  ea_a080_military_base: null
   ea_a081_oil_refinery:
   - ENVO:01000003
   - ENVO:00002185
@@ -10197,69 +10201,69 @@ patient:
   ea_a087_nuclear_plant:
   - ENVO:00002271
   ea_a088b_factory_d:
-  - ENVO_01000536 
+  - ENVO_01000536
   ea_a091_farm_active:
   - ENVO:01001170
-  ea_b092_solvent_d:
-  ea_b092k_solvent_other:
-  ea_b097a_solvent_ongoing_d:
-  ea_b098_lube_d:
-  ea_b098e_lube_other:
-  ea_b103a_lube_ongoing_d:
-  ea_b104_cleaning_d:
-  ea_b104d_cleaning_other:
-  ea_b109a_cleaning_ongoing_d:
-  ea_b110_metal_d:
-  ea_b110h_metal_other:
-  ea_b115a_metal_ongoing_d:
-  ea_b116_alcohol_d:
-  ea_b116e_alcohol_other:
-  ea_b121a_alcohol_ongoing_d:
-  ea_b122_pest_d:
-  ea_b122h_pest_other:
-  ea_b127a_pest_ongoing_d:
-  ea_b128_plastic_d:
-  ea_b128h_plastic_other:
-  ea_b134_dust_d:
-  ea_b134f_dust_other:
-  ea_b139a_dust_ongoing_d:
-  ea_b140_emissions_d:
-  ea_b140e_emissions_other:
-  ea_b145a_emissions_ongoing_d:
-  ea_b146_carcinogens_d:
-  ea_b146f_carcinogens_other:
-  ea_b151a_carcinogens_ongoing_d:
-  ea_b152_acid_d:
-  a_b152f_acid_other:
-  ea_b157a_acid_ongoing_d:
+  ea_b092_solvent_d: null
+  ea_b092k_solvent_other: null
+  ea_b097a_solvent_ongoing_d: null
+  ea_b098_lube_d: null
+  ea_b098e_lube_other: null
+  ea_b103a_lube_ongoing_d: null
+  ea_b104_cleaning_d: null
+  ea_b104d_cleaning_other: null
+  ea_b109a_cleaning_ongoing_d: null
+  ea_b110_metal_d: null
+  ea_b110h_metal_other: null
+  ea_b115a_metal_ongoing_d: null
+  ea_b116_alcohol_d: null
+  ea_b116e_alcohol_other: null
+  ea_b121a_alcohol_ongoing_d: null
+  ea_b122_pest_d: null
+  ea_b122h_pest_other: null
+  ea_b127a_pest_ongoing_d: null
+  ea_b128_plastic_d: null
+  ea_b128h_plastic_other: null
+  ea_b134_dust_d: null
+  ea_b134f_dust_other: null
+  ea_b139a_dust_ongoing_d: null
+  ea_b140_emissions_d: null
+  ea_b140e_emissions_other: null
+  ea_b145a_emissions_ongoing_d: null
+  ea_b146_carcinogens_d: null
+  ea_b146f_carcinogens_other: null
+  ea_b151a_carcinogens_ongoing_d: null
+  ea_b152_acid_d: null
+  ea_b152f_acid_other: null
+  ea_b157a_acid_ongoing_d: null
   ea_b158_alkalis_d:
   - CHEBI_22313
   - CHEBI_22314
   ea_b158e_alkalis_other:
   - CHEBI_22313
   - CHEBI_22314
-  ea_b163a_alkalis_ongoing_d:
-  ea_b164_stains_d:
-  ea_b164g_stains_other:
-  ea_b170_paint_d:
-  ea_b170j_paint_other:
-  ea_b175a_paint_ongoing_d:
-  ea_b176_anesthetic_d:
-  ea_b176h_anesthetic_other:
-  ea_b181a_anesthetic_ongoing_d:
-  ea_b182_adhesives_d:
-  ea_b182j_adhesives_other:
-  ea_b187a_adhesives_ongoing_d:
-  ea_b188_soldering_d:
-  ea_b188j_soldering_other:
-  ea_b193a_soldering_ongoing_d:
-  ea_b194_ink_d:
-  ea_b194l_ink_other:
-  ea_b199a_ink_ongoing_d:
+  ea_b163a_alkalis_ongoing_d: null
+  ea_b164_stains_d: null
+  ea_b164g_stains_other: null
+  ea_b170_paint_d: null
+  ea_b170j_paint_other: null
+  ea_b175a_paint_ongoing_d: null
+  ea_b176_anesthetic_d: null
+  ea_b176h_anesthetic_other: null
+  ea_b181a_anesthetic_ongoing_d: null
+  ea_b182_adhesives_d: null
+  ea_b182j_adhesives_other: null
+  ea_b187a_adhesives_ongoing_d: null
+  ea_b188_soldering_d: null
+  ea_b188j_soldering_other: null
+  ea_b193a_soldering_ongoing_d: null
+  ea_b194_ink_d: null
+  ea_b194l_ink_other: null
+  ea_b199a_ink_ongoing_d: null
   ea_e249_sunburn:
   - C3395
   - MESH:D013471
-  - SCTID:403194002 
+  - SCTID:403194002
   - MONDO:0005326
   ea_e253_skin_rash:
   - NCIT:C62596
@@ -10269,12 +10273,12 @@ patient:
   - NCIT:C96388
   - NCIT:C167409
   - NCIT:C118468
-  ea_e257_tan_booth:
+  ea_e257_tan_booth: null
   ea_e261_sunlamp:
   - NCIT:C50197
   eb_a001_multivitamin:
   - LOINC:81950-8
-  - NCIT:C1654 
+  - NCIT:C1654
   - UMLSCUI:C0301532
   eb_a002_vitamin_a:
   - CHEBI:17336
@@ -10282,7 +10286,7 @@ patient:
   - MeSH:D014802
   - MeSH:D014801
   - LOINC:LP31687-4
-  - SCTID:36922411000001109 
+  - SCTID:36922411000001109
   - SCTID:3270000007
   - SCTID:3438501000124103
   - SCTID:331109009
@@ -10383,10 +10387,10 @@ patient:
   - MESH:C435939
   - MESH:C520558
   - MESH:C520984
-  A1ATDeficiency:
+  A1AT_Deficiency:
   - MONDO:0013282
-  ALTDILIOnsetULN:
-  ALTOnset:
+  ALT_DILIOnset_ULN: null
+  ALT_Onset:
   - UMLS:C2749273
   - UMLS:C1832768
   - UMLS:C2750687
@@ -10399,8 +10403,8 @@ patient:
   - UMLS:C1300107
   - MONDO:0018485
   - MONDO:0017694
-  ALTPeakDILIOnsetToMonth6:
-  ALTPeakDILIOnsetToMonth6ULN:
+  ALT_Peak_DILIOnsetToMonth6: null
+  ALT_Peak_DILIOnsetToMonth6_ULN: null
   ANA:
   - OMIM:114105
   - PUBCHEM.COMPOUND:44629965
@@ -10859,8 +10863,8 @@ patient:
   - MONDO:0017364
   - MONDO:0018621
   - MONDO:0043275
-  ASTDILIOnsetULN:
-  ASTOnset:
+  AST_DILIOnset_ULN: null
+  AST_Onset:
   - UMLS:C0264413
   - UMLS:C1844940
   - UMLS:C4693677
@@ -10906,8 +10910,8 @@ patient:
   - MONDO:0010040
   - MONDO:0010729
   - MONDO:0100016
-  ASTPeakDILIOnsetToMonth6:
-  ASTPeakDILIOnsetToMonth6ULN:
+  AST_Peak_DILIOnsetToMonth6: null
+  AST_Peak_DILIOnsetToMonth6_ULN: null
   AbdominalPain:
   - NCIT:C143255
   - UMLS:C0423651
@@ -10971,7 +10975,7 @@ patient:
   - MONDO:0002268
   - MONDO:0009842
   AgeQualifyingLab: *id011
-  AlcoholRelatedLiverDisease:
+  AlcoholRelatedLiverDisease: null
   AlcoholUse:
   - NCIT:C81229
   - UMLS:C0085762
@@ -11037,8 +11041,8 @@ patient:
   - UMLS:C0033936
   - UMLS:C1852007
   - MONDO:0002046
-  AlkalinePhosphataseDILIOnsetULN:
-  AlkalinePhosphataseOnset:
+  AlkalinePhosphatase_DILIOnset_ULN: null
+  AlkalinePhosphatase_Onset:
   - SCTID:88810008
   - SCTID:785821009
   - SCTID:889401000000102
@@ -11048,9 +11052,9 @@ patient:
   - LOINC:LG4193-1
   - LOINC:LG2774-0
   - LOINC:LP44703-4
-  AlkalinePhosphatasePeakDILIOnsetToMonth6ULN:
-  AlkalinePhosphatatePeakDILIOnsetToMonth6:
-  AntiHAV:
+  AlkalinePhosphatase_Peak_DILIOnsetToMonth6_ULN: null
+  AlkalinePhosphatase_Peak_DILIOnsetToMonth6: null
+  Anti_HAV:
   - OMIM:MTHU045723
   - UMLS:C0001676
   - UMLS:C0562564
@@ -11072,19 +11076,19 @@ patient:
   - LOINC:20575-7
   - LOINC:53776-1
   - LOINC:89373-5
-  AntiHBc:
+  Anti_HBc:
   - UMLS:C0948251
   - SCTID:82409003
-  AntiHBcIgM:
+  Anti_HBc_IgM:
   - UMLS:C0948251
   - SCTID:143335009
   - SCTID:165947003
   - SCTID:995951000000103
   - SCTID:50506008
-  AntiHBe: 
-  AntiHBs:
+  Anti_HBe: null
+  Anti_HBs:
   - UMLS:C0262505
-  AntiHCV:
+  Anti_HCV:
   - SCTID:64411004
   - SCTID:72165005
   - LOINC:75886-2
@@ -11175,17 +11179,17 @@ patient:
   - CHEBI:61335
   - CHEBI:31683
   - MONDO:0020670
-  BilirubinDILIOnsetULN:
-  BilirubinOnset:
-  BilirubinPeakDILIOnsetToMonth6:
-  BilirubinPeakDILIOnsetToMonth6ULN:
-  ChronicDILI:
-  ChronicHepatitisCScreening:
+  Bilirubin_DILIOnset_ULN: null
+  Bilirubin_Onset: null
+  Bilirubin_Peak_DILIOnsetToMonth6: null
+  Bilirubin_Peak_DILIOnsetToMonth6_ULN: null
+  ChronicDILI: null
+  ChronicHepatitisC_Screening:
   - SCTID:128302006
   - SCTID:708198006
   - SCTID:186640001
   - MESH:D019698
-  ChronicHepatititsBScireening:
+  ChronicHepatitisB_Screening: null
   Cirrhosis:
   - NCIT:C3044
   - UMLS:C4049169
@@ -11409,18 +11413,18 @@ patient:
   - UMLS:C4706244
   - MONDO:0005009
   - MONDO:0001899
-  DILINSeverityScore:
+  DILIN_SeverityScore: null
   DRB1*15:01:
   - MESH:C489631
-  DaysALTDILIOnsetToPeak:
-  DaysASTDILIOnsetToPeak:
-  DaysAlkalphinePhosphataseDILIOnsetToPeak:
-  DaysBilirubinDILIOnsetToPeak:
-  DaysDILIOnsetToInititalVisit:
-  DaysDrugStartToEarliestSign:
-  DaysDrugStartToEarliestSignOrDILI:
-  DaysEarliestSignToDILI:
-  DaysEarliestSignToDrugStop:
+  Days_ALT_DILIOnsetToPeak: null
+  Days_AST_DILIOnsetToPeak: null
+  Days_AlkalinePhosphatase_DILIOnsetToPeak: null
+  Days_Bilirubin_DILIOnsetToPeak: null
+  Days_DILIOnsetToInitialVisit: null
+  Days_DrugStartToEarliestSign: null
+  Days_DrugStartToEarliestSignOrDILI: null
+  Days_EarliestSignToDILI: null
+  Days_EarliestSignToDrugStop: null
   Death:
   - UMLS:C1306577
   - NCIT:C53787
@@ -11625,8 +11629,8 @@ patient:
   - SCTID:142935007
   - SCTID:365601007
   - SCTID:165524009
-  EosinophilGreatThan500:
-  EthnicityDILI: *id044
+  Eosinophil_GreaterThan500: null
+  EthnicityDILI: *id012
   FamilyHistoryLiverDisease:
   - UMLS:C0455417
   - SCTID:266902008
@@ -11981,7 +11985,7 @@ patient:
   - SCITD:200951007
   - SCITD:17658005
   - SCITD:19065005
-  FinalCausalityScore:
+  FinalCausalityScore: null
   GastrointestinalDisease:
   - UMLS:C0455420
   - UMLS:C0455553
@@ -12013,7 +12017,7 @@ patient:
   - OMIM:MTHU031877
   - MESH:D005878
   - LOINC:27503000
-  HBVPositive:
+  HBV_Positive:
   - LOINC:55275-2
   HBeAg:
   - SCITD:143472004
@@ -12052,10 +12056,10 @@ patient:
   - LOINC:63557-3
   - LOINC:95148-3
   - LOINC:75410-1
-  HCVPositive:
+  HCV_Positive:
   - SCITD:406104003
   - LOINC:55276-0
-  HCVRNA:
+  HCV_RNA:
   - UMLS:C4049267
   - LOINC:75888-8
   - LOINC:LP186248-3
@@ -12063,7 +12067,7 @@ patient:
   - LOINC:75886-2
   - LOINC:LP379978-2
   - LOINC:50023-1
-  HIVPositive:
+  HIV_Positive:
   - NCIT:C15175
   - UMLS:C0855843
   - UMLS:C0860724
@@ -12071,7 +12075,7 @@ patient:
   - UMLS:C0456101
   - SCITD:165816005
   - SCITD:143224002
-  HLA-B*15:18:
+  HLA-B*15:18: null
   HeartDisease:
   - UMLS:C0686716
   - UMLS:C0543946
@@ -12298,19 +12302,19 @@ patient:
   - UMLS:C0264843
   - UMLS:C4076065
   - UMLS:C3150339
-  HepatititsA:
-  HospitalizationNewProlonged:
-  INROnset:
+  HepatitisA: null
+  Hospitalization_NewProlonged: null
+  INR_Onset:
   - SCITD:1951000175101
   - SCITD:165581004
   - SCITD:165583001
   - SCITD:165582006
   - MESH:D019934
-  INRPeakDILIOnsetToMonth6:
-  ImplicatedDrug1Assessment:
-  ImplicatedDrug2Assessment:
-  ImplicatedDrug3Assessment:
-  InitialRUCAM:
+  INR_Peak_DILIOnsetToMonth6: null
+  Implicated_Drug1_Assessment: null
+  Implicated_Drug2_Assessment: null
+  Implicated_Drug3_Assessment: null
+  Initial_RUCAM: null
   IschemicHepatitis:
   - UMLS:C0473117
   - SCTID:235877000
@@ -12525,7 +12529,7 @@ patient:
   - UMLS:C5195206
   - UMLS:C0429422
   - UMLS:C4228100
-  LiverBiopsyScreen:
+  LiverBiopsy_Screen:
   - SCITD:86259008
   - SCITD:309203003
   - SCITD:15050001
@@ -13155,9 +13159,9 @@ patient:
   - MESH:D056889
   - MESH:D044504
   - MESH:C538171
-  PCARace:
-  PatternLiverInjuryOnset:
-  PrednisoneOrCorticosteroidsTx:
+  PCA_Race: null
+  PatternLiverInjury_Onset: null
+  PrednisoneOrCorticosteroids_Tx:
   - CHEBI:50858
   - NCIT:C142385
   - MESH:D006889
@@ -13450,8 +13454,8 @@ patient:
   - LOINC:LA28200-6
   - LOINC:LA27422-7
   - LOINC:LA27872-3
-  RValueOnset: 
-  RaceDILI: *id080
+  RValue_Onset: null
+  RaceDILI: *id013
   Rash:
   - UMLS:C0302295
   - NCIT:C27171
@@ -13813,7 +13817,7 @@ patient:
   - SCTID:234348004
   - SCTID:275906001
   - SCTID:662181000000100
-  SerumIgA:
+  Serum_IgA:
   - UMLS:C3276783
   - UMLS:C3278891
   - UMLS:C4540235
@@ -13834,7 +13838,7 @@ patient:
   - LOINC:LP377467-8
   - LOINC:LP394673-0
   - LOINC:LP394360-4
-  SerumIgG:
+  Serum_IgG:
   - UMLS:C3278891
   - UMLS:C1864582
   - UMLS:C4017766
@@ -13842,7 +13846,7 @@ patient:
   - UMLS:C4013570
   - UMLS:C2750138
   - SCTID:165868003
-  SerumIgM:
+  Serum_IgM:
   - UMLS:C2674487
   - UMLS:C3278892
   - UMLS:C1864582
@@ -13853,7 +13857,7 @@ patient:
   - LOINC:LP377049-4
   - LOINC:LP395419-7
   - LOINC:LP377091-6
-  SexDILI: *id009
+  SexDILI: *id010
   StevensJohnsonSyndrome:
   - NCIT:C143859
   - NCIT:C145642
@@ -14057,12 +14061,12 @@ patient:
   UnexplainedAbnormalLiverTest:
   - SCTID:207471009
   - SCTID:166603001
-  WHONAMEImplicatedDrug1:
-  WHONAMEImplicatedDrug2:
-  WHONAMEImplicatedDrug3:
-  WeeksDrugStartToDILI:
-  WeeksDurationOfSickness:
-  WeeksEarliestSignToDILI:
+  WHONAME_Implicated_Drug1: null
+  WHONAME_Implicated_Drug2: null
+  WHONAME_Implicated_Drug3: null
+  Weeks_DrugStartToDILI: null
+  Weeks_DurationOfSickness: null
+  Weeks_EarliestSignToDILI: null
   Weight:
   - UMLS:C0424653
   - NCIT:C3445
@@ -14271,72 +14275,72 @@ patient:
   - UMLS:C3665549
   - UMLS:C4551303
   - MESH:C093154
-  YearDILIOnset:
-  rs1363907a:
-  rs2476601a:
+  Year_DILI_Onset: null
+  rs1363907_a: null
+  rs2476601_a: null
 visit:
-  AvgailyAcetaldehydeExposure_2: *id010
-  AvgailyAcetaldehydeExposure_2_qcut: *id010
+  AvgailyAcetaldehydeExposure_2: *id001
+  AvgailyAcetaldehydeExposure_2_qcut: *id001
   AgeVisit: *id011
-  AlbuterolVisit: *id012
-  AlcoholDependenceVisit: *id013
-  AlopeciaVisit: *id014
-  AndrostenedioneVisit: *id015
-  ArformoterolVisit: *id016
-  AsthmaDxVisit: *id017
-  Avg24hBenzeneExposure_2: *id001
-  Avg24hBenzeneExposure_2_qcut: *id001
-  Avg24hCOExposure_2: *id002
-  Avg24hCOExposure_2_qcut: *id002
-  Avg24hNO2Exposure_2: *id003
-  Avg24hNO2Exposure_2_qcut: *id003
-  Avg24hNOExposure_2: *id004
-  Avg24hNOExposure_2_qcut: *id004
-  Avg24hNOxExposure_2: *id005
-  Avg24hNOxExposure_2_qcut: *id005
-  Avg24hOzoneExposure: *id006
-  Avg24hOzoneExposure_StudyAvg: *id006
-  Avg24hOzoneExposure_StudyAvg_qcut: *id006
-  Avg24hOzoneExposure_StudyMax: *id006
-  Avg24hOzoneExposure_StudyMax_qcut: *id006
-  Avg24hOzoneExposure_qcut: *id006
-  Avg24hPM2.5Exposure: *id007
-  Avg24hPM2.5Exposure_2: *id007
-  Avg24hPM2.5Exposure_2_qcut: *id007
-  Avg24hPM2.5Exposure_StudyAvg: *id007
-  Avg24hPM2.5Exposure_StudyAvg_qcut: *id007
-  Avg24hPM2.5Exposure_StudyMax: *id007
-  Avg24hPM2.5Exposure_StudyMax_qcut: *id007
-  Avg24hPM2.5Exposure_qcut: *id007
-  Avg24hSO2Exposure_2: *id008
-  Avg24hSO2Exposure_2_qcut: *id008
-  BeclomethasoneVisit: *id018
-  BudesonideVisit: *id019
-  CervicalCancerVisit: *id020
-  CetirizineVisit: *id021
-  Ciclesonidevisit: *id022
-  CitalopramVisit: *id023
-  CoughDxVisit: *id024
-  CroupDxVisit: *id025
-  DiabetesVisit: *id026
-  DiphenhydramineVisit: *id027
-  DrugDependenceVisit: *id028
-  DuloxetineVisit: *id029
-  EndometriosisVisit: *id030
-  EscitalopramVisit: *id031
-  EstHouseholdIncome: *id032
-  EstProbabilityESL: *id033
-  EstProbabilityHighSchoolMaxEducation: *id034
-  EstProbabilityHouseholdNonHispWhite: *id035
-  EstProbabilityNoAuto: *id036
-  EstProbabilityNoHealthIns: *id037
-  EstProbabilityNonHispWhite: *id038
-  EstResidentialDensity: *id039
-  EstResidentialDensity25Plus: *id040
-  EstradiolVisit: *id041
-  EstrogenVisit: *id042
-  EstropipateVisit: *id043
-  Ethnicity: *id044
+  AlbuterolVisit: *id014
+  AlcoholDependenceVisit: *id015
+  AlopeciaVisit: *id016
+  AndrostenedioneVisit: *id017
+  ArformoterolVisit: *id018
+  AsthmaDxVisit: *id019
+  Avg24hBenzeneExposure_2: *id002
+  Avg24hBenzeneExposure_2_qcut: *id002
+  Avg24hCOExposure_2: *id003
+  Avg24hCOExposure_2_qcut: *id003
+  Avg24hNO2Exposure_2: *id004
+  Avg24hNO2Exposure_2_qcut: *id004
+  Avg24hNOExposure_2: *id005
+  Avg24hNOExposure_2_qcut: *id005
+  Avg24hNOxExposure_2: *id006
+  Avg24hNOxExposure_2_qcut: *id006
+  Avg24hOzoneExposure: *id007
+  Avg24hOzoneExposure_StudyAvg: *id007
+  Avg24hOzoneExposure_StudyAvg_qcut: *id007
+  Avg24hOzoneExposure_StudyMax: *id007
+  Avg24hOzoneExposure_StudyMax_qcut: *id007
+  Avg24hOzoneExposure_qcut: *id007
+  Avg24hPM2.5Exposure: *id008
+  Avg24hPM2.5Exposure_2: *id008
+  Avg24hPM2.5Exposure_2_qcut: *id008
+  Avg24hPM2.5Exposure_StudyAvg: *id008
+  Avg24hPM2.5Exposure_StudyAvg_qcut: *id008
+  Avg24hPM2.5Exposure_StudyMax: *id008
+  Avg24hPM2.5Exposure_StudyMax_qcut: *id008
+  Avg24hPM2.5Exposure_qcut: *id008
+  Avg24hSO2Exposure_2: *id009
+  Avg24hSO2Exposure_2_qcut: *id009
+  BeclomethasoneVisit: *id020
+  BudesonideVisit: *id021
+  CervicalCancerVisit: *id022
+  CetirizineVisit: *id023
+  Ciclesonidevisit: *id024
+  CitalopramVisit: *id025
+  CoughDxVisit: *id026
+  CroupDxVisit: *id027
+  DiabetesVisit: *id028
+  DiphenhydramineVisit: *id029
+  DrugDependenceVisit: *id030
+  DuloxetineVisit: *id031
+  EndometriosisVisit: *id032
+  EscitalopramVisit: *id033
+  EstHouseholdIncome: *id034
+  EstProbabilityESL: *id035
+  EstProbabilityHighSchoolMaxEducation: *id036
+  EstProbabilityHouseholdNonHispWhite: *id037
+  EstProbabilityNoAuto: *id038
+  EstProbabilityNoHealthIns: *id039
+  EstProbabilityNonHispWhite: *id040
+  EstResidentialDensity: *id041
+  EstResidentialDensity25Plus: *id042
+  EstradiolVisit: *id043
+  EstrogenVisit: *id044
+  EstropipateVisit: *id045
+  Ethnicity: *id012
   FEV1FVC_FirstFlag:
   - LOINC:52485-0
   - LOINC:19926-5
@@ -14389,12 +14393,11 @@ visit:
   - NCIT:C111361
   - UMLSCUI:C3714541
   - SCTID:50834005
-  FexofenadineVisit: *id045
-  FibromyalgiaVisit: *id046
-  FlunisolideVisit: *id047
-  FluoxetineVisit: *id048
-  FluticasoneVisit: *id049
-  Formaldehyde: *id050
+  FexofenadineVisit: *id046
+  FibromyalgiaVisit: *id047
+  FlunisolideVisit: *id048
+  FluoxetineVisit: *id049
+  FluticasoneVisit: *id050
   FormoterolVisit: *id051
   GoserelinVisit: *id052
   HCT_FirstFlag:
@@ -14432,20 +14435,20 @@ visit:
   KidneyCancerVisit: *id057
   LeuprolideVisit: *id058
   MajorRoadwayHighwayExposure: *id059
-  Max24hOzoneExposure: *id006
-  Max24hOzoneExposure_2: *id006
-  Max24hOzoneExposure_2_qcut: *id006
-  Max24hOzoneExposure_StudyAvg: *id006
-  Max24hOzoneExposure_StudyAvg_qcut: *id006
-  Max24hOzoneExposure_StudyMax: *id006
-  Max24hOzoneExposure_StudyMax_qcut: *id006
-  Max24hOzoneExposure_qcut: *id006
-  Max24hPM2.5Exposure: *id007
-  Max24hPM2.5Exposure_StudyAvg: *id007
-  Max24hPM2.5Exposure_StudyAvg_qcut: *id007
-  Max24hPM2.5Exposure_StudyMax: *id007
-  Max24hPM2.5Exposure_StudyMax_qcut: *id007
-  Max24hPM2.5Exposure_qcut: *id007
+  Max24hOzoneExposure: *id007
+  Max24hOzoneExposure_2: *id007
+  Max24hOzoneExposure_2_qcut: *id007
+  Max24hOzoneExposure_StudyAvg: *id007
+  Max24hOzoneExposure_StudyAvg_qcut: *id007
+  Max24hOzoneExposure_StudyMax: *id007
+  Max24hOzoneExposure_StudyMax_qcut: *id007
+  Max24hOzoneExposure_qcut: *id007
+  Max24hPM2.5Exposure: *id008
+  Max24hPM2.5Exposure_StudyAvg: *id008
+  Max24hPM2.5Exposure_StudyAvg_qcut: *id008
+  Max24hPM2.5Exposure_StudyMax: *id008
+  Max24hPM2.5Exposure_StudyMax_qcut: *id008
+  Max24hPM2.5Exposure_qcut: *id008
   MedroxyprogresteroneVisit: *id060
   MenopauseVisit: *id061
   MepolizumabVisit: *id062
@@ -14490,22 +14493,22 @@ visit:
   ProgesteroneVisit: *id077
   PropranololVisit: *id078
   ProstateCancerVisit: *id079
-  Race: *id080
-  ReactiveAirwayDxVisit: *id081
-  SalmeterolVisit: *id082
-  SertralineVisit: *id083
-  SexDILI: *id009
-  Sex2: *id009
-  TamoxifenVisit: *id084
-  TesticularCancerVisit: *id085
-  TesticularDysfunctionVisit: *id086
-  TestosteroneVisit: *id087
-  TheophyllineVisit: *id088
-  TrazodoneVisit: *id089
-  TriptorelinVisit: *id090
-  UrbanRural: *id091
-  UterineCancerVisit: *id092
-  VenlafaxineVisit: *id093
+  Race: *id013
+  ReactiveAirwayDxVisit: *id080
+  SalmeterolVisit: *id081
+  SertralineVisit: *id082
+  SexDILI: *id010
+  Sex2: *id010
+  TamoxifenVisit: *id083
+  TesticularCancerVisit: *id084
+  TesticularDysfunctionVisit: *id085
+  TestosteroneVisit: *id086
+  TheophyllineVisit: *id087
+  TrazodoneVisit: *id088
+  TriptorelinVisit: *id089
+  UrbanRural: *id090
+  UterineCancerVisit: *id091
+  VenlafaxineVisit: *id092
   VisitType:
   - NCIT:C39564
   - UMLSCUI:C1512346
@@ -14623,7 +14626,7 @@ visit:
   - MONDO:0008169
   - NCIT:C3117
   - UMLSCUI:C0020538
-  ChronicKidneyDiseaseDx: 
+  ChronicKidneyDiseaseDx:
   - MONDO:0005240
   - MONDO:0001343
   - MONDO:0002473
@@ -14690,12 +14693,12 @@ visit:
   - MONDO:0006932
   - MONDO:0015280
   - MONDO:0010851
-  - NCIT:C50577 
+  - NCIT:C50577
   - UMLSCUI:C0018801
   - LOINC:LP269425-7
   - LOINC:LP269421-6
   - SCTID:84114007
-  LiverDiseaseDx: 
+  LiverDiseaseDx:
   - MONDO:000515
   - MONDO:0009220
   - MONDO:0043693
@@ -14708,7 +14711,7 @@ visit:
   - NCIT:C113609
   - UMLSCUI:C0341439
   - NCIT:C3196
-  - UMLSCUIC0023895 
+  - UMLSCUIC0023895
   - NCIT:C82833
   - UMLSCUI:C0158683
   - NCIT:C82996
@@ -14855,9 +14858,9 @@ visit:
   - LOINC:LP173045-8
   - SCTID:309904001
   - LOINC:LP76050-1
-  Ventilator: 
+  Ventilator:
   - NCIT:C38388
-  - UMLSCUI:C0087153 
+  - UMLSCUI:C0087153
   - NCIT:C50430
   - UMLSCUI:C0750173
   - NCIT:C123909
@@ -14868,7 +14871,7 @@ visit:
   - SCTID:706172005
   - SCTID:470320000
   - SCTID:409025002
-  ErythrocyteSedimentationRate:
+  ErythrocyteSedimentationRate: null
   Procalcitonin:
   - LOINC:LP31682-5
   - SCTID:418752001
@@ -14879,7 +14882,7 @@ visit:
   - NCIT:C173465
   - NCIT:C103430
   - UMLSCUI:C1535922
-  Ferritin: 
+  Ferritin:
   - CHEBI:2784
   - MONDO:0011638
   - MONDO:0014274
@@ -14888,9 +14891,9 @@ visit:
   - NCIT:C16577
   - UMLSCUI:C0015879
   - NCIT:C74737
-  - UMLSCUI:C0373607 
+  - UMLSCUI:C0373607
   - NCIT:C172522
-  C-reactiveProtein:
+  C-reactiveProtein: null
   D-dimer:
   - SCTID:25607008
   - SCTID:70648006
@@ -14899,7 +14902,7 @@ visit:
   - NCIT:C82621
   - UMLSCUI:C2826333
   - NCIT:C161494
-  LDH: 
+  LDH:
   - MONDO:0013587
   - SCTID:259319003
   - LOINC:LP15033-1
@@ -14910,7 +14913,7 @@ visit:
   - LOINC:LG13284-1
   - LOINC:LG9072-2
   - LOINC:LG19834-7
-  IL-6:
+  IL-6: null
   pH:
   - CHEBI:30396
   - LOINC:LA22405-7
@@ -14920,16 +14923,16 @@ visit:
   - RxNORM:405069
   - NCIT:C45997
   - UMLSCUI:C4048290
-  - NCIT:C133500 
+  - NCIT:C133500
   - UMLSCUI:CL521348
   - NCIT:C63342
   - UMLSCUI:C1882074
   - NCIT:C62981
   - UMLSCUI:C1881695
-  pCO2ArterialVenous:
+  pCO2ArterialVenous: null
   pCO2Arterial:
   - NCIT:C82625
-  - UMLSCUI:C0201931 
+  - UMLSCUI:C0201931
   - NCIT:C147411
   - UMLSCUI:CL545325
   - LOINC:28644-3
@@ -14938,7 +14941,7 @@ visit:
   - SCTID:144270002
   - LOINC:LP15765-8
   - LOINC:LP71270-0
-  - NCIT:C71251 
+  - NCIT:C71251
   - UMLSCUI:C0202155
   - NCIT:C147417
   - UMLSCUI:CL545320
@@ -14947,7 +14950,7 @@ visit:
   - UMLSCUI:C3897988
   - SCTID:438173002
   - LOINC:LP71271-8
-  SpO2FiO2ratio:
+  SpO2FiO2ratio: null
   BaseDeficit:
   - SCTID:102634007
   - SCTID:26154000
@@ -15055,8 +15058,8 @@ visit:
   - NCIT:C129425
   - NCIT:C76926
   - UMLSCUI:C0064582
-  SvO2: 
-  WBCcount: 
+  SvO2: null
+  WBCcount:
   - MONDO:0003785
   - SCTID:767002
   - SCTID:165506007
@@ -15064,11 +15067,11 @@ visit:
   - NCIT:C51948
   - UMLSCUI:C0023508
   - NCIT:C35524
-  - UMLSCUI:C0023518 
+  - UMLSCUI:C0023518
   - NCIT:C162110
   AbsoluteNeutrophilCount:
   - MONDO:0001953
-  - NCIT:C51950 
+  - NCIT:C51950
   - UMLSCUI:C0200633
   - NCIT:C53271
   - UMLSCUI:C1709221
@@ -15091,7 +15094,7 @@ visit:
   - SCTID:165520000
   Hemoglobin:
   - NCIT:C64848
-  - UMLSCUI:C0518015 
+  - UMLSCUI:C0518015
   - NCIT:C16676
   - UMLSCUI:C0019046
   - NCIT:C55991
@@ -15160,14 +15163,14 @@ visit:
   - MONDO:000224
   - MONDO:0008585
   - NCIT:C51951
-  - UMLSCUI:C0032181 
+  - UMLSCUI:C0032181
   - NCIT:C143764
   - UMLSCUI:CL545991
   - NCIT:C53266
   - UMLSCUI:C1709566
   - NCIT:C53267
   - UMLSCUI:C1709567
-  - NCIT:C154723 
+  - NCIT:C154723
   - UMLSCUI:CL556888
   - NCIT:C154733
   - UMLSCUI:CL556904
@@ -15176,8 +15179,8 @@ visit:
   - NCIT:C162107
   - UMLSCUI:CL471574
   - NCIT:C168963
-  - UMLSCUI:CL1378780 
-  - NCIT:C74729 
+  - UMLSCUI:CL1378780
+  - NCIT:C74729
   - UMLSCUI:C2697898
   - NCIT:C74728
   - UMLSCUI:C2697501
@@ -15279,7 +15282,7 @@ visit:
   - CHEBI:144654
   - CHEBI:144657
   - GO:1902262
-  - NCIT:C61009 
+  - NCIT:C61009
   - UMLSCUI:C2825086
   - NCIT:C133243
   - UMLSCUI:CL520980
@@ -15309,7 +15312,7 @@ visit:
   - LOINC:LP284840-8
   - LOINC:LP284841-6
   - LOINC:LP284842-4
-  SerumSodium: 
+  SerumSodium:
   - SCTID:166691007
   - SCTID:143995000
   - SCTID:1000661000000107
@@ -15324,7 +15327,7 @@ visit:
   - UMLSCUI:C1559978
   - NCIT:C55229
   - UMLSCUI:C1559977
-  - NCIT:C55235 
+  - NCIT:C55235
   - UMLSCUI:C1559983
   - NCIT:C55226
   - UMLSCUI:C1559974
@@ -15335,14 +15338,14 @@ visit:
   - NCIT:C55233
   - UMLSCUI:C1559981
   - NCIT:C55227
-  - UMLSCUI:C1559975 
+  - UMLSCUI:C1559975
   - NCIT:C55228
-  - UMLSCUI:C1559976 
-  - NCIT:C55231 
+  - UMLSCUI:C1559976
+  - NCIT:C55231
   - UMLSCUI:C1559979
-  - NCIT:C55225 
+  - NCIT:C55225
   - UMLSCUI:C1559973
-  SerumPotassium: 
+  SerumPotassium:
   - LOINC:LP175655-2
   - LOINC:LP270132-6
   - LOINC:LP232138-0
@@ -15354,7 +15357,7 @@ visit:
   - NCIT:C61030
   - UMLSCUI:C0302353
   - NCIT:C55215
-  - UMLSCUI:C1559964 
+  - UMLSCUI:C1559964
   - NCIT:C55212
   - UMLSCUI:C1559961
   - NCIT:C55211
@@ -15369,11 +15372,11 @@ visit:
   - UMLSCUI:C1559965
   - NCIT:C55209
   - UMLSCUI:C1559958
-  - NCIT:C55213 
+  - NCIT:C55213
   - UMLSCUI:C1559962
   - NCIT:C55208
   - UMLSCUI:C1559957
-  - NCIT:C55214 
+  - NCIT:C55214
   - UMLSCUI:C1559963
   SerumChloride:
   - SCTID:166694004
@@ -15385,7 +15388,7 @@ visit:
   - OXMIS:L118NN
   - LOINC:LP386588-0
   - LOINC:2075-0
-  - NCIT:C61021 
+  - NCIT:C61021
   - UMLSCUI:C1317978
   - LOINC:77138-6
   - LOINC LG6373-7
@@ -15429,7 +15432,7 @@ visit:
   - NCIT:C1753
   - UMLSCUI:C0600137
   - NCIT:C122438
-  - UMLSCUI:C0151539 
+  - UMLSCUI:C0151539
   SerumCreatinine:
   - LOINC:LP175654-5
   - LOINC:LP112369-6
@@ -15450,7 +15453,7 @@ visit:
   - SCTID:313629005
   - SCTID:313630000
   - SCTID:313698005
-  - NCIT:C61027 
+  - NCIT:C61027
   - UMLSCUI:C0202041
   - NCIT:C55174
   - UMLSCUI:C1559925
@@ -15470,12 +15473,12 @@ visit:
   - NCIT:C25293
   - UMLSCUI:C0376147
   - NCIT:C64433
-  - UMLSCUI:C0201836 
+  - UMLSCUI:C0201836
   - NCIT:C38507
   - UMLSCUI:C0001899
   - NCIT:C143267
   - UMLSCUI:CL541630
-  - NCIT:C145734 
+  - NCIT:C145734
   - UMLSCUI:CL543823
   - NCIT:C38509
   - UMLSCUI:C2364022
@@ -15497,8 +15500,8 @@ visit:
   - LOINC:LP43338-0
   - LOINC:LP43340-6
   - NCIT:C25202
-  - UMLSCUI:C0242192 
-  - NCIT:C64467 
+  - UMLSCUI:C0242192
+  - NCIT:C64467
   - UMLSCUI:C0201899
   - NCIT:C143301
   - UMLSCUI:CL541699
@@ -15506,10 +15509,10 @@ visit:
   - UMLSCUI:C0684153
   - NCIT:C26947
   - UMLSCUI:C4076281
-  - NCIT:C38500 
-  - UMLSCUI:C0949643 
+  - NCIT:C38500
+  - UMLSCUI:C0949643
   Troponin:
-  - NCIT:C111327 
+  - NCIT:C111327
   - UMLSCUI:C0523952
   - MONDO:0011539
   - NCIT:C104220
@@ -15520,8 +15523,8 @@ visit:
   - LOINC:LP14890-5
   - LOINC:LP17145-1
   - SCTID:102680009
-  - PUBCHEM:16131354 
-  - PUBCHEM:44152811  
+  - PUBCHEM:16131354
+  - PUBCHEM:44152811
   BrainNatriureticPeptide:
   - CHEBI:135919
   - NCIT:C74735
@@ -15564,7 +15567,7 @@ visit:
   CK:
   - NCIT:C113245
   - UMLSCUI:C0010287
-  - NCIT:C64489 
+  - NCIT:C64489
   - UMLSCUI:C0201973
   - NCIT:C16473
   - UMLSCUI:C0010289
@@ -15611,7 +15614,7 @@ visit:
   HgbA1C:
   - NCIT:C122507
   - UMLSCUI:C0239940
-  - NCIT:C64849 
+  - NCIT:C64849
   - UMLSCUI:C0202054
   - SCTID:733829007
   - SCTID:143080000
@@ -15630,7 +15633,7 @@ visit:
   - LOINC:71875-9
   - LOINC:4548-4
   - LOINC:86910-7
-  EstimatedGFR:
+  EstimatedGFR: null
   RespiratorySupportSupplementalO2:
   - LOINC:LA17976-4
   - LOINC:LA20142-8
@@ -15642,8 +15645,8 @@ visit:
   - SCTID:60651000119103
   - SCTID:89201000119106
   - SCTID:1104411000000106
-  - NCIT:C94624 
-  - UMLSCUI:C0184633 
+  - NCIT:C94624
+  - UMLSCUI:C0184633
   - LOINC:LL737-8
   RespiratorySupportHFNC:
   - SCTID:426854004
@@ -15696,10 +15699,10 @@ visit:
   - SCTID:33592611000001103
   - SCTID:4627511000001101
   - SCTID:33593511000001109
-  - PUBCHEM:53394235  
+  - PUBCHEM:53394235
   - PUBCHEM:23695838
-  - PUBCHEM:6364626 
-  - PUBCHEM:5282411  
+  - PUBCHEM:6364626
+  - PUBCHEM:5282411
   CardiovascularSupportAmiodarone_gtt:
   - PUBCHEM:2157
   - CHEBI:2663
@@ -15711,8 +15714,8 @@ visit:
   - NCIT:C10307
   - UMLSCUI:C0280651
   - NCIT:C9974
-  - UMLSCUI:C0279280 
-  - NCIT:C9973 
+  - UMLSCUI:C0279280
+  - NCIT:C9973
   - UMLSCUI:C0279279
   - RxNorm:703
   - RxNorm:1663223
@@ -15733,12 +15736,12 @@ visit:
   - CHEBI:4671
   - PUBCHEM:36811
   - NCIT:C61733
-  - UMLSCUI:C0012963 
+  - UMLSCUI:C0012963
   - NCIT:C171751
   - NCIT:C28997
   - UMLSCUI:C0700450
   - NCIT:C65452
-  - UMLSCUI:C0887392 
+  - UMLSCUI:C0887392
   - SCTID:387145002
   - SCTID:3528911000001100
   - SCTID:26523005
@@ -15827,10 +15830,10 @@ visit:
   CardiovascularSupportEsmolol_gtt:
   - CHEBI:88206
   - CHEBI:4857
-  - NCIT:C72617 
+  - NCIT:C72617
   - UMLSCUI:C0116569
   - NCIT:C47519
-  - UMLSCUI:C0700606 
+  - UMLSCUI:C0700606
   - PUBCHEM:126961356
   - PUBCHEM:101731067
   - PUBCHEM:101731066
@@ -15886,11 +15889,11 @@ visit:
   - CHEBI:31453
   - MONDO:0010937
   - PUBCHEM:3779
-  - NCIT:C62041 
+  - NCIT:C62041
   - UMLSCUI:C0022245
   - NCIT:C29133
-  - UMLSCUI:C0282210 
-  - NCIT:C65983 
+  - UMLSCUI:C0282210
+  - NCIT:C65983
   - UMLSCUI:C0282211
   - RxNorm:6054
   - RxNorm:1667908
@@ -15924,7 +15927,7 @@ visit:
   CardiovascularSupportLevosimendan_gtt:
   - CHEBI:50567
   - PUBCHEM:3033825
-  - PUBCHEM:161928  
+  - PUBCHEM:161928
   - NCIT:C174653
   - RxNorm:73107
   - RxNorm:901046
@@ -15940,17 +15943,17 @@ visit:
   CardiovascularSupportMilrinone_gtt:
   - CHEBI:50693
   - CHEBI:34850
-  - PUBCHEM:138109998 
-  - PUBCHEM:13669855  
-  - PUBCHEM:12960308 
-  - PUBCHEM:12873360  
-  - PUBCHEM:12799331 
-  - PUBCHEM:172293  
-  - PUBCHEM:4197  
+  - PUBCHEM:138109998
+  - PUBCHEM:13669855
+  - PUBCHEM:12960308
+  - PUBCHEM:12873360
+  - PUBCHEM:12799331
+  - PUBCHEM:172293
+  - PUBCHEM:4197
   - NCIT:C61848
-  - UMLSCUI:C0128513 
-  - NCIT:C29263 
-  - UMLSCUI:C0600487 
+  - UMLSCUI:C0128513
+  - NCIT:C29263
+  - UMLSCUI:C0600487
   - RxNorm:52769
   - RxNorm:1791839
   - RxNorm:155120
@@ -16127,7 +16130,7 @@ visit:
   - CHEBI:59726
   - MONDO:0006802
   - CHEBI:59728
-  - PUBCHEM:11979316  
+  - PUBCHEM:11979316
   - RxNorm:1149
   - RxNorm:2103181
   - RxNorm:374283
@@ -16209,7 +16212,7 @@ visit:
   AntiInfectivesRemdesivir:
   - NCIT:C152185
   - UMLSCUI:CL553517
-  - PUBCHEM:121304016 
+  - PUBCHEM:121304016
   - RxNorm:2284718
   - RxNorm:2284959
   - RxNorm:2284957
@@ -16222,7 +16225,7 @@ visit:
   - RxNorm:2395503
   - RxNorm:2395502
   - RxNorm:2395505
-  - RxNorm:2367758 
+  - RxNorm:2367758
   AntiInfectivesHydroxychloroquine:
   - RxNorm:5521
   - RxNorm:1164628
@@ -16282,7 +16285,7 @@ visit:
   - SCTID:12625011000001107
   - SCTID:8559711000001106
   - SCTID:8559811000001103
-  - SCTID:12625111000001108 
+  - SCTID:12625111000001108
   - SCTID:12625211000001102
   - SCTID:24155411000001107
   - SCTID:1018811000001108
@@ -16322,13 +16325,13 @@ visit:
   - SCTID:12568511000001106
   - SCTID:12569211000001103
   - SCTID:12569111000001109
-  - SCTID:12569511000001100 
+  - SCTID:12569511000001100
   - SCTID:12569411000001104
   - SCTID:8537811000001107
   - SCTID:8537611000001108
   - SCTID:8539511000001102
   - SCTID:8539111000001106
-  - SCTID:12570111000001107 
+  - SCTID:12570111000001107
   - SCTID:12569911000001107
   - SCTID:12570411000001102
   - NCIT:C557
@@ -16336,111 +16339,7 @@ visit:
   - NCIT:C29101
   - UMLSCUI:C0596007
   - CHEBI:5801
-  - PUBCHEM:3652  
-  AntiInfectivesAntibiotics:
-  - PUBCHEM:102585999  
-  - PUBCHEM:101715062
-  - CHEBI:33281
-  - CHEBI:71644
-  - CHEBI:86323
-  - CHEBI:26177
-  - CHEBI:71645
-  - CHEBI:71647
-  - CHEBI:53268
-  - CHEBI:86322
-  - CHEBI:25105
-  - CHEBI:86324
-  - CHEBI:24392
-  - CHEBI:87230
-  - CHEBI:27933
-  - CHEBI:70737
-  - CHEBI:87228
-  - CHEBI:140190
-  - CHEBI:49322
-  - CHEBI:22507
-  - CHEBI:87211
-  - CHEBI:88225
-  - CHEBI:25558
-  - NCIT:C258
-  - UMLSCUI:C0003232
-  - RxNorm:261226
-  - RxNorm:213625
-  - RxNorm:562699
-  - RxNorm:614842
-  - RxNorm:206509
-  - RxNorm:206519
-  - RxNorm:209769
-  - RxNorm:220476
-  - RxNorm:215326
-  - RxNorm:215658
-  - RxNorm:573496
-  - RxNorm:261681
-  - RxNorm:308509
-  - RxNorm:218506
-  - RxNorm:261463
-  - RxNorm:616919
-  - RxNorm:262104
-  - RxNorm:574458
-  - RxNorm:567340
-  - RxNorm:570349
-  - RxNorm:616920
-  - RxNorm:794206
-  - RxNorm:806329
-  - RxNorm:806363
-  - RxNorm:846039
-  - RxNorm:846041
-  - RxNorm:1166027
-  - RxNorm:1172229
-  - RxNorm:1172234
-  - RxNorm:1184422
-  - RxNorm:1427297
-  - RxNorm:362139
-  - RxNorm:367321
-  - RxNorm:367297
-  - RxNorm:367294
-  - RxNorm:367322
-  - RxNorm:367356
-  - RxNorm:260450
-  - RxNorm:351575
-  - RxNorm:209773
-  - RxNorm:261228
-  - RxNorm:261122
-  - RxNorm:365323
-  - RxNorm:366132
-  - RxNorm:575482
-  - RxNorm:574234
-  - RxNorm:542467
-  - RxNorm:574233
-  - RxNorm:575481
-  - RxNorm:542468
-  - RxNorm:542466
-  - RxNorm:570353
-  - RxNorm:542470
-  - RxNorm:542469
-  - RxNorm:574460
-  - RxNorm:574366
-  - RxNorm:616929
-  - RxNorm:616928
-  - RxNorm:630952
-  - RxNorm:630950
-  - RxNorm:806365
-  - RxNorm:806331
-  - RxNorm:806366
-  - RxNorm:806364
-  - RxNorm:806332
-  - RxNorm:806330
-  - RxNorm:846040
-  - RxNorm:1304960
-  - RxNorm:1359358
-  - RxNorm:1359359
-  - RxNorm:1427296
-  - RxNorm:1427298
-  - RxNorm:1427295
-  - RxNorm:1427294
-  - LOINC:LP31426-7
-  - LOINC:LA30285-3
-  - LOINC:75791-4
-  - LOINC:67443-2
+  - PUBCHEM:3652
   ImmunodulationDexamethaone:
   - LOINC:77665-8
   - LOINC:46948-6
@@ -17213,10 +17112,10 @@ visit:
   - CHEBI:34655
   - CHEBI:8380
   - CHEBI:79702
-  - PUBCHEM:5865  
+  - PUBCHEM:5865
   - NCIT:C770
   - UMLSCUI:C0032952
-  - NCIT:C29376 
+  - NCIT:C29376
   - UMLSCUI:C1516983
   - NCIT:C11187
   - UMLSCUI:C0392928
@@ -17224,9 +17123,9 @@ visit:
   - UMLSCUI:C0935735
   - NCIT:C37848
   - UMLSCUI:CL448647
-  - NCIT:C9844 
+  - NCIT:C9844
   - UMLSCUI:C0278972
-  - NCIT:C10938 
+  - NCIT:C10938
   - UMLSCUI:C0281679
   - SCTID:33425811000001105
   - SCTID:33428411000001103
@@ -18828,10 +18727,10 @@ visit:
   - LOINC:73196-8
   - LOINC:73197-6
   ImmunodulationIVIG:
-  - PUBCHEM:135312669  
-  - PUBCHEM:135331634  
-  - PUBCHEM:347911208 
-  - PUBCHEM:347911474  
+  - PUBCHEM:135312669
+  - PUBCHEM:135331634
+  - PUBCHEM:347911208
+  - PUBCHEM:347911474
   - NCIT:C121331
   - LOINC:LA9437-0
   - LOINC:LA11258-3
@@ -19064,7 +18963,7 @@ visit:
   - NCIT:C126675
   - NCIT:C126674
   - NCIT:C126667
-  Influenza7pointClinicalStatusScore:
+  Influenza7pointClinicalStatusScore: null
   FeverDx:
   - MONDO:0015137
   - MONDO:0005324
@@ -19170,12 +19069,12 @@ visit:
   - NCIT:C0015967
   - NCIT:C143485
   - NCIT:C35547
-  - UMLSCUI:C0043395 
+  - UMLSCUI:C0043395
   - NCIT:C34984
   - UMLSCUI:C0035436
   - NCIT:C34528
   - UMLSCUI:C0011311
-  - NCIT:C35089 
+  - NCIT:C35089
   - UMLSCUI:C0041466
   - NCIT:C97156
   - UMLSCUI:C0724724
@@ -19186,7 +19085,7 @@ visit:
   - NCIT:C144665
   - NCIT:C128335
   - UMLSCUI:C0343528
-  - NCIT:C128418 
+  - NCIT:C128418
   - UMLSCUI:C0023092
   - NCIT:C145285
   - LOINC:LP37005-3
@@ -19302,8 +19201,8 @@ visit:
   - SCITD:200951007
   - SCITD:17658005
   - SCITD:19065005
-  IsolationFlag:
-  DischargeStatus: 
+  IsolationFlag: null
+  DischargeStatus:
   - LOINC:LP74745-8
   - LOINC:LA162-0
   - LOINC:52523-8
@@ -19311,7 +19210,7 @@ visit:
   - SCITD:309039003
   - SCITD:58000006
   - MeSH:D010351
-  PCDDx: 
+  PCDDx:
   - MONDO:0016575
   - MONDO:0033204
   - MONDO:0009477
@@ -19398,7 +19297,7 @@ visit:
   - NCIT:C87083
   - SCITD:C0266642
   - NCIT:C117273
-  - NCIT:C87121 
+  - NCIT:C87121
   - UMLSCUI:C0037221
   DailyWetCough:
   - NCIT:C78569
@@ -19421,9 +19320,9 @@ visit:
   - SCITD:20916007
   - SCITD:68996008
   - SCITD:155260002
-  ChronicNasalCongestion: 
+  ChronicNasalCongestion:
   - NCIT:C78500
-  - UMLSCUI:C0027424 
+  - UMLSCUI:C0027424
   - NCIT:C143698
   - NCIT:C144284
   - NCIT:C144860
@@ -19442,12 +19341,12 @@ visit:
   - SCITD:233630006
   - LOINC:LA25633-1
   - MeSH:D001987
-  MaleInfertilityDueToSpermDysfunction: 
+  MaleInfertilityDueToSpermDysfunction:
   - MeSH:D013081
   - SCITD:414643008
   CysticFibrosis:
   - NCIT:C2975
-  - UMLSCUI:C0010674 
+  - UMLSCUI:C0010674
   - NCIT:C121562
   - UMLSCUI:C1135342
   - NCIT:C103233
@@ -19465,7 +19364,7 @@ visit:
   - SCITD:762270003
   - SCITD:762269004
   - SCITD:762271004
-  Antibiotics: 
+  Antibiotics:
   - CHEBI:33281
   - CHEBI:71644
   - CHEBI:86323
@@ -19488,7 +19387,7 @@ visit:
   - CHEBI:88225
   - CHEBI:25558
   - NCIT:C258
-  - UMLSCUI:C0003232 
+  - UMLSCUI:C0003232
   - NCIT:C259
   - UMLSCUI:C0003236
   - LOINC:LP31426-7
@@ -19499,7 +19398,7 @@ visit:
   DILIDx:
   - NCIT:C84427
   - UMLSCUI:C0860207
-  - SCITD:427399008 
+  - SCITD:427399008
   - MONDO:0043693
   - MONDO:0001505
   - MONDO:0021105
@@ -19534,7 +19433,7 @@ visit:
   - SCITD:29997008
   - SCITD:13859001
   - SCITD:59403008
-  - SCITD:4886009 
+  - SCITD:4886009
   - SCITD:20272009
   - SCITD:25192009
   - SCITD:65588006
@@ -19546,7 +19445,7 @@ visit:
   - MeSH:D047928
   - MeSH:D007234
   he_a004c_birth_multi:
-  - NCIT:C81271 
+  - NCIT:C81271
   - UMLSCUI:C2015861
   - NCIT:C93517
   - UMLSCUI:C0005607
@@ -19623,17 +19522,17 @@ visit:
   - MONDO:0011243
   - MONDO:0008169
   - NCIT:C3117
-  - UMLSCUI:C0020538 
+  - UMLSCUI:C0020538
   - NCIT:C55060
   - UMLSCUI:C1963138
   - NCIT:C168203
-  - UMLSCUI:C0455405 
+  - UMLSCUI:C0455405
   - NCIT:C3120
   - UMLSCUI:C0020542
   - NCIT:C55068
-  - UMLSCUI:C1963220 
+  - UMLSCUI:C1963220
   - NCIT:C3119
-  - UMLSCUI:C0020541 
+  - UMLSCUI:C0020541
   - NCIT:C537095
   - LOINC:LA7444-8
   - LOINC:LA19982-0
@@ -19664,9 +19563,9 @@ visit:
   - UMLSCUI:C1314753
   - NCIT:C9243
   - UMLSCUI:C0852260
-  - NCIT:C128009 
+  - NCIT:C128009
   - NCIT:C128010
-  - NCIT:C128011 
+  - NCIT:C128011
   - LOINC:LA19980-4
   - LOINC:LA19981-2
   - MeSH:D046110
@@ -19696,9 +19595,9 @@ visit:
   - SCITD:707124003
   - SCITD:707125002
   he_b009_atherosclerosis:
-  - PUBCHEM:72941823 
-  - PUBCHEM:11607970  
-  - PUBCHEM:10224454 
+  - PUBCHEM:72941823
+  - PUBCHEM:11607970
+  - PUBCHEM:10224454
   - NCIT:C35768
   - UMLSCUI:C0004153
   - NCIT:C34459
@@ -19770,13 +19669,13 @@ visit:
   - UMLSCUI:C1560250
   - NCIT:C54817
   - UMLSCUI:C1560251
-  - NCIT:C54849 
+  - NCIT:C54849
   - UMLSCUI:C1560252
   - NCIT:C54911
-  - UMLSCUI:C1560254 
+  - UMLSCUI:C1560254
   - NCIT:C54880
   - UMLSCUI:C1560253
-  - NCIT:C54775 
+  - NCIT:C54775
   - UMLSCUI:C0494598
   - SCITD:698247007
   - SCITD:131471000119104
@@ -19893,7 +19792,7 @@ visit:
   - LOINC:LA12740-9
   - LOINC:LA25635-6
   - LOINC:LA27840-0
-  he_b015_poor_blood_flow:
+  he_b015_poor_blood_flow: null
   he_b016_raynauds:
   - MeSH:D011928
   - SCITD:22954002
@@ -19938,10 +19837,10 @@ visit:
   he_b019_stroke_mini:
   - MONDO:0005264
   - NCIT:C50781
-  - UMLSCUI:C0007787 
+  - UMLSCUI:C0007787
   - NCIT:C143886
   - NCIT:C144443
-  - NCIT:C145048 
+  - NCIT:C145048
   - SCITD:473129008
   - SCITD:161511000
   - SCITD:230716006
@@ -19980,7 +19879,7 @@ visit:
   - NCIT:C116715
   - UMLSCUI:C3897199
   - NCIT:C172675
-  - NCIT:C172674 
+  - NCIT:C172674
   - NCIT:C35047
   - UMLSCUI:C0038819
   - SCITD:413758000
@@ -20166,19 +20065,19 @@ visit:
   - MeSH:D007328
   - MeSH:C091593
   - MeSH:D000069057
-  he_c022c_diabetes_insulin_first:
+  he_c022c_diabetes_insulin_first: null
   he_c022d_diabetes_pills:
   - LOINC:LP124918-6
   - LOINC:66176-9
   - SCITD:389840003
   - SCITD:390572003
-  he_c022e_diabetes_a:
+  he_c022e_diabetes_a: null
   he_c023_thyroid_disease:
   - MeSH:D013959
   - LOINC:LA15157-3
   - LOINC:LA15303-3
   - SCITD:170780004
-  he_c023a_hyperthyroidism: 
+  he_c023a_hyperthyroidism:
   - SCITD:34486009
   - SCITD:722942005
   - SCITD:722941003
@@ -20208,7 +20107,7 @@ visit:
   - MONDO:0011309
   - MONDO:0014448
   - MONDO:0007784
-  he_c023b_hypothyroidism: 
+  he_c023b_hypothyroidism:
   - LOINC:LA14303-4
   - LOINC:LP74946-2
   - LOINC:LP56766-6
@@ -20284,7 +20183,7 @@ visit:
   - SCITD:237568003
   - SCITD:267370001
   - SCITD:190235005
-  - NCIT:C26785 
+  - NCIT:C26785
   - UMLSCUI:C0018021
   - NCIT:C35271
   - UMLSCUI:C0221777
@@ -20297,11 +20196,11 @@ visit:
   - UMLSCUI:C0342114
   - NCIT:C131437
   - UMLSCUI:C0018023
-  he_c023d_nodule_benign: 
+  he_c023d_nodule_benign:
   - LOINC:LA14304-2
   - MeSH:D016606
   - MeSH:D012218
-  he_d024_allergies: 
+  he_d024_allergies:
   - MONDO:0005659
   - MONDO:0005709
   - MONDO:0011786
@@ -20314,11 +20213,11 @@ visit:
   - MeSH:D006255
   - MeSH:D012221
   - MeSH:C567078
-  he_d025_copd: 
+  he_d025_copd:
   - MONDO:0011751
   - MONDO:0005002
   - NCIT:C3199
-  - UMLSCUI:C0024117 
+  - UMLSCUI:C0024117
   - LOINC:LA28200-6
   - LOINC:LA27422-7
   - LOINC:LA27514-1
@@ -20334,7 +20233,7 @@ visit:
   - SCITD:195996000
   - SCITD:155583003
   - SCITD:195997009
-  he_d026_ipf: 
+  he_d026_ipf:
   - NCIT:C35716
   - UMLSCUI:C1800706
   - SCITD:700250006
@@ -20352,9 +20251,9 @@ visit:
   - MONDO:0008345
   - MONDO:0002429
   - MONDO:0019203
-  he_d027_tb: 
+  he_d027_tb:
   - NCIT:C3423
-  - UMLSCUI:C0041296 
+  - UMLSCUI:C0041296
   - LOINC:LA10513-2
   - LOINC:LP75796-0
   - SCITD:56717001
@@ -20456,7 +20355,7 @@ visit:
   - NCIT:C123020
   - UMLSCUI:C0041328
   - NCIT:C171226
-  - UMLSCUI:C0041332 
+  - UMLSCUI:C0041332
   - NCIT:C26897
   - UMLSCUI:C3203357
   - NCIT:C26804
@@ -20478,8 +20377,11 @@ visit:
   he_q145_diesel:
   - ENVO_2000037
   - ENVO_2000012
-  he_q146_dyes:
+  he_q146_dyes: null
   he_q147_formaldehyde:
+  - CHEBI:16842
+  - PUBCHEM:712
+  - MESH:D005557
   he_q148_gasoline:
   - ENVO_2000037
   - ENVO_2000012
@@ -20488,29 +20390,29 @@ visit:
   - ENVO_2000012
   he_q150_pesticide:
   - CHEBI_33287
-  he_q151_sand:
+  he_q151_sand: null
   he_q152_other_dust:
   - ENVO:02000127
   - ENVO:02000128
-  - ENVO:02000129 
-  he_q153_textiles:
+  - ENVO:02000129
+  he_q153_textiles: null
   he_q154_wood_dust:
-  - ENVO:02000126 
+  - ENVO:02000126
   he_q155_xrays:
   - ENVO_2000023
   he_s179_100_cigarettes:
   - NCIT:C127059
   he_s180_smoke:
   - NCIT:C172730
-  - NCIT:C70989, 
-  - NCIT:C167376, 
-  - NCIT:C118169, 
-  - NCIT:C157711, 
+  - NCIT:C70989,
+  - NCIT:C167376,
+  - NCIT:C118169,
+  - NCIT:C157711,
   - NCIT:C116977
   he_s183_tobacco_smokeless:
   - NCIT:C105050
   - UMLSCUI:C3641918
-  he_s184_cigars_pipes:
+  he_s184_cigars_pipes: null
   he_s185_smoke_indoors:
   - NCIT:C127108
   - NCIT:C127106
@@ -20529,7 +20431,7 @@ visit:
   - MONDO:0012882
   - MONDO:0024612
   - MONDO:0012319
-  ea_a014_central_heat:
+  ea_a014_central_heat: null
   ea_a017a_heat_natural_gas:
   - ENVO:01000556
   - ENVO:01000559
@@ -20560,11 +20462,11 @@ visit:
   ea_a020b_fireplace_coal:
   - NCIT:C164056
   - NCIT:C157711
-  ea_a020c_fireplace_natural_gas:
-  ea_a020d_fireplace_art_logs:
-  ea_a021a_stove_electricity:
-  ea_a021b_stove_natural_gas:
-  ea_a021c_stove_woodfire:
+  ea_a020c_fireplace_natural_gas: null
+  ea_a020d_fireplace_art_logs: null
+  ea_a021a_stove_electricity: null
+  ea_a021b_stove_natural_gas: null
+  ea_a021c_stove_woodfire: null
   ea_a021d_stove_coal:
   - ENVO:2000013
   ea_a021e_stove_propane:
@@ -20577,15 +20479,15 @@ visit:
   - ENVO:00003096
   - ENVO:00005792
   - ENVO:01001565
-  ea_a027_water_filter:
-  ea_a028_water_source_bath:
-  ea_a038_water_damage_repair:
-  ea_a059a_pet_dog:
-  ea_a059b_pet_cat:
-  ea_a059c_pet_other:
-  ea_a060_pest_regularly:
-  ea_a065_traffic:
-  a_a066_traffic_heavy:
+  ea_a027_water_filter: null
+  ea_a028_water_source_bath: null
+  ea_a038_water_damage_repair: null
+  ea_a059a_pet_dog: null
+  ea_a059b_pet_cat: null
+  ea_a059c_pet_other: null
+  ea_a060_pest_regularly: null
+  ea_a065_traffic: null
+  a_a066_traffic_heavy: null
   ea_b092a_benzene:
   - CHEBI_27798
   ea_b092b_chloroform:
@@ -20597,7 +20499,7 @@ visit:
   - CHEBI:48236
   - CHEBI:29365
   - CHEBI:34576
-  - PUBCHEM:6212  
+  - PUBCHEM:6212
   ea_b092c_chloroprene:
   - PUBCHEM:31369
   - CHEBI:39481
@@ -20625,9 +20527,9 @@ visit:
   - UMLSCUI:C0040905
   ea_b092j_xylenes:
   - CHEBI:27338
-  ea_b098a_brake_fluid:
-  ea_b098b_transmission_fluid:
-  ea_b098c_hydraulic_fluid:
+  ea_b098a_brake_fluid: null
+  ea_b098b_transmission_fluid: null
+  ea_b098c_hydraulic_fluid: null
   ea_b098d_motor_oil:
   - ENVO:00002984
   ea_b104a_bleach:
@@ -20875,7 +20777,7 @@ visit:
   - CHEBI:131518
   - CHEBI:139496
   - CHEBI:6794
-  ea_b116b_methanol:
+  ea_b116b_methanol: null
   ea_b116c_ethanol:
   - CHEBI_16236
   - CHEBI:17790
@@ -21111,9 +21013,9 @@ visit:
   - ENVO_01001058
   ea_b122e_herbicides:
   - CHEBI:24527
-  ea_b122f_ethyl_fumigants:
+  ea_b122f_ethyl_fumigants: null
   ea_b122g_rodenticides:
-  - CHEBI_33288 
+  - CHEBI_33288
   ea_b128a_bpa:
   - ENVO:02500040
   ea_b128b_vinyl_chloride:
@@ -21129,8 +21031,8 @@ visit:
   ea_b128g_methylene_bis:
   - ENVO:02500040
   ea_b134a_coal_dust:
-  - ENVO:02000127 
-  ea_b134b_fiberglass:
+  - ENVO:02000127
+  ea_b134b_fiberglass: null
   ea_b134c_rock_dust:
   - ENVO_01001398
   - ENVO_01001108
@@ -21140,7 +21042,7 @@ visit:
   ea_b134e_talc:
   - ENVO_01001285
   - CHEBI_32178
-  ea_b140a_nitrous_oxide:
+  ea_b140a_nitrous_oxide: null
   ea_b140b_carbon_dioxide:
   - CHEBI_23014
   ea_b140c_carbon_monoxide:
@@ -21154,23 +21056,23 @@ visit:
   - CHEBI:35446
   ea_b146c_radiation:
   - ENVO_21001218
-  - ENVO:01001857 
+  - ENVO:01001857
   - ENVO:01001861
-  - ENVO:01001864 
+  - ENVO:01001864
   ea_b146d_xrays:
   - ENVO_21001217
   ea_b146e_welding:
-  - ENVO_02000113 
+  - ENVO_02000113
   ea_b152a_hydrochloric_acid:
   - CHEBI:37527
   - ENVO:03000127
   - ENVO:03000128
   ea_b152b_sulfuric_acid:
   - ENVO:03000127
-  - ENVO:03000128 
+  - ENVO:03000128
   ea_b152c_phosphoric_acid:
   - CHEBI:26079
-  ea_b152d_acetic_acid:
+  ea_b152d_acetic_acid: null
   ea_b152e_nitric_acid:
   - CHEBI:48107
   - ENVO:03000123
@@ -21187,28 +21089,28 @@ visit:
   - NCIT:C66001
   ea_b164b_wood:
   - ENVO:02000126
-  ea_b164c_resin:
-  ea_b164d_polyurethane:
-  ea_b164e_lacquer:
-  ea_b164f_acrylic:
+  ea_b164c_resin: null
+  ea_b164d_polyurethane: null
+  ea_b164e_lacquer: null
+  ea_b164f_acrylic: null
   ea_b170a_primer:
   - ENVO:02000123
   - NCIT:C122420
-  - NCIT:C158520 
-  - NCIT:C157075 
+  - NCIT:C158520
+  - NCIT:C157075
   - NCIT:C156952
-  ea_b170b_enamel:
-  ea_b170c_oil_based:
+  ea_b170b_enamel: null
+  ea_b170c_oil_based: null
   ea_b170d_acrylic:
   - CHEBI:18308
-  ea_b170e_luminescent:
+  ea_b170e_luminescent: null
   ea_b170f_acetone:
   - CHEBI:15347
   ea_b170g_turpentine:
   - NCIT:C63923
   ea_b170h_naphtha:
   - ENVO:00002983
-  ea_b170i_ethyl_ket:
+  ea_b170i_ethyl_ket: null
   ea_b176a_desflurane:
   - CHEBI:4445
   ea_b176b_enflurane:
@@ -21219,94 +21121,94 @@ visit:
   - CHEBI:6015
   ea_b176e_methoxyflurane:
   - CHEBI:6843
-  ea_b176f_nitrous:
+  ea_b176f_nitrous: null
   ea_b176g_sevoflurane:
   - CHEBI:9130
   ea_b182a_white_glue:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182b_rubber_cement:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182c_neoprene:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182d_vinyl_a:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182e_epoxy:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182f_urethane:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182g_polyimides:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182h_cyanoacrylates:
-  - ENVO_00003076 
+  - ENVO_00003076
   ea_b182i_wallpaper_paste:
-  - ENVO_00003076 
-  ea_b188a_eutectic:
-  ea_b188b_tin_zinc:
-  ea_b188c_lead_silver:
-  ea_b188d_cadmium_silver:
-  ea_b188e_flux:
-  ea_b188f_solder_paste:
-  ea_b188g_solder_wire:
-  ea_b188h_rosin:
-  ea_b188i_solder_fumes:
-  ea_b194a_hair_dye:
-  ea_b194b_leather_dye:
-  ea_b194c_textile_dye:
-  ea_b194d_paper_dye:
-  ea_b194e_india_ink:
-  ea_b194f_inkjet:
-  ea_b194g_gel_ink:
-  ea_b194h_pen_ink:
-  ea_b194i_toner:
-  ea_b194j_soy_ink:
+  - ENVO_00003076
+  ea_b188a_eutectic: null
+  ea_b188b_tin_zinc: null
+  ea_b188c_lead_silver: null
+  ea_b188d_cadmium_silver: null
+  ea_b188e_flux: null
+  ea_b188f_solder_paste: null
+  ea_b188g_solder_wire: null
+  ea_b188h_rosin: null
+  ea_b188i_solder_fumes: null
+  ea_b194a_hair_dye: null
+  ea_b194b_leather_dye: null
+  ea_b194c_textile_dye: null
+  ea_b194d_paper_dye: null
+  ea_b194e_india_ink: null
+  ea_b194f_inkjet: null
+  ea_b194g_gel_ink: null
+  ea_b194h_pen_ink: null
+  ea_b194i_toner: null
+  ea_b194j_soy_ink: null
   ea_b194k_pharma_ink:
-    ea_a012_current_home_type:
-  ea_a017h_heat_other:
-  ea_a017i_heat_none:
-  ea_a017j_heat_dk:
-  ea_a021f_stove_other:
+    ea_a012_current_home_type: null
+  ea_a017h_heat_other: null
+  ea_a017i_heat_none: null
+  ea_a017j_heat_dk: null
+  ea_a021f_stove_other: null
   ea_a023a_ac_central:
   - ENVO:00002874
   ea_a023b_ac_window:
   - ENVO:00002874
   ea_a023c_ac_portable:
   - ENVO:00002874
-  ea_a036_mildew_odor_d:
-  ea_a040_mold_d:
-  ea_a061a_pest_ants: 
+  ea_a036_mildew_odor_d: null
+  ea_a040_mold_d: null
+  ea_a061a_pest_ants:
   - ENVO:00005804
-  ea_a061b_pest_cockroaches:
-  ea_a061c_pest_bees_wasps:
-  ea_a061d_pest_flies:
-  ea_a061e_pest_spiders:
-  ea_a061f_pest_mosquitos:
-  ea_a061g_pest_flea_ticks:
+  ea_a061b_pest_cockroaches: null
+  ea_a061c_pest_bees_wasps: null
+  ea_a061d_pest_flies: null
+  ea_a061e_pest_spiders: null
+  ea_a061f_pest_mosquitos: null
+  ea_a061g_pest_flea_ticks: null
   ea_a061h_pest_termite:
   - ENVO:2000006
-  ea_a061i_pest_other:
+  ea_a061i_pest_other: null
   ea_a067_animal_waste:
   - ENVO:00002276
   ea_a068_bus_station:
   - ENVO:01000611
-  ea_a069_airport:
-  ea_a070_dry_cleaners:
+  ea_a069_airport: null
+  ea_a070_dry_cleaners: null
   ea_a071_farm:
   - ENVO:00000078
-  ea_a072_gas_station:
-  ea_a073_golf_course:
-  ea_a074_greenhouse:
+  ea_a072_gas_station: null
+  ea_a073_golf_course: null
+  ea_a074_greenhouse: null
   ea_a075_hazard_waste:
   - ENVO_01001264
   - ENVO:00002206
   - ENVO:00002001
   - ENVO:00002267
-  ea_a076_power_lines:
-  ea_a077_incinerator:
+  ea_a076_power_lines: null
+  ea_a077_incinerator: null
   ea_a078_landfill:
   - ENVO:00000533
   - ENVO:01000916
-  ea_a079_tannery:
-  ea_a080_military_base:
+  ea_a079_tannery: null
+  ea_a080_military_base: null
   ea_a081_oil_refinery:
   - ENVO:01000003
   - ENVO:00002185
@@ -21326,69 +21228,69 @@ visit:
   ea_a087_nuclear_plant:
   - ENVO:00002271
   ea_a088b_factory_d:
-  - ENVO_01000536 
+  - ENVO_01000536
   ea_a091_farm_active:
   - ENVO:01001170
-  ea_b092_solvent_d:
-  ea_b092k_solvent_other:
-  ea_b097a_solvent_ongoing_d:
-  ea_b098_lube_d:
-  ea_b098e_lube_other:
-  ea_b103a_lube_ongoing_d:
-  ea_b104_cleaning_d:
-  ea_b104d_cleaning_other:
-  ea_b109a_cleaning_ongoing_d:
-  ea_b110_metal_d:
-  ea_b110h_metal_other:
-  ea_b115a_metal_ongoing_d:
-  ea_b116_alcohol_d:
-  ea_b116e_alcohol_other:
-  ea_b121a_alcohol_ongoing_d:
-  ea_b122_pest_d:
-  ea_b122h_pest_other:
-  ea_b127a_pest_ongoing_d:
-  ea_b128_plastic_d:
-  ea_b128h_plastic_other:
-  ea_b134_dust_d:
-  ea_b134f_dust_other:
-  ea_b139a_dust_ongoing_d:
-  ea_b140_emissions_d:
-  ea_b140e_emissions_other:
-  ea_b145a_emissions_ongoing_d:
-  ea_b146_carcinogens_d:
-  ea_b146f_carcinogens_other:
-  ea_b151a_carcinogens_ongoing_d:
-  ea_b152_acid_d:
-  a_b152f_acid_other:
-  ea_b157a_acid_ongoing_d:
+  ea_b092_solvent_d: null
+  ea_b092k_solvent_other: null
+  ea_b097a_solvent_ongoing_d: null
+  ea_b098_lube_d: null
+  ea_b098e_lube_other: null
+  ea_b103a_lube_ongoing_d: null
+  ea_b104_cleaning_d: null
+  ea_b104d_cleaning_other: null
+  ea_b109a_cleaning_ongoing_d: null
+  ea_b110_metal_d: null
+  ea_b110h_metal_other: null
+  ea_b115a_metal_ongoing_d: null
+  ea_b116_alcohol_d: null
+  ea_b116e_alcohol_other: null
+  ea_b121a_alcohol_ongoing_d: null
+  ea_b122_pest_d: null
+  ea_b122h_pest_other: null
+  ea_b127a_pest_ongoing_d: null
+  ea_b128_plastic_d: null
+  ea_b128h_plastic_other: null
+  ea_b134_dust_d: null
+  ea_b134f_dust_other: null
+  ea_b139a_dust_ongoing_d: null
+  ea_b140_emissions_d: null
+  ea_b140e_emissions_other: null
+  ea_b145a_emissions_ongoing_d: null
+  ea_b146_carcinogens_d: null
+  ea_b146f_carcinogens_other: null
+  ea_b151a_carcinogens_ongoing_d: null
+  ea_b152_acid_d: null
+  a_b152f_acid_other: null
+  ea_b157a_acid_ongoing_d: null
   ea_b158_alkalis_d:
   - CHEBI_22313
   - CHEBI_22314
   ea_b158e_alkalis_other:
   - CHEBI_22313
   - CHEBI_22314
-  ea_b163a_alkalis_ongoing_d:
-  ea_b164_stains_d:
-  ea_b164g_stains_other:
-  ea_b170_paint_d:
-  ea_b170j_paint_other:
-  ea_b175a_paint_ongoing_d:
-  ea_b176_anesthetic_d:
-  ea_b176h_anesthetic_other:
-  ea_b181a_anesthetic_ongoing_d:
-  ea_b182_adhesives_d:
-  ea_b182j_adhesives_other:
-  ea_b187a_adhesives_ongoing_d:
-  ea_b188_soldering_d:
-  ea_b188j_soldering_other:
-  ea_b193a_soldering_ongoing_d:
-  ea_b194_ink_d:
-  ea_b194l_ink_other:
-  ea_b199a_ink_ongoing_d:
+  ea_b163a_alkalis_ongoing_d: null
+  ea_b164_stains_d: null
+  ea_b164g_stains_other: null
+  ea_b170_paint_d: null
+  ea_b170j_paint_other: null
+  ea_b175a_paint_ongoing_d: null
+  ea_b176_anesthetic_d: null
+  ea_b176h_anesthetic_other: null
+  ea_b181a_anesthetic_ongoing_d: null
+  ea_b182_adhesives_d: null
+  ea_b182j_adhesives_other: null
+  ea_b187a_adhesives_ongoing_d: null
+  ea_b188_soldering_d: null
+  ea_b188j_soldering_other: null
+  ea_b193a_soldering_ongoing_d: null
+  ea_b194_ink_d: null
+  ea_b194l_ink_other: null
+  ea_b199a_ink_ongoing_d: null
   ea_e249_sunburn:
   - C3395
   - MESH:D013471
-  - SCTID:403194002 
+  - SCTID:403194002
   - MONDO:0005326
   ea_e253_skin_rash:
   - NCIT:C62596
@@ -21398,12 +21300,12 @@ visit:
   - NCIT:C96388
   - NCIT:C167409
   - NCIT:C118468
-  ea_e257_tan_booth:
+  ea_e257_tan_booth: null
   ea_e261_sunlamp:
   - NCIT:C50197
   eb_a001_multivitamin:
   - LOINC:81950-8
-  - NCIT:C1654 
+  - NCIT:C1654
   - UMLSCUI:C0301532
   eb_a002_vitamin_a:
   - CHEBI:17336
@@ -21411,7 +21313,7 @@ visit:
   - MeSH:D014802
   - MeSH:D014801
   - LOINC:LP31687-4
-  - SCTID:36922411000001109 
+  - SCTID:36922411000001109
   - SCTID:3270000007
   - SCTID:3438501000124103
   - SCTID:331109009
@@ -21514,7 +21416,7 @@ visit:
   - MESH:C520984
   A1ATDeficiency:
   - MONDO:0013282
-  ALTDILIOnsetULN:
+  ALTDILIOnsetULN: null
   ALTOnset:
   - UMLS:C2749273
   - UMLS:C1832768
@@ -21528,8 +21430,8 @@ visit:
   - UMLS:C1300107
   - MONDO:0018485
   - MONDO:0017694
-  ALTPeakDILIOnsetToMonth6:
-  ALTPeakDILIOnsetToMonth6ULN:
+  ALTPeakDILIOnsetToMonth6: null
+  ALTPeakDILIOnsetToMonth6ULN: null
   ANA:
   - OMIM:114105
   - PUBCHEM.COMPOUND:44629965
@@ -21988,7 +21890,7 @@ visit:
   - MONDO:0017364
   - MONDO:0018621
   - MONDO:0043275
-  ASTDILIOnsetULN:
+  ASTDILIOnsetULN: null
   ASTOnset:
   - UMLS:C0264413
   - UMLS:C1844940
@@ -22035,8 +21937,8 @@ visit:
   - MONDO:0010040
   - MONDO:0010729
   - MONDO:0100016
-  ASTPeakDILIOnsetToMonth6:
-  ASTPeakDILIOnsetToMonth6ULN:
+  ASTPeakDILIOnsetToMonth6: null
+  ASTPeakDILIOnsetToMonth6ULN: null
   AbdominalPain:
   - NCIT:C143255
   - UMLS:C0423651
@@ -22100,7 +22002,7 @@ visit:
   - MONDO:0002268
   - MONDO:0009842
   AgeQualifyingLab: *id011
-  AlcoholRelatedLiverDisease:
+  AlcoholRelatedLiverDisease: null
   AlcoholUse:
   - NCIT:C81229
   - UMLS:C0085762
@@ -22166,7 +22068,7 @@ visit:
   - UMLS:C0033936
   - UMLS:C1852007
   - MONDO:0002046
-  AlkalinePhosphataseDILIOnsetULN:
+  AlkalinePhosphataseDILIOnsetULN: null
   AlkalinePhosphataseOnset:
   - SCTID:88810008
   - SCTID:785821009
@@ -22177,8 +22079,8 @@ visit:
   - LOINC:LG4193-1
   - LOINC:LG2774-0
   - LOINC:LP44703-4
-  AlkalinePhosphatasePeakDILIOnsetToMonth6ULN:
-  AlkalinePhosphatatePeakDILIOnsetToMonth6:
+  AlkalinePhosphatasePeakDILIOnsetToMonth6ULN: null
+  AlkalinePhosphatatePeakDILIOnsetToMonth6: null
   AntiHAV:
   - OMIM:MTHU045723
   - UMLS:C0001676
@@ -22210,7 +22112,7 @@ visit:
   - SCTID:165947003
   - SCTID:995951000000103
   - SCTID:50506008
-  AntiHBe: 
+  AntiHBe: null
   AntiHBs:
   - UMLS:C0262505
   AntiHCV:
@@ -22304,17 +22206,17 @@ visit:
   - CHEBI:61335
   - CHEBI:31683
   - MONDO:0020670
-  BilirubinDILIOnsetULN:
-  BilirubinOnset:
-  BilirubinPeakDILIOnsetToMonth6:
-  BilirubinPeakDILIOnsetToMonth6ULN:
-  ChronicDILI:
+  BilirubinDILIOnsetULN: null
+  BilirubinOnset: null
+  BilirubinPeakDILIOnsetToMonth6: null
+  BilirubinPeakDILIOnsetToMonth6ULN: null
+  ChronicDILI: null
   ChronicHepatitisCScreening:
   - SCTID:128302006
   - SCTID:708198006
   - SCTID:186640001
   - MESH:D019698
-  ChronicHepatititsBScireening:
+  ChronicHepatititsBScireening: null
   Cirrhosis:
   - NCIT:C3044
   - UMLS:C4049169
@@ -22538,18 +22440,18 @@ visit:
   - UMLS:C4706244
   - MONDO:0005009
   - MONDO:0001899
-  DILINSeverityScore:
+  DILINSeverityScore: null
   DRB1*15:01:
   - MESH:C489631
-  DaysALTDILIOnsetToPeak:
-  DaysASTDILIOnsetToPeak:
-  DaysAlkalphinePhosphataseDILIOnsetToPeak:
-  DaysBilirubinDILIOnsetToPeak:
-  DaysDILIOnsetToInititalVisit:
-  DaysDrugStartToEarliestSign:
-  DaysDrugStartToEarliestSignOrDILI:
-  DaysEarliestSignToDILI:
-  DaysEarliestSignToDrugStop:
+  DaysALTDILIOnsetToPeak: null
+  DaysASTDILIOnsetToPeak: null
+  DaysAlkalphinePhosphataseDILIOnsetToPeak: null
+  DaysBilirubinDILIOnsetToPeak: null
+  DaysDILIOnsetToInititalVisit: null
+  DaysDrugStartToEarliestSign: null
+  DaysDrugStartToEarliestSignOrDILI: null
+  DaysEarliestSignToDILI: null
+  DaysEarliestSignToDrugStop: null
   Death:
   - UMLS:C1306577
   - NCIT:C53787
@@ -22754,8 +22656,8 @@ visit:
   - SCTID:142935007
   - SCTID:365601007
   - SCTID:165524009
-  EosinophilGreatThan500:
-  EthnicityDILI: *id044
+  EosinophilGreatThan500: null
+  EthnicityDILI: *id012
   FamilyHistoryLiverDisease:
   - UMLS:C0455417
   - SCTID:266902008
@@ -23110,7 +23012,7 @@ visit:
   - SCITD:200951007
   - SCITD:17658005
   - SCITD:19065005
-  FinalCausalityScore:
+  FinalCausalityScore: null
   GastrointestinalDisease:
   - UMLS:C0455420
   - UMLS:C0455553
@@ -23200,7 +23102,7 @@ visit:
   - UMLS:C0456101
   - SCITD:165816005
   - SCITD:143224002
-  HLA-B*15:18:
+  HLA-B*15:18: null
   HeartDisease:
   - UMLS:C0686716
   - UMLS:C0543946
@@ -23427,19 +23329,19 @@ visit:
   - UMLS:C0264843
   - UMLS:C4076065
   - UMLS:C3150339
-  HepatititsA:
-  HospitalizationNewProlonged:
+  HepatititsA: null
+  HospitalizationNewProlonged: null
   INROnset:
   - SCITD:1951000175101
   - SCITD:165581004
   - SCITD:165583001
   - SCITD:165582006
   - MESH:D019934
-  INRPeakDILIOnsetToMonth6:
-  ImplicatedDrug1Assessment:
-  ImplicatedDrug2Assessment:
-  ImplicatedDrug3Assessment:
-  InitialRUCAM:
+  INRPeakDILIOnsetToMonth6: null
+  ImplicatedDrug1Assessment: null
+  ImplicatedDrug2Assessment: null
+  ImplicatedDrug3Assessment: null
+  InitialRUCAM: null
   IschemicHepatitis:
   - UMLS:C0473117
   - SCTID:235877000
@@ -24284,8 +24186,8 @@ visit:
   - MESH:D056889
   - MESH:D044504
   - MESH:C538171
-  PCARace:
-  PatternLiverInjuryOnset:
+  PCARace: null
+  PatternLiverInjuryOnset: null
   PrednisoneOrCorticosteroidsTx:
   - CHEBI:50858
   - NCIT:C142385
@@ -24579,8 +24481,8 @@ visit:
   - LOINC:LA28200-6
   - LOINC:LA27422-7
   - LOINC:LA27872-3
-  RValueOnset: 
-  RaceDILI: *id080
+  RValueOnset: null
+  RaceDILI: *id013
   Rash:
   - UMLS:C0302295
   - NCIT:C27171
@@ -24982,7 +24884,7 @@ visit:
   - LOINC:LP377049-4
   - LOINC:LP395419-7
   - LOINC:LP377091-6
-  Sex: *id009
+  Sex: *id010
   StevensJohnsonSyndrome:
   - NCIT:C143859
   - NCIT:C145642
@@ -25186,12 +25088,12 @@ visit:
   UnexplainedAbnormalLiverTest:
   - SCTID:207471009
   - SCTID:166603001
-  WHONAMEImplicatedDrug1:
-  WHONAMEImplicatedDrug2:
-  WHONAMEImplicatedDrug3:
-  WeeksDrugStartToDILI:
-  WeeksDurationOfSickness:
-  WeeksEarliestSignToDILI:
+  WHONAMEImplicatedDrug1: null
+  WHONAMEImplicatedDrug2: null
+  WHONAMEImplicatedDrug3: null
+  WeeksDrugStartToDILI: null
+  WeeksDurationOfSickness: null
+  WeeksEarliestSignToDILI: null
   Weight:
   - UMLS:C0424653
   - NCIT:C3445
@@ -25400,6 +25302,6 @@ visit:
   - UMLS:C3665549
   - UMLS:C4551303
   - MESH:C093154
-  YearDILIOnset:
-  rs1363907a:
-  rs2476601a:
+  YearDILIOnset: null
+  rs1363907a: null
+  rs2476601a: null

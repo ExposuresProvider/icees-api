@@ -359,7 +359,10 @@ def print_matches(window, left, right, a_type, b_type, a_only, b_only, a_update,
                 dump_get_b = ""
             else:
                 dump_get_b = b_file.dump_get(name, key_b)
-
+        else:
+            dump_get_a = ""
+            dump_get_b = ""
+            
         left_pane._clear()
         right_pane._clear()
         left_pane._append(dump_get_a)

@@ -342,21 +342,23 @@ def print_matches(window, left, right, a_type, b_type, a_only, b_only, a_update,
         name = table_names[current_table]
         table, ellipsis = tables[name]
         table_y = get_current_row_id()
-        row = table[table_y] if table_y < len(table) else [None, None, None, None, None]
+        row = table[table_y] if table_y < len(table) else None
         return row
 
     def refresh_bottom_panes(a_file, b_file, tables):
         name = table_names[current_table]
-        key_a, key_b, _, _, _, _ = get_current_row(tables)
-        if key_a is None:
-            dump_get_a = ""
-        else:
-            dump_get_a = a_file.dump_get(name, key_a)
-    
-        if key_b is None:
-            dump_get_b = ""
-        else:
-            dump_get_b = b_file.dump_get(name, key_b)
+        row = get_current_row(tables)
+        if row is not None:
+            key_a, key_b, _, _, _, _ = row
+            if key_a is None:
+                dump_get_a = ""
+            else:
+                dump_get_a = a_file.dump_get(name, key_a)
+
+            if key_b is None:
+                dump_get_b = ""
+            else:
+                dump_get_b = b_file.dump_get(name, key_b)
 
         left_pane._clear()
         right_pane._clear()
@@ -466,29 +468,31 @@ def print_matches(window, left, right, a_type, b_type, a_only, b_only, a_update,
         elif ch == ord("f"):
             name = table_names[current_table]
             row = get_current_row(tables)
-            key_b = row[1]
-            a = a_file.get_keys(name)            
-            candidates_a = find_candidates(a, key_b, similarity_threshold, max_entries, ignore_suffix)
-            c = choose_candidate(window, candidates_a)
-            if c is not None:
-                candidate_a, ratio = c
-                row[0] = candidate_a
-                row[2] = ratio
-                row[3] = "o"
-            refresh_content(a_file, b_file, tables)
+            if row is not None:
+                key_b = row[1]
+                a = a_file.get_keys(name)            
+                candidates_a = find_candidates(a, key_b, similarity_threshold, max_entries, ignore_suffix)
+                c = choose_candidate(window, candidates_a)
+                if c is not None:
+                    candidate_a, ratio = c
+                    row[0] = candidate_a
+                    row[2] = ratio
+                    row[3] = "o"
+                refresh_content(a_file, b_file, tables)
         elif ch == ord("g"):
             name = table_names[current_table]
             row = get_current_row(tables)
-            key_a = row[0]
-            b = b_file.get_keys(name)            
-            candidates_b = find_candidates(b, key_a, similarity_threshold, max_entries, ignore_suffix)
-            c = choose_candidate(window, candidates_b)
-            if c is not None:
-                candidate_b, ratio = c
-                row[1] = candidate_b
-                row[2] = ratio
-                row[4] = "o"
-            refresh_content(a_file, b_file, tables)
+            if row is not None:
+                key_a = row[0]
+                b = b_file.get_keys(name)            
+                candidates_b = find_candidates(b, key_a, similarity_threshold, max_entries, ignore_suffix)
+                c = choose_candidate(window, candidates_b)
+                if c is not None:
+                    candidate_b, ratio = c
+                    row[1] = candidate_b
+                    row[2] = ratio
+                    row[4] = "o"
+                refresh_content(a_file, b_file, tables)
         elif ch == ord("h"):
             help(window)
             refresh_content(a_file, b_file, tables)
@@ -496,62 +500,68 @@ def print_matches(window, left, right, a_type, b_type, a_only, b_only, a_update,
             if b_update is not None:
                 name = table_names[current_table]
                 row = get_current_row(tables)
-                row[5] = UseA()
-                refresh_content(a_file, b_file, tables)
+                if row is not None:
+                    row[5] = UseA()
+                    refresh_content(a_file, b_file, tables)
         elif ch == ord("b"):
             if a_update is not None:
                 name = table_names[current_table]
                 row = get_current_row(tables)
-                row[5] = UseB()
-                refresh_content(a_file, b_file, tables)
+                if row is not None:
+                    row[5] = UseB()
+                    refresh_content(a_file, b_file, tables)
         elif ch == ord("c"):
             if a_update is not None or b_update is not None:
                 name = table_names[current_table]
                 row = get_current_row(tables)
-                key_a, key_b, _, _, _, _ = row
+                if row is not None:
+                    key_a, key_b, _, _, _, _ = row
 
-                c = enter_var_name(window, key_a, key_b)
-                if c is not None:
-                    row[5] = Customize(c)
-                refresh_content(a_file, b_file, tables)
+                    c = enter_var_name(window, key_a, key_b)
+                    if c is not None:
+                        row[5] = Customize(c)
+                    refresh_content(a_file, b_file, tables)
         elif ch == ord("d"):
             if a_update is not None or b_update is not None:
                 name = table_names[current_table]
                 row = get_current_row(tables)
-                key_a, key_b, _, _, _, _ = row
+                if row is not None:
+                    key_a, key_b, _, _, _, _ = row
 
-                c = enter_var_name(window, key_a, key_b)
-                if c is not None:
-                    row[5] = CustomizeB(c)
-                refresh_content(a_file, b_file, tables)
+                    c = enter_var_name(window, key_a, key_b)
+                    if c is not None:
+                        row[5] = CustomizeB(c)
+                    refresh_content(a_file, b_file, tables)
         elif ch == ord("e"):
             if a_update is not None or b_update is not None:
                 name = table_names[current_table]
                 row = get_current_row(tables)
-                key_a, key_b, _, _, _, _ = row
+                if row is not None:
+                    key_a, key_b, _, _, _, _ = row
 
-                c = enter_var_name(window, key_a, key_b)
-                if c is not None:
-                    row[5] = CustomizeA(c)
-                refresh_content(a_file, b_file, tables)
+                    c = enter_var_name(window, key_a, key_b)
+                    if c is not None:
+                        row[5] = CustomizeA(c)
+                    refresh_content(a_file, b_file, tables)
         elif ch == ord("s"):
             if a_update is not None:
                 name = table_names[current_table]
                 row = get_current_row(tables)
-                row[5] = Noop()
-                refresh_content(a_file, b_file, tables)
+                if row is not None:
+                    row[5] = Noop()
+                    refresh_content(a_file, b_file, tables)
         elif ch == ord("u"):
             for name, (table, _) in tables.items():
-                window.set_footer(f"updating table {name}...")
+                window.set_footer(f"updating table {name} ...")
                 for row in table:
                     key_a, key_b, _, _, _, action = row
                     action.update(name, key_a, a_file, key_b, b_file)
                     row[5] = Noop()
                 if a_update is not None:
-                    logger.info(f"writing to file {a_update}")
+                    window.set_footer(f"writing to file {a_update} ...")
                     a_file.dump(a_update)
                 if b_update is not None:
-                    logger.info(f"writing to file {b_update}")
+                    window.set_footer(f"writing to file {b_update} ...")
                     b_file.dump(b_update)
             file_a, file_b, tables = refresh_files(left if a_update is None else a_update, right if b_update is None else b_update)
         elif ch == ord("q"):

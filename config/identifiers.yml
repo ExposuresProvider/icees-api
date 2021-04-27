@@ -3,7 +3,7 @@ patient:
   - CHEBI:15343
   - PUBCHEM:177
   - MESH:D000079
-  AvgDailyAcetaldehydeExposure_2_qcut: &id010
+  AvgDailyAcetaldehydeExposure_2_qcut: *id010
   AgeStudyStart: &id011
   - NCIT:C25150
   - UMLSCUI:C0001779
@@ -10970,15 +10970,7 @@ patient:
   - UMLS:C0851977
   - MONDO:0002268
   - MONDO:0009842
-  AgeQualifyingLab: &id011
-  - NCIT:C25150
-  - UMLSCUI:C0001779
-  - NCIT:C69217
-  - UMLSCUI:C2348002
-  - NCIT:C37908
-  - UMLSCUI:C1510829
-  - SCTID:424144002
-  - SCTID:397669002
+  AgeQualifyingLab: *id011
   AlcoholRelatedLiverDisease:
   AlcoholUse:
   - NCIT:C81229
@@ -14283,8 +14275,8 @@ patient:
   rs1363907a:
   rs2476601a:
 visit:
-  AvgailyAcetaldehydeExposure_2: &id010
-  AvgailyAcetaldehydeExposure_2_qcut: &id010
+  AvgailyAcetaldehydeExposure_2: *id010
+  AvgailyAcetaldehydeExposure_2_qcut: *id010
   AgeVisit: *id011
   AlbuterolVisit: *id012
   AlcoholDependenceVisit: *id013
@@ -22107,15 +22099,7 @@ visit:
   - UMLS:C0851977
   - MONDO:0002268
   - MONDO:0009842
-  AgeQualifyingLab: &id011
-  - NCIT:C25150
-  - UMLSCUI:C0001779
-  - NCIT:C69217
-  - UMLSCUI:C2348002
-  - NCIT:C37908
-  - UMLSCUI:C1510829
-  - SCTID:424144002
-  - SCTID:397669002
+  AgeQualifyingLab: *id011
   AlcoholRelatedLiverDisease:
   AlcoholUse:
   - NCIT:C81229

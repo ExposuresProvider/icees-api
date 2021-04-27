@@ -41,11 +41,11 @@ def get_identifiers(table, feature, return_empty_list=False):
 def get_features_by_identifier(table, identifier):
     """Get features by identifier."""
     if table not in input_dict:
-        raise Left(f"Cannot find table {table}, available {input_dict}")
+        raise RuntimeError(f"Cannot find table {table}, available {input_dict}")
     identifier_dict = input_dict[table]
 
-    return Right([
+    return [
         feature
         for feature, identifiers in identifier_dict.items()
         if identifier in identifiers
-    ])
+    ]

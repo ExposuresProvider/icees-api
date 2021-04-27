@@ -61,19 +61,13 @@ def test_knowledge_graph_overlay(query_options):
             "knowledge_graph": {
                 "nodes": {
                     "PUBCHEM:2083": {
-                        "category": "biolink:Drug"
+                        "categories": ["biolink:Drug"]
                     },
                     "MESH:D052638": {
-                        "category": "biolink:ChemicalSubstance"
+                        "categories": ["biolink:ChemicalSubstance"]
                     }
                 },
-                "edges": {
-                    "e00": {
-                        "predicate": "biolink:association",
-                        "subject": "PUBCHEM:2083",
-                        "object": "MESH:D052638"
-                    }
-                }
+                "edges": {}
             }
         }
     }
@@ -159,9 +153,9 @@ def test_knowledge_graph_schema():
     )
     resp_json = resp.json()
     assert "return value" in resp_json
-    assert "population_of_individual_organisms" in resp_json["return value"]
-    assert "chemical_substance" in resp_json["return value"]["population_of_individual_organisms"]
-    assert "correlated_with" in resp_json["return value"]["population_of_individual_organisms"]["chemical_substance"]
+    assert "biolink:PopulationOfIndividualOrganisms" in resp_json["return value"]
+    assert "biolink:ChemicalSubstance" in resp_json["return value"]["biolink:PopulationOfIndividualOrganisms"]
+    assert "biolink:correlated_with" in resp_json["return value"]["biolink:PopulationOfIndividualOrganisms"]["biolink:ChemicalSubstance"]
 
 
 categories = [

@@ -3,10 +3,6 @@ import json
 from typing import Dict, Union
 
 from fastapi import APIRouter, Body, Depends
-from reasoner_converter.downgrading import downgrade_Query
-from reasoner_converter.upgrading import (
-    upgrade_QueryGraph, upgrade_KnowledgeGraph, upgrade_Result,
-)
 from reasoner_pydantic import Query, Message
 
 from .dependencies import get_db
@@ -390,24 +386,14 @@ def knowledge_graph(
         conn=Depends(get_db),
 ) -> Dict:
     """Query for knowledge graph associations between concepts."""
-    return_value = knowledgegraph.get(conn, downgrade_Query(obj))
+    return_value = knowledgegraph.get(conn, obj)
 
-    message = dict()
-    if "query_graph" in return_value:
-        message["query_graph"] = upgrade_QueryGraph(
-            return_value.pop("query_graph")
-        )
-    if "knowledge_graph" in return_value:
-        message["knowledge_graph"] = upgrade_KnowledgeGraph(
-            return_value.pop("knowledge_graph")
-        )
-    if "results" in return_value:
-        message["results"] = [
-            upgrade_Result(result)
-            for result in return_value.pop("results")
-        ]
     return_value = {
-        "message": message,
+        "message": {
+            "query_graph": return_value.pop("query_graph"),
+            "knowledge_graph": return_value.pop("knowledge_graph"),
+            "results": return_value.pop("results"),
+        },
         **return_value,
     }
     if reasoner:
@@ -467,28 +453,17 @@ def knowledge_graph_overlay(
         conn=Depends(get_db),
 ) -> Dict:
     """Query for knowledge graph co-occurrence overlay."""
-
     return_value = knowledgegraph.co_occurrence_overlay(
         conn,
-        downgrade_Query(obj),
+        obj,
     )
 
-    message = dict()
-    if "query_graph" in return_value:
-        message["query_graph"] = upgrade_QueryGraph(
-            return_value.pop("query_graph")
-        )
-    if "knowledge_graph" in return_value:
-        message["knowledge_graph"] = upgrade_KnowledgeGraph(
-            return_value.pop("knowledge_graph")
-        )
-    if "results" in return_value:
-        message["results"] = [
-            upgrade_Result(result)
-            for result in return_value.pop("results")
-        ]
     return_value = {
-        "message": message,
+        "message": {
+            "query_graph": obj["message"].get("query_graph", None),
+            "knowledge_graph": return_value.pop("knowledge_graph"),
+            "results": obj["message"].get("results", None),
+        },
         **return_value,
     }
     if reasoner:
@@ -506,24 +481,14 @@ def knowledge_graph_one_hop(
         conn=Depends(get_db),
 ) -> Dict:
     """Query the ICEES clinical reasoner for knowledge graph one hop."""
-    return_value = knowledgegraph.one_hop(conn, downgrade_Query(obj))
+    return_value = knowledgegraph.one_hop(conn, obj)
 
-    message = dict()
-    if "query_graph" in return_value:
-        message["query_graph"] = upgrade_QueryGraph(
-            return_value.pop("query_graph")
-        )
-    if "knowledge_graph" in return_value:
-        message["knowledge_graph"] = upgrade_KnowledgeGraph(
-            return_value.pop("knowledge_graph")
-        )
-    if "results" in return_value:
-        message["results"] = [
-            upgrade_Result(result)
-            for result in return_value.pop("results")
-        ]
     return_value = {
-        "message": message,
+        "message": {
+            "query_graph": return_value.pop("query_graph"),
+            "knowledge_graph": return_value.pop("knowledge_graph"),
+            "results": return_value.pop("results"),
+        },
         **return_value,
     }
     if reasoner:

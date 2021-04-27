@@ -221,7 +221,7 @@ def do_verify_response(resp_json, results=True):
     assert "knowledge_graph" in return_value["message"]
     knowledge_graph = return_value["message"]["knowledge_graph"]
     nodes = knowledge_graph["nodes"]
-    for node in nodes:
+    for node in nodes.values():
         if "equivalent_identifiers" in node:
             equivalent_ids = node["equivalent_identifiers"]
             assert (

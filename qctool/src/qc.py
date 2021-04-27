@@ -412,18 +412,18 @@ def print_matches(window, left, right, a_type, b_type, a_only, b_only, a_update,
 
     def refresh_files(a_filename, b_filename):
         window.set_header(APPLICATION_TITLE)
-        window.set_footer(f"loading {left} ...")
+        window.set_footer(f"loading {a_filename} ...")
         try:
             a_file = make_file(a_type, a_filename)
         except Exception as e:
-            logger.error(f"error loading {left}\n")
+            logger.error(f"error loading {a_filename}\n")
             raise
 
-        window.set_footer(f"loading {right} ...")
+        window.set_footer(f"loading {b_filename} ...")
         try:
             b_file = make_file(b_type, b_filename)
         except Exception as e:
-            logger.error(f"error loading {right}\n")
+            logger.error(f"error loading {b_filename}\n")
             raise
 
         window.set_footer(f"comparing...")

@@ -1339,6 +1339,11 @@ patient:
     maximum: 1
     minimum: 0
     type: integer
+  Metformin:
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+    maximum: 1
+    minimum: 0
+    type: integer
   CharlsonComorbidityIndex:
     biolinkType: PhenotypicFeature
     maximum: 37
@@ -13577,6 +13582,11 @@ visit:
     minimum: 0
     type: integer
   CetirizineVisit:
+    biolinkType: ChemicalSubstance, ChemicalExposure, Drug
+    maximum: 1
+    minimum: 0
+    type: integer
+  MetforminVisit:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1
     minimum: 0

@@ -1,18 +1,15 @@
 """Knowledge graph methods."""
 import datetime
-from functools import reduce, partial
+from functools import reduce
 from itertools import combinations
 import logging
 import re
 import traceback
 from typing import List
 
-from tx.functional.either import Left, Right
 import tx.functional.maybe as maybe
 from tx.functional.maybe import Nothing, Just
 from tx.functional.utils import compose
-
-from reasoner_converter.downgrading import downgrade_BiolinkEntity
 
 from ..utils import to_qualifiers
 from .mappings import mappings

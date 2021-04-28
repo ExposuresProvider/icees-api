@@ -9,8 +9,9 @@ import asyncio
 import curses
 import logging
 import os
+from functools import reduce
 from tx.functional.either import Left, Right
-from window import Window, Pane, HIGHLIGHT, RESET, init_colors, SELECTED_NORMAL_COLOR
+from window import Window, Pane, HIGHLIGHT, RESET, init_colors, SELECTED_NORMAL_COLOR, popup, draw_textfield, WindowExit, WindowPass, WindowContinue
 from file import make_file
 
 APPLICATION_TITLE = "ICEES FHIR-PIT Configuration Tool"
@@ -185,135 +186,112 @@ def to_prettytable(l):
     else:
         return list(colorize_diff(l[0], l[1])) + [f"{l[2]:.2f}", l[3], l[4], str(l[5])]
 
-
-def draw_border(win):
-    h, w = win.getmaxyx()
-    win.insstr(0, 0, "-" * w)
-    for i in range(1, h - 1):
-        win.addstr(i, 0, "|")
-        win.addstr(i, w-1, "|")
-    win.insstr(h-1, 0, "-" * w)
-
     
 def help(window):
-    window.set_footer("ESCAPE exit")
-    h, w = window.size()
-    popw = w * 4 // 5
-    poph = h * 4 // 5
-    popy = h // 10
-    popx = w // 10
-    pop = curses.newwin(poph, popw, popy, popx)
-    popwindow = Window(pop)
-    text_pane = popwindow.pane("text_pane", poph - 1, popw - 1, 1, 1, False)
-    text_pane.print(HELP_TEXT_LONG)
-    draw_border(pop)
-    
-    while True:
-        ch = pop.getch()
-        if ch == 27:
-            break
+    def create_window(popwindow):
+        poph, popw = popwindow.size()
+        text = popwindow.text("text_pane", poph - 1, popw - 1, 1, 1, HELP_TEXT_LONG)
 
-    del pop
+    def key_handler(win, ch):
+        return WindowExit(None) if ch == 27 else WindowPass()
+
+    window.popup("ESCAPE exit", create_window, key_handler, None)
 
     
 def enter_var_name(window, key_a, key_b):
-    window.set_footer("ENTER confirm ESCAPE exit")
-    h, w = window.size()
-    popw = w * 4 // 5
-    poph = 5
-    popy = (h - 5) // 2
-    popx = w // 10
-    pop = curses.newwin(poph, popw, popy, popx)
-    c = ""
 
-    def refresh_customization():
-        pop.clear()
-        draw_border(pop)
-        pop.addstr(1,1,f"a: {key_a}")
-        pop.addstr(2,1,f"b: {key_b}")
-        pop.addstr(3,1,f"c: ")
-        text = c[-popw+6:]
-        padding = " " * (popw - 5)
-        pop.addstr(3,4, padding, curses.color_pair(SELECTED_NORMAL_COLOR))
-        pop.addstr(3,4,text, curses.color_pair(SELECTED_NORMAL_COLOR))
-        pop.refresh()
+    def create_window(popwindow):
+        _, popw = popwindow.size()
+        a_text = popwindow.text("a_text", 1, popw - 2, 1, 1, f"a: {key_a}")
+        b_text = popwindow.text("b_text", 1, popw - 2, 2, 1, f"b: {key_b}")
+        c_textfield = popwindow.textfield("c_textfield", popw - 2, 3, 1, "c:", "")
+        popwindow.focus = "c_textfield"
 
-    refresh_customization()
-
-    while True:
-        ch = pop.getch()
+    def key_handler(window, ch):
         if ch == curses.KEY_ENTER or ch == ord("\n") or ch == ord("\r"):
-            break
-        elif ch == curses.KEY_BACKSPACE or ch == ord("\b") or ch == 127:
-            c = c[:-1]
-            refresh_customization()
+            c_textfield = window.children["c_textfield"]
+            return WindowExit(c_textfield.text)
         elif ch == 27:
-            c = None
-            break
+            return WindowExit(None)
         else:
-            c += chr(ch)
-            refresh_customization()
-    del pop
+            return WindowPass()
+
+    c = window.popup("ENTER confirm ESCAPE exit", create_window, key_handler, h = 5)
 
     return c
 
 
-def candidate_to_prettytable(l):
-    return [l[0], f"{l[1]:.2f}"]
-
-
 def choose_candidate(window, candidates):
-    window.set_footer("UP DOWN PAGE UP PAGE DOWN navigate ENTER confirm ESCAPE exit")
+    help_text_short = "UP DOWN PAGE UP PAGE DOWN navigate ENTER confirm ESCAPE exit"
 
-    x = PrettyTable()
-    x.field_names = ["candidate", "ratio"]
+    candidates_w = max(len("candidate"), max(len(candidate) for candidate, _ in candidates)) + 2
+    ratios_w = len("ratio") + 2
+    column_ws = [candidates_w, ratios_w]
+    table_w = reduce(lambda x, y: x + y + 1, column_ws, 0)
+    headers = ["candidate", "ratio"]
 
-    x.add_rows(map(candidate_to_prettytable, candidates))
-    lines = str(x).split("\n")
-    header = "\n".join(lines[:3])
-    content = "\n".join(lines[3:])
+    def format_row(row, column_ws):
+        return "|".join([elem.center(w) for elem, w in zip(row, column_ws)])
+        
+    header_lines = [
+        format_row(headers, column_ws),
+        "-" * table_w
+    ]
+    header = "\n".join(header_lines)
+    
+    def format_table(candidates):
+    
+        lines = [format_row([candidate, f"{ratio:.2f}"], column_ws) for candidate, ratio in candidates] + ["-" * table_w]
 
-    h, w = window.size()
-    popw = min(w * 4 // 5, len(lines[0]))
-    poph = h * 4 // 5
-    popy = h // 10
-    popx = (w - popw) // 2
-    pop = curses.newwin(poph, popw, popy, popx)
-    pop.keypad(1)
-    popwindow = Window(pop)
-    popheader_pane = popwindow.pane("header_pane", 3, popw, 0, 0, False)
-    popcontent_pane = popwindow.pane("content_pane", poph - 3, popw, 3, 0, True)
-    popcontent_pane.bottom_padding = 1
+        content = "\n".join(lines)
 
-    popheader_pane._replace(header)
-    popcontent_pane._replace(content)
-    popwindow.update()
+        return content
 
-    def candidates_get_current_row_id():
+    content = format_table(candidates)
+    _, w = window.size()
+    popw = min(len(header.split("\n")[0]) + 2, w * 4 // 5)
+
+    popwindow = None
+
+    def match(c, candidate):
+        return c.lower() in candidate.lower()
+        
+    def update_content(source, oc, c):
+        popcontent_pane = popwindow.children["content_pane"]
+        candidates_filtered = [(candidate, ratio) for candidate, ratio in candidates if match(c, candidate)]
+        content = format_table(candidates_filtered)
+        popcontent_pane._replace(content)
+
+    def create_window(window):
+        nonlocal popwindow
+        popwindow = window
+        popwindow.window.keypad(1)
+        poph, popw = popwindow.size()
+        popheader_pane = popwindow.pane("header_pane", 3, popw - 2, 1, 1, False)
+        popcontent_pane = popwindow.pane("content_pane", poph - 5, popw - 2, 3, 1, True)
+        popcontent_pane.bottom_padding = 1
+        popsearch_textfield = popwindow.textfield("search_textfield", popw - 2, poph - 2, 1, "search:", "")
+        popsearch_textfield.addChangeHandler(update_content)
+        popwindow.focus = "search_textfield"
+
+        popheader_pane._replace(header)
+        popcontent_pane._replace(content)
+
+    def candidates_get_current_row_id(popcontent_pane):
         return max(0, popcontent_pane.current_document_y)
 
-    while True:
-        ch = pop.getch()
+    def key_handler(popwindow, ch):
+        popcontent_pane = popwindow.children["content_pane"]
+        search_textfield = popwindow.children["search_textfield"]
+
         if ch == curses.KEY_ENTER or ch == ord("\n") or ch == ord("\r"):
-            i = candidates_get_current_row_id()
+            i = candidates_get_current_row_id(popcontent_pane)
             c = candidates[i]
-            break
+            return WindowExit(c)
         elif ch == 27:
-            c = None
-            break
-        elif ch == curses.KEY_UP:
-            popcontent_pane.move(-1, 0)
-            popwindow.update()
-        elif ch == curses.KEY_DOWN:
-            popcontent_pane.move(+1, 0)
-            popwindow.update()
-        elif ch == curses.KEY_PPAGE:
-            popcontent_pane.move_page(-1, 0)
-            popwindow.update()
-        elif ch == curses.KEY_NPAGE:
-            popcontent_pane.move_page(+1, 0)
-            popwindow.update()
-    del pop
+            return WindowExit(None)
+
+    c = window.popup(help_text_short, create_window, key_handler, w=popw)
 
     return c
 
@@ -411,7 +389,8 @@ def print_matches(window, left, right, a_type, b_type, a_only, b_only, a_update,
 
     def refresh(a_file, b_file, tables):
         refresh_content(a_file, b_file, tables)
-        top_pane.move_abs(0,0)
+        top_pane._move_abs(0,0)
+        window.update()
 
     def refresh_files(a_filename, b_filename):
         window.set_header(APPLICATION_TITLE)
@@ -443,23 +422,16 @@ def print_matches(window, left, right, a_type, b_type, a_only, b_only, a_update,
 
     a_file, b_file, tables = refresh_files(left, right)
 
-    while True:
+    def handleCursorMove(source, oc, c):
+        refresh_bottom_panes(a_file, b_file, tables)
+        
+    top_pane.addCursorMoveHandler(handleCursorMove)
 
+    while True:
+        
         ch = window.getch()
         if ch == curses.KEY_RESIZE:
             handle_window_resize(window)
-        elif ch == curses.KEY_UP:
-            top_pane.move(-1, 0)
-            refresh_bottom_panes(a_file, b_file, tables)
-        elif ch == curses.KEY_DOWN:
-            top_pane.move(+1, 0)
-            refresh_bottom_panes(a_file, b_file, tables)
-        elif ch == curses.KEY_PPAGE:
-            top_pane.move_page(-1, 0)
-            refresh_bottom_panes(a_file, b_file, tables)
-        elif ch == curses.KEY_NPAGE:
-            top_pane.move_page(+1, 0)
-            refresh_bottom_panes(a_file, b_file, tables)
         elif ch == ord("."):
             current_table += 1
             current_table %= ntables
@@ -570,7 +542,8 @@ def print_matches(window, left, right, a_type, b_type, a_only, b_only, a_update,
         elif ch == ord("q"):
             break
         else:
-            continue
+            window._onKey(ch)
+        window.update()
 
 
 def handle_window_resize(window):
@@ -613,6 +586,7 @@ def create_window(stdscr):
     right_pane = window.pane("right_pane", bottom_height, right_width, splittery + 1, splitterx + 1, False)
     horizontal_splitter = window.fill("horizontal_splitter", 1, width, splittery, 0, "-")
     vertical_splitter = window.fill("vertical_splitter", bottom_height, 1, splittery + 1, splitterx, "|")
+
     return window
 
 

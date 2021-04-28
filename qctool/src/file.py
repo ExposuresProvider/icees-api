@@ -12,7 +12,7 @@ def update_key(d, ok, nk):
         d.insert(i, nk, d.pop(ok))
         return Right(())
     else:
-        return Left(f"variable {ok} no longer exists")
+        return Left(f"variable {ok} does not exist")
 
 
 # from https://stackoverflow.com/a/63179923
@@ -59,11 +59,11 @@ class FeaturesFile(YAMLFile):
         update_key(self.obj[table], old_key, new_key)
 
     def get(self, table, key):
-        val = self.obj[table].get(key)
-        if val is None:
-            return Left(f"variable {key} no longer exists")
-        else:
+        if key in self.obj[table]:
+            val = self.obj[table][key]
             return Right(val)
+        else:
+            return Left(f"variable {key} does not exist")
 
         
 class IdentifiersFile(YAMLFile):
@@ -78,11 +78,12 @@ class IdentifiersFile(YAMLFile):
         update_key(self.obj[table], old_key, new_key)
 
     def get(self, table, key):
-        val = self.obj[table].get(key)
-        if val is None:
-            return Left(f"variable {key} no longer exists")
-        else:
+        if key in self.obj[table]:
+            val = self.obj[table][key]
             return Right(val)
+        else:
+            return Left(f"variable {key} does not exist")
+
 
 logger = logging.getLogger(__name__)
 

@@ -1,9 +1,12 @@
 """ICEES API handlers."""
+import os
 import json
 from typing import Dict, Union
 
-from fastapi import APIRouter, Body, Depends
+from fastapi import APIRouter, Body, Depends, Security, HTTPException
+from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
 from reasoner_pydantic import Query, Message
+from starlette.status import HTTP_403_FORBIDDEN
 
 from .dependencies import get_db
 from .features import knowledgegraph, sql
@@ -18,6 +21,36 @@ from .models import (
 from .utils import to_qualifiers, to_qualifiers2
 
 
+API_KEY = os.environ.get("API_KEY")
+API_KEY_NAME = os.environ.get("API_KEY_NAME")
+COOKIE_DOMAIN = os.environ.get("COOKIE_DOMAIN")
+
+if API_KEY is None:
+    async def get_api_key():
+        return None
+else:
+    api_key_query = APIKeyQuery(name=API_KEY_NAME, auto_error=False)
+    api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
+    api_key_cookie = APIKeyCookie(name=API_KEY_NAME, auto_error=False)
+
+    async def get_api_key(
+        api_key_query: str = Security(api_key_query),
+        api_key_header: str = Security(api_key_header),
+        api_key_cookie: str = Security(api_key_cookie),
+    ):
+
+        if api_key_query == API_KEY:
+            return api_key_query
+        elif api_key_header == API_KEY:
+            return api_key_header
+        elif api_key_cookie == API_KEY:
+            return api_key_cookie
+        else:
+            raise HTTPException(
+                status_code=HTTP_403_FORBIDDEN, detail="Could not validate credentials"
+            )
+
+        
 ROUTER = APIRouter()
 
 
@@ -27,6 +60,7 @@ def discover_cohort(
         year: int,
         req_features: Features = Body(..., example={}),
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Cohort discovery."""
     cohort_id, size = sql.get_ids_by_feature(
@@ -57,6 +91,7 @@ def dictionary(
         table: str,
         year: int,
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Get cohort dictionary."""
     return_value = sql.get_cohort_dictionary(conn, table, year)
@@ -70,6 +105,7 @@ def edit_cohort(
         cohort_id: str,
         req_features: Features = Body(..., example={}),
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Cohort discovery."""
     cohort_id, size = sql.select_cohort(
@@ -99,6 +135,7 @@ def get_cohort(
         year: int,
         cohort_id: str,
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Get definition of a cohort."""
     cohort_features = sql.get_cohort_by_id(
@@ -132,6 +169,7 @@ def feature_association(
             example=FEATURE_ASSOCIATION_EXAMPLE,
         ),
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Hypothesis-driven 2 x 2 feature associations.
 
@@ -177,6 +215,7 @@ def feature_association2(
             example=FEATURE_ASSOCIATION2_EXAMPLE,
         ),
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Hypothesis-driven N x N feature associations.
 
@@ -227,6 +266,7 @@ def associations_to_all_features(
             example=ASSOCIATIONS_TO_ALL_FEATURES_EXAMPLE,
         ),
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Exploratory 1 X N feature associations.
 
@@ -267,6 +307,7 @@ def associations_to_all_features2(
             example=ASSOCIATIONS_TO_ALL_FEATURES2_EXAMPLE,
         ),
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Exploratory 1 X N feature associations.
 
@@ -301,6 +342,7 @@ def features(
         year: int,
         cohort_id: str,
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Feature-rich cohort discovery.
 
@@ -330,6 +372,7 @@ def features(
 def identifiers(
         table: str,
         feature: str,
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Feature identifiers."""
     return_value = {
@@ -346,6 +389,7 @@ def get_name(
         table: str,
         name: str,
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Return cohort id associated with name."""
     return_value = sql.get_id_by_name(conn, table, name)
@@ -361,6 +405,7 @@ def post_name(
         name: str,
         obj: AddNameById,
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Associate name with cohort id."""
     return_value = sql.add_name_by_id(
@@ -384,6 +429,7 @@ def knowledge_graph(
         obj: Query = Body(..., example=KNOWLEDGE_GRAPH_EXAMPLE),
         reasoner: bool = False,
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Query for knowledge graph associations between concepts."""
     return_value = knowledgegraph.get(conn, obj)
@@ -407,6 +453,7 @@ def knowledge_graph(
 )
 def knowledge_graph_schema(
         reasoner: bool = False,
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Query the ICEES clinical reasoner for knowledge graph schema."""
     return_value = knowledgegraph.get_schema()
@@ -419,7 +466,9 @@ def knowledge_graph_schema(
     "/predicates",
     tags=["reasoner"],
 )
-def predicates():
+def predicates(
+        api_key: APIKey = Depends(get_api_key),
+):
     """Get meta-knowledge graph."""
     categories = [
         "biolink:ActivityAndBehavior",
@@ -451,6 +500,7 @@ def knowledge_graph_overlay(
         obj: Query = Body(..., example=KG_OVERLAY_EXAMPLE),
         reasoner: bool = False,
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Query for knowledge graph co-occurrence overlay."""
     return_value = knowledgegraph.co_occurrence_overlay(
@@ -479,6 +529,7 @@ def knowledge_graph_one_hop(
         obj: Query = Body(..., example=KG_ONEHOP_EXAMPLE),
         reasoner: bool = True,
         conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Query the ICEES clinical reasoner for knowledge graph one hop."""
     return_value = knowledgegraph.one_hop(conn, obj)
@@ -516,6 +567,7 @@ def handle_bins(
         year: str = None,
         table: str = None,
         feature: str = None,
+        api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Return bin values."""
     with open("config/bins.json", "r") as stream:

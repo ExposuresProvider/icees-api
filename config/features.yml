@@ -9,8 +9,8 @@ patient:
   A1AT_Deficiency:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   ALT_DILIOnset_ULN:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -27,14 +27,14 @@ patient:
   ANA:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   ASMA:
     biolinkType: PhenotypicFeature , DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   AST_DILIOnset_ULN:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -51,8 +51,8 @@ patient:
   AbdominalPain:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   AgeQualifyingLab:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -60,14 +60,14 @@ patient:
   AlcoholRelatedLiverDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   AlcoholUse:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   AlkalinePhosphatase_DILIOnset_ULN:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -89,44 +89,44 @@ patient:
   Anti_HAV:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Anti_HBc:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Anti_HBc_IgM:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Anti_HBe:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Anti_HBs:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Anti_HCV:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   AutoimmuneHepatitis:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   BMI:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -146,26 +146,26 @@ patient:
   ChronicDILI:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   ChronicHepatitisB_Screening:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   ChronicHepatitisC_Screening:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Cirrhosis:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   ConcomitantDrugs:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -177,8 +177,8 @@ patient:
   CongestiveHeartFailure:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   DILIDx:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
@@ -247,20 +247,20 @@ patient:
   Death:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   DiabetesEndocrineDisorder:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   DrugAllergy:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   EosinophilCount:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -268,26 +268,26 @@ patient:
   Eosinophil_GreaterThan500:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   EthnicityDILI:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   FamilyHistoryLiverDisease:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Fever:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   FinalCausalityScore:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
@@ -301,50 +301,54 @@ patient:
   GastrointestinalDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   GilbertsSyndrome:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   HBV_Positive:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   HBeAg:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   HBsAg:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   HCV_Positive:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
+<<<<<<< Updated upstream
     - Yes
     - No
+=======
+    - "Yes"
+    - "No"
     type: string
   HCV_RNA:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   HIV_Positive:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   HLA-B*15:18:
     biolinkType: SequenceVariant
@@ -356,26 +360,26 @@ patient:
   HeartDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Hemochromatosis:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   HepatitisA:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Hospitalization_NewProlonged:
     biolinkType: ActivityAndBehavior, PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   INR_Onset:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -419,20 +423,20 @@ patient:
   IschemicHepatitis:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Itching:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Jaundice:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Latency:
     biolinkType: PhenotypicFeature
@@ -442,50 +446,50 @@ patient:
   LiverBiopsy_Screen:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   LiverRelatedDeath:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   LiverTransplant:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Malignancy:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   NAFLD:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Nausea:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   NeurologicalDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Neutropenia:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   PCA_Race:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -506,26 +510,26 @@ patient:
   PrednisoneOrCorticosteroids_Tx:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   PrimaryBiliaryCirrhosis:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   PrimarySclerosingCholangitis:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   PulmonaryDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   RValue_Onset:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -541,32 +545,32 @@ patient:
   Rash:
     biolinkType: PhenotypicFeature, DiseaseOrPhentoypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   RenalDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Serum_IgA:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Serum_IgG:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Serum_IgM:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   SexDILI:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -577,20 +581,20 @@ patient:
   StevensJohnsonSyndrome:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Thrombocytopenia:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   UnexplainedAbnormalLiverTest:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   WHONAME_Implicated_Drug1:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
@@ -656,8 +660,8 @@ patient:
   WilsonsDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
-    - No
-    - Yes
+    - "No"
+    - "Yes"
     type: string
   Year_DILI_Onset:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature

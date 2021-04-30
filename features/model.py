@@ -109,6 +109,7 @@ def op_dict(table, k, v, table_name=None):
     python_type = {
         "integer": int,
         "string": str,
+        "number": float
     }[json_schema_type]
     if v["operator"] == "in":
         values = v["values"]

@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 import enum
-from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime, Text, LargeBinary, Enum
+from sqlalchemy import Table, Column, Integer, String, MetaData, func, Sequence, between, Index, text, case, and_, DateTime, Text, LargeBinary, Enum, Float
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql import select, func
 from scipy.stats import chi2_contingency

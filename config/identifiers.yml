@@ -3736,7 +3736,7 @@ patient:
   - SCTID:706172005
   - SCTID:470320000
   - SCTID:409025002
-  ErythrocyteSedimentationRate: null
+  ErythrocyteSedimentationRate: []
   Procalcitonin:
   - LOINC:LP31682-5
   - SCTID:418752001
@@ -3758,7 +3758,7 @@ patient:
   - NCIT:C74737
   - UMLSCUI:C0373607
   - NCIT:C172522
-  C-reactiveProtein: null
+  C-reactiveProtein: []
   D-dimer:
   - SCTID:25607008
   - SCTID:70648006
@@ -3778,7 +3778,7 @@ patient:
   - LOINC:LG13284-1
   - LOINC:LG9072-2
   - LOINC:LG19834-7
-  IL-6: null
+  IL-6: []
   pH:
   - CHEBI:30396
   - LOINC:LA22405-7
@@ -3794,7 +3794,7 @@ patient:
   - UMLSCUI:C1882074
   - NCIT:C62981
   - UMLSCUI:C1881695
-  pCO2ArterialVenous: null
+  pCO2ArterialVenous: []
   pCO2Arterial:
   - NCIT:C82625
   - UMLSCUI:C0201931
@@ -3815,7 +3815,7 @@ patient:
   - UMLSCUI:C3897988
   - SCTID:438173002
   - LOINC:LP71271-8
-  SpO2FiO2ratio: null
+  SpO2FiO2ratio: []
   BaseDeficit:
   - SCTID:102634007
   - SCTID:26154000
@@ -3923,7 +3923,7 @@ patient:
   - NCIT:C129425
   - NCIT:C76926
   - UMLSCUI:C0064582
-  SvO2: null
+  SvO2: []
   WBCcount:
   - MONDO:0003785
   - SCTID:767002
@@ -4496,7 +4496,7 @@ patient:
   - LOINC:71875-9
   - LOINC:4548-4
   - LOINC:86910-7
-  EstimatedGFR: null
+  EstimatedGFR: []
   RespiratorySupportSupplementalO2:
   - LOINC:LA17976-4
   - LOINC:LA20142-8
@@ -7825,7 +7825,7 @@ patient:
   - NCIT:C126675
   - NCIT:C126674
   - NCIT:C126667
-  Influenza7pointClinicalStatusScore: null
+  Influenza7pointClinicalStatusScore: []
   FeverDx:
   - MONDO:0015137
   - MONDO:0005324
@@ -8063,7 +8063,7 @@ patient:
   - SCITD:200951007
   - SCITD:17658005
   - SCITD:19065005
-  IsolationFlag: null
+  IsolationFlag: []
   DischargeStatus:
   - LOINC:LP74745-8
   - LOINC:LA162-0
@@ -8757,7 +8757,7 @@ patient:
   - LOINC:LA12740-9
   - LOINC:LA25635-6
   - LOINC:LA27840-0
-  he_b015_poor_blood_flow: null
+  he_b015_poor_blood_flow: []
   he_b016_raynauds:
   - MeSH:D011928
   - SCITD:22954002
@@ -9030,13 +9030,13 @@ patient:
   - MeSH:D007328
   - MeSH:C091593
   - MeSH:D000069057
-  he_c022c_diabetes_insulin_first: null
+  he_c022c_diabetes_insulin_first: []
   he_c022d_diabetes_pills:
   - LOINC:LP124918-6
   - LOINC:66176-9
   - SCITD:389840003
   - SCITD:390572003
-  he_c022e_diabetes_a: null
+  he_c022e_diabetes_a: []
   he_c023_thyroid_disease:
   - MeSH:D013959
   - LOINC:LA15157-3
@@ -9342,7 +9342,7 @@ patient:
   he_q145_diesel:
   - ENVO_2000037
   - ENVO_2000012
-  he_q146_dyes: null
+  he_q146_dyes: []
   he_q148_gasoline:
   - ENVO_2000037
   - ENVO_2000012
@@ -9351,12 +9351,12 @@ patient:
   - ENVO_2000012
   he_q150_pesticide:
   - CHEBI_33287
-  he_q151_sand: null
+  he_q151_sand: []
   he_q152_other_dust:
   - ENVO:02000127
   - ENVO:02000128
   - ENVO:02000129
-  he_q153_textiles: null
+  he_q153_textiles: []
   he_q154_wood_dust:
   - ENVO:02000126
   he_q155_xrays:
@@ -9385,7 +9385,7 @@ patient:
   he_s183_tobacco_smokeless:
   - NCIT:C105050
   - UMLSCUI:C3641918
-  he_s184_cigars_pipes: null
+  he_s184_cigars_pipes: []
   he_s185_smoke_indoors:
   - NCIT:C127108
   - NCIT:C127106
@@ -9404,7 +9404,7 @@ patient:
   - MONDO:0012882
   - MONDO:0024612
   - MONDO:0012319
-  ea_a014_central_heat: null
+  ea_a014_central_heat: []
   ea_a017a_heat_natural_gas:
   - ENVO:01000556
   - ENVO:01000559
@@ -9435,11 +9435,11 @@ patient:
   ea_a020b_fireplace_coal:
   - NCIT:C164056
   - NCIT:C157711
-  ea_a020c_fireplace_natural_gas: null
-  ea_a020d_fireplace_art_logs: null
-  ea_a021a_stove_electricity: null
-  ea_a021b_stove_natural_gas: null
-  ea_a021c_stove_woodfire: null
+  ea_a020c_fireplace_natural_gas: []
+  ea_a020d_fireplace_art_logs: []
+  ea_a021a_stove_electricity: []
+  ea_a021b_stove_natural_gas: []
+  ea_a021c_stove_woodfire: []
   ea_a021d_stove_coal:
   - ENVO:2000013
   ea_a021e_stove_propane:
@@ -9452,15 +9452,15 @@ patient:
   - ENVO:00003096
   - ENVO:00005792
   - ENVO:01001565
-  ea_a027_water_filter: null
-  ea_a028_water_source_bath: null
-  ea_a038_water_damage_repair: null
-  ea_a059a_pet_dog: null
-  ea_a059b_pet_cat: null
-  ea_a059c_pet_other: null
-  ea_a060_pest_regularly: null
-  ea_a065_traffic: null
-  ea_a066_traffic_heavy: null
+  ea_a027_water_filter: []
+  ea_a028_water_source_bath: []
+  ea_a038_water_damage_repair: []
+  ea_a059a_pet_dog: []
+  ea_a059b_pet_cat: []
+  ea_a059c_pet_other: []
+  ea_a060_pest_regularly: []
+  ea_a065_traffic: []
+  ea_a066_traffic_heavy: []
   ea_b092a_benzene:
   - CHEBI_27798
   ea_b092b_chloroform:
@@ -9500,9 +9500,9 @@ patient:
   - UMLSCUI:C0040905
   ea_b092j_xylenes:
   - CHEBI:27338
-  ea_b098a_brake_fluid: null
-  ea_b098b_transmission_fluid: null
-  ea_b098c_hydraulic_fluid: null
+  ea_b098a_brake_fluid: []
+  ea_b098b_transmission_fluid: []
+  ea_b098c_hydraulic_fluid: []
   ea_b098d_motor_oil:
   - ENVO:00002984
   ea_b104a_bleach:
@@ -9750,7 +9750,7 @@ patient:
   - CHEBI:131518
   - CHEBI:139496
   - CHEBI:6794
-  ea_b116b_methanol: null
+  ea_b116b_methanol: []
   ea_b116c_ethanol:
   - CHEBI_16236
   - CHEBI:17790
@@ -9986,7 +9986,7 @@ patient:
   - ENVO_01001058
   ea_b122e_herbicides:
   - CHEBI:24527
-  ea_b122f_ethyl_fumigants: null
+  ea_b122f_ethyl_fumigants: []
   ea_b122g_rodenticides:
   - CHEBI_33288
   ea_b128a_bpa:
@@ -10005,7 +10005,7 @@ patient:
   - ENVO:02500040
   ea_b134a_coal_dust:
   - ENVO:02000127
-  ea_b134b_fiberglass: null
+  ea_b134b_fiberglass: []
   ea_b134c_rock_dust:
   - ENVO_01001398
   - ENVO_01001108
@@ -10015,7 +10015,7 @@ patient:
   ea_b134e_talc:
   - ENVO_01001285
   - CHEBI_32178
-  ea_b140a_nitrous_oxide: null
+  ea_b140a_nitrous_oxide: []
   ea_b140b_carbon_dioxide:
   - CHEBI_23014
   ea_b140c_carbon_monoxide:
@@ -10045,7 +10045,7 @@ patient:
   - ENVO:03000128
   ea_b152c_phosphoric_acid:
   - CHEBI:26079
-  ea_b152d_acetic_acid: null
+  ea_b152d_acetic_acid: []
   ea_b152e_nitric_acid:
   - CHEBI:48107
   - ENVO:03000123
@@ -10062,28 +10062,28 @@ patient:
   - NCIT:C66001
   ea_b164b_wood:
   - ENVO:02000126
-  ea_b164c_resin: null
-  ea_b164d_polyurethane: null
-  ea_b164e_lacquer: null
-  ea_b164f_acrylic: null
+  ea_b164c_resin: []
+  ea_b164d_polyurethane: []
+  ea_b164e_lacquer: []
+  ea_b164f_acrylic: []
   ea_b170a_primer:
   - ENVO:02000123
   - NCIT:C122420
   - NCIT:C158520
   - NCIT:C157075
   - NCIT:C156952
-  ea_b170b_enamel: null
-  ea_b170c_oil_based: null
+  ea_b170b_enamel: []
+  ea_b170c_oil_based: []
   ea_b170d_acrylic:
   - CHEBI:18308
-  ea_b170e_luminescent: null
+  ea_b170e_luminescent: []
   ea_b170f_acetone:
   - CHEBI:15347
   ea_b170g_turpentine:
   - NCIT:C63923
   ea_b170h_naphtha:
   - ENVO:00002983
-  ea_b170i_ethyl_ket: null
+  ea_b170i_ethyl_ket: []
   ea_b176a_desflurane:
   - CHEBI:4445
   ea_b176b_enflurane:
@@ -10094,7 +10094,7 @@ patient:
   - CHEBI:6015
   ea_b176e_methoxyflurane:
   - CHEBI:6843
-  ea_b176f_nitrous: null
+  ea_b176f_nitrous: []
   ea_b176g_sevoflurane:
   - CHEBI:9130
   ea_b182a_white_glue:
@@ -10115,73 +10115,73 @@ patient:
   - ENVO_00003076
   ea_b182i_wallpaper_paste:
   - ENVO_00003076
-  ea_b188a_eutectic: null
-  ea_b188b_tin_zinc: null
-  ea_b188c_lead_silver: null
-  ea_b188d_cadmium_silver: null
-  ea_b188e_flux: null
-  ea_b188f_solder_paste: null
-  ea_b188g_solder_wire: null
-  ea_b188h_rosin: null
-  ea_b188i_solder_fumes: null
-  ea_b194a_hair_dye: null
-  ea_b194b_leather_dye: null
-  ea_b194c_textile_dye: null
-  ea_b194d_paper_dye: null
-  ea_b194e_india_ink: null
-  ea_b194f_inkjet: null
-  ea_b194g_gel_ink: null
-  ea_b194h_pen_ink: null
-  ea_b194i_toner: null
-  ea_b194j_soy_ink: null
-  ea_b194k_pharma_ink: null
-  ea_a012_current_home_type: null
-  ea_a017h_heat_other: null
-  ea_a017i_heat_none: null
-  ea_a017j_heat_dk: null
-  ea_a021f_stove_other: null
+  ea_b188a_eutectic: []
+  ea_b188b_tin_zinc: []
+  ea_b188c_lead_silver: []
+  ea_b188d_cadmium_silver: []
+  ea_b188e_flux: []
+  ea_b188f_solder_paste: []
+  ea_b188g_solder_wire: []
+  ea_b188h_rosin: []
+  ea_b188i_solder_fumes: []
+  ea_b194a_hair_dye: []
+  ea_b194b_leather_dye: []
+  ea_b194c_textile_dye: []
+  ea_b194d_paper_dye: []
+  ea_b194e_india_ink: []
+  ea_b194f_inkjet: []
+  ea_b194g_gel_ink: []
+  ea_b194h_pen_ink: []
+  ea_b194i_toner: []
+  ea_b194j_soy_ink: []
+  ea_b194k_pharma_ink: []
+  ea_a012_current_home_type: []
+  ea_a017h_heat_other: []
+  ea_a017i_heat_none: []
+  ea_a017j_heat_dk: []
+  ea_a021f_stove_other: []
   ea_a023a_ac_central:
   - ENVO:00002874
   ea_a023b_ac_window:
   - ENVO:00002874
   ea_a023c_ac_portable:
   - ENVO:00002874
-  ea_a036_mildew_odor_d: null
-  ea_a040_mold_d: null
+  ea_a036_mildew_odor_d: []
+  ea_a040_mold_d: []
   ea_a061a_pest_ants:
   - ENVO:00005804
-  ea_a061b_pest_cockroaches: null
-  ea_a061c_pest_bees_wasps: null
-  ea_a061d_pest_flies: null
-  ea_a061e_pest_spiders: null
-  ea_a061f_pest_mosquitos: null
-  ea_a061g_pest_flea_ticks: null
+  ea_a061b_pest_cockroaches: []
+  ea_a061c_pest_bees_wasps: []
+  ea_a061d_pest_flies: []
+  ea_a061e_pest_spiders: []
+  ea_a061f_pest_mosquitos: []
+  ea_a061g_pest_flea_ticks: []
   ea_a061h_pest_termite:
   - ENVO:2000006
-  ea_a061i_pest_other: null
+  ea_a061i_pest_other: []
   ea_a067_animal_waste:
   - ENVO:00002276
   ea_a068_bus_station:
   - ENVO:01000611
-  ea_a069_airport: null
-  ea_a070_dry_cleaners: null
+  ea_a069_airport: []
+  ea_a070_dry_cleaners: []
   ea_a071_farm:
   - ENVO:00000078
-  ea_a072_gas_station: null
-  ea_a073_golf_course: null
-  ea_a074_greenhouse: null
+  ea_a072_gas_station: []
+  ea_a073_golf_course: []
+  ea_a074_greenhouse: []
   ea_a075_hazard_waste:
   - ENVO_01001264
   - ENVO:00002206
   - ENVO:00002001
   - ENVO:00002267
-  ea_a076_power_lines: null
-  ea_a077_incinerator: null
+  ea_a076_power_lines: []
+  ea_a077_incinerator: []
   ea_a078_landfill:
   - ENVO:00000533
   - ENVO:01000916
-  ea_a079_tannery: null
-  ea_a080_military_base: null
+  ea_a079_tannery: []
+  ea_a080_military_base: []
   ea_a081_oil_refinery:
   - ENVO:01000003
   - ENVO:00002185
@@ -10204,62 +10204,62 @@ patient:
   - ENVO_01000536
   ea_a091_farm_active:
   - ENVO:01001170
-  ea_b092_solvent_d: null
-  ea_b092k_solvent_other: null
-  ea_b097a_solvent_ongoing_d: null
-  ea_b098_lube_d: null
-  ea_b098e_lube_other: null
-  ea_b103a_lube_ongoing_d: null
-  ea_b104_cleaning_d: null
-  ea_b104d_cleaning_other: null
-  ea_b109a_cleaning_ongoing_d: null
-  ea_b110_metal_d: null
-  ea_b110h_metal_other: null
-  ea_b115a_metal_ongoing_d: null
-  ea_b116_alcohol_d: null
-  ea_b116e_alcohol_other: null
-  ea_b121a_alcohol_ongoing_d: null
-  ea_b122_pest_d: null
-  ea_b122h_pest_other: null
-  ea_b127a_pest_ongoing_d: null
-  ea_b128_plastic_d: null
-  ea_b128h_plastic_other: null
-  ea_b134_dust_d: null
-  ea_b134f_dust_other: null
-  ea_b139a_dust_ongoing_d: null
-  ea_b140_emissions_d: null
-  ea_b140e_emissions_other: null
-  ea_b145a_emissions_ongoing_d: null
-  ea_b146_carcinogens_d: null
-  ea_b146f_carcinogens_other: null
-  ea_b151a_carcinogens_ongoing_d: null
-  ea_b152_acid_d: null
-  ea_b152f_acid_other: null
-  ea_b157a_acid_ongoing_d: null
+  ea_b092_solvent_d: []
+  ea_b092k_solvent_other: []
+  ea_b097a_solvent_ongoing_d: []
+  ea_b098_lube_d: []
+  ea_b098e_lube_other: []
+  ea_b103a_lube_ongoing_d: []
+  ea_b104_cleaning_d: []
+  ea_b104d_cleaning_other: []
+  ea_b109a_cleaning_ongoing_d: []
+  ea_b110_metal_d: []
+  ea_b110h_metal_other: []
+  ea_b115a_metal_ongoing_d: []
+  ea_b116_alcohol_d: []
+  ea_b116e_alcohol_other: []
+  ea_b121a_alcohol_ongoing_d: []
+  ea_b122_pest_d: []
+  ea_b122h_pest_other: []
+  ea_b127a_pest_ongoing_d: []
+  ea_b128_plastic_d: []
+  ea_b128h_plastic_other: []
+  ea_b134_dust_d: []
+  ea_b134f_dust_other: []
+  ea_b139a_dust_ongoing_d: []
+  ea_b140_emissions_d: []
+  ea_b140e_emissions_other: []
+  ea_b145a_emissions_ongoing_d: []
+  ea_b146_carcinogens_d: []
+  ea_b146f_carcinogens_other: []
+  ea_b151a_carcinogens_ongoing_d: []
+  ea_b152_acid_d: []
+  ea_b152f_acid_other: []
+  ea_b157a_acid_ongoing_d: []
   ea_b158_alkalis_d:
   - CHEBI_22313
   - CHEBI_22314
   ea_b158e_alkalis_other:
   - CHEBI_22313
   - CHEBI_22314
-  ea_b163a_alkalis_ongoing_d: null
-  ea_b164_stains_d: null
-  ea_b164g_stains_other: null
-  ea_b170_paint_d: null
-  ea_b170j_paint_other: null
-  ea_b175a_paint_ongoing_d: null
-  ea_b176_anesthetic_d: null
-  ea_b176h_anesthetic_other: null
-  ea_b181a_anesthetic_ongoing_d: null
-  ea_b182_adhesives_d: null
-  ea_b182j_adhesives_other: null
-  ea_b187a_adhesives_ongoing_d: null
-  ea_b188_soldering_d: null
-  ea_b188j_soldering_other: null
-  ea_b193a_soldering_ongoing_d: null
-  ea_b194_ink_d: null
-  ea_b194l_ink_other: null
-  ea_b199a_ink_ongoing_d: null
+  ea_b163a_alkalis_ongoing_d: []
+  ea_b164_stains_d: []
+  ea_b164g_stains_other: []
+  ea_b170_paint_d: []
+  ea_b170j_paint_other: []
+  ea_b175a_paint_ongoing_d: []
+  ea_b176_anesthetic_d: []
+  ea_b176h_anesthetic_other: []
+  ea_b181a_anesthetic_ongoing_d: []
+  ea_b182_adhesives_d: []
+  ea_b182j_adhesives_other: []
+  ea_b187a_adhesives_ongoing_d: []
+  ea_b188_soldering_d: []
+  ea_b188j_soldering_other: []
+  ea_b193a_soldering_ongoing_d: []
+  ea_b194_ink_d: []
+  ea_b194l_ink_other: []
+  ea_b199a_ink_ongoing_d: []
   ea_e249_sunburn:
   - C3395
   - MESH:D013471
@@ -10273,7 +10273,7 @@ patient:
   - NCIT:C96388
   - NCIT:C167409
   - NCIT:C118468
-  ea_e257_tan_booth: null
+  ea_e257_tan_booth: []
   ea_e261_sunlamp:
   - NCIT:C50197
   eb_a001_multivitamin:
@@ -10389,7 +10389,7 @@ patient:
   - MESH:C520984
   A1AT_Deficiency:
   - MONDO:0013282
-  ALT_DILIOnset_ULN: null
+  ALT_DILIOnset_ULN: []
   ALT_Onset:
   - UMLS:C2749273
   - UMLS:C1832768
@@ -10403,8 +10403,8 @@ patient:
   - UMLS:C1300107
   - MONDO:0018485
   - MONDO:0017694
-  ALT_Peak_DILIOnsetToMonth6: null
-  ALT_Peak_DILIOnsetToMonth6_ULN: null
+  ALT_Peak_DILIOnsetToMonth6: []
+  ALT_Peak_DILIOnsetToMonth6_ULN: []
   ANA:
   - OMIM:114105
   - PUBCHEM.COMPOUND:44629965
@@ -10863,7 +10863,7 @@ patient:
   - MONDO:0017364
   - MONDO:0018621
   - MONDO:0043275
-  AST_DILIOnset_ULN: null
+  AST_DILIOnset_ULN: []
   AST_Onset:
   - UMLS:C0264413
   - UMLS:C1844940
@@ -10910,8 +10910,8 @@ patient:
   - MONDO:0010040
   - MONDO:0010729
   - MONDO:0100016
-  AST_Peak_DILIOnsetToMonth6: null
-  AST_Peak_DILIOnsetToMonth6_ULN: null
+  AST_Peak_DILIOnsetToMonth6: []
+  AST_Peak_DILIOnsetToMonth6_ULN: []
   AbdominalPain:
   - NCIT:C143255
   - UMLS:C0423651
@@ -10975,7 +10975,7 @@ patient:
   - MONDO:0002268
   - MONDO:0009842
   AgeQualifyingLab: *id011
-  AlcoholRelatedLiverDisease: null
+  AlcoholRelatedLiverDisease: []
   AlcoholUse:
   - NCIT:C81229
   - UMLS:C0085762
@@ -11041,7 +11041,7 @@ patient:
   - UMLS:C0033936
   - UMLS:C1852007
   - MONDO:0002046
-  AlkalinePhosphatase_DILIOnset_ULN: null
+  AlkalinePhosphatase_DILIOnset_ULN: []
   AlkalinePhosphatase_Onset:
   - SCTID:88810008
   - SCTID:785821009
@@ -11052,8 +11052,8 @@ patient:
   - LOINC:LG4193-1
   - LOINC:LG2774-0
   - LOINC:LP44703-4
-  AlkalinePhosphatase_Peak_DILIOnsetToMonth6_ULN: null
-  AlkalinePhosphatase_Peak_DILIOnsetToMonth6: null
+  AlkalinePhosphatase_Peak_DILIOnsetToMonth6_ULN: []
+  AlkalinePhosphatase_Peak_DILIOnsetToMonth6: []
   Anti_HAV:
   - OMIM:MTHU045723
   - UMLS:C0001676
@@ -11085,7 +11085,7 @@ patient:
   - SCTID:165947003
   - SCTID:995951000000103
   - SCTID:50506008
-  Anti_HBe: null
+  Anti_HBe: []
   Anti_HBs:
   - UMLS:C0262505
   Anti_HCV:
@@ -11179,17 +11179,17 @@ patient:
   - CHEBI:61335
   - CHEBI:31683
   - MONDO:0020670
-  Bilirubin_DILIOnset_ULN: null
-  Bilirubin_Onset: null
-  Bilirubin_Peak_DILIOnsetToMonth6: null
-  Bilirubin_Peak_DILIOnsetToMonth6_ULN: null
-  ChronicDILI: null
+  Bilirubin_DILIOnset_ULN: []
+  Bilirubin_Onset: []
+  Bilirubin_Peak_DILIOnsetToMonth6: []
+  Bilirubin_Peak_DILIOnsetToMonth6_ULN: []
+  ChronicDILI: []
   ChronicHepatitisC_Screening:
   - SCTID:128302006
   - SCTID:708198006
   - SCTID:186640001
   - MESH:D019698
-  ChronicHepatitisB_Screening: null
+  ChronicHepatitisB_Screening: []
   Cirrhosis:
   - NCIT:C3044
   - UMLS:C4049169
@@ -11413,18 +11413,18 @@ patient:
   - UMLS:C4706244
   - MONDO:0005009
   - MONDO:0001899
-  DILIN_SeverityScore: null
+  DILIN_SeverityScore: []
   DRB1*15:01:
   - MESH:C489631
-  Days_ALT_DILIOnsetToPeak: null
-  Days_AST_DILIOnsetToPeak: null
-  Days_AlkalinePhosphatase_DILIOnsetToPeak: null
-  Days_Bilirubin_DILIOnsetToPeak: null
-  Days_DILIOnsetToInitialVisit: null
-  Days_DrugStartToEarliestSign: null
-  Days_DrugStartToEarliestSignOrDILI: null
-  Days_EarliestSignToDILI: null
-  Days_EarliestSignToDrugStop: null
+  Days_ALT_DILIOnsetToPeak: []
+  Days_AST_DILIOnsetToPeak: []
+  Days_AlkalinePhosphatase_DILIOnsetToPeak: []
+  Days_Bilirubin_DILIOnsetToPeak: []
+  Days_DILIOnsetToInitialVisit: []
+  Days_DrugStartToEarliestSign: []
+  Days_DrugStartToEarliestSignOrDILI: []
+  Days_EarliestSignToDILI: []
+  Days_EarliestSignToDrugStop: []
   Death:
   - UMLS:C1306577
   - NCIT:C53787
@@ -11629,7 +11629,7 @@ patient:
   - SCTID:142935007
   - SCTID:365601007
   - SCTID:165524009
-  Eosinophil_GreaterThan500: null
+  Eosinophil_GreaterThan500: []
   EthnicityDILI: *id012
   FamilyHistoryLiverDisease:
   - UMLS:C0455417
@@ -11985,7 +11985,7 @@ patient:
   - SCITD:200951007
   - SCITD:17658005
   - SCITD:19065005
-  FinalCausalityScore: null
+  FinalCausalityScore: []
   GastrointestinalDisease:
   - UMLS:C0455420
   - UMLS:C0455553
@@ -12075,7 +12075,7 @@ patient:
   - UMLS:C0456101
   - SCITD:165816005
   - SCITD:143224002
-  HLA-B*15:18: null
+  HLA-B*15:18: []
   HeartDisease:
   - UMLS:C0686716
   - UMLS:C0543946
@@ -12302,19 +12302,19 @@ patient:
   - UMLS:C0264843
   - UMLS:C4076065
   - UMLS:C3150339
-  HepatitisA: null
-  Hospitalization_NewProlonged: null
+  HepatitisA: []
+  Hospitalization_NewProlonged: []
   INR_Onset:
   - SCITD:1951000175101
   - SCITD:165581004
   - SCITD:165583001
   - SCITD:165582006
   - MESH:D019934
-  INR_Peak_DILIOnsetToMonth6: null
-  Implicated_Drug1_Assessment: null
-  Implicated_Drug2_Assessment: null
-  Implicated_Drug3_Assessment: null
-  Initial_RUCAM: null
+  INR_Peak_DILIOnsetToMonth6: []
+  Implicated_Drug1_Assessment: []
+  Implicated_Drug2_Assessment: []
+  Implicated_Drug3_Assessment: []
+  Initial_RUCAM: []
   IschemicHepatitis:
   - UMLS:C0473117
   - SCTID:235877000
@@ -13159,8 +13159,8 @@ patient:
   - MESH:D056889
   - MESH:D044504
   - MESH:C538171
-  PCA_Race: null
-  PatternLiverInjury_Onset: null
+  PCA_Race: []
+  PatternLiverInjury_Onset: []
   PrednisoneOrCorticosteroids_Tx:
   - CHEBI:50858
   - NCIT:C142385
@@ -13454,7 +13454,7 @@ patient:
   - LOINC:LA28200-6
   - LOINC:LA27422-7
   - LOINC:LA27872-3
-  RValue_Onset: null
+  RValue_Onset: []
   RaceDILI: *id013
   Rash:
   - UMLS:C0302295
@@ -14061,12 +14061,12 @@ patient:
   UnexplainedAbnormalLiverTest:
   - SCTID:207471009
   - SCTID:166603001
-  WHONAME_Implicated_Drug1: null
-  WHONAME_Implicated_Drug2: null
-  WHONAME_Implicated_Drug3: null
-  Weeks_DrugStartToDILI: null
-  Weeks_DurationOfSickness: null
-  Weeks_EarliestSignToDILI: null
+  WHONAME_Implicated_Drug1: []
+  WHONAME_Implicated_Drug2: []
+  WHONAME_Implicated_Drug3: []
+  Weeks_DrugStartToDILI: []
+  Weeks_DurationOfSickness: []
+  Weeks_EarliestSignToDILI: []
   Weight:
   - UMLS:C0424653
   - NCIT:C3445
@@ -14275,9 +14275,9 @@ patient:
   - UMLS:C3665549
   - UMLS:C4551303
   - MESH:C093154
-  Year_DILI_Onset: null
-  rs1363907_a: null
-  rs2476601_a: null
+  Year_DILI_Onset: []
+  rs1363907_a: []
+  rs2476601_a: []
 visit:
   AvgailyAcetaldehydeExposure_2: *id001
   AvgailyAcetaldehydeExposure_2_qcut: *id001
@@ -14871,7 +14871,7 @@ visit:
   - SCTID:706172005
   - SCTID:470320000
   - SCTID:409025002
-  ErythrocyteSedimentationRate: null
+  ErythrocyteSedimentationRate: []
   Procalcitonin:
   - LOINC:LP31682-5
   - SCTID:418752001
@@ -14893,7 +14893,7 @@ visit:
   - NCIT:C74737
   - UMLSCUI:C0373607
   - NCIT:C172522
-  C-reactiveProtein: null
+  C-reactiveProtein: []
   D-dimer:
   - SCTID:25607008
   - SCTID:70648006
@@ -14913,7 +14913,7 @@ visit:
   - LOINC:LG13284-1
   - LOINC:LG9072-2
   - LOINC:LG19834-7
-  IL-6: null
+  IL-6: []
   pH:
   - CHEBI:30396
   - LOINC:LA22405-7
@@ -14929,7 +14929,7 @@ visit:
   - UMLSCUI:C1882074
   - NCIT:C62981
   - UMLSCUI:C1881695
-  pCO2ArterialVenous: null
+  pCO2ArterialVenous: []
   pCO2Arterial:
   - NCIT:C82625
   - UMLSCUI:C0201931
@@ -14950,7 +14950,7 @@ visit:
   - UMLSCUI:C3897988
   - SCTID:438173002
   - LOINC:LP71271-8
-  SpO2FiO2ratio: null
+  SpO2FiO2ratio: []
   BaseDeficit:
   - SCTID:102634007
   - SCTID:26154000
@@ -15058,7 +15058,7 @@ visit:
   - NCIT:C129425
   - NCIT:C76926
   - UMLSCUI:C0064582
-  SvO2: null
+  SvO2: []
   WBCcount:
   - MONDO:0003785
   - SCTID:767002
@@ -15633,7 +15633,7 @@ visit:
   - LOINC:71875-9
   - LOINC:4548-4
   - LOINC:86910-7
-  EstimatedGFR: null
+  EstimatedGFR: []
   RespiratorySupportSupplementalO2:
   - LOINC:LA17976-4
   - LOINC:LA20142-8
@@ -18963,7 +18963,7 @@ visit:
   - NCIT:C126675
   - NCIT:C126674
   - NCIT:C126667
-  Influenza7pointClinicalStatusScore: null
+  Influenza7pointClinicalStatusScore: []
   FeverDx:
   - MONDO:0015137
   - MONDO:0005324
@@ -19201,7 +19201,7 @@ visit:
   - SCITD:200951007
   - SCITD:17658005
   - SCITD:19065005
-  IsolationFlag: null
+  IsolationFlag: []
   DischargeStatus:
   - LOINC:LP74745-8
   - LOINC:LA162-0
@@ -19792,7 +19792,7 @@ visit:
   - LOINC:LA12740-9
   - LOINC:LA25635-6
   - LOINC:LA27840-0
-  he_b015_poor_blood_flow: null
+  he_b015_poor_blood_flow: []
   he_b016_raynauds:
   - MeSH:D011928
   - SCITD:22954002
@@ -20065,13 +20065,13 @@ visit:
   - MeSH:D007328
   - MeSH:C091593
   - MeSH:D000069057
-  he_c022c_diabetes_insulin_first: null
+  he_c022c_diabetes_insulin_first: []
   he_c022d_diabetes_pills:
   - LOINC:LP124918-6
   - LOINC:66176-9
   - SCITD:389840003
   - SCITD:390572003
-  he_c022e_diabetes_a: null
+  he_c022e_diabetes_a: []
   he_c023_thyroid_disease:
   - MeSH:D013959
   - LOINC:LA15157-3
@@ -20377,7 +20377,7 @@ visit:
   he_q145_diesel:
   - ENVO_2000037
   - ENVO_2000012
-  he_q146_dyes: null
+  he_q146_dyes: []
   he_q147_formaldehyde:
   - CHEBI:16842
   - PUBCHEM:712
@@ -20390,12 +20390,12 @@ visit:
   - ENVO_2000012
   he_q150_pesticide:
   - CHEBI_33287
-  he_q151_sand: null
+  he_q151_sand: []
   he_q152_other_dust:
   - ENVO:02000127
   - ENVO:02000128
   - ENVO:02000129
-  he_q153_textiles: null
+  he_q153_textiles: []
   he_q154_wood_dust:
   - ENVO:02000126
   he_q155_xrays:
@@ -20412,7 +20412,7 @@ visit:
   he_s183_tobacco_smokeless:
   - NCIT:C105050
   - UMLSCUI:C3641918
-  he_s184_cigars_pipes: null
+  he_s184_cigars_pipes: []
   he_s185_smoke_indoors:
   - NCIT:C127108
   - NCIT:C127106
@@ -20431,7 +20431,7 @@ visit:
   - MONDO:0012882
   - MONDO:0024612
   - MONDO:0012319
-  ea_a014_central_heat: null
+  ea_a014_central_heat: []
   ea_a017a_heat_natural_gas:
   - ENVO:01000556
   - ENVO:01000559
@@ -20462,11 +20462,11 @@ visit:
   ea_a020b_fireplace_coal:
   - NCIT:C164056
   - NCIT:C157711
-  ea_a020c_fireplace_natural_gas: null
-  ea_a020d_fireplace_art_logs: null
-  ea_a021a_stove_electricity: null
-  ea_a021b_stove_natural_gas: null
-  ea_a021c_stove_woodfire: null
+  ea_a020c_fireplace_natural_gas: []
+  ea_a020d_fireplace_art_logs: []
+  ea_a021a_stove_electricity: []
+  ea_a021b_stove_natural_gas: []
+  ea_a021c_stove_woodfire: []
   ea_a021d_stove_coal:
   - ENVO:2000013
   ea_a021e_stove_propane:
@@ -20479,15 +20479,15 @@ visit:
   - ENVO:00003096
   - ENVO:00005792
   - ENVO:01001565
-  ea_a027_water_filter: null
-  ea_a028_water_source_bath: null
-  ea_a038_water_damage_repair: null
-  ea_a059a_pet_dog: null
-  ea_a059b_pet_cat: null
-  ea_a059c_pet_other: null
-  ea_a060_pest_regularly: null
-  ea_a065_traffic: null
-  a_a066_traffic_heavy: null
+  ea_a027_water_filter: []
+  ea_a028_water_source_bath: []
+  ea_a038_water_damage_repair: []
+  ea_a059a_pet_dog: []
+  ea_a059b_pet_cat: []
+  ea_a059c_pet_other: []
+  ea_a060_pest_regularly: []
+  ea_a065_traffic: []
+  a_a066_traffic_heavy: []
   ea_b092a_benzene:
   - CHEBI_27798
   ea_b092b_chloroform:
@@ -20527,9 +20527,9 @@ visit:
   - UMLSCUI:C0040905
   ea_b092j_xylenes:
   - CHEBI:27338
-  ea_b098a_brake_fluid: null
-  ea_b098b_transmission_fluid: null
-  ea_b098c_hydraulic_fluid: null
+  ea_b098a_brake_fluid: []
+  ea_b098b_transmission_fluid: []
+  ea_b098c_hydraulic_fluid: []
   ea_b098d_motor_oil:
   - ENVO:00002984
   ea_b104a_bleach:
@@ -20777,7 +20777,7 @@ visit:
   - CHEBI:131518
   - CHEBI:139496
   - CHEBI:6794
-  ea_b116b_methanol: null
+  ea_b116b_methanol: []
   ea_b116c_ethanol:
   - CHEBI_16236
   - CHEBI:17790
@@ -21013,7 +21013,7 @@ visit:
   - ENVO_01001058
   ea_b122e_herbicides:
   - CHEBI:24527
-  ea_b122f_ethyl_fumigants: null
+  ea_b122f_ethyl_fumigants: []
   ea_b122g_rodenticides:
   - CHEBI_33288
   ea_b128a_bpa:
@@ -21032,7 +21032,7 @@ visit:
   - ENVO:02500040
   ea_b134a_coal_dust:
   - ENVO:02000127
-  ea_b134b_fiberglass: null
+  ea_b134b_fiberglass: []
   ea_b134c_rock_dust:
   - ENVO_01001398
   - ENVO_01001108
@@ -21042,7 +21042,7 @@ visit:
   ea_b134e_talc:
   - ENVO_01001285
   - CHEBI_32178
-  ea_b140a_nitrous_oxide: null
+  ea_b140a_nitrous_oxide: []
   ea_b140b_carbon_dioxide:
   - CHEBI_23014
   ea_b140c_carbon_monoxide:
@@ -21072,7 +21072,7 @@ visit:
   - ENVO:03000128
   ea_b152c_phosphoric_acid:
   - CHEBI:26079
-  ea_b152d_acetic_acid: null
+  ea_b152d_acetic_acid: []
   ea_b152e_nitric_acid:
   - CHEBI:48107
   - ENVO:03000123
@@ -21089,28 +21089,28 @@ visit:
   - NCIT:C66001
   ea_b164b_wood:
   - ENVO:02000126
-  ea_b164c_resin: null
-  ea_b164d_polyurethane: null
-  ea_b164e_lacquer: null
-  ea_b164f_acrylic: null
+  ea_b164c_resin: []
+  ea_b164d_polyurethane: []
+  ea_b164e_lacquer: []
+  ea_b164f_acrylic: []
   ea_b170a_primer:
   - ENVO:02000123
   - NCIT:C122420
   - NCIT:C158520
   - NCIT:C157075
   - NCIT:C156952
-  ea_b170b_enamel: null
-  ea_b170c_oil_based: null
+  ea_b170b_enamel: []
+  ea_b170c_oil_based: []
   ea_b170d_acrylic:
   - CHEBI:18308
-  ea_b170e_luminescent: null
+  ea_b170e_luminescent: []
   ea_b170f_acetone:
   - CHEBI:15347
   ea_b170g_turpentine:
   - NCIT:C63923
   ea_b170h_naphtha:
   - ENVO:00002983
-  ea_b170i_ethyl_ket: null
+  ea_b170i_ethyl_ket: []
   ea_b176a_desflurane:
   - CHEBI:4445
   ea_b176b_enflurane:
@@ -21121,7 +21121,7 @@ visit:
   - CHEBI:6015
   ea_b176e_methoxyflurane:
   - CHEBI:6843
-  ea_b176f_nitrous: null
+  ea_b176f_nitrous: []
   ea_b176g_sevoflurane:
   - CHEBI:9130
   ea_b182a_white_glue:
@@ -21142,73 +21142,73 @@ visit:
   - ENVO_00003076
   ea_b182i_wallpaper_paste:
   - ENVO_00003076
-  ea_b188a_eutectic: null
-  ea_b188b_tin_zinc: null
-  ea_b188c_lead_silver: null
-  ea_b188d_cadmium_silver: null
-  ea_b188e_flux: null
-  ea_b188f_solder_paste: null
-  ea_b188g_solder_wire: null
-  ea_b188h_rosin: null
-  ea_b188i_solder_fumes: null
-  ea_b194a_hair_dye: null
-  ea_b194b_leather_dye: null
-  ea_b194c_textile_dye: null
-  ea_b194d_paper_dye: null
-  ea_b194e_india_ink: null
-  ea_b194f_inkjet: null
-  ea_b194g_gel_ink: null
-  ea_b194h_pen_ink: null
-  ea_b194i_toner: null
-  ea_b194j_soy_ink: null
+  ea_b188a_eutectic: []
+  ea_b188b_tin_zinc: []
+  ea_b188c_lead_silver: []
+  ea_b188d_cadmium_silver: []
+  ea_b188e_flux: []
+  ea_b188f_solder_paste: []
+  ea_b188g_solder_wire: []
+  ea_b188h_rosin: []
+  ea_b188i_solder_fumes: []
+  ea_b194a_hair_dye: []
+  ea_b194b_leather_dye: []
+  ea_b194c_textile_dye: []
+  ea_b194d_paper_dye: []
+  ea_b194e_india_ink: []
+  ea_b194f_inkjet: []
+  ea_b194g_gel_ink: []
+  ea_b194h_pen_ink: []
+  ea_b194i_toner: []
+  ea_b194j_soy_ink: []
   ea_b194k_pharma_ink:
-    ea_a012_current_home_type: null
-  ea_a017h_heat_other: null
-  ea_a017i_heat_none: null
-  ea_a017j_heat_dk: null
-  ea_a021f_stove_other: null
+    ea_a012_current_home_type: []
+  ea_a017h_heat_other: []
+  ea_a017i_heat_none: []
+  ea_a017j_heat_dk: []
+  ea_a021f_stove_other: []
   ea_a023a_ac_central:
   - ENVO:00002874
   ea_a023b_ac_window:
   - ENVO:00002874
   ea_a023c_ac_portable:
   - ENVO:00002874
-  ea_a036_mildew_odor_d: null
-  ea_a040_mold_d: null
+  ea_a036_mildew_odor_d: []
+  ea_a040_mold_d: []
   ea_a061a_pest_ants:
   - ENVO:00005804
-  ea_a061b_pest_cockroaches: null
-  ea_a061c_pest_bees_wasps: null
-  ea_a061d_pest_flies: null
-  ea_a061e_pest_spiders: null
-  ea_a061f_pest_mosquitos: null
-  ea_a061g_pest_flea_ticks: null
+  ea_a061b_pest_cockroaches: []
+  ea_a061c_pest_bees_wasps: []
+  ea_a061d_pest_flies: []
+  ea_a061e_pest_spiders: []
+  ea_a061f_pest_mosquitos: []
+  ea_a061g_pest_flea_ticks: []
   ea_a061h_pest_termite:
   - ENVO:2000006
-  ea_a061i_pest_other: null
+  ea_a061i_pest_other: []
   ea_a067_animal_waste:
   - ENVO:00002276
   ea_a068_bus_station:
   - ENVO:01000611
-  ea_a069_airport: null
-  ea_a070_dry_cleaners: null
+  ea_a069_airport: []
+  ea_a070_dry_cleaners: []
   ea_a071_farm:
   - ENVO:00000078
-  ea_a072_gas_station: null
-  ea_a073_golf_course: null
-  ea_a074_greenhouse: null
+  ea_a072_gas_station: []
+  ea_a073_golf_course: []
+  ea_a074_greenhouse: []
   ea_a075_hazard_waste:
   - ENVO_01001264
   - ENVO:00002206
   - ENVO:00002001
   - ENVO:00002267
-  ea_a076_power_lines: null
-  ea_a077_incinerator: null
+  ea_a076_power_lines: []
+  ea_a077_incinerator: []
   ea_a078_landfill:
   - ENVO:00000533
   - ENVO:01000916
-  ea_a079_tannery: null
-  ea_a080_military_base: null
+  ea_a079_tannery: []
+  ea_a080_military_base: []
   ea_a081_oil_refinery:
   - ENVO:01000003
   - ENVO:00002185
@@ -21231,62 +21231,62 @@ visit:
   - ENVO_01000536
   ea_a091_farm_active:
   - ENVO:01001170
-  ea_b092_solvent_d: null
-  ea_b092k_solvent_other: null
-  ea_b097a_solvent_ongoing_d: null
-  ea_b098_lube_d: null
-  ea_b098e_lube_other: null
-  ea_b103a_lube_ongoing_d: null
-  ea_b104_cleaning_d: null
-  ea_b104d_cleaning_other: null
-  ea_b109a_cleaning_ongoing_d: null
-  ea_b110_metal_d: null
-  ea_b110h_metal_other: null
-  ea_b115a_metal_ongoing_d: null
-  ea_b116_alcohol_d: null
-  ea_b116e_alcohol_other: null
-  ea_b121a_alcohol_ongoing_d: null
-  ea_b122_pest_d: null
-  ea_b122h_pest_other: null
-  ea_b127a_pest_ongoing_d: null
-  ea_b128_plastic_d: null
-  ea_b128h_plastic_other: null
-  ea_b134_dust_d: null
-  ea_b134f_dust_other: null
-  ea_b139a_dust_ongoing_d: null
-  ea_b140_emissions_d: null
-  ea_b140e_emissions_other: null
-  ea_b145a_emissions_ongoing_d: null
-  ea_b146_carcinogens_d: null
-  ea_b146f_carcinogens_other: null
-  ea_b151a_carcinogens_ongoing_d: null
-  ea_b152_acid_d: null
-  a_b152f_acid_other: null
-  ea_b157a_acid_ongoing_d: null
+  ea_b092_solvent_d: []
+  ea_b092k_solvent_other: []
+  ea_b097a_solvent_ongoing_d: []
+  ea_b098_lube_d: []
+  ea_b098e_lube_other: []
+  ea_b103a_lube_ongoing_d: []
+  ea_b104_cleaning_d: []
+  ea_b104d_cleaning_other: []
+  ea_b109a_cleaning_ongoing_d: []
+  ea_b110_metal_d: []
+  ea_b110h_metal_other: []
+  ea_b115a_metal_ongoing_d: []
+  ea_b116_alcohol_d: []
+  ea_b116e_alcohol_other: []
+  ea_b121a_alcohol_ongoing_d: []
+  ea_b122_pest_d: []
+  ea_b122h_pest_other: []
+  ea_b127a_pest_ongoing_d: []
+  ea_b128_plastic_d: []
+  ea_b128h_plastic_other: []
+  ea_b134_dust_d: []
+  ea_b134f_dust_other: []
+  ea_b139a_dust_ongoing_d: []
+  ea_b140_emissions_d: []
+  ea_b140e_emissions_other: []
+  ea_b145a_emissions_ongoing_d: []
+  ea_b146_carcinogens_d: []
+  ea_b146f_carcinogens_other: []
+  ea_b151a_carcinogens_ongoing_d: []
+  ea_b152_acid_d: []
+  a_b152f_acid_other: []
+  ea_b157a_acid_ongoing_d: []
   ea_b158_alkalis_d:
   - CHEBI_22313
   - CHEBI_22314
   ea_b158e_alkalis_other:
   - CHEBI_22313
   - CHEBI_22314
-  ea_b163a_alkalis_ongoing_d: null
-  ea_b164_stains_d: null
-  ea_b164g_stains_other: null
-  ea_b170_paint_d: null
-  ea_b170j_paint_other: null
-  ea_b175a_paint_ongoing_d: null
-  ea_b176_anesthetic_d: null
-  ea_b176h_anesthetic_other: null
-  ea_b181a_anesthetic_ongoing_d: null
-  ea_b182_adhesives_d: null
-  ea_b182j_adhesives_other: null
-  ea_b187a_adhesives_ongoing_d: null
-  ea_b188_soldering_d: null
-  ea_b188j_soldering_other: null
-  ea_b193a_soldering_ongoing_d: null
-  ea_b194_ink_d: null
-  ea_b194l_ink_other: null
-  ea_b199a_ink_ongoing_d: null
+  ea_b163a_alkalis_ongoing_d: []
+  ea_b164_stains_d: []
+  ea_b164g_stains_other: []
+  ea_b170_paint_d: []
+  ea_b170j_paint_other: []
+  ea_b175a_paint_ongoing_d: []
+  ea_b176_anesthetic_d: []
+  ea_b176h_anesthetic_other: []
+  ea_b181a_anesthetic_ongoing_d: []
+  ea_b182_adhesives_d: []
+  ea_b182j_adhesives_other: []
+  ea_b187a_adhesives_ongoing_d: []
+  ea_b188_soldering_d: []
+  ea_b188j_soldering_other: []
+  ea_b193a_soldering_ongoing_d: []
+  ea_b194_ink_d: []
+  ea_b194l_ink_other: []
+  ea_b199a_ink_ongoing_d: []
   ea_e249_sunburn:
   - C3395
   - MESH:D013471
@@ -21300,7 +21300,7 @@ visit:
   - NCIT:C96388
   - NCIT:C167409
   - NCIT:C118468
-  ea_e257_tan_booth: null
+  ea_e257_tan_booth: []
   ea_e261_sunlamp:
   - NCIT:C50197
   eb_a001_multivitamin:
@@ -21416,7 +21416,7 @@ visit:
   - MESH:C520984
   A1ATDeficiency:
   - MONDO:0013282
-  ALTDILIOnsetULN: null
+  ALTDILIOnsetULN: []
   ALTOnset:
   - UMLS:C2749273
   - UMLS:C1832768
@@ -21430,8 +21430,8 @@ visit:
   - UMLS:C1300107
   - MONDO:0018485
   - MONDO:0017694
-  ALTPeakDILIOnsetToMonth6: null
-  ALTPeakDILIOnsetToMonth6ULN: null
+  ALTPeakDILIOnsetToMonth6: []
+  ALTPeakDILIOnsetToMonth6ULN: []
   ANA:
   - OMIM:114105
   - PUBCHEM.COMPOUND:44629965
@@ -21890,7 +21890,7 @@ visit:
   - MONDO:0017364
   - MONDO:0018621
   - MONDO:0043275
-  ASTDILIOnsetULN: null
+  ASTDILIOnsetULN: []
   ASTOnset:
   - UMLS:C0264413
   - UMLS:C1844940
@@ -21937,8 +21937,8 @@ visit:
   - MONDO:0010040
   - MONDO:0010729
   - MONDO:0100016
-  ASTPeakDILIOnsetToMonth6: null
-  ASTPeakDILIOnsetToMonth6ULN: null
+  ASTPeakDILIOnsetToMonth6: []
+  ASTPeakDILIOnsetToMonth6ULN: []
   AbdominalPain:
   - NCIT:C143255
   - UMLS:C0423651
@@ -22002,7 +22002,7 @@ visit:
   - MONDO:0002268
   - MONDO:0009842
   AgeQualifyingLab: *id011
-  AlcoholRelatedLiverDisease: null
+  AlcoholRelatedLiverDisease: []
   AlcoholUse:
   - NCIT:C81229
   - UMLS:C0085762
@@ -22068,7 +22068,7 @@ visit:
   - UMLS:C0033936
   - UMLS:C1852007
   - MONDO:0002046
-  AlkalinePhosphataseDILIOnsetULN: null
+  AlkalinePhosphataseDILIOnsetULN: []
   AlkalinePhosphataseOnset:
   - SCTID:88810008
   - SCTID:785821009
@@ -22079,8 +22079,8 @@ visit:
   - LOINC:LG4193-1
   - LOINC:LG2774-0
   - LOINC:LP44703-4
-  AlkalinePhosphatasePeakDILIOnsetToMonth6ULN: null
-  AlkalinePhosphatatePeakDILIOnsetToMonth6: null
+  AlkalinePhosphatasePeakDILIOnsetToMonth6ULN: []
+  AlkalinePhosphatatePeakDILIOnsetToMonth6: []
   AntiHAV:
   - OMIM:MTHU045723
   - UMLS:C0001676
@@ -22112,7 +22112,7 @@ visit:
   - SCTID:165947003
   - SCTID:995951000000103
   - SCTID:50506008
-  AntiHBe: null
+  AntiHBe: []
   AntiHBs:
   - UMLS:C0262505
   AntiHCV:
@@ -22206,17 +22206,17 @@ visit:
   - CHEBI:61335
   - CHEBI:31683
   - MONDO:0020670
-  BilirubinDILIOnsetULN: null
-  BilirubinOnset: null
-  BilirubinPeakDILIOnsetToMonth6: null
-  BilirubinPeakDILIOnsetToMonth6ULN: null
-  ChronicDILI: null
+  BilirubinDILIOnsetULN: []
+  BilirubinOnset: []
+  BilirubinPeakDILIOnsetToMonth6: []
+  BilirubinPeakDILIOnsetToMonth6ULN: []
+  ChronicDILI: []
   ChronicHepatitisCScreening:
   - SCTID:128302006
   - SCTID:708198006
   - SCTID:186640001
   - MESH:D019698
-  ChronicHepatititsBScireening: null
+  ChronicHepatititsBScireening: []
   Cirrhosis:
   - NCIT:C3044
   - UMLS:C4049169
@@ -22440,18 +22440,18 @@ visit:
   - UMLS:C4706244
   - MONDO:0005009
   - MONDO:0001899
-  DILINSeverityScore: null
+  DILINSeverityScore: []
   DRB1*15:01:
   - MESH:C489631
-  DaysALTDILIOnsetToPeak: null
-  DaysASTDILIOnsetToPeak: null
-  DaysAlkalphinePhosphataseDILIOnsetToPeak: null
-  DaysBilirubinDILIOnsetToPeak: null
-  DaysDILIOnsetToInititalVisit: null
-  DaysDrugStartToEarliestSign: null
-  DaysDrugStartToEarliestSignOrDILI: null
-  DaysEarliestSignToDILI: null
-  DaysEarliestSignToDrugStop: null
+  DaysALTDILIOnsetToPeak: []
+  DaysASTDILIOnsetToPeak: []
+  DaysAlkalphinePhosphataseDILIOnsetToPeak: []
+  DaysBilirubinDILIOnsetToPeak: []
+  DaysDILIOnsetToInititalVisit: []
+  DaysDrugStartToEarliestSign: []
+  DaysDrugStartToEarliestSignOrDILI: []
+  DaysEarliestSignToDILI: []
+  DaysEarliestSignToDrugStop: []
   Death:
   - UMLS:C1306577
   - NCIT:C53787
@@ -22656,7 +22656,7 @@ visit:
   - SCTID:142935007
   - SCTID:365601007
   - SCTID:165524009
-  EosinophilGreatThan500: null
+  EosinophilGreatThan500: []
   EthnicityDILI: *id012
   FamilyHistoryLiverDisease:
   - UMLS:C0455417
@@ -23012,7 +23012,7 @@ visit:
   - SCITD:200951007
   - SCITD:17658005
   - SCITD:19065005
-  FinalCausalityScore: null
+  FinalCausalityScore: []
   GastrointestinalDisease:
   - UMLS:C0455420
   - UMLS:C0455553
@@ -23102,7 +23102,7 @@ visit:
   - UMLS:C0456101
   - SCITD:165816005
   - SCITD:143224002
-  HLA-B*15:18: null
+  HLA-B*15:18: []
   HeartDisease:
   - UMLS:C0686716
   - UMLS:C0543946
@@ -23329,19 +23329,19 @@ visit:
   - UMLS:C0264843
   - UMLS:C4076065
   - UMLS:C3150339
-  HepatititsA: null
-  HospitalizationNewProlonged: null
+  HepatititsA: []
+  HospitalizationNewProlonged: []
   INROnset:
   - SCITD:1951000175101
   - SCITD:165581004
   - SCITD:165583001
   - SCITD:165582006
   - MESH:D019934
-  INRPeakDILIOnsetToMonth6: null
-  ImplicatedDrug1Assessment: null
-  ImplicatedDrug2Assessment: null
-  ImplicatedDrug3Assessment: null
-  InitialRUCAM: null
+  INRPeakDILIOnsetToMonth6: []
+  ImplicatedDrug1Assessment: []
+  ImplicatedDrug2Assessment: []
+  ImplicatedDrug3Assessment: []
+  InitialRUCAM: []
   IschemicHepatitis:
   - UMLS:C0473117
   - SCTID:235877000
@@ -24186,8 +24186,8 @@ visit:
   - MESH:D056889
   - MESH:D044504
   - MESH:C538171
-  PCARace: null
-  PatternLiverInjuryOnset: null
+  PCARace: []
+  PatternLiverInjuryOnset: []
   PrednisoneOrCorticosteroidsTx:
   - CHEBI:50858
   - NCIT:C142385
@@ -24481,7 +24481,7 @@ visit:
   - LOINC:LA28200-6
   - LOINC:LA27422-7
   - LOINC:LA27872-3
-  RValueOnset: null
+  RValueOnset: []
   RaceDILI: *id013
   Rash:
   - UMLS:C0302295
@@ -25088,12 +25088,12 @@ visit:
   UnexplainedAbnormalLiverTest:
   - SCTID:207471009
   - SCTID:166603001
-  WHONAMEImplicatedDrug1: null
-  WHONAMEImplicatedDrug2: null
-  WHONAMEImplicatedDrug3: null
-  WeeksDrugStartToDILI: null
-  WeeksDurationOfSickness: null
-  WeeksEarliestSignToDILI: null
+  WHONAMEImplicatedDrug1: []
+  WHONAMEImplicatedDrug2: []
+  WHONAMEImplicatedDrug3: []
+  WeeksDrugStartToDILI: []
+  WeeksDurationOfSickness: []
+  WeeksEarliestSignToDILI: []
   Weight:
   - UMLS:C0424653
   - NCIT:C3445
@@ -25302,6 +25302,6 @@ visit:
   - UMLS:C3665549
   - UMLS:C4551303
   - MESH:C093154
-  YearDILIOnset: null
-  rs1363907a: null
-  rs2476601a: null
+  YearDILIOnset: []
+  rs1363907a: []
+  rs2476601a: []

@@ -14066,10 +14066,10 @@ visit:
     minimum: 0
     type: integer
   HospitalLOS:
-    biolinkType: null
-    maximum: null
-    minimum: null
     type: integer
+    minimum: 0
+    maximum: 9999
+    biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   HydroxyzineVisit:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     maximum: 1

@@ -1,11 +1,9 @@
 patient:
   A*02:01:
     biolinkType: SequenceVariant
-    enum:
-    - TwoCopies
-    - OneCopy
-    - TwoCopies
-    type: string
+    minimum: 0
+    maximum: 2
+    type: integer
   A1AT_Deficiency:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
@@ -170,8 +168,8 @@ patient:
   ConcomitantDrugs:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - 0-2
-    - 3-4
+    - "0 to 2"
+    - "3 to 5"
     - '>5'
     type: string
   CongestiveHeartFailure:
@@ -190,59 +188,41 @@ patient:
     enum:
     - Mild
     - Moderate
-    - Moderate Hospitalized
+    - Moderate-hospitalized
     - Severe
     - Fatal
     type: string
   DRB1*15:01:
     biolinkType: SequenceVariant
-    enum:
-    - TwoCopies
-    - OneCopy
-    - TwoCopies
-    type: string
+    minimum: 0
+    maximum: 2
+    type: integer
   Days_AlkalinePhosphatase_DILIOnsetToPeak:
     type: number
-    minimum: 1
-    maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   Days_ALT_DILIOnsetToPeak:
     type: number
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   Days_AST_DILIOnsetToPeak:
     type: number
-    minimum: 1
-    maximum: 9999
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
   Days_Bilirubin_DILIOnsetToPeak:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-    maximum: 9999
-    minimum: 1
     type: number
   Days_DILIOnsetToInitialVisit:
     biolinkType: PhenotypicFeature
-    maximum: 9999
-    minimum: 1
     type: integer
   Days_DrugStartToEarliestSign:
     biolinkType: PhenotypicFeature
-    maximum: 9999
-    minimum: 1
     type: integer
   Days_DrugStartToEarliestSignOrDILI:
     biolinkType: PhenotypicFeature
-    maximum: 9999
-    minimum: 1
     type: integer
   Days_EarliestSignToDILI:
     biolinkType: PhenotypicFeature
-    maximum: 9999
-    minimum: 1
     type: integer
   Days_EarliestSignToDrugStop:
     biolinkType: PhenotypicFeature
-    maximum: 9999
-    minimum: 1
     type: integer
   Death:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -292,11 +272,11 @@ patient:
   FinalCausalityScore:
     biolinkType: PhenotypicFeature, Disease, DiseaseOrPhenotypicFeature
     enum:
-    - Unlikely
-    - Possible
-    - Probable
-    - Highly Likely
-    - Definite
+    - "Unlikely Less than 25%"
+    - "Possible 25-50%"
+    - "Probable 50-75%"
+    - "Highly likely 75-95%"
+    - "Definite Greater than 95%"
     type: string
   GastrointestinalDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
@@ -331,10 +311,6 @@ patient:
   HCV_Positive:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-<<<<<<< Updated upstream
-    - Yes
-    - No
-=======
     - "Yes"
     - "No"
     type: string
@@ -352,11 +328,9 @@ patient:
     type: string
   HLA-B*15:18:
     biolinkType: SequenceVariant
-    enum:
-    - TwoCopies
-    - OneCopy
-    - TwoCopies
-    type: string
+    minimum: 0
+    maximum: 2
+    type: integer
   HeartDisease:
     biolinkType: Disease, DiseaseOrPhenotypicFeature
     enum:
@@ -390,6 +364,7 @@ patient:
   Implicated_Drug1_Assessment:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     enum:
+    - Unlikely Less than 25%
     - Possible 25-50%
     - Probable 50-75%
     - Highly likely 75-95%
@@ -398,6 +373,7 @@ patient:
   Implicated_Drug2_Assessment:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     enum:
+    - Unlikely Less than 25%
     - Possible 25-50%
     - Probable 50-75%
     - Highly likely 75-95%
@@ -406,6 +382,7 @@ patient:
   Implicated_Drug3_Assessment:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
     enum:
+    - Unlikely Less than 25%
     - Possible 25-50%
     - Probable 50-75%
     - Highly likely 75-95%
@@ -440,8 +417,6 @@ patient:
     type: string
   Latency:
     biolinkType: PhenotypicFeature
-    maximum: 9999
-    minimum: 1
     type: integer
   LiverBiopsy_Screen:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -556,22 +531,13 @@ patient:
     type: string
   Serum_IgA:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-    enum:
-    - "No"
-    - "Yes"
-    type: string
+    type: number
   Serum_IgG:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-    enum:
-    - "No"
-    - "Yes"
-    type: string
+    type: number
   Serum_IgM:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
-    enum:
-    - "No"
-    - "Yes"
-    type: string
+    type: number
   SexDILI:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
@@ -598,61 +564,35 @@ patient:
     type: string
   WHONAME_Implicated_Drug1:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-    enum:
-    - Amoxicillin W/Clavulanic Acid
-    - Other
     type: string
   WHONAME_Implicated_Drug2:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-    enum:
-    - Amoxicillin
-    - Telithromycin
-    - Cefazolin
-    - "\u2018Sulfamethoxazole W/Trimethoprim\u2019"
-    - "\u2018Cefalexin\u2019"
-    - "\u2018Azithromycin\u2019"
-    - "\u2018Amoxicillin W/Clavulanic Acid\u2019"
-    - "\u2018Levofloxacin\u2019"
-    - "\u2018Penicillin Nos\u2019"
-    - "\u2018Nitrofurantoin\u2019"
-    - "\u2018Cefepime\u2019"
-    - "\u2018Cefuroxime\u2019"
-    - "\u2018Cefdinir\u2019"
-    - "\u2018Ceftriaxone\u2019"
-    - "\u2018Hydroxycut - Ephedra Free\u2019"
-    - "\u2018Unspecified Herbal\u2019"
-    - "\u2018Other\u2019"
     type: string
   WHONAME_Implicated_Drug3:
     biolinkType: ChemicalSubstance, ChemicalExposure, Drug
-    enum:
-    - Ivermectin
-    - Levofloxacin
-    - "\u2018Ertapenem'"
-    - Lecithin W/Protein
-    - Other
     type: string
   Weeks_DrugStartToDILI:
     biolinkType: PhenotypicFeature
     enum:
-    - <=1
-    - 2 to 4
-    - 5 to 12
-    - 13 to 24
+    - <= 1 week
+    - 2 to 4 weeks
+    - 5 to 12 weeks
+    - 13 to 24 weeks
     type: string
   Weeks_DurationOfSickness:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
     enum:
-    - <1
-    - 2-4
-    - '>4'
+    - Less than a week
+    - 1 week
+    - 2-4 weeks
+    - More than 4 weeks
     type: string
   Weeks_EarliestSignToDILI:
     biolinkType: PhenotypicFeature
     enum:
-    - <=1
-    - 2 to 4
-    - '>4'
+    - <= 1 week
+    - 2-4 weeks
+    - "> 4 weeks"
     type: string
   Weight:
     biolinkType: PhenotypicFeature, DiseaseOrPhenotypicFeature
@@ -671,15 +611,11 @@ patient:
 #    type: integer
   rs1363907_a:
     biolinkType: SequenceVariant
-    enum:
-    - TwoCopies
-    - OneCopy
-    - TwoCopies
-    type: string
+    minimum: 0
+    maximum: 2
+    type: integer
   rs2476601_a:
     biolinkType: SequenceVariant
-    enum:
-    - TwoCopies
-    - OneCopy
-    - TwoCopies
-    type: string
+    minimum: 0
+    maximum: 2
+    type: integer

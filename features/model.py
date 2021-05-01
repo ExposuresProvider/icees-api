@@ -251,8 +251,14 @@ def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
     for f in features[table_name]:
         k = f.name
         levels = f.options
-        if levels is None:
-            levels = get_feature_levels(conn, table, year, k)
+#        if levels is None:
+        levels_data = get_feature_levels(conn, table, year, k)
+        if levels is not None:
+            for level in levels_data:
+                if level not in levels:
+                    raise RuntimeError(f"{k} has value {json.dumps(level)} not in specified range {json.dumps(levels)}")
+        else:
+            levels = levels_data
         ret = select_feature_count(conn, table_name, year, cohort_features, cohort_year, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
         rs.append(ret)
     return rs

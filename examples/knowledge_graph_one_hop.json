@@ -11,7 +11,7 @@
             "nodes": {
                 "n00": {
 		    "id": "NCIT:C28421",
-		    "type": "PhenotypicFeature"
+		    "category": "biolink:PhenotypicFeature"
                 },
                 "n01": {
                     "category": "biolink:NamedThing"

@@ -92,7 +92,7 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
             "name": node_name,
             "id": node_id,
             "equivalent_identifiers": equivalent_ids,
-            "type": [biolink_class]
+            "category": [biolink_class]
         })
     
 
@@ -106,7 +106,7 @@ def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_prop
         edge_name = "correlated_with"
         
         return Just({
-            "type": edge_name,
+            "predicate": edge_name,
             "id": gen_edge_id(source_id, node_name, node_id),
             "source_id": source_id,
             "target_id": node_id,
@@ -158,6 +158,7 @@ def get(conn, query):
 
         supported_edge_types = supported_node_types[target_node_type]
         edge_id = edge_get_id(edge)
+        logger.info(f"get: edge = {edge}")
         edge_type = edge["type"]
         if edge_type not in supported_edge_types:
             raise NotImplementedError("Edge must be one of " + str(supported_edge_types))
@@ -189,7 +190,7 @@ def get(conn, query):
         knowledge_graph_nodes = [{
             "name": "cohort",
             "id": cohort_id,
-            "type": ["population_of_individual_organisms"]
+            "category": ["population_of_individual_organisms"]
         }] + list(nodes.values())
 
         knowledge_graph = {
@@ -323,7 +324,7 @@ def attr(s):
 def generate_edge(src_node, tgt_node, edge_attributes=None):
     return {
         "id": generate_edge_id(src_node, tgt_node),
-        "type": "correlated_with",
+        "predicate": "correlated_with",
         "source_id": node_get_id(src_node),
         "target_id": node_get_id(tgt_node),
         **({
@@ -341,7 +342,7 @@ def convert(attribute_map, qnode):
 def convert_qnode_to_node(qnode):
     attribute_map = {
         "id": attr("curie"),
-        "type": attr("type")
+        "category": attr("category")
     }
     return convert(attribute_map, qnode)
 
@@ -349,8 +350,7 @@ def convert_qnode_to_node(qnode):
 def convert_qedge_to_edge(qedge):
     attribute_map = {
         "id": compose(edge_get_id, Just),
-        "type": attr("type"),
-        "relation": attr("relation"),
+        "predicate": attr("predicate"),
         "source_id": attr("source_id"),
         "target_id": attr("target_id"),
         "negated": attr("negated")
@@ -467,7 +467,7 @@ def one_hop(conn, query):
 
         source_id = edge["source_id"]
         source_node = nodes_dict[source_id]
-        source_node_type = source_node.get("type")
+        source_node_type = source_node.get("category")
         source_curie = source_node["curie"]
 
         msource_node_feature_names = feature_names(table, source_curie)
@@ -478,7 +478,7 @@ def one_hop(conn, query):
 
         target_id = edge["target_id"]
         logger.info(f"one_hop: target_node = {nodes_dict[target_id]}")
-        target_node_type = nodes_dict[target_id].get("type", "NamedThing")
+        target_node_type = nodes_dict[target_id].get("category", "NamedThing")
 
         edge_id = edge_get_id(edge)
 

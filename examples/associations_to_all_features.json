@@ -1,6 +1,6 @@
 {
     "feature": {
-        "Sex": {
+        "SexDILI": {
             "operator": "=",
             "value": "Female"
         }

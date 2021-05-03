@@ -1,14 +1,14 @@
 {
     "feature_a": {
-        "Sex": {
+        "SexDILI": {
             "operator": "=",
             "value": "Female"
         }
     },
     "feature_b": {
-        "AsthmaDx": {
+        "AlcoholUse": {
             "operator": "=",
-            "value": 1
+            "value": "Yes"
         }
     }
 }

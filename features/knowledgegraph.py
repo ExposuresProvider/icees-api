@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 import json
 import os
 import datetime
@@ -37,9 +38,7 @@ schema = {
     }
 
 subtypes = {
-    "chemical_substance": ["drug"],
-    "disease_or_phenotypic_feature": ["disease", "phenotypic_feature"],
-    "named_thing": ["chemical_substance", "disease_or_phenotypeic_feature", "environment"]
+    "disease_or_phenotypic_feature": ["disease", "phenotypic_feature"]
 }
 
 TOOL_VERSION = "4.0.0"
@@ -115,6 +114,11 @@ def knowledge_graph_edge(source_id, node_name, table, filter_regex, feature_prop
         })
     
 
+def supported(supported_types, x):
+    ret = "NamedThing" in supported_types or any(inflection.underscore(biolink_type) in supported_types for biolink_type in [biolink_type.strip() for biolink_type in x.biolink_class.split(",")])
+    logger.info(f"supported: supported_types = {supported_types}, x = {x}, return value = {ret}")
+    return ret
+
 def get(conn, query):
     try:
         message = query.get("message", query)
@@ -162,8 +166,10 @@ def get(conn, query):
 
         supported_types = closure_subtype(target_node_type)
 
-        feature_list = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, lambda x : inflection.underscore(x.biolink_class) in supported_types)
-        logger.info(f"feature_list = {feature_list}")
+        feature_list = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, partial(supported, supported_types))
+        logger.info(f"cohort_id = {cohort_id}, feature_list = {feature_list}")
+        if not isinstance(feature_list, list):
+            raise RuntimeError("cohort error")
 
         nodes = {}
         knowledge_graph_edges = []
@@ -211,7 +217,7 @@ def get(conn, query):
             "tool_version": TOOL_VERSION,
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "Error",
-            "code_description": str(e),
+            "code_description": e.detail if isinstance(e, HTTPException) else str(e),
         }
 
     return message
@@ -423,7 +429,7 @@ def co_occurrence_overlay(conn, query):
             "tool_version": TOOL_VERSION,
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "Error",
-            "code_description": str(e),
+            "code_description": e.detail if isinstance(e, HTTPException) else str(e),
         }
 
     return message
@@ -471,7 +477,8 @@ def one_hop(conn, query):
             source_node_feature_names = msource_node_feature_names.value
 
         target_id = edge["target_id"]
-        target_node_type = nodes_dict[target_id]["type"]
+        logger.info(f"one_hop: target_node = {nodes_dict[target_id]}")
+        target_node_type = nodes_dict[target_id].get("type", "NamedThing")
 
         edge_id = edge_get_id(edge)
 
@@ -480,10 +487,12 @@ def one_hop(conn, query):
 
         for source_node_feature_name in source_node_feature_names:
             feature = query_feature(table, source_node_feature_name).value
-            ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=lambda x : inflection.underscore(x.biolink_class) in supported_types)
+            ataf = select_associations_to_all_features(conn, table, year, cohort_id, feature, maximum_p_value, feature_set=partial(supported, supported_types))
+            # logger.info(f"one_hop: cohort_id = {cohort_id}, feature = {feature}, maximum_p_value = {maximum_p_value}, ataf = {ataf}")
             for feature in ataf:
                 feature_name = feature["feature_b"]["feature_name"]
                 biolink_class = feature["feature_b"]["biolink_class"]
+                logger.info(f"one_hop: feature_name = {feature_name}, biolink_class = {biolink_class}")
                 if feature_name in feature_set:
                     _, feature_properties = feature_set[feature_name]
                     feature_properties.append(feature)

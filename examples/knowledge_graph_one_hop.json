@@ -10,11 +10,11 @@
             },
             "nodes": {
                 "n00": {
-                    "id": "PUBCHEM:2083",
-                    "category": "biolink:Drug"
+		    "id": "NCIT:C28421",
+		    "type": "PhenotypicFeature"
                 },
                 "n01": {
-                    "category": "biolink:ChemicalSubstance"
+                    "category": "biolink:NamedThing"
                 }
             }
         },

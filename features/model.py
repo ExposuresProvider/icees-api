@@ -102,6 +102,10 @@ def get_digest(*args):
     return c.digest()
 
 
+def convertible(v, ty):
+    return isinstance(v, ty) or (isinstance(v, int) and ty == float)
+
+
 def op_dict(table, k, v, table_name=None):
     if table_name is None:
         table_name = table.name
@@ -119,7 +123,7 @@ def op_dict(table, k, v, table_name=None):
         values = [v["value"]]
     options = features_dict[table_name][k].get("enum", None)
     for value in values:
-        if not isinstance(value, python_type):
+        if not convertible(value, python_type):
             raise HTTPException(
                 status_code=400,
                 detail="'{feature}' should be of type {type}, but {value} is not".format(
@@ -245,20 +249,26 @@ def get_cohort_by_id(conn, table_name, year, cohort_id):
         }
 
 
+def get_feature_levels(conn, table, year, f):
+    k = f.name
+    levels = f.options
+    levels_data = get_feature_levels_db(conn, table, year, k)
+    if levels is not None:
+        for level in levels_data:
+            if level not in levels:
+                raise RuntimeError(f"{k} has value {json.dumps(level)} not in specified range {json.dumps(levels)}")
+    else:
+        levels = levels_data
+    return levels
+
+
 def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
     table = tables[table_name]
     rs = []
     for f in features[table_name]:
         k = f.name
-        levels = f.options
-#        if levels is None:
-        levels_data = get_feature_levels(conn, table, year, k)
-        if levels is not None:
-            for level in levels_data:
-                if level not in levels:
-                    raise RuntimeError(f"{k} has value {json.dumps(level)} not in specified range {json.dumps(levels)}")
-        else:
-            levels = levels_data
+        levels = get_feature_levels(conn, table, year, f)
+        logger.info(f"get_cohort_features: {k} levels {levels}")
         ret = select_feature_count(conn, table_name, year, cohort_features, cohort_year, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
         rs.append(ret)
     return rs
@@ -469,6 +479,8 @@ def select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, 
 
         total = result[mat_size + nvas + nvbs]
         
+        if len(feature_matrix) == 0:
+            logger.error(f"no data {ka}, {vas}, {kb}, {vbs}")
         chi_squared, p, *_ = chi2_contingency(list(map(lambda x : list(map(add_eps, x)), feature_matrix)), correction=False)
 
         feature_matrix2 = [
@@ -573,8 +585,11 @@ def select_feature_count(conn, table_name, year, cohort_features, cohort_year, f
     return count
 
 
-def get_feature_levels(conn, table, year, feature):
-    s = select([table.c[feature]]).where(table.c.year == year).where(table.c[feature] != None).distinct().order_by(table.c[feature])
+def get_feature_levels_db(conn, table, year, feature):
+    s = select([table.c[feature]])
+    if year is not None:
+        s = s.where(table.c.year == year)
+    s = s.where(table.c[feature] != None).distinct().order_by(table.c[feature])
     return list(map(lambda row: row[0], conn.execute((s))))
 
 
@@ -583,9 +598,8 @@ def select_feature_association(conn, table_name, year, cohort_features, cohort_y
     rs = []
     for f in filter(feature_set, features[table_name]):
         k = f.name
-        levels = f.options
-        if levels is None:
-            levels = get_feature_levels(conn, table, year, k)
+        levels = get_feature_levels(conn, table, year, f)
+        logger.info(f"select_feature_association: {k} levels {levels}")
         ret = select_feature_matrix(conn, table_name, year, cohort_features, cohort_year, feature, {"feature_name": k, "feature_qualifiers": list(map(lambda level: {"operator": "=", "value": level}, levels))})
         rs.append(ret)
     rsp = [ret["p_value"] for ret in rs]

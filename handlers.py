@@ -58,10 +58,9 @@ else:
 ROUTER = APIRouter()
 
 
-@ROUTER.post("/{table}/{year}/cohort", response_model=Dict)
+@ROUTER.post("/{table}/cohort", response_model=Dict)
 def discover_cohort(
         table: str,
-        year: int,
         req_features: Features = Body(..., example={}),
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
@@ -70,7 +69,7 @@ def discover_cohort(
     cohort_id, size = model.get_ids_by_feature(
         conn,
         table,
-        year,
+        None,
         req_features,
     )
 
@@ -88,24 +87,22 @@ def discover_cohort(
 
 
 @ROUTER.get(
-    "/{table}/{year}/cohort/dictionary",
+    "/{table}/cohort/dictionary",
     response_model=Dict,
 )
 def dictionary(
         table: str,
-        year: int,
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Get cohort dictionary."""
-    return_value = model.get_cohort_dictionary(conn, table, year)
+    return_value = model.get_cohort_dictionary(conn, table, None)
     return {"return value": return_value}
 
 
-@ROUTER.put("/{table}/{year}/cohort/{cohort_id}", response_model=Dict)
+@ROUTER.put("/{table}/cohort/{cohort_id}", response_model=Dict)
 def edit_cohort(
         table: str,
-        year: int,
         cohort_id: str,
         req_features: Features = Body(..., example={}),
         conn=Depends(get_db),
@@ -115,7 +112,7 @@ def edit_cohort(
     cohort_id, size = model.select_cohort(
         conn,
         table,
-        year,
+        None,
         req_features,
         cohort_id,
     )
@@ -133,10 +130,9 @@ def edit_cohort(
     return {"return value": return_value}
 
 
-@ROUTER.get("/{table}/{year}/cohort/{cohort_id}", response_model=Dict)
+@ROUTER.get("/{table}/cohort/{cohort_id}", response_model=Dict)
 def get_cohort(
         table: str,
-        year: int,
         cohort_id: str,
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
@@ -145,7 +141,7 @@ def get_cohort(
     cohort_features = model.get_cohort_by_id(
         conn,
         table,
-        year,
+        None,
         cohort_id,
     )
 
@@ -161,12 +157,11 @@ with open("examples/feature_association.json") as stream:
 
 
 @ROUTER.post(
-    "/{table}/{year}/cohort/{cohort_id}/feature_association",
+    "/{table}/cohort/{cohort_id}/feature_association",
     response_model=Dict,
 )
 def feature_association(
         table: str,
-        year: int,
         cohort_id: str,
         obj: FeatureAssociation = Body(
             ...,
@@ -193,7 +188,7 @@ def feature_association(
         return_value = model.select_feature_matrix(
             conn,
             table,
-            year,
+            None,
             cohort_features,
             cohort_year,
             feature_a,
@@ -207,12 +202,11 @@ with open("examples/feature_association2.json") as stream:
 
 
 @ROUTER.post(
-    "/{table}/{year}/cohort/{cohort_id}/feature_association2",
+    "/{table}/cohort/{cohort_id}/feature_association2",
     response_model=Dict,
 )
 def feature_association2(
         table: str,
-        year: int,
         cohort_id: str,
         obj: FeatureAssociation2 = Body(
             ...,
@@ -243,7 +237,7 @@ def feature_association2(
         return_value = model.select_feature_matrix(
             conn,
             table,
-            year,
+            None,
             cohort_features,
             cohort_year,
             feature_a,
@@ -258,12 +252,11 @@ with open("examples/associations_to_all_features.json") as stream:
 
 
 @ROUTER.post(
-    "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
+    "/{table}/cohort/{cohort_id}/associations_to_all_features",
     response_model=Dict,
 )
 def associations_to_all_features(
         table: str,
-        year: int,
         cohort_id: str,
         obj: AllFeaturesAssociation = Body(
             ...,
@@ -284,7 +277,7 @@ def associations_to_all_features(
     return_value = model.select_associations_to_all_features(
         conn,
         table,
-        year,
+        None,
         cohort_id,
         feature,
         maximum_p_value,
@@ -298,12 +291,11 @@ with open("examples/associations_to_all_features2.json") as stream:
 
 
 @ROUTER.post(
-    "/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2",
+    "/{table}/cohort/{cohort_id}/associations_to_all_features2",
     response_model=Dict,
 )
 def associations_to_all_features2(
         table: str,
-        year: int,
         cohort_id: str,
         obj: AllFeaturesAssociation2 = Body(
             ...,
@@ -327,7 +319,7 @@ def associations_to_all_features2(
     return_value = model.select_associations_to_all_features(
         conn,
         table,
-        year,
+        None,
         cohort_id,
         feature,
         maximum_p_value,
@@ -337,12 +329,11 @@ def associations_to_all_features2(
 
 
 @ROUTER.get(
-    "/{table}/{year}/cohort/{cohort_id}/features",
+    "/{table}/cohort/{cohort_id}/features",
     response_model=Dict,
 )
 def features(
         table: str,
-        year: int,
         cohort_id: str,
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
@@ -360,7 +351,7 @@ def features(
         return_value = model.get_cohort_features(
             conn,
             table,
-            year,
+            None,
             cohort_features,
             cohort_year,
         )

@@ -4,6 +4,7 @@ import logging
 import yaml
 from tx.functional.either import Left, Right
 from .config import get_config_path
+from .features import features_dict
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +35,6 @@ def get_features_by_identifier(table, identifier):
     else:
         raise Left(f"Cannot find table {table}, available {input_dict}")
 
-    return Right([feature for feature, identifiers in identifier_dict.items() if identifier in identifiers])
+    return Right([feature for feature, identifiers in identifier_dict.items() if identifier in identifiers and feature in features_dict[table].keys()])
         
 

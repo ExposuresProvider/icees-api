@@ -10389,7 +10389,8 @@ patient:
   - MESH:C520984
   A1AT_Deficiency:
   - MONDO:0013282
-  ALT_DILIOnset_ULN: []
+  ALT_DILIOnset_ULN:
+  - HP:0031964
   ALT_Onset:
   - UMLS:C2749273
   - UMLS:C1832768
@@ -10404,7 +10405,8 @@ patient:
   - MONDO:0018485
   - MONDO:0017694
   ALT_Peak_DILIOnsetToMonth6: []
-  ALT_Peak_DILIOnsetToMonth6_ULN: []
+  ALT_Peak_DILIOnsetToMonth6_ULN:
+  - HP:0031964
   ANA:
   - OMIM:114105
   - PUBCHEM.COMPOUND:44629965
@@ -10863,7 +10865,8 @@ patient:
   - MONDO:0017364
   - MONDO:0018621
   - MONDO:0043275
-  AST_DILIOnset_ULN: []
+  AST_DILIOnset_ULN:
+  - HP:0031956
   AST_Onset:
   - UMLS:C0264413
   - UMLS:C1844940
@@ -10911,7 +10914,8 @@ patient:
   - MONDO:0010729
   - MONDO:0100016
   AST_Peak_DILIOnsetToMonth6: []
-  AST_Peak_DILIOnsetToMonth6_ULN: []
+  AST_Peak_DILIOnsetToMonth6_ULN:
+  - HP:0031956
   AbdominalPain:
   - NCIT:C143255
   - UMLS:C0423651
@@ -10975,7 +10979,9 @@ patient:
   - MONDO:0002268
   - MONDO:0009842
   AgeQualifyingLab: *id011
-  AlcoholRelatedLiverDisease: []
+  AlcoholRelatedLiverDisease:
+  - MESH:D008108
+  - UMLS:C0023896
   AlcoholUse:
   - NCIT:C81229
   - UMLS:C0085762
@@ -11041,7 +11047,8 @@ patient:
   - UMLS:C0033936
   - UMLS:C1852007
   - MONDO:0002046
-  AlkalinePhosphatase_DILIOnset_ULN: []
+  AlkalinePhosphatase_DILIOnset_ULN:
+  - HP:0003155
   AlkalinePhosphatase_Onset:
   - SCTID:88810008
   - SCTID:785821009
@@ -11052,7 +11059,8 @@ patient:
   - LOINC:LG4193-1
   - LOINC:LG2774-0
   - LOINC:LP44703-4
-  AlkalinePhosphatase_Peak_DILIOnsetToMonth6_ULN: []
+  AlkalinePhosphatase_Peak_DILIOnsetToMonth6_ULN:
+  - HP:0003155
   AlkalinePhosphatase_Peak_DILIOnsetToMonth6: []
   Anti_HAV:
   - OMIM:MTHU045723
@@ -11179,17 +11187,22 @@ patient:
   - CHEBI:61335
   - CHEBI:31683
   - MONDO:0020670
-  Bilirubin_DILIOnset_ULN: []
+  Bilirubin_DILIOnset_ULN:
+  - HP:0033479
   Bilirubin_Onset: []
   Bilirubin_Peak_DILIOnsetToMonth6: []
-  Bilirubin_Peak_DILIOnsetToMonth6_ULN: []
-  ChronicDILI: []
+  Bilirubin_Peak_DILIOnsetToMonth6_ULN:
+  - HP:0033479
+  ChronicDILI:
+  - MESH:D056487
   ChronicHepatitisC_Screening:
   - SCTID:128302006
   - SCTID:708198006
   - SCTID:186640001
   - MESH:D019698
-  ChronicHepatitisB_Screening: []
+  ChronicHepatitisB_Screening:
+  - MESH:D019694
+  - UMLS:C0524909
   Cirrhosis:
   - NCIT:C3044
   - UMLS:C4049169
@@ -11413,7 +11426,8 @@ patient:
   - UMLS:C4706244
   - MONDO:0005009
   - MONDO:0001899
-  DILIN_SeverityScore: []
+  DILIN_SeverityScore:
+  - MESH:D056486
   DRB1*15:01:
   - MESH:C489631
   Days_ALT_DILIOnsetToPeak: []
@@ -12302,8 +12316,11 @@ patient:
   - UMLS:C0264843
   - UMLS:C4076065
   - UMLS:C3150339
-  HepatitisA: []
-  Hospitalization_NewProlonged: []
+  HepatitisA:
+  - MESH:D006506
+  - UMLS:C0019159
+  Hospitalization_NewProlonged:
+  - MESH:D006760
   INR_Onset:
   - SCITD:1951000175101
   - SCITD:165581004
@@ -13159,7 +13176,7 @@ patient:
   - MESH:D056889
   - MESH:D044504
   - MESH:C538171
-  PCA_Race: []
+  PCA_Race: *id013
   PatternLiverInjury_Onset: []
   PrednisoneOrCorticosteroids_Tx:
   - CHEBI:50858

@@ -91,7 +91,7 @@ class FeatureAssociation2(BaseModel):
 
 class AllFeaturesAssociation(BaseModel):
     feature: Feature
-    maximum_p_value: float
+    maximum_p_value: Optional[float]
     correction: Optional[Union[Correction, CorrectionWithAlpha]]
     check_coverage_is_full: bool = False
 

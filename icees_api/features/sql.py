@@ -740,7 +740,7 @@ def select_feature_association(
 
     return [
         ret for ret, pval in zip(rs, pvals)
-        if pval is not None and pval < maximum_p_value
+        if pval is not None and pval <= maximum_p_value
     ]
 
 

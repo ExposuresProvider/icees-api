@@ -419,11 +419,12 @@ with open("examples/knowledge_graph.json") as stream:
 def knowledge_graph(
         obj: Query = Body(..., example=KNOWLEDGE_GRAPH_EXAMPLE),
         reasoner: bool = False,
+        verbose: bool = False,
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Query for knowledge graph associations between concepts."""
-    return_value = knowledgegraph.get(conn, obj)
+    return_value = knowledgegraph.get(conn, obj, verbose=verbose)
 
     return_value = {
         "message": {
@@ -519,11 +520,12 @@ with open("examples/knowledge_graph_one_hop.json") as stream:
 def knowledge_graph_one_hop(
         obj: Query = Body(..., example=KG_ONEHOP_EXAMPLE),
         reasoner: bool = True,
+        verbose: bool = False,
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Query the ICEES clinical reasoner for knowledge graph one hop."""
-    return_value = knowledgegraph.one_hop(conn, obj)
+    return_value = knowledgegraph.one_hop(conn, obj, verbose=verbose)
 
     return_value = {
         "message": {

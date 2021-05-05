@@ -160,7 +160,7 @@ def knowledge_graph_edge(
     }
 
 
-def get(conn, query):
+def get(conn, query, verbose=False):
     message = query.get("message", query)
     query_options = query.get("query_options", {})
     cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
@@ -491,7 +491,7 @@ def add_node(nodes, node):
         node_curr["name"] += f",{node['name']}"
 
 
-def one_hop(conn, query):
+def one_hop(conn, query, verbose=False):
     try:
         message = query["message"]
         query_options = query.get("query_options", None) or {}

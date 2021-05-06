@@ -411,7 +411,7 @@ POST
 
 route
 ```
-/knowledge_graph?reasoner=
+/knowledge_graph?reasoner=&verbose=
 ```
 
 input parameters:

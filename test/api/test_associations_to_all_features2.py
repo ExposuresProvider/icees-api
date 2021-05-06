@@ -55,7 +55,7 @@ def test_associations_to_all_features2_explicit():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2",
+        f"/{table}/cohort/{cohort_id}/associations_to_all_features2",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -98,7 +98,7 @@ def test_associations_to_all_features2():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2",
+        f"/{table}/cohort/{cohort_id}/associations_to_all_features2",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -152,7 +152,7 @@ def test_associations_to_all_features2b():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features2",
+        f"/{table}/cohort/{cohort_id}/associations_to_all_features2",
         json=atafdata,
     )
     resp_json = resp.json()

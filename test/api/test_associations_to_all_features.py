@@ -50,7 +50,7 @@ def test_associations_to_all_features_nulls():
         }
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
+        f"/{table}/cohort/{cohort_id}/associations_to_all_features",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -94,7 +94,7 @@ def test_associations_to_all_features_explicit():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
+        f"/{table}/cohort/{cohort_id}/associations_to_all_features",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -138,7 +138,7 @@ def test_associations_to_all_features_explicit_non_integer_p_value():
         "maximum_p_value": 0.5
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
+        f"/{table}/cohort/{cohort_id}/associations_to_all_features",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -184,7 +184,7 @@ def test_associations_to_all_features_with_correction():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
+        f"/{table}/cohort/{cohort_id}/associations_to_all_features",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -231,7 +231,7 @@ def test_associations_to_all_features_with_correction_with_alpha():
         "maximum_p_value": 1
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/associations_to_all_features",
+        f"/{table}/cohort/{cohort_id}/associations_to_all_features",
         json=atafdata,
     )
     resp_json = resp.json()

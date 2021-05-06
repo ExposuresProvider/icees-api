@@ -61,7 +61,7 @@ def test_feature_association():
         }
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/feature_association",
+        f"/{table}/cohort/{cohort_id}/feature_association",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -111,7 +111,7 @@ def test_feature_association_explicit():
         }
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/feature_association",
+        f"/{table}/cohort/{cohort_id}/feature_association",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -160,7 +160,7 @@ def test_feature_association_two_years():
         }
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/feature_association",
+        f"/{table}/cohort/{cohort_id}/feature_association",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -247,7 +247,7 @@ def test_feature_association_cohort_features_two_years():
         }
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/feature_association",
+        f"/{table}/cohort/{cohort_id}/feature_association",
         json=atafdata,
     )
     resp_json = resp.json()

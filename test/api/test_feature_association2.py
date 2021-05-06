@@ -62,7 +62,7 @@ def test_feature_association2_explicit_check_coverage_is_full_2():
         "check_coverage_is_full": True
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
+        f"/{table}/cohort/{cohort_id}/feature_association2",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -116,7 +116,7 @@ def test_feature_association2_explicit_check_coverage_is_full_3():
         "check_coverage_is_full": True
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
+        f"/{table}/cohort/{cohort_id}/feature_association2",
         json=atafdata,
     )
     resp_json = resp.json()
@@ -170,7 +170,7 @@ def test_feature_association2_explicit_check_coverage_is_full():
         "check_coverage_is_full": True
     }
     resp = testclient.post(
-        f"/{table}/{year}/cohort/{cohort_id}/feature_association2",
+        f"/{table}/cohort/{cohort_id}/feature_association2",
         json=atafdata,
     )
     resp_json = resp.json()

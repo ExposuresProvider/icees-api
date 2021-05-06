@@ -422,6 +422,10 @@ input parameters:
    * `feature`: a feature and operator and value for spliting the cohort to two subcohorts
    * `maximum_p_value`: ICEES maximum p value. The p value is calculated for each ICEES feature in `table`, using 2 * n contingency table where the rows are subcohorts and the columns are individual values of that feature. Any feature with p value greater than maximum p value is filtered out.
    * `regex`: filter target node name by regex.   
+
+
+if `reasoner` is specified, then it returns a Reason API response.
+
 example
 ```
 {
@@ -472,7 +476,7 @@ POST
 
 route
 ```
-/knowledge_graph_overlay?reasoner=
+/knowledge_graph_overlay?reasoner=&verbose=
 ```
 
 input parameters:
@@ -495,7 +499,6 @@ input parameters:
    }
 }
 ```
-if `reasoner` is specified, then it returns a Reason API response.
 
 ### knowledge graph one hop
 method
@@ -505,7 +508,7 @@ POST
 
 route
 ```
-/query?reasoner=
+/query?reasoner=&verbose=
 ```
 
 if `reasoner` is specified, then it returns a Reason API response.

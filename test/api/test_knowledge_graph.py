@@ -128,7 +128,7 @@ def test_knowledge_graph_one_hop(query_options):
     )
     resp_json = resp.json()
     assert "return value" in resp_json
-    assert len(resp_json["return value"]["message"]["results"]) == 1
+    assert len(resp_json["return value"]["message"]["results"]) == 2
 
     assert "knowledge_graph" in resp_json["return value"]["message"]
     assert "nodes" in resp_json["return value"]["message"]["knowledge_graph"]

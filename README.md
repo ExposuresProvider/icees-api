@@ -623,25 +623,24 @@ curl -X POST -k "http://localhost:5000/knowledge_graph" -H  "accept: application
             }, 
             "maximum_p_value":1
         }, 
-        "machine_question": {
-            "nodes": [
-                {
-                    "id": "n00",
-                    "type": "population_of_individual_organisms"
+        "message": {
+            "query_graph": {
+                "nodes": {
+                    "n00": {
+                        "category": "biolink:PopulationOfIndividualOrganisms"
+                    },
+                    "n01": {
+                        "category": "biolink:ChemicalSubstance"
+                    }
                 },
-                {
-                    "id": "n01",
-                    "type": "chemical_substance"
-                }   
-            ], 
-            "edges": [
-                {
-                    "id": "e00",
-                    "type": "association",
-                    "source_id": "n00",
-                    "target_id": "n01"
-                } 
-            ]
+                "edges": {
+                    "e00": {
+                        "predicate": "biolink:correlated_with",
+                        "subject": "n00",
+                        "object": "n01"
+                    }
+                }
+            }
         }
 }
 '

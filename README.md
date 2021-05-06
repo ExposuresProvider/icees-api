@@ -489,8 +489,8 @@ input parameters:
 
 ```
 {
+   "query_options": <query_options>,
    "message": {
-      "query_options": <query_options>,
       "knowledge_graph": <knowledge_graph>
    }
 }
@@ -514,7 +514,9 @@ input parameters:
 ```
 {
    "query_options": <query_options>,
-   "query_graph": <query_graph>
+   "message": {
+      "query_graph": <query_graph>
+   }
 }
 ```
 

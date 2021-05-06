@@ -124,6 +124,7 @@ def test_knowledge_graph_one_hop(query_options):
     resp = testclient.post(
         "/knowledge_graph_one_hop",
         json=query,
+        params={"reasoner": False},
     )
     resp_json = resp.json()
     assert "return value" in resp_json

@@ -505,7 +505,7 @@ POST
 
 route
 ```
-/knowledge_graph_one_hop?reasoner=
+/query?reasoner=
 ```
 
 if `reasoner` is specified, then it returns a Reason API response.

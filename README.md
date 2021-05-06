@@ -442,25 +442,24 @@ example
             }, 
             "maximum_p_value":1
         }, 
-        "machine_question": {
-            "nodes": [
-                {
-                    "id": "n00",
-                    "type": "population_of_individual_organisms"
-                },
-                {
-                    "id": "n01",
-                    "type": "chemical_substance"
-                }   
-            ], 
-            "edges": [
-                {
-                    "id": "e00",
-                    "type": "association",
-                    "source_id": "n00",
-                    "target_id": "n01"
-                } 
-            ]
+        "message": {
+          "query_graph": {
+            "nodes": {
+              "n00": {
+                "category": "biolink:PopulationOfIndividualOrganisms"
+              },
+              "n01": {
+                "category": "biolink:ChemicalSubstance"
+              }
+            },
+            "edges": {
+              "e00": {
+                "predicate": "biolink:correlated_with",
+                "subject": "n00",
+                "object": "n01"
+              }
+            }
+          }
         }
 }
 ```

@@ -8,12 +8,10 @@ tabulate
 structlog
 pandas==0.25.3
 argparse
-inflection
 simplejson
 tx-functional==0.1.2
 numpy
 statsmodels==0.12.0
 fastapi
 uvicorn
-git+https://github.com/ranking-agent/reasoner-pydantic@v1.0.0#egg=reasoner-pydantic
-git+https://github.com/TranslatorSRI/reasoner-converter@1.2.2#egg=reasoner-converter
+git+https://github.com/ranking-agent/reasoner-pydantic@trapi-v1.1#egg=reasoner-pydantic

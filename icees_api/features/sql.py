@@ -11,6 +11,8 @@ import os
 import time
 from typing import Callable, List
 
+from cachetools import cached
+from cachetools.keys import hashkey
 from fastapi import HTTPException
 import numpy as np
 from scipy.stats import chi2_contingency
@@ -467,6 +469,34 @@ def get_count(results, **constraints):
     return count
 
 
+@cached(cache={}, key=lambda db, *args: hashkey(*args))
+def count_unique(conn, table_name, *columns):
+    """Count each unique combination of column values.
+
+    For example, for columns = ["a", "b"] and data
+    a  b  c  d
+    ----------
+    1  1  1  0
+    1  1  2  0
+    1  1  3  0
+    1  2  4  0
+    1  2  5  0
+    2  2  6  0
+    result = [
+        # a, b, count
+        [1, 1, 3],
+        [1, 2, 2],
+        [2, 2, 1]
+    ]
+    """
+    return conn.execute(
+        "SELECT {cols}, count(*) FROM {table_name} GROUP BY {cols}".format(
+            cols=", ".join(f"\"{col}\"" for col in columns),
+            table_name=table_name,
+        )
+    ).fetchall()
+
+
 def select_feature_matrix(
         conn,
         table_name,
@@ -528,9 +558,7 @@ def select_feature_matrix(
     yb = feature_b_norm["year"]
 
     start_time = time.time()
-    result = conn.execute(
-        f"SELECT \"{ka}\", \"{kb}\", count(*) FROM {table_name} GROUP BY \"{ka}\", \"{kb}\""
-    ).fetchall()
+    result = count_unique(conn, table_name, ka, kb)
     result = [
         {
             ka: el[0],

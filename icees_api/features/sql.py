@@ -706,7 +706,7 @@ def select_feature_count(
 
 def get_feature_levels(feature):
     """Get feature levels."""
-    return value_sets[feature]
+    return value_sets.get(feature, [])
 
 
 def select_feature_association(

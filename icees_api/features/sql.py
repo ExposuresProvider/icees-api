@@ -1,6 +1,7 @@
 """SQL access functions."""
 from collections import defaultdict
 from datetime import datetime, timezone
+from functools import wraps
 from hashlib import md5
 from itertools import product, chain
 import json
@@ -11,10 +12,9 @@ import os
 import time
 from typing import Callable, List
 
-from cachetools import cached
-from cachetools.keys import hashkey
 from fastapi import HTTPException
 import numpy as np
+import redis
 from scipy.stats import chi2_contingency
 from sqlalchemy import and_, between, case, column, table
 from sqlalchemy.engine import Connection
@@ -469,7 +469,28 @@ def get_count(results, **constraints):
     return count
 
 
-@cached(cache={}, key=lambda db, *args: hashkey(*args))
+REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
+r = redis.Redis(host=REDIS_HOST)
+
+
+def cached(key=lambda *args: hash(tuple(args))):
+    """Generate a decorator to cache results."""
+    def decorator(func):
+        """Decorate a function to cache results."""
+        @wraps(func)
+        def wrapper(*args):
+            key_ = key(*args)
+            cached_result = r.get(key_)
+            if cached_result is not None:
+                return json.loads(cached_result)
+            result = func(*args)
+            r.set(key_, json.dumps(result))
+            return result
+        return wrapper
+    return decorator
+
+
+@cached()
 def count_unique(conn, table_name, *columns):
     """Count each unique combination of column values.
 
@@ -489,12 +510,12 @@ def count_unique(conn, table_name, *columns):
         [2, 2, 1]
     ]
     """
-    return conn.execute(
+    return [list(row) for row in conn.execute(
         "SELECT {cols}, count(*) FROM {table_name} GROUP BY {cols}".format(
             cols=", ".join(f"\"{col}\"" for col in columns),
             table_name=table_name,
         )
-    ).fetchall()
+    ).fetchall()]
 
 
 def select_feature_matrix(

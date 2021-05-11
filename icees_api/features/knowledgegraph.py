@@ -491,6 +491,14 @@ def add_node(nodes, node):
         node_curr["name"] += f",{node['name']}"
 
 
+def type_is_supported(feature: str, supported_types: List[str]) -> bool:
+    """Determine whether feature type is supported."""
+    return (
+        feature in mappings
+        and mappings[feature]["categories"][0] in supported_types
+    )
+
+
 def one_hop(conn, query, verbose=False):
     try:
         message = query["message"]
@@ -541,7 +549,7 @@ def one_hop(conn, query, verbose=False):
                 cohort_id,
                 feature,
                 maximum_p_value,
-                feature_set=lambda x: mappings.get(x)["categories"][0] in supported_types,
+                feature_set=lambda x: type_is_supported(x, supported_types),
             )
             for feature in ataf:
                 feature_name = feature["feature_b"]["feature_name"]

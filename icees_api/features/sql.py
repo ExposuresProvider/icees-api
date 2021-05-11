@@ -6,6 +6,7 @@ from itertools import product, chain
 import json
 import logging
 import re
+import operator
 import os
 import time
 from typing import Callable, List
@@ -440,6 +441,32 @@ def normalize_feature(year, feature):
     return feature
 
 
+OP_MAP = {
+    "=": operator.eq,
+    "<>": operator.ne,
+    "<": operator.lt,
+    ">": operator.gt,
+    "<=": operator.le,
+    ">=": operator.ge,
+    "in": lambda x, y: x in y,
+}
+
+
+def get_count(results, **constraints):
+    """Get sum of result counts that meet constraints."""
+    count = 0
+    for result in results:
+        if all(
+            OP_MAP[constraint["operator"]](
+                result.get(feature, None),
+                constraint.get("value", constraint.get("values")),
+            )
+            for feature, constraint in constraints.items()
+        ):
+            count += result["count"]
+    return count
+
+
 def select_feature_matrix(
         conn,
         table_name,
@@ -501,52 +528,38 @@ def select_feature_matrix(
     yb = feature_b_norm["year"]
 
     start_time = time.time()
-    table_, table_matrices = generate_tables_from_features(
-        table_name,
-        cohort_features_norm,
-        cohort_year,
-        [(ka, ya), (kb, yb)],
-    )
-    print(f"{time.time() - start_time} seconds spent generating tables")
-
-    start_time = time.time()
-    selections = [
-        case_select2(
-            table_matrices[yb],
-            table_matrices[ya],
-            kb,
-            vb,
-            ka,
-            va,
-            table_name=table_name,
-        )
-        for vb, va in product(vbs, vas)
-    ] + [
-        case_select(table_matrices[ya], ka, va, table_name=table_name)
-        for va in vas
-    ] + [
-        case_select(table_matrices[yb], kb, vb, table_name=table_name)
-        for vb in vbs
-    ] + [
-        func.count()
+    result = conn.execute(
+        f"SELECT \"{ka}\", \"{kb}\", count(*) FROM {table_name} GROUP BY \"{ka}\", \"{kb}\""
+    ).fetchall()
+    result = [
+        {
+            ka: el[0],
+            kb: el[1],
+            "count": el[2],
+        }
+        for el in result
     ]
-    print(f"{time.time() - start_time} seconds spent building selections")
+    print(f"{time.time() - start_time} seconds spent doing it the fast way")
 
-    start_time = time.time()
-    result = selection(conn, table_, selections)
-    print(f"{time.time() - start_time} seconds spent executing all selections")
-    print(result)
+    feature_matrix = [
+        [
+            get_count(result, **{
+                ka: va,
+                kb: vb,
+            })
+            for va in vas
+        ]
+        for vb in vbs
+    ]
 
-    nvas = len(vas)
-    nvbs = len(vbs)
-    mat_size = nvas * nvbs
+    total_cols = [
+        get_count(result, **{ka: va}) for va in vas
+    ]
+    total_rows = [
+        get_count(result, **{kb: vb}) for vb in vbs
+    ]
 
-    feature_matrix = np.reshape(result[:mat_size], (nvbs, nvas)).tolist()
-
-    total_cols = result[mat_size : mat_size + nvas]
-    total_rows = result[mat_size + nvas : mat_size + nvas + nvbs]
-
-    total = result[mat_size + nvas + nvbs]
+    total = get_count(result)
 
     observed = list(map(
         lambda x: list(map(add_eps, x)),

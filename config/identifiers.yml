@@ -12725,6 +12725,11 @@ patient:
   - LOINC:44762-3
   - LOINC:44773-0
   - LOINC:44775-5
+  - ICD10:T86.%
+  - ICD10:Y83.%
+  - ICD10:Z48.%
+  - ICD10:Z76.%
+  - ICD10:Z94.%
   Malignancy:
   - OMIM:MTHU057544
   - UMLS:C0455471

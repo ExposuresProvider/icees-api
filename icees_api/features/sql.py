@@ -490,7 +490,7 @@ def cached(key=lambda *args: hash(tuple(args))):
     return decorator
 
 
-@cached(key=lambda db, *args: hash(tuple(args)))
+@cached(key=lambda db, *args: json.dumps(args))
 def count_unique(conn, table_name, *columns):
     """Count each unique combination of column values.
 

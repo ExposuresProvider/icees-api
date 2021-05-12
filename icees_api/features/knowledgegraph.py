@@ -109,7 +109,7 @@ def result(
 ):
     node_ids = name_to_ids(table, filter_regex, node_name)
     if len(node_ids) == 0:
-        return Nothing
+        raise ValueError(f"No identifiers for {node_name}")
     node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
     return {
@@ -130,7 +130,7 @@ def result(
 def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
     node_ids = name_to_ids(table, filter_regex, node_name)
     if len(node_ids) == 0:
-        return Nothing
+        raise ValueError(f"No identifiers for {node_name}")
     node_id, equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
     return node_id, {
@@ -568,7 +568,10 @@ def one_hop(conn, query, verbose=False):
             return [feature["p_value"] for feature in feature_list]
 
         for feature_name, (biolink_class, feature_list) in feature_set.items():
-            node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
+            try:
+                node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
+            except ValueError:
+                continue
             knowledge_graph_nodes[node_id] = node
 
             _edge_id, edge = knowledge_graph_edge(source_curies, feature_name, table, filter_regex, feature_list)

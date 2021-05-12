@@ -3,8 +3,24 @@ contact:
   name: Patrick Wang
   x-id: 'https://github.com/patrickkwang'
   x-role: responsible developer
-termsOfService: 'N/A'
+termsOfService: see API responses
 x-translator:
   component: KP
   team:
   - Exposures Provider
+  biolink-version: '1.8.2'
+  externalDocs:
+    description: >-
+      The values for component and team are restricted according to this
+      external JSON schema. See schema and examples at url
+    url: https://github.com/NCATSTranslator/translator_extensions/blob/\
+      production/x-translator/
+x-trapi:
+  version: 1.1.0
+  externalDocs:
+    description: >-
+      The values for version are restricted according to the regex in
+      this external JSON schema. See schema and examples at url
+    url: https://github.com/NCATSTranslator/translator_extensions/blob/\
+      production/x-trapi/
+

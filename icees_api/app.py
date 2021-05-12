@@ -81,7 +81,7 @@ def custom_openapi():
                 "name": "translator",
             },
             {
-                "name": "reasoner",
+                "name": "trapi",
             }
         ],
     )

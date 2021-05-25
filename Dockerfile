@@ -10,7 +10,6 @@ RUN pip install -r requirements.txt
 COPY ./icees_api icees_api
 COPY ./main.sh main.sh
 COPY ./examples examples
-COPY ./openapi-info.yml openapi-info.yml
 
 # run API
 CMD ["./main.sh"]

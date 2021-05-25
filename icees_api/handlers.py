@@ -489,13 +489,14 @@ def predicates(
             category: {"id_prefixes": prefixes}
             for category, prefixes in id_prefixes.items()
         },
-        "edges": {
-            sub: {
-                obj: ["biolink:correlated_with"]
-                for obj in categories
+        "edges": [
+            {
+                "subject": sub,
+                "object": obj,
+                "predicate": "biolink:correlated_with",
             }
-            for sub in categories
-        },
+            for sub in categories for obj in categories
+        ],
     }
 
 

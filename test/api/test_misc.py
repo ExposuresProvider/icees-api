@@ -205,3 +205,9 @@ def test_cohort_dictionary_explicit_tabular():
     )
 
     assert resp.status_code == 200
+
+
+def test_meta_knowledge_graph():
+    response = testclient.get("/meta_knowledge_graph")
+
+    assert response.status_code == 200

@@ -211,3 +211,9 @@ def test_meta_knowledge_graph():
     response = testclient.get("/meta_knowledge_graph")
 
     assert response.status_code == 200
+
+
+def test_openapi():
+    response = testclient.get("/openapi.json")
+
+    assert response.status_code == 200

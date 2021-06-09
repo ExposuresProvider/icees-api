@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.com/NCATS-Tangerine/icees-api.svg?branch=master)](https://travis-ci.com/NCATS-Tangerine/icees-api)
+
+[![Test status via GitHub Actions](https://github.com/NCATS-Tangerine/icees-api/workflows/test/badge.svg)](https://github.com/NCATS-Tangerine/icees-api/actions/workflows/testing.yml)
 
 # How to run
 

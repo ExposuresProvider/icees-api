@@ -23,7 +23,8 @@ from .features.knowledgegraph import TOOL_VERSION
 
 from .handlers import ROUTER
 
-DESCRIPTION_FILE = Path(__file__).parent / "static" / "api_description.html"
+CONFIG_PATH = os.getenv('CONFIG_PATH', './config')
+DESCRIPTION_FILE = Path(CONFIG_PATH) / "static" / "api_description.html"
 with open(DESCRIPTION_FILE, "r") as stream:
     DESCRIPTION = stream.read()
 
@@ -94,7 +95,7 @@ def custom_openapi():
 
 APP.openapi = custom_openapi
 
-with open(Path(__file__).parent / "static" / "terms.txt", 'r') as content_file:
+with open(Path(CONFIG_PATH) / "static" / "terms.txt", 'r') as content_file:
     TERMS_AND_CONDITIONS = content_file.read()
 
 LOGGER = logging.getLogger()

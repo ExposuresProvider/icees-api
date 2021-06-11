@@ -571,8 +571,8 @@ def knowledge_graph_one_hop(
     return_value = {
         "message": {
             "query_graph": return_value.pop("query_graph"),
-            "knowledge_graph": return_value.pop("knowledge_graph"),
-            "results": return_value.pop("results"),
+            "knowledge_graph": return_value.pop("knowledge_graph", None),
+            "results": return_value.pop("results", None),
         },
         **return_value,
     }

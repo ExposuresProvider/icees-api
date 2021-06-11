@@ -139,7 +139,120 @@ def test_knowledge_graph_one_hop(query_options):
     assert "datetime" in resp_json["return value"]
 
 
+@pytest.mark.parametrize("query_options", kg_options)
+@load_data(APP, """
+    PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure
+    varchar(255),int,varchar(255),varchar(255),int
+    1,2010,0-2,0,1
+    2,2010,0-2,1,1
+    3,2010,0-2,>1,1
+    4,2010,0-2,0,2
+    5,2010,0-2,1,2
+    6,2010,0-2,>1,2
+    7,2010,0-2,0,3
+    8,2010,0-2,1,3
+    9,2010,0-2,>1,3
+    10,2010,0-2,0,4
+    11,2010,0-2,1,4
+    12,2010,0-2,>1,4
+""")
+def test_knowledge_graph_one_hop_valid_trapi_1_1_response(query_options):
+    """Test one-hop return valid TRAPI 1.1 response."""
+    source_id = "PUBCHEM:2083"
+    query = {
+        "query_options": query_options,
+        "message": {
+            "query_graph": {
+                "nodes": {
+                    "n00": {
+                        "id": source_id
+                    },
+                    "n01": {
+                        "category": "biolink:ChemicalSubstance"
+                    }
+                },
+                "edges": {
+                    "e00": {
+                        "predicate": "biolink:correlated_with",
+                        "subject": "n00",
+                        "object": "n01"
+                    }
+                }
+            }
+        }
+    }
+    resp = testclient.post(
+        "/knowledge_graph_one_hop",
+        json=query
+    )
+    resp_json = resp.json()
+    assert "message" in resp_json
+    assert "results" in resp_json["message"]
+    assert len(resp_json["message"]["results"]) == 2
 
+    assert "knowledge_graph" in resp_json["message"]
+    assert "nodes" in resp_json["message"]["knowledge_graph"]
+    assert "PUBCHEM:2083" in resp_json["message"]["knowledge_graph"]["nodes"]
+
+    assert "message_code" in resp_json
+    assert "tool_version" in resp_json
+    assert "datetime" in resp_json
+
+
+@pytest.mark.parametrize("query_options", kg_options)
+@load_data(APP, """
+    PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure
+    varchar(255),int,varchar(255),varchar(255),int
+    1,2010,0-2,0,1
+    2,2010,0-2,1,1
+    3,2010,0-2,>1,1
+    4,2010,0-2,0,2
+    5,2010,0-2,1,2
+    6,2010,0-2,>1,2
+    7,2010,0-2,0,3
+    8,2010,0-2,1,3
+    9,2010,0-2,>1,3
+    10,2010,0-2,0,4
+    11,2010,0-2,1,4
+    12,2010,0-2,>1,4
+""")
+def test_knowledge_graph_one_hop_valid_trapi_1_1_response_on_error(query_options):
+    """Test one-hop return valid TRAPI 1.1 response on error ."""
+    source_id = "PUBCHEM:2083"
+    query = {
+        "query_options": query_options,
+        "message": {
+            "query_graph": {
+                "nodes": {
+                    "n00": {
+                        "id": source_id
+                    },
+                    "n01": {
+                        "category": "biolink:ChemicalSubstance"
+                    },
+                    "n02": {
+                        "category": "biolink:ChemicalSubstance"
+                    }
+                },
+                "edges": {
+                    "e00": {
+                        "predicate": "biolink:correlated_with",
+                        "subject": "n00",
+                        "object": "n01"
+                    }
+                }
+            }
+        }
+    }
+    resp = testclient.post(
+        "/knowledge_graph_one_hop",
+        json=query
+    )
+    resp_json = resp.json()
+    assert "message" in resp_json
+    assert "query_graph" in resp_json["message"]
+
+    
 @load_data(APP, """
     PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure
     varchar(255),int,varchar(255),varchar(255),int

@@ -64,6 +64,69 @@ def name_to_ids(table, filter_regex, node_name):
     )))
 
 
+def gen_edge_id_trapi_1_1(source_id, node_name, node_id):
+    return source_id + "_" + node_name + "_" + node_id
+
+
+def result_trapi_1_1(
+        source_id,
+        source_curies,
+        edge_id,
+        node_name,
+        target_id,
+        table,
+        filter_regex,
+        score,
+        score_name,
+):
+    node_ids = name_to_ids(table, filter_regex, node_name)
+
+    return {
+        "node_bindings": {
+            source_id: [{"id": source_curie} for source_curie in source_curies],
+            target_id: [{"id": node_id} for node_id in node_ids],
+        },
+        "edge_bindings": {
+            edge_id: [{
+                "id": gen_edge_id(source_curies, node_name, node_id),
+            } for node_id in node_ids]
+        },
+        "score": score,
+        "score_name": score_name
+    }
+
+
+def knowledge_graph_node_trapi_1_1(node_name, table, filter_regex, biolink_classes):
+    node_ids = name_to_ids(table, filter_regex, node_name)
+    if len(node_ids) == 0:
+        raise ValueError(f"No identifiers for {node_name}")
+
+    return [(node_id, {
+        "name": node_name,
+        "categories": biolink_classes
+    }) for node_id in node_ids]
+
+
+def knowledge_graph_edge_trapi_1_1(
+        source_ids: List[str],
+        node_name,
+        table,
+        filter_regex,
+        feature_property,
+):
+    node_ids = name_to_ids(table, filter_regex, node_name)
+
+    return [(gen_edge_id_trapi_1_1(source_id, node_name, node_id), {
+        "predicate": "biolink:correlated_with",
+        "subject": source_id,
+        "object": node_id,
+        "attributes": [{
+            "attribute_type_id": "contigency:matrices",
+            "value": feature_property
+        }]
+    }) for source_id in source_ids for node_id in node_ids]
+
+
 def gen_edge_id(cohort_ids, node_name, node_id):
     return cohort_ids[0] + "_" + node_name + "_" + node_id
 
@@ -150,6 +213,7 @@ def knowledge_graph_edge(
     node_ids = name_to_ids(table, filter_regex, node_name)
     if len(node_ids) == 0:
         return Nothing
+
     node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
     return gen_edge_id(source_ids, node_name, node_id), {
@@ -161,126 +225,138 @@ def knowledge_graph_edge(
 
 
 def get(conn, query, verbose=False):
-    message = query.get("message", query)
-    query_options = query.get("query_options", {})
-    cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
-    maximum_p_value = query["query_options"].get("maximum_p_value", MAX_P_VAL_DEFAULT)
-    filter_regex = query["query_options"].get("regex", ".*")
-    feature = to_qualifiers(query["query_options"]["feature"])
+    try:
+        message = query.get("message", query)
+        query_options = query.get("query_options", {})
+        cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
+        maximum_p_value = query["query_options"].get("maximum_p_value", MAX_P_VAL_DEFAULT)
+        filter_regex = query["query_options"].get("regex", ".*")
+        feature = to_qualifiers(query["query_options"]["feature"])
 
-    query_graph = message.get("query_graph", message.get("machine_question"))
+        query_graph = message.get("query_graph", message.get("machine_question"))
 
-    nodes_dict = query_graph["nodes"]
-    edges_dict = query_graph["edges"]
+        nodes_dict = query_graph["nodes"]
+        edges_dict = query_graph["edges"]
 
-    if len(nodes_dict) != 2:
-        raise NotImplementedError("Number of nodes in query graph must be 2")
+        if len(nodes_dict) != 2:
+            raise NotImplementedError("Number of nodes in query graph must be 2")
 
-    if len(edges_dict) != 1:
-        raise NotImplementedError("Number of edges in query graph must be 1")
+        if len(edges_dict) != 1:
+            raise NotImplementedError("Number of edges in query graph must be 1")
 
-    # nodes_dict = {node_get_id(node): node for node in nodes}
-    edge_id, edge = next(iter(edges_dict.items()))
+        # nodes_dict = {node_get_id(node): node for node in nodes}
+        edge_id, edge = next(iter(edges_dict.items()))
 
-    source_id = edge["subject"]
-    source_node = nodes_dict[source_id]
-    source_node_types = source_node["categories"]
-    source_node_type = source_node_types[0]
-    source_curie = cohort_id
+        source_id = edge["subject"]
+        source_node = nodes_dict[source_id]
+        source_node_types = source_node["categories"]
+        source_node_type = source_node_types[0]
+        source_curie = cohort_id
 
-    if source_node_type not in schema:
-        raise NotImplementedError("Sounce node must be one of " + str(schema.keys()))
+        if source_node_type not in schema:
+            raise NotImplementedError("Sounce node must be one of " + str(schema.keys()))
 
-    target_id = edge["object"]
-    target_node_types = nodes_dict[target_id]["categories"]
-    target_node_type = target_node_types[0]
-    supported_node_types = schema[source_node_type]
-    if target_node_type not in supported_node_types:
-        raise NotImplementedError("Target node must be one of " + str(supported_node_types.keys()))
+        target_id = edge["object"]
+        target_node_types = nodes_dict[target_id]["categories"]
+        target_node_type = target_node_types[0]
+        supported_node_types = schema[source_node_type]
+        if target_node_type not in supported_node_types:
+            raise NotImplementedError("Target node must be one of " + str(supported_node_types.keys()))
 
-    supported_edge_types = supported_node_types[target_node_type]
-    # edge_id = edge_get_id(edge)
-    edge_types = edge["predicates"]
-    edge_type = edge_types[0]
-    if edge_type not in supported_edge_types:
-        raise NotImplementedError("Edge must be one of " + str(supported_edge_types))
+        supported_edge_types = supported_node_types[target_node_type]
+        # edge_id = edge_get_id(edge)
+        edge_types = edge["predicates"]
+        edge_type = edge_types[0]
+        if edge_type not in supported_edge_types:
+            raise NotImplementedError("Edge must be one of " + str(supported_edge_types))
 
-    cohort_id, size = get_ids_by_feature(conn, table, year, cohort_features)
+        cohort_id, size = get_ids_by_feature(conn, table, year, cohort_features)
 
-    supported_types = closure_subtype(target_node_type)
+        supported_types = closure_subtype(target_node_type)
 
-    feature_list = select_associations_to_all_features(
-        conn,
-        table,
-        year,
-        cohort_id,
-        feature,
-        maximum_p_value,
-        lambda x: mappings.get(x)["categories"][0] in supported_types,
-    )
-
-    nodes = {}
-    knowledge_graph_edges = {}
-    results = []
-    for feature in feature_list:
-        feature_b = feature["feature_b"]
-        feature_name = feature_b["feature_name"]
-        biolink_class = feature_b["biolink_class"]
-        p_value = feature["p_value"]
-
-        node_id, node = knowledge_graph_node(
-            feature_name,
+        feature_list = select_associations_to_all_features(
+            conn,
             table,
-            filter_regex,
-            biolink_class,
-        )
-        nodes[node_id] = node
-
-        edge_id_, edge = knowledge_graph_edge(
-            [source_curie],
-            feature_name,
-            table,
-            filter_regex,
+            year,
+            cohort_id,
             feature,
+            maximum_p_value,
+            lambda x: mappings.get(x)["categories"][0] in supported_types,
         )
-        knowledge_graph_edges[edge_id_] = edge
 
-        result_ = result(
-            source_id,
-            [cohort_id],
-            edge_id,
-            feature_name,
-            target_id,
-            table,
-            filter_regex,
-            p_value,
-            "p value",
-        )
-        results.append(result_)
+        nodes = {}
+        knowledge_graph_edges = {}
+        results = []
+        for feature in feature_list:
+            feature_b = feature["feature_b"]
+            feature_name = feature_b["feature_name"]
+            biolink_class = feature_b["biolink_class"]
+            p_value = feature["p_value"]
 
-    nodes[cohort_id] = {
-        "name": "cohort",
-        "categories": ["biolink:PopulationOfIndividualOrganisms"]
-    }
+            node_id, node = knowledge_graph_node(
+                feature_name,
+                table,
+                filter_regex,
+                biolink_class,
+            )
+            nodes[node_id] = node
 
-    knowledge_graph = {
-        "nodes": nodes,
-        "edges": knowledge_graph_edges
-    }
+            edge_id_, edge = knowledge_graph_edge(
+                [source_curie],
+                feature_name,
+                table,
+                filter_regex,
+                feature,
+            )
+            knowledge_graph_edges[edge_id_] = edge
 
-    n_results = len(results)
+            result_ = result(
+                source_id,
+                [cohort_id],
+                edge_id,
+                feature_name,
+                target_id,
+                table,
+                filter_regex,
+                p_value,
+                "p value",
+            )
+            results.append(result_)
 
-    message = {
-        "reasoner_id": "ICEES",
-        "tool_version": TOOL_VERSION,
-        "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-        "n_results": n_results,
-        "message_code": "OK",
-        "code_description": "",
-        "query_graph": query_graph,
-        "knowledge_graph": knowledge_graph,
-        "results": results
-    }
+        nodes[cohort_id] = {
+            "name": "cohort",
+            "categories": ["biolink:PopulationOfIndividualOrganisms"]
+        }
+
+        knowledge_graph = {
+            "nodes": nodes,
+            "edges": knowledge_graph_edges
+        }
+
+        n_results = len(results)
+
+        message = {
+            "reasoner_id": "ICEES",
+            "tool_version": TOOL_VERSION,
+            "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
+            "n_results": n_results,
+            "message_code": "OK",
+            "code_description": "",
+            "query_graph": query_graph,
+            "knowledge_graph": knowledge_graph,
+            "results": results
+        }
+
+    except Exception as e:
+        traceback.print_exc()
+        message = {
+            "reasoner_id": "ICEES",
+            "tool_version": TOOL_VERSION,
+            "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
+            "message_code": "Error",
+            "code_description": traceback.format_exc(),
+            "query_graph": query_graph            
+        }
 
     return message
 
@@ -524,21 +600,21 @@ def one_hop(conn, query, verbose=False):
         source_node_type = source_node.get("categories")
         source_curies = source_node["ids"]
 
-        source_node_feature_names = [
+        source_node_feature_names = {
             feature_name
             for source_curie in source_curies
             for feature_name in feature_names(table, source_curie)
-        ]
+        }
 
         target_id = edge["object"]
         target_node_types = nodes_dict[target_id]["categories"]
 
         feature_set = {}
-        supported_types = list(set(
+        supported_types = list({
             subtype
             for target_node_type in target_node_types
             for subtype in closure_subtype(target_node_type)
-        ))
+        })
 
         for source_node_feature_name in source_node_feature_names:
             feature = query_feature(conn, table, source_node_feature_name)
@@ -569,16 +645,23 @@ def one_hop(conn, query, verbose=False):
 
         for feature_name, (biolink_class, feature_list) in feature_set.items():
             try:
-                node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
+                nodes = knowledge_graph_node_trapi_1_1(feature_name, table, filter_regex, [biolink_class])
             except ValueError:
                 continue
-            knowledge_graph_nodes[node_id] = node
 
-            _edge_id, edge = knowledge_graph_edge(source_curies, feature_name, table, filter_regex, feature_list)
-            knowledge_graph_edges[_edge_id] = edge
+            for node_id, node in nodes:
+                if node_id in knowledge_graph_nodes:
+                    knowledge_graph_nodes[node_id]["name"] += "_" + node["name"]
+                    knowledge_graph_nodes[node_id]["categories"] = list(set(knowledge_graph_nodes[node_id]["categories"]) | set(node["categories"]))
+                else:
+                    knowledge_graph_nodes[node_id] = node
+
+                edges = knowledge_graph_edge_trapi_1_1(source_curies, feature_name, table, filter_regex, feature_list)
+                for _edge_id, edge in edges:
+                    knowledge_graph_edges[_edge_id] = edge
     
-            item = result(source_id, source_curies, edge_id, feature_name, target_id, table, filter_regex, p_values(feature_list), "p value")
-            results.append(item)
+                item = result_trapi_1_1(source_id, source_curies, edge_id, feature_name, target_id, table, filter_regex, p_values(feature_list), "p value")
+                results.append(item)
             
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,

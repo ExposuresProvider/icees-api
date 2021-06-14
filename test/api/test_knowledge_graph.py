@@ -2,6 +2,8 @@
 from fastapi.testclient import TestClient
 import pytest
 
+from reasoner_validator import validate
+
 from icees_api.app import APP
 
 from ..util import load_data, query, do_verify_response
@@ -44,6 +46,14 @@ kg_options = [
     None,
 ]
 
+TRAPI_VERSION="1.1.0"
+def validate_response(resp, trapi_version=None):
+    resp_json = resp.json()
+
+    if trapi_version is not None:
+        validate(resp_json, "Response", trapi_version=trapi_version)
+    return resp_json
+    
 
 @pytest.mark.parametrize("query_options", kg_options)
 @load_data(APP, """
@@ -71,11 +81,11 @@ def test_knowledge_graph_overlay(query_options):
             }
         }
     }
-    resp = testclient.post(
+    resp_json = validate_response(testclient.post(
         "/knowledge_graph_overlay",
         json=query,
-    )
-    resp_json = resp.json()
+    ))
+
     do_verify_response(resp_json, results=False)
 
 
@@ -121,12 +131,11 @@ def test_knowledge_graph_one_hop(query_options):
             }
         }
     }
-    resp = testclient.post(
+    resp_json = validate_response(testclient.post(
         "/knowledge_graph_one_hop",
         json=query,
         params={"reasoner": False},
-    )
-    resp_json = resp.json()
+    ))
     assert "return value" in resp_json
     assert len(resp_json["return value"]["message"]["results"]) == 2
 
@@ -181,11 +190,10 @@ def test_knowledge_graph_one_hop_valid_trapi_1_1_response(query_options):
             }
         }
     }
-    resp = testclient.post(
+    resp_json = validate_response(testclient.post(
         "/knowledge_graph_one_hop",
         json=query
-    )
-    resp_json = resp.json()
+    ), trapi_version=TRAPI_VERSION)
     assert "message" in resp_json
     assert "results" in resp_json["message"]
     assert len(resp_json["message"]["results"]) == 2
@@ -244,11 +252,10 @@ def test_knowledge_graph_one_hop_valid_trapi_1_1_response_on_error(query_options
             }
         }
     }
-    resp = testclient.post(
+    resp_json = validate_response(testclient.post(
         "/knowledge_graph_one_hop",
         json=query
-    )
-    resp_json = resp.json()
+    ), trapi_version=TRAPI_VERSION)
     assert "message" in resp_json
     assert "query_graph" in resp_json["message"]
 
@@ -262,10 +269,9 @@ def test_knowledge_graph_one_hop_valid_trapi_1_1_response_on_error(query_options
 """)
 def test_knowledge_graph_schema():
     """Test getting the knowledge graph schema."""
-    resp = testclient.get(
+    resp_json = validate_response(testclient.get(
         "/knowledge_graph/schema",
-    )
-    resp_json = resp.json()
+    ))
     assert "return value" in resp_json
     assert "biolink:PopulationOfIndividualOrganisms" in resp_json["return value"]
     assert "biolink:ChemicalSubstance" in resp_json["return value"]["biolink:PopulationOfIndividualOrganisms"]
@@ -298,11 +304,10 @@ categories = [
 """)
 def test_knowledge_graph(category):
     """Test /knowledge_graph."""
-    resp = testclient.post(
+    resp_json = validate_response(testclient.post(
         "/knowledge_graph",
         json=query(year, category),
-    )
-    resp_json = resp.json()
+    ))
     do_verify_response(resp_json)
 
 
@@ -325,11 +330,10 @@ def test_knowledge_graph(category):
 """)
 def test_knowledge_graph_unique_edge_ids(category):
     """Test that the /knowledge_graph edge bindings are unique."""
-    resp = testclient.post(
+    resp_json = validate_response(testclient.post(
         "/knowledge_graph",
         json=query(year, category),
-    )
-    resp_json = resp.json()
+    ))
     assert "return value" in resp_json
 
     assert len(resp_json["return value"]["message"]["results"]) > 0
@@ -368,11 +372,10 @@ def test_knowledge_graph_unique_edge_ids(category):
 """)
 def test_knowledge_graph_edge_set(category):
     """Test that the /knowledge_graph result bindings match the kedges."""
-    resp = testclient.post(
+    resp_json = validate_response(testclient.post(
         "/knowledge_graph",
         json=query(year, category),
-    )
-    resp_json = resp.json()
+    ))
     assert "return value" in resp_json
 
     assert len(resp_json["return value"]["message"]["results"]) > 0

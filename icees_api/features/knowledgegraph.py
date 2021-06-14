@@ -43,7 +43,7 @@ subtypes = {
     ]
 }
 
-TOOL_VERSION = "4.0.0"
+TOOL_VERSION = "6.0.0"
 
 
 def closure_subtype(node_type):

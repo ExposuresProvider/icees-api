@@ -607,7 +607,7 @@ def one_hop(conn, query, verbose=False):
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "Error",
             "code_description": traceback.format_exc(),
-            "query_graph": query_graph            
+            "query_graph": query_graph,
         }
 
     return message

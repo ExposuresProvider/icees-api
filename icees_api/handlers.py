@@ -1,4 +1,5 @@
 """ICEES API handlers."""
+from collections import defaultdict
 import os
 import json
 from typing import Dict, Union
@@ -10,8 +11,9 @@ from starlette.status import HTTP_403_FORBIDDEN
 
 from .dependencies import get_db
 from .features import knowledgegraph, sql
-from .features.identifiers import get_identifiers
+from .features.identifiers import get_identifiers, input_dict
 from .features.sql import validate_range
+from .features.mappings import mappings
 from .models import (
     Features,
     FeatureAssociation, FeatureAssociation2,
@@ -455,8 +457,8 @@ def knowledge_graph_schema(
 
 
 @ROUTER.get(
-    "/predicates",
-    tags=["reasoner"],
+    "/meta_knowledge_graph",
+    tags=["trapi"],
 )
 def predicates(
         api_key: APIKey = Depends(get_api_key),
@@ -471,12 +473,30 @@ def predicates(
         "biolink:NamedThing",
         "biolink:PhenotypicFeature",
     ]
+    id_prefixes = defaultdict(set)
+    for feature in mappings:
+        categories = mappings[feature]["categories"]
+        identifiers = input_dict["patient"][feature]
+        for category in categories:
+            for identifier in identifiers:
+                id_prefixes[category].add(identifier.split(":")[0])
+    id_prefixes = {
+        key: list(value)
+        for key, value in id_prefixes.items()
+    }
     return {
-        sub: {
-            obj: ["biolink:correlated_with"]
-            for obj in categories
-        }
-        for sub in categories
+        "nodes": {
+            category: {"id_prefixes": prefixes}
+            for category, prefixes in id_prefixes.items()
+        },
+        "edges": [
+            {
+                "subject": sub,
+                "object": obj,
+                "predicate": "biolink:correlated_with",
+            }
+            for sub in categories for obj in categories
+        ],
     }
 
 

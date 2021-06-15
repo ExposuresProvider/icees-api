@@ -12,6 +12,7 @@ from typing import Any
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.openapi.utils import get_openapi
+from fastapi.responses import PlainTextResponse
 from jsonschema import ValidationError
 from starlette.responses import Response, JSONResponse
 from structlog import wrap_logger
@@ -22,6 +23,7 @@ from .features import format_
 from .features.knowledgegraph import TOOL_VERSION
 
 from .handlers import ROUTER
+from .trapi import TRAPI
 
 CONFIG_PATH = os.getenv('CONFIG_PATH', './config')
 DESCRIPTION_FILE = Path(CONFIG_PATH) / "static" / "api_description.html"
@@ -30,6 +32,7 @@ with open(DESCRIPTION_FILE, "r") as stream:
 
 OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8080')
 OPENAPI_SCHEME = os.getenv('OPENAPI_SCHEME', 'http')
+OPENAPI_SERVER_URL = os.getenv("OPENAPI_SERVER_URL")
 
 
 class NaNResponse(JSONResponse):
@@ -48,52 +51,28 @@ class NaNResponse(JSONResponse):
         ).replace(":NaN,", ":null,").encode("utf-8")
 
 
-APP = FastAPI(
+openapi_args = dict(
     title="ICEES API",
     description=DESCRIPTION,
-    version=TOOL_VERSION,
-    servers=[
-        {"url": f"{OPENAPI_SCHEME}://{OPENAPI_HOST}"},
-    ],
     docs_url="/apidocs",
     default_response_class=NaNResponse,
     redoc_url=None,
+    version=TOOL_VERSION,
+    terms_of_service="/tos",
+    translator_component="KP",
+    translator_teams=["Exposures Provider"],
+    contact={
+        "name": "Patrick Wang",
+        "email": "patrick@covar.com",
+        "x-id": "https://github.com/patrickkwang",
+        "x-role": "responsible developer",
+    },
 )
-
-
-def custom_openapi():
-    """Build custom OpenAPI schema."""
-    if APP.openapi_schema:
-        return APP.openapi_schema
-
-    extra_info_file = Path(__file__).parent.parent / "openapi-info.yml"
-
-    with open(extra_info_file) as stream:
-        extra_info = yaml.load(stream, Loader=yaml.SafeLoader)
-
-    openapi_schema = get_openapi(
-        title=APP.title,
-        description=APP.description,
-        version=APP.version,
-        servers=APP.servers,
-        routes=APP.routes,
-        tags=[
-            {
-                "name": "translator",
-            },
-            {
-                "name": "trapi",
-            }
-        ],
-    )
-
-    openapi_schema["info"].update(extra_info)
-
-    APP.openapi_schema = openapi_schema
-    return APP.openapi_schema
-
-
-APP.openapi = custom_openapi
+if OPENAPI_SERVER_URL:
+    openapi_args["servers"] = [
+        {"url": OPENAPI_SERVER_URL}
+    ]
+APP = TRAPI(**openapi_args)
 
 with open(Path(CONFIG_PATH) / "static" / "terms.txt", 'r') as content_file:
     TERMS_AND_CONDITIONS = content_file.read()
@@ -108,6 +87,12 @@ HANDLER = TimedRotatingFileHandler(os.path.join(
 
 LOGGER.addHandler(HANDLER)
 LOGGER = wrap_logger(LOGGER, processors=[JSONRenderer()])
+
+
+@APP.get("/tos", response_class=PlainTextResponse)
+def terms_of_service():
+    """Get terms of service."""
+    return TERMS_AND_CONDITIONS
 
 
 @APP.middleware("http")

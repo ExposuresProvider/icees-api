@@ -46,6 +46,8 @@ The  `.env` file contains environmental variables that control the services. Edi
 
 `ICEES_API_HOST_PORT`: the port where icees api is listening to on the host
 
+`OPENAPI_TITLE`: the title for the OpenAPI schema (default "ICEES API")
+
 `OPENAPI_HOST`: the host where icees api is deployed
 
 `OPENAPI_SCHEME`: the protocol where icees api is deployed

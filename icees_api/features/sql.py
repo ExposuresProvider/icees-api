@@ -510,11 +510,9 @@ def count_unique(conn, table_name, *columns):
         [2, 2, 1]
     ]
     """
+    scolumns = list(map(column, columns))
     return [list(row) for row in conn.execute(
-        "SELECT {cols}, count(*) FROM {table_name} GROUP BY {cols}".format(
-            cols=", ".join(f"\"{col}\"" for col in columns),
-            table_name=table_name,
-        )
+        select(scolumns + [func.count()]).select_from(table(table_name)).group_by(*scolumns)
     ).fetchall()]
 
 

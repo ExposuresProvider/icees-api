@@ -9,7 +9,7 @@ from pathlib import Path
 from time import strftime
 from typing import Any
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.openapi.utils import get_openapi
 from fastapi.responses import PlainTextResponse
@@ -146,6 +146,8 @@ def prepare_output(func):
         except ValidationError as err:
             LOGGER.exception(err)
             return_value = {"return value": err.message}
+        except HTTPException:
+            raise
         except Exception as err:
             LOGGER.exception(err)
             return_value = {"return value": str(err)}

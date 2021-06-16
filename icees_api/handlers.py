@@ -7,6 +7,7 @@ from typing import Dict, Union
 from fastapi import APIRouter, Body, Depends, Security, HTTPException
 from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
 from reasoner_pydantic import Query, Message
+from sqlalchemy.sql.expression import table
 from starlette.status import HTTP_403_FORBIDDEN
 
 from .dependencies import get_db
@@ -26,6 +27,14 @@ from .utils import to_qualifiers, to_qualifiers2
 API_KEY = os.environ.get("API_KEY")
 API_KEY_NAME = os.environ.get("API_KEY_NAME")
 COOKIE_DOMAIN = os.environ.get("COOKIE_DOMAIN")
+TABLES = ("patient", "visit")
+
+
+def validate_table(table_name):
+    """Validate table name."""
+    if table_name not in TABLES:
+        raise HTTPException(400, f"Invalid table '{table_name}'")
+
 
 if API_KEY is None:
     async def get_api_key():
@@ -64,6 +73,7 @@ def discover_cohort(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Cohort discovery."""
+    validate_table(table)
     cohort_id, size = sql.get_ids_by_feature(
         conn,
         table,
@@ -94,6 +104,7 @@ def dictionary(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Get cohort dictionary."""
+    validate_table(table)
     return_value = sql.get_cohort_dictionary(conn, table, None)
     return {"return value": return_value}
 
@@ -107,6 +118,7 @@ def edit_cohort(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Cohort discovery."""
+    validate_table(table)
     cohort_id, size = sql.select_cohort(
         conn,
         table,
@@ -136,6 +148,7 @@ def get_cohort(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Get definition of a cohort."""
+    validate_table(table)
     cohort_features = sql.get_cohort_by_id(
         conn,
         table,
@@ -174,6 +187,7 @@ def feature_association(
     returns a 2 x 2 feature table with a correspondingChi Square statistic and
     P value.
     """
+    validate_table(table)
     feature_a = to_qualifiers(obj["feature_a"])
     feature_b = to_qualifiers(obj["feature_b"])
 
@@ -219,6 +233,7 @@ def feature_association2(
     can be combined, and the service returns a N x N feature table with a
     corresponding Chi Square statistic and P value.
     """
+    validate_table(table)
     feature_a = to_qualifiers2(obj["feature_a"])
     feature_b = to_qualifiers2(obj["feature_b"])
     to_validate_range = obj.get("check_coverage_is_full", False)
@@ -269,6 +284,7 @@ def associations_to_all_features(
     the service returns a 1 x N feature table with corrected Chi Square
     statistics and associated P values.
     """
+    validate_table(table)
     feature = to_qualifiers(obj["feature"])
     maximum_p_value = obj.get("maximum_p_value", 1)
     correction = obj.get("correction")
@@ -309,6 +325,7 @@ def associations_to_all_features2(
     bins, which can be combined, and the service returns a 1 x N feature table
     with corrected Chi Square statistics and associated P values.
     """
+    validate_table(table)
     feature = to_qualifiers2(obj["feature"])
     to_validate_range = obj.get("check_coverage_is_full", False)
     if to_validate_range:
@@ -342,6 +359,7 @@ def features(
     Users select a predefined cohort as the input parameter, and the service
     returns a profile of that cohort in terms of all feature variables.
     """
+    validate_table(table)
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
     if cohort_meta is None:
         return_value = "Input cohort_id invalid. Please try again."
@@ -368,6 +386,7 @@ def identifiers(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Feature identifiers."""
+    validate_table(table)
     return_value = {
         "identifiers": get_identifiers(table, feature)
     }
@@ -385,6 +404,7 @@ def get_name(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Return cohort id associated with name."""
+    validate_table(table)
     return_value = sql.get_id_by_name(conn, table, name)
     return {"return value": return_value}
 
@@ -401,6 +421,7 @@ def post_name(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Associate name with cohort id."""
+    validate_table(table)
     return_value = sql.add_name_by_id(
         conn,
         table,

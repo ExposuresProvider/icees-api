@@ -1,6 +1,9 @@
 """Data models."""
 from typing import Any, Dict, List, Literal, Optional, Union
+
 from pydantic import BaseModel
+
+from .features.mappings import mappings
 
 Comparator = Literal[
     "<",
@@ -9,6 +12,10 @@ Comparator = Literal[
     ">=",
     "=",
     "<>",
+]
+
+FeatureName = Literal[
+    tuple(mappings.keys())
 ]
 
 
@@ -51,11 +58,11 @@ class In(BaseModel):
 
 Qualifier = Union[Comparison, Between, In]
 
-FeaturesImplicit = Dict[str, Qualifier]
+FeaturesImplicit = Dict[FeatureName, Qualifier]
 
 
 class FeatureExplicit(BaseModel):
-    feature_name: str
+    feature_name: FeatureName
     feature_qualifier: Qualifier
     year: Optional[int]
 

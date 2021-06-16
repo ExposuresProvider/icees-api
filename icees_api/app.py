@@ -30,6 +30,7 @@ DESCRIPTION_FILE = Path(CONFIG_PATH) / "static" / "api_description.html"
 with open(DESCRIPTION_FILE, "r") as stream:
     DESCRIPTION = stream.read()
 
+OPENAPI_TITLE = os.getenv('OPENAPI_TITLE', 'ICEES API')
 OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8080')
 OPENAPI_SCHEME = os.getenv('OPENAPI_SCHEME', 'http')
 OPENAPI_SERVER_URL = os.getenv("OPENAPI_SERVER_URL")
@@ -52,7 +53,7 @@ class NaNResponse(JSONResponse):
 
 
 openapi_args = dict(
-    title="ICEES API",
+    title=OPENAPI_TITLE,
     description=DESCRIPTION,
     docs_url="/apidocs",
     default_response_class=NaNResponse,

@@ -711,6 +711,11 @@ def select_feature_count_all_values(
 
     total = sum(values.values())    
 
+    levels = list(levels)
+    for value in values.keys():
+        if value not in levels:
+            levels.append(value)
+
     feature_mappings = mappings.get(feature_name)
     if feature_mappings is None:
         raise ValueError(f"No mappings for {feature_name}")

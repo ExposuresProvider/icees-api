@@ -225,138 +225,126 @@ def knowledge_graph_edge(
 
 
 def get(conn, query, verbose=False):
-    try:
-        message = query.get("message", query)
-        query_options = query.get("query_options", {})
-        cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
-        maximum_p_value = query["query_options"].get("maximum_p_value", MAX_P_VAL_DEFAULT)
-        filter_regex = query["query_options"].get("regex", ".*")
-        feature = to_qualifiers(query["query_options"]["feature"])
+    message = query.get("message", query)
+    query_options = query.get("query_options", {})
+    cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
+    maximum_p_value = query["query_options"].get("maximum_p_value", MAX_P_VAL_DEFAULT)
+    filter_regex = query["query_options"].get("regex", ".*")
+    feature = to_qualifiers(query["query_options"]["feature"])
 
-        query_graph = message.get("query_graph", message.get("machine_question"))
+    query_graph = message.get("query_graph", message.get("machine_question"))
 
-        nodes_dict = query_graph["nodes"]
-        edges_dict = query_graph["edges"]
+    nodes_dict = query_graph["nodes"]
+    edges_dict = query_graph["edges"]
 
-        if len(nodes_dict) != 2:
-            raise NotImplementedError("Number of nodes in query graph must be 2")
+    if len(nodes_dict) != 2:
+        raise NotImplementedError("Number of nodes in query graph must be 2")
 
-        if len(edges_dict) != 1:
-            raise NotImplementedError("Number of edges in query graph must be 1")
+    if len(edges_dict) != 1:
+        raise NotImplementedError("Number of edges in query graph must be 1")
 
-        # nodes_dict = {node_get_id(node): node for node in nodes}
-        edge_id, edge = next(iter(edges_dict.items()))
+    # nodes_dict = {node_get_id(node): node for node in nodes}
+    edge_id, edge = next(iter(edges_dict.items()))
 
-        source_id = edge["subject"]
-        source_node = nodes_dict[source_id]
-        source_node_types = source_node["categories"]
-        source_node_type = source_node_types[0]
-        source_curie = cohort_id
+    source_id = edge["subject"]
+    source_node = nodes_dict[source_id]
+    source_node_types = source_node["categories"]
+    source_node_type = source_node_types[0]
+    source_curie = cohort_id
 
-        if source_node_type not in schema:
-            raise NotImplementedError("Sounce node must be one of " + str(schema.keys()))
+    if source_node_type not in schema:
+        raise NotImplementedError("Sounce node must be one of " + str(schema.keys()))
 
-        target_id = edge["object"]
-        target_node_types = nodes_dict[target_id]["categories"]
-        target_node_type = target_node_types[0]
-        supported_node_types = schema[source_node_type]
-        if target_node_type not in supported_node_types:
-            raise NotImplementedError("Target node must be one of " + str(supported_node_types.keys()))
+    target_id = edge["object"]
+    target_node_types = nodes_dict[target_id]["categories"]
+    target_node_type = target_node_types[0]
+    supported_node_types = schema[source_node_type]
+    if target_node_type not in supported_node_types:
+        raise NotImplementedError("Target node must be one of " + str(supported_node_types.keys()))
 
-        supported_edge_types = supported_node_types[target_node_type]
-        # edge_id = edge_get_id(edge)
-        edge_types = edge["predicates"]
-        edge_type = edge_types[0]
-        if edge_type not in supported_edge_types:
-            raise NotImplementedError("Edge must be one of " + str(supported_edge_types))
+    supported_edge_types = supported_node_types[target_node_type]
+    # edge_id = edge_get_id(edge)
+    edge_types = edge["predicates"]
+    edge_type = edge_types[0]
+    if edge_type not in supported_edge_types:
+        raise NotImplementedError("Edge must be one of " + str(supported_edge_types))
 
-        cohort_id, size = get_ids_by_feature(conn, table, year, cohort_features)
+    cohort_id, size = get_ids_by_feature(conn, table, year, cohort_features)
 
-        supported_types = closure_subtype(target_node_type)
+    supported_types = closure_subtype(target_node_type)
 
-        feature_list = select_associations_to_all_features(
-            conn,
+    feature_list = select_associations_to_all_features(
+        conn,
+        table,
+        year,
+        cohort_id,
+        feature,
+        maximum_p_value,
+        lambda x: mappings.get(x)["categories"][0] in supported_types,
+    )
+
+    nodes = {}
+    knowledge_graph_edges = {}
+    results = []
+    for feature in feature_list:
+        feature_b = feature["feature_b"]
+        feature_name = feature_b["feature_name"]
+        biolink_class = feature_b["biolink_class"]
+        p_value = feature["p_value"]
+
+        node_id, node = knowledge_graph_node(
+            feature_name,
             table,
-            year,
-            cohort_id,
-            feature,
-            maximum_p_value,
-            lambda x: mappings.get(x)["categories"][0] in supported_types,
+            filter_regex,
+            biolink_class,
         )
+        nodes[node_id] = node
 
-        nodes = {}
-        knowledge_graph_edges = {}
-        results = []
-        for feature in feature_list:
-            feature_b = feature["feature_b"]
-            feature_name = feature_b["feature_name"]
-            biolink_class = feature_b["biolink_class"]
-            p_value = feature["p_value"]
+        edge_id_, edge = knowledge_graph_edge(
+            [source_curie],
+            feature_name,
+            table,
+            filter_regex,
+            feature,
+        )
+        knowledge_graph_edges[edge_id_] = edge
 
-            node_id, node = knowledge_graph_node(
-                feature_name,
-                table,
-                filter_regex,
-                biolink_class,
-            )
-            nodes[node_id] = node
+        result_ = result(
+            source_id,
+            [cohort_id],
+            edge_id,
+            feature_name,
+            target_id,
+            table,
+            filter_regex,
+            p_value,
+            "p value",
+        )
+        results.append(result_)
 
-            edge_id_, edge = knowledge_graph_edge(
-                [source_curie],
-                feature_name,
-                table,
-                filter_regex,
-                feature,
-            )
-            knowledge_graph_edges[edge_id_] = edge
+    nodes[cohort_id] = {
+        "name": "cohort",
+        "categories": ["biolink:PopulationOfIndividualOrganisms"]
+    }
 
-            result_ = result(
-                source_id,
-                [cohort_id],
-                edge_id,
-                feature_name,
-                target_id,
-                table,
-                filter_regex,
-                p_value,
-                "p value",
-            )
-            results.append(result_)
+    knowledge_graph = {
+        "nodes": nodes,
+        "edges": knowledge_graph_edges
+    }
 
-        nodes[cohort_id] = {
-            "name": "cohort",
-            "categories": ["biolink:PopulationOfIndividualOrganisms"]
-        }
+    n_results = len(results)
 
-        knowledge_graph = {
-            "nodes": nodes,
-            "edges": knowledge_graph_edges
-        }
-
-        n_results = len(results)
-
-        message = {
-            "reasoner_id": "ICEES",
-            "tool_version": TOOL_VERSION,
-            "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "n_results": n_results,
-            "message_code": "OK",
-            "code_description": "",
-            "query_graph": query_graph,
-            "knowledge_graph": knowledge_graph,
-            "results": results
-        }
-
-    except Exception as e:
-        traceback.print_exc()
-        message = {
-            "reasoner_id": "ICEES",
-            "tool_version": TOOL_VERSION,
-            "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
-            "message_code": "Error",
-            "code_description": traceback.format_exc(),
-            "query_graph": query_graph            
-        }
+    message = {
+        "reasoner_id": "ICEES",
+        "tool_version": TOOL_VERSION,
+        "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
+        "n_results": n_results,
+        "message_code": "OK",
+        "code_description": "",
+        "query_graph": query_graph,
+        "knowledge_graph": knowledge_graph,
+        "results": results
+    }
 
     return message
 

@@ -582,11 +582,7 @@ def one_hop(conn, query, verbose=False):
             except ValueError:
                 continue
 
-            if node_id in knowledge_graph_nodes:
-                knowledge_graph_nodes[node_id]["name"] += "_" + node["name"]
-                knowledge_graph_nodes[node_id]["categories"] = list(set(knowledge_graph_nodes[node_id]["categories"]) | set(node["categories"]))
-            else:
-                knowledge_graph_nodes[node_id] = node
+            knowledge_graph_nodes[node_id] = node
 
             _edge_id, edge = knowledge_graph_edge(source_curies, feature_name, table, filter_regex, feature_list)
             knowledge_graph_edges[_edge_id] = edge

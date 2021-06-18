@@ -209,19 +209,14 @@ def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
         # levels = f.options
         # if levels is None:
         levels = get_feature_levels(k)
-        ret = select_feature_count(
+        ret = select_feature_count_all_values(
             conn,
             table_name,
             year,
             cohort_features,
             cohort_year,
-            {
-                "feature_name": k,
-                "feature_qualifiers": list(map(
-                    lambda level: {"operator": "=", "value": level},
-                    levels,
-                ))
-            },
+            k,
+            levels
         )
         rs.append(ret)
     return rs
@@ -683,72 +678,64 @@ def select_feature_matrix(
     return association
 
 
-def select_feature_count(
+def select_feature_count_all_values(
         conn,
         table_name,
         year,
         cohort_features,
         cohort_year,
-        feature_a,
+        feature_name,
+        levels
 ):
     """Select feature count."""
     cohort_features_norm = normalize_features(cohort_year, cohort_features)
-    feature_a_norm = normalize_feature(year, feature_a)
-
-    cohort_features_json = json.dumps(cohort_features_norm, sort_keys=True)
-    feature_a_json = json.dumps(feature_a_norm, sort_keys=True)
 
     cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
 
-    digest = get_digest(
-        json.dumps(table_name),
-        cohort_features_json,
-        json.dumps(cohort_year),
-        feature_a_json,
-    )
-
-    timestamp = datetime.now(timezone.utc)
-
-    ka = feature_a_norm["feature_name"]
-    vas = feature_a_norm["feature_qualifiers"]
-    ya = feature_a_norm["year"]
-
-    table_, table_count = generate_tables_from_features(
+    table, _ = generate_tables_from_features(
         table_name,
         cohort_features_norm,
         cohort_year,
-        [(ka, ya)],
+        [(feature_name, year)],
     )
 
-    selections = [
-        func.count(),
-        *(case_select(table_count[ya], ka, va, table_name) for va in vas)
-    ]
+    sqlcolumn = column(feature_name)
 
-    result = selection(conn, table_, selections)
+    result = conn.execute(select([sqlcolumn, func.count()]).select_from(table).group_by(sqlcolumn)).fetchall()
+    
+    values = defaultdict(int)
 
-    total = result[0]
-    feature_matrix = result[1:]
+    
+    for value, count in result:
+        values[value] = count
 
-    feature_percentage = map(lambda x: div(x, total), feature_matrix)
+    total = sum(values.values())    
 
-    if ka not in mappings:
-        raise ValueError(f"No mappings for {ka}")
-    feature_mappings = mappings[ka]
+    levels = list(levels)
+    for value in values.keys():
+        if value not in levels:
+            levels.append(value)
+
+    feature_mappings = mappings.get(feature_name)
+    if feature_mappings is None:
+        raise ValueError(f"No mappings for {feature_name}")
     feature_a_norm_with_biolink_class = {
-        **feature_a_norm,
+        "feature_name": feature_name,
+        "feature_qualifiers": [{
+            "operator": "=",
+            "value": level
+        } for level in levels],
+        "year": year,
         "biolink_class": feature_mappings["categories"][0]
     }
 
     count = {
         "feature": feature_a_norm_with_biolink_class,
         "feature_matrix": [
-            {"frequency": a, "percentage": b}
-            for (a, b) in zip(feature_matrix, feature_percentage)
+            {"frequency": a, "percentage": div(a, total)}
+            for level in levels if (a := values[level]) is not None
         ]
     }
-
-    count_json = json.dumps(count, sort_keys=True)
 
     return count
 

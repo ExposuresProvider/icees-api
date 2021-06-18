@@ -43,7 +43,7 @@ subtypes = {
     ]
 }
 
-TOOL_VERSION = "4.0.0"
+TOOL_VERSION = "6.0.0"
 
 
 def closure_subtype(node_type):
@@ -135,8 +135,13 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
 
     return node_id, {
         "name": node_name,
-        "equivalent_identifiers": equivalent_ids,
-        "categories": [biolink_class]
+        "attributes": [
+            {
+                "attribute_type_id": "biolink:synonym",
+                "value": equivalent_ids,
+            }
+        ],
+        "categories": [biolink_class],
     }
 
 
@@ -150,13 +155,17 @@ def knowledge_graph_edge(
     node_ids = name_to_ids(table, filter_regex, node_name)
     if len(node_ids) == 0:
         return Nothing
+
     node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
     return gen_edge_id(source_ids, node_name, node_id), {
         "predicate": "biolink:correlated_with",
         "subject": source_ids[0],
         "object": node_id,
-        "edge_attributes": feature_property
+        "attributes": [{
+            "attribute_type_id": "contigency:matrices",
+            "value": feature_property
+        }],
     }
 
 
@@ -524,21 +533,21 @@ def one_hop(conn, query, verbose=False):
         source_node_type = source_node.get("categories")
         source_curies = source_node["ids"]
 
-        source_node_feature_names = [
+        source_node_feature_names = {
             feature_name
             for source_curie in source_curies
             for feature_name in feature_names(table, source_curie)
-        ]
+        }
 
         target_id = edge["object"]
         target_node_types = nodes_dict[target_id]["categories"]
 
         feature_set = {}
-        supported_types = list(set(
+        supported_types = list({
             subtype
             for target_node_type in target_node_types
             for subtype in closure_subtype(target_node_type)
-        ))
+        })
 
         for source_node_feature_name in source_node_feature_names:
             feature = query_feature(conn, table, source_node_feature_name)
@@ -572,11 +581,12 @@ def one_hop(conn, query, verbose=False):
                 node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
             except ValueError:
                 continue
+
             knowledge_graph_nodes[node_id] = node
 
             _edge_id, edge = knowledge_graph_edge(source_curies, feature_name, table, filter_regex, feature_list)
             knowledge_graph_edges[_edge_id] = edge
-    
+
             item = result(source_id, source_curies, edge_id, feature_name, target_id, table, filter_regex, p_values(feature_list), "p value")
             results.append(item)
             
@@ -607,6 +617,7 @@ def one_hop(conn, query, verbose=False):
             "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
             "message_code": "Error",
             "code_description": traceback.format_exc(),
+            "query_graph": query_graph            
         }
 
     return message

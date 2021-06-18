@@ -1,3 +1,4 @@
 pytest
 pytest-cov
 requests
+git+git://github.com/NCATSTranslator/reasoner-validator@14d6f41a4daf6b439b0edb62a883df8eff0a91c6#egg=reasoner-validator

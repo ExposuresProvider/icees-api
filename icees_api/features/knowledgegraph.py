@@ -64,69 +64,6 @@ def name_to_ids(table, filter_regex, node_name):
     )))
 
 
-def gen_edge_id_trapi_1_1(source_id, node_name, node_id):
-    return source_id + "_" + node_name + "_" + node_id
-
-
-def result_trapi_1_1(
-        source_id,
-        source_curies,
-        edge_id,
-        node_name,
-        target_id,
-        table,
-        filter_regex,
-        score,
-        score_name,
-):
-    node_ids = name_to_ids(table, filter_regex, node_name)
-
-    return {
-        "node_bindings": {
-            source_id: [{"id": source_curie} for source_curie in source_curies],
-            target_id: [{"id": node_id} for node_id in node_ids],
-        },
-        "edge_bindings": {
-            edge_id: [{
-                "id": gen_edge_id(source_curies, node_name, node_id),
-            } for node_id in node_ids]
-        },
-        "score": score,
-        "score_name": score_name
-    }
-
-
-def knowledge_graph_node_trapi_1_1(node_name, table, filter_regex, biolink_classes):
-    node_ids = name_to_ids(table, filter_regex, node_name)
-    if len(node_ids) == 0:
-        raise ValueError(f"No identifiers for {node_name}")
-
-    return [(node_id, {
-        "name": node_name,
-        "categories": biolink_classes
-    }) for node_id in node_ids]
-
-
-def knowledge_graph_edge_trapi_1_1(
-        source_ids: List[str],
-        node_name,
-        table,
-        filter_regex,
-        feature_property,
-):
-    node_ids = name_to_ids(table, filter_regex, node_name)
-
-    return [(gen_edge_id_trapi_1_1(source_id, node_name, node_id), {
-        "predicate": "biolink:correlated_with",
-        "subject": source_id,
-        "object": node_id,
-        "attributes": [{
-            "attribute_type_id": "contigency:matrices",
-            "value": feature_property
-        }]
-    }) for source_id in source_ids for node_id in node_ids]
-
-
 def gen_edge_id(cohort_ids, node_name, node_id):
     return cohort_ids[0] + "_" + node_name + "_" + node_id
 
@@ -198,8 +135,13 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
 
     return node_id, {
         "name": node_name,
-        "equivalent_identifiers": equivalent_ids,
-        "categories": [biolink_class]
+        "attributes": [
+            {
+                "attribute_type_id": "biolink:synonym",
+                "value": equivalent_ids,
+            }
+        ],
+        "categories": [biolink_class],
     }
 
 
@@ -220,7 +162,10 @@ def knowledge_graph_edge(
         "predicate": "biolink:correlated_with",
         "subject": source_ids[0],
         "object": node_id,
-        "edge_attributes": feature_property
+        "attributes": [{
+            "attribute_type_id": "contigency:matrices",
+            "value": feature_property
+        }],
     }
 
 
@@ -633,23 +578,21 @@ def one_hop(conn, query, verbose=False):
 
         for feature_name, (biolink_class, feature_list) in feature_set.items():
             try:
-                nodes = knowledge_graph_node_trapi_1_1(feature_name, table, filter_regex, [biolink_class])
+                node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
             except ValueError:
                 continue
 
-            for node_id, node in nodes:
-                if node_id in knowledge_graph_nodes:
-                    knowledge_graph_nodes[node_id]["name"] += "_" + node["name"]
-                    knowledge_graph_nodes[node_id]["categories"] = list(set(knowledge_graph_nodes[node_id]["categories"]) | set(node["categories"]))
-                else:
-                    knowledge_graph_nodes[node_id] = node
+            if node_id in knowledge_graph_nodes:
+                knowledge_graph_nodes[node_id]["name"] += "_" + node["name"]
+                knowledge_graph_nodes[node_id]["categories"] = list(set(knowledge_graph_nodes[node_id]["categories"]) | set(node["categories"]))
+            else:
+                knowledge_graph_nodes[node_id] = node
 
-                edges = knowledge_graph_edge_trapi_1_1(source_curies, feature_name, table, filter_regex, feature_list)
-                for _edge_id, edge in edges:
-                    knowledge_graph_edges[_edge_id] = edge
-    
-                item = result_trapi_1_1(source_id, source_curies, edge_id, feature_name, target_id, table, filter_regex, p_values(feature_list), "p value")
-                results.append(item)
+            _edge_id, edge = knowledge_graph_edge(source_curies, feature_name, table, filter_regex, feature_list)
+            knowledge_graph_edges[_edge_id] = edge
+
+            item = result(source_id, source_curies, edge_id, feature_name, target_id, table, filter_regex, p_values(feature_list), "p value")
+            results.append(item)
             
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,

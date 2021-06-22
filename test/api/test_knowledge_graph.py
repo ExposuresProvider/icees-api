@@ -147,6 +147,15 @@ def test_knowledge_graph_one_hop(query_options):
     assert "tool_version" in resp_json["return value"]
     assert "datetime" in resp_json["return value"]
 
+    assert "edges" in resp_json["return value"]["message"]["knowledge_graph"]
+    assert all(
+        any(
+            "biolink:supporting_data_source" in attribute["attribute_type_id"]
+            for attribute in edge["attributes"]
+        )
+        for edge in resp_json["return value"]["message"]["knowledge_graph"]["edges"].values()
+    )
+
 
 @pytest.mark.parametrize("query_options", kg_options)
 @load_data(APP, """

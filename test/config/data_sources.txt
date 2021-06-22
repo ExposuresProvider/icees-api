@@ -1,8 +1,0 @@
-UNC Health electronic health record system data
-NIEHS EPR participant data
-US Environmental Protection Agency airborne pollutant exposures data
-US Department of Transportation major roadway/highway exposures data
-US Census Bureau American Community Survey socio-economic exposures data
-NC Department of Environmental Quality concentrated animal farming operations (CAFO) exposures data
-NC Department of Environmental Quality landfill exposures data
-National Center for Education Statistics public school exposures data

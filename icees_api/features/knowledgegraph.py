@@ -162,7 +162,8 @@ def knowledge_graph_edge(
     source_attributes = [
         {
             "attribute_type_id": "biolink:supporting_data_source",
-            "value": data_source,
+            "value": data_source["name"],
+            "value_url": data_source.get("url", None),
         }
         for data_source in data_sources
     ]

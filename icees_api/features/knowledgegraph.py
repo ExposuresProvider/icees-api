@@ -13,6 +13,7 @@ from tx.functional.utils import compose
 
 from ..utils import to_qualifiers
 from .mappings import mappings
+from .data_sources import data_sources
 from .sql import get_ids_by_feature, select_associations_to_all_features, select_feature_matrix, get_feature_levels
 from .identifiers import get_identifiers, get_features_by_identifier
 
@@ -158,6 +159,14 @@ def knowledge_graph_edge(
 
     node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
 
+    source_attributes = [
+        {
+            "attribute_type_id": "biolink:supporting_data_source",
+            "value": data_source,
+        }
+        for data_source in data_sources
+    ]
+
     return gen_edge_id(source_ids, node_name, node_id), {
         "predicate": "biolink:correlated_with",
         "subject": source_ids[0],
@@ -165,7 +174,7 @@ def knowledge_graph_edge(
         "attributes": [{
             "attribute_type_id": "contigency:matrices",
             "value": feature_property
-        }],
+        }] + source_attributes,
     }
 
 

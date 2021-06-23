@@ -208,6 +208,7 @@ def test_knowledge_graph_source_returned(query_options):
     assert len(message["results"]) == 2
     assert len(message["knowledge_graph"]["nodes"]) == 3
     assert len(message["knowledge_graph"]["edges"]) == 2
+    assert message["knowledge_graph"]["nodes"]["PUBCHEM:2083"]["categories"] == ["biolink:Drug"]
 
 
 @pytest.mark.parametrize("query_options", kg_options)

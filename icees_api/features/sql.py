@@ -575,10 +575,12 @@ def select_feature_matrix(
 
     start_time = time.time()
     result = count_unique(conn, table_name, ka, kb)
+    _ka = "0_" + ka
+    _kb = "1_" + kb
     result = [
         {
-            ka: el[0],
-            kb: el[1],
+            _ka: el[0],
+            _kb: el[1],
             "count": el[2],
         }
         for el in result
@@ -588,8 +590,8 @@ def select_feature_matrix(
     feature_matrix = [
         [
             get_count(result, **{
-                ka: va,
-                kb: vb,
+                _ka: va,
+                _kb: vb,
             })
             for va in vas
         ]
@@ -597,10 +599,10 @@ def select_feature_matrix(
     ]
 
     total_cols = [
-        get_count(result, **{ka: va}) for va in vas
+        get_count(result, **{_ka: va}) for va in vas
     ]
     total_rows = [
-        get_count(result, **{kb: vb}) for vb in vbs
+        get_count(result, **{_kb: vb}) for vb in vbs
     ]
 
     total = get_count(result)

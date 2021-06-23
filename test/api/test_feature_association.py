@@ -66,6 +66,11 @@ def test_feature_association():
     )
     resp_json = resp.json()
     assert "return value" in resp_json
+    feature_matrix = resp_json["return value"]["feature_matrix"]
+    assert feature_matrix[0][0]["frequency"] == 12
+    assert feature_matrix[0][1]["frequency"] == 0
+    assert feature_matrix[1][0]["frequency"] == 0
+    assert feature_matrix[1][1]["frequency"] == 0
     do_verify_feature_matrix_response(resp_json["return value"])
 
 

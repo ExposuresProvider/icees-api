@@ -540,7 +540,7 @@ def one_hop(conn, query, verbose=False):
 
         source_id = edge["subject"]
         source_node = nodes_dict[source_id]
-        source_node_type = source_node.get("categories")
+        source_node_categories = source_node.get("categories")
         source_curies = source_node["ids"]
 
         source_node_feature_names = {
@@ -579,7 +579,9 @@ def one_hop(conn, query, verbose=False):
                 else:
                     feature_set[feature_name] = biolink_class, [feature]
 
-        knowledge_graph_nodes = dict()
+        knowledge_graph_nodes = {
+            source_curies[0]: {}
+        }
         knowledge_graph_edges = dict()
         results = []
 

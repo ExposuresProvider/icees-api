@@ -559,8 +559,9 @@ def one_hop(conn, query, verbose=False):
         results = []
 
         for source_curie in source_curies:
-            knowledge_graph_nodes[source_curie] = {}
+            source_categories = set()
             for source_feature_name in feature_names(table, source_curie):
+                source_categories.update(mappings[source_feature_name]["categories"])
                 feature_set = {}
                 feature = query_feature(conn, table, source_feature_name)
                 ataf = select_associations_to_all_features(
@@ -593,6 +594,9 @@ def one_hop(conn, query, verbose=False):
 
                     item = result(source_id, source_curie, edge_id, feature_name, target_id, table, filter_regex, p_values([feature]), "p value")
                     results.append(item)
+            knowledge_graph_nodes[source_curie] = {
+                "categories": list(source_categories),
+            }
             
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,

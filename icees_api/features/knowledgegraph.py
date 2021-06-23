@@ -256,7 +256,7 @@ def get(conn, query, verbose=False):
         nodes[node_id] = node
 
         edge_id_, edge = knowledge_graph_edge(
-            [source_curie],
+            source_curie,
             feature_name,
             table,
             filter_regex,

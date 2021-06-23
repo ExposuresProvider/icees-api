@@ -115,15 +115,15 @@ def test_knowledge_graph_one_hop(query_options):
             "query_graph": {
                 "nodes": {
                     "n00": {
-                        "id": source_id
+                        "ids": [source_id]
                     },
                     "n01": {
-                        "category": "biolink:ChemicalSubstance"
+                        "categories": ["biolink:ChemicalSubstance"]
                     }
                 },
                 "edges": {
                     "e00": {
-                        "predicate": "biolink:correlated_with",
+                        "predicates": ["biolink:correlated_with"],
                         "subject": "n00",
                         "object": "n01"
                     }
@@ -183,15 +183,15 @@ def test_knowledge_graph_one_hop_valid_trapi_1_1_response(query_options):
             "query_graph": {
                 "nodes": {
                     "n00": {
-                        "id": source_id
+                        "ids": [source_id]
                     },
                     "n01": {
-                        "category": "biolink:ChemicalSubstance"
+                        "categories": ["biolink:ChemicalSubstance"]
                     }
                 },
                 "edges": {
                     "e00": {
-                        "predicate": "biolink:correlated_with",
+                        "predicates": ["biolink:correlated_with"],
                         "subject": "n00",
                         "object": "n01"
                     }
@@ -242,18 +242,18 @@ def test_knowledge_graph_one_hop_valid_trapi_1_1_response_on_error(query_options
             "query_graph": {
                 "nodes": {
                     "n00": {
-                        "id": source_id
+                        "ids": [source_id]
                     },
                     "n01": {
-                        "category": "biolink:ChemicalSubstance"
+                        "categories": ["biolink:ChemicalSubstance"]
                     },
                     "n02": {
-                        "category": "biolink:ChemicalSubstance"
+                        "categories": ["biolink:ChemicalSubstance"]
                     }
                 },
                 "edges": {
                     "e00": {
-                        "predicate": "biolink:correlated_with",
+                        "predicates": ["biolink:correlated_with"],
                         "subject": "n00",
                         "object": "n01"
                     }

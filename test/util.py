@@ -34,7 +34,7 @@ def generate_kgraph(shorthand):
         node_match = re.fullmatch(node_pattern, line)
         if node_match:
             kgraph["nodes"][node_match.group(1)] = {
-                "category": node_match.group(2)
+                "categories": [node_match.group(2)]
             }
             continue
         edge_match = re.fullmatch(edge_pattern, line)
@@ -188,15 +188,15 @@ def query(year, biolink_class):
             "query_graph": {
                 "nodes": {
                     "n00": {
-                        "category": "biolink:PopulationOfIndividualOrganisms"
+                        "categories": ["biolink:PopulationOfIndividualOrganisms"]
                     },
                     "n01": {
-                        "category": biolink_class
+                        "categories": [biolink_class]
                     }
                 },
                 "edges": {
                     "e00": {
-                        "predicate": "biolink:correlated_with",
+                        "predicates": ["biolink:correlated_with"],
                         "subject": "n00",
                         "object": "n01"
                     }

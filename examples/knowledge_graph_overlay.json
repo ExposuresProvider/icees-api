@@ -10,10 +10,10 @@
             },
             "nodes": {
                 "PUBCHEM:2083": {
-                    "category": "biolink:Drug"
+                    "categories": ["biolink:Drug"]
                 },
                 "PUBCHEM:281": {
-                    "category": "biolink:ChemicalSubstance"
+                    "categories": ["biolink:ChemicalSubstance"]
                 }
             }
         }

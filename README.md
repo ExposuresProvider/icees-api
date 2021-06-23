@@ -443,15 +443,15 @@ example
           "query_graph": {
             "nodes": {
               "n00": {
-                "category": "biolink:PopulationOfIndividualOrganisms"
+                "categories": ["biolink:PopulationOfIndividualOrganisms"]
               },
               "n01": {
-                "category": "biolink:ChemicalSubstance"
+                "categories": ["biolink:ChemicalSubstance"]
               }
             },
             "edges": {
               "e00": {
-                "predicate": "biolink:correlated_with",
+                "predicates": ["biolink:correlated_with"],
                 "subject": "n00",
                 "object": "n01"
               }
@@ -624,15 +624,15 @@ curl -X POST -k "http://localhost:5000/knowledge_graph" -H  "accept: application
             "query_graph": {
                 "nodes": {
                     "n00": {
-                        "category": "biolink:PopulationOfIndividualOrganisms"
+                        "categories": ["biolink:PopulationOfIndividualOrganisms"]
                     },
                     "n01": {
-                        "category": "biolink:ChemicalSubstance"
+                        "categories": ["biolink:ChemicalSubstance"]
                     }
                 },
                 "edges": {
                     "e00": {
-                        "predicate": "biolink:correlated_with",
+                        "predicates": ["biolink:correlated_with"],
                         "subject": "n00",
                         "object": "n01"
                     }

@@ -174,6 +174,57 @@ def test_knowledge_graph_one_hop(query_options):
     11,2010,0-2,1,4
     12,2010,0-2,>1,4
 """)
+def test_knowledge_graph_semantic_ops(query_options):
+    """Test one-hop."""
+    query = {
+        "query_options": query_options,
+        "message": {
+            "query_graph": {
+                "nodes": {
+                    "n00": {
+                        "ids": ["PUBCHEM:2083"]
+                    },
+                    "n01": {}
+                },
+                "edges": {
+                    "e00": {
+                        "predicates": ["biolink:related_to"],
+                        "subject": "n00",
+                        "object": "n01"
+                    }
+                }
+            }
+        }
+    }
+    resp_json = validate_response(testclient.post(
+        "/knowledge_graph_one_hop",
+        json=query,
+        params={"reasoner": False},
+    ))
+    assert "return value" in resp_json
+    message = resp_json["return value"]["message"]
+    assert len(message["results"]) == 3
+    assert len(message["knowledge_graph"]["nodes"]) == 3
+    assert len(message["knowledge_graph"]["edges"]) == 3
+
+
+@pytest.mark.parametrize("query_options", kg_options)
+@load_data(APP, """
+    PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure
+    varchar(255),int,varchar(255),varchar(255),int
+    1,2010,0-2,0,1
+    2,2010,0-2,1,1
+    3,2010,0-2,>1,1
+    4,2010,0-2,0,2
+    5,2010,0-2,1,2
+    6,2010,0-2,>1,2
+    7,2010,0-2,0,3
+    8,2010,0-2,1,3
+    9,2010,0-2,>1,3
+    10,2010,0-2,0,4
+    11,2010,0-2,1,4
+    12,2010,0-2,>1,4
+""")
 def test_knowledge_graph_wrong_predicate(query_options):
     """Test one-hop."""
     query = {

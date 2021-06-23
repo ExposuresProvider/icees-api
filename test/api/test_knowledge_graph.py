@@ -176,14 +176,13 @@ def test_knowledge_graph_one_hop(query_options):
 """)
 def test_knowledge_graph_source_returned(query_options):
     """Test one-hop."""
-    source_id = "PUBCHEM:2083"
     query = {
         "query_options": query_options,
         "message": {
             "query_graph": {
                 "nodes": {
                     "n00": {
-                        "ids": [source_id]
+                        "ids": ["PUBCHEM:2083", "MESH:D052638"]
                     },
                     "n01": {
                         "categories": ["biolink:PhenotypicFeature"]
@@ -206,8 +205,9 @@ def test_knowledge_graph_source_returned(query_options):
     ))
     assert "return value" in resp_json
     message = resp_json["return value"]["message"]
-    assert len(message["results"]) == 1
-    assert len(message["knowledge_graph"]["nodes"]) == 2
+    assert len(message["results"]) == 2
+    assert len(message["knowledge_graph"]["nodes"]) == 3
+    assert len(message["knowledge_graph"]["edges"]) == 2
 
 
 @pytest.mark.parametrize("query_options", kg_options)

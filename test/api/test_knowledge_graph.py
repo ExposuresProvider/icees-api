@@ -71,7 +71,7 @@ def test_knowledge_graph_overlay(query_options):
             "knowledge_graph": {
                 "nodes": {
                     "PUBCHEM:2083": {
-                        "categories": ["biolink:Drug"]
+                        "categories": ["biolink:ChemicalSubstance"]
                     },
                     "MESH:D052638": {
                         "categories": ["biolink:ChemicalSubstance"]
@@ -310,7 +310,7 @@ def test_knowledge_graph_source_returned(query_options):
     assert len(message["results"]) == 2
     assert len(message["knowledge_graph"]["nodes"]) == 3
     assert len(message["knowledge_graph"]["edges"]) == 2
-    assert message["knowledge_graph"]["nodes"]["PUBCHEM:2083"]["categories"] == ["biolink:Drug"]
+    assert message["knowledge_graph"]["nodes"]["PUBCHEM:2083"]["categories"] == ["biolink:ChemicalSubstance"]
 
 
 @pytest.mark.parametrize("query_options", kg_options)

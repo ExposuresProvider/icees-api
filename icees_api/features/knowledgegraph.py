@@ -65,8 +65,8 @@ def name_to_ids(table, filter_regex, node_name):
     )))
 
 
-def gen_edge_id(cohort_ids, node_name, node_id):
-    return cohort_ids[0] + "_" + node_name + "_" + node_id
+def gen_edge_id(cohort_id, node_name, node_id):
+    return cohort_id + "_" + node_name + "_" + node_id
 
 
 def gen_node_id_and_equivalent_ids(node_ids):
@@ -99,7 +99,7 @@ def gen_node_id_and_equivalent_ids(node_ids):
 
 def result(
         source_id,
-        source_curies,
+        source_curie,
         edge_id,
         node_name,
         target_id,
@@ -115,12 +115,12 @@ def result(
 
     return {
         "node_bindings": {
-            source_id: [{"id": source_curies[0]}],
+            source_id: [{"id": source_curie}],
             target_id: [{"id": node_id}],
         },
         "edge_bindings": {
             edge_id: [{
-                "id": gen_edge_id(source_curies, node_name, node_id),
+                "id": gen_edge_id(source_curie, node_name, node_id),
             }]
         },
         "score": score,
@@ -147,7 +147,7 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
 
 
 def knowledge_graph_edge(
-        source_ids: List[str],
+        source_id: str,
         node_name,
         table,
         filter_regex,
@@ -168,9 +168,9 @@ def knowledge_graph_edge(
         for data_source in data_sources
     ]
 
-    return gen_edge_id(source_ids, node_name, node_id), {
+    return gen_edge_id(source_id, node_name, node_id), {
         "predicate": "biolink:correlated_with",
-        "subject": source_ids[0],
+        "subject": source_id,
         "object": node_id,
         "attributes": [{
             "attribute_type_id": "contigency:matrices",
@@ -256,7 +256,7 @@ def get(conn, query, verbose=False):
         nodes[node_id] = node
 
         edge_id_, edge = knowledge_graph_edge(
-            [source_curie],
+            source_curie,
             feature_name,
             table,
             filter_regex,
@@ -266,7 +266,7 @@ def get(conn, query, verbose=False):
 
         result_ = result(
             source_id,
-            [cohort_id],
+            cohort_id,
             edge_id,
             feature_name,
             target_id,
@@ -540,65 +540,63 @@ def one_hop(conn, query, verbose=False):
 
         source_id = edge["subject"]
         source_node = nodes_dict[source_id]
-        source_node_type = source_node.get("categories")
         source_curies = source_node["ids"]
-
-        source_node_feature_names = {
-            feature_name
-            for source_curie in source_curies
-            for feature_name in feature_names(table, source_curie)
-        }
 
         target_id = edge["object"]
         target_node_types = nodes_dict[target_id]["categories"]
 
-        feature_set = {}
         supported_types = list({
             subtype
             for target_node_type in target_node_types
             for subtype in closure_subtype(target_node_type)
         })
 
-        for source_node_feature_name in source_node_feature_names:
-            feature = query_feature(conn, table, source_node_feature_name)
-            ataf = select_associations_to_all_features(
-                conn,
-                table,
-                year,
-                cohort_id,
-                feature,
-                maximum_p_value,
-                feature_set=lambda x: type_is_supported(x, supported_types),
-            )
-            for feature in ataf:
-                feature_name = feature["feature_b"]["feature_name"]
-                biolink_class = feature["feature_b"]["biolink_class"]
-                if feature_name in feature_set:
-                    _, feature_properties = feature_set[feature_name]
-                    feature_properties.append(feature)
-                else:
-                    feature_set[feature_name] = biolink_class, [feature]
+        def p_values(feature_list):
+            return [feature["p_value"] for feature in feature_list]
 
         knowledge_graph_nodes = dict()
         knowledge_graph_edges = dict()
         results = []
 
-        def p_values(feature_list):
-            return [feature["p_value"] for feature in feature_list]
+        for source_curie in source_curies:
+            source_categories = set()
+            for source_feature_name in feature_names(table, source_curie):
+                source_categories.update(mappings[source_feature_name]["categories"])
+                feature_set = {}
+                feature = query_feature(conn, table, source_feature_name)
+                ataf = select_associations_to_all_features(
+                    conn,
+                    table,
+                    year,
+                    cohort_id,
+                    feature,
+                    maximum_p_value,
+                    feature_set=lambda x: type_is_supported(x, supported_types),
+                )
+                for feature in ataf:
+                    feature_name = feature["feature_b"]["feature_name"]
+                    biolink_class = feature["feature_b"]["biolink_class"]
+                    if feature_name in feature_set:
+                        _, feature_properties = feature_set[feature_name]
+                        feature_properties.append(feature)
+                    else:
+                        feature_set[feature_name] = biolink_class, [feature]
 
-        for feature_name, (biolink_class, feature_list) in feature_set.items():
-            try:
-                node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
-            except ValueError:
-                continue
+                    try:
+                        node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
+                    except ValueError:
+                        continue
 
-            knowledge_graph_nodes[node_id] = node
+                    knowledge_graph_nodes[node_id] = node
 
-            _edge_id, edge = knowledge_graph_edge(source_curies, feature_name, table, filter_regex, feature_list)
-            knowledge_graph_edges[_edge_id] = edge
+                    _edge_id, edge = knowledge_graph_edge(source_curie, feature_name, table, filter_regex, [feature])
+                    knowledge_graph_edges[_edge_id] = edge
 
-            item = result(source_id, source_curies, edge_id, feature_name, target_id, table, filter_regex, p_values(feature_list), "p value")
-            results.append(item)
+                    item = result(source_id, source_curie, edge_id, feature_name, target_id, table, filter_regex, p_values([feature]), "p value")
+                    results.append(item)
+            knowledge_graph_nodes[source_curie] = {
+                "categories": list(source_categories),
+            }
             
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,

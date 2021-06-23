@@ -37,6 +37,6 @@ def normalize_qgraph(qgraph):
     for edge in qgraph["edges"].values():
         edge["predicates"] = [
             descendant
-            for predicate in node.get("predicates", None) or ["biolink:related_to"]
+            for predicate in edge.get("predicates", None) or ["biolink:related_to"]
             for descendant in get_subpredicates(predicate)
         ]

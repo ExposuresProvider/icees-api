@@ -536,6 +536,19 @@ def one_hop(conn, query, verbose=False):
         if len(edges_dict) != 1:
             raise NotImplementedError("Number of edges in query graph must be 1")
 
+        if "biolink:correlated_with" not in next(iter(edges_dict.values()))["predicates"]:
+            return {
+                "reasoner_id": "ICEES",
+                "tool_version": TOOL_VERSION,
+                "datetime": datetime.datetime.now().strftime("%Y-%m-%D %H:%M:%S"),
+                "n_results": 0,
+                "message_code": "OK",
+                "code_description": "",
+                "query_graph": query_graph,
+                "knowledge_graph": {"nodes": {}, "edges": {}},
+                "results": [],
+            }
+
         edge_id, edge = next(iter(edges_dict.items()))
 
         source_id = edge["subject"]

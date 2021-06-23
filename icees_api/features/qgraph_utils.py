@@ -8,7 +8,10 @@ BMT = Toolkit()
 
 def get_subcategories(category):
     """Get sub-categories, according to the Biolink model."""
-    return BMT.get_descendants(category, formatted=True, reflexive=True)
+    return [
+        descendant.replace("_", "")
+        for descendant in BMT.get_descendants(category, formatted=True, reflexive=True)
+    ]
 
 
 def camelcase_to_snakecase(string):

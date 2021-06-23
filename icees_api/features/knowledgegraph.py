@@ -16,6 +16,7 @@ from .mappings import mappings
 from .data_sources import data_sources
 from .sql import get_ids_by_feature, select_associations_to_all_features, select_feature_matrix, get_feature_levels
 from .identifiers import get_identifiers, get_features_by_identifier
+from .qgraph_utils import normalize_qgraph
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -526,6 +527,7 @@ def one_hop(conn, query, verbose=False):
         maximum_p_value = query_options.get("maximum_p_value", MAX_P_VAL_DEFAULT)
         filter_regex = query_options.get("regex", ".*")
         query_graph = message["query_graph"]
+        normalize_qgraph(query_graph)
 
         nodes_dict = query_graph["nodes"]
         edges_dict = query_graph["edges"]
@@ -558,12 +560,6 @@ def one_hop(conn, query, verbose=False):
         target_id = edge["object"]
         target_node_types = nodes_dict[target_id]["categories"]
 
-        supported_types = list({
-            subtype
-            for target_node_type in target_node_types
-            for subtype in closure_subtype(target_node_type)
-        })
-
         def p_values(feature_list):
             return [feature["p_value"] for feature in feature_list]
 
@@ -584,7 +580,7 @@ def one_hop(conn, query, verbose=False):
                     cohort_id,
                     feature,
                     maximum_p_value,
-                    feature_set=lambda x: type_is_supported(x, supported_types),
+                    feature_set=lambda x: type_is_supported(x, target_node_types),
                 )
                 for feature in ataf:
                     feature_name = feature["feature_b"]["feature_name"]

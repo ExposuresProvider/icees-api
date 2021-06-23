@@ -1,3 +1,5 @@
+bmt==0.6.0
+linkml-model==1.0.0
 sqlalchemy
 psycopg2-binary
 scipy

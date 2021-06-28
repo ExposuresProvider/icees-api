@@ -137,7 +137,8 @@ def test_knowledge_graph_one_hop(query_options):
         params={"reasoner": False},
     ))
     assert "return value" in resp_json
-    assert len(resp_json["return value"]["message"]["results"]) == 2
+    results = resp_json["return value"]["message"]["results"]
+    assert len(results) == 2
 
     assert "knowledge_graph" in resp_json["return value"]["message"]
     assert "nodes" in resp_json["return value"]["message"]["knowledge_graph"]
@@ -155,6 +156,7 @@ def test_knowledge_graph_one_hop(query_options):
         )
         for edge in resp_json["return value"]["message"]["knowledge_graph"]["edges"].values()
     )
+    assert isinstance(results[0]["score"], float)
 
 
 @pytest.mark.parametrize("query_options", kg_options)

@@ -485,18 +485,11 @@ def predicates(
         api_key: APIKey = Depends(get_api_key),
 ):
     """Get meta-knowledge graph."""
-    categories = [
-        "biolink:ActivityAndBehavior",
-        "biolink:ChemicalSubstance",
-        "biolink:Disease",
-        "biolink:Drug",
-        "biolink:Environment",
-        "biolink:NamedThing",
-        "biolink:PhenotypicFeature",
-    ]
+    all_categories = set()
     id_prefixes = defaultdict(set)
     for feature in mappings:
         categories = mappings[feature]["categories"]
+        all_categories.update(categories)
         identifiers = input_dict["patient"][feature]
         for category in categories:
             for identifier in identifiers:
@@ -516,7 +509,7 @@ def predicates(
                 "object": obj,
                 "predicate": "biolink:correlated_with",
             }
-            for sub in categories for obj in categories
+            for sub in all_categories for obj in all_categories
         ],
     }
 

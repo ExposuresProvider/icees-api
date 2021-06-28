@@ -592,7 +592,7 @@ def one_hop(conn, query, verbose=False):
                     _edge_id, edge = knowledge_graph_edge(source_curie, feature_name, table, filter_regex, [feature])
                     knowledge_graph_edges[_edge_id] = edge
 
-                    item = result(source_id, source_curie, edge_id, feature_name, target_id, table, filter_regex, p_values([feature]), "p value")
+                    item = result(source_id, source_curie, edge_id, feature_name, target_id, table, filter_regex, p_values([feature])[0], "p value")
                     results.append(item)
             knowledge_graph_nodes[source_curie] = {
                 "categories": list(source_categories),

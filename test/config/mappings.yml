@@ -10,7 +10,7 @@ AsthmaDx:
   - MONDO:0004979
 Albuterol:
   categories:
-  - biolink:Drug
+  - biolink:ChemicalSubstance
   identifiers:
   - PUBCHEM:2083
 AvgDailyPM2.5Exposure:

@@ -747,6 +747,20 @@ def get_feature_levels(feature):
     return value_sets.get(feature, [])
 
 
+def apply_correction(ret, correction=None):
+    """Apply p-value correction."""
+    if correction is not None:
+        method = correction["method"]
+        alpha = correction.get("alpha", 1)
+        if ret["p_value"] is None:
+            ret["p_value_corrected"] = None
+            return
+        rsp = [ret["p_value"]]
+        _, pvals, _, _ = multipletests(rsp, alpha, method)
+        ret["p_value_corrected"] = pvals[0]
+    return ret
+
+
 def select_feature_association(
         conn,
         table_name,
@@ -759,39 +773,34 @@ def select_feature_association(
         correction,
 ):
     """Select feature association."""
-    rs = []
-    feature_names = filter(feature_set, get_features(conn, table_name))
-    for feature_name in feature_names:
-        levels = get_feature_levels(feature_name)
-        ret = select_feature_matrix(
-            conn, table_name, year,
-            cohort_features, cohort_year, feature,
-            {
-                "feature_name": feature_name,
-                "feature_qualifiers": list(map(
-                    lambda level: {"operator": "=", "value": level},
-                    levels,
-                ))
-            }
-        )
-        rs.append(ret)
-    if correction is not None:
-        method = correction["method"]
-        alpha = correction.get("alpha", 1)
-        for ret in rs:
-            if ret["p_value"] is None:
-                ret["p_value_corrected"] = None
-                continue
-            rsp = [ret["p_value"]]
-            _, pvals, _, _ = multipletests(rsp, alpha, method)
-            ret["p_value_corrected"] = pvals[0]
-        pvals = [ret["p_value_corrected"] for ret in rs]
-    else:
-        pvals = [ret["p_value"] for ret in rs]
+    feature_as = [feature]
+    feature_bs = [
+        {
+            "feature_name": feature_name,
+            "feature_qualifiers": list(map(
+                lambda level: {"operator": "=", "value": level},
+                get_feature_levels(feature_name),
+            ))
+        }
+        for feature_name in filter(feature_set, get_features(conn, table_name))
+    ]
+    rs = [
+        [
+            apply_correction(
+                select_feature_matrix(
+                    conn, table_name, year,
+                    cohort_features, cohort_year, feature_a, feature_b,
+                ),
+                correction,
+            )
+            for feature_b in feature_bs
+        ]
+        for feature_a in feature_as
+    ]
 
     return [
-        ret for ret, pval in zip(rs, pvals)
-        if pval is not None and pval <= maximum_p_value
+        ret for ret in rs[0]
+        if (pval := ret.get("p_value_corrected", ret.get("p_value", None))) is not None and pval <= maximum_p_value
     ]
 
 

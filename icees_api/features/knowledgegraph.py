@@ -580,15 +580,14 @@ def one_hop(conn, query, verbose=False):
             for source_feature_name in feature_names(table, source_curie):
                 source_categories.update(mappings[source_feature_name]["categories"])
                 feature_set = {}
-                feature = query_feature(conn, table, source_feature_name)
                 ataf = select_associations_to_all_features(
                     conn,
                     table,
                     year,
                     cohort_id,
-                    feature,
-                    maximum_p_value,
-                    feature_set=lambda x: type_is_supported(x, target_node_types),
+                    feature_filter_a=lambda name: name in source_feature_name,
+                    maximum_p_value=maximum_p_value,
+                    feature_filter_b=lambda x: type_is_supported(x, target_node_types),
                 )
                 for feature in ataf:
                     feature_name = feature["feature_b"]["feature_name"]

@@ -10,7 +10,7 @@ import re
 import operator
 import os
 import time
-from typing import Callable, List
+from typing import Any, Callable, List, Union
 
 from fastapi import HTTPException
 import numpy as np
@@ -794,9 +794,9 @@ def select_associations_to_all_features(
         table,
         year,
         cohort_id,
-        feature,
+        feature_filter_a: Union[Callable[[str], bool], dict[str, Any]],
         maximum_p_value,
-        feature_set=lambda x: True,
+        feature_filter_b: Callable[[str], bool] = lambda x: True,
         correction=None,
 ):
     cohort_meta = get_features_by_id(conn, table, cohort_id)
@@ -805,7 +805,20 @@ def select_associations_to_all_features(
 
     cohort_features, cohort_year = cohort_meta
 
-    feature_as = [feature]
+    if isinstance(feature_filter_a, Callable):
+        feature_as = [
+            {
+                "feature_name": feature_name,
+                "feature_qualifiers": list(map(
+                    lambda level: {"operator": "=", "value": level},
+                    get_feature_levels(feature_name),
+                ))
+            }
+            for feature_name in filter(feature_filter_a, get_features(conn, table))
+        ]
+    else:
+        feature_as = [feature_filter_a]
+
     feature_bs = [
         {
             "feature_name": feature_name,
@@ -814,7 +827,7 @@ def select_associations_to_all_features(
                 get_feature_levels(feature_name),
             ))
         }
-        for feature_name in filter(feature_set, get_features(conn, table))
+        for feature_name in filter(feature_filter_b, get_features(conn, table))
     ]
 
     associations = []

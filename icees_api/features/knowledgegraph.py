@@ -579,37 +579,37 @@ def one_hop(conn, query, verbose=False):
             source_categories = set()
             for source_feature_name in feature_names(table, source_curie):
                 source_categories.update(mappings[source_feature_name]["categories"])
-                feature_set = {}
-                ataf = select_associations_to_all_features(
-                    conn,
-                    table,
-                    year,
-                    cohort_id,
-                    feature_filter_a=lambda name: name in source_feature_name,
-                    maximum_p_value=maximum_p_value,
-                    feature_filter_b=lambda x: type_is_supported(x, target_node_types),
-                )
-                for feature in ataf:
-                    feature_name = feature["feature_b"]["feature_name"]
-                    biolink_class = feature["feature_b"]["biolink_class"]
-                    if feature_name in feature_set:
-                        _, feature_properties = feature_set[feature_name]
-                        feature_properties.append(feature)
-                    else:
-                        feature_set[feature_name] = biolink_class, [feature]
+            feature_set = {}
+            ataf = select_associations_to_all_features(
+                conn,
+                table,
+                year,
+                cohort_id,
+                feature_filter_a=lambda name: name in feature_names(table, source_curie),
+                maximum_p_value=maximum_p_value,
+                feature_filter_b=lambda x: type_is_supported(x, target_node_types),
+            )
+            for feature in ataf:
+                feature_name = feature["feature_b"]["feature_name"]
+                biolink_class = feature["feature_b"]["biolink_class"]
+                if feature_name in feature_set:
+                    _, feature_properties = feature_set[feature_name]
+                    feature_properties.append(feature)
+                else:
+                    feature_set[feature_name] = biolink_class, [feature]
 
-                    try:
-                        node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
-                    except ValueError:
-                        continue
+                try:
+                    node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
+                except ValueError:
+                    continue
 
-                    knowledge_graph_nodes[node_id] = node
+                knowledge_graph_nodes[node_id] = node
 
-                    _edge_id, edge = knowledge_graph_edge(source_curie, feature_name, table, filter_regex, [feature])
-                    knowledge_graph_edges[_edge_id] = edge
+                _edge_id, edge = knowledge_graph_edge(source_curie, feature_name, table, filter_regex, [feature])
+                knowledge_graph_edges[_edge_id] = edge
 
-                    item = result(source_id, source_curie, edge_id, feature_name, target_id, table, filter_regex, p_values([feature])[0], "p value")
-                    results.append(item)
+                item = result(source_id, source_curie, edge_id, feature_name, target_id, table, filter_regex, p_values([feature])[0], "p value")
+                results.append(item)
             knowledge_graph_nodes[source_curie] = {
                 "categories": list(source_categories),
             }

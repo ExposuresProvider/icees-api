@@ -761,47 +761,32 @@ def apply_correction(ret, correction=None):
     return ret
 
 
+class PValueError(Exception):
+    """p-value is too high."""
+
+
 def select_feature_association(
         conn,
         table_name,
         year,
         cohort_features,
         cohort_year,
-        feature,
+        feature_a,
         maximum_p_value,
-        feature_set: Callable,
+        feature_b,
         correction,
 ):
     """Select feature association."""
-    feature_as = [feature]
-    feature_bs = [
-        {
-            "feature_name": feature_name,
-            "feature_qualifiers": list(map(
-                lambda level: {"operator": "=", "value": level},
-                get_feature_levels(feature_name),
-            ))
-        }
-        for feature_name in filter(feature_set, get_features(conn, table_name))
-    ]
-    rs = [
-        [
-            apply_correction(
-                select_feature_matrix(
-                    conn, table_name, year,
-                    cohort_features, cohort_year, feature_a, feature_b,
-                ),
-                correction,
-            )
-            for feature_b in feature_bs
-        ]
-        for feature_a in feature_as
-    ]
-
-    return [
-        ret for ret in rs[0]
-        if (pval := ret.get("p_value_corrected", ret.get("p_value", None))) is not None and pval <= maximum_p_value
-    ]
+    ret = apply_correction(
+        select_feature_matrix(
+            conn, table_name, year,
+            cohort_features, cohort_year, feature_a, feature_b,
+        ),
+        correction,
+    )
+    if (pval := ret.get("p_value_corrected", ret.get("p_value", None))) is None or pval > maximum_p_value:
+        raise PValueError(f"p-value {pval} > {maximum_p_value}")
+    return ret
 
 
 def select_associations_to_all_features(
@@ -819,17 +804,36 @@ def select_associations_to_all_features(
         raise ValueError("Input cohort_id invalid. Please try again.")
 
     cohort_features, cohort_year = cohort_meta
-    return select_feature_association(
-        conn,
-        table,
-        year,
-        cohort_features,
-        cohort_year,
-        feature,
-        maximum_p_value,
-        feature_set,
-        correction,
-    )
+
+    feature_as = [feature]
+    feature_bs = [
+        {
+            "feature_name": feature_name,
+            "feature_qualifiers": list(map(
+                lambda level: {"operator": "=", "value": level},
+                get_feature_levels(feature_name),
+            ))
+        }
+        for feature_name in filter(feature_set, get_features(conn, table))
+    ]
+
+    associations = []
+    for feature_a, feature_b in product(feature_as, feature_bs):
+        try:
+            associations.append(select_feature_association(
+                conn,
+                table,
+                year,
+                cohort_features,
+                cohort_year,
+                feature_a,
+                maximum_p_value,
+                feature_b,
+                correction,
+            ))
+        except PValueError:
+            continue
+    return associations
 
 
 def validate_range(conn, table_name, feature):

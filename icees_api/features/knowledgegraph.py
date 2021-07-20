@@ -7,6 +7,7 @@ import os
 import re
 import traceback
 from typing import List
+import uuid
 
 import tx.functional.maybe as maybe
 from tx.functional.maybe import Nothing, Just
@@ -104,27 +105,23 @@ def gen_node_id_and_equivalent_ids(node_ids):
 def result(
         source_id,
         source_curie,
-        edge_id,
-        node_name,
+        qedge_id,
+        kedge_id,
+        target_curie,
         target_id,
         table,
         filter_regex,
         score,
         score_name,
 ):
-    node_ids = name_to_ids(table, filter_regex, node_name)
-    if len(node_ids) == 0:
-        raise ValueError(f"No identifiers for {node_name}")
-    node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
-
     return {
         "node_bindings": {
             source_id: [{"id": source_curie}],
-            target_id: [{"id": node_id}],
+            target_id: [{"id": target_curie}],
         },
         "edge_bindings": {
-            edge_id: [{
-                "id": gen_edge_id(source_curie, node_name, node_id),
+            qedge_id: [{
+                "id": kedge_id,
             }]
         },
         "score": score,
@@ -151,18 +148,12 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
 
 
 def knowledge_graph_edge(
-        source_id: str,
-        node_name,
+        subject_id: str,
+        object_id: str,
         table,
         filter_regex,
         feature_property,
 ):
-    node_ids = name_to_ids(table, filter_regex, node_name)
-    if len(node_ids) == 0:
-        return Nothing
-
-    node_id, *equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
-
     source_attributes = [
         {
             "attribute_type_id": "biolink:supporting_data_source",
@@ -177,10 +168,10 @@ def knowledge_graph_edge(
         }
     ]
 
-    return gen_edge_id(source_id, node_name, node_id), {
+    return f"{subject_id}_{object_id}_{str(uuid.uuid4())[:8]}", {
         "predicate": "biolink:correlated_with",
-        "subject": source_id,
-        "object": node_id,
+        "subject": subject_id,
+        "object": object_id,
         "attributes": [{
             "attribute_type_id": "contigency:matrices",
             "value": feature_property
@@ -264,20 +255,25 @@ def get(conn, query, verbose=False):
         )
         nodes[node_id] = node
 
-        edge_id_, edge = knowledge_graph_edge(
+        node_ids = name_to_ids(table, filter_regex, feature_name)
+        if len(node_ids) == 0:
+            raise ValueError(f"No identifiers for {feature_name}")
+        object_id, equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
+        kedge_id, edge = knowledge_graph_edge(
             source_curie,
-            feature_name,
+            object_id,
             table,
             filter_regex,
             feature,
         )
-        knowledge_graph_edges[edge_id_] = edge
+        knowledge_graph_edges[kedge_id] = edge
 
         result_ = result(
             source_id,
             cohort_id,
             edge_id,
-            feature_name,
+            kedge_id,
+            object_id,
             target_id,
             table,
             filter_regex,
@@ -589,30 +585,45 @@ def one_hop(conn, query, verbose=False):
                 maximum_p_value=maximum_p_value,
                 feature_filter_b=lambda x: type_is_supported(x, target_node_types),
             )
-            for feature in ataf:
-                feature_name = feature["feature_b"]["feature_name"]
-                biolink_class = feature["feature_b"]["biolink_class"]
-                if feature_name in feature_set:
-                    _, feature_properties = feature_set[feature_name]
-                    feature_properties.append(feature)
-                else:
-                    feature_set[feature_name] = biolink_class, [feature]
+            for assoc in ataf:
+                for feature in (assoc["feature_a"], assoc["feature_b"]):
+                    feature_name = feature["feature_name"]
+                    biolink_class = feature["biolink_class"]
+                    if feature_name in feature_set:
+                        _, feature_properties = feature_set[feature_name]
+                        feature_properties.append(assoc)
+                    else:
+                        feature_set[feature_name] = biolink_class, [assoc]
 
-                try:
-                    node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
-                except ValueError:
-                    continue
+                    try:
+                        node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
+                    except ValueError:
+                        continue
 
-                knowledge_graph_nodes[node_id] = node
+                    knowledge_graph_nodes[node_id] = node
 
-                _edge_id, edge = knowledge_graph_edge(source_curie, feature_name, table, filter_regex, [feature])
-                knowledge_graph_edges[_edge_id] = edge
+                kedge_id, edge = knowledge_graph_edge(
+                    source_curie,
+                    node_id,
+                    table,
+                    filter_regex,
+                    [assoc],
+                )
+                knowledge_graph_edges[kedge_id] = edge
 
-                item = result(source_id, source_curie, edge_id, feature_name, target_id, table, filter_regex, p_values([feature])[0], "p value")
+                item = result(
+                    source_id,
+                    source_curie,
+                    edge_id,
+                    kedge_id,
+                    feature_name,
+                    target_id,
+                    table,
+                    filter_regex,
+                    p_values([assoc])[0],
+                    "p value",
+                )
                 results.append(item)
-            knowledge_graph_nodes[source_curie] = {
-                "categories": list(source_categories),
-            }
             
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,

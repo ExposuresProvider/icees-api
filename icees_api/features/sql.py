@@ -831,7 +831,12 @@ def select_associations_to_all_features(
     ]
 
     associations = []
+    done = set()
     for feature_a, feature_b in product(feature_as, feature_bs):
+        hashable = tuple(sorted((feature_a["feature_name"], feature_b["feature_name"])))
+        if hashable in done:
+            continue
+        done.add(hashable)
         try:
             associations.append(select_feature_association(
                 conn,

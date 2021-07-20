@@ -70,10 +70,6 @@ def name_to_ids(table, filter_regex, node_name):
     )))
 
 
-def gen_edge_id(cohort_id, node_name, node_id):
-    return cohort_id + "_" + node_name + "_" + node_id
-
-
 def gen_node_id_and_equivalent_ids(node_ids):
     id_prefixes = [
         "CHEBI",
@@ -109,8 +105,6 @@ def result(
         kedge_id,
         target_curie,
         target_id,
-        table,
-        filter_regex,
         score,
         score_name,
 ):
@@ -150,8 +144,6 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
 def knowledge_graph_edge(
         subject_id: str,
         object_id: str,
-        table,
-        filter_regex,
         feature_property,
 ):
     source_attributes = [
@@ -262,8 +254,6 @@ def get(conn, query, verbose=False):
         kedge_id, edge = knowledge_graph_edge(
             source_curie,
             object_id,
-            table,
-            filter_regex,
             feature,
         )
         knowledge_graph_edges[kedge_id] = edge
@@ -275,8 +265,6 @@ def get(conn, query, verbose=False):
             kedge_id,
             object_id,
             target_id,
-            table,
-            filter_regex,
             p_value,
             "p value",
         )
@@ -605,8 +593,6 @@ def one_hop(conn, query, verbose=False):
                 kedge_id, edge = knowledge_graph_edge(
                     source_curie,
                     node_id,
-                    table,
-                    filter_regex,
                     [assoc],
                 )
                 knowledge_graph_edges[kedge_id] = edge
@@ -618,8 +604,6 @@ def one_hop(conn, query, verbose=False):
                     kedge_id,
                     feature_name,
                     target_id,
-                    table,
-                    filter_regex,
                     p_values([assoc])[0],
                     "p value",
                 )

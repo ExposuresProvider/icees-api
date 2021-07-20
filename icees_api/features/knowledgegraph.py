@@ -511,6 +511,20 @@ def type_is_supported(feature: str, supported_types: List[str]) -> bool:
     )
 
 
+def matches_qnode(feature_name, qnode, table):
+    """Determine whether feature can be bound to qnode."""
+    if "ids" in qnode:
+        if not any(
+            feature_name in feature_names(table, curie)
+            for curie in qnode["ids"]
+        ):
+            return False
+    if "categories" in qnode:
+        if not type_is_supported(feature_name, qnode["categories"]):
+            return False
+    return True
+
+
 def one_hop(conn, query, verbose=False):
     try:
         message = query["message"]
@@ -547,10 +561,9 @@ def one_hop(conn, query, verbose=False):
 
         source_id = edge["subject"]
         source_node = nodes_dict[source_id]
-        source_curies = source_node["ids"]
 
         target_id = edge["object"]
-        target_node_types = nodes_dict[target_id]["categories"]
+        target_node = nodes_dict[target_id]
 
         def p_values(feature_list):
             return [feature["p_value"] for feature in feature_list]
@@ -559,62 +572,58 @@ def one_hop(conn, query, verbose=False):
         knowledge_graph_edges = dict()
         results = []
 
-        for source_curie in source_curies:
-            source_categories = set()
-            for source_feature_name in feature_names(table, source_curie):
-                source_categories.update(mappings[source_feature_name]["categories"])
-            ataf = select_associations_to_all_features(
-                conn,
-                table,
-                year,
-                cohort_id,
-                feature_filter_a=lambda name: name in feature_names(table, source_curie),
-                maximum_p_value=maximum_p_value,
-                feature_filter_b=lambda x: type_is_supported(x, target_node_types),
+        ataf = select_associations_to_all_features(
+            conn,
+            table,
+            year,
+            cohort_id,
+            feature_filter_a=lambda name: matches_qnode(name, source_node, table),
+            maximum_p_value=maximum_p_value,
+            feature_filter_b=lambda name: matches_qnode(name, target_node, table),
+        )
+        for assoc in ataf:
+            try:
+                knode_a_id, knode_a = knowledge_graph_node(
+                    assoc["feature_a"]["feature_name"],
+                    table,
+                    filter_regex,
+                    assoc["feature_a"]["biolink_class"],
+                )
+            except ValueError:
+                continue
+
+            knowledge_graph_nodes[knode_a_id] = knode_a
+
+            try:
+                knode_b_id, knode_b = knowledge_graph_node(
+                    assoc["feature_b"]["feature_name"],
+                    table,
+                    filter_regex,
+                    assoc["feature_b"]["biolink_class"],
+                )
+            except ValueError:
+                continue
+
+            knowledge_graph_nodes[knode_b_id] = knode_b
+
+            kedge_id, edge = knowledge_graph_edge(
+                knode_a_id,
+                knode_b_id,
+                [assoc],
             )
-            for assoc in ataf:
-                try:
-                    knode_a_id, knode_a = knowledge_graph_node(
-                        assoc["feature_a"]["feature_name"],
-                        table,
-                        filter_regex,
-                        assoc["feature_a"]["biolink_class"],
-                    )
-                except ValueError:
-                    continue
+            knowledge_graph_edges[kedge_id] = edge
 
-                knowledge_graph_nodes[knode_a_id] = knode_a
-
-                try:
-                    knode_b_id, knode_b = knowledge_graph_node(
-                        assoc["feature_b"]["feature_name"],
-                        table,
-                        filter_regex,
-                        assoc["feature_b"]["biolink_class"],
-                    )
-                except ValueError:
-                    continue
-
-                knowledge_graph_nodes[knode_b_id] = knode_b
-
-                kedge_id, edge = knowledge_graph_edge(
-                    knode_a_id,
-                    knode_b_id,
-                    [assoc],
-                )
-                knowledge_graph_edges[kedge_id] = edge
-
-                item = result(
-                    source_id,
-                    knode_a_id,
-                    edge_id,
-                    kedge_id,
-                    knode_b_id,
-                    target_id,
-                    p_values([assoc])[0],
-                    "p value",
-                )
-                results.append(item)
+            item = result(
+                source_id,
+                knode_a_id,
+                edge_id,
+                kedge_id,
+                knode_b_id,
+                target_id,
+                p_values([assoc])[0],
+                "p value",
+            )
+            results.append(item)
             
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,

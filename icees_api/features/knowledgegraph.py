@@ -563,7 +563,6 @@ def one_hop(conn, query, verbose=False):
             source_categories = set()
             for source_feature_name in feature_names(table, source_curie):
                 source_categories.update(mappings[source_feature_name]["categories"])
-            feature_set = {}
             ataf = select_associations_to_all_features(
                 conn,
                 table,
@@ -574,35 +573,43 @@ def one_hop(conn, query, verbose=False):
                 feature_filter_b=lambda x: type_is_supported(x, target_node_types),
             )
             for assoc in ataf:
-                for feature in (assoc["feature_a"], assoc["feature_b"]):
-                    feature_name = feature["feature_name"]
-                    biolink_class = feature["biolink_class"]
-                    if feature_name in feature_set:
-                        _, feature_properties = feature_set[feature_name]
-                        feature_properties.append(assoc)
-                    else:
-                        feature_set[feature_name] = biolink_class, [assoc]
+                try:
+                    knode_a_id, knode_a = knowledge_graph_node(
+                        assoc["feature_a"]["feature_name"],
+                        table,
+                        filter_regex,
+                        assoc["feature_a"]["biolink_class"],
+                    )
+                except ValueError:
+                    continue
 
-                    try:
-                        node_id, node = knowledge_graph_node(feature_name, table, filter_regex, biolink_class)
-                    except ValueError:
-                        continue
+                knowledge_graph_nodes[knode_a_id] = knode_a
 
-                    knowledge_graph_nodes[node_id] = node
+                try:
+                    knode_b_id, knode_b = knowledge_graph_node(
+                        assoc["feature_b"]["feature_name"],
+                        table,
+                        filter_regex,
+                        assoc["feature_b"]["biolink_class"],
+                    )
+                except ValueError:
+                    continue
+
+                knowledge_graph_nodes[knode_b_id] = knode_b
 
                 kedge_id, edge = knowledge_graph_edge(
-                    source_curie,
-                    node_id,
+                    knode_a_id,
+                    knode_b_id,
                     [assoc],
                 )
                 knowledge_graph_edges[kedge_id] = edge
 
                 item = result(
                     source_id,
-                    source_curie,
+                    knode_a_id,
                     edge_id,
                     kedge_id,
-                    feature_name,
+                    knode_b_id,
                     target_id,
                     p_values([assoc])[0],
                     "p value",

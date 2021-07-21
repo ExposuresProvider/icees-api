@@ -10,7 +10,7 @@ import re
 import operator
 import os
 import time
-from typing import Any, Callable, List, Union
+from typing import Any, Callable, Dict, List, Union
 
 from fastapi import HTTPException
 import numpy as np
@@ -794,7 +794,7 @@ def select_associations_to_all_features(
         table,
         year,
         cohort_id,
-        feature_filter_a: Union[Callable[[str], bool], dict[str, Any]],
+        feature_filter_a: Union[Callable[[str], bool], Dict[str, Any]],
         maximum_p_value,
         feature_filter_b: Callable[[str], bool] = lambda x: True,
         correction=None,

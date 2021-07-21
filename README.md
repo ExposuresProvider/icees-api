@@ -58,6 +58,8 @@ The  `.env` file contains environmental variables that control the services. Edi
 
 `ICEES_API_INSTANCE_NAME`: icees api instance name
 
+`ICEES_INFORES_CURIE`: ICEES instance identifier (see https://docs.google.com/spreadsheets/d/1Ak1hRqlTLr1qa-7O0s5bqeTHukj9gSLQML1-lg6xIHM)
+
 run
 ```
 docker-compose up --build -d

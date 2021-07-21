@@ -3,6 +3,7 @@ import datetime
 from functools import reduce
 from itertools import combinations
 import logging
+import os
 import re
 import traceback
 from typing import List
@@ -17,6 +18,8 @@ from .data_sources import data_sources
 from .sql import get_ids_by_feature, select_associations_to_all_features, select_feature_matrix, get_feature_levels
 from .identifiers import get_identifiers, get_features_by_identifier
 from .qgraph_utils import normalize_qgraph
+
+INFORES_CURIE = os.environ.get("ICEES_INFORES_CURIE", "infores:icees-asthma")
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -167,6 +170,11 @@ def knowledge_graph_edge(
             "value_url": data_source.get("url", None),
         }
         for data_source in data_sources
+    ] + [
+        {
+            "attribute_type_id": "biolink:original_knowledge_source",
+            "value": INFORES_CURIE,
+        }
     ]
 
     return gen_edge_id(source_id, node_name, node_id), {

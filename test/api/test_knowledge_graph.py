@@ -553,3 +553,12 @@ def test_knowledge_graph_edge_set(category):
     ))
     edge_ids2 = set(resp_json["return value"]["message"]["knowledge_graph"]["edges"].keys())
     assert edge_ids == edge_ids2
+
+
+def test_query_workflow():
+    """Test that the /query handles workflow instructions."""
+    response = testclient.post(
+        "/query",
+        json=query(year, "biolink:Disease") | {"workflow": ["restate"]},
+    )
+    assert response.status_code == 400

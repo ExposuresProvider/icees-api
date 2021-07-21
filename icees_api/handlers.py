@@ -559,6 +559,8 @@ def knowledge_graph_one_hop(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Query the ICEES clinical reasoner for knowledge graph one hop."""
+    if obj.get("workflow", ["lookup"]) != ["lookup"]:
+        raise HTTPException(400, "The only supported workflow is a single 'lookup' operation")
     return_value = knowledgegraph.one_hop(conn, obj, verbose=verbose)
 
     return_value = {
@@ -567,6 +569,9 @@ def knowledge_graph_one_hop(
             "knowledge_graph": return_value.pop("knowledge_graph", None),
             "results": return_value.pop("results", None),
         },
+        "workflow": [
+            "lookup",
+        ],
         **return_value,
     }
     if reasoner:

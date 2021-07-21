@@ -559,6 +559,9 @@ def test_query_workflow():
     """Test that the /query handles workflow instructions."""
     response = testclient.post(
         "/query",
-        json=query(year, "biolink:Disease") | {"workflow": ["restate"]},
+        json={
+            **query(year, "biolink:Disease"),
+            **{"workflow": ["restate"]},
+        },
     )
     assert response.status_code == 400

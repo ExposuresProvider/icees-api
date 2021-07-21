@@ -153,6 +153,9 @@ def test_knowledge_graph_one_hop(query_options):
         any(
             "biolink:supporting_data_source" in attribute["attribute_type_id"]
             for attribute in edge["attributes"]
+        ) and any(
+            attribute["attribute_type_id"] == "biolink:original_knowledge_source"
+            for attribute in edge["attributes"]
         )
         for edge in resp_json["return value"]["message"]["knowledge_graph"]["edges"].values()
     )

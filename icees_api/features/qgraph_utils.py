@@ -3,9 +3,7 @@ import re
 
 from bmt import Toolkit
 
-BMT = Toolkit(
-    schema="https://raw.githubusercontent.com/biolink/biolink-model/1.8.2/biolink-model.yaml",
-)
+BMT = Toolkit()
 
 
 def get_subcategories(category):

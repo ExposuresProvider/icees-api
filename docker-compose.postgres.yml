@@ -1,5 +1,8 @@
 version: '3'
 services:
+  redis:
+    image: redis:latest
+    container_name: ${ICEES_API_INSTANCE_NAME}-cache
   server:
     build: 
       context: .
@@ -18,10 +21,3 @@ services:
       - $ICEES_API_LOG_PATH:/log
     ports:
     - "${ICEES_API_HOST_PORT}:8080"
-    networks:
-    - icees
-
-networks:
-  icees:
-    external:
-      name: icees-postgres

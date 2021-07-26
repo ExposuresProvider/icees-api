@@ -16,6 +16,7 @@ services:
       ICEES_API_LOG_PATH: /log
       ICEES_HOST: db
       ICEES_DB: postgres
+      REDIS_HOST: redis
     volumes:
       - $CONFIG_PATH:/icees-api/config
       - $ICEES_API_LOG_PATH:/log

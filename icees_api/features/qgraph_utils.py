@@ -36,6 +36,8 @@ def normalize_qgraph(qgraph):
             for category in node.get("categories", None) or ["biolink:NamedThing"]
             for descendant in get_subcategories(category)
         ]
+        if "biolink:SmallMolecule" in node["categories"]:
+            node["categories"].append("biolink:ChemicalSubstance")
         node.pop("is_set", None)
     for edge in qgraph["edges"].values():
         edge["predicates"] = [

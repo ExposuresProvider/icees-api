@@ -1,4 +1,4 @@
-bmt-lite-2.1.0==1.0.2
+bmt-lite-2.2.1==2.1.2
 sqlalchemy
 psycopg2-binary
 scipy

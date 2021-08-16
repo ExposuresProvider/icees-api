@@ -210,7 +210,7 @@ def test_knowledge_graph_object_pinned(query_options):
     message = resp_json["return value"]["message"]
     assert len(message["results"]) == 3
     assert len(message["knowledge_graph"]["nodes"]) == 3
-    assert len(message["knowledge_graph"]["edges"]) == 3
+    assert len(message["knowledge_graph"]["edges"]) == 6
 
 
 @pytest.mark.parametrize("query_options", kg_options)
@@ -259,7 +259,7 @@ def test_knowledge_graph_no_pinned(query_options):
     message = resp_json["return value"]["message"]
     assert len(message["results"]) == 6
     assert len(message["knowledge_graph"]["nodes"]) == 3
-    assert len(message["knowledge_graph"]["edges"]) == 6
+    assert len(message["knowledge_graph"]["edges"]) == 12
 
 
 @pytest.mark.parametrize("query_options", kg_options)
@@ -312,7 +312,7 @@ def test_knowledge_graph_both_pinned(query_options):
     message = resp_json["return value"]["message"]
     assert len(message["results"]) == 1
     assert len(message["knowledge_graph"]["nodes"]) == 2
-    assert len(message["knowledge_graph"]["edges"]) == 1
+    assert len(message["knowledge_graph"]["edges"]) == 2
 
 
 @pytest.mark.parametrize("query_options", kg_options)
@@ -363,7 +363,7 @@ def test_knowledge_graph_semantic_ops(query_options):
     message = resp_json["return value"]["message"]
     assert len(message["results"]) == 3
     assert len(message["knowledge_graph"]["nodes"]) == 3
-    assert len(message["knowledge_graph"]["edges"]) == 3
+    assert len(message["knowledge_graph"]["edges"]) == 6
 
 
 @pytest.mark.parametrize("query_options", kg_options)
@@ -467,7 +467,7 @@ def test_knowledge_graph_source_returned(query_options):
     message = resp_json["return value"]["message"]
     assert len(message["results"]) == 2
     assert len(message["knowledge_graph"]["nodes"]) == 3
-    assert len(message["knowledge_graph"]["edges"]) == 2
+    assert len(message["knowledge_graph"]["edges"]) == 4
     assert message["knowledge_graph"]["nodes"]["PUBCHEM:2083"]["categories"] == ["biolink:ChemicalSubstance"]
 
 
@@ -667,7 +667,7 @@ def test_knowledge_graph_unique_edge_ids(category):
     ):
         assert "e00" in edge_bindings
         assert len(edge_bindings) == 1
-        assert len(edge_bindings["e00"]) == 1
+        assert len(edge_bindings["e00"]) == 2
 
     edge_ids = list(map(
         lambda x: x["edge_bindings"]["e00"][0]["id"],
@@ -703,10 +703,11 @@ def test_knowledge_graph_edge_set(category):
 
     assert len(resp_json["return value"]["message"]["results"]) > 0
 
-    edge_ids = set(map(
-        lambda x: x["edge_bindings"]["e00"][0]["id"],
-        resp_json["return value"]["message"]["results"]
-    ))
+    edge_ids = set([
+        edge_binding["id"]
+        for result in resp_json["return value"]["message"]["results"]
+        for edge_binding in result["edge_bindings"]["e00"]
+    ])
     edge_ids2 = set(resp_json["return value"]["message"]["knowledge_graph"]["edges"].keys())
     assert edge_ids == edge_ids2
 

@@ -510,6 +510,13 @@ def predicates(
                 "predicate": "biolink:correlated_with",
             }
             for sub in all_categories for obj in all_categories
+        ] + [
+            {
+                "subject": sub,
+                "object": obj,
+                "predicate": "biolink:has_real_world_evidence_of_association_with",
+            }
+            for sub in all_categories for obj in all_categories
         ],
     }
 

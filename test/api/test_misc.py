@@ -248,7 +248,7 @@ def test_meta_knowledge_graph():
     assert response.status_code == 200
 
     edges = response.json()["edges"]
-    assert len(edges) == 16  # 4 categories in mappings.yml, squared
+    assert len(edges) == 32  # 4 categories in mappings.yml, squared, then doubled
 
 
 def test_openapi():

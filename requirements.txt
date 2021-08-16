@@ -15,5 +15,5 @@ numpy
 statsmodels==0.12.0
 fastapi
 uvicorn
-reasoner-pydantic==1.1.2
+reasoner-pydantic==1.2.0
 redis==3.5.3

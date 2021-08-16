@@ -27,15 +27,42 @@ logger = logging.getLogger(__name__)
 
 schema = {
     "biolink:PopulationOfIndividualOrganisms": {
-        "biolink:ChemicalSubstance": ["biolink:correlated_with"],
-        "biolink:Disease": ["biolink:correlated_with"],
-        "biolink:PhenotypicFeature": ["biolink:correlated_with"],
-        "biolink:DiseaseOrPhenotypic_feature": ["biolink:correlated_with"],
-        "biolink:ChemicalSubstance": ["biolink:correlated_with"],
-        "biolink:Environment": ["biolink:correlated_with"],
-        "biolink:ActivityAndBehavior": ["biolink:correlated_with"],
-        "biolink:Drug": ["biolink:correlated_with"],
-        "biolink:NamedThing": ["biolink:correlated_with"]
+        "biolink:ChemicalSubstance": [
+            "biolink:correlated_with",
+            "biolink:has_real_world_evidence_of_association_with",
+        ],
+        "biolink:Disease": [
+            "biolink:correlated_with",
+            "biolink:has_real_world_evidence_of_association_with",
+        ],
+        "biolink:PhenotypicFeature": [
+            "biolink:correlated_with",
+            "biolink:has_real_world_evidence_of_association_with",
+        ],
+        "biolink:DiseaseOrPhenotypic_feature": [
+            "biolink:correlated_with",
+            "biolink:has_real_world_evidence_of_association_with",
+        ],
+        "biolink:ChemicalSubstance": [
+            "biolink:correlated_with",
+            "biolink:has_real_world_evidence_of_association_with",
+        ],
+        "biolink:Environment": [
+            "biolink:correlated_with",
+            "biolink:has_real_world_evidence_of_association_with",
+        ],
+        "biolink:ActivityAndBehavior": [
+            "biolink:correlated_with",
+            "biolink:has_real_world_evidence_of_association_with",
+        ],
+        "biolink:Drug": [
+            "biolink:correlated_with",
+            "biolink:has_real_world_evidence_of_association_with",
+        ],
+        "biolink:NamedThing": [
+            "biolink:correlated_with",
+            "biolink:has_real_world_evidence_of_association_with",
+        ]
     }
 }
 
@@ -102,7 +129,7 @@ def result(
         source_id,
         source_curie,
         qedge_id,
-        kedge_id,
+        kedge_ids,
         target_curie,
         target_id,
         score,
@@ -114,9 +141,12 @@ def result(
             target_id: [{"id": target_curie}],
         },
         "edge_bindings": {
-            qedge_id: [{
-                "id": kedge_id,
-            }]
+            qedge_id: [
+                {
+                    "id": kedge_id,
+                }
+                for kedge_id in kedge_ids
+            ]
         },
         "score": score,
         "score_name": score_name
@@ -141,7 +171,7 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
     }
 
 
-def knowledge_graph_edge(
+def knowledge_graph_edges(
         subject_id: str,
         object_id: str,
         feature_property,
@@ -160,14 +190,25 @@ def knowledge_graph_edge(
         }
     ]
 
-    return f"{subject_id}_{object_id}_{str(uuid.uuid4())[:8]}", {
-        "predicate": "biolink:correlated_with",
-        "subject": subject_id,
-        "object": object_id,
-        "attributes": [{
-            "attribute_type_id": "contigency:matrices",
-            "value": feature_property
-        }] + source_attributes,
+    return {
+        f"{subject_id}_{object_id}_{str(uuid.uuid4())[:8]}": {
+            "predicate": "biolink:correlated_with",
+            "subject": subject_id,
+            "object": object_id,
+            "attributes": [{
+                "attribute_type_id": "contigency:matrices",
+                "value": feature_property
+            }] + source_attributes,
+        },
+        f"{subject_id}_{object_id}_{str(uuid.uuid4())[:8]}": {
+            "predicate": "biolink:has_real_world_evidence_of_association_with",
+            "subject": subject_id,
+            "object": object_id,
+            "attributes": [{
+                "attribute_type_id": "contigency:matrices",
+                "value": feature_property
+            }] + source_attributes,
+        },
     }
 
 
@@ -231,7 +272,7 @@ def get(conn, query, verbose=False):
     )
 
     nodes = {}
-    knowledge_graph_edges = {}
+    kedges = {}
     results = []
     for feature in feature_list:
         feature_b = feature["feature_b"]
@@ -251,18 +292,18 @@ def get(conn, query, verbose=False):
         if len(node_ids) == 0:
             raise ValueError(f"No identifiers for {feature_name}")
         object_id, equivalent_ids = gen_node_id_and_equivalent_ids(node_ids)
-        kedge_id, edge = knowledge_graph_edge(
+        new_kedges = knowledge_graph_edges(
             source_curie,
             object_id,
             feature,
         )
-        knowledge_graph_edges[kedge_id] = edge
+        kedges.update(new_kedges)
 
         result_ = result(
             source_id,
             cohort_id,
             edge_id,
-            kedge_id,
+            list(new_kedges.keys()),
             object_id,
             target_id,
             p_value,
@@ -277,7 +318,7 @@ def get(conn, query, verbose=False):
 
     knowledge_graph = {
         "nodes": nodes,
-        "edges": knowledge_graph_edges
+        "edges": kedges,
     }
 
     n_results = len(results)
@@ -375,7 +416,7 @@ def co_occurrence_edge(
 
 def generate_edge_id(src_node, tgt_node):
     """Generate edge id."""
-    return src_node + "_" + tgt_node
+    return src_node + "_" + tgt_node + "_" + str(uuid.uuid4())[:8]
 
 
 def node_get_id(node):
@@ -392,14 +433,24 @@ def attr(s):
     return lambda d: maybe.from_python(d.get(s))
 
 
-def generate_edge(src_node, tgt_node, edge_attributes=None):
-    return generate_edge_id(src_node, tgt_node), {
-        "predicate": "biolink:correlated_with",
-        "subject": src_node,
-        "object": tgt_node,
-        **({
-            "edge_attributes": edge_attributes
-        } if edge_attributes is not None else {})
+def generate_edges(src_node, tgt_node, edge_attributes=None):
+    return {
+        generate_edge_id(src_node, tgt_node): {
+            "predicate": "biolink:correlated_with",
+            "subject": src_node,
+            "object": tgt_node,
+            **({
+                "edge_attributes": edge_attributes
+            } if edge_attributes is not None else {})
+        },
+        generate_edge_id(src_node, tgt_node): {
+            "predicate": "biolink:has_real_world_evidence_of_association_with",
+            "subject": src_node,
+            "object": tgt_node,
+            **({
+                "edge_attributes": edge_attributes
+            } if edge_attributes is not None else {})
+        },
     }
 
 
@@ -471,12 +522,11 @@ def co_occurrence_overlay(conn, query):
     overlay_edges = dict()
     for src_node, tgt_node in combinations(knodes.keys(), r=2):
         edge_attributes = co_occurrence_edge(conn, table, year, features, src_node, tgt_node)
-        edge_id, edge = generate_edge(
+        overlay_edges.update(generate_edges(
             src_node,
             tgt_node,
             edge_attributes=edge_attributes,
-        )
-        overlay_edges[edge_id] = edge
+        ))
     knowledge_graph = {
         "nodes": nodes,
         "edges": {**edges, **overlay_edges}
@@ -544,7 +594,11 @@ def one_hop(conn, query, verbose=False):
         if len(edges_dict) != 1:
             raise NotImplementedError("Number of edges in query graph must be 1")
 
-        if "biolink:correlated_with" not in next(iter(edges_dict.values()))["predicates"]:
+        predicates = next(iter(edges_dict.values()))["predicates"]
+        if (
+            "biolink:correlated_with" not in predicates and
+            "biolink:has_real_world_evidence_of_association_with" not in predicates
+        ):
             return {
                 "reasoner_id": "ICEES",
                 "tool_version": TOOL_VERSION,
@@ -569,7 +623,7 @@ def one_hop(conn, query, verbose=False):
             return [feature["p_value"] for feature in feature_list]
 
         knowledge_graph_nodes = dict()
-        knowledge_graph_edges = dict()
+        kedges = dict()
         results = []
 
         ataf = select_associations_to_all_features(
@@ -606,18 +660,18 @@ def one_hop(conn, query, verbose=False):
 
             knowledge_graph_nodes[knode_b_id] = knode_b
 
-            kedge_id, edge = knowledge_graph_edge(
+            new_kedges = knowledge_graph_edges(
                 knode_a_id,
                 knode_b_id,
                 [assoc],
             )
-            knowledge_graph_edges[kedge_id] = edge
+            kedges.update(new_kedges)
 
             item = result(
                 source_id,
                 knode_a_id,
                 edge_id,
-                kedge_id,
+                list(new_kedges.keys()),
                 knode_b_id,
                 target_id,
                 p_values([assoc])[0],
@@ -627,7 +681,7 @@ def one_hop(conn, query, verbose=False):
             
         knowledge_graph = {
             "nodes": knowledge_graph_nodes,
-            "edges": knowledge_graph_edges
+            "edges": kedges,
         }
 
         n_results = len(results)

@@ -718,7 +718,7 @@ def test_query_workflow():
         "/query",
         json={
             **query(year, "biolink:Disease"),
-            **{"workflow": ["restate"]},
+            **{"workflow": [{"id": "restate"}]},
         },
     )
     assert response.status_code == 400

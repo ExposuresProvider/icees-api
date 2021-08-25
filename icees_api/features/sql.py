@@ -559,23 +559,23 @@ def select_feature_matrix(
     feature_b_norm = normalize_feature(year, feature_b)
     print(f"{time.time() - start_time} seconds spent normalizing")
 
-    start_time = time.time()
-    cohort_features_json = json.dumps(cohort_features_norm, sort_keys=True)
-    feature_a_json = json.dumps(feature_a_norm, sort_keys=True)
-    feature_b_json = json.dumps(feature_b_norm, sort_keys=True)
-    print(f"{time.time() - start_time} seconds spent json.dumping")
+    # start_time = time.time()
+    # cohort_features_json = json.dumps(cohort_features_norm, sort_keys=True)
+    # feature_a_json = json.dumps(feature_a_norm, sort_keys=True)
+    # feature_b_json = json.dumps(feature_b_norm, sort_keys=True)
+    # print(f"{time.time() - start_time} seconds spent json.dumping")
 
     cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
 
-    start_time = time.time()
-    digest = get_digest(
-        json.dumps(table_name),
-        cohort_features_json,
-        json.dumps(cohort_year),
-        feature_a_json,
-        feature_b_json,
-    )
-    print(f"{time.time() - start_time} seconds spent getting digest")
+    # start_time = time.time()
+    # digest = get_digest(
+    #     json.dumps(table_name),
+    #     cohort_features_json,
+    #     json.dumps(cohort_year),
+    #     feature_a_json,
+    #     feature_b_json,
+    # )
+    # print(f"{time.time() - start_time} seconds spent getting digest")
 
     # start_time = time.time()
     # result = conn.execute(
@@ -594,7 +594,7 @@ def select_feature_matrix(
     # else:
     #     print("cache hit!")
 
-    timestamp = datetime.now(timezone.utc)
+    # timestamp = datetime.now(timezone.utc)
 
     ka = feature_a_norm["feature_name"]
     vas = feature_a_norm["feature_qualifiers"]
@@ -701,7 +701,7 @@ def select_feature_matrix(
             "chi_squared": None
         }
 
-    association_json = json.dumps(association, sort_keys=True)
+    # association_json = json.dumps(association, sort_keys=True)
 
     if cohort_features:
         conn.execute("DROP VIEW tmp")

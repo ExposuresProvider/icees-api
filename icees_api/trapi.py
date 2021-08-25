@@ -23,7 +23,11 @@ class TRAPI(FastAPI):
         trapi_operations: Optional[List[str]] = None,
         **kwargs,
     ):
-        super().__init__(*args, **kwargs)
+        super().__init__(
+            *args,
+            root_path_in_servers=False,
+            **kwargs,
+        )
         self.contact = contact
         self.terms_of_service = terms_of_service
         self.translator_component = translator_component

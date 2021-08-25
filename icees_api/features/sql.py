@@ -523,6 +523,36 @@ def select_feature_matrix(
         feature_b,
 ):
     """Select feature matrix."""
+    if not isinstance(cohort_features, list):
+        cohort_features = [
+            {
+                "feature_name": key,
+                "feature_qualifier": {
+                    "operator": value["operator"],
+                    "value": value["value"],
+                },
+            }
+            for key, value in cohort_features.items()
+        ]
+    if cohort_features:
+        view_query = (
+            "CREATE VIEW tmp AS "
+            "SELECT * FROM {} "
+            "WHERE {}"
+        ).format(
+            table_name,
+            " AND ".join(
+                "\"{}\" {} {}".format(
+                    feature["feature_name"],
+                    feature["feature_qualifier"]["operator"],
+                    feature["feature_qualifier"]["value"],
+                )
+                for feature in cohort_features
+            )
+        )
+        conn.execute(view_query)
+        table_name = "tmp"
+
     start_time = time.time()
     cohort_features_norm = normalize_features(cohort_year, cohort_features)
     feature_a_norm = normalize_feature(year, feature_a)
@@ -672,6 +702,9 @@ def select_feature_matrix(
         }
 
     association_json = json.dumps(association, sort_keys=True)
+
+    if cohort_features:
+        conn.execute("DROP VIEW tmp")
 
     # start_time = time.time()
     # conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))

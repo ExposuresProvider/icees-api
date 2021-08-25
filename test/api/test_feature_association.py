@@ -74,6 +74,70 @@ def test_feature_association():
     do_verify_feature_matrix_response(resp_json["return value"])
 
 
+feature_variables = [
+    {
+        "feature_name": "AsthmaDx",
+        "feature_qualifier": {
+            "operator": "=",
+            "value": "1"
+        }
+    }
+]
+
+
+@load_data(
+    APP,
+    """
+        PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
+        varchar(255),int,varchar(255),varchar(255),int,int,int
+        1,2010,0-2,0,1,0,1
+        2,2010,0-2,1,1,0,1
+        3,2010,0-2,>1,1,0,1
+        4,2010,0-2,0,2,0,1
+        5,2010,0-2,1,2,0,1
+        6,2010,0-2,>1,2,0,1
+        7,2010,0-2,0,3,0,1
+        8,2010,0-2,1,3,0,1
+        9,2010,0-2,>1,3,0,1
+        10,2010,0-2,0,4,0,1
+        11,2010,0-2,1,4,0,1
+        12,2010,0-2,>1,4,0,0
+    """,
+    """
+        cohort_id,size,features,table,year
+        COHORT:1,11,"{0}",patient,2010
+    """.format(escape_quotes(json.dumps(feature_variables, sort_keys=True)))
+)
+def test_with_cohort():
+    cohort_id = "COHORT:1"
+    atafdata = {
+        "feature_a": {
+            "AgeStudyStart": {
+                "operator": "=",
+                "value": '0-2'
+            }
+        },
+        "feature_b": {
+            "AgeStudyStart": {
+                "operator": "=",
+                "value": '0-2'
+            }
+        }
+    }
+    resp = testclient.post(
+        f"/{table}/cohort/{cohort_id}/feature_association",
+        json=atafdata,
+    )
+    resp_json = resp.json()
+    assert "return value" in resp_json
+    feature_matrix = resp_json["return value"]["feature_matrix"]
+    assert sum(
+        el["frequency"]
+        for row in feature_matrix
+        for el in row
+    ) == 11
+
+
 @load_data(
     APP,
     """

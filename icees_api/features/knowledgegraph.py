@@ -196,7 +196,7 @@ def knowledge_graph_edges(
             "subject": subject_id,
             "object": object_id,
             "attributes": [{
-                "attribute_type_id": "contigency:matrices",
+                "attribute_type_id": "contingency:matrices",
                 "value": feature_property
             }] + source_attributes,
         },
@@ -205,7 +205,7 @@ def knowledge_graph_edges(
             "subject": subject_id,
             "object": object_id,
             "attributes": [{
-                "attribute_type_id": "contigency:matrices",
+                "attribute_type_id": "contingency:matrices",
                 "value": feature_property
             }] + source_attributes,
         },

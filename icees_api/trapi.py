@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional
 
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
+from starlette.middleware.cors import CORSMiddleware
 
 
 class TRAPI(FastAPI):
@@ -23,12 +24,27 @@ class TRAPI(FastAPI):
         trapi_operations: Optional[List[str]] = None,
         **kwargs,
     ):
-        super().__init__(*args, **kwargs)
+        super().__init__(
+            *args,
+            root_path_in_servers=False,
+            **kwargs,
+        )
         self.contact = contact
         self.terms_of_service = terms_of_service
         self.translator_component = translator_component
         self.translator_teams = translator_teams
         self.trapi_operations = trapi_operations
+
+        CORS_OPTIONS = dict(
+            allow_origins=['*'],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
+        self.add_middleware(
+            CORSMiddleware,
+            **CORS_OPTIONS,
+        )
 
     def openapi(self) -> Dict[str, Any]:
         """Build custom OpenAPI schema."""

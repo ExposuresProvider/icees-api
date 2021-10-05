@@ -6,6 +6,7 @@ AgeStudyStart:
 AsthmaDx:
   categories:
   - biolink:Disease
+  - biolink:PhenotypicFeature
   identifiers:
   - MONDO:0004979
 Albuterol:

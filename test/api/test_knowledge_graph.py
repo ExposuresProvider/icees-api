@@ -760,3 +760,57 @@ def test_query_workflow():
         },
     )
     assert response.status_code == 400
+
+
+@load_data(APP, """
+    PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure
+    varchar(255),int,varchar(255),varchar(255),int
+    1,2010,0-2,0,1
+    2,2010,0-2,1,1
+    3,2010,0-2,>1,1
+    4,2010,0-2,0,2
+    5,2010,0-2,1,2
+    6,2010,0-2,>1,2
+    7,2010,0-2,0,3
+    8,2010,0-2,1,3
+    9,2010,0-2,>1,3
+    10,2010,0-2,0,4
+    11,2010,0-2,1,4
+    12,2010,0-2,>1,4
+""")
+def test_query_verbose():
+    """Test verbose option."""
+    source_id = "PUBCHEM:2083"
+    query = {
+        "message": {
+            "query_graph": {
+                "nodes": {
+                    "n00": {
+                        "ids": [source_id]
+                    },
+                    "n01": {
+                        "categories": ["biolink:ChemicalSubstance"]
+                    }
+                },
+                "edges": {
+                    "e00": {
+                        "predicates": ["biolink:correlated_with"],
+                        "subject": "n00",
+                        "object": "n01"
+                    }
+                }
+            }
+        }
+    }
+    resp_json = validate_response(testclient.post(
+        "/query",
+        json=query,
+        params={"verbose": True},
+    ))
+    assert all(
+        any(
+            "contigency:matrices" in attribute["attribute_type_id"]
+            for attribute in edge["attributes"]
+        )
+        for edge in resp_json["message"]["knowledge_graph"]["edges"].values()
+    )

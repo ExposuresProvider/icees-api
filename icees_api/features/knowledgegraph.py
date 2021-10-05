@@ -175,8 +175,9 @@ def knowledge_graph_edges(
         subject_id: str,
         object_id: str,
         feature_property,
+        verbose=True,
 ):
-    source_attributes = [
+    attributes = [
         {
             "attribute_type_id": "biolink:supporting_data_source",
             "value": data_source["name"],
@@ -189,25 +190,24 @@ def knowledge_graph_edges(
             "value": INFORES_CURIE,
         }
     ]
+    if verbose:
+        attributes.append({
+            "attribute_type_id": "contigency:matrices",
+            "value": feature_property
+        })
 
     return {
         f"{subject_id}_{object_id}_{str(uuid.uuid4())[:8]}": {
             "predicate": "biolink:correlated_with",
             "subject": subject_id,
             "object": object_id,
-            "attributes": [{
-                "attribute_type_id": "contigency:matrices",
-                "value": feature_property
-            }] + source_attributes,
+            "attributes": attributes,
         },
         f"{subject_id}_{object_id}_{str(uuid.uuid4())[:8]}": {
             "predicate": "biolink:has_real_world_evidence_of_association_with",
             "subject": subject_id,
             "object": object_id,
-            "attributes": [{
-                "attribute_type_id": "contigency:matrices",
-                "value": feature_property
-            }] + source_attributes,
+            "attributes": attributes,
         },
     }
 
@@ -296,6 +296,7 @@ def get(conn, query, verbose=False):
             source_curie,
             object_id,
             feature,
+            verbose=verbose,
         )
         kedges.update(new_kedges)
 
@@ -664,6 +665,7 @@ def one_hop(conn, query, verbose=False):
                 knode_a_id,
                 knode_b_id,
                 [assoc],
+                verbose=verbose,
             )
             kedges.update(new_kedges)
 

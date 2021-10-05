@@ -1,4 +1,5 @@
 """Knowledge graph methods."""
+import copy
 import datetime
 from functools import reduce
 from itertools import combinations
@@ -587,7 +588,7 @@ def one_hop(conn, query, verbose=False):
         cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
         maximum_p_value = query_options.get("maximum_p_value", MAX_P_VAL_DEFAULT)
         filter_regex = query_options.get("regex", ".*")
-        query_graph = message["query_graph"]
+        query_graph = copy.deepcopy(message["query_graph"])
         normalize_qgraph(query_graph)
 
         nodes_dict = query_graph["nodes"]
@@ -698,7 +699,7 @@ def one_hop(conn, query, verbose=False):
             "n_results": n_results,
             "message_code": "OK",
             "code_description": "",
-            "query_graph": query_graph,
+            "query_graph": message["query_graph"],
             "knowledge_graph": knowledge_graph,
             "results": results
         }

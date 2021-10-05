@@ -192,7 +192,8 @@ def knowledge_graph_edges(
     ]
     if verbose:
         attributes.append({
-            "attribute_type_id": "contigency:matrices",
+            "attribute_type_id": "EDAM:data_0006",
+            "original_attribute_name": "contingency matrix",
             "value": feature_property
         })
 

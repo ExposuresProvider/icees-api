@@ -771,7 +771,7 @@ def test_query_verbose():
     ))
     assert all(
         any(
-            "contigency:matrices" in attribute["attribute_type_id"]
+            "contingency matrix" in attribute.get("original_attribute_name", "")
             for attribute in edge["attributes"]
         )
         for edge in resp_json["message"]["knowledge_graph"]["edges"].values()

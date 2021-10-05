@@ -192,7 +192,8 @@ def knowledge_graph_edges(
     ]
     if feature_property is not None:
         attributes.append({
-            "attribute_type_id": "contigency:matrices",
+            "attribute_type_id": "EDAM:data_0006",
+            "original_attribute_name": "contingency matrix",
             "value": feature_property
         })
     if p_value is not None:

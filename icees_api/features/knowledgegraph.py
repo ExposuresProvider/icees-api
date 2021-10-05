@@ -557,7 +557,10 @@ def type_is_supported(feature: str, supported_types: List[str]) -> bool:
     """Determine whether feature type is supported."""
     return (
         feature in mappings
-        and mappings[feature]["categories"][0] in supported_types
+        and any(
+            category in supported_types
+            for category in mappings[feature]["categories"]
+        )
     )
 
 

@@ -13,8 +13,9 @@ from starlette.status import HTTP_403_FORBIDDEN
 from .dependencies import get_db
 from .features import knowledgegraph, sql
 from .features.identifiers import get_identifiers, input_dict
+from .features.qgraph_utils import normalize_qgraph
 from .features.sql import validate_range
-from .features.mappings import mappings
+from .features.mappings import mappings, correlations
 from .models import (
     Features,
     FeatureAssociation, FeatureAssociation2,
@@ -591,11 +592,155 @@ ROUTER.post(
     response_model=Dict,
     deprecated=True,
 )(knowledge_graph_one_hop)
+
+
+feature_to_curies = {
+    feature: value["identifiers"]
+    for feature, value in mappings.items()
+}
+
+feature_to_categories = {
+    feature: value["categories"]
+    for feature, value in mappings.items()
+}
+
+curie_to_features = defaultdict(list)
+for feature, value in mappings.items():
+    for identifier in value["identifiers"]:
+        curie_to_features[identifier].append(feature)
+
+category_to_features = defaultdict(list)
+for feature, value in mappings.items():
+    for category in value["categories"]:
+        category_to_features[category].append(feature)
+
+
+def features_from_node(source_node):
+    return [
+        feature
+        for curie in source_node["ids"]
+        for feature in curie_to_features[curie]
+    ] if source_node.get("ids") is not None else [
+        feature
+        for category in source_node["categories"]
+        for feature in category_to_features[category]
+    ]
+
+
+feature_names = correlations[0][1:]
+correlations = [row[1:] for row in correlations[1:]]
+correlations = {
+    tuple(sorted((feature_names[irow], feature_names[icol]))): float(correlations[irow][icol])
+    for irow in range(0, len(correlations))
+    for icol in range(irow + 1, len(correlations))
+}
+
+
+def knode(source_feature):
+    source_curies = feature_to_curies[source_feature]
+    source_id, source_synonyms = knowledgegraph.gen_node_id_and_equivalent_ids(source_curies)
+    source_categories = feature_to_categories[source_feature]
+    return source_id, {
+        "name": source_feature,
+        "attributes": [
+            {
+                "attribute_type_id": "biolink:synonym",
+                "value": source_synonyms,
+            }
+        ],
+        "categories": source_categories,
+    }
+
+
+def query(
+        obj: Query = Body(..., example=KG_ONEHOP_EXAMPLE),
+) -> Dict:
+    """Solve a one-hop TRAPI query."""
+    if obj.get("workflow", [{"id": "lookup"}]) != [{"id": "lookup"}]:
+        raise HTTPException(400, "The only supported workflow is a single 'lookup' operation")
+    qgraph = obj["message"]["query_graph"]
+    normalize_qgraph(qgraph)
+    if len(qgraph["nodes"]) != 2:
+        raise NotImplementedError("Number of nodes in query graph must be 2")
+    if len(qgraph["edges"]) != 1:
+        raise NotImplementedError("Number of edges in query graph must be 1")
+    qedge_id, qedge = next(iter(qgraph["edges"].items()))
+    if (
+        "biolink:correlated_with" not in qedge["predicates"] and
+        "biolink:has_real_world_evidence_of_association_with" not in qedge["predicates"]
+    ):
+        return {
+            "message": {
+                "query_graph": qgraph,
+                "knowledge_graph": {"nodes": {}, "edges": {}},
+                "results": [],
+            }
+        }
+
+    source_qid = qedge["subject"]
+    source_qnode = qgraph["nodes"][source_qid]
+    target_qid = qedge["object"]
+    target_qnode = qgraph["nodes"][target_qid]
+
+    # features = correlations[0]
+    source_features = features_from_node(source_qnode)
+    target_features = features_from_node(target_qnode)
+    kedge_pairs = [
+        tuple(sorted([source_feature, target_feature]))
+        for source_feature in source_features
+        for target_feature in target_features
+    ]
+
+    kgraph = {
+        "nodes": {},
+        "edges": {},
+    }
+    results = []
+    for pair in kedge_pairs:
+        if pair not in correlations:
+            continue
+        p_value = correlations[pair]
+        source_feature, target_feature = pair  # note the source and target may be flipped, which is okay
+        source_kid, source_knode = knode(source_feature)
+        target_kid, target_knode = knode(target_feature)
+        kgraph["nodes"].update({
+            source_kid: source_knode,
+            target_kid: target_knode,
+        })
+        kedges = knowledgegraph.knowledge_graph_edges(source_kid, target_kid, p_value=p_value)
+        kgraph["edges"].update(kedges)
+        results.append({
+            "node_bindings": {
+                source_qid: [{"id": source_kid}],
+                target_qid: [{"id": target_kid}],
+            },
+            "edge_bindings": {
+                qedge_id: [
+                    {
+                        "id": kedge_id,
+                    }
+                    for kedge_id in kedges
+                ]
+            },
+            "score": p_value,
+            "score_name": "p value"
+        })
+
+    return {
+        "message": {
+            "query_graph": qgraph,
+            "knowledge_graph": kgraph,
+            "results": results,
+        },
+        "workflow": [
+            {"id": "lookup"},
+        ],
+    }
 ROUTER.post(
     "/query",
     response_model=Dict,
     tags=["reasoner"],
-)(knowledge_graph_one_hop)
+)(query)
 
 
 @ROUTER.get(

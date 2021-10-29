@@ -1,4 +1,5 @@
 """TRAPI FastAPI wrapper."""
+import os
 from typing import Any, Dict, List, Optional
 
 from fastapi import FastAPI
@@ -65,10 +66,6 @@ class TRAPI(FastAPI):
         )
         openapi_schema["servers"] = self.servers
 
-        infores_lookup = {
-            "ICEES Asthma Instance API": "infores:icees-asthma",
-            "ICEES DILI Instance API": "infores:icees-dili"
-        }
         openapi_schema["info"]["x-translator"] = {
             "component": self.translator_component,
             "team": self.translator_teams,
@@ -76,7 +73,7 @@ class TRAPI(FastAPI):
                 "description": "The values for component and team are restricted according to this external JSON schema. See schema and examples at url",
                 "url": "https://github.com/NCATSTranslator/translator_extensions/blob/production/x-translator/",
             },
-            "infores": infores_lookup.get(self.title, "infores:icees")
+            "infores": os.getenv("ICEES_INFORES_CURIE", "infores:icees")
         }
         openapi_schema["info"]["x-trapi"] = {
             "version": "1.2.0",

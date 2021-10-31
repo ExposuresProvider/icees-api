@@ -174,9 +174,10 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
 def knowledge_graph_edges(
         subject_id: str,
         object_id: str,
-        feature_property,
+        feature_property=None,
+        p_value=None,
 ):
-    source_attributes = [
+    attributes = [
         {
             "attribute_type_id": "biolink:supporting_data_source",
             "value": data_source["name"],
@@ -189,25 +190,29 @@ def knowledge_graph_edges(
             "value": INFORES_CURIE,
         }
     ]
+    if feature_property is not None:
+        attributes.append({
+            "attribute_type_id": "contigency:matrices",
+            "value": feature_property
+        })
+    if p_value is not None:
+        attributes.append({
+            "attribute_type_id": "biolink:p_value",
+            "value": p_value
+        })
 
     return {
         f"{subject_id}_{object_id}_{str(uuid.uuid4())[:8]}": {
             "predicate": "biolink:correlated_with",
             "subject": subject_id,
             "object": object_id,
-            "attributes": [{
-                "attribute_type_id": "contigency:matrices",
-                "value": feature_property
-            }] + source_attributes,
+            "attributes": attributes,
         },
         f"{subject_id}_{object_id}_{str(uuid.uuid4())[:8]}": {
             "predicate": "biolink:has_real_world_evidence_of_association_with",
             "subject": subject_id,
             "object": object_id,
-            "attributes": [{
-                "attribute_type_id": "contigency:matrices",
-                "value": feature_property
-            }] + source_attributes,
+            "attributes": attributes,
         },
     }
 

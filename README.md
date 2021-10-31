@@ -52,6 +52,8 @@ The  `.env` file contains environmental variables that control the services. Edi
 
 `OPENAPI_SCHEME`: the protocol where icees api is deployed
 
+`OPENAPI_SERVER_MATURITY`: The server maturity (ie 'development' or 'production')
+
 `DB_PATH`: the path to the SQLite database file on the host
 
 `CONFIG_PATH`: the directory where schema and identifiers are stored

@@ -69,9 +69,13 @@ openapi_args = dict(
         "x-role": "responsible developer",
     },
 )
+OPENAPI_SERVER_MATURITY = os.getenv("OPENAPI_SERVER_MATURITY", "development")
 if OPENAPI_SERVER_URL:
     openapi_args["servers"] = [
-        {"url": OPENAPI_SERVER_URL}
+        {
+            "url": OPENAPI_SERVER_URL,
+            "x-maturity": OPENAPI_SERVER_MATURITY,
+        }
     ]
 APP = TRAPI(**openapi_args)
 

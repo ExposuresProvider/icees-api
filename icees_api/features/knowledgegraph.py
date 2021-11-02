@@ -301,6 +301,7 @@ def get(conn, query, verbose=False):
             source_curie,
             object_id,
             feature,
+            verbose=verbose,
         )
         kedges.update(new_kedges)
 
@@ -501,7 +502,7 @@ def message_cohort(conn, cohort_definition):
         else:
             table = cohort_definition["table"]
             year = cohort_definition["year"]
-            features = cohort_defintion["features"]
+            features = cohort_definition["features"]
             size = cohort_definition["size"]
 
     return cohort_id, table, year, features, size
@@ -669,6 +670,7 @@ def one_hop(conn, query, verbose=False):
                 knode_a_id,
                 knode_b_id,
                 [assoc],
+                verbose=verbose,
             )
             kedges.update(new_kedges)
 

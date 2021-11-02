@@ -7,7 +7,7 @@ jsonschema
 pyyaml
 tabulate
 structlog
-pandas==0.25.3
+pandas
 argparse
 simplejson
 tx-functional==0.1.2

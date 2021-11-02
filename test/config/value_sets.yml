@@ -9,8 +9,9 @@ AsthmaDx:
   - 0
   - 1
 Albuterol:
-  - 0
-  - 1
+  - '0'
+  - '1'
+  - '>1'
 AvgDailyPM2.5Exposure:
   - 1
   - 2

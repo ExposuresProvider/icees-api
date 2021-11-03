@@ -23,6 +23,7 @@ class TRAPI(FastAPI):
         translator_component: Optional[str] = None,
         translator_teams: Optional[List[str]] = None,
         trapi_operations: Optional[List[str]] = None,
+        infores: Optional[str] = None,
         **kwargs,
     ):
         super().__init__(
@@ -35,6 +36,7 @@ class TRAPI(FastAPI):
         self.translator_component = translator_component
         self.translator_teams = translator_teams
         self.trapi_operations = trapi_operations
+        self.infores = infores
 
         CORS_OPTIONS = dict(
             allow_origins=['*'],
@@ -73,7 +75,7 @@ class TRAPI(FastAPI):
                 "description": "The values for component and team are restricted according to this external JSON schema. See schema and examples at url",
                 "url": "https://github.com/NCATSTranslator/translator_extensions/blob/production/x-translator/",
             },
-            "infores": os.getenv("ICEES_INFORES_CURIE", "infores:icees")
+            "infores": self.infores,
         }
         openapi_schema["info"]["x-trapi"] = {
             "version": "1.2.0",

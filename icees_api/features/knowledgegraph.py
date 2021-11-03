@@ -502,7 +502,7 @@ def message_cohort(conn, cohort_definition):
         else:
             table = cohort_definition["table"]
             year = cohort_definition["year"]
-            features = cohort_defintion["features"]
+            features = cohort_definition["features"]
             size = cohort_definition["size"]
 
     return cohort_id, table, year, features, size

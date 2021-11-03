@@ -741,7 +741,7 @@ ROUTER.post(
     "/query",
     response_model=Dict,
     tags=["reasoner"],
-)(query)
+)(knowledge_graph_one_hop) # Change back to query
 
 
 @ROUTER.get(

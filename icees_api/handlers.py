@@ -628,13 +628,13 @@ def features_from_node(source_node):
     ]
 
 
-feature_names = correlations[0][1:]
-correlations = [row[1:] for row in correlations[1:]]
-correlations = {
-    tuple(sorted((feature_names[irow], feature_names[icol]))): float(correlations[irow][icol])
-    for irow in range(0, len(correlations))
-    for icol in range(irow + 1, len(correlations))
-}
+# feature_names = correlations[0][1:]
+# correlations = [row[1:] for row in correlations[1:]]
+# correlations = {
+#     tuple(sorted((feature_names[irow], feature_names[icol]))): float(correlations[irow][icol])
+#     for irow in range(0, len(correlations))
+#     for icol in range(irow + 1, len(correlations))
+# }
 
 
 def knode(source_feature):

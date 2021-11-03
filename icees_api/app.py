@@ -63,11 +63,12 @@ openapi_args = dict(
     translator_component="KP",
     translator_teams=["Exposures Provider"],
     contact={
-        "name": "Patrick Wang",
-        "email": "patrick@covar.com",
-        "x-id": "https://github.com/patrickkwang",
+        "name": "Kenneth Morton",
+        "email": "kenny@covar.com",
+        "x-id": "kennethmorton",
         "x-role": "responsible developer",
     },
+    infores=os.getenv("ICEES_INFORES_CURIE", "infores:icees")
 )
 OPENAPI_SERVER_MATURITY = os.getenv("OPENAPI_SERVER_MATURITY", "development")
 OPENAPI_SERVER_LOCATION = os.getenv("OPENAPI_SERVER_LOCATION", "RENCI")

@@ -743,7 +743,6 @@ ROUTER.post(
     tags=["reasoner"],
 )(knowledge_graph_one_hop) # Change back to query
 
-
 @ROUTER.get(
     "/bins",
     response_model=Dict,

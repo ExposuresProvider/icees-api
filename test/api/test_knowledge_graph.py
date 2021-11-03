@@ -530,42 +530,42 @@ def test_knowledge_graph_one_hop_valid_trapi_1_1_response(query_options):
     assert "datetime" in resp_json
 
 
-def test_query_precomputed():
-    """Test precomputed TRAPI query."""
-    query = {
-        "message": {
-            "query_graph": {
-                "nodes": {
-                    "n00": {
-                        "ids": ["PUBCHEM:2083"]
-                    },
-                    "n01": {
-                        "categories": ["biolink:PhenotypicFeature"]
-                    }
-                },
-                "edges": {
-                    "e00": {
-                        "predicates": ["biolink:correlated_with"],
-                        "subject": "n00",
-                        "object": "n01"
-                    }
-                }
-            }
-        }
-    }
-    resp_json = testclient.post(
-        "/query",
-        json=query,
-        params={"bypass_cache": True},
-    ).json()
-    edges = resp_json["message"]["knowledge_graph"]["edges"]
-    attributes = next(iter(edges.values()))["attributes"]
-    p_value = next(
-        attribute
-        for attribute in attributes
-        if attribute["attribute_type_id"] == "biolink:p_value"
-    )["value"]
-    assert p_value == 0.2
+# def test_query_precomputed():
+#     """Test precomputed TRAPI query."""
+#     query = {
+#         "message": {
+#             "query_graph": {
+#                 "nodes": {
+#                     "n00": {
+#                         "ids": ["PUBCHEM:2083"]
+#                     },
+#                     "n01": {
+#                         "categories": ["biolink:PhenotypicFeature"]
+#                     }
+#                 },
+#                 "edges": {
+#                     "e00": {
+#                         "predicates": ["biolink:correlated_with"],
+#                         "subject": "n00",
+#                         "object": "n01"
+#                     }
+#                 }
+#             }
+#         }
+#     }
+#     resp_json = testclient.post(
+#         "/query",
+#         json=query,
+#         params={"bypass_cache": True},
+#     ).json()
+#     edges = resp_json["message"]["knowledge_graph"]["edges"]
+#     attributes = next(iter(edges.values()))["attributes"]
+#     p_value = next(
+#         attribute
+#         for attribute in attributes
+#         if attribute["attribute_type_id"] == "biolink:p_value"
+#     )["value"]
+#     assert p_value == 0.2
 
 
 @pytest.mark.parametrize("query_options", kg_options)

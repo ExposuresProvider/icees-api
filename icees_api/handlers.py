@@ -1,5 +1,6 @@
 """ICEES API handlers."""
 from collections import defaultdict
+import copy
 import os
 import json
 from typing import Dict, Union
@@ -658,7 +659,7 @@ def query(
     """Solve a one-hop TRAPI query."""
     if obj.get("workflow", [{"id": "lookup"}]) != [{"id": "lookup"}]:
         raise HTTPException(400, "The only supported workflow is a single 'lookup' operation")
-    qgraph = obj["message"]["query_graph"]
+    qgraph = copy.deepcopy(obj["message"]["query_graph"])
     normalize_qgraph(qgraph)
     if len(qgraph["nodes"]) != 2:
         raise NotImplementedError("Number of nodes in query graph must be 2")
@@ -728,7 +729,7 @@ def query(
 
     return {
         "message": {
-            "query_graph": qgraph,
+            "query_graph": obj["message"]["query_graph"], # Return unmodified
             "knowledge_graph": kgraph,
             "results": results,
         },

@@ -1,5 +1,6 @@
 """ICEES API handlers."""
 from collections import defaultdict
+import copy
 import os
 import json
 from typing import Dict, Union
@@ -627,13 +628,13 @@ def features_from_node(source_node):
     ]
 
 
-feature_names = correlations[0][1:]
-correlations = [row[1:] for row in correlations[1:]]
-correlations = {
-    tuple(sorted((feature_names[irow], feature_names[icol]))): float(correlations[irow][icol])
-    for irow in range(0, len(correlations))
-    for icol in range(irow + 1, len(correlations))
-}
+# feature_names = correlations[0][1:]
+# correlations = [row[1:] for row in correlations[1:]]
+# correlations = {
+#     tuple(sorted((feature_names[irow], feature_names[icol]))): float(correlations[irow][icol])
+#     for irow in range(0, len(correlations))
+#     for icol in range(irow + 1, len(correlations))
+# }
 
 
 def knode(source_feature):
@@ -658,7 +659,7 @@ def query(
     """Solve a one-hop TRAPI query."""
     if obj.get("workflow", [{"id": "lookup"}]) != [{"id": "lookup"}]:
         raise HTTPException(400, "The only supported workflow is a single 'lookup' operation")
-    qgraph = obj["message"]["query_graph"]
+    qgraph = copy.deepcopy(obj["message"]["query_graph"])
     normalize_qgraph(qgraph)
     if len(qgraph["nodes"]) != 2:
         raise NotImplementedError("Number of nodes in query graph must be 2")
@@ -728,7 +729,7 @@ def query(
 
     return {
         "message": {
-            "query_graph": qgraph,
+            "query_graph": obj["message"]["query_graph"], # Return unmodified
             "knowledge_graph": kgraph,
             "results": results,
         },
@@ -740,8 +741,7 @@ ROUTER.post(
     "/query",
     response_model=Dict,
     tags=["reasoner"],
-)(query)
-
+)(knowledge_graph_one_hop) # Change back to query
 
 @ROUTER.get(
     "/bins",

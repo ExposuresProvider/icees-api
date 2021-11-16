@@ -13,5 +13,6 @@ with open(os.path.join(get_config_path(), "mappings.yml"), "r") as f:
 with open(os.path.join(get_config_path(), "value_sets.yml"), "r") as f:
     value_sets = yaml.load(f, Loader=yaml.SafeLoader)
 
-with open(os.path.join(get_config_path(), "correlations.csv"), "r") as f:
-    correlations = list(csv.reader(f))
+# with open(os.path.join(get_config_path(), "correlations.csv"), "r") as f:
+#     correlations = list(csv.reader(f))
+correlations = []

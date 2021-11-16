@@ -530,42 +530,42 @@ def test_knowledge_graph_one_hop_valid_trapi_1_1_response(query_options):
     assert "datetime" in resp_json
 
 
-def test_query_precomputed():
-    """Test precomputed TRAPI query."""
-    query = {
-        "message": {
-            "query_graph": {
-                "nodes": {
-                    "n00": {
-                        "ids": ["PUBCHEM:2083"]
-                    },
-                    "n01": {
-                        "categories": ["biolink:PhenotypicFeature"]
-                    }
-                },
-                "edges": {
-                    "e00": {
-                        "predicates": ["biolink:correlated_with"],
-                        "subject": "n00",
-                        "object": "n01"
-                    }
-                }
-            }
-        }
-    }
-    resp_json = testclient.post(
-        "/query",
-        json=query,
-        params={"bypass_cache": True},
-    ).json()
-    edges = resp_json["message"]["knowledge_graph"]["edges"]
-    attributes = next(iter(edges.values()))["attributes"]
-    p_value = next(
-        attribute
-        for attribute in attributes
-        if attribute["attribute_type_id"] == "biolink:p_value"
-    )["value"]
-    assert p_value == 0.2
+# def test_query_precomputed():
+#     """Test precomputed TRAPI query."""
+#     query = {
+#         "message": {
+#             "query_graph": {
+#                 "nodes": {
+#                     "n00": {
+#                         "ids": ["PUBCHEM:2083"]
+#                     },
+#                     "n01": {
+#                         "categories": ["biolink:PhenotypicFeature"]
+#                     }
+#                 },
+#                 "edges": {
+#                     "e00": {
+#                         "predicates": ["biolink:correlated_with"],
+#                         "subject": "n00",
+#                         "object": "n01"
+#                     }
+#                 }
+#             }
+#         }
+#     }
+#     resp_json = testclient.post(
+#         "/query",
+#         json=query,
+#         params={"bypass_cache": True},
+#     ).json()
+#     edges = resp_json["message"]["knowledge_graph"]["edges"]
+#     attributes = next(iter(edges.values()))["attributes"]
+#     p_value = next(
+#         attribute
+#         for attribute in attributes
+#         if attribute["attribute_type_id"] == "biolink:p_value"
+#     )["value"]
+#     assert p_value == 0.2
 
 
 @pytest.mark.parametrize("query_options", kg_options)
@@ -760,3 +760,31 @@ def test_query_workflow():
         },
     )
     assert response.status_code == 400
+
+
+@load_data(APP, """
+    PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
+    varchar(255),int,varchar(255),varchar(255),int,int,int
+    1,2010,0-2,0,1,0,1
+    2,2010,0-2,1,1,0,1
+    3,2010,0-2,>1,1,0,1
+    4,2010,0-2,0,2,0,1
+    5,2010,0-2,1,2,0,1
+    6,2010,0-2,>1,2,0,1
+    7,2010,0-2,0,3,0,1
+    8,2010,0-2,1,3,0,1
+    9,2010,0-2,>1,3,0,1
+    10,2010,0-2,0,4,0,1
+    11,2010,0-2,1,4,0,1
+    12,2010,0-2,>1,4,0,1
+""")
+def test_leave_qgraph():
+    """Test that the /query does not change the qgraph."""
+    payload = query(year, "biolink:Disease")
+    response = testclient.post(
+        "/query",
+        json=payload,
+    )
+    assert response.status_code == 200
+    response_json = response.json()
+    assert response_json["message"]["query_graph"]["edges"]["e00"]["predicates"] == ["biolink:correlated_with"]

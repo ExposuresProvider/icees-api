@@ -3,6 +3,7 @@ services:
   redis:
     image: redis:latest
     container_name: ${ICEES_API_INSTANCE_NAME}-cache
+    restart: always
   server:
     build: 
       context: .

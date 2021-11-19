@@ -17,6 +17,7 @@ from .features.identifiers import get_identifiers, input_dict
 from .features.qgraph_utils import normalize_qgraph
 from .features.sql import validate_range
 from .features.mappings import mappings, correlations
+from .features.config import get_config_path
 from .models import (
     Features,
     FeatureAssociation, FeatureAssociation2,
@@ -754,7 +755,8 @@ def handle_bins(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Return bin values."""
-    with open("config/bins.json", "r") as stream:
+    input_file = os.path.join(get_config_path(), "bins.json") 
+    with open(input_file, "r") as stream:
         bins = json.load(stream)
     if feature is not None:
         bins = {

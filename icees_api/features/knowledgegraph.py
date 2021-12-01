@@ -585,10 +585,10 @@ def one_hop(conn, query, verbose=False):
     try:
         message = query["message"]
         query_options = query.get("query_options", None) or {}
+        query_graph = copy.deepcopy(message["query_graph"])
         cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
         maximum_p_value = query_options.get("maximum_p_value", MAX_P_VAL_DEFAULT)
         filter_regex = query_options.get("regex", ".*")
-        query_graph = copy.deepcopy(message["query_graph"])
         normalize_qgraph(query_graph)
 
         nodes_dict = query_graph["nodes"]

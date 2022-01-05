@@ -595,7 +595,6 @@ def select_feature_matrix(
     #     print("cache hit!")
 
     # timestamp = datetime.now(timezone.utc)
-
     ka = feature_a_norm["feature_name"]
     vas = feature_a_norm["feature_qualifiers"]
     ya = feature_a_norm["year"]
@@ -817,7 +816,8 @@ def select_feature_association(
         ),
         correction,
     )
-    if (pval := ret.get("p_value_corrected", ret.get("p_value", None))) is None or pval > maximum_p_value:
+    if ret and ((pval := ret.get("p_value_corrected", ret.get("p_value", None))) is None
+                or pval > maximum_p_value):
         raise PValueError(f"p-value {pval} > {maximum_p_value}")
     return ret
 
@@ -837,7 +837,6 @@ def select_associations_to_all_features(
         raise ValueError("Input cohort_id invalid. Please try again.")
 
     cohort_features, cohort_year = cohort_meta
-
     if isinstance(feature_filter_a, Callable):
         feature_as = [
             {
@@ -871,7 +870,7 @@ def select_associations_to_all_features(
             continue
         done.add(hashable)
         try:
-            associations.append(select_feature_association(
+            result = select_feature_association(
                 conn,
                 table,
                 year,
@@ -881,7 +880,9 @@ def select_associations_to_all_features(
                 maximum_p_value,
                 feature_b,
                 correction,
-            ))
+            )
+            if result:
+                associations.append(result)
         except PValueError:
             continue
     return associations

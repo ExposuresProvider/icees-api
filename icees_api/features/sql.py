@@ -786,7 +786,7 @@ def apply_correction(ret, correction=None):
         alpha = correction.get("alpha", 1)
         if ret["p_value"] is None:
             ret["p_value_corrected"] = None
-            return
+            return ret
         rsp = [ret["p_value"]]
         _, pvals, _, _ = multipletests(rsp, alpha, method)
         ret["p_value_corrected"] = pvals[0]
@@ -816,8 +816,8 @@ def select_feature_association(
         ),
         correction,
     )
-    if ret and ((pval := ret.get("p_value_corrected", ret.get("p_value", None))) is None
-                or pval > maximum_p_value):
+
+    if (pval := ret.get("p_value_corrected", ret.get("p_value", None))) is None or pval > maximum_p_value:
         raise PValueError(f"p-value {pval} > {maximum_p_value}")
     return ret
 
@@ -870,7 +870,7 @@ def select_associations_to_all_features(
             continue
         done.add(hashable)
         try:
-            result = select_feature_association(
+            associations.append(select_feature_association(
                 conn,
                 table,
                 year,
@@ -880,9 +880,7 @@ def select_associations_to_all_features(
                 maximum_p_value,
                 feature_b,
                 correction,
-            )
-            if result:
-                associations.append(result)
+            ))
         except PValueError:
             continue
     return associations

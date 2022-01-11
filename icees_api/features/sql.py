@@ -609,10 +609,8 @@ def select_feature_matrix(
     # timestamp = datetime.now(timezone.utc)
     ka = feature_a_norm["feature_name"]
     vas = feature_a_norm["feature_qualifiers"]
-    ya = feature_a_norm["year"]
     kb = feature_b_norm["feature_name"]
     vbs = feature_b_norm["feature_qualifiers"]
-    yb = feature_b_norm["year"]
 
     start_time = time.time()
     result = count_unique(conn, table_name, year, ka, kb)

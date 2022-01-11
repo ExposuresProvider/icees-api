@@ -553,9 +553,6 @@ def select_feature_matrix(
                 )
                 for feature in cohort_features)
 
-        if year:
-            condition_str = f'{condition_str} AND "\"year\" = {year}'
-
         view_query = (
             "CREATE VIEW tmp AS "
             "SELECT * FROM {} "

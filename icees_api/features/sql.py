@@ -486,7 +486,7 @@ def cached(key=lambda *args: hash(tuple(args))):
 
 
 @cached(key=lambda db, *args: json.dumps(args))
-def count_unique(conn, table_name, *columns):
+def count_unique(conn, table_name, year, *columns):
     """Count each unique combination of column values.
 
     For example, for columns = ["a", "b"] and data
@@ -505,12 +505,21 @@ def count_unique(conn, table_name, *columns):
         [2, 2, 1]
     ]
     """
-    return [list(row) for row in conn.execute(
-        "SELECT {cols}, count(*) FROM {table_name} GROUP BY {cols}".format(
-            cols=", ".join(f"\"{col}\"" for col in columns),
-            table_name=table_name,
-        )
-    ).fetchall()]
+    if not year:
+        return [list(row) for row in conn.execute(
+            "SELECT {cols}, count(*) FROM {table_name} GROUP BY {cols}".format(
+                cols=", ".join(f"\"{col}\"" for col in columns),
+                table_name=table_name,
+            )
+        ).fetchall()]
+    else:
+        return [list(row) for row in conn.execute(
+            "SELECT {cols}, count(*) FROM {table_name} WHERE \"year\" = {year} GROUP BY {cols}".format(
+                cols=", ".join(f"\"{col}\"" for col in columns),
+                table_name=table_name,
+                year=year
+            )
+        ).fetchall()]
 
 
 def select_feature_matrix(
@@ -534,21 +543,26 @@ def select_feature_matrix(
             }
             for key, value in cohort_features.items()
         ]
+
     if cohort_features:
+        condition_str = " AND ".join(
+                "\"{}\" {} {}".format(
+                    feature["feature_name"],
+                    feature["feature_qualifier"]["operator"],
+                    feature["feature_qualifier"]["value"],
+                )
+                for feature in cohort_features)
+
+        if year:
+            condition_str = f'{condition_str} AND "\"year\" = {year}'
+
         view_query = (
             "CREATE VIEW tmp AS "
             "SELECT * FROM {} "
             "WHERE {}"
         ).format(
             table_name,
-            " AND ".join(
-                "\"{}\" {} {}".format(
-                    feature["feature_name"],
-                    feature["feature_qualifier"]["operator"],
-                    feature["feature_qualifier"]["value"],
-                )
-                for feature in cohort_features
-            )
+            condition_str
         )
         conn.execute(view_query)
         table_name = "tmp"
@@ -557,6 +571,7 @@ def select_feature_matrix(
     cohort_features_norm = normalize_features(cohort_year, cohort_features)
     feature_a_norm = normalize_feature(year, feature_a)
     feature_b_norm = normalize_feature(year, feature_b)
+
     print(f"{time.time() - start_time} seconds spent normalizing")
 
     # start_time = time.time()
@@ -603,7 +618,7 @@ def select_feature_matrix(
     yb = feature_b_norm["year"]
 
     start_time = time.time()
-    result = count_unique(conn, table_name, ka, kb)
+    result = count_unique(conn, table_name, year, ka, kb)
     _ka = "0_" + ka
     _kb = "1_" + kb
     result = [
@@ -616,41 +631,46 @@ def select_feature_matrix(
     ]
     print(f"{time.time() - start_time} seconds spent doing it the fast way")
 
-    feature_matrix = [
-        [
-            get_count(result, **{
-                _ka: va,
-                _kb: vb,
-            })
-            for va in vas
+    feature_matrix = []
+    feature_matrix2 = []
+    observed = []
+
+    if result:
+        feature_matrix = [
+            [
+                get_count(result, **{
+                    _ka: va,
+                    _kb: vb,
+                })
+                for va in vas
+            ]
+            for vb in vbs
         ]
-        for vb in vbs
-    ]
 
-    total_cols = [
-        get_count(result, **{_ka: va}) for va in vas
-    ]
-    total_rows = [
-        get_count(result, **{_kb: vb}) for vb in vbs
-    ]
+        total_cols = [
+            get_count(result, **{_ka: va}) for va in vas
+        ]
+        total_rows = [
+            get_count(result, **{_kb: vb}) for vb in vbs
+        ]
 
-    total = get_count(result)
+        total = get_count(result)
 
-    observed = list(map(
-        lambda x: list(map(add_eps, x)),
-        feature_matrix
-    ))
+        observed = list(map(
+            lambda x: list(map(add_eps, x)),
+            feature_matrix
+        ))
 
-    feature_matrix2 = [
-        [
-            {
-                "frequency": cell,
-                "row_percentage": div(cell, total_rows[i]),
-                "column_percentage": div(cell, total_cols[j]),
-                "total_percentage": div(cell, total)
-            } for j, cell in enumerate(row)
-        ] for i, row in enumerate(feature_matrix)
-    ]
+        feature_matrix2 = [
+            [
+                {
+                    "frequency": cell,
+                    "row_percentage": div(cell, total_rows[i]),
+                    "column_percentage": div(cell, total_cols[j]),
+                    "total_percentage": div(cell, total)
+                } for j, cell in enumerate(row)
+            ] for i, row in enumerate(feature_matrix)
+        ]
 
     feature_a_norm_with_biolink_class = {
         **feature_a_norm,
@@ -687,15 +707,9 @@ def select_feature_matrix(
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
             "feature_matrix": feature_matrix2,
-            "rows": [
-                {"frequency": a, "percentage": b}
-                for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
-            ],
-            "columns": [
-                {"frequency": a, "percentage": b}
-                for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
-            ],
-            "total": total,
+            "rows": [],
+            "columns": [],
+            "total": 0,
             "p_value": None,
             "chi_squared": None
         }

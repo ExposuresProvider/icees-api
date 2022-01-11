@@ -3,7 +3,7 @@ from collections import defaultdict
 import copy
 import os
 import json
-from typing import Dict, Union
+from typing import Dict, Union, Optional
 
 from fastapi import APIRouter, Body, Depends, Security, HTTPException
 from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
@@ -274,6 +274,7 @@ with open("examples/associations_to_all_features.json") as stream:
 def associations_to_all_features(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         obj: AllFeaturesAssociation = Body(
             ...,
             example=ASSOCIATIONS_TO_ALL_FEATURES_EXAMPLE,
@@ -295,7 +296,7 @@ def associations_to_all_features(
     return_value = sql.select_associations_to_all_features(
         conn,
         table,
-        None,
+        year,
         cohort_id,
         feature,
         maximum_p_value,

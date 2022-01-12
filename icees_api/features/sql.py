@@ -697,9 +697,15 @@ def select_feature_matrix(
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
             "feature_matrix": feature_matrix2,
-            "rows": [],
-            "columns": [],
-            "total": 0,
+            "rows": [
+                {"frequency": a, "percentage": b}
+                for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
+            ],
+            "columns": [
+                {"frequency": a, "percentage": b}
+                for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
+            ],
+            "total": total,
             "p_value": None,
             "chi_squared": None
         }

@@ -679,7 +679,7 @@ def select_feature_matrix(
         association = {
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
-            "feature_matrix": feature_matrix2,
+            "feature_matrix": feature_matrix2 if result else [],
             "rows": [
                 {"frequency": a, "percentage": b}
                 for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
@@ -696,7 +696,7 @@ def select_feature_matrix(
         association = {
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
-            "feature_matrix": feature_matrix2,
+            "feature_matrix": feature_matrix2 if result else [],
             "rows": [
                 {"frequency": a, "percentage": b}
                 for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))

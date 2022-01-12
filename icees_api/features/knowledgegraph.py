@@ -635,7 +635,7 @@ def one_hop(conn, query, verbose=False):
         ataf = select_associations_to_all_features(
             conn,
             table,
-            None,
+            year,
             cohort_id,
             feature_filter_a=lambda name: matches_qnode(name, source_node, table),
             maximum_p_value=maximum_p_value,

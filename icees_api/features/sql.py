@@ -626,46 +626,41 @@ def select_feature_matrix(
     ]
     print(f"{time.time() - start_time} seconds spent doing it the fast way")
 
-    feature_matrix = []
-    feature_matrix2 = []
-    observed = []
-
-    if result:
-        feature_matrix = [
-            [
-                get_count(result, **{
-                    _ka: va,
-                    _kb: vb,
-                })
-                for va in vas
-            ]
-            for vb in vbs
+    feature_matrix = [
+        [
+            get_count(result, **{
+                _ka: va,
+                _kb: vb,
+            })
+            for va in vas
         ]
+        for vb in vbs
+    ]
 
-        total_cols = [
-            get_count(result, **{_ka: va}) for va in vas
-        ]
-        total_rows = [
-            get_count(result, **{_kb: vb}) for vb in vbs
-        ]
+    total_cols = [
+        get_count(result, **{_ka: va}) for va in vas
+    ]
+    total_rows = [
+        get_count(result, **{_kb: vb}) for vb in vbs
+    ]
 
-        total = get_count(result)
+    total = get_count(result)
 
-        observed = list(map(
-            lambda x: list(map(add_eps, x)),
-            feature_matrix
-        ))
+    observed = list(map(
+        lambda x: list(map(add_eps, x)),
+        feature_matrix
+    ))
 
-        feature_matrix2 = [
-            [
-                {
-                    "frequency": cell,
-                    "row_percentage": div(cell, total_rows[i]),
-                    "column_percentage": div(cell, total_cols[j]),
-                    "total_percentage": div(cell, total)
-                } for j, cell in enumerate(row)
-            ] for i, row in enumerate(feature_matrix)
-        ]
+    feature_matrix2 = [
+        [
+            {
+                "frequency": cell,
+                "row_percentage": div(cell, total_rows[i]),
+                "column_percentage": div(cell, total_cols[j]),
+                "total_percentage": div(cell, total)
+            } for j, cell in enumerate(row)
+        ] for i, row in enumerate(feature_matrix)
+    ]
 
     feature_a_norm_with_biolink_class = {
         **feature_a_norm,

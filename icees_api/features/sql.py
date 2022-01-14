@@ -486,7 +486,7 @@ def cached(key=lambda *args: hash(tuple(args))):
 
 
 @cached(key=lambda db, *args: json.dumps(args))
-def count_unique(conn, table_name, *columns):
+def count_unique(conn, table_name, year, *columns):
     """Count each unique combination of column values.
 
     For example, for columns = ["a", "b"] and data
@@ -505,12 +505,21 @@ def count_unique(conn, table_name, *columns):
         [2, 2, 1]
     ]
     """
-    return [list(row) for row in conn.execute(
-        "SELECT {cols}, count(*) FROM {table_name} GROUP BY {cols}".format(
-            cols=", ".join(f"\"{col}\"" for col in columns),
-            table_name=table_name,
-        )
-    ).fetchall()]
+    if not year:
+        return [list(row) for row in conn.execute(
+            "SELECT {cols}, count(*) FROM {table_name} GROUP BY {cols}".format(
+                cols=", ".join(f"\"{col}\"" for col in columns),
+                table_name=table_name,
+            )
+        ).fetchall()]
+    else:
+        return [list(row) for row in conn.execute(
+            "SELECT {cols}, count(*) FROM {table_name} WHERE \"year\" = {year} GROUP BY {cols}".format(
+                cols=", ".join(f"\"{col}\"" for col in columns),
+                table_name=table_name,
+                year=year
+            )
+        ).fetchall()]
 
 
 def select_feature_matrix(
@@ -534,21 +543,23 @@ def select_feature_matrix(
             }
             for key, value in cohort_features.items()
         ]
+
     if cohort_features:
+        condition_str = " AND ".join(
+                "\"{}\" {} {}".format(
+                    feature["feature_name"],
+                    feature["feature_qualifier"]["operator"],
+                    feature["feature_qualifier"]["value"],
+                )
+                for feature in cohort_features)
+
         view_query = (
             "CREATE VIEW tmp AS "
             "SELECT * FROM {} "
             "WHERE {}"
         ).format(
             table_name,
-            " AND ".join(
-                "\"{}\" {} {}".format(
-                    feature["feature_name"],
-                    feature["feature_qualifier"]["operator"],
-                    feature["feature_qualifier"]["value"],
-                )
-                for feature in cohort_features
-            )
+            condition_str
         )
         conn.execute(view_query)
         table_name = "tmp"
@@ -557,6 +568,7 @@ def select_feature_matrix(
     cohort_features_norm = normalize_features(cohort_year, cohort_features)
     feature_a_norm = normalize_feature(year, feature_a)
     feature_b_norm = normalize_feature(year, feature_b)
+
     print(f"{time.time() - start_time} seconds spent normalizing")
 
     # start_time = time.time()
@@ -597,13 +609,11 @@ def select_feature_matrix(
     # timestamp = datetime.now(timezone.utc)
     ka = feature_a_norm["feature_name"]
     vas = feature_a_norm["feature_qualifiers"]
-    ya = feature_a_norm["year"]
     kb = feature_b_norm["feature_name"]
     vbs = feature_b_norm["feature_qualifiers"]
-    yb = feature_b_norm["year"]
 
     start_time = time.time()
-    result = count_unique(conn, table_name, ka, kb)
+    result = count_unique(conn, table_name, year, ka, kb)
     _ka = "0_" + ka
     _kb = "1_" + kb
     result = [
@@ -669,7 +679,7 @@ def select_feature_matrix(
         association = {
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
-            "feature_matrix": feature_matrix2,
+            "feature_matrix": feature_matrix2 if result else [],
             "rows": [
                 {"frequency": a, "percentage": b}
                 for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
@@ -686,7 +696,7 @@ def select_feature_matrix(
         association = {
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
-            "feature_matrix": feature_matrix2,
+            "feature_matrix": feature_matrix2 if result else [],
             "rows": [
                 {"frequency": a, "percentage": b}
                 for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))

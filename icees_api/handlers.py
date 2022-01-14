@@ -3,7 +3,7 @@ from collections import defaultdict
 import copy
 import os
 import json
-from typing import Dict, Union
+from typing import Dict, Union, Optional
 
 from fastapi import APIRouter, Body, Depends, Security, HTTPException
 from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
@@ -177,6 +177,7 @@ with open("examples/feature_association.json") as stream:
 def feature_association(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         obj: FeatureAssociation = Body(
             ...,
             example=FEATURE_ASSOCIATION_EXAMPLE,
@@ -203,7 +204,7 @@ def feature_association(
         return_value = sql.select_feature_matrix(
             conn,
             table,
-            None,
+            year,
             cohort_features,
             cohort_year,
             feature_a,
@@ -223,6 +224,7 @@ with open("examples/feature_association2.json") as stream:
 def feature_association2(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         obj: FeatureAssociation2 = Body(
             ...,
             example=FEATURE_ASSOCIATION2_EXAMPLE,
@@ -253,7 +255,7 @@ def feature_association2(
         return_value = sql.select_feature_matrix(
             conn,
             table,
-            None,
+            year,
             cohort_features,
             cohort_year,
             feature_a,
@@ -274,6 +276,7 @@ with open("examples/associations_to_all_features.json") as stream:
 def associations_to_all_features(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         obj: AllFeaturesAssociation = Body(
             ...,
             example=ASSOCIATIONS_TO_ALL_FEATURES_EXAMPLE,
@@ -295,7 +298,7 @@ def associations_to_all_features(
     return_value = sql.select_associations_to_all_features(
         conn,
         table,
-        None,
+        year,
         cohort_id,
         feature,
         maximum_p_value,
@@ -315,6 +318,7 @@ with open("examples/associations_to_all_features2.json") as stream:
 def associations_to_all_features2(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         obj: AllFeaturesAssociation2 = Body(
             ...,
             example=ASSOCIATIONS_TO_ALL_FEATURES2_EXAMPLE,
@@ -338,7 +342,7 @@ def associations_to_all_features2(
     return_value = sql.select_associations_to_all_features(
         conn,
         table,
-        None,
+        year,
         cohort_id,
         feature,
         maximum_p_value,
@@ -354,6 +358,7 @@ def associations_to_all_features2(
 def features(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
@@ -371,7 +376,7 @@ def features(
         return_value = sql.get_cohort_features(
             conn,
             table,
-            None,
+            year,
             cohort_features,
             cohort_year,
         )

@@ -449,14 +449,34 @@ OP_MAP = {
 }
 
 
+def simplify_value(val_str):
+    """
+    simplify value string to integer string if appropriate, e.g., from 1.0 to 1
+    """
+    if isinstance(val_str, str):
+        if '.' in val_str:
+            try:
+                value_float = float(val_str)
+            except ValueError:
+                # not a number
+                return val_str
+            value_int = int(value_float)
+            if value_int == value_float:
+                # the query value can be simplifed to remove the decimal points such as 1.0
+                return str(value_int)
+
+    return val_str
+
+
 def get_count(results, **constraints):
     """Get sum of result counts that meet constraints."""
     count = 0
+
     for result in results:
         if all(
             OP_MAP[constraint["operator"]](
-                result.get(feature, None),
-                constraint.get("value", constraint.get("values")),
+                simplify_value(result.get(feature, None)),
+                simplify_value(constraint.get("value", constraint.get("values"))),
             )
             for feature, constraint in constraints.items()
         ):
@@ -507,17 +527,19 @@ def count_unique(conn, table_name, year, *columns):
     """
     if not year:
         return [list(row) for row in conn.execute(
-            "SELECT {cols}, count(*) FROM {table_name} GROUP BY {cols}".format(
+            "SELECT {cols}, count(*) FROM {table_name} WHERE {cols_not_null} GROUP BY {cols}".format(
                 cols=", ".join(f"\"{col}\"" for col in columns),
+                cols_not_null=" AND ".join(f"\"{col}\" is not null" for col in columns),
                 table_name=table_name,
             )
         ).fetchall()]
     else:
         return [list(row) for row in conn.execute(
-            "SELECT {cols}, count(*) FROM {table_name} WHERE \"year\" = {year} GROUP BY {cols}".format(
+            "SELECT {cols}, count(*) FROM {table_name} WHERE \"year\" = {year} AND {cols_not_null} GROUP BY {cols}".format(
                 cols=", ".join(f"\"{col}\"" for col in columns),
                 table_name=table_name,
-                year=year
+                year=year,
+                cols_not_null=" AND ".join(f"\"{col}\" is not null" for col in columns),
             )
         ).fetchall()]
 
@@ -611,7 +633,6 @@ def select_feature_matrix(
     vas = feature_a_norm["feature_qualifiers"]
     kb = feature_b_norm["feature_name"]
     vbs = feature_b_norm["feature_qualifiers"]
-
     start_time = time.time()
     result = count_unique(conn, table_name, year, ka, kb)
     _ka = "0_" + ka
@@ -636,16 +657,13 @@ def select_feature_matrix(
         ]
         for vb in vbs
     ]
-
     total_cols = [
         get_count(result, **{_ka: va}) for va in vas
     ]
     total_rows = [
         get_count(result, **{_kb: vb}) for vb in vbs
     ]
-
     total = get_count(result)
-
     observed = list(map(
         lambda x: list(map(add_eps, x)),
         feature_matrix
@@ -718,7 +736,6 @@ def select_feature_matrix(
     # start_time = time.time()
     # conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
     # print(f"{time.time() - start_time} seconds spent writing to cache")
-
     return association
 
 
@@ -893,6 +910,7 @@ def select_associations_to_all_features(
             ))
         except PValueError:
             continue
+
     return associations
 
 

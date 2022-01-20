@@ -453,18 +453,13 @@ def simplify_value(val_str):
     """
     simplify value string to integer string if appropriate, e.g., from 1.0 to 1
     """
-    if isinstance(val_str, str):
-        if '.' in val_str:
-            try:
-                value_float = float(val_str)
-            except ValueError:
-                # not a number
-                return val_str
-            value_int = int(value_float)
-            if value_int == value_float:
-                # the query value can be simplifed to remove the decimal points such as 1.0
-                return str(value_int)
-
+    try:
+        value_float = float(val_str)
+    except (ValueError, TypeError):
+        return val_str
+    value_int = int(value_float)
+    if value_int == value_float:
+        return str(value_int)
     return val_str
 
 

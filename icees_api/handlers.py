@@ -210,7 +210,7 @@ def feature_association(
             feature_a,
             feature_b,
         )
-        if not return_value:
+        if not return_value['feature_matrix']:
             raise HTTPException(status_code=422, detail="Empty query result returned. Please try again")
     return {"return value": return_value}
 
@@ -263,7 +263,7 @@ def feature_association2(
             feature_a,
             feature_b,
         )
-        if not return_value:
+        if not return_value['feature_matrix']:
             raise HTTPException(status_code=422, detail="Empty query result returned. Please try again")
 
     return {"return value": return_value}

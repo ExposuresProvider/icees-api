@@ -630,8 +630,6 @@ def select_feature_matrix(
     vbs = feature_b_norm["feature_qualifiers"]
     start_time = time.time()
     result = count_unique(conn, table_name, year, ka, kb)
-    if not result:
-        return {}
 
     _ka = "0_" + ka
     _kb = "1_" + kb
@@ -806,7 +804,7 @@ def get_feature_levels(feature):
 
 def apply_correction(ret, correction=None):
     """Apply p-value correction."""
-    if ret and correction is not None:
+    if correction is not None:
         method = correction["method"]
         alpha = correction.get("alpha", 1)
         if ret["p_value"] is None:
@@ -906,7 +904,7 @@ def select_associations_to_all_features(
                 feature_b,
                 correction,
             )
-            if assoc:
+            if assoc['feature_matrix']:
                 associations.append(assoc)
         except PValueError:
             continue

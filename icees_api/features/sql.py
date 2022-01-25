@@ -893,7 +893,7 @@ def select_associations_to_all_features(
             continue
         done.add(hashable)
         try:
-            assoc = select_feature_association(
+            associations.append(select_feature_association(
                 conn,
                 table,
                 year,
@@ -903,8 +903,7 @@ def select_associations_to_all_features(
                 maximum_p_value,
                 feature_b,
                 correction,
-            )
-            associations.append(assoc)
+            ))
         except PValueError:
             continue
 

@@ -45,5 +45,5 @@ def to_qualifiers2(feature):
 def associations_have_feature_matrices(associations):
     for assoc in associations:
         if assoc['feature_matrix']:
-            return False
-    return True
+            return True
+    return False

@@ -308,7 +308,7 @@ def associations_to_all_features(
         correction=correction,
     )
 
-    if not associations_have_feature_matrices(return_value):
+    if associations_have_feature_matrices(return_value):
         return {"return value": return_value}
     else:
         return {"return value": "Empty query result returned. Please try again"}
@@ -355,7 +355,7 @@ def associations_to_all_features2(
         maximum_p_value,
         correction=correction,
     )
-    if not associations_have_feature_matrices(return_value):
+    if associations_have_feature_matrices(return_value):
         return {"return value": return_value}
     else:
         return {"return value": "Empty query result returned. Please try again"}

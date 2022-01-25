@@ -42,7 +42,7 @@ def to_qualifiers2(feature):
         return feature
 
 
-def association_matrix_empty(associations):
+def associations_have_feature_matrices(associations):
     for assoc in associations:
         if assoc['feature_matrix']:
             return False

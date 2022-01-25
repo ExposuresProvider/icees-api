@@ -24,7 +24,7 @@ from .models import (
     AllFeaturesAssociation, AllFeaturesAssociation2,
     AddNameById,
 )
-from .utils import to_qualifiers, to_qualifiers2, association_matrix_empty
+from .utils import to_qualifiers, to_qualifiers2, associations_have_feature_matrices
 
 
 API_KEY = os.environ.get("API_KEY")
@@ -198,7 +198,7 @@ def feature_association(
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
 
     if cohort_meta is None:
-        raise HTTPException(status_code=422, detail="Input cohort_id invalid. Please try again.")
+        return_value = "Input cohort_id invalid. Please try again."
     else:
         cohort_features, cohort_year = cohort_meta
         return_value = sql.select_feature_matrix(
@@ -211,7 +211,7 @@ def feature_association(
             feature_b,
         )
         if not return_value['feature_matrix']:
-            raise HTTPException(status_code=422, detail="Empty query result returned. Please try again")
+            return_value = "Empty query result returned. Please try again"
     return {"return value": return_value}
 
 
@@ -251,7 +251,7 @@ def feature_association2(
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
 
     if cohort_meta is None:
-        raise HTTPException(status_code=422, detail="Input cohort_id invalid. Please try again.")
+        return_value = "Input cohort_id invalid. Please try again."
     else:
         cohort_features, cohort_year = cohort_meta
         return_value = sql.select_feature_matrix(
@@ -264,7 +264,7 @@ def feature_association2(
             feature_b,
         )
         if not return_value['feature_matrix']:
-            raise HTTPException(status_code=422, detail="Empty query result returned. Please try again")
+            return_value = "Empty query result returned. Please try again"
 
     return {"return value": return_value}
 
@@ -308,10 +308,10 @@ def associations_to_all_features(
         correction=correction,
     )
 
-    if not association_matrix_empty(return_value):
+    if not associations_have_feature_matrices(return_value):
         return {"return value": return_value}
     else:
-        raise HTTPException(status_code=422, detail="Empty query result returned. Please try again")
+        return {"return value": "Empty query result returned. Please try again"}
 
 
 with open("examples/associations_to_all_features2.json") as stream:
@@ -355,10 +355,10 @@ def associations_to_all_features2(
         maximum_p_value,
         correction=correction,
     )
-    if not association_matrix_empty(return_value):
+    if not associations_have_feature_matrices(return_value):
         return {"return value": return_value}
     else:
-        raise HTTPException(status_code=422, detail="Empty query result returned. Please try again")
+        return {"return value": "Empty query result returned. Please try again"}
 
 
 @ROUTER.get(
@@ -380,7 +380,7 @@ def features(
     validate_table(table)
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
     if cohort_meta is None:
-        raise HTTPException(status_code=422, detail="Input cohort_id invalid. Please try again.")
+        return_value = "Input cohort_id invalid. Please try again."
     else:
         cohort_features, cohort_year = cohort_meta
         return_value = sql.get_cohort_features(

@@ -630,6 +630,10 @@ def select_feature_matrix(
     vbs = feature_b_norm["feature_qualifiers"]
     start_time = time.time()
     result = count_unique(conn, table_name, year, ka, kb)
+    if not result:
+        raise HTTPException(status_code=422, detail="Empty query result returned. Check your input query "
+                                                    "parameters to make sure they are correct")
+
     _ka = "0_" + ka
     _kb = "1_" + kb
     result = [

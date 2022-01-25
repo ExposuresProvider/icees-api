@@ -365,11 +365,12 @@ def co_occurrence_feature_edge(
         tgt_feature,
 ):
     """Get co-occurrence p-value."""
-    return select_feature_matrix(
+    assoc = select_feature_matrix(
         conn, table, year, cohort_features, year,
         query_feature(conn, table, src_feature),
         query_feature(conn, table, tgt_feature),
-    )["p_value"]
+    )
+    return assoc["p_value"] if assoc else None
 
 
 def feature_names(table, node_curie):

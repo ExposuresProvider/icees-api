@@ -631,8 +631,7 @@ def select_feature_matrix(
     start_time = time.time()
     result = count_unique(conn, table_name, year, ka, kb)
     if not result:
-        raise HTTPException(status_code=422, detail="Empty query result returned. Check your input query "
-                                                    "parameters to make sure they are correct")
+        return {}
 
     _ka = "0_" + ka
     _kb = "1_" + kb
@@ -807,7 +806,7 @@ def get_feature_levels(feature):
 
 def apply_correction(ret, correction=None):
     """Apply p-value correction."""
-    if correction is not None:
+    if ret and correction is not None:
         method = correction["method"]
         alpha = correction.get("alpha", 1)
         if ret["p_value"] is None:
@@ -896,7 +895,7 @@ def select_associations_to_all_features(
             continue
         done.add(hashable)
         try:
-            associations.append(select_feature_association(
+            assoc = select_feature_association(
                 conn,
                 table,
                 year,
@@ -906,7 +905,9 @@ def select_associations_to_all_features(
                 maximum_p_value,
                 feature_b,
                 correction,
-            ))
+            )
+            if assoc:
+                associations.append(assoc)
         except PValueError:
             continue
 

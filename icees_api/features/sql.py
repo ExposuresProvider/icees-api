@@ -904,8 +904,7 @@ def select_associations_to_all_features(
                 feature_b,
                 correction,
             )
-            if assoc['feature_matrix']:
-                associations.append(assoc)
+            associations.append(assoc)
         except PValueError:
             continue
 

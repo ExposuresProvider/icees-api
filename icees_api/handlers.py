@@ -24,7 +24,7 @@ from .models import (
     AllFeaturesAssociation, AllFeaturesAssociation2,
     AddNameById,
 )
-from .utils import to_qualifiers, to_qualifiers2
+from .utils import to_qualifiers, to_qualifiers2, association_matrix_empty
 
 
 API_KEY = os.environ.get("API_KEY")
@@ -307,7 +307,8 @@ def associations_to_all_features(
         maximum_p_value,
         correction=correction,
     )
-    if return_value:
+
+    if not association_matrix_empty(return_value):
         return {"return value": return_value}
     else:
         raise HTTPException(status_code=422, detail="Empty query result returned. Please try again")
@@ -354,7 +355,7 @@ def associations_to_all_features2(
         maximum_p_value,
         correction=correction,
     )
-    if return_value:
+    if not association_matrix_empty(return_value):
         return {"return value": return_value}
     else:
         raise HTTPException(status_code=422, detail="Empty query result returned. Please try again")

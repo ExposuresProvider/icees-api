@@ -40,3 +40,10 @@ def to_qualifiers2(feature):
         }
     else:
         return feature
+
+
+def association_matrix_empty(associations):
+    for assoc in associations:
+        if assoc['feature_matrix']:
+            return False
+    return True

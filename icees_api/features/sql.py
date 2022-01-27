@@ -952,7 +952,7 @@ def validate_range(conn, table_name, feature):
 def validate_feature_value_in_table_column(conn, table_name, feature):
     feature_name = feature["feature_name"]
     qualifiers = feature["feature_qualifiers"]
-    # qualifiers could be a dict or an list of dicts
+    # qualifiers could be a dict or a list of dicts
     if isinstance(qualifiers, dict):
         qualifiers = [qualifiers]
     for q in qualifiers:

@@ -15,7 +15,7 @@ from .dependencies import get_db
 from .features import knowledgegraph, sql
 from .features.identifiers import get_identifiers, input_dict
 from .features.qgraph_utils import normalize_qgraph
-from .features.sql import validate_range
+from .features.sql import validate_range, validate_feature_value_in_table_column
 from .features.mappings import mappings, correlations
 from .features.config import get_config_path
 from .models import (
@@ -194,6 +194,11 @@ def feature_association(
     validate_table(table)
     feature_a = to_qualifiers(obj["feature_a"])
     feature_b = to_qualifiers(obj["feature_b"])
+    try:
+        validate_feature_value_in_table_column(conn, table, feature_a)
+        validate_feature_value_in_table_column(conn, table, feature_b)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
 
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
 
@@ -243,6 +248,12 @@ def feature_association2(
     validate_table(table)
     feature_a = to_qualifiers2(obj["feature_a"])
     feature_b = to_qualifiers2(obj["feature_b"])
+    try:
+        validate_feature_value_in_table_column(conn, table, feature_a)
+        validate_feature_value_in_table_column(conn, table, feature_b)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
+
     to_validate_range = obj.get("check_coverage_is_full", False)
     if to_validate_range:
         validate_range(conn, table, feature_a)
@@ -296,6 +307,11 @@ def associations_to_all_features(
     """
     validate_table(table)
     feature = to_qualifiers(obj["feature"])
+    try:
+        validate_feature_value_in_table_column(conn, table, feature)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
+
     maximum_p_value = obj.get("maximum_p_value", 1)
     correction = obj.get("correction")
     return_value = sql.select_associations_to_all_features(
@@ -341,6 +357,11 @@ def associations_to_all_features2(
     """
     validate_table(table)
     feature = to_qualifiers2(obj["feature"])
+    try:
+        validate_feature_value_in_table_column(conn, table, feature)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
+
     to_validate_range = obj.get("check_coverage_is_full", False)
     if to_validate_range:
         validate_range(conn, table, feature)

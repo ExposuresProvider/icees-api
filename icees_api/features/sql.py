@@ -959,9 +959,7 @@ def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, 
         if q['operator'] == '=':
             val = str(q["value"])
             err_msg = f"Invalid input value {val} for feature {feature_name}. Please try again."
-            print(f'val: {val}', flush=True)
             if val.replace('.', '', 1).isdigit():
-                print('is digit', flush=True)
                 # check whether the query value is actually in the column if comparing numerically, e.g.,
                 # query value is 1 while the column value in the database is 1.0
                 try:
@@ -980,7 +978,6 @@ def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, 
                 # val string is not number, just do string comparison in database query
                 s = select([column(feature_name)]).select_from(table(table_name)).where(column(feature_name) == val)
                 rs = list(conn.execute(s))
-                print(f'not digit: {rs}', flush=True)
                 if not rs:
                     raise RuntimeError(err_msg)
 

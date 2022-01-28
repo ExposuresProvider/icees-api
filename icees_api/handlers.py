@@ -15,7 +15,7 @@ from .dependencies import get_db
 from .features import knowledgegraph, sql
 from .features.identifiers import get_identifiers, input_dict
 from .features.qgraph_utils import normalize_qgraph
-from .features.sql import validate_range
+from .features.sql import validate_range, validate_feature_value_in_table_column_for_equal_operator
 from .features.mappings import mappings, correlations
 from .features.config import get_config_path
 from .models import (
@@ -24,7 +24,7 @@ from .models import (
     AllFeaturesAssociation, AllFeaturesAssociation2,
     AddNameById,
 )
-from .utils import to_qualifiers, to_qualifiers2
+from .utils import to_qualifiers, to_qualifiers2, associations_have_feature_matrices
 
 
 API_KEY = os.environ.get("API_KEY")
@@ -194,6 +194,11 @@ def feature_association(
     validate_table(table)
     feature_a = to_qualifiers(obj["feature_a"])
     feature_b = to_qualifiers(obj["feature_b"])
+    try:
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_a)
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_b)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
 
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
 
@@ -210,6 +215,8 @@ def feature_association(
             feature_a,
             feature_b,
         )
+        if not return_value['feature_matrix']:
+            return_value = "Empty query result returned. Please try again"
     return {"return value": return_value}
 
 
@@ -241,6 +248,12 @@ def feature_association2(
     validate_table(table)
     feature_a = to_qualifiers2(obj["feature_a"])
     feature_b = to_qualifiers2(obj["feature_b"])
+    try:
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_a)
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_b)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
+
     to_validate_range = obj.get("check_coverage_is_full", False)
     if to_validate_range:
         validate_range(conn, table, feature_a)
@@ -261,6 +274,8 @@ def feature_association2(
             feature_a,
             feature_b,
         )
+        if not return_value['feature_matrix']:
+            return_value = "Empty query result returned. Please try again"
 
     return {"return value": return_value}
 
@@ -292,6 +307,11 @@ def associations_to_all_features(
     """
     validate_table(table)
     feature = to_qualifiers(obj["feature"])
+    try:
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
+
     maximum_p_value = obj.get("maximum_p_value", 1)
     correction = obj.get("correction")
     return_value = sql.select_associations_to_all_features(
@@ -303,7 +323,11 @@ def associations_to_all_features(
         maximum_p_value,
         correction=correction,
     )
-    return {"return value": return_value}
+
+    if associations_have_feature_matrices(return_value):
+        return {"return value": return_value}
+    else:
+        return {"return value": "Empty query result returned. Please try again"}
 
 
 with open("examples/associations_to_all_features2.json") as stream:
@@ -333,6 +357,11 @@ def associations_to_all_features2(
     """
     validate_table(table)
     feature = to_qualifiers2(obj["feature"])
+    try:
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
+
     to_validate_range = obj.get("check_coverage_is_full", False)
     if to_validate_range:
         validate_range(conn, table, feature)
@@ -347,7 +376,10 @@ def associations_to_all_features2(
         maximum_p_value,
         correction=correction,
     )
-    return {"return value": return_value}
+    if associations_have_feature_matrices(return_value):
+        return {"return value": return_value}
+    else:
+        return {"return value": "Empty query result returned. Please try again"}
 
 
 @ROUTER.get(

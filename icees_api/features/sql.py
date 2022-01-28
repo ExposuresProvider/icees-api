@@ -10,14 +10,16 @@ import re
 import operator
 import os
 import time
+from decimal import Decimal
 from typing import Any, Callable, Dict, List, Union
-
 from fastapi import HTTPException
 import numpy as np
 import redis
 from scipy.stats import chi2_contingency
-from sqlalchemy import and_, between, case, column, table
+from sqlalchemy import and_, between, case, column, table, Float
+from sqlalchemy.sql.expression import cast
 from sqlalchemy.engine import Connection
+
 from sqlalchemy.sql import select, func
 from statsmodels.stats.multitest import multipletests
 from tx.functional.maybe import Nothing, Just
@@ -630,6 +632,7 @@ def select_feature_matrix(
     vbs = feature_b_norm["feature_qualifiers"]
     start_time = time.time()
     result = count_unique(conn, table_name, year, ka, kb)
+
     _ka = "0_" + ka
     _kb = "1_" + kb
     result = [
@@ -944,6 +947,39 @@ def validate_range(conn, table_name, feature):
                 raise RuntimeError(f"incomplete value coverage {levels[i]}, input feature qualifiers {feature}")
     else:
         print(f"warning: cannot validate feature {feature_name} in table {table_name} because its levels are not provided")
+
+
+def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, feature):
+    feature_name = feature["feature_name"]
+    qualifiers = feature["feature_qualifiers"]
+    # qualifiers could be a dict or a list of dicts
+    if isinstance(qualifiers, dict):
+        qualifiers = [qualifiers]
+    for q in qualifiers:
+        if q['operator'] == '=':
+            val = str(q["value"])
+            err_msg = f"Invalid input value {val} for feature {feature_name}. Please try again."
+            if val.replace('.', '', 1).isdigit():
+                # check whether the query value is actually in the column if comparing numerically, e.g.,
+                # query value is 1 while the column value in the database is 1.0
+                try:
+                    num_s = select([column(feature_name)]).select_from(table(table_name)).where(
+                        cast(column(feature_name), Float) == Decimal(val))
+                    rs = list(conn.execute(num_s))
+                    if not rs:
+                        raise RuntimeError(err_msg)
+                    elif not rs[0][0].replace('.', '', 1).isdigit():
+                        # non-number strings are cast as 0, so need to raise errors if query result
+                        # is not a number string
+                        raise RuntimeError(err_msg)
+                except Exception:
+                    raise RuntimeError(err_msg)
+            else:
+                # val string is not number, just do string comparison in database query
+                s = select([column(feature_name)]).select_from(table(table_name)).where(column(feature_name) == val)
+                rs = list(conn.execute(s))
+                if not rs:
+                    raise RuntimeError(err_msg)
 
 
 def get_id_by_name(conn, table, name):

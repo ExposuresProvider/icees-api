@@ -16,7 +16,7 @@ from fastapi import HTTPException
 import numpy as np
 import redis
 from scipy.stats import chi2_contingency
-from sqlalchemy import and_, between, case, column, table, Integer
+from sqlalchemy import and_, between, case, column, table, Float
 from sqlalchemy.sql.expression import cast
 from sqlalchemy.engine import Connection
 
@@ -957,20 +957,31 @@ def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, 
         qualifiers = [qualifiers]
     for q in qualifiers:
         if q['operator'] == '=':
-            val = q["value"]
+            val = str(q["value"])
             err_msg = f"Invalid input value {val} for feature {feature_name}. Please try again."
-            s = select([column(feature_name)]).select_from(table(table_name)).where(column(feature_name) == val)
-            rs = list(conn.execute(s))
-            if not rs:
+            print(f'val: {val}', flush=True)
+            if val.replace('.', '', 1).isdigit():
+                print('is digit', flush=True)
                 # check whether the query value is actually in the column if comparing numerically, e.g.,
                 # query value is 1 while the column value in the database is 1.0
                 try:
                     num_s = select([column(feature_name)]).select_from(table(table_name)).where(
-                        cast(column(feature_name), Integer) == Decimal(val))
+                        cast(column(feature_name), Float) == Decimal(val))
                     rs = list(conn.execute(num_s))
                     if not rs:
                         raise RuntimeError(err_msg)
+                    elif not rs[0][0].replace('.', '', 1).isdigit():
+                        # non-number strings are cast as 0, so need to raise errors if query result
+                        # is not a number string
+                        raise RuntimeError(err_msg)
                 except Exception:
+                    raise RuntimeError(err_msg)
+            else:
+                # val string is not number, just do string comparison in database query
+                s = select([column(feature_name)]).select_from(table(table_name)).where(column(feature_name) == val)
+                rs = list(conn.execute(s))
+                print(f'not digit: {rs}', flush=True)
+                if not rs:
                     raise RuntimeError(err_msg)
 
 

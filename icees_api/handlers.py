@@ -15,7 +15,7 @@ from .dependencies import get_db
 from .features import knowledgegraph, sql
 from .features.identifiers import get_identifiers, input_dict
 from .features.qgraph_utils import normalize_qgraph
-from .features.sql import validate_range, validate_feature_value_in_table_column
+from .features.sql import validate_range, validate_feature_value_in_table_column_for_equal_operator
 from .features.mappings import mappings, correlations
 from .features.config import get_config_path
 from .models import (
@@ -195,8 +195,8 @@ def feature_association(
     feature_a = to_qualifiers(obj["feature_a"])
     feature_b = to_qualifiers(obj["feature_b"])
     try:
-        validate_feature_value_in_table_column(conn, table, feature_a)
-        validate_feature_value_in_table_column(conn, table, feature_b)
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_a)
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_b)
     except RuntimeError as ex:
         return {"return value": str(ex)}
 
@@ -249,8 +249,8 @@ def feature_association2(
     feature_a = to_qualifiers2(obj["feature_a"])
     feature_b = to_qualifiers2(obj["feature_b"])
     try:
-        validate_feature_value_in_table_column(conn, table, feature_a)
-        validate_feature_value_in_table_column(conn, table, feature_b)
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_a)
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_b)
     except RuntimeError as ex:
         return {"return value": str(ex)}
 
@@ -308,7 +308,7 @@ def associations_to_all_features(
     validate_table(table)
     feature = to_qualifiers(obj["feature"])
     try:
-        validate_feature_value_in_table_column(conn, table, feature)
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature)
     except RuntimeError as ex:
         return {"return value": str(ex)}
 
@@ -358,7 +358,7 @@ def associations_to_all_features2(
     validate_table(table)
     feature = to_qualifiers2(obj["feature"])
     try:
-        validate_feature_value_in_table_column(conn, table, feature)
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature)
     except RuntimeError as ex:
         return {"return value": str(ex)}
 

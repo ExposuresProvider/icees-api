@@ -949,28 +949,29 @@ def validate_range(conn, table_name, feature):
         print(f"warning: cannot validate feature {feature_name} in table {table_name} because its levels are not provided")
 
 
-def validate_feature_value_in_table_column(conn, table_name, feature):
+def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, feature):
     feature_name = feature["feature_name"]
     qualifiers = feature["feature_qualifiers"]
     # qualifiers could be a dict or a list of dicts
     if isinstance(qualifiers, dict):
         qualifiers = [qualifiers]
     for q in qualifiers:
-        val = q['value']
-        err_msg = f"Invalid input value {val} for feature {feature_name}. Please try again."
-        s = select([column(feature_name)]).select_from(table(table_name)).where(column(feature_name) == val)
-        rs = list(conn.execute(s))
-        if not rs:
-            # check whether the query value is actually in the column if comparing numerically, e.g.,
-            # query value is 1 while the column value in the database is 1.0
-            try:
-                num_s = select([column(feature_name)]).select_from(table(table_name)).where(
-                    cast(column(feature_name), Integer) == Decimal(val))
-                rs = list(conn.execute(num_s))
-                if not rs:
+        if q['operator'] == '=':
+            val = q["value"]
+            err_msg = f"Invalid input value {val} for feature {feature_name}. Please try again."
+            s = select([column(feature_name)]).select_from(table(table_name)).where(column(feature_name) == val)
+            rs = list(conn.execute(s))
+            if not rs:
+                # check whether the query value is actually in the column if comparing numerically, e.g.,
+                # query value is 1 while the column value in the database is 1.0
+                try:
+                    num_s = select([column(feature_name)]).select_from(table(table_name)).where(
+                        cast(column(feature_name), Integer) == Decimal(val))
+                    rs = list(conn.execute(num_s))
+                    if not rs:
+                        raise RuntimeError(err_msg)
+                except Exception:
                     raise RuntimeError(err_msg)
-            except Exception:
-                raise RuntimeError(err_msg)
 
 
 def get_id_by_name(conn, table, name):

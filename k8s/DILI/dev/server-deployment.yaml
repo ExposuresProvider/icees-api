@@ -74,13 +74,13 @@ spec:
            - name: DATA_PATH
              value: "./db/data"
            - name: DB_PATH
-             value: "/iceesdata/dili/sqlite"
+             value: "/iceesdata/dili/sqlite/example.db"
            - name: CONFIG_PATH 
              value: "/iceesdata/dili/config"
            - name: ICEES_API_INSTANCE_NAME
              value: "trapi-v1.2-dili"
            - name: OPENAPI_SERVER_URL
-             value: "https://iceesapi-dili.apps.renci.org"
+             value: "https://iceesapi-dili-dev.apps.renci.org"
            - name: ICEES_INFORES_CURIE 
              value: "infores:icees-dili"
            - name: OPENAPI_SERVER_MATURITY
@@ -90,6 +90,14 @@ spec:
           volumeMounts:
             - name: iceesdata          
               mountPath: /iceesdata
+          resources: 
+            requests: 
+              cpu: "1"
+              memory: 8Gi    
+            limits:
+              memory: "10Gi"
+              cpu: "2"   
+              
       restartPolicy: Always
       volumes:
         - name: iceesdata

@@ -6,7 +6,7 @@ metadata:
     # This only works for DNS names in public zones like *.renci.org or *.apps.renci.org. See https://wiki.renci.org/index.php/Kubernetes_Cloud/Let%27s_Encrypt_Migration
     cert-manager.io/cluster-issuer: letsencrypt
     # Ensure you don't have any "kubernetes.io/ingress.class" annotations; those are deprecated in favor of IngressClasses, but you want to use the default class anyway.
-  name: server-ingress
+  name: server-dili-dev-ingress
 spec:
   tls:
   - hosts:

@@ -28,6 +28,11 @@ spec:
           name: trapi-v1-dili-cache
           ports:
             - containerPort: 6379
-          resources: {}
+          resources: 
+            requests:
+              memory: 8Gi
+              cpu: "1"
+            limits:
+              memory: "10Gi"
+              cpu: "2"          
       restartPolicy: Always
-status: {}

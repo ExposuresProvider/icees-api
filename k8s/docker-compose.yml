@@ -6,7 +6,7 @@ services:
     ports:
       - "6379"
   server:
-    image: renci/icees-api-server:k8s-test-0.5.0
+    image: renci/icees-api-server:0.5.0
     container_name: icees-api-server
     restart: always
     ports:

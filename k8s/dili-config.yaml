@@ -1,0 +1,12 @@
+apiVersion: v1 
+kind: Secret
+metadata:
+  name: dili-config
+type: Opaque
+immutable: true
+stringData:
+  ICEES_HOST: db
+  ICEES_DBUSER: icees_dbuser
+  ICEES_DBPASS: icees_dbpass
+  POSTGRES_PASSWORD: icees_postgres_password
+  ICEES_DATABASE: icees_database

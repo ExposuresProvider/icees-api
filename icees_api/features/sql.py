@@ -10,14 +10,16 @@ import re
 import operator
 import os
 import time
+from decimal import Decimal
 from typing import Any, Callable, Dict, List, Union
-
 from fastapi import HTTPException
 import numpy as np
 import redis
 from scipy.stats import chi2_contingency
-from sqlalchemy import and_, between, case, column, table
+from sqlalchemy import and_, between, case, column, table, Float
+from sqlalchemy.sql.expression import cast
 from sqlalchemy.engine import Connection
+
 from sqlalchemy.sql import select, func
 from statsmodels.stats.multitest import multipletests
 from tx.functional.maybe import Nothing, Just
@@ -449,14 +451,29 @@ OP_MAP = {
 }
 
 
+def simplify_value(val_str):
+    """
+    simplify value string to integer string if appropriate, e.g., from 1.0 to 1
+    """
+    try:
+        value_float = float(val_str)
+    except (ValueError, TypeError):
+        return val_str
+    value_int = int(value_float)
+    if value_int == value_float:
+        return str(value_int)
+    return val_str
+
+
 def get_count(results, **constraints):
     """Get sum of result counts that meet constraints."""
     count = 0
+
     for result in results:
         if all(
             OP_MAP[constraint["operator"]](
-                result.get(feature, None),
-                constraint.get("value", constraint.get("values")),
+                simplify_value(result.get(feature, None)),
+                simplify_value(constraint.get("value", constraint.get("values"))),
             )
             for feature, constraint in constraints.items()
         ):
@@ -486,7 +503,7 @@ def cached(key=lambda *args: hash(tuple(args))):
 
 
 @cached(key=lambda db, *args: json.dumps(args))
-def count_unique(conn, table_name, *columns):
+def count_unique(conn, table_name, year, *columns):
     """Count each unique combination of column values.
 
     For example, for columns = ["a", "b"] and data
@@ -505,12 +522,23 @@ def count_unique(conn, table_name, *columns):
         [2, 2, 1]
     ]
     """
-    return [list(row) for row in conn.execute(
-        "SELECT {cols}, count(*) FROM {table_name} GROUP BY {cols}".format(
-            cols=", ".join(f"\"{col}\"" for col in columns),
-            table_name=table_name,
-        )
-    ).fetchall()]
+    if not year:
+        return [list(row) for row in conn.execute(
+            "SELECT {cols}, count(*) FROM {table_name} WHERE {cols_not_null} GROUP BY {cols}".format(
+                cols=", ".join(f"\"{col}\"" for col in columns),
+                cols_not_null=" AND ".join(f"\"{col}\" is not null" for col in columns),
+                table_name=table_name,
+            )
+        ).fetchall()]
+    else:
+        return [list(row) for row in conn.execute(
+            "SELECT {cols}, count(*) FROM {table_name} WHERE \"year\" = {year} AND {cols_not_null} GROUP BY {cols}".format(
+                cols=", ".join(f"\"{col}\"" for col in columns),
+                table_name=table_name,
+                year=year,
+                cols_not_null=" AND ".join(f"\"{col}\" is not null" for col in columns),
+            )
+        ).fetchall()]
 
 
 def select_feature_matrix(
@@ -534,21 +562,23 @@ def select_feature_matrix(
             }
             for key, value in cohort_features.items()
         ]
+
     if cohort_features:
+        condition_str = " AND ".join(
+                "\"{}\" {} {}".format(
+                    feature["feature_name"],
+                    feature["feature_qualifier"]["operator"],
+                    feature["feature_qualifier"]["value"],
+                )
+                for feature in cohort_features)
+
         view_query = (
             "CREATE VIEW tmp AS "
             "SELECT * FROM {} "
             "WHERE {}"
         ).format(
             table_name,
-            " AND ".join(
-                "\"{}\" {} {}".format(
-                    feature["feature_name"],
-                    feature["feature_qualifier"]["operator"],
-                    feature["feature_qualifier"]["value"],
-                )
-                for feature in cohort_features
-            )
+            condition_str
         )
         conn.execute(view_query)
         table_name = "tmp"
@@ -557,6 +587,7 @@ def select_feature_matrix(
     cohort_features_norm = normalize_features(cohort_year, cohort_features)
     feature_a_norm = normalize_feature(year, feature_a)
     feature_b_norm = normalize_feature(year, feature_b)
+
     print(f"{time.time() - start_time} seconds spent normalizing")
 
     # start_time = time.time()
@@ -595,16 +626,13 @@ def select_feature_matrix(
     #     print("cache hit!")
 
     # timestamp = datetime.now(timezone.utc)
-
     ka = feature_a_norm["feature_name"]
     vas = feature_a_norm["feature_qualifiers"]
-    ya = feature_a_norm["year"]
     kb = feature_b_norm["feature_name"]
     vbs = feature_b_norm["feature_qualifiers"]
-    yb = feature_b_norm["year"]
-
     start_time = time.time()
-    result = count_unique(conn, table_name, ka, kb)
+    result = count_unique(conn, table_name, year, ka, kb)
+
     _ka = "0_" + ka
     _kb = "1_" + kb
     result = [
@@ -627,16 +655,13 @@ def select_feature_matrix(
         ]
         for vb in vbs
     ]
-
     total_cols = [
         get_count(result, **{_ka: va}) for va in vas
     ]
     total_rows = [
         get_count(result, **{_kb: vb}) for vb in vbs
     ]
-
     total = get_count(result)
-
     observed = list(map(
         lambda x: list(map(add_eps, x)),
         feature_matrix
@@ -670,7 +695,7 @@ def select_feature_matrix(
         association = {
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
-            "feature_matrix": feature_matrix2,
+            "feature_matrix": feature_matrix2 if result else [],
             "rows": [
                 {"frequency": a, "percentage": b}
                 for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
@@ -687,7 +712,7 @@ def select_feature_matrix(
         association = {
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
-            "feature_matrix": feature_matrix2,
+            "feature_matrix": feature_matrix2 if result else [],
             "rows": [
                 {"frequency": a, "percentage": b}
                 for (a,b) in zip(total_rows, map(lambda x: div(x, total), total_rows))
@@ -709,7 +734,6 @@ def select_feature_matrix(
     # start_time = time.time()
     # conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
     # print(f"{time.time() - start_time} seconds spent writing to cache")
-
     return association
 
 
@@ -787,7 +811,7 @@ def apply_correction(ret, correction=None):
         alpha = correction.get("alpha", 1)
         if ret["p_value"] is None:
             ret["p_value_corrected"] = None
-            return
+            return ret
         rsp = [ret["p_value"]]
         _, pvals, _, _ = multipletests(rsp, alpha, method)
         ret["p_value_corrected"] = pvals[0]
@@ -817,6 +841,7 @@ def select_feature_association(
         ),
         correction,
     )
+
     if (pval := ret.get("p_value_corrected", ret.get("p_value", None))) is None or pval > maximum_p_value:
         raise PValueError(f"p-value {pval} > {maximum_p_value}")
     return ret
@@ -837,7 +862,6 @@ def select_associations_to_all_features(
         raise ValueError("Input cohort_id invalid. Please try again.")
 
     cohort_features, cohort_year = cohort_meta
-
     if isinstance(feature_filter_a, Callable):
         feature_as = [
             {
@@ -884,6 +908,7 @@ def select_associations_to_all_features(
             ))
         except PValueError:
             continue
+
     return associations
 
 
@@ -922,6 +947,39 @@ def validate_range(conn, table_name, feature):
                 raise RuntimeError(f"incomplete value coverage {levels[i]}, input feature qualifiers {feature}")
     else:
         print(f"warning: cannot validate feature {feature_name} in table {table_name} because its levels are not provided")
+
+
+def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, feature):
+    feature_name = feature["feature_name"]
+    qualifiers = feature["feature_qualifiers"]
+    # qualifiers could be a dict or a list of dicts
+    if isinstance(qualifiers, dict):
+        qualifiers = [qualifiers]
+    for q in qualifiers:
+        if q['operator'] == '=':
+            val = str(q["value"])
+            err_msg = f"Invalid input value {val} for feature {feature_name}. Please try again."
+            if val.replace('.', '', 1).isdigit():
+                # check whether the query value is actually in the column if comparing numerically, e.g.,
+                # query value is 1 while the column value in the database is 1.0
+                try:
+                    num_s = select([column(feature_name)]).select_from(table(table_name)).where(
+                        cast(column(feature_name), Float) == Decimal(val))
+                    rs = list(conn.execute(num_s))
+                    if not rs:
+                        raise RuntimeError(err_msg)
+                    elif not rs[0][0].replace('.', '', 1).isdigit():
+                        # non-number strings are cast as 0, so need to raise errors if query result
+                        # is not a number string
+                        raise RuntimeError(err_msg)
+                except Exception:
+                    raise RuntimeError(err_msg)
+            else:
+                # val string is not number, just do string comparison in database query
+                s = select([column(feature_name)]).select_from(table(table_name)).where(column(feature_name) == val)
+                rs = list(conn.execute(s))
+                if not rs:
+                    raise RuntimeError(err_msg)
 
 
 def get_id_by_name(conn, table, name):

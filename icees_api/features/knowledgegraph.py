@@ -1,4 +1,5 @@
 """Knowledge graph methods."""
+import copy
 import datetime
 from functools import reduce
 from itertools import combinations
@@ -174,9 +175,10 @@ def knowledge_graph_node(node_name, table, filter_regex, biolink_class):
 def knowledge_graph_edges(
         subject_id: str,
         object_id: str,
-        feature_property,
+        feature_property=None,
+        p_value=None,
 ):
-    source_attributes = [
+    attributes = [
         {
             "attribute_type_id": "biolink:supporting_data_source",
             "value": data_source["name"],
@@ -189,25 +191,29 @@ def knowledge_graph_edges(
             "value": INFORES_CURIE,
         }
     ]
+    if feature_property is not None:
+        attributes.append({
+            "attribute_type_id": "contigency:matrices",
+            "value": feature_property
+        })
+    if p_value is not None:
+        attributes.append({
+            "attribute_type_id": "biolink:p_value",
+            "value": p_value
+        })
 
     return {
         f"{subject_id}_{object_id}_{str(uuid.uuid4())[:8]}": {
             "predicate": "biolink:correlated_with",
             "subject": subject_id,
             "object": object_id,
-            "attributes": [{
-                "attribute_type_id": "contigency:matrices",
-                "value": feature_property
-            }] + source_attributes,
+            "attributes": attributes,
         },
         f"{subject_id}_{object_id}_{str(uuid.uuid4())[:8]}": {
             "predicate": "biolink:has_real_world_evidence_of_association_with",
             "subject": subject_id,
             "object": object_id,
-            "attributes": [{
-                "attribute_type_id": "contigency:matrices",
-                "value": feature_property
-            }] + source_attributes,
+            "attributes": attributes,
         },
     }
 
@@ -496,7 +502,7 @@ def message_cohort(conn, cohort_definition):
         else:
             table = cohort_definition["table"]
             year = cohort_definition["year"]
-            features = cohort_defintion["features"]
+            features = cohort_definition["features"]
             size = cohort_definition["size"]
 
     return cohort_id, table, year, features, size
@@ -582,7 +588,7 @@ def one_hop(conn, query, verbose=False):
         cohort_id, table, year, cohort_features, size = message_cohort(conn, query_options)
         maximum_p_value = query_options.get("maximum_p_value", MAX_P_VAL_DEFAULT)
         filter_regex = query_options.get("regex", ".*")
-        query_graph = message["query_graph"]
+        query_graph = copy.deepcopy(message["query_graph"])
         normalize_qgraph(query_graph)
 
         nodes_dict = query_graph["nodes"]
@@ -693,7 +699,7 @@ def one_hop(conn, query, verbose=False):
             "n_results": n_results,
             "message_code": "OK",
             "code_description": "",
-            "query_graph": query_graph,
+            "query_graph": message["query_graph"],
             "knowledge_graph": knowledge_graph,
             "results": results
         }

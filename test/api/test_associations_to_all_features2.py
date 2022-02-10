@@ -36,10 +36,15 @@ age_levels = [
         10,2010,0-2,0,4,0,1
         11,2010,0-2,1,4,0,1
         12,2010,0-2,>1,4,0,1
+        13,2010,3-17,>1,4,0,1
+        14,2010,18-34,>1,4,0,1
+        15,2010,35-50,>1,4,0,1
+        16,2010,51-69,>1,4,0,1
+        17,2010,70-89,>1,4,0,1        
     """,
     """
         cohort_id,size,features,table,year
-        COHORT:1,12,"{}",patient,2010
+        COHORT:1,17,"{}",patient,2010
     """
 )
 def test_associations_to_all_features2_explicit():
@@ -80,10 +85,15 @@ def test_associations_to_all_features2_explicit():
         10,2010,0-2,0,4,0,1
         11,2010,0-2,1,4,0,1
         12,2010,0-2,>1,4,0,1
+        13,2010,3-17,>1,4,0,1
+        14,2010,18-34,>1,4,0,1
+        15,2010,35-50,>1,4,0,1
+        16,2010,51-69,>1,4,0,1
+        17,2010,70-89,>1,4,0,1  
     """,
     """
         cohort_id,size,features,table,year
-        COHORT:1,12,"{}",patient,2010
+        COHORT:1,17,"{}",patient,2010
     """
 )
 def test_associations_to_all_features2():
@@ -123,10 +133,15 @@ def test_associations_to_all_features2():
         10,2010,0-2,0,4,0,1
         11,2010,0-2,1,4,0,1
         12,2010,0-2,>1,4,0,1
+        13,2010,3-17,>1,4,0,1
+        14,2010,18-34,>1,4,0,1
+        15,2010,35-50,>1,4,0,1
+        16,2010,51-69,>1,4,0,1
+        17,2010,70-89,>1,4,0,1  
     """,
     """
         cohort_id,size,features,table,year
-        COHORT:1,12,"{}",patient,2010
+        COHORT:1,17,"{}",patient,2010
     """
 )
 def test_associations_to_all_features2b():

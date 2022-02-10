@@ -1,8 +1,9 @@
 """ICEES API handlers."""
 from collections import defaultdict
+import copy
 import os
 import json
-from typing import Dict, Union
+from typing import Dict, Union, Optional
 
 from fastapi import APIRouter, Body, Depends, Security, HTTPException
 from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
@@ -13,15 +14,17 @@ from starlette.status import HTTP_403_FORBIDDEN
 from .dependencies import get_db
 from .features import knowledgegraph, sql
 from .features.identifiers import get_identifiers, input_dict
-from .features.sql import validate_range
-from .features.mappings import mappings
+from .features.qgraph_utils import normalize_qgraph
+from .features.sql import validate_range, validate_feature_value_in_table_column_for_equal_operator
+from .features.mappings import mappings, correlations
+from .features.config import get_config_path
 from .models import (
     Features,
     FeatureAssociation, FeatureAssociation2,
     AllFeaturesAssociation, AllFeaturesAssociation2,
     AddNameById,
 )
-from .utils import to_qualifiers, to_qualifiers2
+from .utils import to_qualifiers, to_qualifiers2, associations_have_feature_matrices
 
 
 API_KEY = os.environ.get("API_KEY")
@@ -174,6 +177,7 @@ with open("examples/feature_association.json") as stream:
 def feature_association(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         obj: FeatureAssociation = Body(
             ...,
             example=FEATURE_ASSOCIATION_EXAMPLE,
@@ -190,6 +194,11 @@ def feature_association(
     validate_table(table)
     feature_a = to_qualifiers(obj["feature_a"])
     feature_b = to_qualifiers(obj["feature_b"])
+    try:
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_a)
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_b)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
 
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
 
@@ -200,12 +209,14 @@ def feature_association(
         return_value = sql.select_feature_matrix(
             conn,
             table,
-            None,
+            year,
             cohort_features,
             cohort_year,
             feature_a,
             feature_b,
         )
+        if not return_value['feature_matrix']:
+            return_value = "Empty query result returned. Please try again"
     return {"return value": return_value}
 
 
@@ -220,6 +231,7 @@ with open("examples/feature_association2.json") as stream:
 def feature_association2(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         obj: FeatureAssociation2 = Body(
             ...,
             example=FEATURE_ASSOCIATION2_EXAMPLE,
@@ -236,6 +248,12 @@ def feature_association2(
     validate_table(table)
     feature_a = to_qualifiers2(obj["feature_a"])
     feature_b = to_qualifiers2(obj["feature_b"])
+    try:
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_a)
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature_b)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
+
     to_validate_range = obj.get("check_coverage_is_full", False)
     if to_validate_range:
         validate_range(conn, table, feature_a)
@@ -250,12 +268,14 @@ def feature_association2(
         return_value = sql.select_feature_matrix(
             conn,
             table,
-            None,
+            year,
             cohort_features,
             cohort_year,
             feature_a,
             feature_b,
         )
+        if not return_value['feature_matrix']:
+            return_value = "Empty query result returned. Please try again"
 
     return {"return value": return_value}
 
@@ -271,6 +291,7 @@ with open("examples/associations_to_all_features.json") as stream:
 def associations_to_all_features(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         obj: AllFeaturesAssociation = Body(
             ...,
             example=ASSOCIATIONS_TO_ALL_FEATURES_EXAMPLE,
@@ -286,19 +307,27 @@ def associations_to_all_features(
     """
     validate_table(table)
     feature = to_qualifiers(obj["feature"])
+    try:
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
+
     maximum_p_value = obj.get("maximum_p_value", 1)
     correction = obj.get("correction")
-    print(feature)
     return_value = sql.select_associations_to_all_features(
         conn,
         table,
-        None,
+        year,
         cohort_id,
         feature,
         maximum_p_value,
         correction=correction,
     )
-    return {"return value": return_value}
+
+    if associations_have_feature_matrices(return_value):
+        return {"return value": return_value}
+    else:
+        return {"return value": "Empty query result returned. Please try again"}
 
 
 with open("examples/associations_to_all_features2.json") as stream:
@@ -312,6 +341,7 @@ with open("examples/associations_to_all_features2.json") as stream:
 def associations_to_all_features2(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         obj: AllFeaturesAssociation2 = Body(
             ...,
             example=ASSOCIATIONS_TO_ALL_FEATURES2_EXAMPLE,
@@ -327,6 +357,11 @@ def associations_to_all_features2(
     """
     validate_table(table)
     feature = to_qualifiers2(obj["feature"])
+    try:
+        validate_feature_value_in_table_column_for_equal_operator(conn, table, feature)
+    except RuntimeError as ex:
+        return {"return value": str(ex)}
+
     to_validate_range = obj.get("check_coverage_is_full", False)
     if to_validate_range:
         validate_range(conn, table, feature)
@@ -335,13 +370,16 @@ def associations_to_all_features2(
     return_value = sql.select_associations_to_all_features(
         conn,
         table,
-        None,
+        year,
         cohort_id,
         feature,
         maximum_p_value,
         correction=correction,
     )
-    return {"return value": return_value}
+    if associations_have_feature_matrices(return_value):
+        return {"return value": return_value}
+    else:
+        return {"return value": "Empty query result returned. Please try again"}
 
 
 @ROUTER.get(
@@ -351,6 +389,7 @@ def associations_to_all_features2(
 def features(
         table: str,
         cohort_id: str,
+        year: Optional[str] = None,
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
@@ -368,7 +407,7 @@ def features(
         return_value = sql.get_cohort_features(
             conn,
             table,
-            None,
+            year,
             cohort_features,
             cohort_year,
         )
@@ -591,12 +630,155 @@ ROUTER.post(
     response_model=Dict,
     deprecated=True,
 )(knowledge_graph_one_hop)
+
+
+feature_to_curies = {
+    feature: value["identifiers"]
+    for feature, value in mappings.items()
+}
+
+feature_to_categories = {
+    feature: value["categories"]
+    for feature, value in mappings.items()
+}
+
+curie_to_features = defaultdict(list)
+for feature, value in mappings.items():
+    for identifier in value["identifiers"]:
+        curie_to_features[identifier].append(feature)
+
+category_to_features = defaultdict(list)
+for feature, value in mappings.items():
+    for category in value["categories"]:
+        category_to_features[category].append(feature)
+
+
+def features_from_node(source_node):
+    return [
+        feature
+        for curie in source_node["ids"]
+        for feature in curie_to_features[curie]
+    ] if source_node.get("ids") is not None else [
+        feature
+        for category in source_node["categories"]
+        for feature in category_to_features[category]
+    ]
+
+
+# feature_names = correlations[0][1:]
+# correlations = [row[1:] for row in correlations[1:]]
+# correlations = {
+#     tuple(sorted((feature_names[irow], feature_names[icol]))): float(correlations[irow][icol])
+#     for irow in range(0, len(correlations))
+#     for icol in range(irow + 1, len(correlations))
+# }
+
+
+def knode(source_feature):
+    source_curies = feature_to_curies[source_feature]
+    source_id, source_synonyms = knowledgegraph.gen_node_id_and_equivalent_ids(source_curies)
+    source_categories = feature_to_categories[source_feature]
+    return source_id, {
+        "name": source_feature,
+        "attributes": [
+            {
+                "attribute_type_id": "biolink:synonym",
+                "value": source_synonyms,
+            }
+        ],
+        "categories": source_categories,
+    }
+
+
+def query(
+        obj: Query = Body(..., example=KG_ONEHOP_EXAMPLE),
+) -> Dict:
+    """Solve a one-hop TRAPI query."""
+    if obj.get("workflow", [{"id": "lookup"}]) != [{"id": "lookup"}]:
+        raise HTTPException(400, "The only supported workflow is a single 'lookup' operation")
+    qgraph = copy.deepcopy(obj["message"]["query_graph"])
+    normalize_qgraph(qgraph)
+    if len(qgraph["nodes"]) != 2:
+        raise NotImplementedError("Number of nodes in query graph must be 2")
+    if len(qgraph["edges"]) != 1:
+        raise NotImplementedError("Number of edges in query graph must be 1")
+    qedge_id, qedge = next(iter(qgraph["edges"].items()))
+    if (
+        "biolink:correlated_with" not in qedge["predicates"] and
+        "biolink:has_real_world_evidence_of_association_with" not in qedge["predicates"]
+    ):
+        return {
+            "message": {
+                "query_graph": qgraph,
+                "knowledge_graph": {"nodes": {}, "edges": {}},
+                "results": [],
+            }
+        }
+
+    source_qid = qedge["subject"]
+    source_qnode = qgraph["nodes"][source_qid]
+    target_qid = qedge["object"]
+    target_qnode = qgraph["nodes"][target_qid]
+
+    # features = correlations[0]
+    source_features = features_from_node(source_qnode)
+    target_features = features_from_node(target_qnode)
+    kedge_pairs = [
+        tuple(sorted([source_feature, target_feature]))
+        for source_feature in source_features
+        for target_feature in target_features
+    ]
+
+    kgraph = {
+        "nodes": {},
+        "edges": {},
+    }
+    results = []
+    for pair in kedge_pairs:
+        if pair not in correlations:
+            continue
+        p_value = correlations[pair]
+        source_feature, target_feature = pair  # note the source and target may be flipped, which is okay
+        source_kid, source_knode = knode(source_feature)
+        target_kid, target_knode = knode(target_feature)
+        kgraph["nodes"].update({
+            source_kid: source_knode,
+            target_kid: target_knode,
+        })
+        kedges = knowledgegraph.knowledge_graph_edges(source_kid, target_kid, p_value=p_value)
+        kgraph["edges"].update(kedges)
+        results.append({
+            "node_bindings": {
+                source_qid: [{"id": source_kid}],
+                target_qid: [{"id": target_kid}],
+            },
+            "edge_bindings": {
+                qedge_id: [
+                    {
+                        "id": kedge_id,
+                    }
+                    for kedge_id in kedges
+                ]
+            },
+            "score": p_value,
+            "score_name": "p value"
+        })
+
+    return {
+        "message": {
+            "query_graph": obj["message"]["query_graph"], # Return unmodified
+            "knowledge_graph": kgraph,
+            "results": results,
+        },
+        "workflow": [
+            {"id": "lookup"},
+        ],
+    }
 ROUTER.post(
     "/query",
     response_model=Dict,
     tags=["reasoner"],
-)(knowledge_graph_one_hop)
-
+)(knowledge_graph_one_hop) # Change back to query
 
 @ROUTER.get(
     "/bins",
@@ -609,7 +791,8 @@ def handle_bins(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Return bin values."""
-    with open("config/bins.json", "r") as stream:
+    input_file = os.path.join(get_config_path(), "bins.json") 
+    with open(input_file, "r") as stream:
         bins = json.load(stream)
     if feature is not None:
         bins = {

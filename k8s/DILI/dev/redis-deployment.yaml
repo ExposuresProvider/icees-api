@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.25.0 (a70f80cc)
   creationTimestamp: null
   labels:
-    io.kompose.service: redis
-  name: redis
+    io.kompose.service: redis-dili
+  name: redis-dili
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: redis
+      io.kompose.service: redis-dili
   strategy: {}
   template:
     metadata:
@@ -21,11 +21,11 @@ spec:
         kompose.version: 1.25.0 (a70f80cc)
       creationTimestamp: null
       labels:
-        io.kompose.service: redis
+        io.kompose.service: redis-dili
     spec:
       containers:
         - image: redis:latest
-          name: icees-api-cache
+          name: trapi-v1-dili-cache
           ports:
             - containerPort: 6379
           resources: {}

@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - image: renci/icees-api-server:0.5.0
-          name: icees-api-server
+          name: trapi-v1-dili-server
           ports:
             - containerPort: 8080
           resources: {}

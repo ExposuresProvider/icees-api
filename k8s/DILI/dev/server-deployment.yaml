@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.25.0 (a70f80cc)
   creationTimestamp: null
   labels:
-    io.kompose.service: server
-  name: server
+    io.kompose.service: server-dili-dev
+  name: server-dili-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: server
+      io.kompose.service: server-dili-dev
   strategy: {}
   template:
     metadata:
@@ -21,14 +21,13 @@ spec:
         kompose.version: 1.25.0 (a70f80cc)
       creationTimestamp: null
       labels:
-        io.kompose.service: server
+        io.kompose.service: server-dili-dev
     spec:
       containers:
         - image: renci/icees-api-server:0.5.0
           name: trapi-v1-dili-server
           ports:
             - containerPort: 8080
-          resources: {}
           env:
            - name: ICEES_PORT
              value: "5432"

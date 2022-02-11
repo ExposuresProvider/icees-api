@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.25.0 (a70f80cc)
   creationTimestamp: null
   labels:
-    io.kompose.service: redis-dili-dev
-  name: redis-dili-dev
+    io.kompose.service: server-pcd-dev      
+  name: server-pcd-dev
 spec:
   ports:
-    - name: "6379"
-      port: 6379
-      targetPort: 6379
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
   selector:
-    io.kompose.service: redis-dili-dev
-  type: ClusterIP      
+    io.kompose.service: server-pcd-dev
+  type: ClusterIP

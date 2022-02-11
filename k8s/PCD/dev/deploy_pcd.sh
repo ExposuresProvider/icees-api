@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+kubectl apply -f pcd-config.yaml
+kubectl apply -f server-service.yaml,redis-service.yaml,server-deployment.yaml,redis-deployment.yaml,server-ingress.yaml

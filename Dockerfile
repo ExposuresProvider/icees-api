@@ -25,7 +25,6 @@ COPY ./examples examples
 RUN chown -R iceesuser:iceesuser /home/iceesuser
 
 USER iceesuser
-WORKDIR /home/iceesuser
 
 # run API
 CMD ["./main.sh"]

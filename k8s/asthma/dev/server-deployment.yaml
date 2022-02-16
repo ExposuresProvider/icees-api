@@ -29,6 +29,10 @@ spec:
           ports:
             - containerPort: 8080
           env:
+           - name: UID
+             value: "1001"
+           - name: GID
+             value: "1001"       
            - name: ICEES_PORT
              value: "5432"
            - name: ICEES_HOST
@@ -57,7 +61,7 @@ spec:
                  name: asthma-config
                  key: ICEES_DATABASE
            - name: ICEES_API_LOG_PATH
-             value: "/var/log"
+             value: "/iceesdata/asthma/logs"
            - name: ICEES_API_HOST_PORT
              value: "8080"
            - name: POOL_SIZE

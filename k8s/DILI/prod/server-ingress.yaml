@@ -6,16 +6,16 @@ metadata:
     # This only works for DNS names in public zones like *.renci.org or *.apps.renci.org. See https://wiki.renci.org/index.php/Kubernetes_Cloud/Let%27s_Encrypt_Migration
     cert-manager.io/cluster-issuer: letsencrypt
     # Ensure you don't have any "kubernetes.io/ingress.class" annotations; those are deprecated in favor of IngressClasses, but you want to use the default class anyway.
-  name: server-pcd-dev-ingress
+  name: server-dili-prod-ingress
 spec:
   tls:
   - hosts:
-      - icees-pcd-dev.apps.renci.org
-    secretName: icees-pcd-dev.apps.renci.org-tls
+      - icees-dili.renci.org
+    secretName: icees-dili.renci.org-tls
   rules:
   # This line will automatically create the DNS record using https://github.com/kubernetes-sigs/external-dns/
   # This only works for hostnames within *.apps.renci.org. If you need a DNS name outside that zone, contact ACIS.
-  - host: icees-pcd-dev.apps.renci.org
+  - host: icees-dili.renci.org
     http:
       paths:
       - pathType: Prefix
@@ -23,6 +23,6 @@ spec:
         backend:
           service:
             # The service name and port should match the name and port on your own Kubernetes Service: https://kubernetes.io/docs/concepts/services-networking/service/
-            name: server-pcd-dev
+            name: server-dili
             port:
               number: 8080

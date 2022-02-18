@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.25.0 (a70f80cc)
   creationTimestamp: null
   labels:
-    io.kompose.service: server-asthma-dev
-  name: server-asthma-dev
+    io.kompose.service: server-asthma
+  name: server-asthma
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: server-asthma-dev
+      io.kompose.service: server-asthma
   strategy: {}
   template:
     metadata:
@@ -21,11 +21,11 @@ spec:
         kompose.version: 1.25.0 (a70f80cc)
       creationTimestamp: null
       labels:
-        io.kompose.service: server-asthma-dev
+        io.kompose.service: server-asthma
     spec:
       containers:
         - image: renci/icees-api-server:0.5.0
-          name: trapi-v1-asthma-dev-server
+          name: trapi-v1-asthma-prod-server
           ports:
             - containerPort: 8080
           env:
@@ -69,9 +69,9 @@ spec:
            - name: MAX_OVERFLOW
              value: "0"
            - name: OPENAPI_TITLE 
-             value: "ICEES Asthma Instance API"
+             value: "ICEES Asthma Instance API - production"
            - name: OPENAPI_HOST
-             value: "icees-asthma-dev.apps.renci.org"
+             value: "icees-asthma.renci.org"
            - name: OPENAPI_SCHEME
              value: "https"
            - name: DATA_PATH
@@ -81,13 +81,13 @@ spec:
            - name: CONFIG_PATH 
              value: "/iceesdata/asthma/config"
            - name: ICEES_API_INSTANCE_NAME
-             value: "trapi-v1.2-asthma-dev"
+             value: "trapi-v1.2-asthma-prod"
            - name: OPENAPI_SERVER_URL
-             value: "https://icees-asthma-dev.apps.renci.org"
+             value: "https://icees-asthma.renci.org"
            - name: ICEES_INFORES_CURIE 
              value: "infores:icees-asthma"
            - name: OPENAPI_SERVER_MATURITY
-             value: "development"
+             value: "production"
            - name: OPENAPI_SERVER_LOCATION
              value: "RENCI"
           volumeMounts:

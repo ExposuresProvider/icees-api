@@ -71,7 +71,7 @@ spec:
            - name: OPENAPI_TITLE 
              value: "ICEES DILI Instance API"
            - name: OPENAPI_HOST
-             value: "iceesapi-dili-dev.apps.renci.org"
+             value: "icees-dili-dev.apps.renci.org"
            - name: OPENAPI_SCHEME
              value: "https"
            - name: DATA_PATH
@@ -83,7 +83,7 @@ spec:
            - name: ICEES_API_INSTANCE_NAME
              value: "trapi-v1.2-dili-dev"
            - name: OPENAPI_SERVER_URL
-             value: "https://iceesapi-dili-dev.apps.renci.org"
+             value: "https://icees-dili-dev.apps.renci.org"
            - name: ICEES_INFORES_CURIE 
              value: "infores:icees-dili"
            - name: OPENAPI_SERVER_MATURITY

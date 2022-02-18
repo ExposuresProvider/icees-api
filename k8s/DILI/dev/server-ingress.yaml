@@ -10,12 +10,12 @@ metadata:
 spec:
   tls:
   - hosts:
-      - iceesapi-dili-dev.apps.renci.org
-    secretName: iceesapi-dili-dev.apps.renci.org-tls
+      - icees-dili-dev.apps.renci.org
+    secretName: icees-dili-dev.apps.renci.org-tls
   rules:
   # This line will automatically create the DNS record using https://github.com/kubernetes-sigs/external-dns/
   # This only works for hostnames within *.apps.renci.org. If you need a DNS name outside that zone, contact ACIS.
-  - host: iceesapi-dili-dev.apps.renci.org
+  - host: icees-dili-dev.apps.renci.org
     http:
       paths:
       - pathType: Prefix

@@ -13,7 +13,8 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: redis-asthma-dev
-  strategy: {}
+  strategy:
+    type: Recreate      
   template:
     metadata:
       annotations:
@@ -28,6 +29,9 @@ spec:
           name: trapi-v1-asthma-dev-cache
           ports:
             - containerPort: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: asthma-redis-data  
           resources: 
             requests:
               memory: 8Gi
@@ -35,4 +39,13 @@ spec:
             limits:
               memory: "10Gi"
               cpu: "2"          
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            exec:
+              command: ["redis-cli", "ping"]    
       restartPolicy: Always
+      volumes:
+        - name: asthma-redis-data
+          persistentVolumeClaim:
+            claimName: asthma-redis-db-pvc

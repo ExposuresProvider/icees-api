@@ -91,6 +91,12 @@ spec:
              value: "production"
            - name: OPENAPI_SERVER_LOCATION
              value: "RENCI"
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: /apidocs
+              port: 8080      
           volumeMounts:
             - name: iceesdata          
               mountPath: /iceesdata

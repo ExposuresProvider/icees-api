@@ -24,7 +24,7 @@ spec:
         io.kompose.service: redis-asthma-dev
     spec:
       containers:
-        - image: redis:latest
+        - image: redis:6.2
           name: trapi-v1-asthma-dev-cache
           ports:
             - containerPort: 6379

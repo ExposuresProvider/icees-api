@@ -24,7 +24,7 @@ spec:
         io.kompose.service: redis-pcd
     spec:
       containers:
-        - image: redis:latest
+        - image: redis:6.2
           name: trapi-v1-pcd-prod-cache
           ports:
             - containerPort: 6379

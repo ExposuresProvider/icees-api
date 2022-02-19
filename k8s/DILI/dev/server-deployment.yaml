@@ -13,7 +13,8 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: server-dili-dev
-  strategy: {}
+  strategy: 
+    type: Recreate
   template:
     metadata:
       annotations:
@@ -29,67 +30,73 @@ spec:
           ports:
             - containerPort: 8080
           env:
-           - name: UID
-             value: "1001"
-           - name: GID
-             value: "1001"
-           - name: ICEES_PORT
-             value: "5432"
-           - name: ICEES_HOST
-             valueFrom:
-               secretKeyRef:
-                 name: dili-config
-                 key: ICEES_HOST       
-           - name: ICEES_DBUSER 
-             valueFrom:
-               secretKeyRef:
-                 name: dili-config
-                 key: ICEES_DBUSER
-           - name: ICEES_DBPASS
-             valueFrom:
-               secretKeyRef:      
-                 name: dili-config
-                 key: ICEES_DBPASS
-           - name: POSTGRES_PASSWORD 
-             valueFrom:
-               secretKeyRef:      
-                 name: dili-config
-                 key: POSTGRES_PASSWORD
-           - name: ICEES_DATABASE
-             valueFrom:
-               secretKeyRef:      
-                 name: dili-config
-                 key: ICEES_DATABASE
-           - name: ICEES_API_LOG_PATH
-             value: "/iceesdata/dili/logs"
-           - name: ICEES_API_HOST_PORT
-             value: "8080"
-           - name: POOL_SIZE
-             value: "10"
-           - name: MAX_OVERFLOW
-             value: "0"
-           - name: OPENAPI_TITLE 
-             value: "ICEES DILI Instance API"
-           - name: OPENAPI_HOST
-             value: "icees-dili-dev.apps.renci.org"
-           - name: OPENAPI_SCHEME
-             value: "https"
-           - name: DATA_PATH
-             value: "./db/data"
-           - name: DB_PATH
-             value: "/iceesdata/dili/sqlite/example.db"
-           - name: CONFIG_PATH 
-             value: "/iceesdata/dili/config"
-           - name: ICEES_API_INSTANCE_NAME
-             value: "trapi-v1.2-dili-dev"
-           - name: OPENAPI_SERVER_URL
-             value: "https://icees-dili-dev.apps.renci.org"
-           - name: ICEES_INFORES_CURIE 
-             value: "infores:icees-dili"
-           - name: OPENAPI_SERVER_MATURITY
-             value: "development"
-           - name: OPENAPI_SERVER_LOCATION
-             value: "RENCI"
+            - name: UID
+              value: "1001"
+            - name: GID
+              value: "1001"
+            - name: ICEES_PORT
+              value: "5432"
+            - name: ICEES_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: dili-config
+                  key: ICEES_HOST       
+            - name: ICEES_DBUSER 
+              valueFrom:
+                secretKeyRef:
+                  name: dili-config
+                  key: ICEES_DBUSER
+            - name: ICEES_DBPASS
+              valueFrom:
+                secretKeyRef:      
+                  name: dili-config
+                  key: ICEES_DBPASS
+            - name: POSTGRES_PASSWORD 
+              valueFrom:
+                secretKeyRef:      
+                  name: dili-config
+                  key: POSTGRES_PASSWORD
+            - name: ICEES_DATABASE
+              valueFrom:
+                secretKeyRef:      
+                  name: dili-config
+                  key: ICEES_DATABASE
+            - name: ICEES_API_LOG_PATH
+              value: "/iceesdata/dili/logs"
+            - name: ICEES_API_HOST_PORT
+              value: "8080"
+            - name: POOL_SIZE
+              value: "10"
+            - name: MAX_OVERFLOW
+              value: "0"
+            - name: OPENAPI_TITLE 
+              value: "ICEES DILI Instance API"
+            - name: OPENAPI_HOST
+              value: "icees-dili-dev.apps.renci.org"
+            - name: OPENAPI_SCHEME
+              value: "https"
+            - name: DATA_PATH
+              value: "./db/data"
+            - name: DB_PATH
+              value: "/iceesdata/dili/sqlite/example.db"
+            - name: CONFIG_PATH 
+              value: "/iceesdata/dili/config"
+            - name: ICEES_API_INSTANCE_NAME
+              value: "trapi-v1.2-dili-dev"
+            - name: OPENAPI_SERVER_URL
+              value: "https://icees-dili-dev.apps.renci.org"
+            - name: ICEES_INFORES_CURIE 
+              value: "infores:icees-dili"
+            - name: OPENAPI_SERVER_MATURITY
+              value: "development"
+            - name: OPENAPI_SERVER_LOCATION
+              value: "RENCI"
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: /apidocs
+              port: 8080   
           volumeMounts:
             - name: iceesdata          
               mountPath: /iceesdata

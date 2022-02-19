@@ -13,7 +13,8 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: redis-dili
-  strategy: {}
+  strategy:
+    type: Recreate      
   template:
     metadata:
       annotations:
@@ -24,15 +25,27 @@ spec:
         io.kompose.service: redis-dili
     spec:
       containers:
-        - image: redis:latest
+        - image: redis:6.2
           name: trapi-v1-dili-prod-cache
           ports:
             - containerPort: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: dili-redis-data    
           resources: 
             requests:
               memory: 8Gi
               cpu: "1"
             limits:
               memory: "10Gi"
-              cpu: "2"          
+              cpu: "2"
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            exec:
+              command: ["redis-cli", "ping"]           
       restartPolicy: Always
+      volumes:
+        - name: dili-redis-data
+          persistentVolumeClaim:
+            claimName: dili-redis-db-pvc

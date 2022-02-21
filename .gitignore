@@ -7,3 +7,9 @@ __pycache__/
 ./config/
 logs/
 .pytest_cache/
+k8s/DILI/dev/dili-config.yaml
+k8s/DILI/prod/dili-config.yaml
+k8s/PCD/dev/pcd-config.yaml
+k8s/PCD/prod/pcd-config.yaml
+k8s/asthma/dev/asthma-config.yaml
+k8s/asthma/prod/asthma-config.yaml

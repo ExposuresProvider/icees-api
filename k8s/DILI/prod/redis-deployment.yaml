@@ -40,10 +40,18 @@ spec:
               memory: "10Gi"
               cpu: "2"
           livenessProbe:
-            initialDelaySeconds: 5
             periodSeconds: 5
             exec:
               command: ["redis-cli", "ping"]           
+          startupProbe:
+            exec:
+              command: ["redis-cli", "ping"]      
+            failureThreshold: 30
+            periodSeconds: 5    
+          readinessProbe:
+            periodSeconds: 5
+            exec:
+              command: ["redis-cli", "ping"]    
       restartPolicy: Always
       volumes:
         - name: dili-redis-data

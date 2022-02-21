@@ -105,7 +105,7 @@ spec:
           readinessProbe:
             periodSeconds: 5
             httpGet:
-              path: /api    
+              path: /apidocs    
               port: 8080
           volumeMounts:
             - name: iceesdata          

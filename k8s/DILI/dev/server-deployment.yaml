@@ -91,6 +91,8 @@ spec:
               value: "development"
             - name: OPENAPI_SERVER_LOCATION
               value: "RENCI"
+            - name: REDIS_HOST
+              value: "redis-dili-dev"
           livenessProbe:
             periodSeconds: 5
             httpGet:

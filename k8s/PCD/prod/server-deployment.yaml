@@ -91,6 +91,8 @@ spec:
              value: "production"
            - name: OPENAPI_SERVER_LOCATION
              value: "RENCI"
+           - name: REDIS_HOST
+             value: "redis-pcd"  
           livenessProbe:
             periodSeconds: 5
             httpGet:

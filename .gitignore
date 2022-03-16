@@ -13,3 +13,5 @@ k8s/PCD/dev/pcd-config.yaml
 k8s/PCD/prod/pcd-config.yaml
 k8s/asthma/dev/asthma-config.yaml
 k8s/asthma/prod/asthma-config.yaml
+k8s/covid/dev/covid-config.yaml
+k8s/covid/prod/covid-config.yaml

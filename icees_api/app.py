@@ -49,7 +49,7 @@ class NaNResponse(JSONResponse):
             allow_nan=True,
             indent=None,
             separators=(",", ":"),
-        ).replace(":NaN,", ":null,").encode("utf-8")
+        ).replace(":NaN", ":null").encode("utf-8")
 
 
 openapi_args = dict(
@@ -86,7 +86,7 @@ with open(Path(CONFIG_PATH) / "static" / "terms.txt", 'r') as content_file:
     TERMS_AND_CONDITIONS = content_file.read()
 
 LOGGER = logging.getLogger()
-LOGGER.setLevel(logging.INFO)
+LOGGER.setLevel(logging.ERROR)
 
 HANDLER = TimedRotatingFileHandler(os.path.join(
     os.environ.get("ICEES_API_LOG_PATH", "./logs"),

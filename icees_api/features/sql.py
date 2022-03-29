@@ -406,7 +406,6 @@ def selection(conn, table, selections):
         # print(s.compile().params)
         for key, value in s.compile().params.items():
             query = re.sub(rf":{key}\b", repr(value), query)
-        print(query)
         result.extend(list(conn.execute(s).first()))
         print(f"{time.time() - start_time} seconds spent executing a subset of selections")
         # print(result)
@@ -588,7 +587,7 @@ def select_feature_matrix(
     feature_a_norm = normalize_feature(year, feature_a)
     feature_b_norm = normalize_feature(year, feature_b)
 
-    print(f"{time.time() - start_time} seconds spent normalizing")
+    # print(f"{time.time() - start_time} seconds spent normalizing")
 
     # start_time = time.time()
     # cohort_features_json = json.dumps(cohort_features_norm, sort_keys=True)
@@ -643,7 +642,7 @@ def select_feature_matrix(
         }
         for el in result
     ]
-    print(f"{time.time() - start_time} seconds spent doing it the fast way")
+    #print(f"{time.time() - start_time} seconds spent doing it the fast way")
 
     feature_matrix = [
         [
@@ -690,7 +689,7 @@ def select_feature_matrix(
     if observed:
         start_time = time.time()
         chi_squared, p, *_ = chi2_contingency(observed, correction=False)
-        print(f"{time.time() - start_time} seconds spent on chi2 contingency")
+        #print(f"{time.time() - start_time} seconds spent on chi2 contingency")
 
         association = {
             "feature_a": feature_a_norm_with_biolink_class,
@@ -941,7 +940,6 @@ def validate_range(conn, table_name, feature):
                 else:
                     coverMapUpdate.append(c or u)
             coverMap = coverMapUpdate
-            print(coverMap)
         for i, c in enumerate(coverMap):
             if not c:
                 raise RuntimeError(f"incomplete value coverage {levels[i]}, input feature qualifiers {feature}")

@@ -1,4 +1,8 @@
 from tabulate import tabulate
+from fastapi import HTTPException
+from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
+import math
+
 
 def feature_to_text(feature_name, feature_qualifier):
     op_form = {
@@ -11,7 +15,13 @@ def feature_to_text(feature_name, feature_qualifier):
         "between": lambda x: "("+str(x["value_a"]) + "," + str(x["value_b"])+")",
         "in": lambda x: "["+",".join(map(str, x["values"]))+"]"
     }
-    return feature_name + " " + feature_qualifier["operator"] + " " + op_form[feature_qualifier["operator"]](feature_qualifier)
+    if "operator" in feature_qualifier:
+        return feature_name + " " + feature_qualifier["operator"] + " " + op_form[feature_qualifier["operator"]](feature_qualifier)
+    else:
+        raise HTTPException(
+            status_code=HTTP_422_UNPROCESSABLE_ENTITY, detail="Result cannot be tabulated. Please select "
+                                                              "application/json type to see results."
+        )
 
 
 def table_to_text(columns, rows):
@@ -30,6 +40,8 @@ def format_tabular(term, data):
 
 
 def percentage_to_text(cell):
+    if math.isnan(cell):
+        return "null"
     return "{:0.2f}%".format(cell * 100)
 
 
@@ -85,7 +97,11 @@ def format_tables(data, tables):
         feature_b_feature_qualifiers = feature_b["feature_qualifiers"]
 
         columns = ["feature"] + list(map(lambda x: feature_to_text(feature_a_feature_name, x), feature_a_feature_qualifiers)) + [""]
-        rows = [[a] + list(map(cell_to_text, b)) + [total_to_text(c)] for (a, b, c) in zip(list(map(lambda x: feature_to_text(feature_b_feature_name, x), feature_b_feature_qualifiers)), data["feature_matrix"], data["rows"])] + [[""] + list(map(total_to_text, data["columns"])) + [total_to_text({"frequency": data["total"], "percentage": 1})]]
+        rows = [[a] + list(map(cell_to_text, b)) + [total_to_text(c)]
+                for (a, b, c) in zip(list(map(lambda x: feature_to_text(feature_b_feature_name, x),
+                                              feature_b_feature_qualifiers)), data["feature_matrix"],
+                                     data["rows"])] + [[""] + list(map(total_to_text, data["columns"])) +
+                                                       [total_to_text({"frequency": data["total"], "percentage": 1})]]
         tables.append([columns, rows])
 
         columns = ["p_value", "chi_squared"]

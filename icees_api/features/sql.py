@@ -747,33 +747,23 @@ def select_feature_count_all_values(
 ):
     """Select feature count."""
     cohort_features_norm = normalize_features(cohort_year, cohort_features)
-
     cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
-
     table, _ = generate_tables_from_features(
         table_name,
         cohort_features_norm,
         cohort_year,
         [(feature_name, year)],
     )
-
     sqlcolumn = column(feature_name)
-
     result = conn.execute(select([sqlcolumn, func.count()]).select_from(table).group_by(sqlcolumn)).fetchall()
-    
     values = defaultdict(int)
-
-    
     for value, count in result:
         values[value] = count
-
-    total = sum(values.values())    
-
+    total = sum(values.values())
     levels = list(levels)
     for value in values.keys():
         if value not in levels:
             levels.append(value)
-
     feature_mappings = mappings.get(feature_name)
     if feature_mappings is None:
         raise ValueError(f"No mappings for {feature_name}")
@@ -786,7 +776,6 @@ def select_feature_count_all_values(
         "year": year,
         "biolink_class": feature_mappings["categories"][0]
     }
-
     count = {
         "feature": feature_a_norm_with_biolink_class,
         "feature_matrix": [
@@ -794,7 +783,6 @@ def select_feature_count_all_values(
             for level in levels if (a := values[level]) is not None
         ]
     }
-
     return count
 
 
@@ -961,15 +949,18 @@ def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, 
                 # check whether the query value is actually in the column if comparing numerically, e.g.,
                 # query value is 1 while the column value in the database is 1.0
                 try:
+                    # note that non-number strings are cast as 0
                     num_s = select([column(feature_name)]).select_from(table(table_name)).where(
-                        cast(column(feature_name), Float) == Decimal(val))
+                        cast(column(feature_name), Float) == Decimal(val)).distinct()
                     rs = list(conn.execute(num_s))
                     if not rs:
                         raise RuntimeError(err_msg)
-                    elif not rs[0][0].replace('.', '', 1).isdigit():
-                        # non-number strings are cast as 0, so need to raise errors if query result
-                        # is not a number string
-                        raise RuntimeError(err_msg)
+                    # check whether all results in rs are not digits, and if yes, raise error
+                    for result in rs:
+                        if result[0].replace('.', '', 1).isdigit():
+                            return
+                    # all results in rs are not digits
+                    raise RuntimeError(err_msg)
                 except Exception:
                     raise RuntimeError(err_msg)
             else:
@@ -978,6 +969,7 @@ def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, 
                 rs = list(conn.execute(s))
                 if not rs:
                     raise RuntimeError(err_msg)
+    return
 
 
 def get_id_by_name(conn, table, name):

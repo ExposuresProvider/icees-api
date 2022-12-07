@@ -957,7 +957,7 @@ def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, 
                         raise RuntimeError(err_msg)
                     # check whether all results in rs are not digits, and if yes, raise error
                     for result in rs:
-                        if result[0].replace('.', '', 1).isdigit():
+                        if str(result[0]).replace('.', '', 1).isdigit():
                             return
                     # all results in rs are not digits
                     raise RuntimeError(err_msg)

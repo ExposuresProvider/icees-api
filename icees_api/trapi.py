@@ -11,7 +11,7 @@ class TRAPI(FastAPI):
     """Translator Reasoner API - wrapper for FastAPI."""
 
     required_tags = [
-        {"name": "translator"},
+        {"name": "metadata"},
         {"name": "trapi"},
     ]
 
@@ -68,15 +68,6 @@ class TRAPI(FastAPI):
         )
         openapi_schema["servers"] = self.servers
 
-        openapi_schema["info"]["x-translator"] = {
-            "component": self.translator_component,
-            "team": self.translator_teams,
-            "externalDocs": {
-                "description": "The values for component and team are restricted according to this external JSON schema. See schema and examples at url",
-                "url": "https://github.com/NCATSTranslator/translator_extensions/blob/production/x-translator/",
-            },
-            "infores": self.infores,
-        }
         openapi_schema["info"]["x-trapi"] = {
             "version": "1.2.0",
             "externalDocs": {

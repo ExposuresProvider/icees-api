@@ -9,18 +9,15 @@ from pathlib import Path
 from time import strftime
 from typing import Any
 
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import Request, HTTPException
 from fastapi.encoders import jsonable_encoder
-from fastapi.openapi.utils import get_openapi
 from fastapi.responses import PlainTextResponse
 from jsonschema import ValidationError
 from starlette.responses import Response, JSONResponse
 from structlog import wrap_logger
 from structlog.processors import JSONRenderer
-import yaml
 
 from .features import format_
-from .features.knowledgegraph import TOOL_VERSION
 
 from .handlers import ROUTER
 from .trapi import TRAPI
@@ -34,6 +31,7 @@ OPENAPI_TITLE = os.getenv('OPENAPI_TITLE', 'ICEES API')
 OPENAPI_HOST = os.getenv('OPENAPI_HOST', 'localhost:8080')
 OPENAPI_SCHEME = os.getenv('OPENAPI_SCHEME', 'http')
 OPENAPI_SERVER_URL = os.getenv("OPENAPI_SERVER_URL")
+TOOL_VERSION = "6.0.0"
 
 
 class NaNResponse(JSONResponse):

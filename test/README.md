@@ -20,15 +20,6 @@
 
   We test the endpoint /feature_association2.
 
-* [`test_knowledge_graph.py`](api/test_knowledge_graph.py):
-
-  We test the endpoints
-  
-  * /knowledge_graph_overlay
-  * /knowledge_graph_one_hop
-  * /knowledge_graph/schema
-  * /knowledge_graph
-
 * [`test_misc.py`](api/test_misc.py):
 
   We test the endpoints

@@ -1,6 +1,5 @@
 """SQL access functions."""
 from collections import defaultdict
-from datetime import datetime, timezone
 from functools import wraps
 from hashlib import md5
 from itertools import product, chain
@@ -18,7 +17,6 @@ import redis
 from scipy.stats import chi2_contingency
 from sqlalchemy import and_, between, case, column, table, Float
 from sqlalchemy.sql.expression import cast
-from sqlalchemy.engine import Connection
 
 from sqlalchemy.sql import select, func
 from statsmodels.stats.multitest import multipletests

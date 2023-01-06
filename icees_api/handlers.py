@@ -3,20 +3,17 @@ from collections import defaultdict
 import copy
 import os
 import json
-from typing import Dict, Union, Optional
+from typing import Dict, Optional
 
 from fastapi import APIRouter, Body, Depends, Security, HTTPException
 from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
-from reasoner_pydantic import Query, Message
-from sqlalchemy.sql.expression import table
 from starlette.status import HTTP_403_FORBIDDEN
 
 from .dependencies import get_db
-from .features import knowledgegraph, sql
-from .features.identifiers import get_identifiers, input_dict
-from .features.qgraph_utils import normalize_qgraph
+from .features import sql
+from .features.identifiers import get_identifiers
 from .features.sql import validate_range, validate_feature_value_in_table_column_for_equal_operator
-from .features.mappings import mappings, correlations
+from .features.mappings import mappings
 from .features.config import get_config_path
 from .models import (
     Features,
@@ -470,168 +467,6 @@ def post_name(
     return {"return value": return_value}
 
 
-with open("examples/knowledge_graph.json") as stream:
-    KNOWLEDGE_GRAPH_EXAMPLE = json.load(stream)
-
-
-@ROUTER.post(
-    "/knowledge_graph",
-    response_model=Union[Message, Dict],
-)
-def knowledge_graph(
-        obj: Query = Body(..., example=KNOWLEDGE_GRAPH_EXAMPLE),
-        reasoner: bool = False,
-        verbose: bool = False,
-        conn=Depends(get_db),
-        api_key: APIKey = Depends(get_api_key),
-) -> Dict:
-    """Query for knowledge graph associations between concepts."""
-    return_value = knowledgegraph.get(conn, obj, verbose=verbose)
-
-    return_value = {
-        "message": {
-            "query_graph": return_value.pop("query_graph"),
-            "knowledge_graph": return_value.pop("knowledge_graph"),
-            "results": return_value.pop("results"),
-        },
-        **return_value,
-    }
-    if reasoner:
-        return return_value
-    return {"return value": return_value}
-
-
-@ROUTER.get(
-    "/knowledge_graph/schema",
-    response_model=Dict,
-)
-def knowledge_graph_schema(
-        reasoner: bool = False,
-        api_key: APIKey = Depends(get_api_key),
-) -> Dict:
-    """Query the ICEES clinical reasoner for knowledge graph schema."""
-    return_value = knowledgegraph.get_schema()
-    if reasoner:
-        return return_value
-    return {"return value": return_value}
-
-
-@ROUTER.get(
-    "/meta_knowledge_graph",
-    tags=["trapi"],
-)
-def predicates(
-        api_key: APIKey = Depends(get_api_key),
-):
-    """Get meta-knowledge graph."""
-    all_categories = set()
-    id_prefixes = defaultdict(set)
-    for feature in mappings:
-        categories = mappings[feature]["categories"]
-        all_categories.update(categories)
-        identifiers = input_dict["patient"][feature]
-        for category in categories:
-            for identifier in identifiers:
-                id_prefixes[category].add(identifier.split(":")[0])
-    id_prefixes = {
-        key: list(value)
-        for key, value in id_prefixes.items()
-    }
-    return {
-        "nodes": {
-            category: {"id_prefixes": prefixes}
-            for category, prefixes in id_prefixes.items()
-        },
-        "edges": [
-            {
-                "subject": sub,
-                "object": obj,
-                "predicate": "biolink:correlated_with",
-            }
-            for sub in all_categories for obj in all_categories
-        ] + [
-            {
-                "subject": sub,
-                "object": obj,
-                "predicate": "biolink:has_real_world_evidence_of_association_with",
-            }
-            for sub in all_categories for obj in all_categories
-        ],
-    }
-
-
-with open("examples/knowledge_graph_overlay.json") as stream:
-    KG_OVERLAY_EXAMPLE = json.load(stream)
-
-
-@ROUTER.post(
-    "/knowledge_graph_overlay",
-    response_model=Union[Message, Dict],
-)
-def knowledge_graph_overlay(
-        obj: Query = Body(..., example=KG_OVERLAY_EXAMPLE),
-        reasoner: bool = False,
-        conn=Depends(get_db),
-        api_key: APIKey = Depends(get_api_key),
-) -> Dict:
-    """Query for knowledge graph co-occurrence overlay."""
-    return_value = knowledgegraph.co_occurrence_overlay(
-        conn,
-        obj,
-    )
-
-    return_value = {
-        "message": {
-            "query_graph": obj["message"].get("query_graph", None),
-            "knowledge_graph": return_value.pop("knowledge_graph"),
-            "results": obj["message"].get("results", None),
-        },
-        **return_value,
-    }
-    if reasoner:
-        return return_value
-    return {"return value": return_value}
-
-
-with open("examples/knowledge_graph_one_hop.json") as stream:
-    KG_ONEHOP_EXAMPLE = json.load(stream)
-
-
-def knowledge_graph_one_hop(
-        obj: Query = Body(..., example=KG_ONEHOP_EXAMPLE),
-        reasoner: bool = True,
-        verbose: bool = False,
-        conn=Depends(get_db),
-        api_key: APIKey = Depends(get_api_key),
-) -> Dict:
-    """Query the ICEES clinical reasoner for knowledge graph one hop."""
-    if obj.get("workflow", [{"id": "lookup"}]) != [{"id": "lookup"}]:
-        raise HTTPException(400, "The only supported workflow is a single 'lookup' operation")
-    return_value = knowledgegraph.one_hop(conn, obj, verbose=verbose)
-
-    return_value = {
-        "message": {
-            "query_graph": return_value.pop("query_graph"),
-            "knowledge_graph": return_value.pop("knowledge_graph", None),
-            "results": return_value.pop("results", None),
-        },
-        "workflow": [
-            {"id": "lookup"},
-        ],
-        **return_value,
-    }
-    if reasoner:
-        return return_value
-    return {"return value": return_value}
-
-
-ROUTER.post(
-    "/knowledge_graph_one_hop",
-    response_model=Dict,
-    deprecated=True,
-)(knowledge_graph_one_hop)
-
-
 feature_to_curies = {
     feature: value["identifiers"]
     for feature, value in mappings.items()
@@ -664,121 +499,6 @@ def features_from_node(source_node):
         for feature in category_to_features[category]
     ]
 
-
-# feature_names = correlations[0][1:]
-# correlations = [row[1:] for row in correlations[1:]]
-# correlations = {
-#     tuple(sorted((feature_names[irow], feature_names[icol]))): float(correlations[irow][icol])
-#     for irow in range(0, len(correlations))
-#     for icol in range(irow + 1, len(correlations))
-# }
-
-
-def knode(source_feature):
-    source_curies = feature_to_curies[source_feature]
-    source_id, source_synonyms = knowledgegraph.gen_node_id_and_equivalent_ids(source_curies)
-    source_categories = feature_to_categories[source_feature]
-    return source_id, {
-        "name": source_feature,
-        "attributes": [
-            {
-                "attribute_type_id": "biolink:synonym",
-                "value": source_synonyms,
-            }
-        ],
-        "categories": source_categories,
-    }
-
-
-def query(
-        obj: Query = Body(..., example=KG_ONEHOP_EXAMPLE),
-) -> Dict:
-    """Solve a one-hop TRAPI query."""
-    if obj.get("workflow", [{"id": "lookup"}]) != [{"id": "lookup"}]:
-        raise HTTPException(400, "The only supported workflow is a single 'lookup' operation")
-    qgraph = copy.deepcopy(obj["message"]["query_graph"])
-    normalize_qgraph(qgraph)
-    if len(qgraph["nodes"]) != 2:
-        raise NotImplementedError("Number of nodes in query graph must be 2")
-    if len(qgraph["edges"]) != 1:
-        raise NotImplementedError("Number of edges in query graph must be 1")
-    qedge_id, qedge = next(iter(qgraph["edges"].items()))
-    if (
-        "biolink:correlated_with" not in qedge["predicates"] and
-        "biolink:has_real_world_evidence_of_association_with" not in qedge["predicates"]
-    ):
-        return {
-            "message": {
-                "query_graph": qgraph,
-                "knowledge_graph": {"nodes": {}, "edges": {}},
-                "results": [],
-            }
-        }
-
-    source_qid = qedge["subject"]
-    source_qnode = qgraph["nodes"][source_qid]
-    target_qid = qedge["object"]
-    target_qnode = qgraph["nodes"][target_qid]
-
-    # features = correlations[0]
-    source_features = features_from_node(source_qnode)
-    target_features = features_from_node(target_qnode)
-    kedge_pairs = [
-        tuple(sorted([source_feature, target_feature]))
-        for source_feature in source_features
-        for target_feature in target_features
-    ]
-
-    kgraph = {
-        "nodes": {},
-        "edges": {},
-    }
-    results = []
-    for pair in kedge_pairs:
-        if pair not in correlations:
-            continue
-        p_value = correlations[pair]
-        source_feature, target_feature = pair  # note the source and target may be flipped, which is okay
-        source_kid, source_knode = knode(source_feature)
-        target_kid, target_knode = knode(target_feature)
-        kgraph["nodes"].update({
-            source_kid: source_knode,
-            target_kid: target_knode,
-        })
-        kedges = knowledgegraph.knowledge_graph_edges(source_kid, target_kid, p_value=p_value)
-        kgraph["edges"].update(kedges)
-        results.append({
-            "node_bindings": {
-                source_qid: [{"id": source_kid}],
-                target_qid: [{"id": target_kid}],
-            },
-            "edge_bindings": {
-                qedge_id: [
-                    {
-                        "id": kedge_id,
-                    }
-                    for kedge_id in kedges
-                ]
-            },
-            "score": p_value,
-            "score_name": "p value"
-        })
-
-    return {
-        "message": {
-            "query_graph": obj["message"]["query_graph"], # Return unmodified
-            "knowledge_graph": kgraph,
-            "results": results,
-        },
-        "workflow": [
-            {"id": "lookup"},
-        ],
-    }
-ROUTER.post(
-    "/query",
-    response_model=Dict,
-    tags=["reasoner"],
-)(knowledge_graph_one_hop) # Change back to query
 
 @ROUTER.get(
     "/bins",

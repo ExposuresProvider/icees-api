@@ -104,10 +104,10 @@ def format_tables(data, tables):
                                                        [total_to_text({"frequency": data["total"], "percentage": 1})]]
         tables.append([columns, rows])
 
-        columns = ["chi_squared_p", "chi_squared_statistic", "chi_squared_dof",
+        columns = ["chi_squared_statistic", "chi_squared_dof", "chi_squared_p",
                    "fisher_exact_odds_ratio", "fisher_exact_p",
                    "log_odds_ratio", "log_odds_ratio_95_confidence_interval"]
-        rows = [[data["chi_squared_p"], data["chi_squared_statistic"], data["chi_squared_dof"],
+        rows = [[data["chi_squared_statistic"], data["chi_squared_dof"], data["chi_squared_p"],
                  data["fisher_exact_odds_ratio"], data["fisher_exact_p"],
                  data["log_odds_ratio"], data["log_odds_ratio_95_confidence_interval"]]]
         p_value_corrected = data.get("chi_squared_p_corrected")

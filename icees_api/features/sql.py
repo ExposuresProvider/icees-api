@@ -708,9 +708,9 @@ def select_feature_matrix(
                 for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
             ],
             "total": total,
-            "chi_squared_p": chi_squared_p,
             "chi_squared_statistic": chi_squared,
             "chi_squared_dof": chi_squared_dof,
+            "chi_squared_p": chi_squared_p,
             "fisher_exact_odds_ratio": fisher_exact_odds_ratio,
             "fisher_exact_p": fisher_exact_p,
             "log_odds_ratio": log_odds_ratio,
@@ -730,9 +730,9 @@ def select_feature_matrix(
                 for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
             ],
             "total": total,
-            "chi_squared_p": None,
             "chi_squared_statistic": None,
             "chi_squared_dof": None,
+            "chi_squared_p": None,
             "fisher_exact_odds_ratio": None,
             "fisher_exact_p": None,
             "log_odds_ratio": None,

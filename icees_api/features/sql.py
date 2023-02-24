@@ -14,7 +14,7 @@ from typing import Any, Callable, Dict, List, Union
 from fastapi import HTTPException
 import numpy as np
 import redis
-from scipy.stats import chi2_contingency
+from scipy.stats import chi2_contingency, fisher_exact, contingency
 from sqlalchemy import and_, between, case, column, table, Float
 from sqlalchemy.sql.expression import cast
 
@@ -580,8 +580,8 @@ def select_feature_matrix(
         conn.execute(view_query)
         table_name = "tmp"
 
-    start_time = time.time()
-    cohort_features_norm = normalize_features(cohort_year, cohort_features)
+    # start_time = time.time()
+    # cohort_features_norm = normalize_features(cohort_year, cohort_features)
     feature_a_norm = normalize_feature(year, feature_a)
     feature_b_norm = normalize_feature(year, feature_b)
 
@@ -593,7 +593,7 @@ def select_feature_matrix(
     # feature_b_json = json.dumps(feature_b_norm, sort_keys=True)
     # print(f"{time.time() - start_time} seconds spent json.dumping")
 
-    cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
+    # cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
 
     # start_time = time.time()
     # digest = get_digest(
@@ -627,7 +627,7 @@ def select_feature_matrix(
     vas = feature_a_norm["feature_qualifiers"]
     kb = feature_b_norm["feature_name"]
     vbs = feature_b_norm["feature_qualifiers"]
-    start_time = time.time()
+    # start_time = time.time()
     result = count_unique(conn, table_name, year, ka, kb)
 
     _ka = "0_" + ka
@@ -685,9 +685,15 @@ def select_feature_matrix(
         "biolink_class": mappings.get(kb)["categories"][0]
     }
     if observed:
-        start_time = time.time()
-        chi_squared, p, *_ = chi2_contingency(observed, correction=False)
-        #print(f"{time.time() - start_time} seconds spent on chi2 contingency")
+        chi_squared, chi_squared_p, chi_squared_dof, _ = chi2_contingency(observed, correction=False)
+        feature_matrix = np.array(feature_matrix)
+        if feature_matrix.shape == (2, 2) and not np.any(feature_matrix == 0):
+            fisher_exact_odds_ratio, fisher_exact_p = fisher_exact(feature_matrix, alternative='two-sided')
+            or_result = contingency.odds_ratio(feature_matrix, kind='sample')
+            log_odds_ratio = np.log(or_result.statistic)
+            log_odds_ratio_conf_interval_95 = or_result.confidence_interval(confidence_level=0.95)
+        else:
+            fisher_exact_odds_ratio = fisher_exact_p = log_odds_ratio = log_odds_ratio_conf_interval_95 = None
 
         association = {
             "feature_a": feature_a_norm_with_biolink_class,
@@ -702,8 +708,13 @@ def select_feature_matrix(
                 for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
             ],
             "total": total,
-            "p_value": p,
-            "chi_squared": chi_squared
+            "chi_squared_statistic": chi_squared,
+            "chi_squared_dof": chi_squared_dof,
+            "chi_squared_p": chi_squared_p,
+            "fisher_exact_odds_ratio": fisher_exact_odds_ratio,
+            "fisher_exact_p": fisher_exact_p,
+            "log_odds_ratio": log_odds_ratio,
+            "log_odds_ratio_95_confidence_interval": log_odds_ratio_conf_interval_95,
         }
     else:
         association = {
@@ -719,8 +730,13 @@ def select_feature_matrix(
                 for (a,b) in zip(total_cols, map(lambda x: div(x, total), total_cols))
             ],
             "total": total,
-            "p_value": None,
-            "chi_squared": None
+            "chi_squared_statistic": None,
+            "chi_squared_dof": None,
+            "chi_squared_p": None,
+            "fisher_exact_odds_ratio": None,
+            "fisher_exact_p": None,
+            "log_odds_ratio": None,
+            "log_odds_ratio_95_confidence_interval": None
         }
 
     # association_json = json.dumps(association, sort_keys=True)
@@ -794,12 +810,12 @@ def apply_correction(ret, correction=None):
     if correction is not None:
         method = correction["method"]
         alpha = correction.get("alpha", 1)
-        if ret["p_value"] is None:
-            ret["p_value_corrected"] = None
+        if ret["chi_squared_p"] is None:
+            ret["chi_squared_p_corrected"] = None
             return ret
-        rsp = [ret["p_value"]]
+        rsp = [ret["chi_squared_p"]]
         _, pvals, _, _ = multipletests(rsp, alpha, method)
-        ret["p_value_corrected"] = pvals[0]
+        ret["chi_squared_p_corrected"] = pvals[0]
     return ret
 
 
@@ -827,8 +843,8 @@ def select_feature_association(
         correction,
     )
 
-    if (pval := ret.get("p_value_corrected", ret.get("p_value", None))) is None or pval > maximum_p_value:
-        raise PValueError(f"p-value {pval} > {maximum_p_value}")
+    if (pval := ret.get("chi_squared_p_corrected", ret.get("chi_squared_p", None))) is None or pval > maximum_p_value:
+        raise PValueError(f"chi_squared_p {pval} > {maximum_p_value}")
     return ret
 
 

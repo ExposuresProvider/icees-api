@@ -134,8 +134,13 @@ def load_data(app, data, cohort_data=""):
 
 def do_verify_feature_matrix_response(respjson):
     assert isinstance(respjson, dict)
-    assert "chi_squared" in respjson
-    assert "p_value" in respjson
+    assert "chi_squared_statistic" in respjson
+    assert "chi_squared_p" in respjson
+    assert "chi_squared_dof" in respjson
+    assert "fisher_exact_odds_ratio" in respjson
+    assert "fisher_exact_p" in respjson
+    assert "log_odds_ratio" in respjson
+    assert "log_odds_ratio_95_confidence_interval" in respjson
     assert "columns" in respjson
     assert "rows" in respjson
     assert "feature_matrix" in respjson

@@ -185,8 +185,9 @@ def feature_association(
     """Hypothesis-driven 2 x 2 feature associations.
 
     Users select a predefined cohort and two feature variables, and the service
-    returns a 2 x 2 feature table with a correspondingChi Square statistic and
-    P value.
+    returns a 2 x 2 feature table with a corresponding Chi Square statistic and
+    P value, Fisher's exact odds ratio, log odds ratio with 95% confidence interval,
+    and Fisher's exact P value.
     """
     validate_table(table)
     feature_a = to_qualifiers(obj["feature_a"])
@@ -240,7 +241,8 @@ def feature_association2(
 
     Users select a predefined cohort, two feature variables, and bins, which
     can be combined, and the service returns a N x N feature table with a
-    corresponding Chi Square statistic and P value.
+    corresponding Chi Square statistic, Fisher's exact odds ratio,
+    log odds ratio with 95% confidence interval, and Fisher's exact P value
     """
     validate_table(table)
     feature_a = to_qualifiers2(obj["feature_a"])
@@ -300,7 +302,8 @@ def associations_to_all_features(
 
     Users select a predefined cohort and a feature variable of interest, and
     the service returns a 1 x N feature table with corrected Chi Square
-    statistics and associated P values.
+    statistics and associated P values, Fisher's exact odds ratio, log odds ratio
+    with 95% confidence interval, and Fisher's exact P value
     """
     validate_table(table)
     feature = to_qualifiers(obj["feature"])
@@ -350,7 +353,8 @@ def associations_to_all_features2(
 
     Users select a predefined cohort and a feature variable of interest and
     bins, which can be combined, and the service returns a 1 x N feature table
-    with corrected Chi Square statistics and associated P values.
+    with corrected Chi Square statistics and associated P values, Fisher's exact odds ratio,
+    log odds ratio with 95% confidence interval, and Fisher's exact P value.
     """
     validate_table(table)
     feature = to_qualifiers2(obj["feature"])

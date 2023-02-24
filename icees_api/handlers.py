@@ -185,8 +185,9 @@ def feature_association(
     """Hypothesis-driven 2 x 2 feature associations.
 
     Users select a predefined cohort and two feature variables, and the service
-    returns a 2 x 2 feature table with a correspondingChi Square statistic and
-    P value.
+    returns a 2 x 2 feature table with a corresponding Chi Square statistic and
+    P value, Fisher's exact odds ratio, log odds ratio with 95% confidence interval,
+    and Fisher's exact P value.
     """
     validate_table(table)
     feature_a = to_qualifiers(obj["feature_a"])

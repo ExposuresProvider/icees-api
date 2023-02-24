@@ -104,11 +104,15 @@ def format_tables(data, tables):
                                                        [total_to_text({"frequency": data["total"], "percentage": 1})]]
         tables.append([columns, rows])
 
-        columns = ["p_value", "chi_squared"]
-        rows = [[data["p_value"], data["chi_squared"]]]
-        p_value_corrected = data.get("p_value_corrected")
+        columns = ["chi_squared_p", "chi_squared_statistic", "chi_squared_dof",
+                   "fisher_exact_odds_ratio", "fisher_exact_p",
+                   "log_odds_ratio", "log_odds_ratio_95_confidence_interval"]
+        rows = [[data["chi_squared_p"], data["chi_squared_statistic"], data["chi_squared_dof"],
+                 data["fisher_exact_odds_ratio"], data["fisher_exact_p"],
+                 data["log_odds_ratio"], data["log_odds_ratio_95_confidence_interval"]]]
+        p_value_corrected = data.get("chi_squared_p_corrected")
         if p_value_corrected is not None:
-            columns.append("p_value_corrected")
+            columns.append("chi_squared_p_corrected")
             rows[0].append(p_value_corrected)
         tables.append([columns, rows])
     elif "feature" in data:

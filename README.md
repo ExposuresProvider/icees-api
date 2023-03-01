@@ -12,6 +12,15 @@ test/test.sh
 
 ### Deployment
 
+Deployment of ICEES API services have been migrated to use the kubernetes infrastructure 
+as part of the [translator-devops repo](https://github.com/helxplatform/translator-devops). 
+The Helm Charts for deploying different instances of ICEES API services are 
+detailed in the [README file](https://github.com/helxplatform/translator-devops/blob/develop/helm/icees-api/Readme.md).
+An updated docker image is made on each new release which is pulled automatically when ICEES API 
+services are deployed by the Helm Charts as part of the kubernetes infrastructure. The subsections below 
+documents details regarding updating configurations and code to build a docker image for automated kubernetes 
+deployment of services.
+
 #### Edit schema and identifiers
 
 ICEES API allows define custom schema and identifiers. The schema is stored at `config/features.yml`. The identifiers are stored at `config/identifiers.yml`. Edit them to fit your dataset.
@@ -24,15 +33,9 @@ These columns do not need to be specified in `features.yml`.
 
 #### Data for database
 
-To insert data into the database when it is first created, for each table in the schema, create a directory with its table name under `<data path>`, which is set by `DATA_PATH` in `.env`, and put csv files under that directory. The csv files should have the same headers as the table. For example, put `patient.csv` under `<data path>/patient` and put `visit.csv` under `<data path>/visit`.
+Data for the sqlite database file named ```example.db``` is created in a separate [icees-db repo](https://github.com/exposuresProvider/icees-db). 
+The created sqlite database path is set by ```DB_PATH``` environment variable in ```.env```.
 
-To generate random samples, run
-```
-python samples.py patient 2010 1000 db/data/patient/patient.csv
-```
-```
-python samples.py visit 2010 1000 db/data/visit/visit.csv
-```
 
 #### Start services
 

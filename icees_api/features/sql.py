@@ -22,7 +22,7 @@ from sqlalchemy.sql import select, func
 from statsmodels.stats.multitest import multipletests
 from tx.functional.maybe import Nothing, Just
 
-from .mappings import mappings, value_sets
+from .mappings import get_value_sets
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -676,13 +676,11 @@ def select_feature_matrix(
     ]
 
     feature_a_norm_with_biolink_class = {
-        **feature_a_norm,
-        "biolink_class": mappings.get(ka)["categories"][0]
+        **feature_a_norm
     }
 
     feature_b_norm_with_biolink_class = {
-        **feature_b_norm,
-        "biolink_class": mappings.get(kb)["categories"][0]
+        **feature_b_norm
     }
     if observed:
         chi_squared, chi_squared_p, chi_squared_dof, _ = chi2_contingency(observed, correction=False)
@@ -778,17 +776,14 @@ def select_feature_count_all_values(
     for value in values.keys():
         if value not in levels:
             levels.append(value)
-    feature_mappings = mappings.get(feature_name)
-    if feature_mappings is None:
-        raise ValueError(f"No mappings for {feature_name}")
+
     feature_a_norm_with_biolink_class = {
         "feature_name": feature_name,
         "feature_qualifiers": [{
             "operator": "=",
             "value": level
         } for level in levels],
-        "year": year,
-        "biolink_class": feature_mappings["categories"][0]
+        "year": year
     }
     count = {
         "feature": feature_a_norm_with_biolink_class,
@@ -802,7 +797,7 @@ def select_feature_count_all_values(
 
 def get_feature_levels(feature):
     """Get feature levels."""
-    return value_sets.get(feature, [])
+    return get_value_sets().get(feature, [])
 
 
 def apply_correction(ret, correction=None):

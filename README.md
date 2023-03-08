@@ -21,9 +21,8 @@ services are deployed by the Helm Charts as part of the kubernetes infrastructur
 documents details regarding updating configurations and code to build a docker image for automated kubernetes 
 deployment of services.
 
-#### Edit schema and identifiers
-
-ICEES API allows define custom schema and identifiers. The schema is stored at `config/features.yml`. The identifiers are stored at `config/identifiers.yml`. Edit them to fit your dataset.
+#### Edit schema
+ICEES API allows to define custom schema. The schema is stored at `config/features.yml`. Edit to fit your dataset.
 
 ICEES API has the following assumptions: 
  * Each table named `<table>` should have a column named `<Table>Id` as the identifier where `<Table>` is `<table>` capitalized. For example, for table `patient`, the id column is `PatientId`.
@@ -59,7 +58,7 @@ The  `.env` file contains environmental variables that control the services. Edi
 
 `DB_PATH`: the path to the SQLite database file on the host
 
-`CONFIG_PATH`: the directory where schema and identifiers are stored
+`CONFIG_PATH`: the directory where schema is stored
 
 `ICEES_API_INSTANCE_NAME`: icees api instance name
 

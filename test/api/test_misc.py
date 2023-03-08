@@ -85,35 +85,6 @@ def test_cohort_dictionary():
     } in resp_json1["return value"]
 
 
-@pytest.mark.parametrize("name", names)
-@load_data(APP, """
-    PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
-    varchar(255),int,varchar(255),varchar(255),int,int,int
-    1,2010,0-2,0,1,0,1
-    2,2010,0-2,1,1,0,1
-    3,2010,0-2,>1,1,0,1
-    4,2010,0-2,0,2,0,1
-    5,2010,0-2,1,2,0,1
-    6,2010,0-2,>1,2,0,1
-    7,2010,0-2,0,3,0,1
-    8,2010,0-2,1,3,0,1
-    9,2010,0-2,>1,3,0,1
-    10,2010,0-2,0,4,0,1
-    11,2010,0-2,1,4,0,1
-    12,2010,0-2,>1,4,0,1
-""")
-def test_get_identifiers(name):
-    """Test getting identifiers."""
-    resp = testclient.get(
-        f"/{table}/{name}/identifiers",
-    )
-    resp_json = resp.json()
-    assert "return value" in resp_json
-    assert "identifiers" in resp_json["return value"]
-    for iden in resp_json["return value"]["identifiers"]:
-        assert "_" not in iden
-
-
 feature_variables = [
     {
         "feature_name": "AgeStudyStart",

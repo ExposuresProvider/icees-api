@@ -1,25 +1,16 @@
-AgeStudyStart:
-  categories:
-  - biolink:PhenotypicFeature
-  identifiers:
-  - NCIT:C25150
-AsthmaDx:
-  categories:
-  - biolink:Disease
-  identifiers:
-  - MONDO:0004979
-Albuterol:
-  categories:
-  - biolink:ChemicalSubstance
-  identifiers:
-  - PUBCHEM:2083
-AvgDailyPM2.5Exposure:
-  categories:
-  - biolink:ChemicalSubstance
-  identifiers:
-  - MESH:D052638
-EstResidentialDensity:
-  categories:
-  - biolink:Environment
-  identifiers:
-  - NCIT:C45781
+patient:
+  AgeStudyStart:
+    categories:
+    - biolink:PhenotypicFeature
+  AsthmaDx:
+    categories:
+    - biolink:Disease
+  Albuterol:
+    categories:
+    - biolink:ChemicalSubstance
+  AvgDailyPM2.5Exposure:
+    categories:
+    - biolink:ChemicalSubstance
+  EstResidentialDensity:
+    categories:
+    - biolink:Environment

@@ -82,8 +82,6 @@ def format_tables(data, tables):
             columns = ["size", "features"]
             rows = [[data["size"], features]]
         tables.append([columns, rows])
-    elif "identifiers" in data:
-        tables.append([["identifier"], map(lambda x:[x], data["identifiers"])])
     elif "cohort_id" in data:
         columns = ["cohort_id", "size"]
         rows = [[data["cohort_id"], data["size"]]]

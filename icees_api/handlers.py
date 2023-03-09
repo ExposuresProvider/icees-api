@@ -11,9 +11,7 @@ from starlette.status import HTTP_403_FORBIDDEN
 
 from .dependencies import get_db
 from .features import sql
-from .features.identifiers import get_identifiers
 from .features.sql import validate_range, validate_feature_value_in_table_column_for_equal_operator
-from .features.mappings import mappings
 from .features.config import get_config_path
 from .models import (
     Features,
@@ -417,23 +415,6 @@ def features(
 
 
 @ROUTER.get(
-    "/{table}/{feature}/identifiers",
-    response_model=Dict,
-)
-def identifiers(
-        table: str,
-        feature: str,
-        api_key: APIKey = Depends(get_api_key),
-) -> Dict:
-    """Feature identifiers."""
-    validate_table(table)
-    return_value = {
-        "identifiers": get_identifiers(table, feature)
-    }
-    return {"return value": return_value}
-
-
-@ROUTER.get(
     "/{table}/name/{name}",
     response_model=Dict,
 )
@@ -469,39 +450,6 @@ def post_name(
         obj["cohort_id"],
     )
     return {"return value": return_value}
-
-
-feature_to_curies = {
-    feature: value["identifiers"]
-    for feature, value in mappings.items()
-}
-
-feature_to_categories = {
-    feature: value["categories"]
-    for feature, value in mappings.items()
-}
-
-curie_to_features = defaultdict(list)
-for feature, value in mappings.items():
-    for identifier in value["identifiers"]:
-        curie_to_features[identifier].append(feature)
-
-category_to_features = defaultdict(list)
-for feature, value in mappings.items():
-    for category in value["categories"]:
-        category_to_features[category].append(feature)
-
-
-def features_from_node(source_node):
-    return [
-        feature
-        for curie in source_node["ids"]
-        for feature in curie_to_features[curie]
-    ] if source_node.get("ids") is not None else [
-        feature
-        for category in source_node["categories"]
-        for feature in category_to_features[category]
-    ]
 
 
 @ROUTER.get(

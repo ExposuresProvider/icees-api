@@ -1,0 +1,16 @@
+patient:
+  AgeStudyStart:
+    categories:
+    - biolink:PhenotypicFeature
+  AsthmaDx:
+    categories:
+    - biolink:Disease
+  Albuterol:
+    categories:
+    - biolink:ChemicalSubstance
+  AvgDailyPM2.5Exposure:
+    categories:
+    - biolink:ChemicalSubstance
+  EstResidentialDensity:
+    categories:
+    - biolink:Environment

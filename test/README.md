@@ -26,7 +26,6 @@
 
   * /cohort
   * /cohort/dictionary
-  * /identifiers
   * /features
 
 ### Workflow

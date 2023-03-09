@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Literal, Optional, Union
 
 from pydantic import BaseModel
 
-from .features.mappings import mappings
+from .features.mappings import get_all_features
 
 Comparator = Literal[
     "<",
@@ -15,7 +15,7 @@ Comparator = Literal[
 ]
 
 FeatureName = Literal[
-    tuple(mappings.keys())
+    tuple(get_all_features())
 ]
 
 

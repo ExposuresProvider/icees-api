@@ -18,7 +18,7 @@ from scipy.stats import chi2_contingency, fisher_exact, contingency
 from sqlalchemy import and_, between, case, column, table, Float
 from sqlalchemy.sql.expression import cast
 
-from sqlalchemy.sql import select, func
+from sqlalchemy.sql import select, func, distinct
 from statsmodels.stats.multitest import multipletests
 from tx.functional.maybe import Nothing, Just
 
@@ -115,10 +115,8 @@ def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
     """Select cohort."""
     cohort_features_norm = normalize_features(year, cohort_features)
 
-    table, _ = generate_tables_from_features(table_name, cohort_features_norm, year, [])
-
-    s = select([func.count()]).select_from(table)
-
+    gen_table, _, pk = generate_tables_from_features(table_name, cohort_features_norm, year, [])
+    s = select([func.count(column(pk).distinct())]).select_from(gen_table)
     n = conn.execute(s).scalar()
     if n <= 10:
         return None, -1
@@ -388,7 +386,7 @@ def generate_tables_from_features(
             onclause=table_cohort.c[primary_key] == _table.c[primary_key],
         )
 
-    return table_filtered, table_matrices
+    return table_filtered, table_matrices, primary_key
 
 
 def selection(conn, table, selections):
@@ -760,14 +758,14 @@ def select_feature_count_all_values(
     """Select feature count."""
     cohort_features_norm = normalize_features(cohort_year, cohort_features)
     cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
-    table, _ = generate_tables_from_features(
+    gen_table, _, _ = generate_tables_from_features(
         table_name,
         cohort_features_norm,
         cohort_year,
         [(feature_name, year)],
     )
     sqlcolumn = column(feature_name)
-    result = conn.execute(select([sqlcolumn, func.count()]).select_from(table).group_by(sqlcolumn)).fetchall()
+    result = conn.execute(select([sqlcolumn, func.count()]).select_from(gen_table).group_by(sqlcolumn)).fetchall()
     values = defaultdict(int)
     for value, count in result:
         values[value] = count

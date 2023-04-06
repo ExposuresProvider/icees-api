@@ -1,6 +1,4 @@
 """ICEES API handlers."""
-from collections import defaultdict
-import copy
 import os
 import json
 from typing import Dict, Optional
@@ -463,7 +461,11 @@ def handle_bins(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Return bin values."""
-    input_file = os.path.join(get_config_path(), "bins.json") 
+    input_file = os.path.join(get_config_path(), "bins.json")
+    if not os.path.exists(input_file):
+        return {"return_value": None,
+                "message": "Binning results are not available"}
+
     with open(input_file, "r") as stream:
         bins = json.load(stream)
     if feature is not None:

@@ -1,5 +1,5 @@
 
-[![Test status via GitHub Actions](https://github.com/NCATS-Tangerine/icees-api/workflows/test/badge.svg)](https://github.com/NCATS-Tangerine/icees-api/actions/workflows/testing.yml)
+[![Test status via GitHub Actions](https://github.com/ExposuresProvider/icees-api/workflows/test/badge.svg)](https://github.com/ExposuresProvider/icees-api/actions/workflows/testing.yml)
 
 # How to run
 

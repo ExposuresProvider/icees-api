@@ -1016,3 +1016,49 @@ def add_name_by_id(conn, table, name, cohort_id):
         "cohort_id": cohort_id,
         "name" : name
     }
+
+
+def compute_multivariate_associations(conn, table_name, year, cohort_id, feature_variables):
+    cohort_meta = get_features_by_id(conn, table_name, cohort_id)
+    if cohort_meta is None:
+        raise ValueError("Input cohort_id invalid. Please try again.")
+
+    cohort_features, cohort_year = cohort_meta
+
+    feature_as = [
+        {
+            "feature_name": feature_variables[2],
+            "feature_qualifiers": list(map(
+                lambda level: {"operator": "=", "value": level},
+                get_feature_levels(feature_variables[2]),
+                ))
+            }
+        ]
+    feature_bs = [
+        {
+            "feature_name": feature_variables[3],
+            "feature_qualifiers": list(map(
+                lambda level: {"operator": "=", "value": level},
+                get_feature_levels(feature_variables[3]),
+            ))
+        }
+    ]
+    associations = []
+    done = set()
+    for feature_a, feature_b in product(feature_as, feature_bs):
+        hashable = tuple(sorted((feature_a["feature_name"], feature_b["feature_name"])))
+        if hashable in done:
+            continue
+        done.add(hashable)
+        try:
+            associations.append(select_feature_matrix(
+                conn, table_name, year,
+                cohort_features, cohort_year, feature_a, feature_b,
+                ))
+        except PValueError:
+            continue
+    if not associations:
+        associations = [{'feature_matrix': feature_as.extend(feature_bs)}]
+    else:
+        associations = [{'feature_matrix': associations}]
+    return associations

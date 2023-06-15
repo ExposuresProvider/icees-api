@@ -1,7 +1,7 @@
 """ICEES API handlers."""
 import os
 import json
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 
 from fastapi import APIRouter, Body, Depends, Security, HTTPException
 from fastapi.security.api_key import APIKeyQuery, APIKeyCookie, APIKeyHeader, APIKey
@@ -484,3 +484,46 @@ def handle_bins(
     if year is not None:
         bins = bins.get(year, None)
     return {"return_value": bins}
+
+
+with open("examples/multivariate_associations.json") as stream:
+    MULTIVARIATE_ASSOCIATION_EXAMPLE = json.load(stream)
+
+
+@ROUTER.post(
+    "/{table}/cohort/{cohort_id}/multivariate_feature_associations",
+    response_model=Dict,
+)
+def multivariate_feature_associations(
+        cohort_id: str,
+        year: Optional[str] = None,
+        feature_variables: List[str] = Body(
+            ...,
+            example=MULTIVARIATE_ASSOCIATION_EXAMPLE,
+        ),
+        conn=Depends(get_db),
+        api_key: APIKey = Depends(get_api_key),
+) -> Dict:
+    """Exploratory multivariate associations of patient feature variables.
+
+    Users select a predefined cohort and a list of up to eight patient feature variables or predictors
+    in a particular order, and the service returns a multivariate table, with contingencies between feature variables
+    maintained. Note that the open multivariate functionality incurs a certain amount of data loss due to privacy
+    constraints that limit the ability of create cohorts < 10 patients. The amount of data loss varies and is
+    influenced by the order in which the feature variables are selected. Note that a complex algorithm is used to
+    openly create ICEES multivariate tables; this process may take a while or time out. Users are encouraged to
+    structure queries as CURLs rather than work through the Swagger UI.
+    """
+    table = 'patient'
+
+    return_value = sql.compute_multivariate_associations(
+        conn,
+        table,
+        year,
+        cohort_id,
+        feature_variables
+    )
+    if associations_have_feature_matrices(return_value):
+        return {"return value": return_value}
+    else:
+        return {"return value": "Empty query result returned. Please try again"}

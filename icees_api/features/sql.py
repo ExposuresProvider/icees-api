@@ -557,7 +557,7 @@ def select_feature_matrix(
             }
             for key, value in cohort_features.items()
         ]
-
+    print(f'cohort_features: {cohort_features}')
     if cohort_features:
         condition_str = " AND ".join(
                 "\"{}\" {} {}".format(
@@ -575,6 +575,7 @@ def select_feature_matrix(
             table_name,
             condition_str
         )
+        print(f'view_query: {view_query}')
         conn.execute(view_query)
         table_name = "tmp"
 
@@ -582,7 +583,7 @@ def select_feature_matrix(
     # cohort_features_norm = normalize_features(cohort_year, cohort_features)
     feature_a_norm = normalize_feature(year, feature_a)
     feature_b_norm = normalize_feature(year, feature_b)
-
+    print(f'feature_a_norm: {feature_a_norm}, feature_b_norm: {feature_b_norm}')
     # print(f"{time.time() - start_time} seconds spent normalizing")
 
     # start_time = time.time()
@@ -627,7 +628,6 @@ def select_feature_matrix(
     vbs = feature_b_norm["feature_qualifiers"]
     # start_time = time.time()
     result = count_unique(conn, table_name, year, ka, kb)
-
     _ka = "0_" + ka
     _kb = "1_" + kb
     result = [
@@ -639,7 +639,6 @@ def select_feature_matrix(
         for el in result
     ]
     #print(f"{time.time() - start_time} seconds spent doing it the fast way")
-
     feature_matrix = [
         [
             get_count(result, **{
@@ -661,7 +660,6 @@ def select_feature_matrix(
         lambda x: list(map(add_eps, x)),
         feature_matrix
     ))
-
     feature_matrix2 = [
         [
             {
@@ -1024,41 +1022,63 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
         raise ValueError("Input cohort_id invalid. Please try again.")
 
     cohort_features, cohort_year = cohort_meta
-
-    feature_as = [
-        {
-            "feature_name": feature_variables[2],
-            "feature_qualifiers": list(map(
-                lambda level: {"operator": "=", "value": level},
-                get_feature_levels(feature_variables[2]),
+    associations = []
+    levels0 = get_feature_levels(feature_variables[0])
+    for level in levels0:
+        non_op_idx = 0
+        for lev in level:
+            if lev in ['<', '>', '=']:
+                non_op_idx += 1
+            else:
+                break
+        if non_op_idx == 0:
+            op = '='
+            op_val = level
+        else:
+            op = level[: non_op_idx]
+            op_val = level[non_op_idx:]
+        feature_constraint = {
+            feature_variables[0]: {"operator": op, "value": op_val}
+        }
+        print(f'{feature_constraint}')
+        feature_as = [
+            {
+                "feature_name": feature_variables[1],
+                "feature_qualifiers": list(map(
+                    lambda level: {"operator": "=", "value": level},
+                    get_feature_levels(feature_variables[1]),
+                    ))
+                }
+            ]
+        feature_bs = [
+            {
+                "feature_name": feature_variables[2],
+                "feature_qualifiers": list(map(
+                    lambda level: {"operator": "=", "value": level},
+                    get_feature_levels(feature_variables[2]),
                 ))
             }
         ]
-    feature_bs = [
-        {
-            "feature_name": feature_variables[3],
-            "feature_qualifiers": list(map(
-                lambda level: {"operator": "=", "value": level},
-                get_feature_levels(feature_variables[3]),
-            ))
-        }
-    ]
-    associations = []
-    done = set()
-    for feature_a, feature_b in product(feature_as, feature_bs):
-        hashable = tuple(sorted((feature_a["feature_name"], feature_b["feature_name"])))
-        if hashable in done:
-            continue
-        done.add(hashable)
-        try:
-            associations.append(select_feature_matrix(
-                conn, table_name, year,
-                cohort_features, cohort_year, feature_a, feature_b,
-                ))
-        except PValueError:
-            continue
+        print(f'as: {feature_as}, bs: {feature_bs}')
+
+        done = set()
+        for feature_a, feature_b in product(feature_as, feature_bs):
+            hashable = tuple(sorted((feature_a["feature_name"], feature_b["feature_name"])))
+            print(f'hashtable: {hashable}')
+            if hashable in done:
+                continue
+            done.add(hashable)
+            try:
+                associations.append(select_feature_matrix(
+                    conn, table_name, year,
+                    feature_constraint, cohort_year, feature_a, feature_b,
+                    ))
+            except PValueError:
+                continue
+        print(f'associations: {associations}')
     if not associations:
         associations = [{'feature_matrix': feature_as.extend(feature_bs)}]
     else:
         associations = [{'feature_matrix': associations}]
+    print(f'associations before return: {associations}')
     return associations

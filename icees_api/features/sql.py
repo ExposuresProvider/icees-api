@@ -690,6 +690,7 @@ def select_feature_matrix(
             fisher_exact_odds_ratio = fisher_exact_p = log_odds_ratio = log_odds_ratio_conf_interval_95 = None
 
         association = {
+            "cohort_feature": cohort_features,
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
             "feature_matrix": feature_matrix2 if result else [],
@@ -712,6 +713,7 @@ def select_feature_matrix(
         }
     else:
         association = {
+            "cohort_feature": cohort_features,
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
             "feature_matrix": feature_matrix2 if result else [],
@@ -1059,12 +1061,10 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
                 ))
             }
         ]
-        print(f'as: {feature_as}, bs: {feature_bs}')
 
         done = set()
         for feature_a, feature_b in product(feature_as, feature_bs):
             hashable = tuple(sorted((feature_a["feature_name"], feature_b["feature_name"])))
-            print(f'hashtable: {hashable}')
             if hashable in done:
                 continue
             done.add(hashable)
@@ -1075,10 +1075,4 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
                     ))
             except PValueError:
                 continue
-        print(f'associations: {associations}')
-    if not associations:
-        associations = [{'feature_matrix': feature_as.extend(feature_bs)}]
-    else:
-        associations = [{'feature_matrix': associations}]
-    print(f'associations before return: {associations}')
     return associations

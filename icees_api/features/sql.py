@@ -1024,7 +1024,13 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
         raise ValueError("Input cohort_id invalid. Please try again.")
 
     cohort_features, cohort_year = cohort_meta
+    feat_len = len(feature_variables)
+    if feat_len < 3:
+        raise HTTPException(status_code=400, detail="At least three feature variables must be provided "
+                                                    "for computing multivariate associations")
     associations = []
+    # get feature_constraint list from the first feature variable
+    feat_constraint_list = []
     levels0 = get_feature_levels(feature_variables[0])
     for level in levels0:
         non_op_idx = 0
@@ -1037,42 +1043,66 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
             op = '='
             op_val = level
         else:
-            op = level[: non_op_idx]
+            op = level[:non_op_idx]
             op_val = level[non_op_idx:]
-        feature_constraint = {
+        feat_constraint_list.append({
             feature_variables[0]: {"operator": op, "value": op_val}
-        }
-        print(f'{feature_constraint}')
+            })
+
+    index = 1
+    while index + 2 <= feat_len:
         feature_as = [
             {
-                "feature_name": feature_variables[1],
+                "feature_name": feature_variables[index],
                 "feature_qualifiers": list(map(
                     lambda level: {"operator": "=", "value": level},
-                    get_feature_levels(feature_variables[1]),
-                    ))
-                }
-            ]
+                    get_feature_levels(feature_variables[index]),
+                ))
+            }
+        ]
         feature_bs = [
             {
-                "feature_name": feature_variables[2],
+                "feature_name": feature_variables[index + 1],
                 "feature_qualifiers": list(map(
                     lambda level: {"operator": "=", "value": level},
-                    get_feature_levels(feature_variables[2]),
+                    get_feature_levels(feature_variables[index + 1]),
                 ))
             }
         ]
 
-        done = set()
-        for feature_a, feature_b in product(feature_as, feature_bs):
-            hashable = tuple(sorted((feature_a["feature_name"], feature_b["feature_name"])))
-            if hashable in done:
-                continue
-            done.add(hashable)
-            try:
-                associations.append(select_feature_matrix(
-                    conn, table_name, year,
-                    feature_constraint, cohort_year, feature_a, feature_b,
-                    ))
-            except PValueError:
-                continue
+        for feature_constraint in feat_constraint_list:
+            done = set()
+            for feature_a, feature_b in product(feature_as, feature_bs):
+                hashable = tuple(sorted((feature_a["feature_name"], feature_b["feature_name"])))
+                if hashable in done:
+                    continue
+                done.add(hashable)
+                try:
+                    associations.append(select_feature_matrix(
+                        conn, table_name, year,
+                        feature_constraint, cohort_year, feature_a, feature_b,
+                        ))
+                except PValueError:
+                    continue
+
+        # add more constraints to feat_constraint_list as needed depending on feature_a and feature_b levels
+        more_constraint_list = []
+        for feature_constraint in feat_constraint_list:
+            done = set()
+            for feature_a, feature_b in product(feature_as, feature_bs):
+                hashable = tuple(sorted((feature_a["feature_name"], feature_b["feature_name"])))
+                if hashable in done:
+                    continue
+                done.add(hashable)
+                base_dict = {
+                    feature_variables[fvi]: feature_constraint[feature_variables[fvi]] for fvi in
+                    range(index - 1, 0, -1)
+                }
+                base_dict[feature_a["feature_name"]] = feature_a["feature_qualifiers"]
+                base_dict[feature_b["feature_name"]] = feature_b["feature_qualifiers"]
+                more_constraint_list.append(base_dict)
+
+        feat_constraint_list = more_constraint_list
+        index += 2
+
     return associations

@@ -1088,7 +1088,6 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
 
         # add more constraints to feat_constraint_list as needed depending on feature_a and feature_b levels
         more_constraint_list = []
-        print(f'initial feat_contraint_list: {feat_constraint_list}', flush=True)
         for feature_constraint in feat_constraint_list:
             done = set()
             for feature_a, feature_b in product(feature_as, feature_bs):
@@ -1107,6 +1106,8 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
 
         feat_constraint_list = more_constraint_list
         index += 2
-        print(f'after updating: {feat_constraint_list}, index: {index}')
 
+    if index < feat_len:
+        # to do: do univariate analysis for the last input feature variable
+        pass
     return associations

@@ -576,6 +576,7 @@ def select_feature_matrix(
             condition_str
         )
         print(f'view_query: {view_query}')
+        conn.execute("DROP VIEW if exists tmp")
         conn.execute(view_query)
         table_name = "tmp"
 

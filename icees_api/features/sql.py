@@ -560,7 +560,7 @@ def select_feature_matrix(
     print(f'cohort_features: {cohort_features}')
     if cohort_features:
         condition_str = " AND ".join(
-                "\"{}\" {} {}".format(
+                "\"{}\" {} \"{}\"".format(
                     feature["feature_name"],
                     feature["feature_qualifier"]["operator"],
                     feature["feature_qualifier"]["value"],
@@ -1087,6 +1087,7 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
 
         # add more constraints to feat_constraint_list as needed depending on feature_a and feature_b levels
         more_constraint_list = []
+        print(f'initial feat_contraint_list: {feat_constraint_list}', flush=True)
         for feature_constraint in feat_constraint_list:
             done = set()
             for feature_a, feature_b in product(feature_as, feature_bs):
@@ -1094,15 +1095,17 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
                 if hashable in done:
                     continue
                 done.add(hashable)
-                base_dict = {
-                    feature_variables[fvi]: feature_constraint[feature_variables[fvi]] for fvi in
-                    range(index - 1, 0, -1)
-                }
-                base_dict[feature_a["feature_name"]] = feature_a["feature_qualifiers"]
-                base_dict[feature_b["feature_name"]] = feature_b["feature_qualifiers"]
-                more_constraint_list.append(base_dict)
+                for fafq, fbfq in product(feature_a["feature_qualifiers"], feature_b["feature_qualifiers"]):
+                    base_dict = {
+                        feature_variables[fvi]: feature_constraint[feature_variables[fvi]] for fvi in
+                        range(index - 1, -1, -1)
+                    }
+                    base_dict[feature_a["feature_name"]] = fafq
+                    base_dict[feature_b["feature_name"]] = fbfq
+                    more_constraint_list.append(base_dict)
 
         feat_constraint_list = more_constraint_list
         index += 2
+        print(f'after updating: {feat_constraint_list}, index: {index}')
 
     return associations

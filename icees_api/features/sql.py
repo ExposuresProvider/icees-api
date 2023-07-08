@@ -557,7 +557,6 @@ def select_feature_matrix(
             }
             for key, value in cohort_features.items()
         ]
-    print(f'cohort_features: {cohort_features}')
     if cohort_features:
         condition_str = " AND ".join(
                 "\"{}\" {} \"{}\"".format(
@@ -575,7 +574,6 @@ def select_feature_matrix(
             table_name,
             condition_str
         )
-        print(f'view_query: {view_query}')
         conn.execute("DROP VIEW if exists tmp")
         conn.execute(view_query)
         table_name = "tmp"
@@ -584,7 +582,6 @@ def select_feature_matrix(
     # cohort_features_norm = normalize_features(cohort_year, cohort_features)
     feature_a_norm = normalize_feature(year, feature_a)
     feature_b_norm = normalize_feature(year, feature_b)
-    print(f'feature_a_norm: {feature_a_norm}, feature_b_norm: {feature_b_norm}')
     # print(f"{time.time() - start_time} seconds spent normalizing")
 
     # start_time = time.time()
@@ -1110,9 +1107,14 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
     # compute frequency for each feature constraint
     if len(feat_constraint_list) > 0:
         columns = list(feat_constraint_list[0].keys())
-        result = count_unique(conn, table_name, year, columns)
-        idx = 0
+        result = count_unique(conn, table_name, year, *columns)
+        result = [
+            {"count": el[-1],
+             **{col: el[i] for i, col in enumerate(columns)}
+             }
+            for el in result
+        ]
         for fc in feat_constraint_list:
-            fc['frequency'] = result[idx][-1]
-            idx += 1
+            fc['frequency'] = get_count(result, **fc)
+
     return feat_constraint_list

@@ -1019,7 +1019,7 @@ def add_name_by_id(conn, table, name, cohort_id):
     }
 
 
-def compute_multivariate_associations(conn, table_name, year, cohort_id, feature_variables):
+def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variables):
     cohort_meta = get_features_by_id(conn, table_name, cohort_id)
     if cohort_meta is None:
         raise ValueError("Input cohort_id invalid. Please try again.")
@@ -1071,21 +1071,6 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
             }
         ]
 
-        for feature_constraint in feat_constraint_list:
-            done = set()
-            for feature_a, feature_b in product(feature_as, feature_bs):
-                hashable = tuple(sorted((feature_a["feature_name"], feature_b["feature_name"])))
-                if hashable in done:
-                    continue
-                done.add(hashable)
-                try:
-                    associations.append(select_feature_matrix(
-                        conn, table_name, year,
-                        feature_constraint, cohort_year, feature_a, feature_b,
-                        ))
-                except PValueError:
-                    continue
-
         # add more constraints to feat_constraint_list as needed depending on feature_a and feature_b levels
         more_constraint_list = []
         for feature_constraint in feat_constraint_list:
@@ -1108,6 +1093,26 @@ def compute_multivariate_associations(conn, table_name, year, cohort_id, feature
         index += 2
 
     if index < feat_len:
-        # to do: do univariate analysis for the last input feature variable
-        pass
-    return associations
+        feature_qualifiers = list(map(
+            lambda level: {"operator": "=", "value": level},
+            get_feature_levels(feature_variables[index])
+        ))
+        more_constraint_list = []
+        for feature_constraint in feat_constraint_list:
+            for fq in feature_qualifiers:
+                base_dict = {
+                    feature_variables[fvi]: feature_constraint[feature_variables[fvi]] for fvi in
+                    range(index - 1, -1, -1)
+                }
+                base_dict[feature_variables[index]] = fq
+                more_constraint_list.append(base_dict)
+        feat_constraint_list = more_constraint_list
+    # compute frequency for each feature constraint
+    if len(feat_constraint_list) > 0:
+        columns = list(feat_constraint_list[0].keys())
+        result = count_unique(conn, table_name, year, columns)
+        idx = 0
+        for fc in feat_constraint_list:
+            fc['frequency'] = result[idx][-1]
+            idx += 1
+    return feat_constraint_list

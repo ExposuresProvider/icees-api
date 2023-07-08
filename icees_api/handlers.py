@@ -491,10 +491,10 @@ with open("examples/multivariate_associations.json") as stream:
 
 
 @ROUTER.post(
-    "/{table}/cohort/{cohort_id}/multivariate_feature_associations",
+    "/{table}/cohort/{cohort_id}/multivariate_feature_analysis",
     response_model=Dict,
 )
-def multivariate_feature_associations(
+def multivariate_feature_analysis(
         cohort_id: str,
         year: Optional[str] = None,
         feature_variables: List[str] = Body(
@@ -504,7 +504,7 @@ def multivariate_feature_associations(
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Exploratory multivariate associations of patient feature variables.
+    """Exploratory multivariate analysis of patient feature variables.
 
     Users select a predefined cohort and a list of up to eight patient feature variables or predictors
     in a particular order, and the service returns a multivariate table, with contingencies between feature variables
@@ -516,14 +516,11 @@ def multivariate_feature_associations(
     """
     table = 'patient'
 
-    return_value = sql.compute_multivariate_associations(
+    return_value = sql.compute_multivariate_table(
         conn,
         table,
         year,
         cohort_id,
         feature_variables
     )
-    if associations_have_feature_matrices(return_value):
-        return {"return value": return_value}
-    else:
-        return {"return value": "Empty query result returned. Please try again"}
+    return {"return value": return_value}

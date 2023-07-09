@@ -127,9 +127,17 @@ def format_tables(data, tables):
         for d in data:
             format_tables(d, tables)
     elif isinstance(data, dict):
-        columns = ["features"]
-        rows = [[feature_to_text(a, b)] for (a, b) in data.items()]
-        tables.append([columns, rows])
+        if "frequency" in data:
+            # multivariate table
+            columns = list(data.keys())
+            rows = [[feature_to_text(k, v)] for (k, v) in data.items() if k != 'frequency']
+            rows.append([f"'frequency = {data['frequency']}'"])
+            print(f'rows: {rows}')
+            tables.append([columns, rows])
+        else:
+            columns = ["features"]
+            rows = [[feature_to_text(a, b)] for (a, b) in data.items()]
+            tables.append([columns, rows])
     else:
         columns = ["error"]
         rows = [[str(data)]]

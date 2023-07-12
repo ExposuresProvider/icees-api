@@ -491,7 +491,7 @@ with open("examples/multivariate_associations.json") as stream:
 
 
 @ROUTER.post(
-    "/{table}/cohort/{cohort_id}/multivariate_feature_analysis",
+    "/cohort/{cohort_id}/multivariate_feature_analysis",
     response_model=Dict,
 )
 def multivariate_feature_analysis(

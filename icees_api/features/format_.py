@@ -4,7 +4,7 @@ from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 import math
 
 
-def feature_to_text(feature_name, feature_qualifier):
+def feature_to_text(feature_name, feature_qualifier, add_feature_name=True):
     op_form = {
         ">": lambda x: str(x["value"]),
         ">=": lambda x: str(x["value"]),
@@ -16,7 +16,10 @@ def feature_to_text(feature_name, feature_qualifier):
         "in": lambda x: "["+",".join(map(str, x["values"]))+"]"
     }
     if "operator" in feature_qualifier:
-        return feature_name + " " + feature_qualifier["operator"] + " " + op_form[feature_qualifier["operator"]](feature_qualifier)
+        if add_feature_name:
+            return feature_name + " " + feature_qualifier["operator"] + " " + op_form[feature_qualifier["operator"]](feature_qualifier)
+        else:
+            return feature_qualifier["operator"] + " " + op_form[feature_qualifier["operator"]](feature_qualifier)
     else:
         raise HTTPException(
             status_code=HTTP_422_UNPROCESSABLE_ENTITY, detail="Result cannot be tabulated. Please select "
@@ -124,8 +127,18 @@ def format_tables(data, tables):
         tables.append([columns, rows])
 
     elif isinstance(data, list):
-        for d in data:
-            format_tables(d, tables)
+        if len(data) > 0 and "frequency" in data[0]:
+            # multivariate table return output to be formated in tabular format as a whole
+            columns = list(data[0].keys())
+            rows = []
+            for d in data:
+                row = [feature_to_text(k, v, add_feature_name=False) for (k, v) in d.items() if k != 'frequency']
+                row.append(d['frequency'])
+                rows.append(row)
+            tables.append([columns, rows])
+        else:
+            for d in data:
+                format_tables(d, tables)
     elif isinstance(data, dict):
         columns = ["features"]
         rows = [[feature_to_text(a, b)] for (a, b) in data.items()]

@@ -557,10 +557,9 @@ def select_feature_matrix(
             }
             for key, value in cohort_features.items()
         ]
-
     if cohort_features:
         condition_str = " AND ".join(
-                "\"{}\" {} {}".format(
+                "\"{}\" {} \"{}\"".format(
                     feature["feature_name"],
                     feature["feature_qualifier"]["operator"],
                     feature["feature_qualifier"]["value"],
@@ -575,6 +574,7 @@ def select_feature_matrix(
             table_name,
             condition_str
         )
+        conn.execute("DROP VIEW if exists tmp")
         conn.execute(view_query)
         table_name = "tmp"
 
@@ -582,7 +582,6 @@ def select_feature_matrix(
     # cohort_features_norm = normalize_features(cohort_year, cohort_features)
     feature_a_norm = normalize_feature(year, feature_a)
     feature_b_norm = normalize_feature(year, feature_b)
-
     # print(f"{time.time() - start_time} seconds spent normalizing")
 
     # start_time = time.time()
@@ -627,7 +626,6 @@ def select_feature_matrix(
     vbs = feature_b_norm["feature_qualifiers"]
     # start_time = time.time()
     result = count_unique(conn, table_name, year, ka, kb)
-
     _ka = "0_" + ka
     _kb = "1_" + kb
     result = [
@@ -639,7 +637,6 @@ def select_feature_matrix(
         for el in result
     ]
     #print(f"{time.time() - start_time} seconds spent doing it the fast way")
-
     feature_matrix = [
         [
             get_count(result, **{
@@ -661,7 +658,6 @@ def select_feature_matrix(
         lambda x: list(map(add_eps, x)),
         feature_matrix
     ))
-
     feature_matrix2 = [
         [
             {
@@ -692,6 +688,7 @@ def select_feature_matrix(
             fisher_exact_odds_ratio = fisher_exact_p = log_odds_ratio = log_odds_ratio_conf_interval_95 = None
 
         association = {
+            "cohort_feature": cohort_features,
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
             "feature_matrix": feature_matrix2 if result else [],
@@ -714,6 +711,7 @@ def select_feature_matrix(
         }
     else:
         association = {
+            "cohort_feature": cohort_features,
             "feature_a": feature_a_norm_with_biolink_class,
             "feature_b": feature_b_norm_with_biolink_class,
             "feature_matrix": feature_matrix2 if result else [],
@@ -1016,3 +1014,107 @@ def add_name_by_id(conn, table, name, cohort_id):
         "cohort_id": cohort_id,
         "name" : name
     }
+
+
+def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variables):
+    cohort_meta = get_features_by_id(conn, table_name, cohort_id)
+    if cohort_meta is None:
+        raise ValueError("Input cohort_id invalid. Please try again.")
+
+    cohort_features, cohort_year = cohort_meta
+    feat_len = len(feature_variables)
+    if feat_len < 3:
+        raise HTTPException(status_code=400, detail="At least three feature variables must be provided "
+                                                    "for computing multivariate associations")
+    associations = []
+    # get feature_constraint list from the first feature variable
+    feat_constraint_list = []
+    levels0 = get_feature_levels(feature_variables[0])
+    for level in levels0:
+        non_op_idx = 0
+        for lev in level:
+            if lev in ['<', '>', '=']:
+                non_op_idx += 1
+            else:
+                break
+        if non_op_idx == 0:
+            op = '='
+            op_val = level
+        else:
+            op = level[:non_op_idx]
+            op_val = level[non_op_idx:]
+        feat_constraint_list.append({
+            feature_variables[0]: {"operator": op, "value": op_val}
+            })
+
+    index = 1
+    while index + 2 <= feat_len:
+        feature_as = [
+            {
+                "feature_name": feature_variables[index],
+                "feature_qualifiers": list(map(
+                    lambda level: {"operator": "=", "value": level},
+                    get_feature_levels(feature_variables[index]),
+                ))
+            }
+        ]
+        feature_bs = [
+            {
+                "feature_name": feature_variables[index + 1],
+                "feature_qualifiers": list(map(
+                    lambda level: {"operator": "=", "value": level},
+                    get_feature_levels(feature_variables[index + 1]),
+                ))
+            }
+        ]
+
+        # add more constraints to feat_constraint_list as needed depending on feature_a and feature_b levels
+        more_constraint_list = []
+        for feature_constraint in feat_constraint_list:
+            done = set()
+            for feature_a, feature_b in product(feature_as, feature_bs):
+                hashable = tuple(sorted((feature_a["feature_name"], feature_b["feature_name"])))
+                if hashable in done:
+                    continue
+                done.add(hashable)
+                for fafq, fbfq in product(feature_a["feature_qualifiers"], feature_b["feature_qualifiers"]):
+                    base_dict = {
+                        feature_variables[fvi]: feature_constraint[feature_variables[fvi]] for fvi in
+                        range(index - 1, -1, -1)
+                    }
+                    base_dict[feature_a["feature_name"]] = fafq
+                    base_dict[feature_b["feature_name"]] = fbfq
+                    more_constraint_list.append(base_dict)
+
+        feat_constraint_list = more_constraint_list
+        index += 2
+
+    if index < feat_len:
+        feature_qualifiers = list(map(
+            lambda level: {"operator": "=", "value": level},
+            get_feature_levels(feature_variables[index])
+        ))
+        more_constraint_list = []
+        for feature_constraint in feat_constraint_list:
+            for fq in feature_qualifiers:
+                base_dict = {
+                    feature_variables[fvi]: feature_constraint[feature_variables[fvi]] for fvi in
+                    range(index - 1, -1, -1)
+                }
+                base_dict[feature_variables[index]] = fq
+                more_constraint_list.append(base_dict)
+        feat_constraint_list = more_constraint_list
+    # compute frequency for each feature constraint
+    if len(feat_constraint_list) > 0:
+        columns = list(feat_constraint_list[0].keys())
+        result = count_unique(conn, table_name, year, *columns)
+        result = [
+            {"count": el[-1],
+             **{col: el[i] for i, col in enumerate(columns)}
+             }
+            for el in result
+        ]
+        for fc in feat_constraint_list:
+            fc['frequency'] = get_count(result, **fc)
+
+    return feat_constraint_list

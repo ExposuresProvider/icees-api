@@ -127,9 +127,9 @@ def edit_cohort(
     
     Users create a cohort based on available features (see linked-out 
     documentation in upper-left corner). The default example is to 
-    select all available patients. Note that unlike the “Discover Cohort” 
-    function, this function requires that the cohort being created must 
-    not already exist.
+    select all available patients. Note that unlike the “Discover 
+    Cohort” function, this function requires that the cohort being 
+    created must not already exist.
     """
     validate_table(table)
     cohort_id, size = sql.select_cohort(

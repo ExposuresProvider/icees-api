@@ -977,45 +977,6 @@ def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, 
     return
 
 
-def get_id_by_name(conn, table, name):
-    """Get cohort id by name."""
-    s = select([func.count()])\
-        .select_from(table("name"))\
-        .where((column("name") == name) & (column("table") == table))
-    n = conn.execute((s)).scalar()
-    if n == 0:
-        raise RuntimeError("Input name invalid. Please try again.")
-    else:
-        s = select([column("cohort_id")])\
-            .select_from(table("name"))\
-            .where((column("name") == name) & (column("table") == table))
-        cohort_id = conn.execute((s)).scalar()
-
-        return {
-            "cohort_id": cohort_id,
-            "name" : name
-        }
-
-
-def add_name_by_id(conn, table, name, cohort_id):
-    """Add cohort name by id."""
-    s = select([func.count()])\
-        .select_from(table("name"))\
-        .where((column("name") == name) & (column("table") == table))
-    n = conn.execute(s).scalar()
-    if n == 1:
-        raise RuntimeError("Name is already taken. Please choose another name.")
-    conn.execute(
-        "INSERT INTO name (name, \"table\", cohort_id) VALUES (?, ?, ?)",
-        (name, table, cohort_id),
-    )
-
-    return {
-        "cohort_id": cohort_id,
-        "name" : name
-    }
-
-
 def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variables):
     cohort_meta = get_features_by_id(conn, table_name, cohort_id)
     if cohort_meta is None:

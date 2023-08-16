@@ -413,44 +413,6 @@ def features(
 
 
 @ROUTER.get(
-    "/{table}/name/{name}",
-    response_model=Dict,
-)
-def get_name(
-        table: str,
-        name: str,
-        conn=Depends(get_db),
-        api_key: APIKey = Depends(get_api_key),
-) -> Dict:
-    """Return cohort id associated with name."""
-    validate_table(table)
-    return_value = sql.get_id_by_name(conn, table, name)
-    return {"return value": return_value}
-
-
-@ROUTER.post(
-    "/{table}/name/{name}",
-    response_model=Dict,
-)
-def post_name(
-        table: str,
-        name: str,
-        obj: AddNameById,
-        conn=Depends(get_db),
-        api_key: APIKey = Depends(get_api_key),
-) -> Dict:
-    """Associate name with cohort id."""
-    validate_table(table)
-    return_value = sql.add_name_by_id(
-        conn,
-        table,
-        name,
-        obj["cohort_id"],
-    )
-    return {"return value": return_value}
-
-
-@ROUTER.get(
     "/bins",
     response_model=Dict,
 )

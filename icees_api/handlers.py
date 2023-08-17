@@ -68,7 +68,12 @@ def discover_cohort(
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Cohort discovery."""
+    """Cohort discovery - create a cohort or find an existing one. 
+
+    Users create a cohort based on available features (see linked-out 
+    documentation in upper-left corner). The default example is to 
+    select all available patients.
+    """
     validate_table(table)
     cohort_id, size = sql.get_ids_by_feature(
         conn,
@@ -99,7 +104,12 @@ def dictionary(
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Get cohort dictionary."""
+    """Get cohort dictionary. 
+    
+    Users select an integrated feature table type (patient or visit), 
+    and the service returns a list of cohorts (cohort id, sample size, 
+    features used to create cohort) that have been created to date.
+    """
     validate_table(table)
     return_value = sql.get_cohort_dictionary(conn, table, None)
     return {"return value": return_value}
@@ -113,7 +123,14 @@ def edit_cohort(
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Cohort discovery."""
+    """Cohort discovery - create a cohort or find an existing one.
+    
+    Users create a cohort based on available features (see linked-out 
+    documentation in upper-left corner). The default example is to 
+    select all available patients. Note that unlike the “Discover 
+    Cohort” function, this function requires that the cohort being 
+    created must not already exist.
+    """
     validate_table(table)
     cohort_id, size = sql.select_cohort(
         conn,
@@ -143,7 +160,12 @@ def get_cohort(
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Get definition of a cohort."""
+    """Get definition of a cohort. 
+    
+    Users select an integrated feature table type (patient or visit) 
+    and cohort id, and the service returns the cohort sample size 
+    and the features used to create the cohort.
+    """
     validate_table(table)
     cohort_features = sql.get_cohort_by_id(
         conn,
@@ -179,11 +201,16 @@ def feature_association(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Hypothesis-driven 2 x 2 feature associations.
-
-    Users select a predefined cohort and two feature variables, and the service
-    returns a 2 x 2 feature table with a corresponding Chi Square statistic and
-    P value, Fisher's exact odds ratio, log odds ratio with 95% confidence interval,
-    and Fisher's exact P value.
+    
+    Users select an integrated feature table type (patient or visit),
+    a predefined cohort id, an optional study period year, and two 
+    feature variables, and the service returns a 2 x 2 feature table 
+    with a corresponding Chi Square statistic and P value, Fisher's 
+    exact odds ratio, log odds ratio with 95% confidence interval, 
+    and Fisher's exact P value. Note that the example query may need 
+    to be tailored to the ICEES+ instance by, for example, selecting 
+    different feature variables (see linked-out documentation in 
+    upper-left corner).
     """
     validate_table(table)
     feature_a = to_qualifiers(obj["feature_a"])
@@ -233,12 +260,16 @@ def feature_association2(
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Hypothesis-driven N x N feature associations.
-
-    Users select a predefined cohort, two feature variables, and bins, which
-    can be combined, and the service returns a N x N feature table with a
-    corresponding Chi Square statistic, Fisher's exact odds ratio,
-    log odds ratio with 95% confidence interval, and Fisher's exact P value
+    """HHypothesis-driven N x N feature associations.
+    
+    Users select an integrated feature table type (patient or visit), 
+    a predefined cohort id, an optional study period year, two feature 
+    variables, and bins, which can be combined, and the service returns 
+    a N x N feature table with a corresponding Chi Square statistic, 
+    Fisher's exact odds ratio, log odds ratio with 95% confidence interval, 
+    and Fisher's exact P value. Note that the example query may need to be
+    tailored to the ICEES+ instance by, for example, selecting different 
+    feature variables (see linked-out documentation in upper-left corner).
     """
     validate_table(table)
     feature_a = to_qualifiers2(obj["feature_a"])
@@ -296,10 +327,14 @@ def associations_to_all_features(
 ) -> Dict:
     """Exploratory 1 X N feature associations.
 
-    Users select a predefined cohort and a feature variable of interest, and
-    the service returns a 1 x N feature table with corrected Chi Square
-    statistics and associated P values, Fisher's exact odds ratio, log odds ratio
-    with 95% confidence interval, and Fisher's exact P value
+    Users select an integrated feature table type (patient or visit), 
+    a predefined cohort id, an optional study period year, and a feature
+    variable of interest, and the service returns a 1 x N feature table
+    with corrected Chi Square statistics and associated P values, 
+    Fisher's exact odds ratio, log odds ratio with 95% confidence interval, 
+    and Fisher's exact P value. Note that the example query may need to be 
+    tailored to the ICEES+ instance by, for example, selecting different 
+    feature variables (see linked-out documentation in upper left corner).
     """
     validate_table(table)
     feature = to_qualifiers(obj["feature"])
@@ -345,12 +380,17 @@ def associations_to_all_features2(
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Exploratory 1 X N feature associations.
+    """Exploratory 1 X N feature associations. 
 
-    Users select a predefined cohort and a feature variable of interest and
-    bins, which can be combined, and the service returns a 1 x N feature table
-    with corrected Chi Square statistics and associated P values, Fisher's exact odds ratio,
-    log odds ratio with 95% confidence interval, and Fisher's exact P value.
+    Users select an integrated feature table type (patient or visit), 
+    a predefined cohort id, an optional study period year, a feature 
+    variable of interest, and bins, which can be combined, and the 
+    service returns a 1 x N feature table with corrected Chi Square 
+    statistics and associated P values, Fisher's exact odds ratio, 
+    log odds ratio with 95% confidence interval, and Fisher's exact 
+    P value. Note that the example query may need to be tailored to the 
+    ICEES+ instance by, for example, selecting different feature 
+    variables (see linked-out documentation in upper-left corner).
     """
     validate_table(table)
     feature = to_qualifiers2(obj["feature"])
@@ -391,9 +431,11 @@ def features(
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
     """Feature-rich cohort discovery.
-
-    Users select a predefined cohort as the input parameter, and the service
-    returns a profile of that cohort in terms of all feature variables.
+    
+    Users select an integrated feature table type (patient or visit), 
+    a predefined cohort id, and an optional study period year, and 
+    the service returns a profile of that cohort in terms of all 
+    available feature variables.
     """
     validate_table(table)
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
@@ -422,7 +464,14 @@ def handle_bins(
         feature: str = None,
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Return bin values."""
+    """Return bin values. 
+
+    Users select an optional study period year, an optional integrated 
+    feature table type (patient or visit), and a specific feature 
+    variable (see linked-out documentation in upper-left corner), and 
+    the service returns the bins and bin values for the selected 
+    feature variable.
+    """
     input_file = os.path.join(get_config_path(), "bins.json")
     if not os.path.exists(input_file):
         return {"return_value": None,
@@ -466,15 +515,22 @@ def multivariate_feature_analysis(
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Exploratory multivariate analysis of patient feature variables.
-
-    Users select a predefined cohort and a list of up to eight patient feature variables or predictors
-    in a particular order, and the service returns a multivariate table, with contingencies between feature variables
-    maintained. Note that the open multivariate functionality incurs a certain amount of data loss due to privacy
-    constraints that limit the ability of create cohorts < 10 patients. The amount of data loss varies and is
-    influenced by the order in which the feature variables are selected. Note that a complex algorithm is used to
-    openly create ICEES multivariate tables; this process may take a while or time out. Users are encouraged to
-    structure queries as CURLs rather than work through the Swagger UI.
+    """Exploratory multivariate analysis of patient feature variables. 
+    
+    Users select a predefined cohort id, an optional study period year, 
+    and a list of up to eight patient feature variables or predictors in 
+    a particular order, and the service returns a multivariate table, 
+    with contingencies between feature variables maintained. Note that 
+    the open multivariate functionality incurs a certain amount of data 
+    loss due to privacy constraints that restrict access to cohorts 
+    < 10 patients. The amount of data loss varies and is influenced by 
+    the order in which the feature variables are selected. Note that a 
+    complex algorithm is used to openly create ICEES multivariate tables; 
+    this process may take a while or time out. Users are encouraged to 
+    structure queries as CURLs rather than work through the Swagger UI. 
+    Note that the example query may need to be tailored to the ICEES+ 
+    instance by, for example, selecting different feature variables
+    (see linked-out documentation in upper-left corner).
     """
     table = 'patient'
 

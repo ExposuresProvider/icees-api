@@ -71,8 +71,12 @@ def discover_cohort(
     """Cohort discovery - create a cohort or find an existing one. 
 
     Users create a cohort based on available features (see linked-out 
-    documentation in upper-left corner). The default example is to 
-    select all available patients.
+    documentation in upper-left corner). Note that cohort creation is 
+    based on the number of patients (i.e., the number of patients who 
+    meet the inclusion/exclusion criteria at the time of cohort 
+    creation); the other functions are based on the number of 
+    observations for a specified cohort. The default cohort creation
+    example is to select all available patients.
     """
     validate_table(table)
     cohort_id, size = sql.get_ids_by_feature(
@@ -109,6 +113,10 @@ def dictionary(
     Users select an integrated feature table type (patient or visit), 
     and the service returns a list of cohorts (cohort id, sample size, 
     features used to create cohort) that have been created to date.
+    Note that the sample sizes reflect the number of patients (not
+    observations) within a given cohort (i.e., the number of patients 
+    who meet the inclusion/exclusion criteria at the time of cohort 
+    creation).
     """
     validate_table(table)
     return_value = sql.get_cohort_dictionary(conn, table, None)
@@ -123,13 +131,17 @@ def edit_cohort(
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Cohort discovery - create a cohort or find an existing one.
+    """Cohort discovery - create a new cohort.
     
     Users create a cohort based on available features (see linked-out 
-    documentation in upper-left corner). The default example is to 
-    select all available patients. Note that unlike the “Discover 
-    Cohort” function, this function requires that the cohort being 
-    created must not already exist.
+    documentation in upper-left corner). Note that cohort creation is 
+    based on the number of patients (i.e., the number of patients who 
+    meet the inclusion/exclusion criteria at the time of cohort 
+    creation); the other functions are based on the number of 
+    observations for a specified cohort. The default example is to 
+    select all available patients. Unlike the “Discover Cohort” 
+    function, this function requires that the cohort being created 
+    must not already exist.
     """
     validate_table(table)
     cohort_id, size = sql.select_cohort(
@@ -164,7 +176,11 @@ def get_cohort(
     
     Users select an integrated feature table type (patient or visit) 
     and cohort id, and the service returns the cohort sample size 
-    and the features used to create the cohort.
+    and the features used to create the cohort. Note that the 
+    sample sizes reflect the number of patients (not
+    observations) within a given cohort (i.e., the patients who
+    meet the inclusion/exclusion criteria at the time of cohort 
+    creation).
     """
     validate_table(table)
     cohort_features = sql.get_cohort_by_id(
@@ -207,10 +223,12 @@ def feature_association(
     feature variables, and the service returns a 2 x 2 feature table 
     with a corresponding Chi Square statistic and P value, Fisher's 
     exact odds ratio, log odds ratio with 95% confidence interval, 
-    and Fisher's exact P value. Note that the example query may need 
-    to be tailored to the ICEES+ instance by, for example, selecting 
-    different feature variables (see linked-out documentation in 
-    upper-left corner).
+    and Fisher's exact P value. Note that the 2 x 2 feature table is
+    based on the number of observations for the specified cohort and,
+    when selected, the study period year. Note also that the example 
+    query may need to be tailored to the ICEES+ instance by, for 
+    example, selecting different feature variables (see linked-out 
+    documentation in upper-left corner).
     """
     validate_table(table)
     feature_a = to_qualifiers(obj["feature_a"])
@@ -267,9 +285,12 @@ def feature_association2(
     variables, and bins, which can be combined, and the service returns 
     a N x N feature table with a corresponding Chi Square statistic, 
     Fisher's exact odds ratio, log odds ratio with 95% confidence interval, 
-    and Fisher's exact P value. Note that the example query may need to be
-    tailored to the ICEES+ instance by, for example, selecting different 
-    feature variables (see linked-out documentation in upper-left corner).
+    and Fisher's exact P value. Note that the 2 x 2 feature table is
+    based on the number of observations for the specified cohort and,
+    when selected, the study period year. Note also that the example query 
+    may need to be tailored to the ICEES+ instance by, for example, 
+    selecting different feature variables (see linked-out documentation 
+    in upper-left corner).
     """
     validate_table(table)
     feature_a = to_qualifiers2(obj["feature_a"])
@@ -332,9 +353,12 @@ def associations_to_all_features(
     variable of interest, and the service returns a 1 x N feature table
     with corrected Chi Square statistics and associated P values, 
     Fisher's exact odds ratio, log odds ratio with 95% confidence interval, 
-    and Fisher's exact P value. Note that the example query may need to be 
-    tailored to the ICEES+ instance by, for example, selecting different 
-    feature variables (see linked-out documentation in upper left corner).
+    and Fisher's exact P value. Note that the 1 x N feature table is
+    based on the number of observations for the specified cohort and,
+    when selected, the study period year. Note also that the example query 
+    may need to be tailored to the ICEES+ instance by, for example, 
+    selecting different feature variables (see linked-out documentation in 
+    upper left corner).
     """
     validate_table(table)
     feature = to_qualifiers(obj["feature"])
@@ -388,9 +412,12 @@ def associations_to_all_features2(
     service returns a 1 x N feature table with corrected Chi Square 
     statistics and associated P values, Fisher's exact odds ratio, 
     log odds ratio with 95% confidence interval, and Fisher's exact 
-    P value. Note that the example query may need to be tailored to the 
-    ICEES+ instance by, for example, selecting different feature 
-    variables (see linked-out documentation in upper-left corner).
+    P value. Note that the 1 x N feature table is based on the number
+    of observations for the specified cohort and, when selected, the
+    study period year. Note also that the example query may need to be 
+    tailored to the ICEES+ instance by, for example, selecting 
+    different feature variables (see linked-out documentation in 
+    upper-left corner).
     """
     validate_table(table)
     feature = to_qualifiers2(obj["feature"])
@@ -435,7 +462,7 @@ def features(
     Users select an integrated feature table type (patient or visit), 
     a predefined cohort id, and an optional study period year, and 
     the service returns a profile of that cohort in terms of all 
-    available feature variables.
+    observations across available feature variables.
     """
     validate_table(table)
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)
@@ -518,19 +545,22 @@ def multivariate_feature_analysis(
     """Exploratory multivariate analysis of patient feature variables. 
     
     Users select a predefined cohort id, an optional study period year, 
-    and a list of up to eight patient feature variables or predictors in 
-    a particular order, and the service returns a multivariate table, 
-    with contingencies between feature variables maintained. Note that 
-    the open multivariate functionality incurs a certain amount of data 
-    loss due to privacy constraints that restrict access to cohorts 
-    < 10 patients. The amount of data loss varies and is influenced by 
-    the order in which the feature variables are selected. Note that a 
-    complex algorithm is used to openly create ICEES multivariate tables; 
-    this process may take a while or time out. Users are encouraged to 
-    structure queries as CURLs rather than work through the Swagger UI. 
-    Note that the example query may need to be tailored to the ICEES+ 
-    instance by, for example, selecting different feature variables
-    (see linked-out documentation in upper-left corner).
+    and a list of feature variables or predictors in a particular order, 
+    and the service returns a multivariate table, with contingencies 
+    between feature variables maintained. A dummy variable, PatientID, 
+    links patients across study periods, which are indicated by a second 
+    variable, study_period. Note that the open multivariate functionality
+    incurs a certain amount of data loss due to privacy constraints that 
+    restrict access to cohorts < 10 patients. The amount of data loss 
+    varies and is influenced by (1) the order in which the feature 
+    variables are selected, (2) the number of feature variables, and 
+    (3) the extent to which a given feature variable is sparsely 
+    represented. Note that a complex algorithm is used to openly create 
+    ICEES multivariate tables; this process may take a while or time out. 
+    Users are encouraged to structure queries as CURLs rather than work 
+    through the Swagger UI. Note that the example query may need to be 
+    tailored to the ICEES+ instance by, for example, selecting different 
+    feature variables (see linked-out documentation in upper-left corner).
     """
     table = 'patient'
 

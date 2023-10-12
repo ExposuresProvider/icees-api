@@ -131,7 +131,7 @@ def edit_cohort(
         conn=Depends(get_db),
         api_key: APIKey = Depends(get_api_key),
 ) -> Dict:
-    """Cohort discovery - create a cohort or find an existing one.
+    """Cohort discovery - create a new cohort.
     
     Users create a cohort based on available features (see linked-out 
     documentation in upper-left corner). Note that cohort creation is 

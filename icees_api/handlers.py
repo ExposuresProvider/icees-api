@@ -72,9 +72,11 @@ def discover_cohort(
 
     Users create a cohort based on available features (see linked-out 
     documentation in upper-left corner). Note that cohort creation is 
-    based on the number of patients; the other functions are based on
-    the number of observations for a specified cohort. The default 
-    cohort creation example is to select all available patients.
+    based on the number of patients (i.e., the number of patients who 
+    meet the inclusion/exclusion criteria at the time of cohort 
+    creation); the other functions are based on the number of 
+    observations for a specified cohort. The default cohort creation
+    example is to select all available patients.
     """
     validate_table(table)
     cohort_id, size = sql.get_ids_by_feature(
@@ -112,7 +114,9 @@ def dictionary(
     and the service returns a list of cohorts (cohort id, sample size, 
     features used to create cohort) that have been created to date.
     Note that the sample sizes reflect the number of patients (not
-    observations) within a given cohort.
+    observations) within a given cohort (i.e., the number of patients 
+    who meet the inclusion/exclusion criteria at the time of cohort 
+    creation).
     """
     validate_table(table)
     return_value = sql.get_cohort_dictionary(conn, table, None)
@@ -131,11 +135,13 @@ def edit_cohort(
     
     Users create a cohort based on available features (see linked-out 
     documentation in upper-left corner). Note that cohort creation is 
-    based on the number of patients; the other functions are 
-    based on the number of observations for a specified cohort. The
-    default example is to select all available patients. Unlike the 
-    “Discover Cohort” function, this function requires that the 
-    cohort being created must not already exist.
+    based on the number of patients (i.e., the number of patients who 
+    meet the inclusion/exclusion criteria at the time of cohort 
+    creation); the other functions are based on the number of 
+    observations for a specified cohort. The default example is to 
+    select all available patients. Unlike the “Discover Cohort” 
+    function, this function requires that the cohort being created 
+    must not already exist.
     """
     validate_table(table)
     cohort_id, size = sql.select_cohort(
@@ -172,7 +178,9 @@ def get_cohort(
     and cohort id, and the service returns the cohort sample size 
     and the features used to create the cohort. Note that the 
     sample sizes reflect the number of patients (not
-    observations) within a given cohort.
+    observations) within a given cohort (i.e., the patients who
+    meet the inclusion/exclusion criteria at the time of cohort 
+    creation).
     """
     validate_table(table)
     cohort_features = sql.get_cohort_by_id(

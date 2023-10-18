@@ -791,9 +791,13 @@ def select_feature_count_all_values(
     return count
 
 
-def get_feature_levels(feature):
+def get_feature_levels(feature, year=None):
     """Get feature levels."""
-    return get_value_sets().get(feature, [])
+    feat_levs = get_value_sets().get(feature, [])
+    if year and feature == 'year' and int(year) in feat_levs:
+        # only include the pass-in year in the corresponding year feature level list
+        feat_levs = [int(year)]
+    return feat_levs
 
 
 def apply_correction(ret, correction=None):
@@ -990,7 +994,7 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
     associations = []
     # get feature_constraint list from the first feature variable
     feat_constraint_list = []
-    levels0 = get_feature_levels(feature_variables[0])
+    levels0 = get_feature_levels(feature_variables[0], year=year)
     for level in levels0:
         non_op_idx = 0
         for lev in level:
@@ -1015,7 +1019,7 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
                 "feature_name": feature_variables[index],
                 "feature_qualifiers": list(map(
                     lambda level: {"operator": "=", "value": level},
-                    get_feature_levels(feature_variables[index]),
+                    get_feature_levels(feature_variables[index], year=year),
                 ))
             }
         ]
@@ -1024,7 +1028,7 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
                 "feature_name": feature_variables[index + 1],
                 "feature_qualifiers": list(map(
                     lambda level: {"operator": "=", "value": level},
-                    get_feature_levels(feature_variables[index + 1]),
+                    get_feature_levels(feature_variables[index + 1], year=year),
                 ))
             }
         ]
@@ -1053,7 +1057,7 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
     if index < feat_len:
         feature_qualifiers = list(map(
             lambda level: {"operator": "=", "value": level},
-            get_feature_levels(feature_variables[index])
+            get_feature_levels(feature_variables[index], year=year)
         ))
         more_constraint_list = []
         for feature_constraint in feat_constraint_list:

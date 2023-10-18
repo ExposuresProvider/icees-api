@@ -536,16 +536,7 @@ def count_unique(conn, table_name, year, *columns):
         ).fetchall()]
 
 
-def select_feature_matrix(
-        conn,
-        table_name,
-        year,
-        cohort_features,
-        cohort_year,
-        feature_a,
-        feature_b,
-):
-    """Select feature matrix."""
+def create_cohort_view(conn, table_name, cohort_features):
     if not isinstance(cohort_features, list):
         cohort_features = [
             {
@@ -576,7 +567,28 @@ def select_feature_matrix(
         )
         conn.execute("DROP VIEW if exists tmp")
         conn.execute(view_query)
-        table_name = "tmp"
+        # return the view table name 'tmp' for subsequent operations
+        return 'tmp'
+    else:
+        return table_name
+
+
+def drop_cohort_view(conn, cohort_features):
+    if cohort_features:
+        conn.execute("DROP VIEW tmp")
+
+
+def select_feature_matrix(
+        conn,
+        table_name,
+        year,
+        cohort_features,
+        cohort_year,
+        feature_a,
+        feature_b,
+):
+    """Select feature matrix."""
+    table_name = create_cohort_view(conn, table_name, cohort_features)
 
     # start_time = time.time()
     # cohort_features_norm = normalize_features(cohort_year, cohort_features)
@@ -735,8 +747,7 @@ def select_feature_matrix(
 
     # association_json = json.dumps(association, sort_keys=True)
 
-    if cohort_features:
-        conn.execute("DROP VIEW tmp")
+    drop_cohort_view(conn, cohort_features)
 
     # start_time = time.time()
     # conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
@@ -1070,6 +1081,10 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
                 more_constraint_list.append(base_dict)
         feat_constraint_list = more_constraint_list
     # compute frequency for each feature constraint
+    if cohort_features:
+        # compute frequency on the cohort view
+        table_name = create_cohort_view(conn, table_name, cohort_features)
+
     if len(feat_constraint_list) > 0:
         columns = list(feat_constraint_list[0].keys())
         result = count_unique(conn, table_name, year, *columns)
@@ -1082,4 +1097,6 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
         for fc in feat_constraint_list:
             fc['frequency'] = get_count(result, **fc)
 
+    if cohort_features:
+        drop_cohort_view(conn, cohort_features)
     return feat_constraint_list

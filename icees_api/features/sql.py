@@ -1002,17 +1002,18 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
     if feat_len < 3:
         raise HTTPException(status_code=400, detail="At least three feature variables must be provided "
                                                     "for computing multivariate associations")
-    associations = []
+
     # get feature_constraint list from the first feature variable
     feat_constraint_list = []
     levels0 = get_feature_levels(feature_variables[0], year=year)
     for level in levels0:
         non_op_idx = 0
-        for lev in level:
-            if lev in ['<', '>', '=']:
-                non_op_idx += 1
-            else:
-                break
+        if isinstance(level, str):
+            for lev in level:
+                if lev in ['<', '>', '=']:
+                    non_op_idx += 1
+                else:
+                    break
         if non_op_idx == 0:
             op = '='
             op_val = level
@@ -1043,7 +1044,6 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
                 ))
             }
         ]
-
         # add more constraints to feat_constraint_list as needed depending on feature_a and feature_b levels
         more_constraint_list = []
         for feature_constraint in feat_constraint_list:
@@ -1080,6 +1080,7 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
                 base_dict[feature_variables[index]] = fq
                 more_constraint_list.append(base_dict)
         feat_constraint_list = more_constraint_list
+
     # compute frequency for each feature constraint
     if cohort_features:
         # compute frequency on the cohort view

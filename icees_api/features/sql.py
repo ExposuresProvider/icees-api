@@ -780,24 +780,65 @@ def select_feature_count_all_values(
         values[value] = count
     total = sum(values.values())
     levels = list(levels)
+    # handle level definition with operator included by separating operator and value into a dict item,
+    # e.g., one enum level defined for TotalEDInpatientVisits is >9
+    level_op_val = {}
+    for lev in levels:
+        if isinstance(lev, str) and lev[0] in ['<', '>']:
+            level_op_val[lev[0]] = int(lev[1:])
+            levels.remove(lev)
+
     for value in values.keys():
-        if value not in levels:
+        if value not in levels and (not level_op_val or
+                                    ('<' in level_op_val and value >= level_op_val['<']) or
+                                    ('>' in level_op_val and value <= level_op_val['>'])):
+            # only append value to levels when value is not in levels and level_op_val is empty or
+            # value does not satisfy the operations encoded in the level_op_val
             levels.append(value)
+
+    feat_qualifiers = [{
+        "operator": "=",
+        "value": level
+    } for level in levels]
+
+    feat_matrix = [
+        {"frequency": a, "percentage": div(a, total)}
+        for level in levels if (a := values[level]) is not None
+    ]
+
+    if level_op_val:
+        feat_qualifiers.extend([{
+            "operator": k,
+            "value": v
+            } for k, v in level_op_val.items()])
+
+        greater_value_sum = less_value_sum = 0
+        for k, v in values:
+            if k not in levels:
+                if '<' in level_op_val and k < level_op_val['<']:
+                    less_value_sum += v
+                if '>' in level_op_val and k > level_op_val['>']:
+                    greater_value_sum += v
+
+        if greater_value_sum > 0:
+            feat_matrix.append({
+                "operator": ">",
+                "value": greater_value_sum
+            })
+        if less_value_sum > 0:
+            feat_matrix.append({
+                "operator": ">",
+                "value": less_value_sum
+            })
 
     feature_a_norm_with_biolink_class = {
         "feature_name": feature_name,
-        "feature_qualifiers": [{
-            "operator": "=",
-            "value": level
-        } for level in levels],
+        "feature_qualifiers": feat_qualifiers,
         "year": year
     }
     count = {
         "feature": feature_a_norm_with_biolink_class,
-        "feature_matrix": [
-            {"frequency": a, "percentage": div(a, total)}
-            for level in levels if (a := values[level]) is not None
-        ]
+        "feature_matrix": feat_matrix
     }
     return count
 

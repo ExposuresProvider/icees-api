@@ -794,11 +794,11 @@ def select_feature_count_all_values(
             level_op_val[lev[0]] = int(lev[1:])
             levels.remove(lev)
     for value in value_to_be_added:
+        # only append value to levels when value is not in levels and level_op_val is empty or
+        # value does not satisfy the operations encoded in the level_op_val
         if not level_op_val or \
                 ('<' in level_op_val and int(value) >= level_op_val['<']) or \
                 ('>' in level_op_val and int(value) <= level_op_val['>']):
-            # only append value to levels when value is not in levels and level_op_val is empty or
-            # value does not satisfy the operations encoded in the level_op_val
             levels.append(value)
     feat_qualifiers = [{
         "operator": "=",
@@ -914,10 +914,8 @@ def select_associations_to_all_features(
         feature_as = [
             {
                 "feature_name": feature_name,
-                "feature_qualifiers": list(map(
-                    lambda level: {"operator": "=", "value": level},
-                    get_feature_levels(feature_name),
-                ))
+                "feature_qualifiers": get_operator_and_value(get_feature_levels(feature_name),
+                                                             feature_name)
             }
             for feature_name in filter(feature_filter_a, get_features(conn, table))
         ]
@@ -927,10 +925,8 @@ def select_associations_to_all_features(
     feature_bs = [
         {
             "feature_name": feature_name,
-            "feature_qualifiers": list(map(
-                lambda level: {"operator": "=", "value": level},
-                get_feature_levels(feature_name),
-            ))
+            "feature_qualifiers": get_operator_and_value(get_feature_levels(feature_name),
+                                                         feature_name)
         }
         for feature_name in filter(feature_filter_b, get_features(conn, table))
     ]
@@ -1033,6 +1029,40 @@ def validate_feature_value_in_table_column_for_equal_operator(conn, table_name, 
     return
 
 
+def get_operator_and_value(input_levels, feat_name, append_feature_variable=False):
+    """
+    get operator and value from each input level which will be in the format of '>' or '<' followed by a number or
+    just a number with implied equal operator, and return a list of feature qualifiers each being a dict with
+    operator and value keys
+    """
+    fqs = []
+    for input_level in input_levels:
+        # checking if feature variable name contains Age is a stop-gap solution, which will be removed after
+        # Age-related variable binning is removed in FHIR PIT and dataset is updated
+        if 'Age' in feat_name:
+            op = '='
+            op_val = input_level
+        else:
+            non_op_idx = 0
+            if isinstance(input_level, str):
+                for lev in input_level:
+                    if lev in ['<', '>']:
+                        non_op_idx += 1
+                    else:
+                        break
+            if non_op_idx == 0:
+                op = '='
+                op_val = input_level
+            else:
+                op = input_level[:non_op_idx]
+                op_val = input_level[non_op_idx:]
+        if append_feature_variable:
+            fqs.append({feat_name: {"operator": op, "value": op_val}})
+        else:
+            fqs.append({"operator": op, "value": op_val})
+    return fqs
+
+
 def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variables):
     cohort_meta = get_features_by_id(conn, table_name, cohort_id)
     if cohort_meta is None:
@@ -1045,44 +1075,24 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
                                                     "for computing multivariate associations")
 
     # get feature_constraint list from the first feature variable
-    feat_constraint_list = []
-    levels0 = get_feature_levels(feature_variables[0], year=year)
-    for level in levels0:
-        non_op_idx = 0
-        if isinstance(level, str):
-            for lev in level:
-                if lev in ['<', '>', '=']:
-                    non_op_idx += 1
-                else:
-                    break
-        if non_op_idx == 0:
-            op = '='
-            op_val = level
-        else:
-            op = level[:non_op_idx]
-            op_val = level[non_op_idx:]
-        feat_constraint_list.append({
-            feature_variables[0]: {"operator": op, "value": op_val}
-            })
+    feat_constraint_list = get_operator_and_value(get_feature_levels(feature_variables[0], year=year),
+                                                  feature_variables[0], append_feature_variable=True)
 
     index = 1
     while index + 2 <= feat_len:
         feature_as = [
             {
                 "feature_name": feature_variables[index],
-                "feature_qualifiers": list(map(
-                    lambda level: {"operator": "=", "value": level},
-                    get_feature_levels(feature_variables[index], year=year),
-                ))
+                "feature_qualifiers": get_operator_and_value(get_feature_levels(feature_variables[index], year=year),
+                                                             feature_variables[index])
             }
         ]
         feature_bs = [
             {
                 "feature_name": feature_variables[index + 1],
-                "feature_qualifiers": list(map(
-                    lambda level: {"operator": "=", "value": level},
-                    get_feature_levels(feature_variables[index + 1], year=year),
-                ))
+                "feature_qualifiers": get_operator_and_value(get_feature_levels(feature_variables[index + 1],
+                                                                                year=year),
+                                                             feature_variables[index + 1])
             }
         ]
         # add more constraints to feat_constraint_list as needed depending on feature_a and feature_b levels
@@ -1107,10 +1117,8 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
         index += 2
 
     if index < feat_len:
-        feature_qualifiers = list(map(
-            lambda level: {"operator": "=", "value": level},
-            get_feature_levels(feature_variables[index], year=year)
-        ))
+        feature_qualifiers = get_operator_and_value(get_feature_levels(feature_variables[index], year=year),
+                                                    feature_variables[index])
         more_constraint_list = []
         for feature_constraint in feat_constraint_list:
             for fq in feature_qualifiers:

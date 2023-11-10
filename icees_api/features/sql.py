@@ -446,7 +446,7 @@ OP_MAP = {
 }
 
 
-def simplify_value(val_str):
+def simplify_value(val_str, opr):
     """
     simplify value string to integer string if appropriate, e.g., from 1.0 to 1
     """
@@ -456,19 +456,22 @@ def simplify_value(val_str):
         return val_str
     value_int = int(value_float)
     if value_int == value_float:
-        return str(value_int)
+        # return int type if less or greater operator is involved, otherwise, return str type
+        if opr != '>' and opr != '<' and opr != '>=' and opr != '<=':
+            return str(value_int)
+        else:
+            return value_int
     return val_str
 
 
 def get_count(results, **constraints):
     """Get sum of result counts that meet constraints."""
     count = 0
-
     for result in results:
         if all(
             OP_MAP[constraint["operator"]](
-                simplify_value(result.get(feature, None)),
-                simplify_value(constraint.get("value", constraint.get("values"))),
+                simplify_value(result.get(feature, None), constraint["operator"]),
+                simplify_value(constraint.get("value", constraint.get("values")), constraint["operator"]),
             )
             for feature, constraint in constraints.items()
         ):
@@ -680,7 +683,6 @@ def select_feature_matrix(
             } for j, cell in enumerate(row)
         ] for i, row in enumerate(feature_matrix)
     ]
-
     feature_a_norm_with_biolink_class = {
         **feature_a_norm
     }

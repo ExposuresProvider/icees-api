@@ -457,10 +457,10 @@ def simplify_value(val_str, opr):
     value_int = int(value_float)
     if value_int == value_float:
         # return int type if less or greater operator is involved, otherwise, return str type
-        if opr != '>' and opr != '<' and opr != '>=' and opr != '<=':
-            return str(value_int)
-        else:
+        if opr in ['>', '<', '>=', '<=']:
             return value_int
+        else:
+            return str(value_int)
     return val_str
 
 

@@ -1039,25 +1039,19 @@ def get_operator_and_value(input_levels, feat_name, append_feature_variable=Fals
     """
     fqs = []
     for input_level in input_levels:
-        # checking if feature variable name contains Age is a stop-gap solution, which will be removed after
-        # Age-related variable binning is removed in FHIR PIT and dataset is updated
-        if 'Age' in feat_name:
+        non_op_idx = 0
+        if isinstance(input_level, str):
+            for lev in input_level:
+                if lev in ['<', '>']:
+                    non_op_idx += 1
+                else:
+                    break
+        if non_op_idx == 0:
             op = '='
             op_val = input_level
         else:
-            non_op_idx = 0
-            if isinstance(input_level, str):
-                for lev in input_level:
-                    if lev in ['<', '>']:
-                        non_op_idx += 1
-                    else:
-                        break
-            if non_op_idx == 0:
-                op = '='
-                op_val = input_level
-            else:
-                op = input_level[:non_op_idx]
-                op_val = input_level[non_op_idx:]
+            op = input_level[:non_op_idx]
+            op_val = input_level[non_op_idx:]
         if append_feature_variable:
             fqs.append({feat_name: {"operator": op, "value": op_val}})
         else:

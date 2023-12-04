@@ -798,10 +798,10 @@ def select_feature_count_all_values(
     for value in value_to_be_added:
         # only append value to levels when value is not in levels and level_op_val is empty or
         # value does not satisfy the operations encoded in the level_op_val
-        if not level_op_val or \
-                ('<' in level_op_val and int(value) >= level_op_val['<']) or \
-                ('>' in level_op_val and int(value) <= level_op_val['>']):
-            levels.append(value)
+        if value:
+            if not level_op_val or ('<' in level_op_val and int(value) >= level_op_val['<']) \
+                    or ('>' in level_op_val and int(value) <= level_op_val['>']):
+                levels.append(value)
     feat_qualifiers = [{
         "operator": "=",
         "value": level
@@ -818,21 +818,20 @@ def select_feature_count_all_values(
             } for k, v in level_op_val.items()])
         greater_value_sum = less_value_sum = 0
         for value in value_to_be_added:
-            int_val = int(value)
-            if '<' in level_op_val and int_val < level_op_val['<']:
-                less_value_sum += values[value]
-            if '>' in level_op_val and int_val > level_op_val['>']:
-                greater_value_sum += values[value]
-        if greater_value_sum > 0:
-            feat_matrix.append({
-                "frequency": greater_value_sum,
-                "percentage": div(greater_value_sum, total)
-            })
-        if less_value_sum > 0:
-            feat_matrix.append({
-                "frequency": less_value_sum,
-                "percentage": div(less_value_sum, total)
-            })
+            if value:
+                int_val = int(value)
+                if '<' in level_op_val and int_val < level_op_val['<']:
+                    less_value_sum += values[value]
+                if '>' in level_op_val and int_val > level_op_val['>']:
+                    greater_value_sum += values[value]
+        feat_matrix.append({
+            "frequency": greater_value_sum,
+            "percentage": div(greater_value_sum, total)
+        })
+        feat_matrix.append({
+            "frequency": less_value_sum,
+            "percentage": div(less_value_sum, total)
+        })
     feature_a_norm_with_biolink_class = {
         "feature_name": feature_name,
         "feature_qualifiers": feat_qualifiers,

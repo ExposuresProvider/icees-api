@@ -547,13 +547,24 @@ def create_cohort_view(conn, table_name, cohort_features):
                 "feature_qualifier": {
                     "operator": value["operator"],
                     "value": value["value"],
+                } if "value" in value else {
+                    # value only has two possible keys, value key for one value, and values key for a list of values
+                    "operator": value["operator"],
+                    # format value["values"] list into ("value1", "value2", ...,) for SQL IN operator query
+                    "value": '("{}")'.format('\", \"'.join(value["values"])),
                 },
             }
             for key, value in cohort_features.items()
         ]
+
     if cohort_features:
+        # only add quotation marks to value if operator is =
         condition_str = " AND ".join(
                 "\"{}\" {} \"{}\"".format(
+                    feature["feature_name"],
+                    feature["feature_qualifier"]["operator"],
+                    feature["feature_qualifier"]["value"],
+                ) if feature["feature_qualifier"]["operator"] == '=' else "\"{}\" {} {}".format(
                     feature["feature_name"],
                     feature["feature_qualifier"]["operator"],
                     feature["feature_qualifier"]["value"],

@@ -557,14 +557,12 @@ def create_cohort_view(conn, table_name, cohort_features):
 
     if cohort_features:
         # only add quotation marks to value if operator is =
-        condition_str = " AND ".join(f'"{feature["feature_name"]}" '
-                                     f'{feature["feature_qualifier"]["operator"]} '
-                                     f'"{feature["feature_qualifier"]["value"]}"'
-                                     if feature["feature_qualifier"]["operator"] == '=' else
-                                     f'"{feature["feature_name"]}" '
-                                     f'{feature["feature_qualifier"]["operator"]} '
-                                     f'{feature["feature_qualifier"]["value"]}'
-                                     for feature in cohort_features)
+        condition_str = " AND ".join(
+            ("\"{}\" {} \"{}\"" if feature["feature_qualifier"]["operator"] == '=' else "\"{}\" {} {}").format(
+                feature["feature_name"],
+                feature["feature_qualifier"]["operator"],
+                feature["feature_qualifier"]["value"]
+            ) for feature in cohort_features)
 
         view_query = (
             "CREATE VIEW tmp AS "

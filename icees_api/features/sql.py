@@ -546,19 +546,23 @@ def create_cohort_view(conn, table_name, cohort_features):
                 "feature_name": key,
                 "feature_qualifier": {
                     "operator": value["operator"],
-                    "value": value["value"],
-                },
+                    # value only has two possible keys, value key for one value, and values key for a list of values
+                    # format value["values"] list into ("value1", "value2", ...,) for SQL IN operator query
+                    "value": value.get("value") if value.get("value") is not None
+                    else '("{}")'.format('\", \"'.join(value["values"]))
+                }
             }
             for key, value in cohort_features.items()
         ]
+
     if cohort_features:
+        # only add quotation marks to value if operator is =
         condition_str = " AND ".join(
-                "\"{}\" {} \"{}\"".format(
-                    feature["feature_name"],
-                    feature["feature_qualifier"]["operator"],
-                    feature["feature_qualifier"]["value"],
-                )
-                for feature in cohort_features)
+            ("\"{}\" {} \"{}\"" if feature["feature_qualifier"]["operator"] == '=' else "\"{}\" {} {}").format(
+                feature["feature_name"],
+                feature["feature_qualifier"]["operator"],
+                feature["feature_qualifier"]["value"]
+            ) for feature in cohort_features)
 
         view_query = (
             "CREATE VIEW tmp AS "

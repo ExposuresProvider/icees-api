@@ -546,12 +546,9 @@ def create_cohort_view(conn, table_name, cohort_features):
                 "feature_name": key,
                 "feature_qualifier": {
                     "operator": value["operator"],
-                    "value": value["value"],
-                } if "value" in value else {
                     # value only has two possible keys, value key for one value, and values key for a list of values
-                    "operator": value["operator"],
                     # format value["values"] list into ("value1", "value2", ...,) for SQL IN operator query
-                    "value": '("{}")'.format('\", \"'.join(value["values"])),
+                    "value": value.get("value") or '("{}")'.format('\", \"'.join(value["values"])),
                 },
             }
             for key, value in cohort_features.items()

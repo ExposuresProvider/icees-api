@@ -935,7 +935,6 @@ def select_associations_to_all_features(
         }
         for feature_name in filter(feature_filter_b, get_features(conn, table))
     ]
-
     associations = []
     done = set()
     for feature_a, feature_b in product(feature_as, feature_bs):
@@ -957,6 +956,24 @@ def select_associations_to_all_features(
             ))
         except PValueError:
             continue
+        except TypeError as ex:
+            print(f'feature_a: {feature_a}, feature_b: {feature_b}', flush=True)
+            print(ex, flush=True)
+            trace = []
+            tb = ex.__traceback__
+            while tb is not None:
+                trace.append({
+                    "filename": tb.tb_frame.f_code.co_filename,
+                    "name": tb.tb_frame.f_code.co_name,
+                    "lineno": tb.tb_lineno
+                })
+                tb = tb.tb_next
+            print(str({
+                'type': type(ex).__name__,
+                'message': str(ex),
+                'trace': trace
+            }), flush=True)
+            raise
 
     return associations
 
@@ -1042,19 +1059,25 @@ def get_operator_and_value(input_levels, feat_name, append_feature_variable=Fals
     """
     fqs = []
     for input_level in input_levels:
-        non_op_idx = 0
-        if isinstance(input_level, str):
-            for lev in input_level:
-                if lev in ['<', '>']:
-                    non_op_idx += 1
-                else:
-                    break
-        if non_op_idx == 0:
+        # checking if feature variable name contains Age is a stop-gap solution, which will be removed after
+        # all dataset is updated to remove age-binning
+        if feat_name and ('age' in feat_name.lower() or feat_name == 'D28A_ASTHMA_AD_TEXT2'):
             op = '='
             op_val = input_level
         else:
-            op = input_level[:non_op_idx]
-            op_val = input_level[non_op_idx:]
+            non_op_idx = 0
+            if isinstance(input_level, str):
+                for lev in input_level:
+                    if lev in ['<', '>']:
+                        non_op_idx += 1
+                    else:
+                        break
+            if non_op_idx == 0:
+                op = '='
+                op_val = input_level
+            else:
+                op = input_level[:non_op_idx]
+                op_val = input_level[non_op_idx:]
         if append_feature_variable:
             fqs.append({feat_name: {"operator": op, "value": op_val}})
         else:

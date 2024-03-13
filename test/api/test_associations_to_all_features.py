@@ -88,7 +88,7 @@ def test_associations_to_all_features_explicit():
             "feature_name": "AgeStudyStart",
             "feature_qualifier": {
                 "operator": "=",
-                "value": "0-2"
+                "value": "2"
             }
         },
         "maximum_p_value": 1
@@ -132,7 +132,7 @@ def test_associations_to_all_features_explicit_non_integer_p_value():
             "feature_name": "AgeStudyStart",
             "feature_qualifier": {
                 "operator": "=",
-                "value": "0-2"
+                "value": "2"
             }
         },
         "maximum_p_value": 0.5
@@ -151,18 +151,18 @@ def test_associations_to_all_features_explicit_non_integer_p_value():
     """
         PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
         varchar(255),int,varchar(255),varchar(255),int,int,int
-        1,2010,0-2,0,1,0,1
-        2,2010,0-2,1,1,0,1
-        3,2010,0-2,>1,1,0,1
-        4,2010,0-2,0,2,0,1
-        5,2010,0-2,1,2,0,1
-        6,2010,0-2,>1,2,0,1
-        7,2010,0-2,0,3,0,1
-        8,2010,0-2,1,3,0,1
-        9,2010,0-2,>1,3,0,1
-        10,2010,0-2,0,4,0,1
-        11,2010,0-2,1,4,0,1
-        12,2010,0-2,>1,4,0,1
+        1,2010,2,0,1,0,1
+        2,2010,2,1,1,0,1
+        3,2010,2,>1,1,0,1
+        4,2010,2,0,2,0,1
+        5,2010,2,1,2,0,1
+        6,2010,2,>1,2,0,1
+        7,2010,2,0,3,0,1
+        8,2010,2,1,3,0,1
+        9,2010,2,>1,3,0,1
+        10,2010,2,0,4,0,1
+        11,2010,2,1,4,0,1
+        12,2010,2,>1,4,0,1
     """,
     """
         cohort_id,size,features,table,year
@@ -175,7 +175,7 @@ def test_associations_to_all_features_with_correction():
         "feature": {
             "AgeStudyStart": {
                 "operator": "=",
-                "value": "0-2"
+                "value": "2"
             }
         },
         "correction": {
@@ -197,18 +197,18 @@ def test_associations_to_all_features_with_correction():
     """
         PatientId,year,AgeStudyStart,Albuterol,AvgDailyPM2.5Exposure,EstResidentialDensity,AsthmaDx
         varchar(255),int,varchar(255),varchar(255),int,int,int
-        1,2010,0-2,0,1,0,1
-        2,2010,0-2,1,1,0,1
-        3,2010,0-2,>1,1,0,1
-        4,2010,0-2,0,2,0,1
-        5,2010,0-2,1,2,0,1
-        6,2010,0-2,>1,2,0,1
-        7,2010,0-2,0,3,0,1
-        8,2010,0-2,1,3,0,1
-        9,2010,0-2,>1,3,0,1
-        10,2010,0-2,0,4,0,1
-        11,2010,0-2,1,4,0,1
-        12,2010,0-2,>1,4,0,1
+        1,2010,2,0,1,0,1
+        2,2010,2,1,1,0,1
+        3,2010,2,>1,1,0,1
+        4,2010,2,0,2,0,1
+        5,2010,2,1,2,0,1
+        6,2010,2,>1,2,0,1
+        7,2010,2,0,3,0,1
+        8,2010,2,1,3,0,1
+        9,2010,2,>1,3,0,1
+        10,2010,2,0,4,0,1
+        11,2010,2,1,4,0,1
+        12,2010,2,>1,4,0,1
     """,
     """
         cohort_id,size,features,table,year
@@ -221,7 +221,7 @@ def test_associations_to_all_features_with_correction_with_alpha():
         "feature": {
             "AgeStudyStart": {
                 "operator": "=",
-                "value": "0-2"
+                "value": "2"
             }
         },
         "correction": {

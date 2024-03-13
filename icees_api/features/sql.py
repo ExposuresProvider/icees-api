@@ -500,7 +500,6 @@ def cached(key=lambda *args: hash(tuple(args))):
     return decorator
 
 
-@cached(key=lambda db, *args: json.dumps(args))
 def count_unique(conn, table_name, year, *columns):
     """Count each unique combination of column values.
 
@@ -597,53 +596,14 @@ def select_feature_matrix(
     """Select feature matrix."""
     table_name = create_cohort_view(conn, table_name, cohort_features)
 
-    # start_time = time.time()
-    # cohort_features_norm = normalize_features(cohort_year, cohort_features)
     feature_a_norm = normalize_feature(year, feature_a)
     feature_b_norm = normalize_feature(year, feature_b)
-    # print(f"{time.time() - start_time} seconds spent normalizing")
 
-    # start_time = time.time()
-    # cohort_features_json = json.dumps(cohort_features_norm, sort_keys=True)
-    # feature_a_json = json.dumps(feature_a_norm, sort_keys=True)
-    # feature_b_json = json.dumps(feature_b_norm, sort_keys=True)
-    # print(f"{time.time() - start_time} seconds spent json.dumping")
-
-    # cohort_year = cohort_year if len(cohort_features_norm) == 0 else None
-
-    # start_time = time.time()
-    # digest = get_digest(
-    #     json.dumps(table_name),
-    #     cohort_features_json,
-    #     json.dumps(cohort_year),
-    #     feature_a_json,
-    #     feature_b_json,
-    # )
-    # print(f"{time.time() - start_time} seconds spent getting digest")
-
-    # start_time = time.time()
-    # result = conn.execute(
-    #     select([cache.c.association])\
-    #     .select_from(cache)\
-    #     .where(cache.c.digest == digest)\
-    #     .where(cache.c.table == table_name)\
-    #     .where(cache.c.cohort_features == cohort_features_json)\
-    #     .where(cache.c.cohort_year == cohort_year)\
-    #     .where(cache.c.feature_a == feature_a_json)\
-    #     .where(cache.c.feature_b == feature_b_json)
-    # ).first()
-    # print(f"{time.time() - start_time} seconds spent checking cache")
-    # if result is None:
-    #     print("cache miss...")
-    # else:
-    #     print("cache hit!")
-
-    # timestamp = datetime.now(timezone.utc)
     ka = feature_a_norm["feature_name"]
     vas = feature_a_norm["feature_qualifiers"]
     kb = feature_b_norm["feature_name"]
     vbs = feature_b_norm["feature_qualifiers"]
-    # start_time = time.time()
+
     result = count_unique(conn, table_name, year, ka, kb)
     _ka = "0_" + ka
     _kb = "1_" + kb
@@ -655,7 +615,7 @@ def select_feature_matrix(
         }
         for el in result
     ]
-    #print(f"{time.time() - start_time} seconds spent doing it the fast way")
+
     feature_matrix = [
         [
             get_count(result, **{
@@ -751,13 +711,8 @@ def select_feature_matrix(
             "log_odds_ratio_95_confidence_interval": None
         }
 
-    # association_json = json.dumps(association, sort_keys=True)
-
     drop_cohort_view(conn, cohort_features)
 
-    # start_time = time.time()
-    # conn.execute(cache.insert().values(digest=digest, association=association_json, table=table_name, cohort_features=cohort_features_json, feature_a=feature_a_json, feature_b=feature_b_json, access_time=timestamp))
-    # print(f"{time.time() - start_time} seconds spent writing to cache")
     return association
 
 

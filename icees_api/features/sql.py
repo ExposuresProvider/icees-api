@@ -68,7 +68,7 @@ def op_dict(k, v, table_=None):
         "<>": lambda: value != simplify_value(v["value"], v["operator"]),
         "between": lambda: between(value, simplify_value(v["value_a"], v["operator"]),
                                    simplify_value(v["value_b"], v["operator"])),
-        "in": lambda: value.in_([simplify_value(val, v["operator"]) for val in v["values"]])
+        "in": lambda: value in [simplify_value(val, v["operator"]) for val in v["values"]]
     }
     return operations[v["operator"]]()
 

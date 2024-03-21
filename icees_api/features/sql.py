@@ -189,14 +189,11 @@ def get_cohort_by_id(conn, table_name, year, cohort_id):
     }
 
 
-def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
+def get_cohort_features(conn, table_name, feats, year, cohort_features, cohort_year):
     """Get cohort features."""
     rs = []
-    for k in get_features(conn, table_name):
-        # k = f.name
-        # levels = f.options
-        # if levels is None:
-        levels = get_feature_levels(k)
+    for k in feats:
+        levels = get_feature_levels(k, year=year, cohort_feat_dict=cohort_features)
         ret = select_feature_count_all_values(
             conn,
             table_name,
@@ -290,9 +287,9 @@ def generate_tables_from_features(
         cohort_features,
         cohort_year,
         columns,
+        primary_key='PatientId'
 ):
     """Generate tables from features."""
-    primary_key = table_name[0].upper() + table_name[1:] + "Id"
     table_ = table(table_name, column(primary_key))
 
     table_cohorts = []

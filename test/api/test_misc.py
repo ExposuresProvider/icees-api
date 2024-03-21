@@ -123,7 +123,7 @@ feature_variables = [
     """,
     """
         cohort_id,size,features,table,year
-        COHORT:1,12,"{0}",patient,2011
+        COHORT:1,12,"{}",patient,2011
     """.format(escape_quotes(json.dumps(feature_variables, sort_keys=True)))
 )
 def test_feature_count_cohort_features_two_years():

@@ -469,14 +469,24 @@ def features(
     if cohort_meta is None:
         return_value = "Input cohort_id invalid. Please try again."
     else:
+        feature_list = sql.get_features(conn, table)
         cohort_features, cohort_year = cohort_meta
+        # compute frequency for each feature constraint
+        if cohort_features:
+            # compute frequency on the cohort view
+            table = sql.create_cohort_view(conn, table, cohort_features)
+
         return_value = sql.get_cohort_features(
             conn,
             table,
+            feature_list,
             year,
             cohort_features,
             cohort_year,
         )
+
+        if cohort_features:
+            sql.drop_cohort_view(conn, cohort_features)
 
     return {"return value": return_value}
 

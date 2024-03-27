@@ -57,7 +57,6 @@ def op_dict(k, v, table_=None):
             if k_op_val_dict['operator'] == '>':
                 value = value + 1
 
-
     # v is a dict with "operator" key; other keys depend on the "operator" value
     operations = {
         ">": lambda: value > simplify_value(v["value"], v["operator"]),
@@ -68,7 +67,9 @@ def op_dict(k, v, table_=None):
         "<>": lambda: value != simplify_value(v["value"], v["operator"]),
         "between": lambda: between(value, simplify_value(v["value_a"], v["operator"]),
                                    simplify_value(v["value_b"], v["operator"])),
-        "in": lambda: value.in_([simplify_value(val, v["operator"]) for val in v["values"]])
+        "in": lambda: value.in_(
+            [simplify_value(val, v["operator"]) for val in v["values"]]
+        ) if table_ is not None else value in [simplify_value(val, v["operator"]) for val in v["values"]]
     }
     return operations[v["operator"]]()
 
@@ -104,7 +105,6 @@ def case_select2(table1, table2, k, v, k2, v2):
 def select_cohort(conn, table_name, year, cohort_features, cohort_id=None):
     """Select cohort."""
     cohort_features_norm = normalize_features(year, cohort_features)
-
     gen_table, _, pk = generate_tables_from_features(table_name, cohort_features_norm, year, [])
     s = select([func.count(column(pk).distinct())]).select_from(gen_table)
     n = conn.execute(s).scalar()
@@ -189,14 +189,11 @@ def get_cohort_by_id(conn, table_name, year, cohort_id):
     }
 
 
-def get_cohort_features(conn, table_name, year, cohort_features, cohort_year):
+def get_cohort_features(conn, table_name, feats, year, cohort_features, cohort_year):
     """Get cohort features."""
     rs = []
-    for k in get_features(conn, table_name):
-        # k = f.name
-        # levels = f.options
-        # if levels is None:
-        levels = get_feature_levels(k)
+    for k in feats:
+        levels = get_feature_levels(k, year=year, cohort_feat_dict=cohort_features)
         ret = select_feature_count_all_values(
             conn,
             table_name,
@@ -290,9 +287,9 @@ def generate_tables_from_features(
         cohort_features,
         cohort_year,
         columns,
+        primary_key='PatientId'
 ):
     """Generate tables from features."""
-    primary_key = table_name[0].upper() + table_name[1:] + "Id"
     table_ = table(table_name, column(primary_key))
 
     table_cohorts = []
@@ -1025,7 +1022,6 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
     cohort_meta = get_features_by_id(conn, table_name, cohort_id)
     if cohort_meta is None:
         raise ValueError("Input cohort_id invalid. Please try again.")
-
     cohort_features, cohort_year = cohort_meta
     feat_len = len(feature_variables)
     if feat_len < 3:
@@ -1036,7 +1032,8 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
     feat_constraint_list = get_operator_and_value(get_feature_levels(feature_variables[0], year=year,
                                                                      cohort_feat_dict=cohort_features),
                                                   feature_variables[0], append_feature_variable=True)
-
+    if not feat_constraint_list:
+        raise HTTPException(status_code=400, detail=f"{feature_variables[0]} is not a valid feature variable")
     index = 1
     while index + 2 <= feat_len:
         feature_as = [
@@ -1047,6 +1044,8 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
                                                              feature_variables[index])
             }
         ]
+        if not feature_as[0]['feature_qualifiers']:
+            raise HTTPException(status_code=400, detail=f"{feature_variables[index]} is not a valid feature variable")
         feature_bs = [
             {
                 "feature_name": feature_variables[index + 1],
@@ -1056,6 +1055,9 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
                                                              feature_variables[index + 1])
             }
         ]
+        if not feature_bs[0]['feature_qualifiers']:
+            raise HTTPException(status_code=400,
+                                detail=f"{feature_variables[index + 1]} is not a valid feature variable")
         # add more constraints to feat_constraint_list as needed depending on feature_a and feature_b levels
         more_constraint_list = []
         for feature_constraint in feat_constraint_list:
@@ -1081,6 +1083,8 @@ def compute_multivariate_table(conn, table_name, year, cohort_id, feature_variab
         feature_qualifiers = get_operator_and_value(get_feature_levels(feature_variables[index], year=year,
                                                                        cohort_feat_dict=cohort_features),
                                                     feature_variables[index])
+        if not feature_qualifiers:
+            raise HTTPException(status_code=400, detail=f"{feature_variables[index]} is not a valid feature variable")
         more_constraint_list = []
         for feature_constraint in feat_constraint_list:
             for fq in feature_qualifiers:

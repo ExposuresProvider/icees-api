@@ -1,5 +1,5 @@
 """SQL access functions."""
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 from functools import wraps
 from hashlib import md5
 from itertools import product, chain
@@ -28,6 +28,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 eps = np.finfo(float).eps
+ConfidenceInterval = namedtuple('ConfidenceInterval', ['low', 'high'])
 
 
 def get_digest(*args):
@@ -647,7 +648,11 @@ def select_feature_matrix(
             fisher_exact_odds_ratio, fisher_exact_p = fisher_exact(feature_matrix, alternative='two-sided')
             or_result = contingency.odds_ratio(feature_matrix, kind='sample')
             log_odds_ratio = np.log(or_result.statistic)
-            log_odds_ratio_conf_interval_95 = or_result.confidence_interval(confidence_level=0.95)
+            odds_ratio_conf_interval_95 = or_result.confidence_interval(confidence_level=0.95)
+            # Calculate the log of the lower and upper bounds of the confidence interval
+            log_lb = np.log(odds_ratio_conf_interval_95[0])
+            log_ub = np.log(odds_ratio_conf_interval_95[1])
+            log_odds_ratio_conf_interval_95 = ConfidenceInterval(low=log_lb, high=log_ub)
         else:
             fisher_exact_odds_ratio = fisher_exact_p = log_odds_ratio = log_odds_ratio_conf_interval_95 = None
 

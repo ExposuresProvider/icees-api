@@ -85,22 +85,17 @@ def test_cohort_dictionary():
     } in resp_json1["return value"]
 
 
-feature_variables = [
-    {
-        "feature_name": "AgeStudyStart",
-        "feature_qualifier": {
-            "operator": "=",
-            "value": "0-2"
-        }
-    }, {
-        "feature_name": "AvgDailyPM2.5Exposure",
-        "feature_qualifier": {
-            "operator": "=",
-            "value": 1
+feature_variables = {
+    "AgeStudyStart": {
+        "operator": "=",
+        "value": "0-2"
         },
-        "year": 2011
+    "AvgDailyPM2.5Exposure": {
+        "operator": "=",
+        "value": 1
+        },
+    "year": {"operator": "=", "value": 2011}
     }
-]
 
 
 @load_data(

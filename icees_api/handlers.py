@@ -462,7 +462,9 @@ def features(
     Users select an integrated feature table type (patient or visit), 
     a predefined cohort id, and an optional study period year, and 
     the service returns a profile of that cohort in terms of all 
-    observations across available feature variables.
+    observations across available feature variables. The observations
+    reflect all encounters per patient across all available study period 
+    years or the selected study period year.
     """
     validate_table(table)
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)

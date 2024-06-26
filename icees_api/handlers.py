@@ -368,7 +368,7 @@ def associations_to_all_features(
         return {"return value": str(ex)}
 
     maximum_p_value = obj.get("maximum_p_value", 1)
-    correction = obj.get("correction")
+    correction = obj.get("correction", None)
     return_value = sql.select_associations_to_all_features(
         conn,
         table,
@@ -430,7 +430,7 @@ def associations_to_all_features2(
     if to_validate_range:
         validate_range(conn, table, feature)
     maximum_p_value = obj["maximum_p_value"]
-    correction = obj.get("correction")
+    correction = obj.get("correction", None)
     return_value = sql.select_associations_to_all_features(
         conn,
         table,

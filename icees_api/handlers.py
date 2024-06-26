@@ -368,7 +368,7 @@ def associations_to_all_features(
         return {"return value": str(ex)}
 
     maximum_p_value = obj.get("maximum_p_value", 1)
-    correction = obj.get("correction")
+    correction = obj.get("correction", None)
     return_value = sql.select_associations_to_all_features(
         conn,
         table,
@@ -430,7 +430,7 @@ def associations_to_all_features2(
     if to_validate_range:
         validate_range(conn, table, feature)
     maximum_p_value = obj["maximum_p_value"]
-    correction = obj.get("correction")
+    correction = obj.get("correction", None)
     return_value = sql.select_associations_to_all_features(
         conn,
         table,
@@ -462,7 +462,9 @@ def features(
     Users select an integrated feature table type (patient or visit), 
     a predefined cohort id, and an optional study period year, and 
     the service returns a profile of that cohort in terms of all 
-    observations across available feature variables.
+    observations across available feature variables. The observations
+    reflect all encounters per patient across all available study period 
+    years or the selected study period year.
     """
     validate_table(table)
     cohort_meta = sql.get_features_by_id(conn, table, cohort_id)

@@ -20,7 +20,10 @@ class ConnectionWithTables():
 async def get_db() -> ConnectionWithTables:
     """Get database connection."""
     with DBConnection() as conn:
-        Base = automap_base()
-        Base.prepare(conn.engine, reflect=True)  # reflect the tables
-        tables = Base.metadata.tables
-        yield ConnectionWithTables(conn, tables)
+        try:
+            Base = automap_base()
+            Base.prepare(conn.engine, reflect=True)  # reflect the tables
+            tables = Base.metadata.tables
+            yield ConnectionWithTables(conn, tables)
+        finally:
+            conn.close()
